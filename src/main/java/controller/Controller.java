@@ -10,13 +10,11 @@ import java.util.List;
 public class Controller {
     private static final int DEFUALT_BUDGET = 0;
 
-    private int budget = DEFUALT_BUDGET;
-
     public void autoPurchaseLotto() {
         LottoMaker lottoMaker = new LottoMaker();
 
         InputView inputView = new InputView();
-        budget = inputView.readBudget();
+        int budget = inputView.readBudget();
 
         List<Lotto> lottos = lottoMaker.make(budget);
 
