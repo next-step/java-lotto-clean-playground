@@ -1,9 +1,10 @@
 package model;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class AutoLotto {
-
+    private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int CNT_LOTTO_NUMBER = 6;
 
@@ -12,16 +13,16 @@ public class AutoLotto {
         createAutoLotto();
     }
     public void createAutoLotto(){
-        Random random = new Random();
-        Set<Integer> uniqueNumbers = new TreeSet<>(); // 중복되지 않는 숫자를 보장하는 TreeSet 사용
 
-        // 로또 번호 생성
-        while (uniqueNumbers.size() < CNT_LOTTO_NUMBER) {
-            int num = random.nextInt(MAX_LOTTO_NUMBER) + 1;
-            uniqueNumbers.add(num);
+        List<Integer> numbers = new ArrayList<>();
+        IntStream.rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER).forEach(lottoNums::add);
+        Collections.shuffle(lottoNums);
+        for(int i = 0; i < CNT_LOTTO_NUMBER; i++){
+            numbers.add(lottoNums.get(i));
         }
+        Collections.sort(numbers);
 
-        lottoNums = new ArrayList<>(uniqueNumbers);
+        lottoNums = new ArrayList<>(numbers);
 
     }
     public List<Integer> sortLotto(List<Integer> lottoNums){
