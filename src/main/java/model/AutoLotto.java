@@ -25,11 +25,6 @@ public class AutoLotto {
         lottoNums = new ArrayList<>(numbers);
 
     }
-    public List<Integer> sortLotto(List<Integer> lottoNums){
-        List<Integer> sortLottoList = new ArrayList<>(lottoNums);
-        sortLottoList.sort(Comparator.naturalOrder());
-        return sortLottoList;
-    }
     public List<Integer> getAutoLotto(){
         return lottoNums;
     }
