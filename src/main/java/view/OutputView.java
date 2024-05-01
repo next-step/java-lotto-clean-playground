@@ -14,12 +14,6 @@ public class OutputView {
     }
 
     private void printLotto(Lotto lotto) {
-        List<Integer> lottoNumber = lotto.getLottoNumber();
-        StringJoiner stringJoiner = new StringJoiner(", ");
-        for (Integer number : lottoNumber) {
-            stringJoiner.add(number.toString());
-        }
-        String lottoNumbers = stringJoiner.toString();
-        System.out.println("[" + lottoNumbers + "]");
+        System.out.println(lotto.getLottoNumber());
     }
 }
