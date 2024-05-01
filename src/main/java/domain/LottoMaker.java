@@ -18,7 +18,7 @@ public class LottoMaker {
         return lottos;
     }
 
-    public int getLottoQuantity(){
+    public int getLottoQuantity() {
         return lottoQuantity;
     }
 }

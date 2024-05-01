@@ -4,7 +4,6 @@ import domain.Lotto;
 import domain.LottoMaker;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 public class OutputView {
 
@@ -19,6 +18,6 @@ public class OutputView {
     }
 
     public void printLottoQuantity(LottoMaker lottoMaker) {
-        System.out.println( lottoMaker.getLottoQuantity() + "개를 구매했습니다.");
+        System.out.println(lottoMaker.getLottoQuantity() + "개를 구매했습니다.");
     }
 }
