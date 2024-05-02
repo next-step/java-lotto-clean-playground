@@ -71,7 +71,7 @@ class LottoTest {
             Rank rank = lotto.matchRank(winningLotto);
 
             // then
-            assertThat(rank).isEqualTo(Rank.FIFTH_PRIZE);
+            assertThat(rank).isEqualTo(Rank._5TH_PRIZE);
         }
     }
 }

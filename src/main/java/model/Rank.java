@@ -5,10 +5,10 @@ import java.util.Arrays;
 public enum Rank {
 
     NONE(0, 0),
-    FIFTH_PRIZE(3, 5_000),
-    FOURTH_PRIZE(4, 50_000),
-    THIRD_PRIZE(5, 1_500_000),
-    FIRST_PRIZE(6, 2_000_000_000),
+    _5TH_PRIZE(3, 5_000),
+    _4TH_PRIZE(4, 50_000),
+    _3RD_PRIZE(5, 1_500_000),
+    _1ST_PRIZE(6, 2_000_000_000),
     ;
 
     private final int matchCount;

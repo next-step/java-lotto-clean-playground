@@ -22,10 +22,10 @@ class RankTest {
 
     static Stream<Arguments> matchCountWithRank() {
         return Stream.of(
-            Arguments.of(6, Rank.FIRST_PRIZE),
-            Arguments.of(5, Rank.THIRD_PRIZE),
-            Arguments.of(4, Rank.FOURTH_PRIZE),
-            Arguments.of(3, Rank.FIFTH_PRIZE),
+            Arguments.of(6, Rank._1ST_PRIZE),
+            Arguments.of(5, Rank._3RD_PRIZE),
+            Arguments.of(4, Rank._4TH_PRIZE),
+            Arguments.of(3, Rank._5TH_PRIZE),
             Arguments.of(2, Rank.NONE),
             Arguments.of(1, Rank.NONE),
             Arguments.of(1, Rank.NONE)
