@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -8,7 +10,9 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        List<LottoNumber> modifiable = new ArrayList<>(numbers);
+        Collections.sort(modifiable);
+        this.numbers = modifiable;
     }
 
     private void validate(List<LottoNumber> numbers) {
