@@ -34,4 +34,8 @@ public class LottoPrice {
             throw new IllegalArgumentException("로또 금액은 숫자여야 합니다.");
         }
     }
+
+    public int divideByUnit() {
+        return price / PRICE_UNIT;
+    }
 }
