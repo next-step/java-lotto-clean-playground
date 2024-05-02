@@ -3,35 +3,24 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.RandomNumGenerator.randomNumGenerate;
-
 public class Lotto {
     private final int balance;
-    private int count;
-    private List<LottoNumber> myLottos = new ArrayList<>();
-    private RankRepository rankRepository = new RankRepository();
+    private final int count;
+    private final List<OneLotto> myLottos;
 
-    public Lotto(int balance) {
+    public Lotto(int balance, int count, List<OneLotto> myLottos) {
         this.balance = balance;
-        makeCount();
+        this.count = count;
+        this.myLottos = myLottos;
     }
 
-    private void makeCount() {
-        this.count = balance/1000;
+    public int getBalance() {
+        return balance;
     }
 
-    public void makeMyLottos() {
-        for(int i = 0; i<count;i++){
-            LottoNumber lottoNumberTmp = new LottoNumber(randomNumGenerate());
-            this.myLottos.add(lottoNumberTmp);
-        }
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public List<LottoNumber> getMyLottos() {
+    public List<OneLotto> getMyLottos() {
         return myLottos;
     }
+
+
 }

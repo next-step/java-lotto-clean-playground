@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RandomNumGenerator {
 
-    public static List<Integer> randomNumGenerate() {
+    public List<Integer> randomNumGenerate() {
         List<Integer> numList = new ArrayList<>();
 
         for (int i = 1; i <= 45; i++) {
@@ -17,4 +17,6 @@ public class RandomNumGenerator {
 
         return numList.subList(0, 6);
     }
+
+
 }
