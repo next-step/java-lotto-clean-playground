@@ -5,13 +5,12 @@ import java.util.Set;
 
 public class RandomLottoGenerator {
 
-
     public static final Random RANDOM = new Random();
 
     public Lotto generateLotto() {
         Set<Integer> numbers = new HashSet<>();
-        while (numbers.size() < 6) {
-            int randomNumber = RANDOM.nextInt(1, 45);
+        while (numbers.size() < Lotto.LOTTO_SIZE) {
+            int randomNumber = RANDOM.nextInt(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE);
             numbers.add(randomNumber);
         }
 
