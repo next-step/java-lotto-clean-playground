@@ -29,4 +29,7 @@ public class Lotto {
         }
     }
 
+    public List<LottoNumber> numbers() {
+        return List.copyOf(numbers);
+    }
 }
