@@ -33,6 +33,20 @@ public record Lotto(List<LottoNumber> numbers) {
         }
     }
 
+    public static Lotto from(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+        return new Lotto(lottoNumbers);
+    }
+
+    public Rank matchRank(Lotto other) {
+        int matchCount = (int) numbers.stream()
+                .filter(other.numbers()::contains)
+                .count();
+        return Rank.of(matchCount);
+    }
+
     @Override
     public List<LottoNumber> numbers() {
         return List.copyOf(numbers);
