@@ -15,7 +15,6 @@ public class LottoPrice {
         validateUnit(price);
     }
 
-
     private void validateRange(int price) {
         if (price < MIN_PRICE) {
             throw new IllegalArgumentException();
@@ -24,6 +23,14 @@ public class LottoPrice {
 
     private void validateUnit(int price) {
         if (price % PRICE_UNIT != 0) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static LottoPrice valueOf(String price) {
+        try {
+            return new LottoPrice(Integer.parseInt(price));
+        } catch (NumberFormatException numberFormatException) {
             throw new IllegalArgumentException();
         }
     }
