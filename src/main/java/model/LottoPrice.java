@@ -1,3 +1,5 @@
+package model;
+
 public record LottoPrice(int price) {
 
     public static final int MIN_PRICE = 0;

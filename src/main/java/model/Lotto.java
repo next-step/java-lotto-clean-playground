@@ -1,12 +1,12 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lotto {
+public record Lotto(List<LottoNumber> numbers) {
 
     public static final int LOTTO_SIZE = 6;
-
-    private final List<LottoNumber> numbers;
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
@@ -33,6 +33,7 @@ public class Lotto {
         }
     }
 
+    @Override
     public List<LottoNumber> numbers() {
         return List.copyOf(numbers);
     }

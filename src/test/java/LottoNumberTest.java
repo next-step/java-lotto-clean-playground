@@ -1,5 +1,6 @@
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import model.LottoNumber;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")

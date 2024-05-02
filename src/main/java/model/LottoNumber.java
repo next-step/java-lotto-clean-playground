@@ -1,3 +1,5 @@
+package model;
+
 public record LottoNumber(int number) implements Comparable<LottoNumber> {
 
     public static final int MIN_VALUE = 1;

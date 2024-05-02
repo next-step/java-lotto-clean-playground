@@ -1,10 +1,15 @@
+package model;
+
 import java.util.List;
 import java.util.stream.IntStream;
+import view.InputView;
+import view.LottoResult;
+import view.OutputView;
 
 public class LottoGame {
 
     private final InputView inputView;
-     private final OutputView outputView;
+    private final OutputView outputView;
 
     public LottoGame(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
