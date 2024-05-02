@@ -28,4 +28,23 @@ class ResultStatisticsTest {
         assertThat(resultStatistics.countOf(Rank._3RD_PRIZE)).isEqualTo(1);
     }
 
+
+    @Test
+    void 수익률을_계산한다() {
+        // given
+        List<Rank> ranks = List.of(
+                Rank._5TH_PRIZE,
+                Rank._5TH_PRIZE,
+                Rank.NONE,
+                Rank.NONE,
+                Rank.NONE
+        );
+        ResultStatistics resultStatistics = ResultStatistics.from(ranks);
+
+        // when
+        double profitRate = resultStatistics.calculateProfitRate();
+
+        // then
+        assertThat(profitRate).isEqualTo(2);
+    }
 }
