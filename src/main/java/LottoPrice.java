@@ -7,18 +7,18 @@ public record LottoPrice(int price) {
         validate(price);
     }
 
-    private static void validate(int price) {
+    private void validate(int price) {
         validateRange(price);
         validateUnit(price);
     }
 
-    private static void validateRange(int price) {
+    private void validateRange(int price) {
         if (price < MIN_PRICE) {
             throw new IllegalArgumentException("로또 금액은 0원 보다 작을 수 없습니다.");
         }
     }
 
-    private static void validateUnit(int price) {
+    private void validateUnit(int price) {
         if (price % PRICE_UNIT != 0) {
             throw new IllegalArgumentException("로또 금액은 1000원 단위여야 합니다.");
         }

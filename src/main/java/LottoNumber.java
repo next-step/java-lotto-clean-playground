@@ -7,7 +7,7 @@ public record LottoNumber(int number) implements Comparable<LottoNumber> {
         validateRange(number);
     }
 
-    private static void validateRange(int number) {
+    private void validateRange(int number) {
         if (number < MIN_VALUE || number > MAX_VALUE) {
             throw new IllegalArgumentException();
         }
