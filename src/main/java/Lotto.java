@@ -22,14 +22,14 @@ public class Lotto {
 
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또는 6개의 숫자로 이루어져야 합니다.");
         }
     }
 
     private void validateDuplication(List<LottoNumber> numbers) {
         long duplicatedSize = numbers.stream().distinct().count();
         if (numbers.size() != duplicatedSize) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또는 중복되지 않는 6개의 숫자로 이루어져야 합니다.");
         }
     }
 
