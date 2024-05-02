@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoMaker;
+import domain.WinDiscriminator;
 import view.InputView;
 import view.OutputView;
 
@@ -20,5 +21,12 @@ public class Controller {
         OutputView outputView = new OutputView();
         outputView.printLottoQuantity(lottoMaker);
         outputView.printLottos(lottos);
+
+        List<Integer> winNumbers = inputView.readWinLottoNumbers();
+
+        WinDiscriminator discriminator = new WinDiscriminator();
+        discriminator.discriminateAll(winNumbers, lottos);
+
+        outputView.printPrizeResult(discriminator,budget);
     }
 }
