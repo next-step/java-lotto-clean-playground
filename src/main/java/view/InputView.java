@@ -31,8 +31,7 @@ public class InputView {
         String[] winNumbersByString = str.split(REGEX);
 
         for (String string : winNumbersByString) {
-            int num = Integer.valueOf(string);
-            winNumbers.add(num);
+            winNumbers.add(Integer.valueOf(string));
         }
         System.out.println(winNumbers);
 

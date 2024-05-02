@@ -63,7 +63,7 @@ public class Prize {
     }
 
     public int getTotalPrize(){
-        int totalPrize = 0 ;
+        int totalPrize;
         totalPrize = firstPrize * firstPrizeQuantity + secondPrize * secondPrizeQuantity + thirdPrize * thirdPrizeQuantity + fourthPrize * fourthPrizeQuantity;
         return totalPrize;
     }
