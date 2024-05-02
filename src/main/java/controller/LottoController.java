@@ -1,6 +1,6 @@
 package controller;
 
-import model.BuyLotto;
+import model.LottoGenerator;
 import model.Lotto;
 import view.InputView;
 import view.ResultView;
@@ -10,14 +10,9 @@ import java.util.List;
 public class LottoController {
 
     public void lottoStart(){
-
-        BuyLotto buyLotto = new BuyLotto(InputView.getPrice());
-        List<Lotto> lottos = buyLotto
-                .generateLotto();
-
+        LottoGenerator lottoGenerator = new LottoGenerator(InputView.getPrice());
+        List<Lotto> lottos = lottoGenerator.generateLotto();
         ResultView.printLottos(lottos);
-
     }
-
 
 }
