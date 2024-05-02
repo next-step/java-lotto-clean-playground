@@ -17,13 +17,13 @@ public class LottoPrice {
 
     private void validateRange(int price) {
         if (price < MIN_PRICE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 금액은 0원 보다 작을 수 없습니다.");
         }
     }
 
     private void validateUnit(int price) {
         if (price % PRICE_UNIT != 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 금액은 1000원 단위여야 합니다.");
         }
     }
 
@@ -31,7 +31,7 @@ public class LottoPrice {
         try {
             return new LottoPrice(Integer.parseInt(price));
         } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 금액은 숫자여야 합니다.");
         }
     }
 }
