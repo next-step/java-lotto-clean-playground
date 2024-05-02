@@ -15,15 +15,21 @@ public class AutoLotto {
     public void createAutoLotto(){
 
         List<Integer> numbers = new ArrayList<>();
-        IntStream.rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER).forEach(lottoNums::add);
-        Collections.shuffle(lottoNums);
-        for(int i = 0; i < CNT_LOTTO_NUMBER; i++){
-            numbers.add(lottoNums.get(i));
+        for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
+            numbers.add(i);
         }
-        Collections.sort(numbers);
-
-        lottoNums = new ArrayList<>(numbers);
-
+        Collections.shuffle(numbers);
+        lottoNums = new ArrayList<>();
+        for (int i = 0; i < CNT_LOTTO_NUMBER; i++) {
+            int uniqueNumber = numbers.get(i);
+            while (lottoNums.contains(uniqueNumber)) {
+                // 중복된 번호라면 다시 랜덤하게 선택
+                Collections.shuffle(numbers);
+                uniqueNumber = numbers.get(i);
+            }
+            lottoNums.add(uniqueNumber);
+        }
+        Collections.sort(lottoNums);
     }
     public List<Integer> getAutoLotto(){
         return lottoNums;
