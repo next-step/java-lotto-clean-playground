@@ -9,6 +9,14 @@ public record LottoPrice(int price) {
         validate(price);
     }
 
+    public static LottoPrice valueOf(String price) {
+        try {
+            return new LottoPrice(Integer.parseInt(price));
+        } catch (NumberFormatException numberFormatException) {
+            throw new IllegalArgumentException("로또 금액은 숫자여야 합니다.");
+        }
+    }
+
     private void validate(int price) {
         validateRange(price);
         validateUnit(price);
@@ -23,14 +31,6 @@ public record LottoPrice(int price) {
     private void validateUnit(int price) {
         if (price % PRICE_UNIT != 0) {
             throw new IllegalArgumentException("로또 금액은 1000원 단위여야 합니다.");
-        }
-    }
-
-    public static LottoPrice valueOf(String price) {
-        try {
-            return new LottoPrice(Integer.parseInt(price));
-        } catch (NumberFormatException numberFormatException) {
-            throw new IllegalArgumentException("로또 금액은 숫자여야 합니다.");
         }
     }
 

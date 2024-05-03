@@ -1,17 +1,17 @@
-package view;
+package view.dto;
 
 import java.util.List;
 import model.Lotto;
 import model.LottoNumber;
 
-public record LottoResult(
+public record LottoResponse(
         List<Integer> numbers
 ) {
 
-    public static LottoResult from(Lotto lottos) {
+    public static LottoResponse from(Lotto lottos) {
         List<Integer> numbers = lottos.numbers().stream()
                 .map(LottoNumber::number)
                 .toList();
-        return new LottoResult(numbers);
+        return new LottoResponse(numbers);
     }
 }

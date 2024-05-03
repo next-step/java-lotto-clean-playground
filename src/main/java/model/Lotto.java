@@ -15,6 +15,13 @@ public record Lotto(List<LottoNumber> numbers) {
         this.numbers = modifiable;
     }
 
+    public static Lotto from(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+        return new Lotto(lottoNumbers);
+    }
+
     private void validate(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplication(numbers);
@@ -31,13 +38,6 @@ public record Lotto(List<LottoNumber> numbers) {
         if (numbers.size() != duplicatedSize) {
             throw new IllegalArgumentException("로또는 중복되지 않는 6개의 숫자로 이루어져야 합니다.");
         }
-    }
-
-    public static Lotto from(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = numbers.stream()
-                .map(LottoNumber::new)
-                .toList();
-        return new Lotto(lottoNumbers);
     }
 
     public Rank matchRank(Lotto other) {
