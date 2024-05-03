@@ -10,31 +10,30 @@ public class LottoGenerator {
     private static final int LOTTO_MAX_NUM = 45;
     private static final int LOTTO_SIZE = 6;
 
-    private final int lottoCount;
-    private final List<Integer> lottoNumbers;
-
-    public LottoGenerator(int totalPrice) {
-        this.lottoCount = totalPrice / LOTTO_PRICE;
-        this.lottoNumbers = new ArrayList<>();
-        for (int i = 1; i <= LOTTO_MAX_NUM; i++) {
-            this.lottoNumbers.add(i);
-        }
-    }
-
-    public List<Lotto> generateLotto() {
+    public static List<Lotto> generateLotto(int totalPrice) {
+        List<Integer> numbers = getDefaultNumbers();
         List<Lotto> lottos = new ArrayList<>();
+        final int lottoCount = totalPrice / LOTTO_PRICE;
         for (int i = 0; i < lottoCount; i++) {
-            Lotto lotto = new Lotto(generateRandomNumbers());
+            Lotto lotto = new Lotto(generateRandomNumbers(numbers));
             lottos.add(lotto);
         }
         return lottos;
     }
 
-    private List<Integer> generateRandomNumbers() {
-        Collections.shuffle(this.lottoNumbers);
-        List<Integer> values = new ArrayList<>(this.lottoNumbers.subList(0, LOTTO_SIZE));
+    private static List<Integer> getDefaultNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= LOTTO_MAX_NUM; i++) {
+            numbers.add(i);
+        }
+        return numbers;
+    }
+
+    private static Numbers generateRandomNumbers(final List<Integer> numbers) {
+        Collections.shuffle(numbers);
+        List<Integer> values = new ArrayList<>(numbers.subList(0, LOTTO_SIZE));
         Collections.sort(values);
-        return values;
+        return new Numbers(values);
     }
 
 }

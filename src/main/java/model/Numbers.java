@@ -1,13 +1,12 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Lotto {
+public class Numbers {
 
-    private final Numbers numbers;
+    private final List<Integer> numbers;
 
-    public Lotto(final Numbers numbers) {
+    public Numbers(final List<Integer> numbers) {
         this.numbers = numbers;
     }
 
@@ -15,5 +14,4 @@ public class Lotto {
     public String toString() {
         return numbers.toString();
     }
-
 }
