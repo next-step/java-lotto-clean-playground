@@ -1,7 +1,9 @@
 package controller;
 
-import model.LottoGenerator;
 import model.Lotto;
+import model.Numbers;
+import model.WinningLotto;
+import model.WinningStat;
 import service.LottoService;
 import view.InputView;
 import view.ResultView;
@@ -17,9 +19,28 @@ public class LottoController {
     }
 
     public void lottoStart(){
+        List<Lotto> lottos = createLotto();
+        WinningStat stat = calculateLottos(lottos);
+        ResultView.printLottoResult(stat);
+    }
+
+    private List<Lotto> createLotto() {
         int price = InputView.getPrice();
-        List<Lotto> lottos = service.lottoCreate(price);
+        List<Lotto> lottos = service.createLotto(price);
         ResultView.printLottos(lottos);
+        return lottos;
+    }
+
+    private WinningStat calculateLottos(List<Lotto> lottos) {
+        WinningLotto winningLotto = createWinningLotto();
+        WinningStat stat = new WinningStat();
+        winningLotto.getLottoResult(lottos, stat);
+        return stat;
+    }
+
+    private WinningLotto createWinningLotto() {
+        String numbers = InputView.getWinningNumbers();
+        return service.createWinningLotto(numbers);
     }
 
 }
