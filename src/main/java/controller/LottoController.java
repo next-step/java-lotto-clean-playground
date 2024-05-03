@@ -38,13 +38,16 @@ public class LottoController {
         int count = price/1000;
         outputView.countPrint(count);
         lottoList = generateLottoList(count);
-        // printLottoList(lottoList);//생성된 후 출력
+        //printLottoList(lottoList);//생성된 후 출력
     }
-    public void printLottoList(LottoList lottoList){//출력 함수
+    /*
+    public void printLottoList(LottoList lottoList){//로또 리스트 확인용 함수
         List<Lotto> list=lottoList.getLottoList();
         for(Lotto lotto:list)
             System.out.println(lotto.getNumbers());
     }
+
+     */
     public Lotto makeLotto(){
         List<Integer> lotto = new ArrayList<>();
         AutoLotto autoLotto = new AutoLotto();

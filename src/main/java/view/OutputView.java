@@ -30,6 +30,6 @@ public class OutputView {
             int realPrize=prize.getPrize(i);
             System.out.printf("%d개 일치 (%d원)- %d개\n", i, realPrize, count);
         }
-        System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s)\n", revenue, revenue >= 1 ? "이득" : "손해");
+        System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s라는 의미임)\n", revenue, revenue >= 1 ? "이득이" : "손해");
     }
 }
