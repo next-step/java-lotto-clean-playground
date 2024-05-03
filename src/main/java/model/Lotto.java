@@ -13,7 +13,7 @@ public class Lotto {
     public Lotto(){
 
     }
-    public Lotto toIntegerWinner(String winningNumbersStr) {
+    public Lotto convertToList(String winningNumbersStr) {
         String[] str = winningNumbersStr.split(",\\s*");
         List<Integer> winningLottoList = new ArrayList<>();
         for (String s : str) {
@@ -26,10 +26,10 @@ public class Lotto {
         return numbers;
     }
 
-    public int winningCalculate(Lotto winningLotto) {
+    public int calculateMatches(Lotto winningLotto) {
         int cnt = 0;
         List<Integer> winningLottoList = winningLotto.getNumbers();
-        for (Integer integer : numbers) {
+        for (Integer integer : winningLottoList) {
             if(numbers.contains(integer)){
                 cnt ++;
             }

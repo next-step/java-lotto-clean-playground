@@ -15,72 +15,77 @@ public class LottoController {
     private LottoList lottoList;
 
     public LottoController(){
-        lottoStart();
+        startLottoGame();
     }
-    public void lottoStart() {
-        int price = inputMoney();
-        viewLotto(price);
-        Lotto winningLotto = winnerNumberToInteger();
-        int[] match = match(lottoList, winningLotto);
-        double rate = calculateRate(match, price);
-        outputView.resultPrint(match, rate);
+    public void startLottoGame() {
+        int price = receiveMoneyInput();
+        displayLottoTickets(price);
+        Lotto winningNumbers = getWinningNumbers();
+        int[] matchCounts = calculateMatches(lottoList, winningNumbers);
+        double winRate = calculateWinningRate(matchCounts, price);
+        outputView.printResults(matchCounts, winRate);
     }
 
-    public int inputMoney(){
-        return toIntegerPrice(inputView.inputPrice());
+    public int receiveMoneyInput(){
+        return convertPriceToInt(inputView.inputPrice());
     }
-    public int toIntegerPrice(String price){
+    public int convertPriceToInt(String price){
         return Integer.parseInt(price);
     }
-    public void viewLotto(int price){
+    public void displayLottoTickets(int price){
         int count = price/1000;
-        outputView.countPrint(count);
-        lottoList = makeLottolist(count);
+        outputView.printTicketCount(count);
+        lottoList = generateLottoList(count);
+        System.out.println("==========");
+        for(Lotto lotto : lottoList.getLottoList()){
+            System.out.println(lotto.getNumbers());
+        }
+        System.out.println("==========");
     }
-    public LottoList makeLottolist(int count){
+    public LottoList generateLottoList(int count){
+        lottoList = new LottoList();
         for(int i=0; i<count; i++){
-            lottoList = new LottoList(makeLotto());
+            lottoList.setLottoList(createLotto());
         }
         return lottoList;
     }
-    public Lotto makeLotto(){
-        List<Integer> lotto = new ArrayList<>();
+
+    public Lotto createLotto(){
+        List<Integer> numbers = new ArrayList<>();
         AutoLotto autoLotto = new AutoLotto();
-        lotto = autoLotto.getAutoLotto();
-        outputView.lottoPrint(lotto);
-        return new Lotto(lotto);
+        numbers = autoLotto.getAutoLotto();
+        outputView.printLottoNumbers(numbers);
+        return new Lotto(numbers);
     }
 
-    public Lotto winnerNumberToInteger(){
-        String winnerNumsStr = inputView.inputWinnerNumber();
+    public Lotto getWinningNumbers(){
+        String winnerNumbersStr = inputView.inputWinnerNumber();
         Lotto winningLotto = new Lotto();
-        return winningLotto.toIntegerWinner(winnerNumsStr);
+        return winningLotto.convertToList(winnerNumbersStr);
     }
 
-
-    public int [] match(LottoList lottoList, Lotto winningLotto){
-        int [] arr = new int[4];
-        for(Lotto lotto : lottoList.getLottoList()) {
-            int cnt = lotto.winningCalculate(winningLotto);
-            if(cnt == 3){
-                arr[0] ++;
+    public int [] calculateMatches(LottoList ticketList, Lotto winningNumbers){
+        int [] matchCounts = new int[4];
+        for(Lotto ticket : ticketList.getLottoList()) {
+            int countMatches = ticket.calculateMatches(winningNumbers);
+            if(countMatches == 3){
+                matchCounts[0] ++;
             }
-            else if (cnt == 4){
-                arr[1] ++;
+            else if (countMatches == 4){
+                matchCounts[1] ++;
             }
-            else if(cnt == 5){
-                arr[2] ++;
+            else if(countMatches == 5){
+                matchCounts[2] ++;
             }
-            else if(cnt == 6){
-                arr[3] ++;
+            else if(countMatches == 6){
+                matchCounts[3] ++;
             }
         }
-        return arr;
+        return matchCounts;
     }
-    public double calculateRate(int arr[], int price){
-        int total = arr[0] * 5000 + arr[1] * 50000 + arr[2] * 1500000 + arr[3] * 2000000000;
-        double rate = (double) total / (double) price;
-        return rate;
+    public double calculateWinningRate(int [] matchCounts, int price){
+        int totalWinnings = matchCounts[0] * 5000 + matchCounts[1] * 50000 + matchCounts[2] * 1500000 + matchCounts[3] * 2000000000;
+        double winningRate = (double) totalWinnings / (double) price;
+        return winningRate;
     }
-
 }
