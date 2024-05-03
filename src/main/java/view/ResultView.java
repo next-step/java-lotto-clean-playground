@@ -20,7 +20,7 @@ public class ResultView {
     }
 
     public static void printLottoResult(WinningStat stat) {
-        System.out.println("당첨 통계");
+        System.out.println(RESULT_START);
         System.out.println(RESULT_LINE);
         printResultType(stat);
     }
@@ -33,7 +33,7 @@ public class ResultView {
     }
 
     private static void printOneResultType(ResultType type, Integer count) {
-        System.out.print(type.getMatchCount() + "개 일치 ");
+        System.out.print(type.getDescription());
         System.out.print("(" + type.getWinningPrice() + "원)");
         System.out.print("- " + count + "개\n");
     }
