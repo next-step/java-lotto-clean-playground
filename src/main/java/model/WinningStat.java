@@ -2,7 +2,9 @@ package model;
 
 import config.ResultType;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class WinningStat {
@@ -10,9 +12,10 @@ public class WinningStat {
     private final Map<ResultType, Integer> statics;
 
     public WinningStat() {
-        this.statics = new HashMap<>();
+        this.statics = new LinkedHashMap<>();
         Arrays.stream(ResultType.values())
                 .filter(type -> !type.equals(ResultType.MATCH_ZERO))
+                .sorted(Comparator.comparingLong(ResultType::getWinningPrice))
                 .forEach(type -> statics.put(type, 0));
     }
 
@@ -23,7 +26,7 @@ public class WinningStat {
     }
 
     public Map<ResultType, Integer> getStatics() {
-        Map<ResultType, Integer> copy = new HashMap<>();
+        Map<ResultType, Integer> copy = new LinkedHashMap<>();
         for (ResultType type : statics.keySet()) {
             copy.put(type, statics.get(type));
         }
