@@ -17,7 +17,9 @@ public class WinningStat {
     }
 
     public void updateWinningStat(ResultType resultType) {
-        statics.put(resultType, statics.getOrDefault(resultType, 0) + 1);
+        if (!resultType.equals(ResultType.MATCH_ZERO)) {
+            statics.put(resultType, statics.getOrDefault(resultType, 0) + 1);
+        }
     }
 
     public Map<ResultType, Integer> getStatics() {
