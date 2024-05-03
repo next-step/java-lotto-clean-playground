@@ -23,10 +23,11 @@ public class Controller {
         outputView.printLottos(lottos);
 
         List<Integer> winNumbers = inputView.readWinLottoNumbers();
+        int bonus = inputView.readBonusNumber();
 
         WinDiscriminator discriminator = new WinDiscriminator();
-        discriminator.discriminateAll(winNumbers, lottos);
+        discriminator.discriminateAll(winNumbers, lottos, bonus);
 
-        outputView.printPrizeResult(discriminator,budget);
+        outputView.printPrizeResult(discriminator, budget);
     }
 }

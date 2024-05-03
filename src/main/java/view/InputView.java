@@ -18,7 +18,7 @@ public class InputView {
         }
     }
 
-    public List<Integer> readWinLottoNumbers(){
+    public List<Integer> readWinLottoNumbers() {
         final String REGEX = ", ";
 
 
@@ -33,8 +33,12 @@ public class InputView {
         for (String string : winNumbersByString) {
             winNumbers.add(Integer.valueOf(string));
         }
-        System.out.println(winNumbers);
 
         return winNumbers;
+    }
+
+    public int readBonusNumber() {
+        System.out.println("보너스 번호를 입력해주세요");
+        return scanner.nextInt();
     }
 }

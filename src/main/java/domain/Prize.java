@@ -3,6 +3,7 @@ package domain;
 public class Prize {
 
     private int firstPrizeQuantity;
+    private int bonusPrizeQuantity;
     private int secondPrizeQuantity;
     private int thirdPrizeQuantity;
     private int fourthPrizeQuantity;
@@ -10,12 +11,17 @@ public class Prize {
     // 배열로 만들지 않았을 때, 함수와 변수가 지나치게 많아지는 것 같다.
 
     private final int firstPrize = 2_000_000_000;
+    private final int bonusPrize = 30_000_000;
     private final int secondPrize = 1_500_000;
     private final int thirdPrize = 50_000;
     private final int fourthPrize = 5_000;
 
     public void addFirstPrizeQuantity() {
         firstPrizeQuantity++;
+    }
+
+    public void addBonusPrizeQuantity() {
+        bonusPrizeQuantity++;
     }
 
     public void addSecondPrizeQuantity() {
@@ -34,6 +40,10 @@ public class Prize {
         return firstPrizeQuantity;
     }
 
+    public int getBonusPrizeQuantity() {
+        return bonusPrizeQuantity;
+    }
+
     public int getSecondPrizeQuantity() {
         return secondPrizeQuantity;
     }
@@ -50,6 +60,10 @@ public class Prize {
         return firstPrize;
     }
 
+    public int getBonusPrize() {
+        return bonusPrize;
+    }
+
     public int getSecondPrize() {
         return secondPrize;
     }
@@ -62,9 +76,9 @@ public class Prize {
         return fourthPrize;
     }
 
-    public int getTotalPrize(){
+    public int getTotalPrize() {
         int totalPrize;
-        totalPrize = firstPrize * firstPrizeQuantity + secondPrize * secondPrizeQuantity + thirdPrize * thirdPrizeQuantity + fourthPrize * fourthPrizeQuantity;
+        totalPrize = firstPrize * firstPrizeQuantity + bonusPrize * bonusPrizeQuantity + secondPrize * secondPrizeQuantity + thirdPrize * thirdPrizeQuantity + fourthPrize * fourthPrizeQuantity;
         return totalPrize;
     }
 }
