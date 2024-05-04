@@ -1,12 +1,11 @@
 package controller;
 
 import model.Lotto;
-import model.Numbers;
 import model.WinningLotto;
-import model.WinningStat;
+import model.LottoStat;
 import service.LottoService;
-import view.InputView;
-import view.ResultView;
+import view.InputReader;
+import view.ResultPrinter;
 
 import java.util.List;
 
@@ -19,27 +18,33 @@ public class LottoController {
     }
 
     public void lottoStart(){
-        List<Lotto> lottos = createLotto();
-        WinningStat stat = calculateLottos(lottos);
-        ResultView.printLottoResult(stat);
+        int inputPrice = inputPrice();
+        List<Lotto> lottos = createLotto(inputPrice);
+        LottoStat stat = calculateLottos(lottos);
+        ResultPrinter.printLottoResult(stat);
+        double totalReturnRate = stat.getTotalReturnRate(inputPrice);
+        ResultPrinter.printTotalReturnRate(totalReturnRate);
     }
 
-    private List<Lotto> createLotto() {
-        int price = InputView.getPrice();
+    private int inputPrice() {
+        return InputReader.getPrice();
+    }
+
+    private List<Lotto> createLotto(int price) {
         List<Lotto> lottos = service.createLotto(price);
-        ResultView.printLottos(lottos);
+        ResultPrinter.printLottos(lottos);
         return lottos;
     }
 
-    private WinningStat calculateLottos(List<Lotto> lottos) {
+    private LottoStat calculateLottos(List<Lotto> lottos) {
         WinningLotto winningLotto = createWinningLotto();
-        WinningStat stat = new WinningStat();
+        LottoStat stat = new LottoStat();
         winningLotto.getLottoResult(lottos, stat);
         return stat;
     }
 
     private WinningLotto createWinningLotto() {
-        String numbers = InputView.getWinningNumbers();
+        String numbers = InputReader.getWinningNumbers();
         return service.createWinningLotto(numbers);
     }
 

@@ -2,7 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-public class InputView {
+public class InputReader {
 
     private static final String PRICE_QUERY = "구입금액을 입력해 주세요.";
     private static final String WINNING_NUMBERS_QUERY = "지난 주 당첨 번호를 입력해 주세요.";
@@ -13,7 +13,7 @@ public class InputView {
     }
 
     public static String  getWinningNumbers() {
-        System.out.println(WINNING_NUMBERS_QUERY);
+        System.out.println("\n" + WINNING_NUMBERS_QUERY);
         return readString();
     }
 

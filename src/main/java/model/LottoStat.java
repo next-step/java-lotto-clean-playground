@@ -3,15 +3,15 @@ package model;
 import config.ResultType;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class WinningStat {
+public class LottoStat {
 
     private final Map<ResultType, Integer> statics;
+    private long totalWinningPrice;
 
-    public WinningStat() {
+    public LottoStat() {
         this.statics = new LinkedHashMap<>();
         Arrays.stream(ResultType.values())
                 .filter(type -> !type.equals(ResultType.MATCH_ZERO))
@@ -31,6 +31,13 @@ public class WinningStat {
             copy.put(type, statics.get(type));
         }
         return copy;
+    }
+
+    public double getTotalReturnRate(int inputPrice) {
+        for (ResultType key : statics.keySet()) {
+            this.totalWinningPrice += key.getWinningPrice() * statics.get(key);
+        }
+        return (double) this.totalWinningPrice / inputPrice;
     }
 
 }
