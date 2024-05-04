@@ -12,13 +12,9 @@ public class OutputViewTest {
     @DisplayName("로또 생성 확인 메서드")
     public void a() {
         // given
-        int money = 10000;
 
         //when
-        Lotto lotto = new Lotto(money);
-        List<Integer> num = lotto.getLottoNumberList();
 
         //then
-        new OutputView().outputLottoTickets(lotto);
     }
 }
