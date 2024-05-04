@@ -17,6 +17,10 @@ public class Numbers {
         return copyNumbers.size();
     }
 
+    public boolean containBonusNumber(int bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }

@@ -36,7 +36,7 @@ public class LottoController {
         return lottos;
     }
 
-    private LottoStat calculateLottos(List<Lotto> lottos) {
+    private LottoStat calculateLottos(final List<Lotto> lottos) {
         WinningLotto winningLotto = createWinningLotto();
         LottoStat stat = new LottoStat();
         winningLotto.getLottoResult(lottos, stat);
@@ -45,7 +45,8 @@ public class LottoController {
 
     private WinningLotto createWinningLotto() {
         String numbers = InputReader.getWinningNumbers();
-        return service.createWinningLotto(numbers);
+        int bonusNumber = InputReader.getBonusNumber();
+        return service.createWinningLotto(numbers, bonusNumber);
     }
 
 }

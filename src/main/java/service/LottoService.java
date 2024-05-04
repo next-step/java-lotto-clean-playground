@@ -13,11 +13,11 @@ public class LottoService {
         return LottoGenerator.generateLotto(price);
     }
 
-    public WinningLotto createWinningLotto(final String numbers) {
+    public WinningLotto createWinningLotto(final String numbers, final int bonusNumber) {
         // numbers -> List<Integer>로 변환(Parser)
         List<Integer> parsedNumbers = NumbersParser.parseIntegerList(numbers);
         // List<Integer> -> Nubmers 생성
-        return new WinningLotto(new Numbers(parsedNumbers));
+        return new WinningLotto(new Numbers(parsedNumbers), bonusNumber);
     }
 
 

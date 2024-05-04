@@ -5,10 +5,14 @@ import java.util.List;
 
 public class WinningLotto {
 
-    private final Numbers winningNumbers;
+    private static final int BONUS_CHECK_COUNT = 5;
 
-    public WinningLotto(final Numbers numbers) {
+    private final Numbers winningNumbers;
+    private final int bonusNumber;
+
+    public WinningLotto(final Numbers numbers, final int bonusNumber) {
         this.winningNumbers = numbers;
+        this.bonusNumber = bonusNumber;
     }
 
     // List<Lotto>를 입력받아서, WinningLotto의 당첨번호와 비교
@@ -24,7 +28,11 @@ public class WinningLotto {
     private ResultType compareLotto(Lotto lotto) {
         Numbers lottoNumbers = lotto.getNumbers();
         int commonCount = lottoNumbers.getCommonCount(winningNumbers);
-        return ResultType.getResultType(commonCount);
+        boolean hasBonus = false;
+        if (commonCount == BONUS_CHECK_COUNT) {
+            hasBonus = lottoNumbers.containBonusNumber(bonusNumber);
+        }
+        return ResultType.getResultType(commonCount, hasBonus);
     }
 
 }
