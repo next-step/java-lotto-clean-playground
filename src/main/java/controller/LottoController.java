@@ -36,11 +36,6 @@ public class LottoController {
         int count = price/1000;
         outputView.printTicketCount(count);
         lottoList = generateLottoList(count);
-        System.out.println("==========");
-        for(Lotto lotto : lottoList.getLottoList()){
-            System.out.println(lotto.getNumbers());
-        }
-        System.out.println("==========");
     }
     public LottoList generateLottoList(int count){
         lottoList = new LottoList();

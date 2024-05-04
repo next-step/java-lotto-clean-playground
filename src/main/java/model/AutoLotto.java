@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class AutoLotto {
     private static final int MIN_LOTTO_NUMBER = 1;
@@ -23,7 +22,6 @@ public class AutoLotto {
         for (int i = 0; i < CNT_LOTTO_NUMBER; i++) {
             int uniqueNumber = numbers.get(i);
             while (lottoNums.contains(uniqueNumber)) {
-                // 중복된 번호라면 다시 랜덤하게 선택
                 Collections.shuffle(numbers);
                 uniqueNumber = numbers.get(i);
             }

@@ -15,10 +15,4 @@ public class LottoList {
     public List<Lotto> getLottoList(){
         return lottoList;
     }
-    public void setTotalPrice(int reward){
-        this.totalPrice+=reward;
-    }
-    public int getTotalPrice(){
-        return totalPrice;
-    }
 }
