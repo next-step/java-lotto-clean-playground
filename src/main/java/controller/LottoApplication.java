@@ -4,7 +4,8 @@ import model.Consumer;
 import view.InputView;
 import view.OutView;
 
-public class LottoAplication {
+
+public class LottoApplication {
 
     public static void main(String[] args) {
 
@@ -14,5 +15,6 @@ public class LottoAplication {
         consumer.BuyLottos();
 
         OutView.PurchaseRecord(consumer.getHaveLottos());
+
     }
 }

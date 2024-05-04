@@ -1,34 +1,35 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Consumer {
 
-    private ArrayList<Lotto> haveLottos = new ArrayList<>();
-    private int money;
+    private List<Lotto> haveLottos = new ArrayList<>();
+    private final ConsumerMoney inputMoney;
 
-    public Consumer(int money) {
+    public Consumer(final int money) {
 
-        this.money = money;
+        this.inputMoney = ConsumerMoney.from(money);
     }
 
     public void BuyLottos() {
 
-        int lottoCount = money / Lotto.getPrice();
+        int lottoCount = inputMoney.value() / Lotto.getPrice();
 
         for (int i = 0; i < lottoCount; i++) {
 
-            Lotto lotto = new Lotto();
-            lotto.AutoLottoNumber();
+            Lotto lotto = new Lotto(LottoMachine.makeAutoNumber());
             haveLottos.add(lotto);
         }
     }
 
-    public ArrayList<Lotto> getHaveLottos() {
+    public List<Lotto> getHaveLottos() {
         return haveLottos;
     }
 
     public int getMoney() {
-        return money;
+        return inputMoney.value();
     }
 }
