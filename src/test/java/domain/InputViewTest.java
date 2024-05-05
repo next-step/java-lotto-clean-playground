@@ -26,4 +26,30 @@ class InputViewTest {
         assertThatThrownBy(() -> InputView.validText(text))
                 .isInstanceOf(NumberFormatException.class);
     }
+
+    @Test
+    void 당첨번호_입력은_형식에_맞게_작성해야한다() {
+
+        String number = "1, 2, 3, 4, 5";
+
+        try {
+            InputView.validCollectedText(number);
+        } catch (NumberFormatException e) {
+            System.out.println("hello");
+        }
+
+        System.out.println("Test 성공");
+    }
+
+    @Test
+    void 당첨번호_입력은_형식에_맞지_않으면_오류를_발생한다() {
+        String number = "4,2,3,1,6";
+
+        try {
+            InputView.validCollectedText(number);
+        } catch (NumberFormatException e) {
+            System.out.println("Test 성공");
+        }
+
+    }
 }

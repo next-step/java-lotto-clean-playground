@@ -3,6 +3,7 @@ package model;
 public record ConsumerMoney(
         int value
 ) {
+
     public static ConsumerMoney from(final int money) {
 
         validateMoney(money);
@@ -16,6 +17,5 @@ public record ConsumerMoney(
 
         if (money < 1000)
             throw new IllegalArgumentException("[ERROR] 로또의 최소금액은 1000원입니다.");
-
     }
 }

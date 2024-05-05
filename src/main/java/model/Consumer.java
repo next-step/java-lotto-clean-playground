@@ -6,8 +6,9 @@ import java.util.List;
 
 public class Consumer {
 
-    private List<Lotto> haveLottos = new ArrayList<>();
     private final ConsumerMoney inputMoney;
+
+    private List<Lotto> haveLottos = new ArrayList<>();
 
     public Consumer(final int money) {
 
@@ -23,6 +24,27 @@ public class Consumer {
             Lotto lotto = new Lotto(LottoMachine.makeAutoNumber());
             haveLottos.add(lotto);
         }
+    }
+
+    public void analizeAllLottos(List<Integer> collectNumber) {
+
+        int collectedCount = 0;
+
+        for (Lotto lotto : haveLottos) {
+            collectedCount = analizeOneLotto(lotto, collectNumber);
+            lotto.setCollectedCount(collectedCount);
+        }
+    }
+
+    private int analizeOneLotto(Lotto lotto, List<Integer> collectNumber) {
+
+        int collectedCount = 0;
+
+        for (int i = 0; i < collectNumber.size(); i++) {
+            if (lotto.getLottoNumber().contains(collectNumber.get(i))) collectedCount++;
+        }
+
+        return collectedCount;
     }
 
     public List<Lotto> getHaveLottos() {
