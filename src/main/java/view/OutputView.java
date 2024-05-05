@@ -7,13 +7,15 @@ import view.dto.LottoStatisticsResponse;
 
 public class OutputView {
 
+    private static final String LOTTO_PURCHASED_FORMAT = "수동으로 %d장, 자동으로 %d개를 구매했습니다.";
     private static final String MATCH_RESULT_FORMAT = "%d개 일치 (%d원)- %d개";
     private static final String MATCH_RESULT_2ND_PRIZE_FORMAT = "%d개 일치, 보너스 볼 일치(%d원)- %d개";
     private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.2f입니다.";
 
-    public void printLotto(List<LottoResponse> lottos) {
+    public void printLotto(List<LottoResponse> lottos, int manualLottoCount, int automaticLottoCount) {
         printLinebreak();
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+        System.out.printf(LOTTO_PURCHASED_FORMAT, manualLottoCount, automaticLottoCount);
+        printLinebreak();
         lottos.stream()
               .map(LottoResponse::numbers)
               .forEach(System.out::println);
