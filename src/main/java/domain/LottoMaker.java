@@ -18,6 +18,16 @@ public class LottoMaker {
         return lottos;
     }
 
+    public List<Lotto> make(int money, List<List<Integer>> manulLottoNumbers) {
+        lottoQuantity = money / LOTTO_PRICE;
+        List<Lotto> lottos = new ArrayList<>();
+        for (int i = 0; i < lottoQuantity; i++) {
+            Lotto lotto = new Lotto(manulLottoNumbers.get(i));
+            lottos.add(lotto);
+        }
+        return lottos;
+    }
+
     public int getLottoQuantity() {
         return lottoQuantity;
     }

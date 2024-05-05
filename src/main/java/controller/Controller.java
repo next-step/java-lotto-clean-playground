@@ -10,13 +10,19 @@ import java.util.List;
 
 public class Controller {
 
-    public void autoPurchaseLotto() {
+    public void purchaseLotto() {
         LottoMaker lottoMaker = new LottoMaker();
 
         InputView inputView = new InputView();
         int budget = inputView.readBudget();
+        int manualQuantity = inputView.readManualQuantity();
+        int manualBudget = manualQuantity * 1000;
+        int autoBudget = budget - manualBudget;
 
-        List<Lotto> lottos = lottoMaker.make(budget);
+        List<List<Integer>> manualLottoNumbers= inputView.readManualLottoNumbers(manualQuantity);
+
+        List<Lotto> lottos = lottoMaker.make(manualBudget, manualLottoNumbers);
+        lottos.addAll(lottoMaker.make(autoBudget));
 
         OutputView outputView = new OutputView();
         outputView.printLottoQuantity(lottoMaker);
