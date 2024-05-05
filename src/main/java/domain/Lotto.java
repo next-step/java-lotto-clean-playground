@@ -1,8 +1,8 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class Lotto {
 	private final List<Integer> lotto = new ArrayList<>();
@@ -12,13 +12,20 @@ public class Lotto {
 	}
 
 	private void generateLotto() {
+		List<Integer> randomNumberList = generateRandomNumberList();
 		for (int i = 0; i < LottoGame.LOTTO_LENGTH; i++) {
-			lotto.add(generateRandomNumber());
+			lotto.add(randomNumberList.get(i));
 		}
+		Collections.sort(lotto);
 	}
 
-	private int generateRandomNumber() {
-		return new Random().nextInt(LottoGame.LOTTO_MAX_NUMBER);
+	private List<Integer> generateRandomNumberList() {
+		List<Integer> numbers = new ArrayList<>();
+		for (int i = 1; i <= LottoGame.LOTTO_MAX_NUMBER; i++) {
+			numbers.add(i);
+		}
+		Collections.shuffle(numbers);
+		return numbers;
 	}
 
 	@Override
