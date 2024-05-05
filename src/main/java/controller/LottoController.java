@@ -13,7 +13,6 @@ public class LottoController {
         int lottoTotalPrice = InputView.readLottoPrice();
         LottoGame lottoGame = new LottoGame(lottoTotalPrice);
         OutputView.printAmountMessage(lottoGame.calculateLottoAmount());
+        OutputView.printLottos(lottoGame.getLottos());
     }
-
-
 }

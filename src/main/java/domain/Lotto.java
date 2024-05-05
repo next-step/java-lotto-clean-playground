@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -20,13 +21,15 @@ public class Lotto {
                 lottoNumbers.add(num);
             }
         }
+        Collections.shuffle(lottoNumbers);
+        Collections.sort(lottoNumbers);
     }
 
     public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
-
-    public static int calculateLottoAmount(int totalPrice) {
-        return totalPrice / 1000;
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 }

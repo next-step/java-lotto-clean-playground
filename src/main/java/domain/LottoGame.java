@@ -2,13 +2,15 @@ package domain;
 
 import view.OutputView;
 
+import java.util.List;
+
 public class LottoGame {
     private int lottoTotalPrice;
     private Lottos lottos;
 
     public LottoGame(int lottoTotalPrice) {
         this.lottoTotalPrice = lottoTotalPrice;
-        Lottos lottos = new Lottos(calculateLottoAmount());
+        this.lottos = new Lottos(calculateLottoAmount());
     }
 
 
@@ -19,11 +21,8 @@ public class LottoGame {
     public int getLottoTotalPrice() {
         return lottoTotalPrice;
     }
+    public List<Lotto> getLottos(){
+        return lottos.getLottos();
+    }
 
-    public Lottos getLottos() {
-        return lottos;
-    }
-    public void printLottoNumbers() {
-        OutputView.printLottos(lottos.getLottos());
-    }
 }

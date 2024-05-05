@@ -21,7 +21,9 @@ public class Lottos {
     public int getLottoAmount() {
         return lottoAmount;
     }
+
     public List<Lotto> getLottos() {
         return lottos;
     }
+
 }
