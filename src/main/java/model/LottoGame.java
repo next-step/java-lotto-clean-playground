@@ -3,9 +3,9 @@ package model;
 import java.util.List;
 import java.util.stream.IntStream;
 import view.InputView;
+import view.OutputView;
 import view.dto.LottoResponse;
 import view.dto.LottoStatisticsResponse;
-import view.OutputView;
 
 public class LottoGame {
 
@@ -20,7 +20,9 @@ public class LottoGame {
     public void run() {
         List<Lotto> lottos = publishLotto();
         printPublishedResult(lottos);
-        Lotto winningLotto = readWinningLotto();
+
+        WinningLotto winningLotto = readWinningLotto();
+
         ResultStatistics resultStatistics = calculateResultStatistics(lottos, winningLotto);
         LottoStatisticsResponse response = LottoStatisticsResponse.from(resultStatistics);
         outputView.printResultStatistics(response);
@@ -30,8 +32,8 @@ public class LottoGame {
         LottoPrice price = LottoPrice.valueOf(inputView.readLottoPrice());
         int lottoAmount = price.divideByUnit();
         return IntStream.range(0, lottoAmount)
-                .mapToObj(i -> RandomLottoGenerator.generateLotto())
-                .toList();
+                        .mapToObj(i -> RandomLottoGenerator.generateLotto())
+                        .toList();
     }
 
     private void printPublishedResult(List<Lotto> lottos) {
@@ -39,17 +41,18 @@ public class LottoGame {
         outputView.printLotto(results);
     }
 
-    private Lotto readWinningLotto() {
+    private WinningLotto readWinningLotto() {
         List<LottoNumber> winningNumbers = inputView.readWinningNumbers().stream()
-                .map(LottoNumber::valueOf)
-                .toList();
-        return new Lotto(winningNumbers);
+                                                    .map(LottoNumber::valueOf)
+                                                    .toList();
+        final LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
+        return new WinningLotto(new Lotto(winningNumbers), bonusNumber);
     }
 
-    private ResultStatistics calculateResultStatistics(List<Lotto> lottos, Lotto winningLotto) {
+    private ResultStatistics calculateResultStatistics(List<Lotto> lottos, WinningLotto winningLotto) {
         List<Rank> ranks = lottos.stream()
-                .map(lotto -> lotto.matchRank(winningLotto))
-                .toList();
+                                 .map(winningLotto::match)
+                                 .toList();
         return ResultStatistics.from(ranks);
     }
 }
