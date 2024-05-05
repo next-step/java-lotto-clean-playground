@@ -14,8 +14,8 @@ class ResultStatisticsTest {
         List<Rank> ranks = List.of(
                 Rank._5TH_PRIZE,
                 Rank._5TH_PRIZE,
-                Rank.NONE,
-                Rank.NONE,
+                Rank._LAST_PRIZE,
+                Rank._LAST_PRIZE,
                 Rank._3RD_PRIZE
         );
 
@@ -24,7 +24,7 @@ class ResultStatisticsTest {
 
         // then
         assertThat(resultStatistics.countOf(Rank._5TH_PRIZE)).isEqualTo(2);
-        assertThat(resultStatistics.countOf(Rank.NONE)).isEqualTo(2);
+        assertThat(resultStatistics.countOf(Rank._LAST_PRIZE)).isEqualTo(2);
         assertThat(resultStatistics.countOf(Rank._3RD_PRIZE)).isEqualTo(1);
     }
 
@@ -35,9 +35,9 @@ class ResultStatisticsTest {
         List<Rank> ranks = List.of(
                 Rank._5TH_PRIZE,
                 Rank._5TH_PRIZE,
-                Rank.NONE,
-                Rank.NONE,
-                Rank.NONE
+                Rank._LAST_PRIZE,
+                Rank._LAST_PRIZE,
+                Rank._LAST_PRIZE
         );
         ResultStatistics resultStatistics = ResultStatistics.from(ranks);
 
