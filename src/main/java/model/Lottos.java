@@ -1,14 +1,13 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Lotto {
+public class Lottos {
     private final int balance;
     private final int count;
     private final List<OneLotto> myLottos;
 
-    public Lotto(int balance, int count, List<OneLotto> myLottos) {
+    public Lottos(int balance, int count, List<OneLotto> myLottos) {
         this.balance = balance;
         this.count = count;
         this.myLottos = myLottos;

@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RankCalculatorTest {
 
@@ -19,19 +17,19 @@ class RankCalculatorTest {
         List<OneLotto> oneLottoList = new ArrayList<>(1);
         OneLotto oneLotto = new OneLotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6)));
         oneLottoList.add(oneLotto);
-        Lotto lotto = new Lotto(1000, 1000 / 1000, oneLottoList);
+        Lottos lottos = new Lottos(1000, 1000 / 1000, oneLottoList);
 
-        ArrayList<Integer> ansLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 7, 8));
+        ArrayList<Integer> ansLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 7, 8)); //정답
 
         RankCalculator rankCalculator = new RankCalculator(new OneLotto(ansLottoNumbers));
-        rankCalculator.allLottoRank(lotto);
+        rankCalculator.allLottoRank(lottos);
 
-        assertEquals(lotto.getMyLottos().get(0).getCorrectCount(), 4);
+        assertThat(rankCalculator.getCorrectNum().get(3)).isEqualTo(1);
     }
 
     @DisplayName("여러 장 로또의 총 수익금과 수익률이 올바른지 확인한다.")
     @Test
-    void allLottoCorrectCountTest(){
+    void allLottoCorrectCountTest() {
         List<OneLotto> oneLottoList = new ArrayList<>(5);
         OneLotto oneLotto1 = new OneLotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6)));
         OneLotto oneLotto2 = new OneLotto(new ArrayList<>(Arrays.asList(1, 2, 3, 5, 6, 7)));
@@ -44,12 +42,12 @@ class RankCalculatorTest {
         oneLottoList.add(oneLotto4);
         oneLottoList.add(oneLotto5);
 
-        Lotto lotto = new Lotto(5000, 5000 / 1000, oneLottoList);
+        Lottos lottos = new Lottos(5000, 5000 / 1000, oneLottoList);
         ArrayList<Integer> ansLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
 
         RankCalculator rankCalculator = new RankCalculator(new OneLotto(ansLottoNumbers));
-        rankCalculator.allLottoRank(lotto);
+        rankCalculator.allLottoRank(lottos);
 
-        assertEquals(rankCalculator.rateOfReturn(lotto), 40031100);
+        assertThat(rankCalculator.rateOfReturn(lottos.getBalance())).isEqualTo(40031100);
     }
 }
