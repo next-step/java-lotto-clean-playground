@@ -1,22 +1,21 @@
-import domain.Lotto;
-import domain.LottoService;
+import domain.lotto.Lotto;
+import domain.lotto.LottoService;
+import domain.lottoTicket.LottoTicket;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
 
 public class LottoApplication {
-
-    private static LottoService lottoService;
     public static void main(String[] args) {
-        setLottoService();
-        int lottoTicketCount = lottoService.makeLottoTicketCount(new InputView().inputMoney());
-        List<Integer> lottoNumberList = lottoService.makeLottoNumberList();
-        List<List<Integer>> lottoTickets = lottoService.makeLottoTickets(lottoTicketCount, lottoNumberList);
-        Lotto lotto = new Lotto(lottoTicketCount, lottoNumberList, lottoTickets);
-        new OutputView().outputLottoTickets(lotto);
+        int money = new InputView().inputMoney();
+
+        LottoService lottoService = new LottoService();
+
+        Lotto lotto = new Lotto(lottoService.countLottoTickets(money));
+
+        List<LottoTicket> lottoTickets = lottoService.generateLottoTicketList(lotto);
+
+        new OutputView().outputLottoTickets(lotto, lottoTickets);
     }
 
-    public static void setLottoService() {
-        lottoService = new LottoService();
-    }
 }
