@@ -1,19 +1,22 @@
 package view;
 
-import model.Lottos;
-import model.OneLotto;
+import model.Lotto;
+import model.LottoNumber;
 import model.RankCalculator;
+import model.RankType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.Constants.prize;
+
 public class LottoOutput {
 
-    private static String makeLottoNumberToString(OneLotto oneLotto) {
+    private static String makeLottoNumberToString(LottoNumber oneLotto) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("[");
 
-        List<Integer> lottoNumbers = oneLotto.getLottoNumbers();
+        List<Integer> lottoNumbers = oneLotto.getNumbers();
         for (Integer lottoNumber : lottoNumbers) {
             buffer.append(lottoNumber.intValue());
             buffer.append(", ");
@@ -23,28 +26,27 @@ public class LottoOutput {
         return buffer.toString();
     }
 
-    public static void printLottoNumbers(Lottos lottos) {
-        System.out.println(lottos.getBalance() +
-                "개를 구매했습니다.");
-        List<OneLotto> oneLottoList = lottos.getMyLottos();
-        for (OneLotto myLotto : lottos.getMyLottos()) {
+    public static void printLottoNumbers(Lotto lotto) {
+        System.out.println(lotto.getCount() + "개를 구매했습니다.");
+        List<LottoNumber> lottoNumberList = lotto.getLottoNumberList();
+        for (LottoNumber myLotto : lottoNumberList) {
             System.out.println(makeLottoNumberToString(myLotto));
         }
         System.out.println();
     }
 
-    public static void printCorrectNumbers(RankCalculator rankCalculator, Lottos lottos) {
-        List<Integer> money = rankCalculator.getMoney();
-        List<Integer> correctNum = rankCalculator.getCorrectNum();
-
+    public static void printCorrectNumbers(RankCalculator rankCalculator) {
+        List<RankType> rankTypeList = rankCalculator.getRankTypeList();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int i = 2; i < 6; i++) {
-            System.out.println((i + 1) + "개 일치 (" + money.get(i) + "원)- "
-                    + correctNum.get(i) + "개");
-        }
 
-        double rate = rankCalculator.rateOfReturn(lottos.getBalance());
-        System.out.println("총 수익률은 " + rate + "입니다.");
+        for (RankType rank : RankType.values()) {
+            long count = rankTypeList.stream().filter(rankType -> rankType == rank).count();
+            System.out.println(rank.getCorrectNum() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
+        }
+    }
+
+    public static void printRateOfReturn(double rate){
+        System.out.printf("총 수익률은 %.2f 입니다.\n", rate);
     }
 }

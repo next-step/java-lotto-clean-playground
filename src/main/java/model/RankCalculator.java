@@ -4,53 +4,50 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static model.Constants.prize;
+
 public class RankCalculator {
-    private final OneLotto ans;
-    private List<Integer> correctNum = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0));
+    private final List<Integer> ans;
+    private final int bonusBall;
+    private final List<RankType> rankTypeList = new ArrayList<>();
 
-    private final List<Integer> money = new ArrayList<>
-            (Arrays.asList(0, 0, 5000, 50000, 1500000, 2000000000));
-
-    public RankCalculator(OneLotto ans) {
+    public RankCalculator(List<Integer> ans, int bonusBall) {
         this.ans = ans;
+        this.bonusBall = bonusBall;
     }
 
-    private void eachLottoRank(OneLotto oneLotto) {
-        List<Integer> numbers = oneLotto.getLottoNumbers(); //로또 한장
-        List<Integer> ansNumbers = ans.getLottoNumbers(); //정답 로또 번호
-        long count = numbers.stream()
-                .filter(ansNumbers::contains)
-                .count(); //몇개맞지?
-        correctNum.set((int) (count - 1), correctNum.get((int) count - 1) + 1);
+    private void calculateEachLottoCorrectNumbers(LottoNumber lottoNumber) {
+        List<Integer> numbers = lottoNumber.getNumbers();
+        long count = numbers.stream().filter(ans::contains).count();
+
+        RankType rankType = RankType.getLottoRank((int)count, lottoNumber.hasBonusBall(bonusBall));
+        if(rankType == null){
+            return;
+        }
+        rankTypeList.add(rankType);
     }
 
-    public void allLottoRank(Lottos lottos) {
-        List<OneLotto> oneLottoList = lottos.getMyLottos();
-        for (OneLotto oneLotto : oneLottoList) {
-            eachLottoRank(oneLotto);
+    public void calculateAllLottoCorrectNumbers(Lotto lotto) {
+        List<LottoNumber> lottoNumberList = lotto.getLottoNumberList();
+        for (LottoNumber lottoNumber : lottoNumberList) {
+            calculateEachLottoCorrectNumbers(lottoNumber);
         }
     }
 
-    private long calculateTotal(List<Integer> rankList) {
-
-        long total = 0;
-        for (int i = 2; i < rankList.size(); i++) {
-            total += ((long) rankList.get(i) * money.get(i));
+    private double calculateTotalProfit() {
+        double total = 0;
+        for (RankType rankType : rankTypeList) {
+            total += rankType.getPrize();
         }
         return total;
     }
 
-    public double rateOfReturn( int balance) {
-        long total = calculateTotal(correctNum);
-
-        return (double) (total / balance * 100);
+    public double calculateRateOfReturn(int balance) {
+        double total = calculateTotalProfit();
+        return total / balance;
     }
 
-    public List<Integer> getCorrectNum() {
-        return correctNum;
-    }
-
-    public List<Integer> getMoney() {
-        return money;
+    public List<RankType> getRankTypeList() {
+        return rankTypeList;
     }
 }

@@ -24,5 +24,12 @@ public class LottoInput {
         return lottoAnswer;
     }
 
+    public static int inputBonusBall(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextInt();
+
+    }
+
 }
 
