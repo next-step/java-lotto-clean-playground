@@ -41,7 +41,6 @@ public class InputReader {
 
     public static List<String> getManualLottoNumbers(final int manualLottoCount) {
         System.out.println("\n" + MANUAL_LOTTO_NUMBERS_QUERY);
-        // manualLottoCount만큼 readString 받은 다음 List<String> 반환
         return readStringCountTimes(manualLottoCount);
     }
 
