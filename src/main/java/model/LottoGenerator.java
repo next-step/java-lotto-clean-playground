@@ -44,7 +44,8 @@ public class LottoGenerator {
         return new Numbers(values);
     }
 
-    public static List<Lotto> createManualLottos(final int totalPrice, final List<Numbers> manualNumbers) {
+    public static List<Lotto> createManualLottos(final int totalPrice,
+                                                 final List<Numbers> manualNumbers) {
         final int autoLottoCount = getLottoCount(totalPrice) - manualNumbers.size();
         if (autoLottoCount == 0) {
             return generateManualLottos(manualNumbers);

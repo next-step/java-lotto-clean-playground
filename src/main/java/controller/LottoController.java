@@ -27,7 +27,7 @@ public class LottoController {
         return InputReader.getPrice();
     }
 
-    private List<Lotto> createAutoLottos(int price) {
+    private List<Lotto> createAutoLottos(final int price) {
         final int manualLottoCount = 0;
         List<Lotto> lottos = service.createAutoLotto(price);
         ResultPrinter.printLottos(lottos, manualLottoCount);
@@ -62,7 +62,7 @@ public class LottoController {
         showLottoResult(lottos, inputPrice);
     }
 
-    private List<Lotto> createManualLottos(int price, List<String> manualValues) {
+    private List<Lotto> createManualLottos(final int price, final List<String> manualValues) {
         List<Lotto> lottos = service.createManualLotto(price,manualValues);
         ResultPrinter.printLottos(lottos, manualValues.size());
         return lottos;

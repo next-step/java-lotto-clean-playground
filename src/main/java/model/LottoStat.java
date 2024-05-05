@@ -19,7 +19,7 @@ public class LottoStat {
                 .forEach(type -> statics.put(type, 0));
     }
 
-    public void updateWinningStat(ResultType resultType) {
+    public void updateWinningStat(final ResultType resultType) {
         if (!resultType.equals(ResultType.MATCH_ZERO)) {
             statics.put(resultType, statics.getOrDefault(resultType, 0) + 1);
         }
@@ -33,7 +33,7 @@ public class LottoStat {
         return copy;
     }
 
-    public double getTotalReturnRate(int inputPrice) {
+    public double getTotalReturnRate(final int inputPrice) {
         for (ResultType key : statics.keySet()) {
             this.totalWinningPrice += key.getWinningPrice() * statics.get(key);
         }

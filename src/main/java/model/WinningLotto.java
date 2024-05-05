@@ -15,14 +15,14 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public void getLottoResult(List<Lotto> lottos, LottoStat stat) {
+    public void getLottoResult(final List<Lotto> lottos, final LottoStat stat) {
         for (Lotto lotto : lottos) {
             ResultType lottoResult = compareLotto(lotto);
             stat.updateWinningStat(lottoResult);
         }
     }
 
-    private ResultType compareLotto(Lotto lotto) {
+    private ResultType compareLotto(final Lotto lotto) {
         Numbers lottoNumbers = lotto.getNumbers();
         int commonCount = lottoNumbers.getCommonCount(winningNumbers);
         boolean hasBonus = false;

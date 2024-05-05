@@ -16,14 +16,17 @@ public enum ResultType {
     private final String description;
     private final long winningPrice;
 
-    ResultType(final int matchCount, final boolean hasBonus, final String description, final long winningPrice) {
+    ResultType(final int matchCount,
+               final boolean hasBonus,
+               final String description,
+               final long winningPrice) {
         this.matchCount = matchCount;
         this.hasBonus = hasBonus;
         this.description = description;
         this.winningPrice = winningPrice;
     }
 
-    public static ResultType getResultType(int matchCount, boolean hasBonus) {
+    public static ResultType getResultType(final int matchCount, final boolean hasBonus) {
         return Arrays.stream(ResultType.values())
                 .filter(resultType -> resultType.matchCount == matchCount)
                 .filter(resultType -> resultType.hasBonus == hasBonus)

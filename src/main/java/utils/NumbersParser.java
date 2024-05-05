@@ -5,7 +5,7 @@ import java.util.List;
 
 public class NumbersParser {
 
-    public static List<Integer> parseIntegerList(String input) {
+    public static List<Integer> parseIntegerList(final String input) {
         String[] splittedInput = input.split(",");
         return Arrays.stream(splittedInput)
                 .map(String::trim)

@@ -45,7 +45,7 @@ public class InputReader {
         return readStringCountTimes(manualLottoCount);
     }
 
-    private static List<String> readStringCountTimes(int count) {
+    private static List<String> readStringCountTimes(final int count) {
         List<String> values = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             values.add(readString());

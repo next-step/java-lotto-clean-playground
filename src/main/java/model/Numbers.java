@@ -11,13 +11,13 @@ public class Numbers {
         this.numbers = numbers;
     }
 
-    public int getCommonCount(Numbers otherNumbers) {
+    public int getCommonCount(final Numbers otherNumbers) {
         List<Integer> copyNumbers = new ArrayList<>(this.numbers);
         copyNumbers.retainAll(otherNumbers.getNumbers());
         return copyNumbers.size();
     }
 
-    public boolean containBonusNumber(int bonusNumber) {
+    public boolean containBonusNumber(final int bonusNumber) {
         return numbers.contains(bonusNumber);
     }
 
