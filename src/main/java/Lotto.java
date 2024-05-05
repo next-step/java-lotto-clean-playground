@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -8,6 +9,7 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
+        sortNumbers(numbers);
         this.numbers = numbers;
     }
 
@@ -27,6 +29,10 @@ public class Lotto {
         if (numbers.size() != duplicatedSize) {
             throw new IllegalArgumentException();
         }
+    }
+
+    private void sortNumbers(List<LottoNumber> numbers) {
+        Collections.sort(numbers);
     }
 
 }
