@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class LottoTest {
 
     @Nested
-    class 로또_생성_시{
+    class 로또_생성_시 {
 
         @Test
         void 로또는_중복되지_않는_6개의_숫자로_이루어져있다() {
@@ -37,7 +37,7 @@ class LottoTest {
         @Test
         void 로또는_중복되지_않는_6개의_숫자로_이루어져야_한다() {
             // given
-            List<Integer> numbers = List.of(1, 2,3,4,5,5);
+            List<Integer> numbers = List.of(1, 2, 3, 4, 5, 5);
 
             // when & then
             assertThatThrownBy(() -> Lotto.from(numbers))
@@ -55,23 +55,6 @@ class LottoTest {
 
             // then
             assertThat(lotto.numbers()).isSorted();
-        }
-    }
-
-    @Nested
-    class 로또_당첨_계산 {
-
-        @Test
-        void 당첨_숫자에_따라_순위를_계산한다() {
-            // given
-            Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
-            Lotto winningLotto = Lotto.from(List.of(1, 2, 3, 7, 8, 9));
-
-            // when
-            Rank rank = lotto.matchRank(winningLotto);
-
-            // then
-            assertThat(rank).isEqualTo(Rank._5TH_PRIZE);
         }
     }
 }

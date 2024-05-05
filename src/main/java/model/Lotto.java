@@ -17,8 +17,8 @@ public record Lotto(List<LottoNumber> numbers) {
 
     public static Lotto from(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = numbers.stream()
-                .map(LottoNumber::new)
-                .toList();
+                                                .map(LottoNumber::new)
+                                                .toList();
         return new Lotto(lottoNumbers);
     }
 
@@ -38,13 +38,6 @@ public record Lotto(List<LottoNumber> numbers) {
         if (numbers.size() != duplicatedSize) {
             throw new IllegalArgumentException("로또는 중복되지 않는 6개의 숫자로 이루어져야 합니다.");
         }
-    }
-
-    public Rank matchRank(Lotto other) {
-        int matchCount = (int) numbers.stream()
-                .filter(other.numbers()::contains)
-                .count();
-        return Rank.of(matchCount);
     }
 
     @Override
