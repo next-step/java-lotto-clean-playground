@@ -31,14 +31,6 @@ public enum ResultType {
                 .orElse(MATCH_ZERO);
     }
 
-    public int getMatchCount() {
-        return matchCount;
-    }
-
-    public boolean getHasBonus() {
-        return hasBonus;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -46,4 +38,5 @@ public enum ResultType {
     public long getWinningPrice() {
         return winningPrice;
     }
+
 }
