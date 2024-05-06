@@ -11,7 +11,7 @@ public record Price(int value) {
 
     private void validatePrice(int price) {
         if (price < INCLUSIVE_MIN_PRICE) {
-            throw new IllegalArgumentException(String.format("가격은 %d보다 작을 수 없습니다.", INCLUSIVE_MIN_PRICE));
+            throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", INCLUSIVE_MIN_PRICE));
         }
     }
 
