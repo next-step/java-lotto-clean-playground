@@ -1,7 +1,10 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Lottos {
 	private final int lottoCount;
@@ -24,11 +27,19 @@ public class Lottos {
 		return List.copyOf(lottos);
 	}
 
-	public List<Integer> getMatchedLottoCounts(List<Integer> lottoWinningNumber) {
-		List<Integer> matchedLottoCounts = new ArrayList<>();
+	public Map<Integer, Boolean> getMatchedLottoCounts(List<Integer> lottoWinningNumber, int bonusNumber) {
+		Map<Integer, Boolean> matchedLottoCounts = new HashMap<>();
 		for (int i = 0; i < lottoCount; i++) {
 			Lotto lotto = lottos.get(i);
-			matchedLottoCounts.add(lotto.getMatchedNumberCount(lottoWinningNumber));
+			int matchedCount = lotto.getMatchedNumberCount(lottoWinningNumber);
+			if (matchedCount == 5 && lotto.getMatchedNumberCount(Arrays.asList(bonusNumber)) > 0) {
+				matchedLottoCounts.put(matchedCount, true);
+			} else if (matchedCount == 5 && lotto.getMatchedNumberCount(Arrays.asList(bonusNumber)) == 0) {
+				matchedLottoCounts.put(matchedCount, false);
+			} else if (matchedCount != 5) {
+				matchedLottoCounts.put(matchedCount, false);
+			}
+
 		}
 		return matchedLottoCounts;
 	}
