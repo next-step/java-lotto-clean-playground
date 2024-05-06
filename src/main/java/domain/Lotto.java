@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Lotto {
+    public static final int PRICE_PER_TICKET = 1000;
     private List<Integer> lottoNumbers = new ArrayList<>();
 
     public Lotto() {

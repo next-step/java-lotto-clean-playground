@@ -15,13 +15,14 @@ public class LottoGame {
 
 
     public int calculateLottoAmount() {
-        return lottoTotalPrice / 1000;
+        return lottoTotalPrice / Lotto.PRICE_PER_TICKET;
     }
 
     public int getLottoTotalPrice() {
         return lottoTotalPrice;
     }
-    public List<Lotto> getLottos(){
+
+    public List<Lotto> getLottos() {
         return lottos.getLottos();
     }
 
@@ -34,6 +35,7 @@ public class LottoGame {
         return matchCounts;
     }
 
+
     private int calculateMatchCount(List<Integer> numbers, List<Integer> winningNumbers) {
         int matchCount = 0;
         for (Integer number : numbers) {
@@ -44,4 +46,19 @@ public class LottoGame {
         return matchCount;
     }
 
+    public static double calculateProfitRate(int[] matchCounts, int totalLottoCount) {
+        double profitRate = 0;
+        int totalPrize = matchCounts[3] * 5000 +
+                matchCounts[4] * 50000 +
+                matchCounts[5] * 1500000 +
+                matchCounts[6] * 2000000000;
+        int totalPrice = totalLottoCount * Lotto.PRICE_PER_TICKET;
+
+        if (totalPrice == 0) {
+            return profitRate;
+        }
+
+        profitRate = ((double) totalPrize / totalPrice);
+        return profitRate;
+    }
 }

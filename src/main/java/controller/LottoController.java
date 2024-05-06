@@ -19,6 +19,10 @@ public class LottoController {
         OutputView.printLottos(lottoGame.getLottos());
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
-        OutputView.printWinningNumbers(winningNumbers);
+        WinningNumbers winningNumbersObj = new WinningNumbers(winningNumbers);
+
+        int[] winningStatistics = lottoGame.calculateWinningStatistics(winningNumbersObj);
+        double profitRate = LottoGame.calculateProfitRate(winningStatistics, lottoGame.getLottos().size());
+        OutputView.printWinningStatistics(winningStatistics, profitRate);
     }
 }
