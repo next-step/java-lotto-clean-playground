@@ -12,14 +12,10 @@ public class OutputView {
 
     private final static String PRINT_HEAD="당첨 통계";
     private final static String PRINT_DIVIDER="---------";
-    private final static String BUY_MESSAGE = "개를 구매했습니다.";
+    private final static String BUY_MESSAGE = "수동으로 %d장, 자동으로 %d개를 구매했습니다.\n";
 
-    public void countPrint (int count){
-        System.out.println("\n" + count + BUY_MESSAGE);
-
-    }
-    public void lottoPrint(List<Integer> numbers) {
-        System.out.println(numbers);
+    public void countPrint (int manualNum,int count){
+        System.out.printf("\n"+BUY_MESSAGE, manualNum, count);
     }
 
     public void printWinningResult(Map<Integer,Integer> stats, double revenue, Prize prize){
