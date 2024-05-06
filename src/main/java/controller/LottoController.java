@@ -1,12 +1,14 @@
 package controller;
 
 import model.Lotto;
+import model.LottoNumber;
 import model.RankCalculator;
 import view.LottoInput;
 import view.LottoOutput;
 
 public class LottoController {
-    public void run(Lotto lotto) {
+
+    public void buyLotto(Lotto lotto) {
         final var manualLottoCount = LottoInput.inputManualLottoCount();
         final var manualLottoNumbers = LottoInput.inputManualLottoNumbers(manualLottoCount);
 
@@ -14,7 +16,9 @@ public class LottoController {
         lotto.addManualLottoNumbers(manualLottoNumbers);
         lotto.generateRandomLottoNumbers();
         LottoOutput.printLottoNumbers(lotto);
+    }
 
+    public void calculateRank (Lotto lotto){
         final var ansNumber = LottoInput.inputLottoAnswer();
         final var bonusBall = LottoInput.inputBonusBall();
 
