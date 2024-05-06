@@ -2,13 +2,28 @@ package domain.lotto;
 
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
+import domain.lottoWinningStatistics.LottoWinningStatistics;
+import domain.lottoWinningStatistics.LottoWinningStatisticsService;
 import java.util.ArrayList;
 import java.util.List;
+import view.InputView;
+import view.OutputView;
 
 public class LottoService {
     private final int LOTTO_PRICE = 1000;
-    private final LottoTicketService lottoTicketService = new LottoTicketService();
-    public LottoService() {
+    private final InputView inputView;
+    private final  OutputView outputView;
+    public LottoService(InputView inputView, OutputView outputView) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+    }
+
+    public void run() {
+        int buyingMoney = inputView.readMoney();
+        Lotto lotto = new Lotto(buyingMoney, countLottoTickets(buyingMoney));
+        List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
+        printLottoTickets(lotto, lottoTickets);
+        drawLottoWinning(lotto, lottoTickets);
     }
 
     public int countLottoTickets(int money) {
@@ -18,25 +33,34 @@ public class LottoService {
     }
 
     public List<LottoTicket> generateLottoTicketList(Lotto lotto) {
+        LottoTicketService lottoTicketService = new LottoTicketService();
+
         List<LottoTicket> lottoTicketList = new ArrayList<>();
+
         for(int i = 0; i < lotto.getLottoTicketCount(); i++) {
             LottoTicket lottoTicket = new LottoTicket(lottoTicketService.generateLottoTicket());
             lottoTicketList.add(lottoTicket);
         }
+
         return lottoTicketList;
     }
 
-    public List<Integer> makeLottoWinningStatistic(List<List<Integer>> lottoTickets,
-                                                   List<Integer> winningNumbers) {
-        List<Integer> winningStatistics = new ArrayList<>();
-
-        lottoTickets.forEach(lottoTicket -> winningStatistics.add(countLottoWinningNumber(lottoTicket, winningNumbers)));
-
-        return winningStatistics;
+    public void printLottoTickets(Lotto lotto, List<LottoTicket> lottoTickets) {
+        outputView.writeLottoTickets(lotto, lottoTickets);
     }
 
-    public int countLottoWinningNumber(List<Integer> lottoTicket,
-                                      List<Integer> winningNumbers) {
-        return (int) lottoTicket.stream().filter(winningNumbers::contains).count();
+    public void drawLottoWinning(Lotto lotto, List<LottoTicket> lottoTickets) {
+        List<Integer> winningNumbers = inputView.readWinningNumber();
+        LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
+
+        List<Integer> lottoWinnerCount = lottoWinningStatisticsService.countLottoWinning(lottoTickets, winningNumbers);
+
+        int winnings = lottoWinningStatisticsService.caculateWinnings(lottoWinnerCount);
+
+        double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, winnings);
+
+        LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(winningNumbers, lottoWinnerCount, returnOfInvestment);
+
+        outputView.writeLottoWinningStatistics(lottoWinningStatistics);
     }
 }

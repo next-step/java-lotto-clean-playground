@@ -9,46 +9,42 @@ public class InputView {
     private final String PAYMENT_ANOUNCEMENT = "구입금액을 입력해 주세요.";
     private final String WINNING_ANOUNCEMENT = "지난 주 당첨 번호를 입력해 주세요.";
 
-    public int inputMoney(){
+    public int readMoney(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(PAYMENT_ANOUNCEMENT);
         final int money = scanner.nextInt();
-        validateMinMoney(money);
-        validateMoneyUnit(money);
+        try {
+            validateMoneyUnit(money);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return readMoney();
+        }
         return money;
     }
 
-    public List<Integer> inputWinningBall() {
+    public List<Integer> readWinningNumber() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(WINNING_ANOUNCEMENT);
         String winningNumber = scanner.nextLine();
+        List<Integer> winningNumbers;
 
-        List<Integer> winningNumbers = Arrays.stream(winningNumber.split(",\\s*"))
-                .map(Integer::parseInt)
-                .filter(num -> validateWinningNumber(num))
-                .toList();
+        try {
+            winningNumbers = Arrays.stream(winningNumber.split(",\\s*"))
+                    .map(Integer::parseInt)
+                    .toList();
+        } catch (NumberFormatException e) {
+            System.out.println("로또 당첨 번호는 다음과 같은 문자 Ex. 1, 2, 3, 4, 5, 6 형태여야 합니다.");
+            return readWinningNumber();
+        }
 
         return winningNumbers;
     }
 
     public void validateMoneyUnit(int money) {
         if(money % UNIT_MONEY != 0){
-            throw new IllegalArgumentException("입력되는 돈은 1000원 단위여야 합니다.");
+            throw new NumberFormatException("입력되는 돈은 1000원 단위여야 합니다.");
         }
-    }
-
-    public void validateMinMoney(int money) {
-        if(money < UNIT_MONEY) {
-            throw new IllegalArgumentException("입력되는 돈은 최소 1000원 입니다.");
-        }
-    }
-
-    public boolean validateWinningNumber(int num) {
-        if(1 <= num && num <= 45){
-            return true;
-        }
-        return false;
     }
 }

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import view.InputView;
+import view.OutputView;
 
 public class LottoTest {
 
@@ -19,13 +21,16 @@ public class LottoTest {
     public void lottoTest() {
         //given
         int expectedLottoTicketCount = 3;
-        int money = 3000;
+        int expectedMoney = 3000;
 
         //when
-        LottoService lottoService = new LottoService();
-        Lotto lotto = new Lotto(lottoService.countLottoTickets(money));
+        LottoService lottoService = new LottoService(new InputView(), new OutputView());
+        Lotto lotto = new Lotto(expectedMoney, lottoService.countLottoTickets(expectedMoney));
 
         //then
-        assertThat(expectedLottoTicketCount).isEqualTo(lotto.getLottoTicketCount());
+        assertAll(
+                () -> assertThat(expectedMoney).isEqualTo(lotto.getLottoMoney()),
+                () -> assertThat(expectedLottoTicketCount).isEqualTo(lotto.getLottoTicketCount())
+        );
     }
 }
