@@ -20,14 +20,14 @@ public class Lotto {
 
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또는 6개의 수로 이루어져야 한다. ");
         }
     }
 
     private void validateDuplication(List<LottoNumber> numbers) {
         long duplicatedSize = numbers.stream().distinct().count();
         if (numbers.size() != duplicatedSize) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 숫자는 중복이 없어야 한다. ");
         }
     }
 
@@ -35,4 +35,7 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
+    public List<LottoNumber> numbers() {
+        return List.copyOf(numbers);
+    }
 }
