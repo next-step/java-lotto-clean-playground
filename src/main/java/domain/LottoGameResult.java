@@ -13,9 +13,11 @@ public class LottoGameResult {
 
 	private final WinningLotto winningLotto;
 	private List<Integer> gameResult;
+	private final int bonusNumber;
 
-	public LottoGameResult(List<Integer> lottoWinningNumber, Lottos lottos) {
+	public LottoGameResult(List<Integer> lottoWinningNumber, int bonusNumber, Lottos lottos) {
 		this.winningLotto = new WinningLotto(lottoWinningNumber);
+		this.bonusNumber = bonusNumber;
 		calculateGameResult(lottos);
 	}
 

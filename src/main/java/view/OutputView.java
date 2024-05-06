@@ -5,7 +5,7 @@ import java.util.List;
 import domain.Lotto;
 
 public class OutputView {
-	
+
 	private static void printNewLine() {
 		System.out.println();
 	}
@@ -17,6 +17,7 @@ public class OutputView {
 
 	public static void printLottos(final List<Lotto> lottos) {
 		lottos.forEach((lotto) -> System.out.println(lotto.getLotto()));
+		printNewLine();
 	}
 
 	public static void printLottoGameResult(final List<Integer> gameResult) {
