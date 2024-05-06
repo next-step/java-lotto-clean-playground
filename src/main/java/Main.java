@@ -1,6 +1,7 @@
 import domain.Input;
 import domain.GenerateLotto;
 import domain.WinningLotto;
+import domain.WinningNumbers;
 import view.Print;
 
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ public class Main {
 
         ArrayList<Integer> winningNumbers = input.setWinningNumber();
 
-        winningLotto.totalCheckLotto(totalLottos, winningNumbers);
+        int bonusNumber = input.setBonusNumber();
+
+        winningLotto.totalCheckLotto(totalLottos, winningNumbers, bonusNumber);
 
         print.printWinningCount(winningLotto.winningCount, winningLotto.calculateRate(purchaseAmount));
 
