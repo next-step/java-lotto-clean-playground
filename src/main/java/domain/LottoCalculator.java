@@ -42,6 +42,6 @@ public class LottoCalculator {
             return 0;
         }
 
-        return (totalPrize - totalPrice) / totalPrice;
+        return (totalPrize) / totalPrice;
     }
 }
