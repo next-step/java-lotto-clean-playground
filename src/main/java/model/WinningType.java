@@ -10,13 +10,9 @@ public enum WinningType {
     private static final int WINNING_MIN_COUNT = 3;
     private static final String ERROR_MESSAGE = "[ERROR]";
 
-    private int countOfCorrect;
-    private int reward;
     private String message;
 
     WinningType(int countOfCorrect, int reward, String message) {
-        this.countOfCorrect = countOfCorrect;
-        this.reward = reward;
         this.message = message;
     }
 

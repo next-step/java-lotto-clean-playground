@@ -37,7 +37,7 @@ public class UserCount {
     }
     public void validateRange(int priceNum){
         if(priceNum<=0){
-            throw new IllegalArgumentException("0원 이하는 구매가 불가능합니다");
+            throw new IllegalArgumentException("[ERROR] 0원 이하는 구매가 불가능합니다");
         }
     }
     public void validateUnit(int priceNum){

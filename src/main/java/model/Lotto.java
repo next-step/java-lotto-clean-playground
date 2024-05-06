@@ -36,19 +36,19 @@ public class Lotto {
         validateRange(numbers);
         validateDuplicate(numbers);
     }
-    private void validateSize(List<Integer> numbers){
+    void validateSize(List<Integer> numbers){
         if(numbers.size() != 6){
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개 입력해야 합니다.");
         }
     }
-    private void validateRange(List<Integer> numbers){
+    void validateRange(List<Integer> numbers){
         for(int num : numbers){
             if(num<=0||num>45){
                 throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자로 입력해야 합니다.");
             }
         }
     }
-    private void validateDuplicate(List<Integer> numbers){
+    void validateDuplicate(List<Integer> numbers){
         List<Integer> tmp = numbers;
         if(tmp.stream().distinct().count()!=numbers.size()){
             throw new IllegalArgumentException("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
