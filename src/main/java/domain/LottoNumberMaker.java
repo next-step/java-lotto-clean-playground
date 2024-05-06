@@ -8,7 +8,7 @@ public class LottoNumberMaker {
 
     List<Integer> lottoBalls = new ArrayList<>();
 
-    public LottoNumberMaker(){
+    public LottoNumberMaker() {
         initLottoBalls();
     }
 
@@ -32,7 +32,7 @@ public class LottoNumberMaker {
         Collections.shuffle(lottoBalls);
     }
 
-    private List<Integer> getSelectedBalls(){
+    private List<Integer> getSelectedBalls() {
         List<Integer> selectedBalls = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             selectedBalls.add(lottoBalls.get(i));

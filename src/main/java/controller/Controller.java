@@ -1,7 +1,10 @@
 package controller;
 
-import domain.*;
-import view.*;
+import domain.Lotto;
+import domain.LottoMaker;
+import domain.WinDiscriminator;
+import view.InputView;
+import view.OutputView;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class Controller {
         List<Lotto> lottos = manualLottos;
 
         OutputView outputView = new OutputView();
-        outputView.printLottoQuantity(manalLottoQuantity,autoLottoQuantity);
+        outputView.printLottoQuantity(manalLottoQuantity, autoLottoQuantity);
         outputView.printLottos(lottos);
 
         List<Integer> winNumbers = inputView.readWinLottoNumbers();

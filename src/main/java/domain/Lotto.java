@@ -11,7 +11,7 @@ public class Lotto {
         this.lottoNumber = numberMaker.getLottoNumber();
     }
 
-    public Lotto(List<Integer> manualNumber){
+    public Lotto(List<Integer> manualNumber) {
         this.lottoNumber = manualNumber;
     }
 

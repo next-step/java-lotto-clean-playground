@@ -21,7 +21,7 @@ public class InputView {
         }
     }
 
-    public int readManualLottoQuantity(){
+    public int readManualLottoQuantity() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 
         int manualLottoQuantity = scanner.nextInt();
@@ -44,7 +44,7 @@ public class InputView {
         return manualLottosNumber;
     }
 
-    private List<Integer> readManualLottoNumber(){
+    private List<Integer> readManualLottoNumber() {
         final String DELIMETER = ", ";
         List<Integer> manualLottoNumber = new ArrayList<>();
 

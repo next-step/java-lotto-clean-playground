@@ -1,7 +1,6 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoMaker;
 import domain.Prize;
 import domain.WinDiscriminator;
 
