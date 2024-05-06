@@ -7,7 +7,11 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    public static final List<Integer> numList = IntStream.range(1, 45).boxed().toList();
+    public static final int START_INCLUSIVE = 1;
+    public static final int END_EXCLUSIVE = 45;
+    public static final List<Integer> NUMBERS = IntStream.range(START_INCLUSIVE, END_EXCLUSIVE).boxed().toList();
+    public static final int FROM_INDEX = 0;
+    public static final int LOTTO_SIZE = 6;
 
     public final List<Integer> lotto;
 
@@ -16,14 +20,17 @@ public class Lotto {
     }
 
     private List<Integer> makeLotto() {
-        List<Integer> lotto = new ArrayList<>(numList);
-        Collections.shuffle(lotto);
-        lotto = lotto.subList(0, 6);
-        Collections.sort(lotto);
-        return lotto;
+        List<Integer> numbers = new ArrayList<>(NUMBERS);
+
+        Collections.shuffle(numbers);
+        numbers = numbers.subList(FROM_INDEX, LOTTO_SIZE);
+
+        Collections.sort(numbers);
+
+        return numbers;
     }
 
-    public List<Integer> toList() {
+    public List<Integer> getLotto() {
         return lotto;
     }
 }

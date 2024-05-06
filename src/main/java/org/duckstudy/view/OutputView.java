@@ -17,7 +17,7 @@ public class OutputView {
         System.out.printf("\n%d개를 구매했습니다.\n", lottos.size());
 
         for (Lotto lotto : lottos) {
-            System.out.println(lotto.toList());
+            System.out.println(lotto.getLotto());
         }
     }
 }
