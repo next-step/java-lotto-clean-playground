@@ -1,6 +1,6 @@
 package view;
 
-import model.Constant;
+import Constant;
 
 import java.util.ArrayList;
 import java.util.List;

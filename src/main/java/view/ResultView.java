@@ -1,9 +1,8 @@
 package view;
 
-import model.Constant;
+import Constant;
 import model.Lotto;
 import model.LottoPrize;
-import model.WinLotto;
 
 import java.util.List;
 import java.util.Map;
