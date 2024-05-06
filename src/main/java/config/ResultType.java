@@ -42,4 +42,11 @@ public enum ResultType {
         return winningPrice;
     }
 
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public boolean isHasBonus() {
+        return hasBonus;
+    }
 }
