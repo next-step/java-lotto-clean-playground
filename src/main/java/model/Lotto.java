@@ -13,14 +13,14 @@ public class Lotto {
     public Lotto(){
 
     }
-    public Lotto convertToList(String winningNumbersStr) {
-        String[] str = winningNumbersStr.split(",\\s*");
-        List<Integer> winningLottoList = new ArrayList<>();
+    public Lotto convertToList(String lottoNumbersStr) {
+        String[] str = lottoNumbersStr.split(",\\s*");
+        List<Integer> lottoList = new ArrayList<>();
         for (String s : str) {
-            winningLottoList.add(Integer.parseInt(s));
+            lottoList.add(Integer.parseInt(s));
         }
-        Lotto winningLotto = new Lotto(winningLottoList);
-        return winningLotto;
+        Lotto lotto = new Lotto(lottoList);
+        return lotto;
     }
     public List<Integer>getNumbers(){
         return numbers;
@@ -35,5 +35,11 @@ public class Lotto {
             }
         }
         return cnt;
+    }
+    public boolean bonusMatches(int bonusNum) {
+       if(numbers.contains(bonusNum)){
+           return true;
+       }
+       return false;
     }
 }
