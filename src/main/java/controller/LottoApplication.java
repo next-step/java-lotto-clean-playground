@@ -23,8 +23,9 @@ public class LottoApplication {
     public void InputCollectNumberApp() {
 
         lottoStatistics = new LottoStatistics(InputView.inputCollectedNumber());
+        lottoStatistics.initBonusBall(InputView.inputBonusBallNumber());
 
-        consumer.analizeAllLottos(lottoStatistics.getCollectNumber());
+        consumer.analizeAllLottos(lottoStatistics.getCollectNumber(), lottoStatistics.getBonusBall().value());
 
         lottoStatistics.configureMatchedCount(consumer.getHaveLottos());
     }
@@ -33,9 +34,6 @@ public class LottoApplication {
 
         double rateToReturn = lottoStatistics.calculateRatetoReturn(consumer.getMoney());
 
-        OutView.statisticInfo(
-                lottoStatistics.getMatchedCount(),
-                lottoStatistics.getPrizeMoney(),
-                rateToReturn);
+        OutView.statisticInfo(lottoStatistics.getRatingInfo(), rateToReturn);
     }
 }

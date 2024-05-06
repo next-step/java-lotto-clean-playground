@@ -1,20 +1,29 @@
 package domain;
 
-import model.Consumer;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("소비자 객체 테스트")
 class ConsumerTest {
 
-    Consumer consumer = new Consumer(14000);
+    @Test
+    void buyLottos() {
+
+        /*로또번호가 자동으로 만들어지는 이유 때문에
+         * 어떤 방식으로 로또 번호를 통제해야 되는지
+         * 잘 모르겠습니다. 이로인해 다른 코드들 또한
+         * 테스트 코드를 진행하지 못하고 있습니다.
+         * mokito를 사용하면 편리하다는데 이 문제에서
+         * 요구하는거는 다른 방식인거 같아 고민중에 있습니다.*/
+    }
 
     @Test
-    void 소유한_로또들을_당첨번호와_비교한다() {
-
-        //Lotto의 번호들이 랜던값으로 생성되어
-        //테스트를 진행하지 못하고 있다.
+    void analizeAllLottos() {
+        /*로또번호가 자동으로 만들어지는 이유 때문에
+         * 어떤 방식으로 로또 번호를 통제해야 되는지
+         * 잘 모르겠습니다. 이로인해 다른 코드들 또한
+         * 테스트 코드를 진행하지 못하고 있습니다.
+         * mokito를 사용하면 편리하다는데 이 문제에서
+         * 요구하는거는 다른 방식인거 같아 고민중에 있습니다.*/
     }
 }

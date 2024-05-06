@@ -1,41 +1,62 @@
 package domain;
 
-import model.ConsumerMoney;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import Exception.ConsumerMoney;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
-@DisplayName("소비자 투입 급액 테스트")
 class ConsumerMoneyTest {
 
     @Test
-    void 소비자_투입금액_생성() {
+    void 투입금액이_올바르게_입력_되면_문제없이_작동한다() {
 
-        final int inputMoney = 1000;
+        String inputMoney = "14000";
 
-        assertThatCode(() -> ConsumerMoney.from(inputMoney)).doesNotThrowAnyException();
-    }
-
-    @Test
-    void 투입금액이_0보다_작으면_생성에_실패한다() {
-
-        final int inputMoney = -1;
-
-        assertThatThrownBy(() -> ConsumerMoney.from(inputMoney))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 투입금액은 음수일 수 없습니다.");
+        assertThatCode(() -> {
+            ConsumerMoney.from(inputMoney);
+        }).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 999})
-    void 투입금액이_1000원보다_작으면_생성에_실패한다(int inputMoney) {
+    @ValueSource(strings = {
+            "Hello",
+            "    ",
+            "asdf21"
+    })
+    void 투입금액은_숫자가_아니면_오류를_발생한다(String inputMoney) {
 
         assertThatThrownBy(() -> ConsumerMoney.from(inputMoney))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 로또의 최소금액은 1000원입니다.");
+                .isInstanceOf(Exception.class);
+    }
+
+    @Test
+    void 투입금액은_음수일_경우_오류가_발생한다() {
+
+        String inputMoney = "-123";
+
+        assertThatThrownBy(() -> ConsumerMoney.from(inputMoney))
+                .isInstanceOf(Exception.class);
+    }
+
+    @Test
+    void 투입금액이_로또한개의_가격보다_낮으면_오류를_발생한다() {
+
+        String inputMoney = "500";
+
+        assertThatThrownBy(() -> ConsumerMoney.from(inputMoney))
+                .isInstanceOf(Exception.class);
+    }
+
+    @Test
+    void 투입금액이_로또를_사고_남으면_오류를_발생한다() {
+
+        String inputMoney = "10590";
+
+        assertThatThrownBy(() -> ConsumerMoney.from(inputMoney))
+                .isInstanceOf(Exception.class);
     }
 }

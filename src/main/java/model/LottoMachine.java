@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoMachine {
+
     private static List<Integer> allLottoNumber = new ArrayList<>();
 
     static {
@@ -14,7 +15,6 @@ public class LottoMachine {
             allLottoNumber.add(i);
         }
     }
-
 
     public static List<Integer> makeAutoNumber() {
 
@@ -30,8 +30,8 @@ public class LottoMachine {
     public static List<Integer> subList(int start, int end) {
 
         List<Integer> lottoNumber = allLottoNumber.stream()
-                .skip(0)
-                .limit(7)
+                .skip(start)
+                .limit(end + 1)
                 .collect(Collectors.toList());
 
         return lottoNumber;

@@ -2,69 +2,68 @@ package domain;
 
 import model.Lotto;
 import model.LottoStatistics;
-import org.junit.jupiter.api.DisplayName;
+import model.Rating;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("로또 통계 테스트")
 class LottoStatisticsTest {
+    private LottoStatistics lottoStatistics = new LottoStatistics("1, 2, 3, 4, 5, 6");
 
-    private LottoStatistics lottoStatistics = new LottoStatistics(Arrays.asList(1, 2, 3, 4, 5, 6));
+    private List<Lotto> haveLottos;
+    private Lotto lotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+    private Lotto lotto2 = new Lotto(List.of(1, 2, 3, 4, 40, 45));
+    private Lotto lotto3 = new Lotto(List.of(1, 2, 3, 4, 5, 7));
 
-    @Test
-    void 당첨번호를_6개_입력_안할경우_오류가_발생한다() {
+    public LottoStatisticsTest() {
 
-        List<Integer> collectNumber = Arrays.asList(1, 2, 3);
+        lottoStatistics.initBonusBall("7");
+        haveLottos = new ArrayList<>();
+    }
 
-        assertThatThrownBy(() -> new LottoStatistics(collectNumber))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 6개의 당첨번호를 입력하세요");
+    private void lottoUpdate() {
+
+        lotto1.updateCollectedCount(6);
+        lotto2.updateCollectedCount(4);
+        lotto3.updateCollectedCount(5);
+        lotto3.updateBonusCorrect();
+    }
+
+    private void addHaveLottos() {
+
+        haveLottos.add(lotto1);
+        haveLottos.add(lotto2);
+        haveLottos.add(lotto3);
     }
 
     @Test
-    void 당첨번호가_중복되면_오류가_발생한다() {
+    void 로또번호를_맞춘갯수의_ratingInfo의_키값은_하나_증가한다() {
 
-        List<Integer> collectNumber = Arrays.asList(1, 1, 3, 4, 5, 6);
-
-        assertThatThrownBy(() -> new LottoStatistics(collectNumber))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 서로 다른 숫자만 입력하세요");
-    }
-
-    @Test
-    void 당첨번호가_1부터_45안에_숫자가_아니면_오류가_발생한다() {
-
-        List<Integer> collectNumber = Arrays.asList(0, 46, 1, 2, 3, 4);
-
-        assertThatThrownBy(() -> new LottoStatistics(collectNumber))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 1에서 45까지의 숫자만 입력하세요");
-
-    }
-
-    @Test
-    void mactedCount배열에는_당첨된_로또의_갯수가_들어간다() {
-        List<Lotto> haveLottos = Arrays.asList(
-                new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new Lotto(Arrays.asList(1, 2, 3, 42, 43, 45)),
-                new Lotto(Arrays.asList(1, 2, 3, 4, 10, 51))
-        );
-
-        haveLottos.get(0).setCollectedCount(6);
-        haveLottos.get(1).setCollectedCount(3);
-        haveLottos.get(2).setCollectedCount(4);
+        lottoUpdate();
+        addHaveLottos();
 
         lottoStatistics.configureMatchedCount(haveLottos);
 
-        assertEquals(1, lottoStatistics.getMatchedCount().get(3));
-        assertEquals(1, lottoStatistics.getMatchedCount().get(4));
-        assertEquals(0, lottoStatistics.getMatchedCount().get(5));
-        assertEquals(1, lottoStatistics.getMatchedCount().get(6));
+        assertEquals(1, lottoStatistics.getRatingInfo().getCount(Rating.FIRST));
+        assertEquals(1, lottoStatistics.getRatingInfo().getCount(Rating.FOURTH));
+        assertEquals(1, lottoStatistics.getRatingInfo().getCount(Rating.SECOND));
+    }
+
+    @Test
+    void 수익율을_계산한다() {
+
+        lottoUpdate();
+        addHaveLottos();
+
+        lottoStatistics.configureMatchedCount(haveLottos);
+
+        double actual = lottoStatistics.calculateRatetoReturn(3000);
+        double expected = (2000000000.0 + 30000000.0 + 50000.0) / 3000.0;
+
+        assertEquals(expected, actual);
     }
 }

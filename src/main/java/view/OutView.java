@@ -3,6 +3,8 @@ package view;
 
 import model.Lotto;
 import model.LottoStatistics;
+import model.Rating;
+import model.RatingInfo;
 
 import java.util.List;
 
@@ -28,22 +30,29 @@ public class OutView {
         System.out.println(lottoNumber.get(5) + "]");
     }
 
-    public static void statisticInfo(
-
-            final List<Integer> matchedCount,
-            final List<Double> prize,
-            final double rateToReturn
-    ) {
+    public static void statisticInfo(RatingInfo ratingInfo, double rateToReturn) {
 
         System.out.println('\n' + "당첨 통계");
         System.out.println("---------");
 
-        for (int i = 3; i <= 6; i++) {
-            String result = String.format("%d개 일치 (%.0f원) - %d개", i, prize.get(i - 3), matchedCount.get(i));
-            System.out.println(result);
+        for (Rating rating : Rating.values()) {
+
+            if (rating.getReward() == 0) continue;
+            System.out.println(findBonusOrNot(ratingInfo, rating));
         }
 
         System.out.print(String.format("총 수익률은 %.02f입니다.", rateToReturn));
+    }
 
+    private static String findBonusOrNot(RatingInfo ratingInfo, Rating rating) {
+
+        if (rating.getReward() == 30000000) {
+
+            return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개",
+                    rating.getMatchCount(), rating.getReward(), ratingInfo.getCount(rating));
+        }
+
+        return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개"
+                , rating.getMatchCount(), rating.getReward(), ratingInfo.getCount(rating));
     }
 }

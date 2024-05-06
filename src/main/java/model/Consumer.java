@@ -1,5 +1,9 @@
 package model;
 
+
+import Exception.ConsumerMoney;
+import Exception.BonusBall;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +14,7 @@ public class Consumer {
 
     private List<Lotto> haveLottos = new ArrayList<>();
 
-    public Consumer(final int money) {
+    public Consumer(final String money) {
 
         this.inputMoney = ConsumerMoney.from(money);
     }
@@ -26,13 +30,14 @@ public class Consumer {
         }
     }
 
-    public void analizeAllLottos(List<Integer> collectNumber) {
+    public void analizeAllLottos(List<Integer> collectNumber, int bonusBall) {
 
         int collectedCount = 0;
 
         for (Lotto lotto : haveLottos) {
             collectedCount = analizeOneLotto(lotto, collectNumber);
-            lotto.setCollectedCount(collectedCount);
+            lotto.updateCollectedCount(collectedCount);
+            if (lotto.getLottoNumber().contains(bonusBall)) lotto.updateBonusCorrect();
         }
     }
 
@@ -40,10 +45,11 @@ public class Consumer {
 
         int collectedCount = 0;
 
+
         for (int i = 0; i < collectNumber.size(); i++) {
             if (lotto.getLottoNumber().contains(collectNumber.get(i))) collectedCount++;
-        }
 
+        }
         return collectedCount;
     }
 
