@@ -1,47 +1,38 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public record Lotto(List<LottoNumber> numbers) {
     public static final int LOTTO_NUMBER_COUNT = 6;
     public static final int LOTTO_PRICE = 1000;
 
-    public static List<Lotto> purchaseLottos(int purchaseAmount) {
-        int lottoCount = purchaseAmount / LOTTO_PRICE;
-        return IntStream.range(0, lottoCount)
-                .mapToObj(i -> generateLotto())
-                .collect(Collectors.toList());
+    public Lotto {
+        validateNumbers(numbers);
+        Collections.sort(numbers);
     }
 
-    private static Lotto generateLotto() {
-        List<LottoNumber> numbers = new ArrayList<>();
-        while (numbers.size() < LOTTO_NUMBER_COUNT) {
-            LottoNumber number = LottoNumber.generate();
-            if (!numbers.contains(number)) {
-                numbers.add(number);
-            }
+    private void validateNumbers(List<LottoNumber> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 숫자는 6개여야 합니다.");
         }
-        Collections.sort(numbers);
+        if (numbers.stream().distinct().count() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 숫자는 중복 되지 않아야 합니다.");
+        }
+    }
+
+    public static Lotto generate() {
+        List<LottoNumber> numbers = Stream.generate(LottoNumber::generate)
+                .distinct()
+                .limit(LOTTO_NUMBER_COUNT)
+                .collect(Collectors.toList());
         return new Lotto(numbers);
     }
 
-    public static LottoStatistics getStatistics(List<Lotto> lottos, List<LottoNumber> winningNumbers) {
-        LottoStatistics statistics = new LottoStatistics();
-        for (Lotto lotto : lottos) {
-            int matchCount = getMatchCount(lotto, winningNumbers);
-            statistics.addCount(matchCount);
-        }
-        return statistics;
-    }
-
-    private static int getMatchCount(Lotto lotto, List<LottoNumber> winningNumbers) {
-        return (int) lotto.numbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
     }
 
     @Override

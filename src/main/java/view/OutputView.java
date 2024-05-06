@@ -1,26 +1,37 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoStatistics;
+import domain.LottoPrize;
+import domain.LottoResult;
 
 import java.util.List;
 
 public class OutputView {
     public static void printLottos(List<Lotto> lottos) {
         System.out.printf("%d개를 구매했습니다.\n", lottos.size());
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto);
-        }
+        lottos.forEach(System.out::println);
+        System.out.println();
     }
 
-    public static void printStatistics(LottoStatistics statistics) {
-        System.out.println("\n당첨 통계\n---------");
-        System.out.printf("3개 일치 (%d원)- %d개\n", statistics.getPrizeFor(3), statistics.getCountFor(3));
-        System.out.printf("4개 일치 (%d원)- %d개\n", statistics.getPrizeFor(4), statistics.getCountFor(4));
-        System.out.printf("5개 일치 (%d원)- %d개\n", statistics.getPrizeFor(5), statistics.getCountFor(5));
-        System.out.printf("6개 일치 (%d원)- %d개\n", statistics.getPrizeFor(6), statistics.getCountFor(6));
-        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 %s라는 의미임)\n",
-                statistics.getProfitRatio(),
-                statistics.getProfitRatio() < 1 ? "손해" : "이익");
+    public static void printResult(LottoResult result, int purchaseAmount) {
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+        for (LottoPrize prize : LottoPrize.values()) {
+            int count = result.getCountByPrize(prize);
+            printPrizeStatics(prize, count);
+        }
+        double earningRate = result.getEarningRate(purchaseAmount);
+        System.out.printf("총 수익률은 %.2f입니다.%n", earningRate);
+    }
+
+    private static void printPrizeStatics(LottoPrize prize, int statics) {
+        if (prize == LottoPrize.MISS) {
+            return;
+        }
+        if (prize.isMatchBonus()) {
+            System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개%n", prize.getMatchCount(), prize.getPrize(), statics);
+            return;
+        }
+        System.out.printf("%d개 일치 (%d원)- %d개%n", prize.getMatchCount(), prize.getPrize(), statics);
     }
 }
