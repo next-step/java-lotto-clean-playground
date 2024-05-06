@@ -1,6 +1,7 @@
 package org.duckstudy.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,10 @@ class LottoTest {
     void createLotto() {
         Lotto lotto = new Lotto();
 
-        assertThat(lotto.getLotto()).hasSize(6);
-        assertThat(lotto.getLotto()).allMatch(
-                number -> number >= Lotto.START_INCLUSIVE_NUMBER && number < Lotto.END_EXCLUSIVE_NUMBER);
+        assertAll(
+                () -> assertThat(lotto.getLotto()).hasSize(Lotto.LOTTO_SIZE),
+                () -> assertThat(lotto.getLotto()).allMatch(
+                        number -> number >= Lotto.START_INCLUSIVE_NUMBER && number < Lotto.END_EXCLUSIVE_NUMBER)
+        );
     }
 }
