@@ -9,6 +9,7 @@ import view.OutputView;
 import java.util.List;
 
 public class Controller {
+
     public void purchaseLotto() {
         final int LOTTO_PRICE = 1_000;
 

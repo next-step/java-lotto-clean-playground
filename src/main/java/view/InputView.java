@@ -32,7 +32,6 @@ public class InputView {
     }
 
     public List<List<Integer>> readManualLottosNumber(int manualLottoQuantity) {
-
         List<List<Integer>> manualLottosNumber = new ArrayList<>();
 
         System.out.println("수동으로 구매할 번호를 입력해주세요");
