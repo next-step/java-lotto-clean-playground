@@ -1,4 +1,4 @@
-package org.duckstudy.model;
+package org.duckstudy.model.lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;

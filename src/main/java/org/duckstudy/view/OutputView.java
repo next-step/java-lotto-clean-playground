@@ -1,7 +1,7 @@
 package org.duckstudy.view;
 
 import java.util.List;
-import org.duckstudy.model.Lotto;
+import org.duckstudy.model.lotto.Lotto;
 
 public class OutputView {
 
