@@ -19,6 +19,12 @@ public class InputView {
         return lottoPrice;
     }
 
+    public static int inputBonusBall() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusBall = scanner.nextInt();
+        scanner.nextLine(); // 개행문자 처리
+        return bonusBall;
+    }
     public static List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = scanner.nextLine().trim(); // 입력값 양 끝 공백 제거

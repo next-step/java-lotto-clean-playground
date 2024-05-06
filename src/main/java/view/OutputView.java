@@ -37,7 +37,8 @@ public class OutputView {
         System.out.println("3개 일치 (5000원)- " + matchCounts[3] + "개");
         System.out.println("4개 일치 (50000원)- " + matchCounts[4] + "개");
         System.out.println("5개 일치 (1500000원)- " + matchCounts[5] + "개");
-        System.out.println("6개 일치 (2000000000원)- " + matchCounts[6] + "개");
+        System.out.println("5개 일치, 보너스 볼 일치 (30000000원)- " + matchCounts[6] + "개");
+        System.out.printf("6개 일치 (2000000000원)-", matchCounts[7] + "개");
         System.out.printf("총 수익률은 %.2f 입니다.", profitRate);
         printProfitRate(profitRate);
     }
@@ -47,7 +48,8 @@ public class OutputView {
             System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }
         if (profitRate > 1) {
-            System.out.println("기준이 1이기 때문에 결과적으로 이득라는 의미임)");
+            System.out.println("(기준이 1이기 때문에 결과적으로 이득라는 의미임)");
         }
+        System.out.println("(기준이 1이기 때문에 이득도 손해도 아님)");
     }
 }
