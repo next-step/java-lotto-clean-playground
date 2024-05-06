@@ -1,7 +1,7 @@
 package model;
 
-import Exception.CollectNumber;
-import Exception.BonusBall;
+import exception.CollectNumber;
+import exception.BonusBall;
 
 import java.util.List;
 
@@ -55,4 +55,3 @@ public class LottoStatistics {
         return ratingInfo;
     }
 }
-

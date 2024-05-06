@@ -1,17 +1,17 @@
-package domain;
+package modelTest;
 
 import model.Lotto;
 import model.LottoStatistics;
 import model.Rating;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoStatisticsTest {
+
     private LottoStatistics lottoStatistics = new LottoStatistics("1, 2, 3, 4, 5, 6");
 
     private List<Lotto> haveLottos;

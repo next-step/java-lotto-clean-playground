@@ -2,7 +2,6 @@ package view;
 
 
 import model.Lotto;
-import model.LottoStatistics;
 import model.Rating;
 import model.RatingInfo;
 
@@ -10,9 +9,10 @@ import java.util.List;
 
 public class OutView {
 
-    public static void purchaseRecord(final List<Lotto> haveLottos) {
+    public static void purchaseRecord(final List<Lotto> haveLottos, final int directCount, final int autoCount) {
 
-        System.out.println("\n" + haveLottos.size() + "개를 구매했습니다.");
+        String str = String.format('\n' + "수동으로 %d장, 자동으로 %d장을 구매했습니다.", directCount, autoCount);
+        System.out.println(str);
 
         for (int i = 0; i < haveLottos.size(); i++) {
             lottoInfo(haveLottos.get(i).getLottoNumber());

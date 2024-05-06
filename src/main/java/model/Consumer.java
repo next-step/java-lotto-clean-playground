@@ -1,8 +1,8 @@
 package model;
 
 
-import Exception.ConsumerMoney;
-import Exception.BonusBall;
+import exception.ConsumerMoney;
+import exception.DirectCount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +10,27 @@ import java.util.List;
 
 public class Consumer {
 
-    private final ConsumerMoney inputMoney;
+    private static ConsumerMoney inputMoney;
 
-    private List<Lotto> haveLottos = new ArrayList<>();
+    private static DirectCount directCount;
 
-    public Consumer(final String money) {
+    private List<Lotto> haveLottos;
 
-        this.inputMoney = ConsumerMoney.from(money);
+    public Consumer(final String money, final String directText) {
+
+        haveLottos = new ArrayList<>();
+        inputMoney = ConsumerMoney.from(money);
+        directCount = DirectCount.from(directText, inputMoney.value());
     }
 
-    public void BuyLottos() {
+    public void BuyLottos(List<Lotto> autoLottos, List<Lotto> directLottos) {
 
-        int lottoCount = inputMoney.value() / Lotto.getPrice();
+        if (!directLottos.isEmpty()) {
+            haveLottos.addAll(directLottos);
+        }
 
-        for (int i = 0; i < lottoCount; i++) {
-
-            Lotto lotto = new Lotto(LottoMachine.makeAutoNumber());
-            haveLottos.add(lotto);
+        if (!autoLottos.isEmpty()) {
+            haveLottos.addAll(autoLottos);
         }
     }
 
@@ -35,8 +39,10 @@ public class Consumer {
         int collectedCount = 0;
 
         for (Lotto lotto : haveLottos) {
+
             collectedCount = analizeOneLotto(lotto, collectNumber);
             lotto.updateCollectedCount(collectedCount);
+
             if (lotto.getLottoNumber().contains(bonusBall)) lotto.updateBonusCorrect();
         }
     }
@@ -53,11 +59,16 @@ public class Consumer {
         return collectedCount;
     }
 
+
     public List<Lotto> getHaveLottos() {
         return haveLottos;
     }
 
-    public int getMoney() {
+    public static int getMoney() {
         return inputMoney.value();
+    }
+
+    public static int getDirectCount() {
+        return directCount.value();
     }
 }

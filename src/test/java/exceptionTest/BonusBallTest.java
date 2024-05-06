@@ -1,9 +1,9 @@
-package domain;
+package exceptionTest;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
-import Exception.*;
+import exception.BonusBall;
+import exception.CollectNumber;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

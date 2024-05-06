@@ -2,6 +2,7 @@ package controller;
 
 import model.Consumer;
 import model.Lotto;
+import model.LottoMachine;
 import model.LottoStatistics;
 import view.InputView;
 import view.OutView;
@@ -12,13 +13,32 @@ public class LottoApplication {
     private Consumer consumer;
     private LottoStatistics lottoStatistics;
 
-    public void InputMoneyAndInfoLottosApp() {
+    private LottoMachine lottoMachine;
 
-        consumer = new Consumer(InputView.inputMoney());
-        consumer.BuyLottos();
+    public void InputMoneyAndDirectCountApp() {
 
-        OutView.purchaseRecord(consumer.getHaveLottos());
+        String inputMoney = InputView.inputMoney();
+        String directCount = InputView.inputDirectCount();
+
+        consumer = new Consumer(inputMoney, directCount);
     }
+
+    public void InputDirectNumbersApp() {
+
+        lottoMachine = new LottoMachine();
+        lottoMachine.makeDirectNumber(InputView.inputDirectNumber(Consumer.getDirectCount()));
+    }
+
+    public void MakeAutoNumbersAndLottosInfoApp() {
+
+        int autoCount = Consumer.getMoney() / Lotto.getPrice() - Consumer.getDirectCount();
+
+        lottoMachine.makeAutoNumber(autoCount);
+        consumer.BuyLottos(lottoMachine.getAutoNumbers(), lottoMachine.getDirectNumbers());
+
+        OutView.purchaseRecord(consumer.getHaveLottos(), Consumer.getDirectCount(), autoCount);
+    }
+
 
     public void InputCollectNumberApp() {
 

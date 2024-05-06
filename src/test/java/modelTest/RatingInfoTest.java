@@ -1,4 +1,4 @@
-package domain;
+package modelTest;
 
 import model.Rating;
 import model.RatingInfo;

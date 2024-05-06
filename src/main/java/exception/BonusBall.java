@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 public record BonusBall(
         int value
@@ -8,6 +8,7 @@ public record BonusBall(
         validateIsNotNumber(number);
         validateRange(number);
         validateDuplicate(number, collectNumber);
+
         return new BonusBall(Integer.parseInt(number));
     }
 

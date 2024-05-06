@@ -6,8 +6,13 @@ public class Main {
 
         LottoApplication lottoApplication = new LottoApplication();
 
-        lottoApplication.InputMoneyAndInfoLottosApp();
+        lottoApplication.InputMoneyAndDirectCountApp();
+        lottoApplication.InputDirectNumbersApp();
+
+        lottoApplication.MakeAutoNumbersAndLottosInfoApp();
+
         lottoApplication.InputCollectNumberApp();
+
         lottoApplication.InfoStatisticsApp();
     }
 }

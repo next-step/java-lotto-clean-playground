@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +11,7 @@ public record CollectNumber(
 
         List<Integer> collectNumber = validateFormat(collectText);
         validateCollectNumber(collectNumber);
+
         return new CollectNumber(collectNumber);
     }
 
