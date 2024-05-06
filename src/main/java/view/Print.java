@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Print {
 
     // 1~6개 일치하는 갯수
-    public void printPurchasedLottoCount(ArrayList<ArrayList<Integer>> totalLottos) {
-        System.out.printf("\n%d개를 구매했습니다.\n", totalLottos.size());
+    public void printPurchasedLottoCount(int manualCount, ArrayList<ArrayList<Integer>> totalLottos) {
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualCount, totalLottos.size() - manualCount);
         for (ArrayList<Integer> totalLotto : totalLottos) {
             System.out.println(totalLotto);
         }
@@ -27,7 +27,7 @@ public class Print {
         System.out.printf("5개 일치, 보너스 볼 일치(%d원) - %d개\n", WinningNumbers.findByIndex(3), winningCount.get(3));
         System.out.printf("6개 일치 (%d원)- %d개\n", WinningNumbers.findByIndex(4), winningCount.get(4));
 
-        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n", rate);
+        System.out.printf("총 수익률은 %.2f입니다.\n", rate);
 
     }
 

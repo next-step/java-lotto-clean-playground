@@ -1,7 +1,6 @@
 import domain.Input;
 import domain.GenerateLotto;
 import domain.WinningLotto;
-import domain.WinningNumbers;
 import view.Print;
 
 import java.util.ArrayList;
@@ -15,13 +14,19 @@ public class Main {
 
         int purchaseAmount = input.setPurchaseAmount();
 
-        ArrayList<ArrayList<Integer>> totalLottos = lotto.getLotto(purchaseAmount);
+        int manualCount = input.setManualCount();
 
-        print.printPurchasedLottoCount(totalLottos);
+        if (manualCount > 0) {
+            lotto.getManualLotto(purchaseAmount, manualCount);
+        }
+
+        ArrayList<ArrayList<Integer>> totalLottos = lotto.getLotto(lotto.getRemainingMoney(purchaseAmount, manualCount));
+
+        print.printPurchasedLottoCount(manualCount, totalLottos);
 
         ArrayList<Integer> winningNumbers = input.setWinningNumber();
 
-        int bonusNumber = input.setBonusNumber();
+        int bonusNumber = input.setBonusNumber(winningNumbers);
 
         winningLotto.totalCheckLotto(totalLottos, winningNumbers, bonusNumber);
 
