@@ -1,6 +1,7 @@
 package controller;
 
 import domain.LottoGame;
+import domain.LottoGameResult;
 import domain.Lottos;
 import view.InputView;
 import view.OutputView;
@@ -9,6 +10,8 @@ public class LottoController {
 
 	private final LottoGame lottoGame;
 	private final Lottos lottos;
+
+	private LottoGameResult lottoGameResult;
 
 	public LottoController() {
 		this.lottoGame = new LottoGame(readLottoPurchaseAmount());
@@ -35,11 +38,11 @@ public class LottoController {
 	}
 
 	private void readLottoWinningNumber() {
-		lottoGame.calculateGameResult(InputView.inputWinningNumber());
+		this.lottoGameResult = new LottoGameResult(InputView.inputWinningNumber(), lottos);
 	}
 
 	private void showLottoGameResult() {
-		OutputView.printLottoGameResult(lottoGame.getGameResult());
-		OutputView.printLottoGameProfit(lottoGame.calculateGameProfit());
+		OutputView.printLottoGameResult(lottoGameResult.getGameResult());
+		OutputView.printLottoGameProfit(lottoGameResult.calculateGameProfit(lottoGame.getPurchaseAmount()));
 	}
 }

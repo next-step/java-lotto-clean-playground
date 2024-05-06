@@ -5,6 +5,7 @@ import java.util.List;
 import domain.Lotto;
 
 public class OutputView {
+	
 	private static void printNewLine() {
 		System.out.println();
 	}

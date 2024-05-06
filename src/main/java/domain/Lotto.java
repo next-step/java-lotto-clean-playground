@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import response.LottoResponse;
 
@@ -14,6 +15,12 @@ public class Lotto {
 
 	public Lotto() {
 		this.lotto = generateLotto();
+	}
+
+	public Lotto(List<Integer> numbers) {
+		this.lotto = numbers.stream()
+			.map(number -> new LottoNumber(number))
+			.collect(Collectors.toList());
 	}
 
 	private List<LottoNumber> generateLotto() {
@@ -46,6 +53,6 @@ public class Lotto {
 	}
 
 	public List<Integer> getLotto() {
-		return new LottoResponse(lotto).getLottoResponse();
+		return new LottoResponse(List.copyOf(lotto)).getLottoResponse();
 	}
 }

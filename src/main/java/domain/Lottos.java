@@ -21,7 +21,7 @@ public class Lottos {
 	}
 
 	public List<Lotto> getLottos() {
-		return lottos;
+		return List.copyOf(lottos);
 	}
 
 	public List<Integer> getMatchedLottoCounts(List<Integer> lottoWinningNumber) {

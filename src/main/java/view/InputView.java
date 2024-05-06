@@ -18,7 +18,8 @@ public class InputView {
 		scanner.nextLine();
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 		return Arrays.stream(scanner.nextLine().split(", "))
-			.map((number) -> Integer.valueOf(number))
+			.filter(item -> !item.isBlank())
+			.map((number) -> Integer.parseInt(number))
 			.collect(Collectors.toList());
 	}
 }

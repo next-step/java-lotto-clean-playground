@@ -7,7 +7,14 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	private final int lottoNumber;
 
 	public LottoNumber(int number) {
+		validate(number);
 		this.lottoNumber = number;
+	}
+
+	private void validate(int number) {
+		if (number < MIN_NUMBER || number > MAX_NUMBER) {
+			throw new IllegalArgumentException("로또 번호는 " + MIN_NUMBER + "과 " + MAX_NUMBER + " 사이여야 합니다.");
+		}
 	}
 
 	public int getLottoNumber() {
