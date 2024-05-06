@@ -2,21 +2,27 @@ package controller;
 
 import model.Lotto;
 import model.RankCalculator;
+import view.LottoInput;
 import view.LottoOutput;
 
-import java.util.List;
-
 public class LottoController {
+    public void run(Lotto lotto) {
+        final var manualLottoCount = LottoInput.inputManualLottoCount();
+        final var manualLottoNumbers = LottoInput.inputManualLottoNumbers(manualLottoCount);
 
-    private RankCalculator rankCalculator;
-    private Lotto lotto;
+        lotto.calcLottoNumbersCount(manualLottoCount);
+        lotto.addManualLottoNumbers(manualLottoNumbers);
+        lotto.generateRandomLottoNumbers();
+        LottoOutput.printLottoNumbers(lotto);
 
-    public LottoController(RankCalculator rankCalculator, Lotto lotto) {
-        this.rankCalculator = rankCalculator;
-        this.lotto = lotto;
-    }
+        final var ansNumber = LottoInput.inputLottoAnswer();
+        final var bonusBall = LottoInput.inputBonusBall();
 
-    public void run() {
+        final var rankCalculator = new RankCalculator(ansNumber, bonusBall);
+        rankCalculator.calculateAllLottoCorrectNumbers(lotto);
+        LottoOutput.printCorrectNumbers(rankCalculator);
 
+        double rate = rankCalculator.calculateRateOfReturn(lotto.getBalance());
+        LottoOutput.printRateOfReturn(rate);
     }
 }
