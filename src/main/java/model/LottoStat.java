@@ -2,6 +2,7 @@ package model;
 
 import config.ResultType;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,11 +27,7 @@ public class LottoStat {
     }
 
     public Map<ResultType, Integer> getStatics() {
-        Map<ResultType, Integer> copy = new LinkedHashMap<>();
-        for (ResultType type : statics.keySet()) {
-            copy.put(type, statics.get(type));
-        }
-        return copy;
+        return Collections.unmodifiableMap(this.statics);
     }
 
     public double getTotalReturnRate(final int inputPrice) {

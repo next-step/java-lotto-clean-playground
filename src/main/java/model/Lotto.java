@@ -9,7 +9,7 @@ public class Lotto {
     }
 
     public Numbers getNumbers() {
-        return numbers;
+        return new Numbers(numbers.getNumbers());
     }
 
     @Override
