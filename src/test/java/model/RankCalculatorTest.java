@@ -24,7 +24,7 @@ class RankCalculatorTest {
         RankCalculator rankCalculator = new RankCalculator(new OneLotto(ansLottoNumbers));
         rankCalculator.allLottoRank(lottos);
 
-        assertThat(rankCalculator.correctNum.get(3)).isEqualTo(1);
+        assertThat(rankCalculator.getCorrectNum().get(3)).isEqualTo(1);
     }
 
     @DisplayName("여러 장 로또의 총 수익금과 수익률이 올바른지 확인한다.")
@@ -48,6 +48,6 @@ class RankCalculatorTest {
         RankCalculator rankCalculator = new RankCalculator(new OneLotto(ansLottoNumbers));
         rankCalculator.allLottoRank(lottos);
 
-        assertThat(rankCalculator.rateOfReturn(lottos)).isEqualTo(40031100);
+        assertThat(rankCalculator.rateOfReturn(lottos.getBalance())).isEqualTo(40031100);
     }
 }

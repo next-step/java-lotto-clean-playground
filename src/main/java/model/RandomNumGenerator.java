@@ -18,5 +18,4 @@ public class RandomNumGenerator {
         return numList.subList(0, 6);
     }
 
-
 }

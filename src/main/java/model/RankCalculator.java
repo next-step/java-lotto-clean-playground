@@ -1,25 +1,21 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RankCalculator {
 
-    private final OneLotto ans;
-    List<Integer> correctNum = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0));
+    private final List<Integer> ans;
 
-    public RankCalculator(OneLotto ans) {
+    public RankCalculator(List<Integer> ans) {
         this.ans = ans;
     }
 
     private void eachLottoRank(OneLotto oneLotto) {
         List<Integer> numbers = oneLotto.getLottoNumbers(); //로또 한장
-        List<Integer> ansNumbers = ans.getLottoNumbers(); //정답 로또 번호
         long count = numbers.stream()
-                .filter(ansNumbers::contains)
+                .filter(ans::contains)
                 .count(); //몇개맞지?
-        correctNum.set((int) (count - 1), correctNum.get((int) count - 1) + 1);
+        oneLotto.setCorrectNum((int) count);
     }
 
     public void allLottoRank(Lottos lottos) {
@@ -29,20 +25,25 @@ public class RankCalculator {
         }
     }
 
-    private long calculateTotal(List<Integer> rankList) {
-        List<Integer> money = new ArrayList<>
-                (Arrays.asList(0, 0, 5000, 50000, 1500000, 2000000000));
+    public long calculateTotal(Lottos lottos) {
         long total = 0;
-        for (int i = 2; i < rankList.size(); i++) {
-            total += ((long) rankList.get(i) * money.get(i));
+        List<OneLotto> oneLottoList = lottos.getMyLottos();
+
+        for (OneLotto oneLotto : oneLottoList) {
+            oneLotto.setBonusCheck(lottos);
+            oneLotto.setCorrectCnt();
+        }
+
+        for (OneLotto oneLotto : oneLottoList) {
+            CorrectNum correctCnt = oneLotto.getCorrectCnt();
+            total += correctCnt.getMoney();
         }
         return total;
     }
 
-    public double rateOfReturn(Lottos lottos) {
-        int balance = lottos.getBalance();
-        long total = calculateTotal(correctNum);
-
-        return (double) (total / balance * 100);
+    public String rateOfReturn(int balance, long total) {
+        String result = String.format("%.2f", (double) total / (double) balance);
+        return result;
     }
+
 }

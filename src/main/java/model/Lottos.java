@@ -6,6 +6,7 @@ public class Lottos {
     private final int balance;
     private final int count;
     private final List<OneLotto> myLottos;
+    private int bonusBall;
 
     public Lottos(int balance, int count, List<OneLotto> myLottos) {
         this.balance = balance;
@@ -21,5 +22,15 @@ public class Lottos {
         return myLottos;
     }
 
+    public int getCount() {
+        return count;
+    }
 
+    public int getBonusBall() {
+        return bonusBall;
+    }
+
+    public void setBonusBall(int bonusBall) {
+        this.bonusBall = bonusBall;
+    }
 }
