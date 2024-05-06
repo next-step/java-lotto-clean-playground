@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoPrice;
 import domain.WinningNumbers;
 
 import java.util.ArrayList;
@@ -13,12 +14,16 @@ public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
     public static int readLottoPrice() {
-        int lottoPrice = scanner.nextInt();
-        scanner.nextLine();
-        if (lottoPrice < 1000) {
-            throw new IllegalArgumentException("로또 구입금액은 1000원이상만 가능합니다.");
+        String input = scanner.nextLine();
+        try {
+            LottoPrice lottoPrice = LottoPrice.valueOf(input);
+            if (lottoPrice.price() < LottoPrice.PRICE_UNIT) {
+                throw new IllegalArgumentException("로또 구입금액은 1000원 이상만 가능합니다.");
+            }
+            return lottoPrice.price();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("로또 구입금액은 유효한 숫자여야 합니다.");
         }
-        return lottoPrice;
     }
 
     public static List<List<Integer>> inputManualNumbers(int manualCount) {
