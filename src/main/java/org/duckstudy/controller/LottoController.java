@@ -3,9 +3,9 @@ package org.duckstudy.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.Lottos;
-import org.duckstudy.model.Price;
 import org.duckstudy.view.InputView;
 import org.duckstudy.view.OutputView;
 
@@ -22,7 +22,7 @@ public class LottoController {
     public void run() throws IOException {
         Price price = createPrice();
         Lottos lottos = createLottos(price.calculateLottoCount());
-        outputView.printLottos(lottos.toList());
+        outputView.printLottos(lottos.getLottos());
     }
 
     private Price createPrice() throws IOException {
