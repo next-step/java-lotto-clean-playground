@@ -1,31 +1,26 @@
 package controller;
 
-import domain.LottoTicket;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoStatistics;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class LottoController {
-    public void run() {
-        int amountToBuy = InputView.getAmountToBuy();
-        List<LottoTicket> tickets = buyLottoTickets(amountToBuy);
-        OutputView.displayTicketCount(tickets.size());
-        OutputView.displayLottoTickets(tickets);
+    public static void main(String[] args) {
+        LottoController controller = new LottoController();
+        controller.run();
     }
 
-    private List<LottoTicket> buyLottoTickets(final int amountToBuy) {
-        int ticketCount = amountToBuy / LottoTicket.getLottoPrice();
-        return generateLottoTickets(ticketCount);
-    }
+    private void run() {
+        int purchaseAmount = InputView.getPurchaseAmount();
+        List<Lotto> lottos = Lotto.purchaseLottos(purchaseAmount);
+        OutputView.printLottos(lottos);
 
-    private List<LottoTicket> generateLottoTickets(final int ticketCount) {
-        return IntStream.range(0, ticketCount)
-                .mapToObj(i -> new LottoTicket())
-                .collect(Collectors.toList());
+        List<LottoNumber> winningNumbers = InputView.getWinningNumbers();
+        LottoStatistics statistics = Lotto.getStatistics(lottos, winningNumbers);
+        OutputView.printStatistics(statistics);
     }
-
 }
