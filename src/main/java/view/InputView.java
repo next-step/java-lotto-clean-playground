@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class InputView {
@@ -10,7 +11,7 @@ public class InputView {
     private final static String INPUT_PRICE = "구입금액을 입력해 주세요.";
     private static final Scanner scanner = new Scanner(System.in);
 
-
+    private static final String INPUT_BONUS_BALL="보너스 볼을 입력해 주세요.";
     public int inputPrice(){
         System.out.println(INPUT_PRICE);
         int price = scanner.nextInt();
@@ -28,5 +29,13 @@ public class InputView {
             if(!num.isEmpty())
                 winningNumbers.add(Integer.parseInt(num));
         return winningNumbers;
+    }
+
+    public int inputBonusBall(){
+        System.out.println();
+        System.out.println(INPUT_BONUS_BALL);
+        int bonusBall= scanner.nextInt();
+        scanner.nextLine();
+        return bonusBall;
     }
 }

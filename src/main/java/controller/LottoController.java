@@ -28,7 +28,8 @@ public class LottoController {
         viewLotto(price);
         List<Integer> winningNums=inputView.inputWinningNumbers();
         lottoList.setTotalPrice(price);//넣어야함
-        lottoService.calculateWinningNumbers(winningNums,lottoList);
+        int bonusBall=inputView.inputBonusBall();
+        lottoService.calculateWinningNumbers(winningNums,lottoList,bonusBall);
     }
 
     public int inputMoney(){
@@ -40,14 +41,6 @@ public class LottoController {
         lottoList = generateLottoList(count);
         //printLottoList(lottoList);//생성된 후 출력
     }
-    /*
-    public void printLottoList(LottoList lottoList){//로또 리스트 확인용 함수
-        List<Lotto> list=lottoList.getLottoList();
-        for(Lotto lotto:list)
-            System.out.println(lotto.getNumbers());
-    }
-
-     */
     public Lotto makeLotto(){
         List<Integer> lotto = new ArrayList<>();
         AutoLotto autoLotto = new AutoLotto();
