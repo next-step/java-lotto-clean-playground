@@ -12,23 +12,13 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public static void printAmountMessage(int lottoAmount) {
-        System.out.println(lottoAmount + "개를 구매했습니다.");
-    }
-
     public static void printLottos(List<Lotto> lottos) {
         for (Lotto lotto : lottos) {
             System.out.println(lotto);
         }
     }
-
-    public static void printWinningNumbers(List<Integer> numbers) {
-        if (numbers.isEmpty()) {
-            System.out.println("당첨 번호가 입력되지 않았습니다.");
-        } else {
-            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-            System.out.println(numbers);
-        }
+    public static void printAmountMessage(int manualCount, int autoCount) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount, autoCount);
     }
 
     public static void printWinningStatistics(int[] matchCounts, double profitRate) {
@@ -38,7 +28,7 @@ public class OutputView {
         System.out.println("4개 일치 (50000원)- " + matchCounts[4] + "개");
         System.out.println("5개 일치 (1500000원)- " + matchCounts[5] + "개");
         System.out.println("5개 일치, 보너스 볼 일치 (30000000원)- " + matchCounts[6] + "개");
-        System.out.printf("6개 일치 (2000000000원)-", matchCounts[7] + "개");
+        System.out.println("6개 일치 (2000000000원)-"+matchCounts[7] + "개");
         System.out.printf("총 수익률은 %.2f 입니다.", profitRate);
         printProfitRate(profitRate);
     }
@@ -50,6 +40,5 @@ public class OutputView {
         if (profitRate > 1) {
             System.out.println("(기준이 1이기 때문에 결과적으로 이득라는 의미임)");
         }
-        System.out.println("(기준이 1이기 때문에 이득도 손해도 아님)");
     }
 }

@@ -1,31 +1,51 @@
 package controller;
 
+import domain.Lotto;
+import domain.LottoCalculator;
 import domain.LottoGame;
-import domain.Lottos;
 import domain.WinningNumbers;
 import view.InputView;
 import view.OutputView;
 
 import java.util.List;
 
-import static view.OutputView.printAmountMessage;
-
 public class LottoController {
+    private LottoGame lottoGame;
+    private LottoCalculator lottoCalculator; // LottoCalculator 객체 추가
+    private WinningNumbers winningNumbersObj;
+    private int bonusBall;
+
     public void startGame() {
         OutputView.printStartMessage();
         int lottoTotalPrice = InputView.readLottoPrice();
-        LottoGame lottoGame = new LottoGame(lottoTotalPrice);
-        OutputView.printAmountMessage(lottoGame.calculateLottoAmount());
-        OutputView.printLottos(lottoGame.getLottos());
 
+        int manualCount = InputView.inputManualCount();
+
+        List<List<Integer>> manualNumbers = InputView.inputManualNumbers(manualCount);
+        int autoCount = (lottoTotalPrice - manualCount * Lotto.PRICE_PER_TICKET) / Lotto.PRICE_PER_TICKET;
+        this.lottoGame = new LottoGame(lottoTotalPrice, manualCount, autoCount, manualNumbers);
+
+        // 구매한 로또의 갯수를 출력합니다.
+        OutputView.printAmountMessage(manualCount, autoCount);
+
+        // 생성된 로또를 출력합니다.
+        OutputView.printLottos(this.lottoGame.getLottos());
+
+        // 당첨 번호를 입력받습니다.
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
-        int bonusBall = InputView.inputBonusBall();
-        WinningNumbers winningNumbersObj = new WinningNumbers(winningNumbers);
+        this.bonusBall = InputView.inputBonusBall();
+        this.winningNumbersObj = new WinningNumbers(winningNumbers);
+    }
 
-        int[] winningStatistics = lottoGame.calculateWinningStatistics(winningNumbersObj, bonusBall);
-        int totalLottoCount = lottoGame.getLottos().size();
-        double profitRate = LottoGame.calculateProfitRate(winningStatistics, totalLottoCount);
+    public void resultLotto() {
+        // LottoCalculator 객체 생성
+        this.lottoCalculator = new LottoCalculator();
 
+        // 당첨 통계를 계산하고 출력합니다.
+        int[] winningStatistics = this.lottoCalculator.calculateWinningStatistics(this.lottoGame.getLottos(), this.winningNumbersObj, this.bonusBall);
+        int totalLottoCount = this.lottoGame.getLottos().size();
+        double profitRate = LottoCalculator.calculateProfitRate(winningStatistics, totalLottoCount);
         OutputView.printWinningStatistics(winningStatistics, profitRate);
     }
 }
+
