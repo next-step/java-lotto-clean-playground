@@ -9,10 +9,12 @@ import java.util.List;
 public class LottoController {
     public void run() {
         int purchaseAmount = InputView.getPurchaseAmount();
-        List<Lotto> lottos = LottoMachine.generateLottos(purchaseAmount / Lotto.LOTTO_PRICE);
-        OutputView.printLottos(lottos);
+        int manualLottoCount = InputView.getManualLottoCount();
+        List<Lotto> lottos = InputView.getManualLottos(manualLottoCount);
+        lottos.addAll(LottoMachine.generateLottos(purchaseAmount / Lotto.LOTTO_PRICE - manualLottoCount));
+        OutputView.printLottos(lottos, manualLottoCount);
 
-        Lotto winningLotto = InputView.getWinningLotto();
+        Lotto winningLotto = InputView.getWinningLottoNumbers();
         LottoNumber bonusNumber = InputView.getBonusNumber();
 
         LottoResult result = getLottoResult(lottos, winningLotto, bonusNumber);
