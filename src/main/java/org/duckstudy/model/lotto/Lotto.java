@@ -1,38 +1,39 @@
 package org.duckstudy.model.lotto;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private static final int START_INCLUSIVE_NUMBER = 1;
-    private static final int END_EXCLUSIVE_NUMBER = 46;
-    private static final List<Integer> NUMBERS;
+    public static final int START_INCLUSIVE_NUMBER = 1;
+    public static final int END_EXCLUSIVE_NUMBER = 46;
+    public static final List<Integer> NUMBERS = makeNumbers();
+    public static final int FROM_INDEX = 0;
+    public static final int LOTTO_SIZE = 6;
 
-    private final List<Integer> lotto;
+    public final List<Integer> lotto;
 
-    static {
-        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
+    public Lotto() {
+        this.lotto = Collections.unmodifiableList(makeLotto());
+    }
+
+    private static List<Integer> makeNumbers() {
+        return IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
                 .boxed()
                 .toList();
     }
 
-    public Lotto(List<Integer> lotto) {
-        this.lotto = Collections.unmodifiableList(lotto);
-    }
+    private List<Integer> makeLotto() {
+        List<Integer> numbers = new ArrayList<>(NUMBERS);
 
-    public static Lotto createRandomLotto() {
-        List<Integer> result = NUMBERS.stream()
-                .sorted(Comparator.comparingInt(i -> ThreadLocalRandom.current().nextInt()))
-                .limit(6)
-                .sorted()
-                .collect(Collectors.toList());
+        Collections.shuffle(numbers);
+        numbers = numbers.subList(FROM_INDEX, LOTTO_SIZE);
 
-        return new Lotto(result);
+        Collections.sort(numbers);
+
+        return numbers;
     }
 
     public List<Integer> getLotto() {

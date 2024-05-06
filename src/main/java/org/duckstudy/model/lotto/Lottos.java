@@ -1,7 +1,8 @@
-package org.duckstudy.model;
+package org.duckstudy.model.lotto;
 
 import java.util.Collections;
 import java.util.List;
+import org.duckstudy.model.lotto.Lotto;
 
 public class Lottos {
 
