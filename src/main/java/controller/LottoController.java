@@ -11,22 +11,34 @@ public class LottoController {
 	private final Lottos lottos;
 
 	public LottoController() {
-		this.lottoGame = new LottoGame(readPurchaseAmount());
+		this.lottoGame = new LottoGame(readLottoPurchaseAmount());
 		this.lottos = new Lottos(lottoGame.getLottoCount());
-		showLottoPurchaseCount();
-		showLottos();
 	}
 
-	private int readPurchaseAmount() {
+	private int readLottoPurchaseAmount() {
 		return InputView.inputPurchaseAmount();
+	}
+
+	public void startGame() {
+		showLottoPurchaseCount();
 	}
 
 	private void showLottoPurchaseCount() {
 		OutputView.printLottoPurchaseCount(lottoGame.getLottoCount());
+		showLottoNumbers();
 	}
 
-	private void showLottos() {
+	private void showLottoNumbers() {
 		OutputView.printLottos(lottos.getLottos());
+		readLottoWinningNumber();
 	}
 
+	private void readLottoWinningNumber() {
+		lottoGame.calculateGameResult(InputView.inputWinningNumber());
+		showLottoGameResult();
+	}
+
+	private void showLottoGameResult() {
+		OutputView.printLottoGameResult(lottoGame.getGameResult());
+	}
 }
