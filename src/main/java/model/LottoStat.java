@@ -26,15 +26,15 @@ public class LottoStat {
         }
     }
 
-    public Map<ResultType, Integer> getStatics() {
-        return Collections.unmodifiableMap(this.statics);
-    }
-
     public double getTotalReturnRate(final int inputPrice) {
         for (ResultType key : statics.keySet()) {
             this.totalWinningPrice += key.getWinningPrice() * statics.get(key);
         }
         return (double) this.totalWinningPrice / inputPrice;
+    }
+
+    public Map<ResultType, Integer> getStatics() {
+        return Collections.unmodifiableMap(this.statics);
     }
 
 }
