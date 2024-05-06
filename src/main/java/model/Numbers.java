@@ -14,7 +14,7 @@ public class Numbers {
 
     public Numbers(final List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = new ArrayList<>(numbers);
     }
 
     private void validate(final List<Integer> numbers) {
