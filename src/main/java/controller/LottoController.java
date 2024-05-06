@@ -44,7 +44,7 @@ public class LottoController {
     private LottoStat calculateLottos(final List<Lotto> lottos) {
         WinningLotto winningLotto = createWinningLotto();
         LottoStat stat = new LottoStat();
-        winningLotto.getLottoResult(lottos, stat);
+        winningLotto.setLottoResult(lottos, stat);
         return stat;
     }
 

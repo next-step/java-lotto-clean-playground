@@ -15,7 +15,7 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public void getLottoResult(final List<Lotto> lottos, final LottoStat stat) {
+    public void setLottoResult(final List<Lotto> lottos, final LottoStat stat) {
         for (Lotto lotto : lottos) {
             ResultType lottoResult = compareLotto(lotto);
             stat.updateWinningStat(lottoResult);
