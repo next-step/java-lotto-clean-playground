@@ -18,13 +18,13 @@ public class LottoPrice {
 
     private void validateRange(int price) {
         if (price < MIN_PRICE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 금액은 0이상 이어야 한다.");
         }
     }
 
     private void validateUnit(int price) {
         if (price % PRICE_UNIT != 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 금액은 1000원 단위여야 한다.");
         }
     }
 }
