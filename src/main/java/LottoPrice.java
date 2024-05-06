@@ -27,4 +27,8 @@ public class LottoPrice {
             throw new IllegalArgumentException("로또 금액은 1000원 단위여야 한다.");
         }
     }
+
+    public int getPrice() {
+        return price;
+    }
 }

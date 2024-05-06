@@ -25,12 +25,12 @@ public class LottoTest {
     @Test
     void 로또_숫자는_오름차순_정렬되어있다() {
         var unsortedNumbers = List.of(new LottoNumber(6), new LottoNumber(5), new LottoNumber(4), new LottoNumber(3), new LottoNumber(2), new LottoNumber(1));
-        var sortedNumbers = List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+        // var sortedNumbers = List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
 
         var unsortedLotto = new Lotto(unsortedNumbers);
-        var sortedLotto = new Lotto(sortedNumbers);
+        // var sortedLotto = new Lotto(sortedNumbers);
 
-        assertThat(unsortedLotto.numbers().equals(sortedLotto.numbers()));
-        // assertThat(unsortedLotto.numbers()).isSorted();
+        //assertThat(unsortedLotto.numbers().equals(sortedLotto.numbers()));
+        assertThat(unsortedLotto.numbers()).isSorted();
     }
 }

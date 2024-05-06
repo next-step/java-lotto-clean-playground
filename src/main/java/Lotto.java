@@ -9,8 +9,7 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
-        sortNumbers(numbers);
-        this.numbers = numbers;
+        this.numbers = sortNumbers(numbers);
     }
 
     private void validate(List<LottoNumber> numbers) {
@@ -31,8 +30,9 @@ public class Lotto {
         }
     }
 
-    private void sortNumbers(List<LottoNumber> numbers) {
+    private List<LottoNumber> sortNumbers(List<LottoNumber> numbers) {
         Collections.sort(numbers);
+        return numbers;
     }
 
     public List<LottoNumber> numbers() {
