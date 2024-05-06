@@ -4,18 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import response.LottoResponse;
+
 public class Lotto {
-	private final List<Integer> lotto;
+
+	public static final int LOTTO_SIZE = 6;
+
+	private final List<LottoNumber> lotto;
 
 	public Lotto() {
 		this.lotto = generateLotto();
 	}
 
-	private List<Integer> generateLotto() {
+	private List<LottoNumber> generateLotto() {
 		List<Integer> randomNumberList = generateRandomNumberList();
-		List<Integer> generatedLotto = new ArrayList<>();
-		for (int i = 0; i < LottoGame.LOTTO_LENGTH; i++) {
-			generatedLotto.add(randomNumberList.get(i));
+		List<LottoNumber> generatedLotto = new ArrayList<>();
+		for (int i = 0; i < LOTTO_SIZE; i++) {
+			generatedLotto.add(new LottoNumber(randomNumberList.get(i)));
 		}
 		Collections.sort(generatedLotto);
 		return generatedLotto;
@@ -23,7 +28,7 @@ public class Lotto {
 
 	private List<Integer> generateRandomNumberList() {
 		List<Integer> numbers = new ArrayList<>();
-		for (int i = 1; i <= LottoGame.LOTTO_MAX_NUMBER; i++) {
+		for (int i = 1; i <= LottoNumber.MAX_NUMBER; i++) {
 			numbers.add(i);
 		}
 		Collections.shuffle(numbers);
@@ -32,16 +37,15 @@ public class Lotto {
 
 	public int getMatchedNumberCount(List<Integer> lottoWinningNumber) {
 		int matchedNumberCount = 0;
-		for (int i = 0; i < LottoGame.LOTTO_LENGTH; i++) {
-			if (lotto.contains(lottoWinningNumber.get(i))) {
+		for (int i = 0; i < LOTTO_SIZE; i++) {
+			if (lotto.get(i).getLottoNumber() == lottoWinningNumber.get(i)) {
 				matchedNumberCount += 1;
 			}
 		}
 		return matchedNumberCount;
 	}
 
-	@Override
-	public String toString() {
-		return lotto.toString();
+	public List<Integer> getLotto() {
+		return new LottoResponse(lotto).getLottoResponse();
 	}
 }

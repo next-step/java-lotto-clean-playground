@@ -15,17 +15,18 @@ public class LottoController {
 		this.lottos = new Lottos(lottoGame.getLottoCount());
 	}
 
+	public void startGame() {
+		showLottoPurchaseCount();
+		showLottoNumbers();
+		showLottoGameResult();
+	}
+
 	private int readLottoPurchaseAmount() {
 		return InputView.inputPurchaseAmount();
 	}
 
-	public void startGame() {
-		showLottoPurchaseCount();
-	}
-
 	private void showLottoPurchaseCount() {
 		OutputView.printLottoPurchaseCount(lottoGame.getLottoCount());
-		showLottoNumbers();
 	}
 
 	private void showLottoNumbers() {
@@ -35,7 +36,6 @@ public class LottoController {
 
 	private void readLottoWinningNumber() {
 		lottoGame.calculateGameResult(InputView.inputWinningNumber());
-		showLottoGameResult();
 	}
 
 	private void showLottoGameResult() {

@@ -15,8 +15,7 @@ public class Lottos {
 	private List<Lotto> generateLottos() {
 		List<Lotto> generatedLottos = new ArrayList<>();
 		for (int i = 0; i < lottoCount; i++) {
-			Lotto lotto = new Lotto();
-			generatedLottos.add(lotto);
+			generatedLottos.add(new Lotto());
 		}
 		return generatedLottos;
 	}
