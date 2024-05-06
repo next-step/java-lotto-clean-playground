@@ -3,6 +3,9 @@ package model;
 public class ManualCount {
     private int manualCount;
 
+    public ManualCount(){
+
+    }
     public ManualCount(String manualCount){
         this.manualCount = convertStringToInt(manualCount)
         ;
