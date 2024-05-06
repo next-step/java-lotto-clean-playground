@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import domain.LottoGame;
 import domain.LottoGameResult;
 import domain.Lottos;
@@ -34,14 +36,18 @@ public class LottoController {
 
 	private void showLottoNumbers() {
 		OutputView.printLottos(lottos.getLottos());
-		readLottoWinningNumber();
 	}
 
-	private void readLottoWinningNumber() {
-		this.lottoGameResult = new LottoGameResult(InputView.inputWinningNumber(), lottos);
+	private List<Integer> readLottoWinningNumber() {
+		return InputView.inputWinningNumber();
+	}
+
+	private int readLottoBonusNumber() {
+		return InputView.inputBonusNumber();
 	}
 
 	private void showLottoGameResult() {
+		this.lottoGameResult = new LottoGameResult(readLottoWinningNumber(), readLottoBonusNumber(), lottos);
 		OutputView.printLottoGameResult(lottoGameResult.getGameResult());
 		OutputView.printLottoGameProfit(lottoGameResult.calculateGameProfit(lottoGame.getPurchaseAmount()));
 	}
