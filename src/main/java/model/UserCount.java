@@ -4,9 +4,11 @@ public class UserCount {
 
     private static final int LOTTO_UNIT = 1000;
 
-    private final int count;
-    private final int price;
+    private int count;
+    private int price;
 
+    public UserCount(){
+    }
     public UserCount(String price){
         int priceNum = convertStringToInt(price);
         validate(priceNum);
