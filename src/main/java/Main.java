@@ -8,7 +8,11 @@ public class Main {
         final var balance = LottoInput.inputBalance();
         final var lotto = new Lotto(balance);
 
-        lotto.calcLottoNumbersCount();
+        final var manualLottoCount = LottoInput.inputManualLottoCount();
+        final var manualLottoNumbers = LottoInput.inputManualLottoNumbers(manualLottoCount);
+
+        lotto.calcLottoNumbersCount(manualLottoCount);
+        lotto.addManualLottoNumbers(manualLottoNumbers);
         lotto.generateRandomLottoNumbers();
         LottoOutput.printLottoNumbers(lotto);
 

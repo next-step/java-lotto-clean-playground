@@ -27,7 +27,10 @@ public class LottoOutput {
     }
 
     public static void printLottoNumbers(Lotto lotto) {
-        System.out.println(lotto.getCount() + "개를 구매했습니다.");
+        System.out.println("수동으로 "
+                + lotto.getManualCount() + "장,"
+                + "자동으로 " + lotto.getAutoCount()
+                + "개를 구매했습니다.");
         List<LottoNumber> lottoNumberList = lotto.getLottoNumberList();
         for (LottoNumber myLotto : lottoNumberList) {
             System.out.println(makeLottoNumberToString(myLotto));
