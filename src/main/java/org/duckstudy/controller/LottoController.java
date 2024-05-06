@@ -28,7 +28,7 @@ public class LottoController {
     private Price createPrice() throws IOException {
         try {
             return new Price(inputView.inputPrice());
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createPrice();
         }
