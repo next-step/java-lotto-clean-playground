@@ -23,15 +23,36 @@ public class OutputView {
         }
     }
 
-    public void printResults(int [] arr, double rate){
+    public void printResults(List<Integer> matchCounts, double rate) {
+        printResultHeader();
+        printMatchCounts(matchCounts);
+        printWinningRate(rate);
+    }
+
+    private void printResultHeader() {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println(WinningType.FIFTH.getSameCountMessage() + arr[0] + COUNT_SUFFIX);
-        System.out.println(WinningType.FOURTH.getSameCountMessage() + arr[1] + COUNT_SUFFIX);
-        System.out.println(WinningType.THIRD.getSameCountMessage() + arr[2] + COUNT_SUFFIX);
-        System.out.println(WinningType.SECOND.getSameCountMessage() + arr[3] + COUNT_SUFFIX);
-        System.out.println(WinningType.FIRST.getSameCountMessage() + arr[4] + COUNT_SUFFIX);
+    }
+
+    private void printMatchCounts(List<Integer> matchCounts) {
+        WinningType[] winningTypes = WinningType.values();
+
+        for (int i = 0; i < matchCounts.size(); i++) {
+            WinningType type = winningTypes[i];
+            int count = matchCounts.get(i);
+
+            String message = getMessageForWinningType(type, count);
+            System.out.println(message);
+        }
+    }
+    private String getMessageForWinningType(WinningType type, int count) {
+        String message = type.getMessage();
+        return message + count + COUNT_SUFFIX + " - " + count + "개";
+
+    }
+
+    private void printWinningRate(double rate) {
         System.out.printf("총 수익률은 %.2f 입니다. (기준이 1이기 때문에 결과적으로 손해라는 의미임)%n", rate);
     }
 }
