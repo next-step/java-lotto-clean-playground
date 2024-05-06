@@ -7,9 +7,9 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    public static final int START_INCLUSIVE = 1;
-    public static final int END_EXCLUSIVE = 45;
-    public static final List<Integer> NUMBERS = IntStream.range(START_INCLUSIVE, END_EXCLUSIVE).boxed().toList();
+    public static final int START_INCLUSIVE_NUMBER = 1;
+    public static final int END_EXCLUSIVE_NUMBER = 46;
+    public static final List<Integer> NUMBERS = makeNumbers();
     public static final int FROM_INDEX = 0;
     public static final int LOTTO_SIZE = 6;
 
@@ -17,6 +17,12 @@ public class Lotto {
 
     public Lotto() {
         this.lotto = Collections.unmodifiableList(makeLotto());
+    }
+
+    private static List<Integer> makeNumbers() {
+        return IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
+                .boxed()
+                .toList();
     }
 
     private List<Integer> makeLotto() {
