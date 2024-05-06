@@ -21,6 +21,7 @@ public class InputView {
 
     public static String readManualLotto() {
         String manualLotto = scanner.nextLine();
+        System.out.println();
         return manualLotto;
     }
 

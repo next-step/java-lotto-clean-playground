@@ -8,6 +8,8 @@ import java.util.Set;
 public class Lotto {
     private List<LottoNumber> lotto = new ArrayList<>();
 
+    public static final int LOTTO_SIZE = 6;
+
     public Lotto(List<LottoNumber> lotto) {
         validate(lotto);
         this.lotto = lotto;
@@ -23,14 +25,13 @@ public class Lotto {
     }
 
     private void validateSize(List<LottoNumber> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또는 6개의 숫자로 이루어져야 합니다.");
         }
     }
 
     private void validateDuplication(List<LottoNumber> numbers) {
         long duplicatedSize = checkDuplicatedSize(numbers);
-        System.out.println(duplicatedSize);
         if (numbers.size() != duplicatedSize) {
             throw new IllegalArgumentException("로또는 중복되지 않는 6개의 숫자로 이루어져야 합니다.");
         }

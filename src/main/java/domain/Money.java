@@ -2,6 +2,7 @@ package domain;
 
 public class Money {
     private final int money;
+    public static final int PRICE_UNIT = 1_000;
 
     public Money(String money) {
         this.money = validate(money);

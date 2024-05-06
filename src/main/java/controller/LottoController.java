@@ -56,24 +56,24 @@ public class LottoController {
     public static void addManualLottos() {
 
         String manualLotto = InputView.readManualLotto();
-        List<LottoNumber> manualLottoList = new ArrayList<>();
-        for (String lottoNumber : manualLotto.split(",\\s*")) {
-            manualLottoList.add(new LottoNumber(lottoNumber));
-        }
-        userLottos.addLotto(new Lotto(manualLottoList));
+        userLottos.addLotto(new Lotto(makeLottoList(manualLotto)));
     }
 
-    private static void showAllLotto(int ticket) {
+    public static void showAllLotto(int ticket) {
         OutputView.printLottos(manualLottoNum, ticket - manualLottoNum, userLottos);
     }
 
     public static List<LottoNumber> getLastWeekLotto() {
         String lastWeekLotto = InputView.readlastWeekLotto();
-        List<LottoNumber> lastWeekLottoList = new ArrayList<>();
-        for (String lottoNumber : lastWeekLotto.split(",\\s*")) {
-            lastWeekLottoList.add(new LottoNumber(lottoNumber));
+        return makeLottoList(lastWeekLotto);
+    }
+
+    public static List<LottoNumber> makeLottoList(String lotto) {
+        List<LottoNumber> LottoList = new ArrayList<>();
+        for (String lottoNumber : lotto.split(",\\s*")) {
+            LottoList.add(new LottoNumber(lottoNumber));
         }
-        return lastWeekLottoList;
+        return LottoList;
     }
 
     public static int getBonusLottoNum() {
