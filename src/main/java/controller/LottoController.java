@@ -40,5 +40,6 @@ public class LottoController {
 
 	private void showLottoGameResult() {
 		OutputView.printLottoGameResult(lottoGame.getGameResult());
+		OutputView.printLottoGameProfit(lottoGame.calculateGameProfit());
 	}
 }

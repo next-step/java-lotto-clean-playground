@@ -38,13 +38,15 @@ public class LottoGame {
 				}
 			}
 		});
-		gameResult.add(calculateGameProfit());
 		this.gameResult = gameResult;
 	}
 
 	public double calculateGameProfit() {
 		int totalProfit = 0;
-
+		for (int i = 0; i < LOTTO_PRIZE_MATCHED_COUNT.size(); i++) {
+			totalProfit += gameResult.get(i).intValue() * LOTTO_PRIZE_MONEY.get(i);
+		}
+		return ((double)totalProfit / purchaseAmount);
 	}
 
 	public int getLottoCount() {
