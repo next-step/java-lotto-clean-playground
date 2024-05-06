@@ -14,49 +14,49 @@ public class InputView {
             System.out.println("구입금액을 입력해 주세요.");
             int budget = scanner.nextInt();
             scanner.nextLine();
+            System.out.println();
             return budget;
         } catch (InputMismatchException e) {
             throw new IllegalArgumentException("숫자를 입력해주세요");
         }
     }
 
-    public int readManualQuantity(){
+    public int readManualLottoQuantity(){
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 
-        int manualNum = scanner.nextInt();
+        int manualLottoQuantity = scanner.nextInt();
         scanner.nextLine();
+        System.out.println();
 
-        return manualNum;
+        return manualLottoQuantity;
     }
 
-    public List<List<Integer>> readManualLottoNumbers(int manualNum) {
+    public List<List<Integer>> readManualLottosNumber(int manualLottoQuantity) {
 
-        List<List<Integer>> manualNumbers = new ArrayList<>();
-
-        // 수동 로또 번호를 받아서 로또 객체를 만들어야 하는데 Lotto 객체 생성자가 이미 랜덤으로 번호를 만들 수 있게끔 설정을 해버렸음.
-        // 여기부터 수정 필요.
+        List<List<Integer>> manualLottosNumber = new ArrayList<>();
 
         System.out.println("수동으로 구매할 번호를 입력해주세요");
-        for (int i = 0; i < manualNum; i++) {
-            manualNumbers.add(readManulNumber());
+        for (int i = 0; i < manualLottoQuantity; i++) {
+            manualLottosNumber.add(readManualLottoNumber());
         }
+        System.out.println();
 
-        return manualNumbers;
+        return manualLottosNumber;
     }
 
-    private List<Integer> readManulNumber(){
-        final String REGEX = ", ";
-        List<Integer> manualNumber = new ArrayList<>();
+    private List<Integer> readManualLottoNumber(){
+        final String DELIMETER = ", ";
+        List<Integer> manualLottoNumber = new ArrayList<>();
 
-        String str = scanner.nextLine();
+        String manualInput = scanner.nextLine();
 
-        String[] winNumbersByString = str.split(REGEX);
+        String[] NumbersByString = manualInput.split(DELIMETER);
 
-        for (String string : winNumbersByString) {
-            manualNumber.add(Integer.valueOf(string));
+        for (String string : NumbersByString) {
+            manualLottoNumber.add(Integer.valueOf(string));
         }
 
-        return manualNumber;
+        return manualLottoNumber;
     }
 
     public List<Integer> readWinLottoNumbers() {

@@ -19,12 +19,13 @@ public class OutputView {
         System.out.println(lotto.getLottoNumber());
     }
 
-    public void printLottoQuantity(LottoMaker lottoMaker) {
-        System.out.println(lottoMaker.getLottoQuantity() + "개를 구매했습니다.");
+    public void printLottoQuantity(int ManualLottoQuantity, int AutoLottoQuantity) {
+        System.out.println("수동으로 " + ManualLottoQuantity + "장, 자동으로" + AutoLottoQuantity + "개를 구매했습니다.");
     }
 
     public void printPrizeResult(WinDiscriminator discriminator, int budget) {
         Prize prize = discriminator.getPrize();
+
         String fourthPrize = "3개 일치" + " (" + prize.getFourthPrize() + "원)- " + prize.getFourthPrizeQuantity() + "개";
         String thirdPrize = "4개 일치" + " (" + prize.getThirdPrize() + "원)- " + prize.getThirdPrizeQuantity() + "개";
         String secondPrize = "5개 일치" + " (" + prize.getSecondPrize() + "원)- " + prize.getSecondPrizeQuantity() + "개";

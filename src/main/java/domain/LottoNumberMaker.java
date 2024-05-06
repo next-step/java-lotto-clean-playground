@@ -6,33 +6,42 @@ import java.util.List;
 
 public class LottoNumberMaker {
 
-    List<Integer> lottoNumbers = new ArrayList<>();
+    List<Integer> lottoBalls = new ArrayList<>();
 
-    public List<Integer> getLottoNumbers() {
-        List<Integer> ret = new ArrayList<>();
-
-        initLottoNumbers();
-        shuffleLottoNumbers();
-
-        for (int i = 0; i < 6; i++) {
-            ret.add(lottoNumbers.get(i));
-        }
-
-        sortLottoNumbers(ret);
-        return ret;
+    public LottoNumberMaker(){
+        initLottoBalls();
     }
 
-    private void initLottoNumbers() {
+    private void initLottoBalls() {
         for (int i = 1; i <= 45; i++) {
-            lottoNumbers.add(i);
+            lottoBalls.add(i);
         }
     }
 
-    private void shuffleLottoNumbers() {
-        Collections.shuffle(lottoNumbers);
+    public List<Integer> getLottoNumber() {
+        List<Integer> lottoNumber;
+
+        shuffleLottoBalls();
+        lottoNumber = getSelectedBalls();
+        sortLottoNumber(lottoNumber);
+
+        return lottoNumber;
     }
 
-    private void sortLottoNumbers(List<Integer> lottoNumbers) {
+    private void shuffleLottoBalls() {
+        Collections.shuffle(lottoBalls);
+    }
+
+    private List<Integer> getSelectedBalls(){
+        List<Integer> selectedBalls = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            selectedBalls.add(lottoBalls.get(i));
+        }
+
+        return selectedBalls;
+    }
+
+    private void sortLottoNumber(List<Integer> lottoNumbers) {
         Collections.sort(lottoNumbers);
     }
 }

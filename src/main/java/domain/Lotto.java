@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Lotto {
 
-    private List<Integer> lottoNumber;
+    private final List<Integer> lottoNumber;
     private static LottoNumberMaker numberMaker = new LottoNumberMaker();
 
     public Lotto() {
-        this.lottoNumber = numberMaker.getLottoNumbers();
+        this.lottoNumber = numberMaker.getLottoNumber();
     }
 
     public Lotto(List<Integer> manualNumber){

@@ -1,31 +1,32 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoMaker;
-import domain.WinDiscriminator;
-import view.InputView;
-import view.OutputView;
+import domain.*;
+import view.*;
 
 import java.util.List;
 
 public class Controller {
-
     public void purchaseLotto() {
-        LottoMaker lottoMaker = new LottoMaker();
+        final int LOTTO_PRICE = 1_000;
 
         InputView inputView = new InputView();
         int budget = inputView.readBudget();
-        int manualQuantity = inputView.readManualQuantity();
-        int manualBudget = manualQuantity * 1000;
+        int manalLottoQuantity = inputView.readManualLottoQuantity();
+
+        int manualBudget = manalLottoQuantity * LOTTO_PRICE;
         int autoBudget = budget - manualBudget;
+        int autoLottoQuantity = autoBudget / LOTTO_PRICE;
 
-        List<List<Integer>> manualLottoNumbers= inputView.readManualLottoNumbers(manualQuantity);
+        List<List<Integer>> manualLottoNumbers = inputView.readManualLottosNumber(manalLottoQuantity);
 
-        List<Lotto> lottos = lottoMaker.make(manualBudget, manualLottoNumbers);
-        lottos.addAll(lottoMaker.make(autoBudget));
+        LottoMaker lottoMaker = new LottoMaker();
+        List<Lotto> manualLottos = lottoMaker.manualMake(manualBudget, manualLottoNumbers);
+        List<Lotto> autoLottos = lottoMaker.autoMake(autoBudget);
+        manualLottos.addAll(autoLottos);
+        List<Lotto> lottos = manualLottos;
 
         OutputView outputView = new OutputView();
-        outputView.printLottoQuantity(lottoMaker);
+        outputView.printLottoQuantity(manalLottoQuantity,autoLottoQuantity);
         outputView.printLottos(lottos);
 
         List<Integer> winNumbers = inputView.readWinLottoNumbers();

@@ -8,7 +8,7 @@ public class LottoMaker {
     private static final int LOTTO_PRICE = 1_000;
     private static int lottoQuantity;
 
-    public List<Lotto> make(int money) {
+    public List<Lotto> autoMake(int money) {
         lottoQuantity = money / LOTTO_PRICE;
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoQuantity; i++) {
@@ -18,7 +18,7 @@ public class LottoMaker {
         return lottos;
     }
 
-    public List<Lotto> make(int money, List<List<Integer>> manulLottoNumbers) {
+    public List<Lotto> manualMake(int money, List<List<Integer>> manulLottoNumbers) {
         lottoQuantity = money / LOTTO_PRICE;
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoQuantity; i++) {
@@ -26,9 +26,5 @@ public class LottoMaker {
             lottos.add(lotto);
         }
         return lottos;
-    }
-
-    public int getLottoQuantity() {
-        return lottoQuantity;
     }
 }
