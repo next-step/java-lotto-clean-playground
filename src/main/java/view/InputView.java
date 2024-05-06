@@ -1,6 +1,9 @@
 package view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -8,11 +11,15 @@ public class InputView {
 
 	public static int inputPurchaseAmount() {
 		System.out.println("구입금액을 입력해 주세요.");
-		
-		int purchaseAmount = scanner.nextInt();
-		if (purchaseAmount < 1000) {
-			throw new IllegalArgumentException("로또 1장의 가격은 1000원 입니다.");
-		}
-		return purchaseAmount;
+		return scanner.nextInt();
+	}
+
+	public static List<Integer> inputWinningNumber() {
+		scanner.nextLine();
+		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+		return Arrays.stream(scanner.nextLine().split(", "))
+			.filter(item -> !item.isBlank())
+			.map((number) -> Integer.parseInt(number))
+			.collect(Collectors.toList());
 	}
 }

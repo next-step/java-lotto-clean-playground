@@ -1,18 +1,18 @@
 package domain;
 
 public class LottoGame {
-	public static final int LOTTO_LENGTH = 6;
-	public static final int LOTTO_MAX_NUMBER = 45;
 
-	private final int purchaseAmount;
-	private final int lottoCount;
+	private final LottoPurchaseAmount purchaseAmount;
 
 	public LottoGame(int purchaseAmount) {
-		this.purchaseAmount = purchaseAmount;
-		this.lottoCount = purchaseAmount / 1000;
+		this.purchaseAmount = new LottoPurchaseAmount(purchaseAmount);
 	}
 
 	public int getLottoCount() {
-		return lottoCount;
+		return purchaseAmount.getLottoCount();
+	}
+
+	public int getPurchaseAmount() {
+		return purchaseAmount.getPurchaseAmount();
 	}
 }
