@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.duckstudy.model.Lotto;
+import org.duckstudy.model.Lottos;
 import org.duckstudy.model.Price;
 import org.duckstudy.view.InputView;
 import org.duckstudy.view.OutputView;
@@ -20,7 +21,8 @@ public class LottoController {
 
     public void run() throws IOException {
         Price price = createPrice();
-        createLottos(price.calculateLottoCount());
+        Lottos lottos = createLottos(price.calculateLottoCount());
+        outputView.printLottos(lottos.toList());
     }
 
     private Price createPrice() throws IOException {
@@ -32,13 +34,11 @@ public class LottoController {
         }
     }
 
-    private void createLottos(int lottoCount) {
+    private Lottos createLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(new Lotto());
         }
-
-        outputView.printLottoCount(lottoCount);
-        outputView.printLottos(lottos);
+        return new Lottos(lottos);
     }
 }
