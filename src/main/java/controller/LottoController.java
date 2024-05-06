@@ -10,14 +10,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class LottoController {
-    private InputView inputView;
-    private OutputView outputView;
+    private InputView inputView = new InputView();
+    private OutputView outputView = new OutputView();
     private LottoList lottoList;
 
     public LottoController() {
-        this.inputView = new InputView();
-        this.outputView = new OutputView();
-        startLottoGame();
     }
     public void startLottoGame() {
         UserCount userMoney = receiveMoneyInput();
@@ -77,7 +74,7 @@ public class LottoController {
         lottoList = generateLottoList(autoCount, lottos);
         outputView.printLottoNumbers(lottoList);
     }
-    private LottoList generateLottoList(int count, List<Lotto> lottos){
+    LottoList generateLottoList(int count, List<Lotto> lottos){
         lottoList = new LottoList();
 
         if(lottos != null){
@@ -134,7 +131,7 @@ public class LottoController {
         }
 
     }
-    private double calculateWinningRate(List<Integer> matchCounts, UserCount count) {
+    double calculateWinningRate(List<Integer> matchCounts, UserCount count) {
         int totalWinnings = matchCounts.get(0) * 5000 +
                 matchCounts.get(1) * 50000 +
                 matchCounts.get(2) * 1500000 +
@@ -142,7 +139,7 @@ public class LottoController {
                 matchCounts.get(4) * 2000000000;
 
         double winningRate = (double) totalWinnings / (double) count.getPrice();
-        return winningRate;
+        return Math.floor(winningRate * 100) / 100;
     }
 
 }
