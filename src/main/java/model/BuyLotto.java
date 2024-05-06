@@ -1,53 +1,57 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BuyLotto {
-    private static final int LOTTO_PRICE = 1000;
-    private int totalPrice;
+    private LottoMoney totalPrice;
     private int lottoCount;
+    private int manualLottoCount;
+    private List<String> manualLottoList;
+    private List<Integer> numberList;
 
-    private List<Integer> lottoNumberList;
+    public BuyLotto(int totalPrice, int manualLottoCount, List<String> manualLottoList) {
+        numberList = new ArrayList<>();
 
-    public BuyLotto(int totalPrice) {
-        lottoNumberList = new ArrayList<Integer>();
-
-        for (int i=1; i<=45; i++)
-        {
-            lottoNumberList.add(Integer.valueOf(i));
+        for (int i = Constant.MIN_LOTTO_NUMBER; i <= Constant.MAX_LOTTO_NUMBER; i++) {
+            numberList.add(i);
         }
-        this.totalPrice = totalPrice;
-        this.lottoCount = totalPrice/LOTTO_PRICE;
+        this.manualLottoCount = manualLottoCount;
+        this.manualLottoList = manualLottoList;
+        this.totalPrice = new LottoMoney(String.valueOf(totalPrice));
+        this.lottoCount = totalPrice / Constant.LOTTO_PRICE - manualLottoCount;
     }
 
+    private List<Lotto> convertManualLottoList(List<String> manualLottoList) {
+        return manualLottoList.stream()
+                .map(this::parseLottoNumbers)
+                .collect(Collectors.toList());
+    }
 
+    private Lotto parseLottoNumbers(String lotto) {
+        List<LottoNumber> numbers = Arrays.stream(lotto.split(Constant.SEPARATOR))
+                .map(String::trim)
+                .map(s -> new LottoNumber(s))
+                .collect(Collectors.toList());
+        return new Lotto(numbers);
+    }
 
-    public List<Lotto> generateLotto(){
-        List<Lotto> lottos = new ArrayList<>();
-        for(int i=0; i<lottoCount; i++)
-        {
-            Lotto lotto = new Lotto(generateRandomNumbers());
-            lottos.add(lotto);
+    public List<Lotto> generateLotto() {
+        List<Lotto> lottos = convertManualLottoList(manualLottoList);
+
+        for (int i = 0; i < lottoCount; i++) {
+            lottos.add(new Lotto(generateRandomNumbers()));
         }
 
         return lottos;
     }
 
-    private List<Integer> generateRandomNumbers(){
-        List<Integer> numbers = this.lottoNumberList;
-        Collections.shuffle(numbers);
-        List<Integer> values = numbers.subList(0, 6);
-        Collections.sort(values);
-
-
-        return values;
+    private List<LottoNumber> generateRandomNumbers() {
+        Collections.shuffle(numberList);
+        return numberList.subList(Constant.ZERO_COUNT, Constant.LOTTO_SIZE)
+                .stream()
+                .map(n -> new LottoNumber(String.valueOf(n)))
+                .sorted(Comparator.comparingInt(LottoNumber::getNumber)) // 정렬
+                .collect(Collectors.toList());
     }
-
-
-
-
-
-
 }
