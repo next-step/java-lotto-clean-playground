@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class LottoMachine {
 
-    public static List<Lotto> generateLottos(int count) {
+    public static List<Lotto> generateLottos(final int count) {
         return Stream.generate(Lotto::generate)
                 .limit(count)
                 .collect(Collectors.toList());

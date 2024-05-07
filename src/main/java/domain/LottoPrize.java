@@ -20,10 +20,10 @@ public enum LottoPrize {
         this.isMatchBonus = isMatchBonus;
     }
 
-    public static LottoPrize matchPrize(final int matchCount, final boolean isWithBonus) {
+    public static LottoPrize matchPrize(final int matchCount, final boolean isMatchBonus) {
         return Arrays.stream(LottoPrize.values())
                 .filter(prize -> prize.matchCount == matchCount)
-                .filter(prize -> prize.isMatchBonus == isWithBonus)
+                .filter(prize -> prize.isMatchBonus == isMatchBonus)
                 .findFirst()
                 .orElse(MISS);
     }
@@ -40,4 +40,3 @@ public enum LottoPrize {
         return isMatchBonus;
     }
 }
-

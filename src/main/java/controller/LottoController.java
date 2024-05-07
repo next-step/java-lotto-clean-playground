@@ -11,7 +11,9 @@ public class LottoController {
         int purchaseAmount = InputView.getPurchaseAmount();
         int manualLottoCount = InputView.getManualLottoCount();
         List<Lotto> lottos = InputView.getManualLottos(manualLottoCount);
-        lottos.addAll(LottoMachine.generateLottos(purchaseAmount / Lotto.LOTTO_PRICE - manualLottoCount));
+
+        int autoLottoCount = purchaseAmount / Lotto.LOTTO_PRICE - manualLottoCount;
+        lottos.addAll(LottoMachine.generateLottos(autoLottoCount));
         OutputView.printLottos(lottos, manualLottoCount);
 
         Lotto winningLotto = InputView.getWinningLottoNumbers();
@@ -21,20 +23,20 @@ public class LottoController {
         OutputView.printResult(result, purchaseAmount);
     }
 
-    private LottoResult getLottoResult(List<Lotto> lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+    private LottoResult getLottoResult(final List<Lotto> lottos, final Lotto winningLotto, final LottoNumber bonusNumber) {
         List<LottoPrize> prizes = lottos.stream()
                 .map(lotto -> getLottoPrize(lotto, winningLotto, bonusNumber))
                 .toList();
         return new LottoResult(prizes);
     }
 
-    private LottoPrize getLottoPrize(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
+    private LottoPrize getLottoPrize(final Lotto lotto, final Lotto winningLotto, final LottoNumber bonusNumber) {
         int matchCount = countMatchingNumbers(lotto, winningLotto);
         boolean isMatchBonus = lotto.contains(bonusNumber);
         return LottoPrize.matchPrize(matchCount, isMatchBonus);
     }
 
-    private int countMatchingNumbers(Lotto lotto, Lotto winningLotto) {
+    private int countMatchingNumbers(final Lotto lotto, final Lotto winningLotto) {
         return (int) lotto.numbers().stream()
                 .filter(winningLotto.numbers()::contains)
                 .count();

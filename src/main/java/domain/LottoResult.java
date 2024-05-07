@@ -5,7 +5,7 @@ import java.util.List;
 public class LottoResult {
     private final List<LottoPrize> prizes;
 
-    public LottoResult(List<LottoPrize> prizes) {
+    public LottoResult(final List<LottoPrize> prizes) {
         this.prizes = prizes;
     }
 
@@ -15,11 +15,11 @@ public class LottoResult {
                 .sum();
     }
 
-    public double getEarningRate(int purchaseAmount) {
+    public double getEarningRate(final int purchaseAmount) {
         return (double) getTotalPrize() / purchaseAmount;
     }
 
-    public int getCountByPrize(LottoPrize prize) {
+    public int getCountByPrize(final LottoPrize prize) {
         return (int) prizes.stream()
                 .filter(p -> p == prize)
                 .count();

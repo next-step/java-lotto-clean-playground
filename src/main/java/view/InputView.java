@@ -23,7 +23,7 @@ public class InputView {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public static List<Lotto> getManualLottos(int count) {
+    public static List<Lotto> getManualLottos(final int count) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         return IntStream.range(0, count)
                 .mapToObj(i -> getLottoNumbers())

@@ -14,7 +14,7 @@ public record Lotto(List<LottoNumber> numbers) {
         Collections.sort(numbers);
     }
 
-    private void validateNumbers(List<LottoNumber> numbers) {
+    private void validateNumbers(final List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 숫자는 6개여야 합니다.");
         }
@@ -31,7 +31,7 @@ public record Lotto(List<LottoNumber> numbers) {
         return new Lotto(numbers);
     }
 
-    public boolean contains(LottoNumber number) {
+    public boolean contains(final LottoNumber number) {
         return numbers.contains(number);
     }
 
