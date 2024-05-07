@@ -7,8 +7,7 @@ import domain.LottoResult;
 import java.util.List;
 
 public class OutputView {
-    public static void printLottos(final List<Lotto> lottos, final int manualLottoCount) {
-        int autoLottoCount = lottos.size() - manualLottoCount;
+    public static void printLottos(final List<Lotto> lottos, final int manualLottoCount, final int autoLottoCount) {
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualLottoCount, autoLottoCount);
         lottos.stream().skip(0).limit(manualLottoCount).forEach(System.out::println);
         lottos.stream().skip(manualLottoCount).limit(autoLottoCount).forEach(System.out::println);

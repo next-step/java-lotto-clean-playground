@@ -14,7 +14,7 @@ public class LottoController {
 
         int autoLottoCount = purchaseAmount / Lotto.LOTTO_PRICE - manualLottoCount;
         lottos.addAll(LottoMachine.generateLottos(autoLottoCount));
-        OutputView.printLottos(lottos, manualLottoCount);
+        OutputView.printLottos(lottos, manualLottoCount, autoLottoCount);
 
         Lotto winningLotto = InputView.getWinningLottoNumbers();
         LottoNumber bonusNumber = InputView.getBonusNumber();
