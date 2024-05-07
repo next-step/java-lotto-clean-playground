@@ -1,6 +1,6 @@
 package view;
 
-import Constant;
+import model.Constant;
 import model.Lotto;
 import model.LottoPrize;
 
