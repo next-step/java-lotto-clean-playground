@@ -13,7 +13,6 @@ public enum LottoPrize {
 	;
 
 	public static final int LOTTO_PRIZE_COUNT = 5;
-	private static final int LOTTO_BONUS_PRIZE = 5;
 
 	private final int matchCount;
 	private final boolean isContainsBonus;
@@ -26,14 +25,8 @@ public enum LottoPrize {
 	}
 
 	public static LottoPrize of(int matchCount, boolean isContainBonus) {
-		if (matchCount == LOTTO_BONUS_PRIZE) {
-			return Arrays.stream(LottoPrize.values())
-				.filter(prize -> prize.matchCount == matchCount && prize.isContainsBonus == isContainBonus)
-				.findFirst()
-				.orElse(LAST_PRIZE);
-		}
 		return Arrays.stream(LottoPrize.values())
-			.filter(prize -> prize.matchCount == matchCount)
+			.filter(prize -> prize.matchCount == matchCount && prize.isContainsBonus == isContainBonus)
 			.findFirst()
 			.orElse(LAST_PRIZE);
 	}
