@@ -1,6 +1,7 @@
 package domain;
 
 public class LottoNumber implements Comparable<LottoNumber> {
+
 	public static final int MIN_NUMBER = 1;
 	public static final int MAX_NUMBER = 45;
 
@@ -24,5 +25,17 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	@Override
 	public int compareTo(LottoNumber other) {
 		return Integer.compare(lottoNumber, other.lottoNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		LottoNumber other = (LottoNumber)obj;
+		return lottoNumber == other.lottoNumber;
 	}
 }

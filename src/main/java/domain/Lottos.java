@@ -2,46 +2,56 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Lottos {
-	private final int lottoCount;
+
+	private final int manualLottoCount;
+	private final int autoLottoCount;
+
 	private final List<Lotto> lottos;
 
-	public Lottos(int lottoCount) {
-		this.lottoCount = lottoCount;
-		this.lottos = generateLottos();
+	public Lottos(int manualLottoCount, int totalLottoCount, List<String> manualLottos) {
+		validate(manualLottoCount, totalLottoCount);
+		this.manualLottoCount = manualLottoCount;
+		this.autoLottoCount = totalLottoCount - manualLottoCount;
+		lottos = new ArrayList<>();
+		publishManualLottos(manualLottos);
+		publishAutoLottos(totalLottoCount - manualLottoCount);
 	}
 
-	private List<Lotto> generateLottos() {
-		List<Lotto> generatedLottos = new ArrayList<>();
-		for (int i = 0; i < lottoCount; i++) {
-			generatedLottos.add(new Lotto());
+	private void validate(int manualLottoCount, int totalLottoCount) {
+		if (manualLottoCount > totalLottoCount) {
+			throw new IllegalArgumentException("로또는 구입 금액만큼 발행됩니다.");
 		}
-		return generatedLottos;
+	}
+
+	private void publishManualLottos(List<String> manualLottos) {
+		for (String manualLotto : manualLottos) {
+			List<Integer> numbers = Arrays
+				.stream(manualLotto.replace(" ", "").split(","))
+				.map(Integer::parseInt)
+				.collect(Collectors.toList());
+			lottos.add(new Lotto(numbers));
+		}
+	}
+
+	private void publishAutoLottos(int autoLottoCount) {
+		for (int i = 0; i < autoLottoCount; i++) {
+			lottos.add(new Lotto());
+		}
 	}
 
 	public List<Lotto> getLottos() {
 		return List.copyOf(lottos);
 	}
 
-	public Map<Integer, Boolean> getMatchedLottoCounts(List<Integer> lottoWinningNumber, int bonusNumber) {
-		Map<Integer, Boolean> matchedLottoCounts = new HashMap<>();
-		for (int i = 0; i < lottoCount; i++) {
-			Lotto lotto = lottos.get(i);
-			int matchedCount = lotto.getMatchedNumberCount(lottoWinningNumber);
-			if (matchedCount == 5 && lotto.getMatchedNumberCount(Arrays.asList(bonusNumber)) > 0) {
-				matchedLottoCounts.put(matchedCount, true);
-			} else if (matchedCount == 5 && lotto.getMatchedNumberCount(Arrays.asList(bonusNumber)) == 0) {
-				matchedLottoCounts.put(matchedCount, false);
-			} else if (matchedCount != 5) {
-				matchedLottoCounts.put(matchedCount, false);
-			}
-
-		}
-		return matchedLottoCounts;
+	public int getManualLottoCount() {
+		return manualLottoCount;
 	}
 
+	public int getAutoLottoCount() {
+		return autoLottoCount;
+	}
 }

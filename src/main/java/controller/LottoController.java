@@ -2,28 +2,37 @@ package controller;
 
 import java.util.List;
 
+import domain.Lotto;
 import domain.LottoGame;
 import domain.LottoGameResult;
+import domain.LottoNumber;
 import domain.Lottos;
 import view.InputView;
 import view.OutputView;
 
 public class LottoController {
 
-	private final LottoGame lottoGame;
-	private final Lottos lottos;
+	private LottoGame lottoGame;
+	private Lottos lottos;
 
 	private LottoGameResult lottoGameResult;
 
 	public LottoController() {
-		this.lottoGame = new LottoGame(readLottoPurchaseAmount());
-		this.lottos = new Lottos(lottoGame.getLottoCount());
 	}
 
 	public void startGame() {
+		publishLotto();
 		showLottoPurchaseCount();
 		showLottoNumbers();
+		calculateGameResult();
 		showLottoGameResult();
+	}
+
+	private void publishLotto() {
+		this.lottoGame = new LottoGame(readLottoPurchaseAmount());
+		int manualLottoCount = InputView.inputManualLottoCount();
+		this.lottos = new Lottos(manualLottoCount, lottoGame.getLottoCount(),
+			InputView.inputManualLottoNumber(manualLottoCount));
 	}
 
 	private int readLottoPurchaseAmount() {
@@ -31,7 +40,7 @@ public class LottoController {
 	}
 
 	private void showLottoPurchaseCount() {
-		OutputView.printLottoPurchaseCount(lottoGame.getLottoCount());
+		OutputView.printLottoPurchaseCount(lottos.getManualLottoCount(), lottos.getAutoLottoCount());
 	}
 
 	private void showLottoNumbers() {
@@ -46,9 +55,16 @@ public class LottoController {
 		return InputView.inputBonusNumber();
 	}
 
+	private void calculateGameResult() {
+		Lotto winningLotto = new Lotto(readLottoWinningNumber());
+		LottoNumber bonusNumber = new LottoNumber(readLottoBonusNumber());
+		this.lottoGameResult = new LottoGameResult(winningLotto, bonusNumber);
+		lottoGameResult.calculateGameResult(lottos);
+	}
+
 	private void showLottoGameResult() {
-		this.lottoGameResult = new LottoGameResult(readLottoWinningNumber(), readLottoBonusNumber(), lottos);
 		OutputView.printLottoGameResult(lottoGameResult.getGameResult());
 		OutputView.printLottoGameProfit(lottoGameResult.calculateGameProfit(lottoGame.getPurchaseAmount()));
 	}
+
 }

@@ -12,7 +12,7 @@ public class LottoGame {
 		return purchaseAmount.getLottoCount();
 	}
 
-	public int getPurchaseAmount() {
-		return purchaseAmount.getPurchaseAmount();
+	public LottoPurchaseAmount getPurchaseAmount() {
+		return purchaseAmount;
 	}
 }

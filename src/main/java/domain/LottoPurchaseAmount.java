@@ -14,10 +14,10 @@ public class LottoPurchaseAmount {
 
 	private void validate(int price) {
 		if (price < MIN_PRICE) {
-			throw new IllegalArgumentException("로또 구입금액은 " + MIN_PRICE + " 보다 작을 수 없습니다.");
+			throw new IllegalArgumentException("로또 구입금액은 " + MIN_PRICE + "원 보다 작을 수 없습니다.");
 		}
 		if (price % LOTTO_PRICE_UNIT != 0) {
-			throw new IllegalArgumentException("로또 구입금액은 " + LOTTO_PRICE_UNIT + " 단위입니다.");
+			throw new IllegalArgumentException("로또 구입금액은 " + LOTTO_PRICE_UNIT + "원 단위입니다.");
 		}
 	}
 

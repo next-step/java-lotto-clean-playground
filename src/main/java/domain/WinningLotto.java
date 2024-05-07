@@ -5,19 +5,30 @@ import java.util.List;
 public class WinningLotto {
 
 	private final Lotto winningLotto;
+	private final LottoNumber bonusNumber;
 
-	public WinningLotto(List<Integer> winningNumber) {
-		validate(winningNumber);
-		this.winningLotto = new Lotto(winningNumber);
+	public WinningLotto(Lotto winningLotto, LottoNumber bonusNumber) {
+		validate(winningLotto, bonusNumber);
+		this.winningLotto = winningLotto;
+		this.bonusNumber = bonusNumber;
 	}
 
-	private void validate(List<Integer> winningNumber) {
-		if (winningNumber.size() != Lotto.LOTTO_SIZE) {
-			throw new IllegalArgumentException("당첨 번호는 " + Lotto.LOTTO_SIZE + " 개의 숫자로 이루어져 있습니다.");
+	public WinningLotto(Lotto winningLotto) {
+		this.winningLotto = winningLotto;
+		this.bonusNumber = null;
+	}
+
+	private void validate(Lotto winningLotto, LottoNumber bonusNumber) {
+		if (winningLotto.getLotto().contains(bonusNumber.getLottoNumber())) {
+			throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
 		}
 	}
 
 	public List<Integer> getWinningLotto() {
 		return winningLotto.getLotto();
+	}
+
+	public LottoNumber getBonusNumber() {
+		return bonusNumber;
 	}
 }

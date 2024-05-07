@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import domain.Lotto;
+import response.LottoGameResultResponse;
 
 public class OutputView {
 
@@ -10,9 +11,9 @@ public class OutputView {
 		System.out.println();
 	}
 
-	public static void printLottoPurchaseCount(final int lottoPurchaseCount) {
+	public static void printLottoPurchaseCount(final int manualLottoCount, final int autoLottoCount) {
 		printNewLine();
-		System.out.println(String.format("%d개를 구매했습니다.", lottoPurchaseCount));
+		System.out.println(String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", manualLottoCount, autoLottoCount));
 	}
 
 	public static void printLottos(final List<Lotto> lottos) {
@@ -20,17 +21,16 @@ public class OutputView {
 		printNewLine();
 	}
 
-	public static void printLottoGameResult(final List<Integer> gameResult) {
+	public static void printLottoGameResult(final LottoGameResultResponse gameResult) {
 		printNewLine();
-		String message = String.format("당첨 통계%n" +
-				"---------%n" +
-				"3개 일치 (5000원)- %d개%n" +
-				"4개 일치 (50000원)- %d개%n" +
-				"5개 일치 (1500000원)- %d개%n" +
-				"5개 일치, 보너스 볼 일치(30000000원)- %d개%n" +
-				"6개 일치 (2000000000원)- %d개"
-			, gameResult.get(0), gameResult.get(1), gameResult.get(2), gameResult.get(3), gameResult.get(4));
-		System.out.println(message);
+		List<Integer> prizeCount = gameResult.getGameResult();
+		System.out.println("당첨 통계");
+		System.out.println("---------");
+		String[] prizes = {"3개 일치 (5000원)", "4개 일치 (50000원)", "5개 일치 (1500000원)", "5개 일치, 보너스 볼 일치(30000000원)",
+			"6개 일치 (2000000000원)"};
+		for (int i = 0; i < prizes.length; i++) {
+			System.out.printf("%s - %d개%n", prizes[i], prizeCount.get(i));
+		}
 	}
 
 	public static void printLottoGameProfit(final double gameProfit) {
