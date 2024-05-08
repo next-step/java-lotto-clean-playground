@@ -9,13 +9,6 @@ import view.InputView;
 import view.OutputView;
 
 public class LottoTest {
-
-    private final int FIRST_LOTTO_POSITION = 0;
-    private final int LAST_LOTTO_POSITION = 6;
-    private final int MIN_LOTTO_NUMBER = 1;
-    private final int MAX_LOTTO_NUMBER = 45;
-
-
     @Test
     @DisplayName("로또 객체 생성")
     public void lottoTest() {

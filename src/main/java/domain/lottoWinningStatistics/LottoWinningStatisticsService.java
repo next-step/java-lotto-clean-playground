@@ -8,7 +8,7 @@ import java.util.List;
 public class LottoWinningStatisticsService {
     public int matchLottoWinningNumber(LottoTicket lottoTicket,
                                        List<Integer> winningNumbers) {
-        return (int) lottoTicket.getLottoNumber().stream().filter(winningNumbers::contains).count();
+        return (int) lottoTicket.getLottoTicketNumber().getLotoNumber().stream().filter(winningNumbers::contains).count();
     }
 
     public List<Integer> countLottoWinning(List<LottoTicket> lottoTickets,

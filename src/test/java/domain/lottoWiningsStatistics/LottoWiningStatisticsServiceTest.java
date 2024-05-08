@@ -3,6 +3,7 @@ package domain.lottoWiningsStatistics;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.lotto.Lotto;
+import domain.lottoNumber.LottoNumber;
 import domain.lottoTicket.LottoTicket;
 import domain.lottoWinningStatistics.LottoWinningStatisticsService;
 import java.util.ArrayList;
@@ -11,12 +12,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LottoWiningStatisticsServiceTest {
-
     @Test
     @DisplayName("로또 당첨 번호와 로또 번호 매칭 횟수 반환 테스트")
     public void matchLottoWinningNumberTest() {
         //given
-        LottoTicket lottoTicket = new LottoTicket(List.of(1, 2, 3, 4, 5, 6));
+        LottoTicket lottoTicket = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 5, 6)));
         List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
 
         LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
@@ -38,9 +38,9 @@ public class LottoWiningStatisticsServiceTest {
 
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
 
-        LottoTicket lottoTicket1 = new LottoTicket(List.of(1, 2, 3, 4, 5, 6));
-        LottoTicket lottoTicket2 = new LottoTicket(List.of(1, 2, 3, 4, 5, 7));
-        LottoTicket lottoTicket3 = new LottoTicket(List.of(1, 2, 3, 4, 7, 8));
+        LottoTicket lottoTicket1 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 5, 6)));
+        LottoTicket lottoTicket2 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 5, 7)));
+        LottoTicket lottoTicket3 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 7, 8)));
 
         List<LottoTicket> lottoTickets = new ArrayList<>();
 

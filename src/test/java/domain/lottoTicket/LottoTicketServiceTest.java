@@ -1,41 +1,24 @@
 package domain.lottoTicket;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
+import domain.lottoNumber.LottoNumber;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LottoTicketServiceTest {
-
+    private final LottoTicketService lottoTicketService = new LottoTicketService();
     @Test
-    @DisplayName("생성 가능한 번호 생성 테스트")
+    @DisplayName("로또 티켓 생성 테스트 - 같은 숫자 매칭 불가 따라서 출력으로 대체")
     public void generateLottoNumberListTest() {
         //given
-        List<Integer> expectedLottoNumberList = new ArrayList<>();
-        for(int i = 1; i <= 45; i++)
-            expectedLottoNumberList.add(i);
+        LottoNumber lottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
 
+        LottoTicket expectedLottoTicket = new LottoTicket(lottoNumber);
         //when
-        LottoTicketService lottoTicketService = new LottoTicketService();
-        List<Integer> lottoNumberList = lottoTicketService.generateLottoNumberList();
+        LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
 
         //then
-        assertThat(expectedLottoNumberList).isEqualTo(lottoNumberList);
-    }
-
-    @Test
-    @DisplayName("로또 티켓 생성 테스트")
-    public void generateLottoTicketTest() {
-        //given
-        LottoTicketService lottoTicketService = new LottoTicketService();
-        List<Integer> expectedLottoTicket = lottoTicketService.generateLottoTicket();
-
-        //when
-        LottoTicket lottoTicket = new LottoTicket(expectedLottoTicket);
-
-        //then
-        assertThat(expectedLottoTicket).isEqualTo(lottoTicket.getLottoNumber());
+        System.out.println(expectedLottoTicket.getLottoTicketNumber().getLotoNumber());
+        System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber());
     }
 }

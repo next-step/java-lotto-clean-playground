@@ -2,6 +2,7 @@ package domain.lottoTicket;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import domain.lottoNumber.LottoNumber;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,12 +13,12 @@ public class LottoTicketTest {
     @DisplayName("로또 티켓 객체 생성 테스트")
     public void lottoTicket() {
         //given
-        List<Integer> expectedLottoNumbers = List.of(1, 2, 3, 4, 5, 6);
+        LottoNumber lottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoTicket lottoTicket = new LottoTicket(lottoNumber);
 
         //when
-        LottoTicket lottoTicket = new LottoTicket(expectedLottoNumbers);
 
         //then
-        assertThat(expectedLottoNumbers).isEqualTo(lottoTicket.getLottoNumber());
+        assertThat(lottoNumber).isEqualTo(lottoTicket.getLottoTicketNumber());
     }
 }

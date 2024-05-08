@@ -14,7 +14,7 @@ public class OutputView {
     public void writeLottoTickets(Lotto lotto, List<LottoTicket> lottoTickets) {
         System.out.println("\n" + lotto.getLottoTicketCount() + "개를 구매했습니다.");
 
-        lottoTickets.forEach(lottoTicket -> System.out.println(lottoTicket.getLottoNumber()));
+        lottoTickets.forEach(lottoTicket -> System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber()));
 
     }
 

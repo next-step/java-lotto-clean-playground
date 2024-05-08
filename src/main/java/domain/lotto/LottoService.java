@@ -10,9 +10,12 @@ import view.InputView;
 import view.OutputView;
 
 public class LottoService {
+    private final LottoTicketService lottoTicketService = new LottoTicketService();
+    private final LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
     private final int LOTTO_PRICE = 1000;
     private final InputView inputView;
     private final  OutputView outputView;
+
     public LottoService(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
@@ -33,15 +36,12 @@ public class LottoService {
     }
 
     public List<LottoTicket> generateLottoTicketList(Lotto lotto) {
-        LottoTicketService lottoTicketService = new LottoTicketService();
-
         List<LottoTicket> lottoTicketList = new ArrayList<>();
 
         for(int i = 0; i < lotto.getLottoTicketCount(); i++) {
-            LottoTicket lottoTicket = new LottoTicket(lottoTicketService.generateLottoTicket());
+            LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
             lottoTicketList.add(lottoTicket);
         }
-
         return lottoTicketList;
     }
 
@@ -51,14 +51,10 @@ public class LottoService {
 
     public void drawLottoWinning(Lotto lotto, List<LottoTicket> lottoTickets) {
         List<Integer> winningNumbers = inputView.readWinningNumber();
-        LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
 
         List<Integer> lottoWinnerCount = lottoWinningStatisticsService.countLottoWinning(lottoTickets, winningNumbers);
-
         int winnings = lottoWinningStatisticsService.caculateWinnings(lottoWinnerCount);
-
         double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, winnings);
-
         LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(winningNumbers, lottoWinnerCount, returnOfInvestment);
 
         outputView.writeLottoWinningStatistics(lottoWinningStatistics);
