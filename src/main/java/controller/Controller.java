@@ -42,6 +42,6 @@ public class Controller {
         WinDiscriminator discriminator = new WinDiscriminator();
         discriminator.discriminateAll(winNumbers, lottos, bonus);
 
-        outputView.printPrizeResult(discriminator, lottoPrice.getBudget());
+        outputView.printPrizeResult(lottoPrice.getBudget());
     }
 }

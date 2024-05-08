@@ -22,7 +22,7 @@ public class OutputView {
         System.out.println("수동으로 " + ManualLottoQuantity + "장, 자동으로" + AutoLottoQuantity + "개를 구매했습니다.");
     }
 
-    public void printPrizeResult(WinDiscriminator discriminator, int budget) {
+    public void printPrizeResult(int budget) {
         String fourthPrize = "3개 일치" + " (" + Prize._4TH_PRIZE.getPrize() + "원)- " + Prize._4TH_PRIZE.getQuantity() + "개";
         String thirdPrize = "4개 일치" + " (" + Prize._3TH_PRIZE.getPrize() + "원)- " + Prize._3TH_PRIZE.getQuantity() + "개";
         String secondPrize = "5개 일치" + " (" + Prize._2ND_PRIZE.getPrize() + "원)- " + Prize._2ND_PRIZE.getQuantity() + "개";
