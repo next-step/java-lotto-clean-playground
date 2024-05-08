@@ -23,10 +23,6 @@ public enum Prize {
         return correctCount;
     }
 
-    public boolean isContainBonus() {
-        return containBonus;
-    }
-
     public int getPrize() {
         return prize;
     }

@@ -2,7 +2,6 @@ package view;
 
 import domain.Lotto;
 import domain.Prize;
-import domain.WinDiscriminator;
 
 import java.util.List;
 
