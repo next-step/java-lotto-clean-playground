@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoNumberMaker {
+public class AutoNumberMaker {
 
-    List<Integer> lottoBalls = new ArrayList<>();
+    private static final int LOTTO_INIT_NUMBER = 1;
+    private static final int LOTTO_END_NUMBER = 45;
+    private static final int LOTTO_SIZE = 6;
 
-    public LottoNumberMaker() {
+    private final List<Integer> lottoBalls = new ArrayList<>();
+
+    public AutoNumberMaker() {
         initLottoBalls();
     }
 
     private void initLottoBalls() {
-        for (int i = 1; i <= 45; i++) {
+        for (int i = LOTTO_INIT_NUMBER; i <= LOTTO_END_NUMBER; i++) {
             lottoBalls.add(i);
         }
     }
@@ -34,7 +38,7 @@ public class LottoNumberMaker {
 
     private List<Integer> getSelectedBalls() {
         List<Integer> selectedBalls = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < LOTTO_SIZE; i++) {
             selectedBalls.add(lottoBalls.get(i));
         }
 

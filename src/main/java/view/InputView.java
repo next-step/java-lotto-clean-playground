@@ -1,7 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,16 +8,11 @@ public class InputView {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public int readBudget() {
-        try {
-            System.out.println("구입금액을 입력해 주세요.");
-            int budget = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println();
-            return budget;
-        } catch (InputMismatchException e) {
-            throw new IllegalArgumentException("숫자를 입력해주세요");
-        }
+    public String readBudget() {
+        System.out.println("구입금액을 입력해 주세요.");
+        String budget = scanner.nextLine();
+        System.out.println();
+        return budget;
     }
 
     public int readManualLottoQuantity() {

@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoMaker;
+import domain.LottoPrice;
 import domain.WinDiscriminator;
 import view.InputView;
 import view.OutputView;
@@ -14,18 +15,20 @@ public class Controller {
         final int LOTTO_PRICE = 1_000;
 
         InputView inputView = new InputView();
-        int budget = inputView.readBudget();
+        LottoPrice lottoPrice = LottoPrice.valueOf(inputView.readBudget());
         int manalLottoQuantity = inputView.readManualLottoQuantity();
 
-        int manualBudget = manalLottoQuantity * LOTTO_PRICE;
-        int autoBudget = budget - manualBudget;
-        int autoLottoQuantity = autoBudget / LOTTO_PRICE;
+        if (lottoPrice.divideByUnit() < manalLottoQuantity) {
+            throw new IllegalArgumentException("구매 금액보다 많은 수동 로또를 살 수 없습니다.");
+        }
+
+        int autoLottoQuantity = lottoPrice.getBudget() / LOTTO_PRICE - manalLottoQuantity;
 
         List<List<Integer>> manualLottoNumbers = inputView.readManualLottosNumber(manalLottoQuantity);
 
         LottoMaker lottoMaker = new LottoMaker();
-        List<Lotto> manualLottos = lottoMaker.manualMake(manualBudget, manualLottoNumbers);
-        List<Lotto> autoLottos = lottoMaker.autoMake(autoBudget);
+        List<Lotto> manualLottos = lottoMaker.manualMake(manalLottoQuantity, manualLottoNumbers);
+        List<Lotto> autoLottos = lottoMaker.autoMake(autoLottoQuantity);
         manualLottos.addAll(autoLottos);
         List<Lotto> lottos = manualLottos;
 
@@ -39,6 +42,6 @@ public class Controller {
         WinDiscriminator discriminator = new WinDiscriminator();
         discriminator.discriminateAll(winNumbers, lottos, bonus);
 
-        outputView.printPrizeResult(discriminator, budget);
+        outputView.printPrizeResult(discriminator, lottoPrice.getBudget());
     }
 }
