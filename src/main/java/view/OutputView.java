@@ -1,30 +1,42 @@
 package view;
 
+import domain.Rank;
 import domain.lotto.Lotto;
+import domain.lotto.LottoService;
 import domain.lottoTicket.LottoTicket;
 import domain.lottoWinningStatistics.LottoWinningStatistics;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
-    private final String RIGHT_THREE_NUMBERS = "3개 일치 (5000원)- %d개\n";
-    private final String RIGHT_FOUR_NUMBERS = "4개 일치 (50000원)- %d개\n";
-    private final String RIGHT_FIVE_NUMBERS = "5개 일치 (1500000원)- %d개\n";
-    private final String RIGHT_SIX_NUMBERS = "6개 일치 (2000000000원)- %d개\n";
-    private final String EARNING_RATE = "총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n";
+    private final LottoService lottoService = new LottoService(new InputView(), this);
+    private final String ANNOUNCEMENT_WINNING = "당첨 통계";
+    private final String ANNOUNCEMENT_ROI = "총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n";
+    private final String COUNT = "개";
+
     public void writeLottoTickets(Lotto lotto, List<LottoTicket> lottoTickets) {
         System.out.println("\n" + lotto.getLottoTicketCount() + "개를 구매했습니다.");
+        lottoTickets.forEach(this::printLottoTicket);
+    }
 
-        lottoTickets.forEach(lottoTicket -> System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber()));
-
+    public void printLottoTicket(LottoTicket lottoTicket) {
+        System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber());
     }
 
     public void writeLottoWinningStatistics(LottoWinningStatistics lottoWinningStatistics) {
-        System.out.println("\n" + "당첨 통계");
+        System.out.println(ANNOUNCEMENT_WINNING);
+        System.out.println("---------");
+        printWinning(lottoWinningStatistics.getRankStatistic());
+        printReturnOfInvestment(lottoWinningStatistics.getReturnOfInvestment());
+    }
 
-        System.out.printf(RIGHT_THREE_NUMBERS, (int) lottoWinningStatistics.getLottoWinnerCount().stream().filter(count -> count == 3).count());
-        System.out.printf(RIGHT_FOUR_NUMBERS, (int) lottoWinningStatistics.getLottoWinnerCount().stream().filter(count -> count == 4).count());
-        System.out.printf(RIGHT_FIVE_NUMBERS, (int) lottoWinningStatistics.getLottoWinnerCount().stream().filter(count -> count == 5).count());
-        System.out.printf(RIGHT_SIX_NUMBERS, (int) lottoWinningStatistics.getLottoWinnerCount().stream().filter(count -> count == 6).count());
-        System.out.printf(EARNING_RATE, lottoWinningStatistics.getReturnOfInvestment());
+    public void printWinning(Map<Rank, Integer> map) {
+        for(Rank rank : Rank.values()) {
+            System.out.println(rank.getMessage() + map.get(rank) + COUNT);
+        }
+    }
+
+    public void printReturnOfInvestment(double returnOfInvestment) {
+        System.out.printf(ANNOUNCEMENT_ROI, returnOfInvestment);
     }
 }

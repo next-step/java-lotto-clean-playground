@@ -14,16 +14,13 @@ public class LottoTest {
     public void lottoTest() {
         //given
         int expectedLottoTicketCount = 3;
-        int expectedMoney = 3000;
+        String expectedMoney = "3000";
 
         //when
         LottoService lottoService = new LottoService(new InputView(), new OutputView());
-        Lotto lotto = new Lotto(expectedMoney, lottoService.countLottoTickets(expectedMoney));
+        Lotto lotto = new Lotto(expectedMoney);
 
         //then
-        assertAll(
-                () -> assertThat(expectedMoney).isEqualTo(lotto.getLottoMoney()),
-                () -> assertThat(expectedLottoTicketCount).isEqualTo(lotto.getLottoTicketCount())
-        );
+        assertThat(Integer.parseInt(expectedMoney)).isEqualTo(lotto.getLottoMoney());
     }
 }

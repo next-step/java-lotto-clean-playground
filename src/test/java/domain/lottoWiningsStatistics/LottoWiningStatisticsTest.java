@@ -3,8 +3,10 @@ package domain.lottoWiningsStatistics;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import domain.Rank;
 import domain.lottoWinningStatistics.LottoWinningStatistics;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,22 +16,25 @@ public class LottoWiningStatisticsTest {
     @DisplayName("로또당첨통계 객체 생성")
     public void lottoWinningStatisticsTest() {
         //given
-        List<Integer> expectedLottoWinningNumbers = List.of(1, 2, 3, 4, 5, 6);
-        List<Integer> expectedLottoWinningCount = List.of(1, 0, 0, 1, 0);
+        Map<Rank, Integer> expectedRankStatistic = new HashMap<>();
+        for(Rank rank : Rank.values()) {
+            expectedRankStatistic.put(rank, 0);
+        }
+
         double expectedReturnOfInvestment = 0.35;
 
         //when
-        LottoWinningStatistics lottoWinningStatistics =
-                new LottoWinningStatistics(
-                        expectedLottoWinningNumbers,
-                        expectedLottoWinningCount,
-                        expectedReturnOfInvestment);
+        LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(expectedRankStatistic, expectedReturnOfInvestment);
+
+        Map<Rank, Integer> rankStatistic = lottoWinningStatistics.getRankStatistic();
 
         //then
         assertAll(
-                () -> assertThat(expectedLottoWinningNumbers).isEqualTo(lottoWinningStatistics.getLottoWinnerNumbers()),
-                () -> assertThat(expectedLottoWinningCount).isEqualTo(lottoWinningStatistics.getLottoWinnerCount()),
-                () -> assertThat(expectedReturnOfInvestment).isEqualTo(lottoWinningStatistics.getReturnOfInvestment())
+                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FIFTH_PRIZE)),
+                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FOURTH_PRIZE)),
+                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.THIRD_PRIZE)),
+                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.SECOND_PRIZE)),
+                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FIRST_PRIZE))
         );
     }
 }

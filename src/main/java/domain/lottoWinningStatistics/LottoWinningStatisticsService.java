@@ -1,38 +1,78 @@
 package domain.lottoWinningStatistics;
 
+import domain.Rank;
 import domain.lotto.Lotto;
 import domain.lottoTicket.LottoTicket;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoWinningStatisticsService {
+    private static final int LOTTO_NUMBER_SIZE = 6;
     public int matchLottoWinningNumber(LottoTicket lottoTicket,
                                        List<Integer> winningNumbers) {
         return (int) lottoTicket.getLottoTicketNumber().getLotoNumber().stream().filter(winningNumbers::contains).count();
     }
 
-    public List<Integer> countLottoWinning(List<LottoTicket> lottoTickets,
-                                           List<Integer> winningNumbers) {
-        List<Integer> winningLottoTicket = new ArrayList<>();
+    public Map<Rank, Integer> findSecondWinning(Map<Rank, Integer> rankStatistic,
+                                                List<LottoTicket> lottoTickets,
+                                                List<Integer> winningNumbers) {
+        lottoTickets.forEach(lottoTicket -> {
+            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, winningNumbers), hasBonusBall(winningNumbers));
+            if(rank != null)
+                rankStatistic.put(rank, rankStatistic.get(rank) + 1);
+        });
 
-        lottoTickets.forEach(lottoTicket -> winningLottoTicket.add(matchLottoWinningNumber(lottoTicket, winningNumbers)));
-
-        return winningLottoTicket;
+        return rankStatistic;
     }
 
-    public int caculateWinnings(List<Integer> lottoWinnerCount) {
-        int winnings = 0;
+    public Map<Rank, Integer> generateWinningStatistic(List<LottoTicket> lottoTickets,
+                                                       List<Integer> winningNumbers,
+                                                       int bonusNumber) {
+        Map<Rank, Integer> rankStatistic = initRankStatistic();
 
-        winnings += (int) lottoWinnerCount.stream().filter(count -> count == 3).count() * 5000;
-        winnings += (int) lottoWinnerCount.stream().filter(count -> count == 4).count() * 50000;
-        winnings += (int) lottoWinnerCount.stream().filter(count -> count == 5).count() * 1500000;
-        winnings += (int) lottoWinnerCount.stream().filter(count -> count == 6).count() * 2000000000;
+        lottoTickets.forEach(lottoTicket -> {
+            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, winningNumbers), hasBonusBall(winningNumbers));
 
-        return winnings;
+            if(rank != null)
+                rankStatistic.put(rank, rankStatistic.get(rank) + 1);
+        });
+
+        winningNumbers.add(bonusNumber);
+
+        Map<Rank, Integer> lastRankStatistic = findSecondWinning(rankStatistic, lottoTickets, winningNumbers);
+
+        return lastRankStatistic;
     }
 
-    public double caculateReturnOfInvestment(Lotto lotto, int winnings) {
+    public boolean hasBonusBall(List<Integer> winningNumber) {
+        if(winningNumber.size() == LOTTO_NUMBER_SIZE)
+            return true;
+        return false;
+    }
+
+    public Map<Rank, Integer> initRankStatistic() {
+        Map<Rank, Integer> rankStatistic = new HashMap<>();
+
+        for(Rank rank : Rank.values()) {
+            rankStatistic.put(rank, 0);
+        }
+        return rankStatistic;
+    }
+
+    public double caculateReturnOfInvestment(Lotto lotto, Map<Rank, Integer> rankStatistic) {
+        int winnings = caculateWinnig(rankStatistic);
         double returnOfInvestment = (double) winnings / lotto.getLottoMoney();
         return returnOfInvestment;
+    }
+
+    public int caculateWinnig(Map<Rank, Integer> rankStatistic) {
+        int winnings = 0;
+
+        for(Rank rank : Rank.values()) {
+            winnings += rankStatistic.get(rank) * rank.getRankMoney();
+        }
+
+        return winnings;
     }
 }

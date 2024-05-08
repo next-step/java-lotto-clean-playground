@@ -1,11 +1,14 @@
 package domain.lotto;
 
+import domain.Rank;
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
 import domain.lottoWinningStatistics.LottoWinningStatistics;
 import domain.lottoWinningStatistics.LottoWinningStatisticsService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
@@ -22,7 +25,7 @@ public class LottoService {
     }
 
     public void run() {
-        int buyingMoney = inputView.readMoney();
+        String buyingMoney = inputView.readMoney();
         Lotto lotto = new Lotto(buyingMoney, countLottoTickets(buyingMoney));
         List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
         printLottoTickets(lotto, lottoTickets);
@@ -42,6 +45,7 @@ public class LottoService {
             LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
             lottoTicketList.add(lottoTicket);
         }
+
         return lottoTicketList;
     }
 
@@ -51,11 +55,11 @@ public class LottoService {
 
     public void drawLottoWinning(Lotto lotto, List<LottoTicket> lottoTickets) {
         List<Integer> winningNumbers = inputView.readWinningNumber();
+        int bonusBall = inputView.readBonusBall();
 
-        List<Integer> lottoWinnerCount = lottoWinningStatisticsService.countLottoWinning(lottoTickets, winningNumbers);
-        int winnings = lottoWinningStatisticsService.caculateWinnings(lottoWinnerCount);
-        double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, winnings);
-        LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(winningNumbers, lottoWinnerCount, returnOfInvestment);
+        Map<Rank, Integer> ranks = lottoWinningStatisticsService.generateWinningStatistic(lottoTickets, winningNumbers, bonusBall);
+        double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, ranks);
+        LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(ranks, returnOfInvestment);
 
         outputView.writeLottoWinningStatistics(lottoWinningStatistics);
     }

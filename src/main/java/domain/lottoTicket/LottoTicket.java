@@ -12,5 +12,4 @@ public class LottoTicket {
     public LottoNumber getLottoTicketNumber() {
         return lottoTicketNumber;
     }
-
 }

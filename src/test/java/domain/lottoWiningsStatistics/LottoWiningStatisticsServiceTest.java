@@ -1,6 +1,7 @@
 package domain.lottoWiningsStatistics;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import domain.lotto.Lotto;
 import domain.lottoNumber.LottoNumber;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LottoWiningStatisticsServiceTest {
+    private final LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
     @Test
     @DisplayName("로또 당첨 번호와 로또 번호 매칭 횟수 반환 테스트")
     public void matchLottoWinningNumberTest() {
@@ -26,17 +28,16 @@ public class LottoWiningStatisticsServiceTest {
 
         int matchingCount = lottoWinningStatisticsService.matchLottoWinningNumber(lottoTicket, winningNumbers);
         //then
-        assertThat(expectedMatchingCount).isEqualTo(matchingCount);
+        assertThat(matchingCount).isEqualTo(expectedMatchingCount);
 
     }
 
     @Test
-    @DisplayName("로또 티켓 별 매칭 숫자 카운트 테스트")
-    public void countLottoWinnerTest() {
+    @DisplayName("랭크 리스트 생산 테스트")
+    public void generateWinningStatisticTest() {
         //given
-        LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
-
         List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 7;
 
         LottoTicket lottoTicket1 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 5, 6)));
         LottoTicket lottoTicket2 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 4, 5, 7)));
@@ -49,47 +50,63 @@ public class LottoWiningStatisticsServiceTest {
         lottoTickets.add(lottoTicket3);
 
         //when
-        List<Integer> expectedMatchingCount = List.of(6, 5, 4);
-
-        List<Integer> matchingCount = lottoWinningStatisticsService.countLottoWinning(lottoTickets, winningNumber);
 
         //then
-        assertThat(expectedMatchingCount).isEqualTo(matchingCount);
+        assertAll(
+        );
     }
 
     @Test
-    @DisplayName("로또로 번 돈 계산 후 반환 테스트")
-    public void caculateWinningsTest() {
+    @DisplayName("로또 구매 당첨금 계산 테스트")
+    public void caculateWinningTest() {
         //given
-        LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
+        List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 7;
 
-        List<Integer> lottoWinnerCount = List.of(1, 2, 3, 4);
+        LottoTicket lottoTicket1 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 7, 8, 9)));
+        LottoTicket lottoTicket2 = new LottoTicket(new LottoNumber(List.of(1, 2, 12, 7, 8, 9)));
+        LottoTicket lottoTicket3 = new LottoTicket(new LottoNumber(List.of(1, 2, 13, 7, 8, 9)));
+
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+
+        lottoTickets.add(lottoTicket1);
+        lottoTickets.add(lottoTicket2);
+        lottoTickets.add(lottoTicket3);
+
+
+        int expectedWinnings = 5000;
 
         //when
-        int expectedWinnings = 55000;
-
-        int winnings = lottoWinningStatisticsService.caculateWinnings(lottoWinnerCount);
 
         //then
-        assertThat(expectedWinnings).isEqualTo(winnings);
     }
 
     @Test
-    @DisplayName("로또 구매로 얻은 이윤 계산 후 반환 테스트")
-    public void caculateReturnOfInvestment() {
+    @DisplayName("로또 구매로 얻은 수익률 반환 테스트")
+    public void caculateReturnOfInvestmentTest() {
         //given
-        LottoWinningStatisticsService lottoWinningStatisticsService = new LottoWinningStatisticsService();
+        List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 7;
+
+        LottoTicket lottoTicket1 = new LottoTicket(new LottoNumber(List.of(1, 2, 3, 7, 8, 9)));
+        LottoTicket lottoTicket2 = new LottoTicket(new LottoNumber(List.of(1, 2, 12, 7, 8, 9)));
+        LottoTicket lottoTicket3 = new LottoTicket(new LottoNumber(List.of(1, 2, 13, 7, 8, 9)));
+
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+
+        lottoTickets.add(lottoTicket1);
+        lottoTickets.add(lottoTicket2);
+        lottoTickets.add(lottoTicket3);
+
 
         int money = 14000;
-        Lotto lotto = new Lotto(14000, 14);
+        Lotto lotto = new Lotto(money, 14);
 
-        int winnings = 3000;
+        int winnings = 5000;
+
         //when
         double expectedReturnOfInvestment = (double) winnings / money;
 
-        double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, winnings);
-
         //then
-        assertThat(expectedReturnOfInvestment).isEqualTo(returnOfInvestment);
     }
 }

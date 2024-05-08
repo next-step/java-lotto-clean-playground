@@ -4,7 +4,7 @@ import domain.lottoNumber.LottoNumber;
 import domain.lottoNumber.LottoNumberService;
 
 public class LottoTicketService {
-    private LottoNumberService lottoNumberService = new LottoNumberService();
+    private final LottoNumberService lottoNumberService = new LottoNumberService();
 
     public LottoTicket generateLottoTicket() {
         LottoNumber lottoNumber = lottoNumberService.generateLottoNumber();

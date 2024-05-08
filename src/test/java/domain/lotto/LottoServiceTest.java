@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
-import domain.lottoWinningStatistics.LottoWinningStatistics;
 import domain.lottoWinningStatistics.LottoWinningStatisticsService;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class LottoServiceTest {
     @DisplayName("로또 티켓 묶음 생성 - 비교 불가 따라서 출력 대체")
     public void generateLottoTicketListTest() {
         //given
-        Lotto lotto = new Lotto(MONEY, lottoService.countLottoTickets(MONEY));
+        Lotto lotto = new Lotto(Integer.toString(MONEY), lottoService.countLottoTickets(MONEY));
 
         List<LottoTicket> expectedLottoTickets = new ArrayList<>();
 
