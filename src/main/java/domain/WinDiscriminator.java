@@ -54,7 +54,7 @@ public class WinDiscriminator {
     }
 
     private void checkBonus(boolean isContainBonus) {
-        if (isContainBonus) {
+        if (isContainBonus ) {
             Prize.BONUS_PRIZE.addQuantity();
             return;
         }
