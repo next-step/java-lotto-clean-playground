@@ -41,7 +41,7 @@ public class LottoNumberServiceTest {
         LottoNumber lottoNumber = lottoNumberService.generateLottoNumber();
 
         //then
-        System.out.println(expectedLottoNumber.getLotoNumber());
-        System.out.println(lottoNumber.getLotoNumber());
+        System.out.println(expectedLottoNumber.getLottoNumber());
+        System.out.println(lottoNumber.getLottoNumber());
     }
 }

@@ -20,7 +20,7 @@ public class OutputView {
     }
 
     public void printLottoTicket(LottoTicket lottoTicket) {
-        System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber());
+        System.out.println(lottoTicket.getLottoTicketNumber().getLottoNumber());
     }
 
     public void writeLottoWinningStatistics(LottoWinningStatistics lottoWinningStatistics) {

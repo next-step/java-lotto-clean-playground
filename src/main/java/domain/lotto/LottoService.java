@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import domain.Rank;
+import domain.lottoNumber.LottoNumber;
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
 import domain.lottoWinningStatistics.LottoWinningStatistics;
@@ -26,7 +27,8 @@ public class LottoService {
 
     public void run() {
         String buyingMoney = readBuyingMoney();
-        String manualTicketCount = readManualTicketCount();
+        int manualTicketCount = readManualTicketCount();
+        List<LottoTicket> manualLottoTickets = lottoTicketService.generateManualLottoTickets(manualTicketCount);
         Lotto lotto = new Lotto(buyingMoney);
         List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
         printLottoTickets(lotto, lottoTickets);
@@ -38,8 +40,8 @@ public class LottoService {
         return inputView.readMoney();
     }
 
-    public String readManualTicketCount() {
-        return inputView.readManualTickets();
+    public int readManualTicketCount() {
+        return Integer.parseInt(inputView.readManualTicketCount());
     }
 
     public int countLottoTickets(int money) {
@@ -85,6 +87,7 @@ public class LottoService {
         validateDuplication(bonusBall, winningNumbers);
         return bonusBall;
     }
+
 
     public void validateDuplication(List<Integer> winningNumber) {
         long size = winningNumber.stream().distinct().count();

@@ -18,7 +18,7 @@ public class LottoTicketServiceTest {
         LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
 
         //then
-        System.out.println(expectedLottoTicket.getLottoTicketNumber().getLotoNumber());
-        System.out.println(lottoTicket.getLottoTicketNumber().getLotoNumber());
+        System.out.println(expectedLottoTicket.getLottoTicketNumber().getLottoNumber());
+        System.out.println(lottoTicket.getLottoTicketNumber().getLottoNumber());
     }
 }

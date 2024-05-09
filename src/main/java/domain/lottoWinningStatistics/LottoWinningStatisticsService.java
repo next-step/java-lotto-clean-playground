@@ -12,7 +12,7 @@ public class LottoWinningStatisticsService {
     private static final int LOTTO_NUMBER_SIZE = 6;
     public int matchLottoWinningNumber(LottoTicket lottoTicket,
                                        List<Integer> winningNumbers) {
-        return (int) lottoTicket.getLottoTicketNumber().getLotoNumber().stream().filter(winningNumbers::contains).count();
+        return (int) lottoTicket.getLottoTicketNumber().getLottoNumber().stream().filter(winningNumbers::contains).count();
     }
 
     public Map<Rank, Integer> generateWinningStatistic(List<LottoTicket> lottoTickets,

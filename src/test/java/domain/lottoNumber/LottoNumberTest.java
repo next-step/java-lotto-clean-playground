@@ -17,7 +17,7 @@ public class LottoNumberTest {
         //when
 
         //then
-        assertThat(expectedLottoNumerList).isEqualTo(lottoNumber.getLotoNumber());
+        assertThat(expectedLottoNumerList).isEqualTo(lottoNumber.getLottoNumber());
 
     }
 }

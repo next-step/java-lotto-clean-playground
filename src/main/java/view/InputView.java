@@ -8,7 +8,8 @@ public class InputView {
     private final String PAYMENT_ANOUNCEMENT = "구입금액을 입력해 주세요.";
     private final String WINNING_ANOUNCEMENT = "\n지난 주 당첨 번호를 입력해 주세요.";
     private final String BONUSBALL_ANOUNCEMENT = "\n보너스 볼을 입력해 주세요.";
-    private final String MANUAL_ANNOUNCEMENT = "\n수동으로 구매할 로또 수를 입력해 주세요.";
+    private final String MANUAL_COUNT_ANNOUNCEMENT = "\n수동으로 구매할 로또 수를 입력해 주세요.";
+    private final String MANUAL_NUMBER_ANNOUNCEMENT = "\n수동으로 구매할 번호를 입력해 주세요.";
     private final Scanner SCANNER = new Scanner(System.in);
 
     public String readMoney(){
@@ -16,9 +17,17 @@ public class InputView {
         return SCANNER.nextLine();
     }
 
-    public String readManualTickets() {
-        System.out.println(MANUAL_ANNOUNCEMENT);
+    public String readManualTicketCount() {
+        System.out.println(MANUAL_COUNT_ANNOUNCEMENT);
         return SCANNER.nextLine();
+    }
+
+    public List<Integer> readManualLottoNumber() {
+        System.out.println(MANUAL_NUMBER_ANNOUNCEMENT);
+        String manualLottoNumbers = SCANNER.nextLine();
+        return Arrays.stream(manualLottoNumbers.split(",\\s*"))
+                .map(Integer::parseInt)
+                .toList();
     }
 
     public List<Integer> readWinningNumber() {
