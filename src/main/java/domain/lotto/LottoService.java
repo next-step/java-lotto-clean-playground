@@ -25,12 +25,21 @@ public class LottoService {
     }
 
     public void run() {
-        String buyingMoney = inputView.readMoney();
+        String buyingMoney = readBuyingMoney();
+        String manualTicketCount = readManualTicketCount();
         Lotto lotto = new Lotto(buyingMoney);
         List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
         printLottoTickets(lotto, lottoTickets);
         LottoWinningStatistics lottoWinningStatistics =  generateLottoWinningStatistics(lotto, lottoTickets);
         printLottoWinningStatistics(lottoWinningStatistics);
+    }
+
+    public String readBuyingMoney() {
+        return inputView.readMoney();
+    }
+
+    public String readManualTicketCount() {
+        return inputView.readManualTickets();
     }
 
     public int countLottoTickets(int money) {
