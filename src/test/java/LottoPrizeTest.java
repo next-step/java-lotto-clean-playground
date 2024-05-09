@@ -12,8 +12,8 @@ import domain.WinningLotto;
 
 public class LottoPrizeTest {
 
-	@Test
 	@DisplayName("등수는 번호 매치 개수와 보너스 번호로 결정된다.")
+	@Test
 	void testRankingBasedOnMatchCountAndBonus() {
 		assertEquals(LottoPrize.LAST_PRIZE, LottoPrize.of(0, false));
 		assertEquals(LottoPrize.LAST_PRIZE, LottoPrize.of(1, false));
