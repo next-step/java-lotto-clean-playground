@@ -15,22 +15,6 @@ public class LottoWinningStatisticsService {
         return (int) lottoTicket.getLottoTicketNumber().getLotoNumber().stream().filter(winningNumbers::contains).count();
     }
 
-    public Map<Rank, Integer> findSecondWinning(Map<Rank, Integer> rankStatistic,
-                                                List<LottoTicket> lottoTickets,
-                                                List<Integer> winningNumbers,
-                                                int bonusNumber) {
-        List<Integer> bonusWinningNumbers = new ArrayList<>(winningNumbers);
-        bonusWinningNumbers.add(bonusNumber);
-
-        lottoTickets.forEach(lottoTicket -> {
-            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, bonusWinningNumbers), hasBonusBall(bonusWinningNumbers));
-            if(rank != null)
-                rankStatistic.put(rank, rankStatistic.get(rank) + 1);
-        });
-
-        return rankStatistic;
-    }
-
     public Map<Rank, Integer> generateWinningStatistic(List<LottoTicket> lottoTickets,
                                                        List<Integer> winningNumbers,
                                                        int bonusNumber) {
@@ -52,12 +36,6 @@ public class LottoWinningStatisticsService {
         return rankStatistic;
     }
 
-    public boolean hasBonusBall(List<Integer> winningNumber) {
-        if(winningNumber.size() == LOTTO_NUMBER_SIZE)
-            return true;
-        return false;
-    }
-
     public Map<Rank, Integer> initRankStatistic() {
         Map<Rank, Integer> rankStatistic = new HashMap<>();
 
@@ -65,6 +43,28 @@ public class LottoWinningStatisticsService {
             rankStatistic.put(rank, 0);
         }
         return rankStatistic;
+    }
+
+    public Map<Rank, Integer> findSecondWinning(Map<Rank, Integer> rankStatistic,
+                                                List<LottoTicket> lottoTickets,
+                                                List<Integer> winningNumbers,
+                                                int bonusNumber) {
+        List<Integer> bonusWinningNumbers = new ArrayList<>(winningNumbers);
+        bonusWinningNumbers.add(bonusNumber);
+
+        lottoTickets.forEach(lottoTicket -> {
+            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, bonusWinningNumbers), hasBonusBall(bonusWinningNumbers));
+            if(rank != null)
+                rankStatistic.put(rank, rankStatistic.get(rank) + 1);
+        });
+
+        return rankStatistic;
+    }
+
+    public boolean hasBonusBall(List<Integer> winningNumber) {
+        if(winningNumber.size() == LOTTO_NUMBER_SIZE)
+            return true;
+        return false;
     }
 
     public double caculateReturnOfInvestment(Lotto lotto, Map<Rank, Integer> rankStatistic) {
