@@ -9,6 +9,8 @@ import domain.lottoWinningStatistics.LottoWinningStatisticsService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import view.InputView;
 import view.OutputView;
 
@@ -19,6 +21,7 @@ public class LottoService {
     private final int LOTTO_PRICE = 1000;
     private final InputView inputView;
     private final  OutputView outputView;
+    private int manualTicketCount;
 
     public LottoService(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -27,13 +30,19 @@ public class LottoService {
 
     public void run() {
         String buyingMoney = readBuyingMoney();
-        int manualTicketCount = readManualTicketCount();
+        manualTicketCount = readManualTicketCount();
         List<LottoTicket> manualLottoTickets = lottoTicketService.generateManualLottoTickets(manualTicketCount);
         Lotto lotto = new Lotto(buyingMoney);
-        List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
-        printLottoTickets(lotto, lottoTickets);
-        LottoWinningStatistics lottoWinningStatistics =  generateLottoWinningStatistics(lotto, lottoTickets);
+        List<LottoTicket> autoLottoTickets = generateLottoTicketList(lotto);
+        List<LottoTicket> allLottoTickets = mergeLottoTickets(manualLottoTickets, autoLottoTickets);
+        printLottoTickets(lotto, allLottoTickets);
+        LottoWinningStatistics lottoWinningStatistics =  generateLottoWinningStatistics(lotto, allLottoTickets);
         printLottoWinningStatistics(lottoWinningStatistics);
+    }
+
+    public List<LottoTicket> mergeLottoTickets(List<LottoTicket> manualLottoTickets, List<LottoTicket> autoLottoTickets) {
+        return Stream.concat(manualLottoTickets.stream(), autoLottoTickets.stream())
+                .collect(Collectors.toList());
     }
 
     public String readBuyingMoney() {
@@ -48,10 +57,14 @@ public class LottoService {
         return (int) money / LOTTO_PRICE;
     }
 
+    public int countAutoLottoTickets(int money, int manualTicketCount) {
+        return (int) (money / LOTTO_PRICE) - manualTicketCount;
+    }
+
     public List<LottoTicket> generateLottoTicketList(Lotto lotto) {
         List<LottoTicket> lottoTicketList = new ArrayList<>();
 
-        for(int i = 0; i < countLottoTickets(lotto.getLottoMoney()); i++) {
+        for(int i = 0; i < countAutoLottoTickets(lotto.getLottoMoney(), manualTicketCount); i++) {
             LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
             lottoTicketList.add(lottoTicket);
         }
