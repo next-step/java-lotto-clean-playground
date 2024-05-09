@@ -26,8 +26,8 @@ public class OutputView {
     public void writeLottoWinningStatistics(LottoWinningStatistics lottoWinningStatistics) {
         System.out.println(ANNOUNCEMENT_WINNING);
         System.out.println("---------");
-        printWinning(lottoWinningStatistics.getRankStatistic());
-        printReturnOfInvestment(lottoWinningStatistics.getReturnOfInvestment());
+        printWinning(lottoWinningStatistics.rankStatistic());
+        printReturnOfInvestment(lottoWinningStatistics.returnOfInvestment());
     }
 
     public void printWinning(Map<Rank, Integer> map) {

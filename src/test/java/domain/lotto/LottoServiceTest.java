@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
@@ -55,9 +56,33 @@ public class LottoServiceTest {
 
     @Test
     @DisplayName("로또 우승 통계 계산 및 출력 입력값을 받기 때문에 진행 불가")
-    public void drawLottoWinningTest() {
+    public void generateLottoWinningStatisticsTest() {
         //given
         //when
         //then
+    }
+
+    @Test
+    @DisplayName("당첨 번호 중복 번호 예외 처리 테스트")
+    public  void validateDuplicationTest1() {
+        //given
+        List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 5);
+        //when
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> lottoService.validateDuplication(winningNumber));
+    }
+
+    @Test
+    @DisplayName("당첨 번호 중복 번호 예외 처리 테스트")
+    public  void validateDuplicationTest2() {
+        //given
+        List<Integer> winningNumber = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 5;
+
+        //when
+
+        //then
+        assertThrows(IllegalArgumentException.class, () -> lottoService.validateDuplication(bonusBall, winningNumber));
     }
 }

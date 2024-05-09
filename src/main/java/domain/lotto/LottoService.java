@@ -29,13 +29,12 @@ public class LottoService {
         Lotto lotto = new Lotto(buyingMoney);
         List<LottoTicket> lottoTickets = generateLottoTicketList(lotto);
         printLottoTickets(lotto, lottoTickets);
-        drawLottoWinning(lotto, lottoTickets);
+        LottoWinningStatistics lottoWinningStatistics =  generateLottoWinningStatistics(lotto, lottoTickets);
+        printLottoWinningStatistics(lottoWinningStatistics);
     }
 
     public int countLottoTickets(int money) {
-        int lottoTicketCount = (int) money / LOTTO_PRICE;
-
-        return lottoTicketCount;
+        return (int) money / LOTTO_PRICE;
     }
 
     public List<LottoTicket> generateLottoTicketList(Lotto lotto) {
@@ -53,20 +52,22 @@ public class LottoService {
         outputView.writeLottoTickets(lotto, lottoTickets);
     }
 
-    public void drawLottoWinning(Lotto lotto, List<LottoTicket> lottoTickets) {
+    public LottoWinningStatistics generateLottoWinningStatistics(Lotto lotto, List<LottoTicket> lottoTickets) {
         List<Integer> winningNumbers = readWinningNumbers();
         int bonusBall = readBonusBall(winningNumbers);
 
         Map<Rank, Integer> ranks = lottoWinningStatisticsService.generateWinningStatistic(lottoTickets, winningNumbers, bonusBall);
         double returnOfInvestment = lottoWinningStatisticsService.caculateReturnOfInvestment(lotto, ranks);
-        LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(ranks, returnOfInvestment);
+        return new LottoWinningStatistics(ranks, returnOfInvestment);
+    }
 
+    public void printLottoWinningStatistics(LottoWinningStatistics lottoWinningStatistics) {
         outputView.writeLottoWinningStatistics(lottoWinningStatistics);
     }
 
     public List<Integer> readWinningNumbers() {
         List<Integer> winningNumbers = inputView.readWinningNumber();
-        validateDuplicationI(winningNumbers);
+        validateDuplication(winningNumbers);
         return winningNumbers;
     }
 
@@ -76,8 +77,8 @@ public class LottoService {
         return bonusBall;
     }
 
-    public void validateDuplicationI(List<Integer> winningNumber) {
-        Long size = winningNumber.stream().distinct().count();
+    public void validateDuplication(List<Integer> winningNumber) {
+        long size = winningNumber.stream().distinct().count();
         if(size != LOTTO_SIZE) {
             throw new IllegalArgumentException("당첨 번호는 중복된 번호를 입력받을 수 없습니다.");
         }

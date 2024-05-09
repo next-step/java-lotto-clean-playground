@@ -26,15 +26,15 @@ public class LottoWiningStatisticsTest {
         //when
         LottoWinningStatistics lottoWinningStatistics = new LottoWinningStatistics(expectedRankStatistic, expectedReturnOfInvestment);
 
-        Map<Rank, Integer> rankStatistic = lottoWinningStatistics.getRankStatistic();
+        Map<Rank, Integer> rankStatistic = lottoWinningStatistics.rankStatistic();
 
         //then
         assertAll(
-                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FIFTH_PRIZE)),
-                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FOURTH_PRIZE)),
-                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.THIRD_PRIZE)),
-                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.SECOND_PRIZE)),
-                () -> assertThat(0).isEqualTo(rankStatistic.get(Rank.FIRST_PRIZE))
+                () -> assertThat(rankStatistic.get(Rank.FIFTH_PRIZE)).isEqualTo(0),
+                () -> assertThat(rankStatistic.get(Rank.FOURTH_PRIZE)).isEqualTo(0),
+                () -> assertThat(rankStatistic.get(Rank.THIRD_PRIZE)).isEqualTo(0),
+                () -> assertThat(rankStatistic.get(Rank.SECOND_PRIZE)).isEqualTo(0),
+                () -> assertThat(rankStatistic.get(Rank.FIRST_PRIZE)).isEqualTo(0)
         );
     }
 }
