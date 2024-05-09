@@ -69,8 +69,7 @@ public class LottoWinningStatisticsService {
 
     public double caculateReturnOfInvestment(Lotto lotto, Map<Rank, Integer> rankStatistic) {
         int winnings = caculateWinnig(rankStatistic);
-        double returnOfInvestment = (double) winnings / lotto.getLottoMoney();
-        return returnOfInvestment;
+        return (double) winnings / lotto.getLottoMoney();
     }
 
     public int caculateWinnig(Map<Rank, Integer> rankStatistic) {
