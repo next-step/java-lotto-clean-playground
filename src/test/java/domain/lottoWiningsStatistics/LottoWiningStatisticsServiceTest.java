@@ -100,7 +100,6 @@ public class LottoWiningStatisticsServiceTest {
 
 
         int money = 14000;
-        Lotto lotto = new Lotto(money, 14);
 
         int winnings = 5000;
 

@@ -3,6 +3,7 @@ package domain.lottoWinningStatistics;
 import domain.Rank;
 import domain.lotto.Lotto;
 import domain.lottoTicket.LottoTicket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,13 @@ public class LottoWinningStatisticsService {
 
     public Map<Rank, Integer> findSecondWinning(Map<Rank, Integer> rankStatistic,
                                                 List<LottoTicket> lottoTickets,
-                                                List<Integer> winningNumbers) {
+                                                List<Integer> winningNumbers,
+                                                int bonusNumber) {
+        List<Integer> bonusWinningNumbers = new ArrayList<>(winningNumbers);
+        bonusWinningNumbers.add(bonusNumber);
+
         lottoTickets.forEach(lottoTicket -> {
-            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, winningNumbers), hasBonusBall(winningNumbers));
+            Rank rank = Rank.of(matchLottoWinningNumber(lottoTicket, bonusWinningNumbers), hasBonusBall(bonusWinningNumbers));
             if(rank != null)
                 rankStatistic.put(rank, rankStatistic.get(rank) + 1);
         });
@@ -29,6 +34,12 @@ public class LottoWinningStatisticsService {
     public Map<Rank, Integer> generateWinningStatistic(List<LottoTicket> lottoTickets,
                                                        List<Integer> winningNumbers,
                                                        int bonusNumber) {
+        Map<Rank, Integer> rankStatistic = generateRankStatistic(lottoTickets, winningNumbers);
+        return findSecondWinning(rankStatistic, lottoTickets, winningNumbers, bonusNumber);
+    }
+
+    public Map<Rank, Integer> generateRankStatistic(List<LottoTicket> lottoTickets,
+                                                    List<Integer> winningNumbers) {
         Map<Rank, Integer> rankStatistic = initRankStatistic();
 
         lottoTickets.forEach(lottoTicket -> {
@@ -38,11 +49,7 @@ public class LottoWinningStatisticsService {
                 rankStatistic.put(rank, rankStatistic.get(rank) + 1);
         });
 
-        winningNumbers.add(bonusNumber);
-
-        Map<Rank, Integer> lastRankStatistic = findSecondWinning(rankStatistic, lottoTickets, winningNumbers);
-
-        return lastRankStatistic;
+        return rankStatistic;
     }
 
     public boolean hasBonusBall(List<Integer> winningNumber) {

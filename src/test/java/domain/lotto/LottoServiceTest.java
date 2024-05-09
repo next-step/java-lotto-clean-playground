@@ -34,11 +34,11 @@ public class LottoServiceTest {
     @DisplayName("로또 티켓 묶음 생성 - 비교 불가 따라서 출력 대체")
     public void generateLottoTicketListTest() {
         //given
-        Lotto lotto = new Lotto(Integer.toString(MONEY), lottoService.countLottoTickets(MONEY));
+        Lotto lotto = new Lotto(Integer.toString(MONEY));
 
         List<LottoTicket> expectedLottoTickets = new ArrayList<>();
 
-        for(int i = 0; i < lotto.getLottoTicketCount(); i++) {
+        for(int i = 0; i < lottoService.countLottoTickets(lotto.getLottoMoney()); i++) {
             LottoTicket lottoTicket = lottoTicketService.generateLottoTicket();
             expectedLottoTickets.add(lottoTicket);
         }
