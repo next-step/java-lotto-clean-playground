@@ -1,9 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lottos {
 
@@ -12,7 +10,7 @@ public class Lottos {
 
 	private final List<Lotto> lottos;
 
-	public Lottos(int manualLottoCount, int totalLottoCount, List<String> manualLottos) {
+	public Lottos(int manualLottoCount, int totalLottoCount, List<List<Integer>> manualLottos) {
 		validate(manualLottoCount, totalLottoCount);
 		this.manualLottoCount = manualLottoCount;
 		this.autoLottoCount = totalLottoCount - manualLottoCount;
@@ -27,13 +25,9 @@ public class Lottos {
 		}
 	}
 
-	private void publishManualLottos(List<String> manualLottos) {
-		for (String manualLotto : manualLottos) {
-			List<Integer> numbers = Arrays
-				.stream(manualLotto.replace(" ", "").split(","))
-				.map(Integer::parseInt)
-				.collect(Collectors.toList());
-			lottos.add(new Lotto(numbers));
+	private void publishManualLottos(List<List<Integer>> manualLottos) {
+		for (List<Integer> manualLotto : manualLottos) {
+			lottos.add(new Lotto(manualLotto));
 		}
 	}
 

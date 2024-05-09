@@ -22,12 +22,12 @@ public class LottoGameResult {
 			.collect(Collectors.toList());
 	}
 
-	public double calculateGameProfit(LottoPurchaseAmount purchaseAmount) {
+	public double calculateGameProfitRate(LottoPurchaseAmount purchaseAmount) {
 		int totalProfit = 0;
 		for (LottoPrize lottoPrize : gameResult) {
 			totalProfit += lottoPrize.getPrice();
 		}
-		return ((double)totalProfit / purchaseAmount.getPurchaseAmount());
+		return Math.floor(((double)totalProfit / purchaseAmount.getPurchaseAmount()) * 100) / 100.0;
 	}
 
 	public LottoGameResultResponse getGameResult() {

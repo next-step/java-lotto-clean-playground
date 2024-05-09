@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import response.LottoResponse;
 
@@ -40,22 +41,13 @@ public class Lotto {
 
 	private boolean isDuplicate(List<Integer> numbers) {
 		Set<Integer> set = new HashSet<>();
-		for (Integer number : numbers) {
-			if (set.contains(number)) {
-				return true;
-			}
-			set.add(number);
-		}
-		return false;
+		return numbers.stream()
+			.anyMatch(number -> !set.add(number));
 	}
 
 	private boolean isNotAscending(List<Integer> numbers) {
-		for (int i = 0; i < numbers.size() - 1; i++) {
-			if (numbers.get(i) > numbers.get(i + 1)) {
-				return true;
-			}
-		}
-		return false;
+		return IntStream.range(0, numbers.size() - 1)
+			.anyMatch(i -> numbers.get(i) > numbers.get(i + 1));
 	}
 
 	private List<LottoNumber> generateLotto() {
@@ -69,22 +61,18 @@ public class Lotto {
 	}
 
 	private List<Integer> generateRandomNumberList() {
-		List<Integer> numbers = new ArrayList<>();
-		for (int i = 1; i <= LottoNumber.MAX_NUMBER; i++) {
-			numbers.add(i);
+		List<Integer> randomNumberList = new ArrayList<>();
+		for (int i = LottoNumber.MIN_NUMBER; i <= LottoNumber.MAX_NUMBER; i++) {
+			randomNumberList.add(i);
 		}
-		Collections.shuffle(numbers);
-		return numbers;
+		Collections.shuffle(randomNumberList);
+		return randomNumberList;
 	}
 
 	public int getMatchedNumberCount(WinningLotto lottoWinningNumber) {
-		int matchedNumberCount = 0;
-		for (LottoNumber lottoNumber : lotto) {
-			if (lottoWinningNumber.getWinningLotto().contains(lottoNumber.getLottoNumber())) {
-				matchedNumberCount += 1;
-			}
-		}
-		return matchedNumberCount;
+		return (int)lotto.stream()
+			.filter(lottoNumber -> lottoWinningNumber.getWinningLotto().contains(lottoNumber.getLottoNumber()))
+			.count();
 	}
 
 	public boolean isContainsBonusNumber(LottoNumber bonusNumber) {

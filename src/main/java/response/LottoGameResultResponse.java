@@ -1,36 +1,29 @@
 package response;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import domain.LottoPrize;
 
 public class LottoGameResultResponse {
 
-	private final List<Integer> gameResult = new ArrayList<>(Collections.nCopies(LottoPrize.LOTTO_PRIZE_COUNT, 0));
+	private final Map<LottoPrize, Integer> lottoGameResultResponse = new HashMap<>();
 
 	public LottoGameResultResponse(List<LottoPrize> lottoPrizes) {
+		for (LottoPrize lottoPrize : LottoPrize.values()) {
+			if (!lottoPrize.equals(lottoPrize.LAST_PRIZE)) {
+				lottoGameResultResponse.put(lottoPrize, 0);
+			}
+		}
 		for (LottoPrize lottoPrize : lottoPrizes) {
-			setGameResultResponse(lottoPrize);
+			if (!lottoPrize.equals(lottoPrize.LAST_PRIZE)) {
+				lottoGameResultResponse.put(lottoPrize, lottoGameResultResponse.get(lottoPrize) + 1);
+			}
 		}
 	}
 
-	private void setGameResultResponse(LottoPrize lottoPrize) {
-		if (lottoPrize.equals(LottoPrize.FIFTH_PRIZE)) {
-			gameResult.set(0, gameResult.get(0) + 1);
-		} else if (lottoPrize.equals(LottoPrize.FOURTH_PRIZE)) {
-			gameResult.set(1, gameResult.get(1) + 1);
-		} else if (lottoPrize.equals(LottoPrize.THIRD_PRIZE)) {
-			gameResult.set(2, gameResult.get(2) + 1);
-		} else if (lottoPrize.equals(LottoPrize.SECOND_PRIZE)) {
-			gameResult.set(3, gameResult.get(3) + 1);
-		} else if (lottoPrize.equals(LottoPrize.FIRST_PRIZE)) {
-			gameResult.set(4, gameResult.get(4) + 1);
-		}
-	}
-
-	public List<Integer> getGameResult() {
-		return gameResult;
+	public Map<LottoPrize, Integer> getGameResult() {
+		return Map.copyOf(lottoGameResultResponse);
 	}
 }

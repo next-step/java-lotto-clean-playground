@@ -30,13 +30,9 @@ public class LottoController {
 
 	private void publishLotto() {
 		this.lottoGame = new LottoGame(readLottoPurchaseAmount());
-		int manualLottoCount = InputView.inputManualLottoCount();
+		final int manualLottoCount = readManualLottoCount();
 		this.lottos = new Lottos(manualLottoCount, lottoGame.getLottoCount(),
-			InputView.inputManualLottoNumber(manualLottoCount));
-	}
-
-	private int readLottoPurchaseAmount() {
-		return InputView.inputPurchaseAmount();
+			readManualLottoNumbers(manualLottoCount));
 	}
 
 	private void showLottoPurchaseCount() {
@@ -45,14 +41,6 @@ public class LottoController {
 
 	private void showLottoNumbers() {
 		OutputView.printLottos(lottos.getLottos());
-	}
-
-	private List<Integer> readLottoWinningNumber() {
-		return InputView.inputWinningNumber();
-	}
-
-	private int readLottoBonusNumber() {
-		return InputView.inputBonusNumber();
 	}
 
 	private void calculateGameResult() {
@@ -64,7 +52,27 @@ public class LottoController {
 
 	private void showLottoGameResult() {
 		OutputView.printLottoGameResult(lottoGameResult.getGameResult());
-		OutputView.printLottoGameProfit(lottoGameResult.calculateGameProfit(lottoGame.getPurchaseAmount()));
+		OutputView.printLottoGameProfit(lottoGameResult.calculateGameProfitRate(lottoGame.getPurchaseAmount()));
+	}
+
+	private int readLottoPurchaseAmount() {
+		return InputView.inputPurchaseAmount();
+	}
+
+	private int readManualLottoCount() {
+		return InputView.inputManualLottoCount();
+	}
+
+	private List<List<Integer>> readManualLottoNumbers(int count) {
+		return InputView.inputManualLottoNumbers(count);
+	}
+
+	private List<Integer> readLottoWinningNumber() {
+		return InputView.inputWinningNumber();
+	}
+
+	private int readLottoBonusNumber() {
+		return InputView.inputBonusNumber();
 	}
 
 }

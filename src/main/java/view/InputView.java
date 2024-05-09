@@ -19,7 +19,6 @@ public class InputView {
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 		return Arrays
 			.stream(scanner.nextLine().replace(" ", "").split(","))
-			.filter(item -> !item.isBlank())
 			.map((number) -> Integer.parseInt(number))
 			.collect(Collectors.toList());
 	}
@@ -34,12 +33,15 @@ public class InputView {
 		return Integer.parseInt(scanner.nextLine());
 	}
 
-	public static List<String> inputManualLottoNumber(int count) {
-		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-		List<String> numbers = new ArrayList<>();
-		for (int i = 0; i < count; i++) {
-			String number = scanner.nextLine();
-			numbers.add(number);
+	public static List<List<Integer>> inputManualLottoNumbers(int count) {
+		List<List<Integer>> numbers = new ArrayList<>();
+		if (count > 0) {
+			System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+			for (int i = 0; i < count; i++) {
+				numbers.add(Arrays.stream(scanner.nextLine().replace(" ", "").split(","))
+					.map(Integer::parseInt)
+					.collect(Collectors.toList()));
+			}
 		}
 		return numbers;
 	}

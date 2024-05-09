@@ -30,4 +30,19 @@ public class LottoTest {
 		assertEquals(actual, lotto.isContainsBonusNumber(winningLotto.getBonusNumber()));
 	}
 
+	@DisplayName("로또는 중복되지 않은 숫자 6개로 이루어져 있다.")
+	@Test
+	void testIsDuplicate() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Lotto(List.of(1, 2, 3, 4, 5, 5));
+		});
+	}
+
+	@DisplayName("로또는 오름차순으로 이루어져 있다.")
+	@Test
+	void testIsNotAscending() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Lotto(List.of(10, 2, 3, 4, 5, 5));
+		});
+	}
 }

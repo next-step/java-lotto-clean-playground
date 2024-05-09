@@ -1,11 +1,18 @@
 package view;
 
+import java.util.Comparator;
 import java.util.List;
 
 import domain.Lotto;
+import domain.LottoPrize;
 import response.LottoGameResultResponse;
 
 public class OutputView {
+
+	private static final String LOTTO_PURCHASE_FORMAT = "수동으로 %d장, 자동으로 %d개를 구매했습니다.";
+	private static final String MATCH_RESULT_FORMAT = "%d개 일치 (%d원) - %d개";
+	private static final String MATCH_RESULT_SECOND_PRIZE_FORMAT = "%d개 일치, 보너스 볼 일치(%d원) - %d개";
+	private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.2f입니다.";
 
 	private static void printNewLine() {
 		System.out.println();
@@ -13,7 +20,8 @@ public class OutputView {
 
 	public static void printLottoPurchaseCount(final int manualLottoCount, final int autoLottoCount) {
 		printNewLine();
-		System.out.println(String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", manualLottoCount, autoLottoCount));
+		System.out.printf(LOTTO_PURCHASE_FORMAT, manualLottoCount, autoLottoCount);
+		printNewLine();
 	}
 
 	public static void printLottos(final List<Lotto> lottos) {
@@ -21,20 +29,28 @@ public class OutputView {
 		printNewLine();
 	}
 
-	public static void printLottoGameResult(final LottoGameResultResponse gameResult) {
+	public static void printLottoGameResult(final LottoGameResultResponse lottoGameResultResponse) {
 		printNewLine();
-		List<Integer> prizeCount = gameResult.getGameResult();
 		System.out.println("당첨 통계");
 		System.out.println("---------");
-		String[] prizes = {"3개 일치 (5000원)", "4개 일치 (50000원)", "5개 일치 (1500000원)", "5개 일치, 보너스 볼 일치(30000000원)",
-			"6개 일치 (2000000000원)"};
-		for (int i = 0; i < prizes.length; i++) {
-			System.out.printf("%s - %d개%n", prizes[i], prizeCount.get(i));
-		}
+		lottoGameResultResponse
+			.getGameResult()
+			.entrySet()
+			.stream()
+			.sorted(Comparator.comparing(entry -> entry.getKey().ordinal()))
+			.forEach(entry -> {
+				LottoPrize prize = entry.getKey();
+				int count = entry.getValue();
+				if (prize == LottoPrize.SECOND_PRIZE) {
+					System.out.printf(MATCH_RESULT_SECOND_PRIZE_FORMAT, prize.getMatchCount(), prize.getPrice(), count);
+				} else if (prize != LottoPrize.SECOND_PRIZE) {
+					System.out.printf(MATCH_RESULT_FORMAT, prize.getMatchCount(), prize.getPrice(), count);
+				}
+				printNewLine();
+			});
 	}
 
-	public static void printLottoGameProfit(final double gameProfit) {
-		String message = String.format("총 수익률은 %.2f입니다.", Math.floor(gameProfit * 100) / 100.0);
-		System.out.println(message);
+	public static void printLottoGameProfit(final double gameProfitRate) {
+		System.out.printf(PROFIT_RATE_FORMAT, gameProfitRate);
 	}
 }

@@ -16,5 +16,4 @@ public class LottoResponse {
 	public List<Integer> getLottoResponse() {
 		return lottoResponse;
 	}
-
 }
