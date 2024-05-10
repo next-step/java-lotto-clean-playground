@@ -29,9 +29,9 @@ public class LottoService {
 
     public void run() {
         String buyingMoney = readBuyingMoney();
-        manualTicketCount = readManualTicketCount();
-        List<LottoTicket> manualLottoTickets = lottoTicketService.generateManualLottoTickets(manualTicketCount);
         Lotto lotto = new Lotto(buyingMoney);
+        manualTicketCount = readManualTicketCount(lotto);
+        List<LottoTicket> manualLottoTickets = lottoTicketService.generateManualLottoTickets(manualTicketCount);
         List<LottoTicket> autoLottoTickets = generateLottoTicketList(lotto);
         List<LottoTicket> allLottoTickets = mergeLottoTickets(manualLottoTickets, autoLottoTickets);
         printLottoTickets(lotto, allLottoTickets);
@@ -48,8 +48,10 @@ public class LottoService {
         return inputView.readMoney();
     }
 
-    public int readManualTicketCount() {
-        return Integer.parseInt(inputView.readManualTicketCount());
+    public int readManualTicketCount(Lotto lotto) {
+        int manualTicketCount = Integer.parseInt(inputView.readManualTicketCount());
+        validateCount(lotto, manualTicketCount);
+        return manualTicketCount;
     }
 
     public int countLottoTickets(int money) {
@@ -100,6 +102,11 @@ public class LottoService {
         return bonusBall;
     }
 
+    public void validateCount(Lotto lotto, int manualTicketCount) {
+        if(countLottoTickets(lotto.getLottoMoney()) - manualTicketCount <= 0){
+            throw new IllegalArgumentException("수동 로또 개수는 입력 금액으로 구맥 가능한 티켓 수를 초과할 수 없습니다.");
+        }
+    }
 
     public void validateDuplication(List<Integer> winningNumber) {
         long size = winningNumber.stream().distinct().count();

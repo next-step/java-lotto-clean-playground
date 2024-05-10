@@ -86,6 +86,17 @@ public class LottoServiceTest {
     }
 
     @Test
+    @DisplayName("수동 로또 티켓 수 에러 테스트")
+    public void validateCountTest() {
+        //given
+        Lotto lotto = new Lotto("3000");
+        int manualTicketCount = 4;
+        //when
+        //then
+        assertThrows(IllegalArgumentException.class, () -> lottoService.validateCount(lotto, manualTicketCount));
+    }
+
+    @Test
     @DisplayName("당첨 번호 중복 번호 예외 처리 테스트")
     public  void validateDuplicationTest1() {
         //given
