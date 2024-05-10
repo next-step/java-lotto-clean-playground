@@ -1,7 +1,6 @@
 package controller;
 
 import model.Lotto;
-import model.LottoNumber;
 import model.RankCalculator;
 import view.LottoInput;
 import view.LottoOutput;

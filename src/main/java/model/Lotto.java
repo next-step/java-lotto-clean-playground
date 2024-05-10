@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
+
+    private final static int LOTTO_PRICE = 1000;
     private final int balance;
     private int manualCount;
     private int autoCount;
@@ -18,16 +20,24 @@ public class Lotto {
         this.lottoNumberList = lottoNumberList;
     }
 
-    public void calcLottoNumbersCount(int manualCount){
-        this.manualCount = manualCount;
-        this.autoCount = balance/1000 - manualCount;
-
+    private void validateManualCountIsOverZero(){
         if(manualCount < 0){
             throw new IllegalArgumentException("수동 복권은 0개부터 구매가 가능합니다.");
         }
+    }
+
+    private void validateAutoCountIsOverZero(){
         if(autoCount < 0){
             throw new IllegalArgumentException("자동 복권은 0개부터 구매가 가능합니다.");
         }
+    }
+
+    public void calcLottoNumbersCount(int manualCount){
+        validateManualCountIsOverZero();
+        validateAutoCountIsOverZero();
+
+        this.manualCount = manualCount;
+        this.autoCount = balance/LOTTO_PRICE - manualCount;
     }
 
     public void generateRandomLottoNumbers() {

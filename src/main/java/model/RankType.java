@@ -30,18 +30,15 @@ public enum RankType {
         else if(correctNum == CORRECT_NUM_SIX){
             return RankType.FIRST;
         }
-        else{
-            return null;
-        }
+
+        return null;
     }
 
     private static RankType isSecondRank(boolean hasBonusBall){
         if(hasBonusBall){
             return RankType.SECOND;
         }
-        else {
-            return RankType.THIRD;
-        }
+        return RankType.THIRD;
     }
 
     public int getCorrectNum() {

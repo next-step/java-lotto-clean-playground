@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Constants {
-    public static final List<Integer> prize = new ArrayList<>
-            (Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 30000000, 2000000000));
-
     public static final int FIRST_PRIZE = 2000000000;
     public static final int SECOND_PRIZE = 30000000;
     public static final int THIRD_PRIZE = 1500000;

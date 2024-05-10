@@ -5,10 +5,7 @@ import model.LottoNumber;
 import model.RankCalculator;
 import model.RankType;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static model.Constants.prize;
 
 public class LottoOutput {
 

@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-
 class LottoTest {
     @DisplayName("수동 로또가 0개 미만으로 구매시 예외가 발생하는지 확인한다.")
     @Test
