@@ -28,7 +28,7 @@ public class LottoNumberService {
         return new LottoNumber(lottoNumberList.subList(FIRST_LOTTO_POSITION, LAST_LOTTO_POSITION));
     }
 
-    public LottoNumber generateManualLottoNumberList() {
+    public LottoNumber generateManualLottoNumber() {
         List<Integer> ManualNumber = readManualNumbers();
         return new LottoNumber(ManualNumber);
     }
@@ -40,10 +40,10 @@ public class LottoNumberService {
         return ManualNumbers;
     }
 
-    public void validateDuplication(List<Integer> winningNumber) {
-        long size = winningNumber.stream().distinct().count();
+    public void validateDuplication(List<Integer> manualNumber) {
+        long size = manualNumber.stream().distinct().count();
         if(size != LAST_LOTTO_POSITION) {
-            throw new IllegalArgumentException("당첨 번호는 중복된 번호를 입력받을 수 없습니다.");
+            throw new IllegalArgumentException("수동 로또 번호는 중복된 번호를 입력받을 수 없습니다.");
         }
     }
 

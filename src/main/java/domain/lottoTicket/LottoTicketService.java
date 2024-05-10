@@ -4,7 +4,6 @@ import domain.lottoNumber.LottoNumber;
 import domain.lottoNumber.LottoNumberService;
 import java.util.ArrayList;
 import java.util.List;
-import view.InputView;
 
 public class LottoTicketService {
     private final LottoNumberService lottoNumberService = new LottoNumberService();
@@ -17,7 +16,7 @@ public class LottoTicketService {
     public List<LottoTicket> generateManualLottoTickets(int manualTicketCount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for(int i = 0; i < manualTicketCount; i++) {
-            lottoTickets.add(new LottoTicket(lottoNumberService.generateManualLottoNumberList()));
+            lottoTickets.add(new LottoTicket(lottoNumberService.generateManualLottoNumber()));
         }
         return lottoTickets;
     }

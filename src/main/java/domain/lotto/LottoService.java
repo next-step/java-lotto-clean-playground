@@ -1,7 +1,6 @@
 package domain.lotto;
 
 import domain.Rank;
-import domain.lottoNumber.LottoNumber;
 import domain.lottoTicket.LottoTicket;
 import domain.lottoTicket.LottoTicketService;
 import domain.lottoWinningStatistics.LottoWinningStatistics;

@@ -9,5 +9,4 @@ public class LottoApplication {
         LottoService lottoService = new LottoService(inputView, outputView);
         lottoService.run();
     }
-
 }
