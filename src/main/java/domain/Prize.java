@@ -1,84 +1,44 @@
 package domain;
 
-public class Prize {
+public enum Prize {
+    _4TH_PRIZE(3, 5_000),
+    _3TH_PRIZE(4, 50_000),
+    _2ND_PRIZE(5, 1_500_000),
+    BONUS_PRIZE(5, 30_000_000),
+    _1ST_PRIZE(6, 2_000_000_000);
 
-    private int firstPrizeQuantity;
-    private int bonusPrizeQuantity;
-    private int secondPrizeQuantity;
-    private int thirdPrizeQuantity;
-    private int fourthPrizeQuantity;
-    // 이거 이렇게 각각 변수를 만드는게 가독성이 좋을까? 아니면 그냥 배열로 만드는게 가독성이 좋을까?
-    // 배열로 만들지 않았을 때, 함수와 변수가 지나치게 많아지는 것 같다.
 
-    private final int firstPrize = 2_000_000_000;
-    private final int bonusPrize = 30_000_000;
-    private final int secondPrize = 1_500_000;
-    private final int thirdPrize = 50_000;
-    private final int fourthPrize = 5_000;
+    private int Quantity;
+    private final int prize;
+    private final int correctCount;
 
-    public void addFirstPrizeQuantity() {
-        firstPrizeQuantity++;
+    Prize(final int correctCount, final int prize) {
+        this.correctCount = correctCount;
+        this.prize = prize;
     }
 
-    public void addBonusPrizeQuantity() {
-        bonusPrizeQuantity++;
+    public int getCorrectCount() {
+        return correctCount;
     }
 
-    public void addSecondPrizeQuantity() {
-        secondPrizeQuantity++;
+    public int getPrize() {
+        return prize;
     }
 
-    public void addThirdPrizeQuantity() {
-        thirdPrizeQuantity++;
+    public int getQuantity() {
+        return Quantity;
     }
 
-    public void addFourthPrizeQuantity() {
-        fourthPrizeQuantity++;
+    public void addQuantity() {
+        Quantity++;
     }
 
-    public int getFirstPrizeQuantity() {
-        return firstPrizeQuantity;
-    }
+    public static int getTotalPrize() {
+        int totalPrize = 0;
+        for (Prize value : Prize.values()) {
+            totalPrize += value.getPrize() * value.getQuantity();
+        }
 
-    public int getBonusPrizeQuantity() {
-        return bonusPrizeQuantity;
-    }
-
-    public int getSecondPrizeQuantity() {
-        return secondPrizeQuantity;
-    }
-
-    public int getThirdPrizeQuantity() {
-        return thirdPrizeQuantity;
-    }
-
-    public int getFourthPrizeQuantity() {
-        return fourthPrizeQuantity;
-    }
-
-    public int getFirstPrize() {
-        return firstPrize;
-    }
-
-    public int getBonusPrize() {
-        return bonusPrize;
-    }
-
-    public int getSecondPrize() {
-        return secondPrize;
-    }
-
-    public int getThirdPrize() {
-        return thirdPrize;
-    }
-
-    public int getFourthPrize() {
-        return fourthPrize;
-    }
-
-    public int getTotalPrize() {
-        int totalPrize;
-        totalPrize = firstPrize * firstPrizeQuantity + bonusPrize * bonusPrizeQuantity + secondPrize * secondPrizeQuantity + thirdPrize * thirdPrizeQuantity + fourthPrize * fourthPrizeQuantity;
         return totalPrize;
     }
 }

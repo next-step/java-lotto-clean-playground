@@ -1,7 +1,8 @@
 package view;
 
+import domain.LottoNumber;
+
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,16 +10,11 @@ public class InputView {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public int readBudget() {
-        try {
-            System.out.println("구입금액을 입력해 주세요.");
-            int budget = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println();
-            return budget;
-        } catch (InputMismatchException e) {
-            throw new IllegalArgumentException("숫자를 입력해주세요");
-        }
+    public String readBudget() {
+        System.out.println("구입금액을 입력해 주세요.");
+        String budget = scanner.nextLine();
+        System.out.println();
+        return budget;
     }
 
     public int readManualLottoQuantity() {
@@ -31,8 +27,8 @@ public class InputView {
         return manualLottoQuantity;
     }
 
-    public List<List<Integer>> readManualLottosNumber(int manualLottoQuantity) {
-        List<List<Integer>> manualLottosNumber = new ArrayList<>();
+    public List<List<LottoNumber>> readManualLottosNumber(int manualLottoQuantity) {
+        List<List<LottoNumber>> manualLottosNumber = new ArrayList<>();
 
         System.out.println("수동으로 구매할 번호를 입력해주세요");
         for (int i = 0; i < manualLottoQuantity; i++) {
@@ -43,39 +39,48 @@ public class InputView {
         return manualLottosNumber;
     }
 
-    private List<Integer> readManualLottoNumber() {
+    private List<LottoNumber> readManualLottoNumber() {
         final String DELIMETER = ", ";
-        List<Integer> manualLottoNumber = new ArrayList<>();
+        List<LottoNumber> manualLottoNumber = new ArrayList<>();
 
         String manualInput = scanner.nextLine();
 
-        String[] NumbersByString = manualInput.split(DELIMETER);
+        try {
+            String[] NumbersByString = manualInput.split(DELIMETER);
 
-        for (String string : NumbersByString) {
-            manualLottoNumber.add(Integer.valueOf(string));
+            for (String string : NumbersByString) {
+                manualLottoNumber.add(new LottoNumber(Integer.valueOf(string)));
+            }
+
+            return manualLottoNumber;
+
+        } catch (NullPointerException e) {
+            throw new NullPointerException("입력 형식이 잘못되었습니다.");
         }
-
-        return manualLottoNumber;
     }
 
-    public List<Integer> readWinLottoNumbers() {
+    public List<LottoNumber> readWinLottoNumbers() {
         final String REGEX = ", ";
-        List<Integer> winNumbers = new ArrayList<>();
+        List<LottoNumber> winNumbers = new ArrayList<>();
 
         System.out.println("지난 주 당첨번호를 입력해주세요");
         String str = scanner.nextLine();
 
-        String[] winNumbersByString = str.split(REGEX);
+        try {
+            String[] winNumbersByString = str.split(REGEX);
 
-        for (String string : winNumbersByString) {
-            winNumbers.add(Integer.valueOf(string));
+            for (String string : winNumbersByString) {
+                winNumbers.add(new LottoNumber(Integer.valueOf(string)));
+            }
+
+            return winNumbers;
+        } catch (NullPointerException e) {
+            throw new NullPointerException("입력 형식이 잘못되었습니다.");
         }
-
-        return winNumbers;
     }
 
-    public int readBonusNumber() {
+    public String readBonusNumber() {
         System.out.println("보너스 번호를 입력해주세요");
-        return scanner.nextInt();
+        return scanner.nextLine();
     }
 }
