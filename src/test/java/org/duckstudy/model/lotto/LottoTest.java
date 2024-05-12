@@ -3,7 +3,6 @@ package org.duckstudy.model.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import org.duckstudy.model.lotto.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +15,8 @@ class LottoTest {
         Lotto lotto = new Lotto();
 
         assertAll(
-                () -> assertThat(lotto.getLotto()).hasSize(Lotto.LOTTO_SIZE),
-                () -> assertThat(lotto.getLotto()).allMatch(
-                        number -> number >= Lotto.START_INCLUSIVE_NUMBER && number < Lotto.END_EXCLUSIVE_NUMBER)
+                () -> assertThat(lotto.getLotto()).hasSize(6),
+                () -> assertThat(lotto.getLotto()).allMatch(number -> number >= 1 && number < 46)
         );
     }
 }
