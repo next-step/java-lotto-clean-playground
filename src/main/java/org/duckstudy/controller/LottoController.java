@@ -37,7 +37,7 @@ public class LottoController {
     private Lottos createLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
-            lottos.add(new Lotto());
+            lottos.add(Lotto.createRandomLotto());
         }
         return new Lottos(lottos);
     }
