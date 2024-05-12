@@ -18,7 +18,7 @@ public class LottoMaker {
         return lottos;
     }
 
-    public List<Lotto> manualMake(int lottoQuantity, List<List<Integer>> manulLottoNumbers) {
+    public List<Lotto> manualMake(int lottoQuantity, List<List<LottoNumber>> manulLottoNumbers) {
         List<Lotto> lottos = new ArrayList<>();
 
         for (int i = 0; i < lottoQuantity; i++) {

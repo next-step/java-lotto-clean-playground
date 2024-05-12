@@ -2,7 +2,9 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AutoNumberMaker {
 
@@ -10,7 +12,7 @@ public class AutoNumberMaker {
     private static final int LOTTO_END_NUMBER = 45;
     private static final int LOTTO_SIZE = 6;
 
-    private final List<Integer> lottoBalls = new ArrayList<>();
+    private final List<LottoNumber> lottoBalls = new ArrayList<>();
 
     public AutoNumberMaker() {
         initLottoBalls();
@@ -18,16 +20,16 @@ public class AutoNumberMaker {
 
     private void initLottoBalls() {
         for (int i = LOTTO_INIT_NUMBER; i <= LOTTO_END_NUMBER; i++) {
-            lottoBalls.add(i);
+            lottoBalls.add(new LottoNumber(i));
         }
     }
 
-    public List<Integer> getLottoNumber() {
-        List<Integer> lottoNumber;
+    public List<LottoNumber> getLottoNumber() {
+        List<LottoNumber> lottoNumber;
 
         shuffleLottoBalls();
         lottoNumber = getSelectedBalls();
-        sortLottoNumber(lottoNumber);
+        lottoNumber = sortLottoNumber(lottoNumber);
 
         return lottoNumber;
     }
@@ -36,8 +38,8 @@ public class AutoNumberMaker {
         Collections.shuffle(lottoBalls);
     }
 
-    private List<Integer> getSelectedBalls() {
-        List<Integer> selectedBalls = new ArrayList<>();
+    private List<LottoNumber> getSelectedBalls() {
+        List<LottoNumber> selectedBalls = new ArrayList<>();
         for (int i = 0; i < LOTTO_SIZE; i++) {
             selectedBalls.add(lottoBalls.get(i));
         }
@@ -45,7 +47,9 @@ public class AutoNumberMaker {
         return selectedBalls;
     }
 
-    private void sortLottoNumber(List<Integer> lottoNumbers) {
-        Collections.sort(lottoNumbers);
+    private List<LottoNumber> sortLottoNumber(List<LottoNumber> lottoNumbers) {
+        return lottoNumbers.stream()
+                .sorted(Comparator.comparingInt(LottoNumber::number))
+                .collect(Collectors.toList());
     }
 }

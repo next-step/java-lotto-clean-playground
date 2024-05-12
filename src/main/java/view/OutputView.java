@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.Prize;
 
 import java.util.List;
@@ -14,7 +15,15 @@ public class OutputView {
     }
 
     private void printLotto(Lotto lotto) {
-        System.out.println(lotto.lottoNumber());
+        List<LottoNumber> numbers = lotto.lottoNumbers();
+
+        for (int i = 0; i < numbers.size(); i++) {
+            System.out.print(numbers.get(i).number());
+            if (i < numbers.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
     }
 
     public void printLottoQuantity(int ManualLottoQuantity, int AutoLottoQuantity) {
