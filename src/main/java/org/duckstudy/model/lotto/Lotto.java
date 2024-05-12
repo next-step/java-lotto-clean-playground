@@ -7,13 +7,13 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    public static final int START_INCLUSIVE_NUMBER = 1;
-    public static final int END_EXCLUSIVE_NUMBER = 46;
-    public static final List<Integer> NUMBERS = makeNumbers();
-    public static final int FROM_INDEX = 0;
-    public static final int LOTTO_SIZE = 6;
+    private static final int START_INCLUSIVE_NUMBER = 1;
+    private static final int END_EXCLUSIVE_NUMBER = 46;
+    private static final List<Integer> NUMBERS = makeNumbers();
+    private static final int FROM_INDEX = 0;
+    private static final int LOTTO_SIZE = 6;
 
-    public final List<Integer> lotto;
+    private final List<Integer> lotto;
 
     public Lotto() {
         this.lotto = Collections.unmodifiableList(makeLotto());
