@@ -1,11 +1,10 @@
 package org.duckstudy.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
-import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
 import org.duckstudy.view.OutputView;
 
@@ -21,8 +20,8 @@ public class LottoController {
 
     public void run() throws IOException {
         Price price = createPrice();
-        Lottos lottos = createLottos(price.calculateLottoCount());
-        outputView.printLottos(lottos.getLottos());
+        List<Lotto> lottos = createLottos(price.calculateLottoCount());
+        outputView.printLottos(lottos);
     }
 
     private Price createPrice() throws IOException {
@@ -34,11 +33,9 @@ public class LottoController {
         }
     }
 
-    private Lottos createLottos(int lottoCount) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottos.add(Lotto.createRandomLotto());
-        }
-        return new Lottos(lottos);
+    private List<Lotto> createLottos(int lottoCount) {
+        return Stream.generate(Lotto::createRandomLotto)
+                .limit(lottoCount)
+                .toList();
     }
 }
