@@ -12,7 +12,7 @@ class LottoTest {
     @Test
     @DisplayName("1 이상 45 이하의 숫자 6개를 가진 로또를 생성한다")
     void createLotto() {
-        Lotto lotto = new Lotto();
+        Lotto lotto = Lotto.createRandomLotto();
 
         assertAll(
                 () -> assertThat(lotto.getLotto()).hasSize(6),
