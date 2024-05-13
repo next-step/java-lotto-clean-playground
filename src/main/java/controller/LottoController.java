@@ -1,9 +1,6 @@
 package controller;
 
-import model.BuyLotto;
-import model.Lotto;
-import model.ProfitCalculator;
-import model.WinLotto;
+import model.*;
 import view.InputView;
 import view.ResultView;
 
@@ -15,9 +12,10 @@ public class LottoController {
 
         int price = InputView.getPrice();
         int manualCount = InputView.getManualCount();
-        BuyLotto buyLotto = new BuyLotto(price, manualCount, InputView.getManualLottos(manualCount));
-        List<Lotto> lottos = buyLotto
-                .generateLotto();
+        List<String> manualLottos = InputView.getManualLottos(manualCount);
+        BuyLotto buyLotto = new BuyLotto(price, manualCount, manualLottos);
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        List<Lotto> lottos = lottoGenerator.generateLottos(buyLotto.calculateAutoLottoCount(), manualLottos);
 
         ResultView.printLottos(manualCount, lottos);
 
@@ -29,6 +27,4 @@ public class LottoController {
         ResultView.printProfit(profitCalculator.calculateProfit(winLotto.getWinPrize(), price));
 
     }
-
-
 }
