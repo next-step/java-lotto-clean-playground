@@ -1,14 +1,12 @@
 package domain;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BuyLotto {
+public class Lotto {
 
-    private static final int FIRST_LOTTO_NUMBER =1;
+    private static final int FIRST_LOTTO_NUMBER = 1;
     private static final int LAST_LOTTO_NUMBER = 45;
     private static final int INITIAL_NUMBER = 0;
     private static final int LOTTO_NUMBER_BOUNDARY = 6;
@@ -16,14 +14,14 @@ public class BuyLotto {
     private final int lottoMoney;
     private final List<Integer> lottoNumber = new ArrayList<>();
 
-    public BuyLotto(int lottoMoney) {
+    public Lotto(int lottoMoney) {
         this.lottoMoney = lottoMoney;
     }
 
-    public void makeLottoNumber(){
-       for(int i=FIRST_LOTTO_NUMBER; i<LAST_LOTTO_NUMBER+FIRST_LOTTO_NUMBER;i++){
-           lottoNumber.add(i);
-       }
+    public void makeLottoNumber() {
+        for (int i = FIRST_LOTTO_NUMBER; i < LAST_LOTTO_NUMBER + FIRST_LOTTO_NUMBER; i++) {
+            lottoNumber.add(i);
+        }
     }
 
     public int getLottoCount() {
