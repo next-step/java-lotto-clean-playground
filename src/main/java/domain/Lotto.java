@@ -38,7 +38,12 @@ public class Lotto {
         for (int i = INITIAL_NUMBER; i < LOTTO_NUMBER_BOUNDARY; i++) {
             getLotto.add(lottoNumber.get(i));
         }
+        sortLottoNumber(getLotto);
         return getLotto;
+    }
+
+    private void sortLottoNumber(List<Integer> lottoNumber){
+       Collections.sort(lottoNumber);
     }
 
     public List<List<Integer>> sumOfLotto(){
