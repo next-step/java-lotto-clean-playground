@@ -15,7 +15,6 @@ public class Lotto {
         generateLottoNumber();
     }
 
-    // Constructor accepting a list of integers
     public Lotto(List<Integer> numbers) {
         this.lottoNumbers.addAll(numbers);
     }

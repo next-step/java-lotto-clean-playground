@@ -3,6 +3,31 @@ package domain;
 import java.util.List;
 
 public class LottoCalculator {
+    // Enum for prize amounts
+    public enum Prize {
+        MATCH_3(3, 5000),
+        MATCH_4(4, 50000),
+        MATCH_5(5, 1500000),
+        MATCH_6(6, 2000000000),
+        MATCH_5_WITH_BONUS(7, 30000000);
+
+        private final int matchCount;
+        private final int amount;
+
+        Prize(int matchCount, int amount) {
+            this.matchCount = matchCount;
+            this.amount = amount;
+        }
+
+        public int getMatchCount() {
+            return matchCount;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+    }
+
     public int[] calculateWinningStatistics(List<Lotto> lottos, WinningNumbers winningNumbers, int bonusBall) {
         int[] matchCounts = new int[8];
         for (Lotto lotto : lottos) {
@@ -30,11 +55,10 @@ public class LottoCalculator {
     }
 
     public static double calculateProfitRate(int[] matchCounts, int totalLottoCount) {
-        double totalPrize = matchCounts[3] * 5000 +
-                matchCounts[4] * 50000 +
-                matchCounts[5] * 1500000 +
-                matchCounts[6] * 2000000000 +
-                matchCounts[7] * 30000000; // 5개 일치, 보너스 볼 일치(30000000원)
+        double totalPrize = 0;
+        for (Prize prize : Prize.values()) {
+            totalPrize += matchCounts[prize.getMatchCount()] * prize.getAmount();
+        }
 
         double totalPrice = totalLottoCount * Lotto.PRICE_PER_TICKET;
 
@@ -42,6 +66,6 @@ public class LottoCalculator {
             return 0;
         }
 
-        return (totalPrize) / totalPrice;
+        return totalPrize / totalPrice;
     }
 }

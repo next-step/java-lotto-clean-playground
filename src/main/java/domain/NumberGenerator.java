@@ -1,20 +1,17 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 public class NumberGenerator {
     public List<Integer> generateRandomNumbers() {
-        List<Integer> numbers = new ArrayList<>();
-        Random random = new Random();
+        Set<Integer> numbers = new HashSet<>();
         while (numbers.size() < 6) {
-            int num = random.nextInt(45) + 1;
-            if (!numbers.contains(num)) {
-                numbers.add(num);
-            }
+            int num = (int) (Math.random() * 45) + 1; // 1부터 45 사이의 난수 생성
+            numbers.add(num);
         }
-        return numbers;
+        return new ArrayList<>(numbers);
     }
 }

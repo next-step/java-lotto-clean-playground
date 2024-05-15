@@ -21,7 +21,7 @@ public class LottoTest {
     }
 
     @SuppressWarnings("NonAsciiCharacters")
-    class LottoPriceTest {
+    static class LottoPriceTest {
         @ParameterizedTest
         @ValueSource(ints = {0, 1000, 2000, 3000, 4000, 5000})
         void 로또_금액은_0원_혹은_1000원_단위이어야_한다(int price) {

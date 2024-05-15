@@ -17,6 +17,7 @@ public class OutputView {
             System.out.println(lotto);
         }
     }
+
     public static void printAmountMessage(int manualCount, int autoCount) {
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount, autoCount);
     }
@@ -28,7 +29,7 @@ public class OutputView {
         System.out.println("4개 일치 (50000원)- " + matchCounts[4] + "개");
         System.out.println("5개 일치 (1500000원)- " + matchCounts[5] + "개");
         System.out.println("5개 일치, 보너스 볼 일치 (30000000원)- " + matchCounts[7] + "개");
-        System.out.println("6개 일치 (2000000000원)-"+matchCounts[6] + "개");
+        System.out.println("6개 일치 (2000000000원)-" + matchCounts[6] + "개");
         System.out.printf("총 수익률은 %.2f 입니다.", profitRate);
         printProfitRate(profitRate);
     }

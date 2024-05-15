@@ -18,7 +18,6 @@ public class LottoController {
     public void startGame() {
         OutputView.printStartMessage();
         int lottoTotalPrice = InputView.readLottoPrice();
-
         int manualCount = InputView.inputManualCount();
 
         List<List<Integer>> manualNumbers = InputView.inputManualNumbers(manualCount);
