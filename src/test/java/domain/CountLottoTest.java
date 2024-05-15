@@ -13,8 +13,6 @@ class CountLottoTest {
         int value = lotto.getCountLotto(14000);
         int expectedNum = 14;
         // then
-        Assertions.assertEquals(expectedNum,value );
+        Assertions.assertEquals(expectedNum, value);
     }
-
-
 }
