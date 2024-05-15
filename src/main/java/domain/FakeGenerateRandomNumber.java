@@ -8,7 +8,6 @@ public class FakeGenerateRandomNumber implements RandomNumber {
 
     @Override
     public List<Integer> generateNumber() {
-        return Stream.of(11, 23, 32, 44, 5, 16)
-                .collect(Collectors.toList());
+        return List.of(11, 23, 32, 44, 5, 16);
     }
 }
