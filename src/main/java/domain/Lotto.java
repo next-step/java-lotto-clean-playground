@@ -10,48 +10,39 @@ public class Lotto {
     private static final int LAST_LOTTO_NUMBER = 45;
     private static final int INITIAL_NUMBER = 0;
     private static final int LOTTO_NUMBER_BOUNDARY = 6;
-    private static final int DIVIDE_INPUT_MONEY = 1000;
-    private final int lottoMoney;
-    private final List<Integer> lottoNumber = new ArrayList<>();
+    private static final List<Integer> lottoNumber = new ArrayList<>();
+    private final List<Integer> getLottoNumber;
 
-    public Lotto(int lottoMoney) {
-        this.lottoMoney = lottoMoney;
+    public Lotto(List<Integer> getLottoNumber) {
+        this.getLottoNumber = getLottoNumber;
     }
 
-    public void makeLottoNumber() {
+    private static void makeLottoNumber() {
         for (int i = FIRST_LOTTO_NUMBER; i < LAST_LOTTO_NUMBER + FIRST_LOTTO_NUMBER; i++) {
             lottoNumber.add(i);
         }
     }
 
-    public int getLottoCount() {
-        return lottoMoney / DIVIDE_INPUT_MONEY;
-    }
-
-    private void shuffleLottoNumber() {
+    private static void shuffleLottoNumber() {
         Collections.shuffle(lottoNumber);
     }
 
-    public List<Integer> getLotto() {
+    private static void sortLottoNumber(List<Integer> lottoNumber) {
+        Collections.sort(lottoNumber);
+    }
+
+    public static Lotto getLotto() {
+        makeLottoNumber();
         shuffleLottoNumber();
-        List<Integer> getLotto = new ArrayList<>();
+        List<Integer> buyLotto = new ArrayList<>();
         for (int i = INITIAL_NUMBER; i < LOTTO_NUMBER_BOUNDARY; i++) {
-            getLotto.add(lottoNumber.get(i));
+            buyLotto.add(lottoNumber.get(i));
         }
-        sortLottoNumber(getLotto);
-        return getLotto;
+        sortLottoNumber(buyLotto);
+        return new Lotto(buyLotto);
     }
 
-    private void sortLottoNumber(List<Integer> lottoNumber){
-       Collections.sort(lottoNumber);
-    }
-
-    public List<List<Integer>> sumOfLotto(){
-        List<List<Integer>> sumOfLotto = new ArrayList<>();
-        for(int i=INITIAL_NUMBER;i<getLottoCount();i++){
-            List<Integer> getLotto = getLotto();
-            sumOfLotto.add(getLotto);
-        }
-        return sumOfLotto;
+    public List<Integer> getLottoNumber() {
+        return getLottoNumber;
     }
 }

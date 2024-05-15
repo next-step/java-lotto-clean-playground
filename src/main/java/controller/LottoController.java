@@ -1,12 +1,14 @@
 package controller;
 
 import domain.Lotto;
+import domain.Lottos;
 import view.InputView;
 import view.OutputView;
 import java.util.List;
 
 public class LottoController {
 
+    private static final int POSSIBLE_LOTTO_DELIMITER = 1000;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -17,10 +19,13 @@ public class LottoController {
 
     public void buyLotto(){
         outputView.printGetLottoMoney();
-        Lotto buyLotto = new Lotto(inputView.getLottoMoney());
-        outputView.printLottoCount(buyLotto.getLottoCount());
-        buyLotto.makeLottoNumber();
-        List<List<Integer>> sumOfLotto = buyLotto.sumOfLotto();
-        outputView.printSumOfLotto(sumOfLotto);
+        int getLottoMoney = inputView.getLottoMoney();
+        outputView.printLottoCount(countPossibleLotto(getLottoMoney));
+        Lottos lottos = Lottos.makeLottos(countPossibleLotto(getLottoMoney));
+        outputView.printSumOfLotto(lottos);
+    }
+
+    private int countPossibleLotto(int getLottoMoney){
+        return getLottoMoney/POSSIBLE_LOTTO_DELIMITER;
     }
 }
