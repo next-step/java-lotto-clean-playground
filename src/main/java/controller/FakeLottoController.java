@@ -2,7 +2,6 @@ package controller;
 
 import domain.CountLotto;
 import domain.FakeGenerateRandomNumber;
-import domain.GenerateRandomNumber;
 import view.InputView;
 import view.OutputView;
 
