@@ -10,32 +10,34 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static view.OutputView.*;
+
 public class InputView {
     private static Scanner scanner = new Scanner(System.in);
+
+    public static final String LOTTO_PRICE_INPUT_ERROR_MESSAGE = "로또 구입금액은 유효한 숫자여야 합니다.";
+
 
     public static int readLottoPrice() {
         String input = scanner.nextLine();
         try {
-            LottoPrice lottoPrice = LottoPrice.valueOf(input);
-            if (lottoPrice.price() < LottoPrice.PRICE_UNIT) {
-                throw new IllegalArgumentException("로또 구입금액은 1000원 이상만 가능합니다.");
-            }
-            return lottoPrice.price();
+            return LottoPrice.valueOf(input).price();
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("로또 구입금액은 유효한 숫자여야 합니다.");
+            throw new IllegalArgumentException(LOTTO_PRICE_INPUT_ERROR_MESSAGE);
         }
     }
 
     public static List<List<Integer>> inputManualNumbers(int manualCount) {
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        printInputManualNumbersMessage();
         List<List<Integer>> manualNumbers = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
             manualNumbers.add(inputSingleManualNumbers());
         }
         return manualNumbers;
     }
+
     public static int inputManualCount() {
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        printInputManualCountMessage();
         int manualCount = scanner.nextInt();
         scanner.nextLine();
         return manualCount;
@@ -47,14 +49,14 @@ public class InputView {
     }
 
     public static int inputBonusBall() {
-        System.out.println("보너스 볼을 입력해 주세요.");
+        printInputBonusBallMessage();
         int bonusBall = scanner.nextInt();
-        scanner.nextLine(); // 개행문자 처리
+        scanner.nextLine();
         return bonusBall;
     }
 
     public static List<Integer> inputWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        printInputWinningNumbersMessage();
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
             return List.of();

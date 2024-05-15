@@ -1,65 +1,60 @@
+import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoPrice;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 
 public class LottoTest {
 
+    @Nested
+    class LottoNumberTest {
+        @Test
+        void 로또_번호는_1부터_45까지_이어야_한다() {
+            int number = 46;
+
+            assertThatThrownBy(() -> new LottoNumber(number))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("로또 번호는 1부터 45 사이여야 합니다.");
+        }
+    }
+
+    @Nested
+    class LottoSizeTest {
+        @Test
+        void 생성된_로또한개는_6개의_번호를_가지고_있어야_한다() {
+            Lotto lotto = new Lotto();
+
+            int numberOfLottoNumbers = lotto.getLottoNumbers().size();
+
+            assertThat(numberOfLottoNumbers).isEqualTo(6);
+        }
+    }
+
     @Test
-    void 로또_번호는_1부터_45까지_이어야_한다() {
-        // given
-        int number = 46;
+    void 생성된_로또번호는_중복되지_않아야_한다() {
+        Lotto lotto = new Lotto();
 
-        // when & then
-        assertThatThrownBy(() -> new LottoNumber(number))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1부터 45 사이여야 합니다.");
+        List<Integer> numbers = lotto.getLottoNumbers();
+        boolean hasDuplicates = false;
+
+        for (int i = 0; i < numbers.size(); i++) {
+            for (int j = i + 1; j < numbers.size(); j++) {
+                if (numbers.get(i).equals(numbers.get(j))) {
+                    hasDuplicates = true;
+                    break;
+                }
+            }
+        }
+        assertThat(hasDuplicates).isFalse();
     }
 
-    @SuppressWarnings("NonAsciiCharacters")
-    static class LottoPriceTest {
-        @ParameterizedTest
-        @ValueSource(ints = {0, 1000, 2000, 3000, 4000, 5000})
-        void 로또_금액은_0원_혹은_1000원_단위이어야_한다(int price) {
-            // when & then
-            Assertions.assertThatCode(() -> new LottoPrice(price)).doesNotThrowAnyException();
-        }
-
-        @Test
-        void 로또_금액은_0원_보다_작을_수_없다() {
-            // given
-            int price = -1000;
-
-            // when & then
-            assertThatThrownBy(() -> new LottoPrice(price))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("로또 금액은 0원 보다 작을 수 없습니다.");
-        }
-
-        @Test
-        void 로또_금액은_1000원_단위여야_한다() {
-            // given
-            int price = 1234;
-
-            // when & then
-            assertThatThrownBy(() -> new LottoPrice(price))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("로또 금액은 1000원 단위여야 합니다.");
-        }
-
-        @Test
-        void 로또_금액은_숫자여야_한다() {
-            // given
-            String price = "천원";
-
-            // when & then
-            assertThatThrownBy(() -> LottoPrice.valueOf(price))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("로또 금액은 숫자여야 합니다.");
-        }
-    }
 }

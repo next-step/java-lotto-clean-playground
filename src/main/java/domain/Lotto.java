@@ -20,7 +20,7 @@ public class Lotto {
     }
 
     private void generateLottoNumber() {
-        List<Integer> numbers = numberGenerator.generateRandomNumbers(); // NumberGenerator를 통해 랜덤 숫자 생성
+        List<Integer> numbers = numberGenerator.generateRandomNumbers();
         Collections.shuffle(numbers);
         Collections.sort(numbers);
         lottoNumbers.addAll(numbers);
