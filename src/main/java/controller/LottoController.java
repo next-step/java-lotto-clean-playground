@@ -8,6 +8,7 @@ import view.OutputView;
 import java.util.List;
 
 public class LottoController {
+
     private static final int INITIAL_NUM = 0;
 
     public static void main(String[] args) {
