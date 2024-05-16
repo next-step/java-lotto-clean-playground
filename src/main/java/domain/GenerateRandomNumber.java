@@ -7,9 +7,9 @@ import java.util.Random;
 public class GenerateRandomNumber implements RandomNumber {
 
     private static final Random random = new Random();
-    private static final int LOTTO_RANGE = 45;
+    private static final int MAX = 45;
+    private static final int MIN = 1;
     private static final int LOTTO_COUNT = 6;
-    private static final int LOTTO_NUM = 1;
 
     @Override
     public List<Integer> generateNumber() {
@@ -19,7 +19,7 @@ public class GenerateRandomNumber implements RandomNumber {
 
     private List<Integer> removeDuplicateNumber(List<Integer> lottoNumber) {
         while (lottoNumber.size() < LOTTO_COUNT) {
-            int randomNumber = random.nextInt(LOTTO_RANGE) + LOTTO_NUM;
+            int randomNumber = random.nextInt(MAX) + MIN;
             generatedAddNumber(lottoNumber, randomNumber);
         }
         return lottoNumber;
