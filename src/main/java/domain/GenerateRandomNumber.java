@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GenerateRandomNumber implements RandomNumber {
+
     private static final Random random = new Random();
     private static final int LOTTO_RANGE = 45;
     private static final int LOTTO_COUNT = 6;
@@ -13,10 +14,10 @@ public class GenerateRandomNumber implements RandomNumber {
     @Override
     public List<Integer> generateNumber() {
         List<Integer> lottoNumber = new ArrayList<>();
-        return generatedNumber(lottoNumber);
+        return removeDuplicateNumber(lottoNumber);
     }
 
-    private static List<Integer> generatedNumber(List<Integer> lottoNumber) {
+    private List<Integer> removeDuplicateNumber(List<Integer> lottoNumber) {
         while (lottoNumber.size() < LOTTO_COUNT) {
             int randomNumber = random.nextInt(LOTTO_RANGE) + LOTTO_NUM;
             generatedAddNumber(lottoNumber, randomNumber);
@@ -24,10 +25,9 @@ public class GenerateRandomNumber implements RandomNumber {
         return lottoNumber;
     }
 
-    private static void generatedAddNumber(List<Integer> lottoNumber, int randomNumber) {
+    private void generatedAddNumber(List<Integer> lottoNumber, int randomNumber) {
         if (!lottoNumber.contains(randomNumber)) {
             lottoNumber.add(randomNumber);
         }
     }
-
 }
