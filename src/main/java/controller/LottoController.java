@@ -2,7 +2,6 @@ package controller;
 
 import domain.GenerateRandomNumber;
 import view.OutputView;
-
 import java.util.List;
 
 public class LottoController {
