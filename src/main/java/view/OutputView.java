@@ -7,22 +7,38 @@ import java.util.List;
 
 public class OutputView {
 
-    public void printGetLottoMoney(){
+    public void printGetLottoMoney() {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printLottoCount(int lottoCount){
-        System.out.println("\n"+lottoCount+"개를 구매했습니다.");
+    public void printLottoCount(int lottoCount) {
+        System.out.println("\n" + lottoCount + "개를 구매했습니다.");
     }
 
-    public void printSumOfLotto(Lottos lottos){
+    public void printSumOfLotto(Lottos lottos) {
         List<Lotto> lottoList = lottos.getLottos();
-        for(Lotto lottoNumber: lottoList){
+        for (Lotto lottoNumber : lottoList) {
             System.out.println(lottoNumber.getLottoNumber().toString());
         }
     }
 
-    public void LastWeekLottoNumber(){
-        System.out.println("\n"+"지난 주 당첨 번호를 입력해 주세요.");
+    public void LastWeekLottoNumber() {
+        System.out.println("\n" + "지난 주 당첨 번호를 입력해 주세요.");
+    }
+
+    public void printLottoStatistics() {
+        System.out.println("\n당첨 통계");
+        System.out.println("---------");
+    }
+
+    public void printLottoRanker(List<Integer> lottoRank, List<Integer> lottoPrice){
+        for(int i=3; i<lottoRank.size()+3;i++){
+            System.out.println(i+"개 일치 ("+lottoPrice.get(i-3)+"원)- "+lottoRank.get(i-3)+"개");
+        }
+    }
+
+    public void printRateOfReturn(double rateOfReturn){
+        String lottoRateOfReturn = String.format("%.2f",rateOfReturn);
+        System.out.println("총 수익률은 "+lottoRateOfReturn+"입니다.");
     }
 }

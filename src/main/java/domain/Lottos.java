@@ -21,7 +21,7 @@ public class Lottos {
         return new Lottos(lottosList);
     }
 
-    public List<Lotto> getLottos(){
+    public List<Lotto> getLottos() {
         return lottos;
     }
 }
