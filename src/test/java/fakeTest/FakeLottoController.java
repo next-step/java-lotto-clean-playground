@@ -1,10 +1,8 @@
-package controller;
+package fakeTest;
 
-import domain.CountLotto;
-import domain.FakeGenerateRandomNumber;
+import domain.TicketLotto;
 import view.InputView;
 import view.OutputView;
-
 import java.util.List;
 
 public class FakeLottoController {
@@ -14,11 +12,11 @@ public class FakeLottoController {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
-        CountLotto countLotto = new CountLotto();
+        TicketLotto ticketLotto = new TicketLotto();
         FakeGenerateRandomNumber generateRandomNumber = new FakeGenerateRandomNumber();
 
         int money = inputView.getMoney();
-        int paper = countLotto.getCountLotto(money);
+        int paper = ticketLotto.getCountLotto(money);
 
         for (int i = INITIAL_NUM; i < paper; i++) {
             List<Integer> lottoList = generateRandomNumber.generateNumber();
