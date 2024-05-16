@@ -1,6 +1,6 @@
 package domain;
 
-public class CountLotto {
+public class TicketLotto {
 
     private static final int LOTTO_ADD_PRICE = 1000;
 
