@@ -1,14 +1,14 @@
 package domain;
 
-public class TicketLotto {
+public class LottoTicket {
 
-    private static final int LOTTO_ADD_PRICE = 1000;
+    private static final int TICKET_PRICE = 1000;
 
     public int getCountLotto(int money) {
         return countLotto(money);
     }
 
     private int countLotto(int money) {
-        return money / LOTTO_ADD_PRICE;
+        return money / TICKET_PRICE;
     }
 }
