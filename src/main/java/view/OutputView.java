@@ -7,6 +7,7 @@ import java.util.List;
 
 public class OutputView {
 
+    private static final int START_STATISTICS_NUMBER = 3;
     public void printGetLottoMoney() {
         System.out.println("구입금액을 입력해 주세요.");
     }
@@ -32,8 +33,8 @@ public class OutputView {
     }
 
     public void printLottoRanker(List<Integer> lottoRank, List<Integer> lottoPrice){
-        for(int i=3; i<lottoRank.size()+3;i++){
-            System.out.println(i+"개 일치 ("+lottoPrice.get(i-3)+"원)- "+lottoRank.get(i-3)+"개");
+        for(int i=START_STATISTICS_NUMBER; i<lottoRank.size()+START_STATISTICS_NUMBER;i++){
+            System.out.println(i+"개 일치 ("+lottoPrice.get(i-START_STATISTICS_NUMBER)+"원)- "+lottoRank.get(i-START_STATISTICS_NUMBER)+"개");
         }
     }
 
