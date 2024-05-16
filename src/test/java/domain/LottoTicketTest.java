@@ -3,13 +3,13 @@ package domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class TicketLottoTest {
+class LottoTicketTest {
 
     @Test
     void 로또_개수_추출() {
 
         // given
-        TicketLotto lotto = new TicketLotto();
+        LottoTicket lotto = new LottoTicket();
 
         // when
         int value = lotto.getCountLotto(14000);

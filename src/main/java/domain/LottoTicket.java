@@ -1,5 +1,6 @@
 package domain;
 
+
 public class LottoTicket {
 
     private static final int TICKET_PRICE = 1000;

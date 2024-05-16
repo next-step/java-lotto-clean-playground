@@ -8,7 +8,7 @@ public class GenerateRandomNumber implements RandomNumber {
 
     private static final Random random = new Random();
     private static final int MAX = 45;
-    private static final int MIN = 1;
+    private static final int COUNT_NUMBER = 1;
     private static final int LOTTO_COUNT = 6;
 
     @Override
@@ -19,7 +19,7 @@ public class GenerateRandomNumber implements RandomNumber {
 
     private List<Integer> removeDuplicateNumber(List<Integer> lottoNumber) {
         while (lottoNumber.size() < LOTTO_COUNT) {
-            int randomNumber = random.nextInt(MAX) + MIN;
+            int randomNumber = random.nextInt(MAX) + COUNT_NUMBER;
             generatedAddNumber(lottoNumber, randomNumber);
         }
         return lottoNumber;

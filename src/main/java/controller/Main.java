@@ -1,15 +1,15 @@
 package controller;
 
-import domain.TicketLotto;
+import domain.LottoTicket;
 import view.InputView;
 
 public class Main {
 
     public int Main() {
         InputView inputView = new InputView();
-        TicketLotto ticketLotto = new TicketLotto();
+        LottoTicket lottoTicket = new LottoTicket();
 
         int money = inputView.getMoney();
-        return ticketLotto.getCountLotto(money);
+        return lottoTicket.getCountLotto(money);
     }
 }
