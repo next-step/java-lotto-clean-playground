@@ -21,7 +21,7 @@ public class Lotto {
                 .toList();
     }
 
-    private Lotto(List<Integer> lotto) {
+    public Lotto(List<Integer> lotto) {
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
@@ -33,10 +33,6 @@ public class Lotto {
                 .collect(Collectors.toList());
 
         return new Lotto(result);
-    }
-
-    public static Lotto createManualLotto(List<Integer> lotto) {
-        return new Lotto(lotto);
     }
 
     public List<Integer> getLotto() {
