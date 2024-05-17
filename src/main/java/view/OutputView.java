@@ -2,9 +2,13 @@ package view;
 
 import java.util.List;
 
+import domain.CreateLottoTicket;
+
 public class OutputView {
 
-    public void lotto(List<Integer> lottoNumbers) {
-        System.out.println(lottoNumbers);
+    public void displayLottoTickets(List<CreateLottoTicket> lottoTickets) {
+        for (CreateLottoTicket ticket : lottoTickets) {
+            System.out.println(ticket.getLottoNumber());
+        }
     }
 }
