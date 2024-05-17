@@ -1,24 +1,26 @@
 package controller;
 
-import domain.GenerateRandomNumber;
+import domain.LottoTicket;
+import view.InputView;
 import view.OutputView;
-import java.util.List;
 
 public class LottoController {
 
-    private static final OutputView outputView = new OutputView();
-    private static final GenerateRandomNumber generateRandomNumber = new GenerateRandomNumber();
-    private static final int INITIAL_NUM = 0;
+    private final InputView inputView;
+    private final OutputView outputView;
 
-    public static void main(String[] args) {
-        Main main = new Main();
-        createLotto(main.Main());
+    public LottoController() {
+        this.inputView = new InputView();
+        this.outputView = new OutputView();
     }
 
-    private static void createLotto(int paper) {
-        for (int i = INITIAL_NUM; i < paper; i++) {
-            List<Integer> lottoList = generateRandomNumber.generateNumber();
-            outputView.lotto(lottoList);
-        }
+    public void run() {
+        int money = inputView.getMoney();
+        LottoTicket lottoTicket = new LottoTicket(money);
+        outputView.displayLottoTickets(lottoTicket.getLottoTicket());
+    }
+
+    public static void main(String[] args) {
+        new LottoController().run();
     }
 }
