@@ -1,15 +1,29 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoTicket {
 
-    private static final int TICKET_PRICE = 1000;
+    private final List<CreateLottoTicket> lottoTicket;
 
-    public int getCountLotto(int money) {
-        return countLotto(money);
+    private static final int TICKET_PRICE = 1000;
+    private final int ticketCount;
+
+    public LottoTicket(int money) {
+        this.ticketCount = money / TICKET_PRICE;
+        this.lottoTicket = generateLottoTickets();
     }
 
-    private int countLotto(int money) {
-        return money / TICKET_PRICE;
+    public List<CreateLottoTicket> getLottoTicket() {
+        return new ArrayList<>(lottoTicket);
+    }
+
+    private List<CreateLottoTicket> generateLottoTickets() {
+        List<CreateLottoTicket> tickets = new ArrayList<>();
+        for (int i = 0; i < ticketCount; i++) {
+            tickets.add(new CreateLottoTicket());
+        }
+        return tickets;
     }
 }
