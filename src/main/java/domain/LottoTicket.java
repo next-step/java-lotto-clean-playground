@@ -11,14 +11,14 @@ public class LottoTicket {
     private final int ticketCount;
     private final NumberGenerator numberGenerator;
 
+    public List<LottoTicketStore> getLottoTicket() {
+        return new ArrayList<>(lottoTicket);
+    }
+
     private LottoTicket(int money, NumberGenerator numberGenerator) {
         this.ticketCount = money / TICKET_PRICE;
         this.numberGenerator = numberGenerator;
         this.lottoTicket = generateLottoTickets();
-    }
-
-    public List<LottoTicketStore> getLottoTicket() {
-        return new ArrayList<>(lottoTicket);
     }
 
     private List<LottoTicketStore> generateLottoTickets() {
