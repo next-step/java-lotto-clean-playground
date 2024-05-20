@@ -2,6 +2,6 @@ package domain;
 
 import java.util.List;
 
-public interface RandomNumber {
+public interface NumberGenerator {
     List<Integer> generateRandomNumber();
 }

@@ -5,24 +5,26 @@ import java.util.List;
 
 public class LottoTicket {
 
-    private final List<CreateLottoTicket> lottoTicket;
+    private final List<LottoTicketStore> lottoTicket;
     private static final int INITIAL_NUMBER = 0;
     private static final int TICKET_PRICE = 1000;
     private final int ticketCount;
+    private final NumberGenerator numberGenerator;
 
-    public LottoTicket(int money) {
+    public LottoTicket(int money, NumberGenerator numberGenerator) {
         this.ticketCount = money / TICKET_PRICE;
+        this.numberGenerator = numberGenerator;
         this.lottoTicket = generateLottoTickets();
     }
 
-    public List<CreateLottoTicket> getLottoTicket() {
+    public List<LottoTicketStore> getLottoTicket() {
         return new ArrayList<>(lottoTicket);
     }
 
-    private List<CreateLottoTicket> generateLottoTickets() {
-        List<CreateLottoTicket> tickets = new ArrayList<>();
+    private List<LottoTicketStore> generateLottoTickets() {
+        List<LottoTicketStore> tickets = new ArrayList<>();
         for (int i = INITIAL_NUMBER; i < ticketCount; i++) {
-            tickets.add(new CreateLottoTicket());
+            tickets.add(new LottoTicketStore(numberGenerator));
         }
         return tickets;
     }
