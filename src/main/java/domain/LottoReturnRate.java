@@ -9,6 +9,8 @@ public class LottoReturnRate {
     private static final int THIRD_RANKER = 50000;
     private static final int FOURTH_RANKER = 5000;
     private static final int INITIAL_NUMBER = 0;
+    private static final double MAKE_RETURN_RATE_DEVIDE_NUMBER = 100.0;
+    private static final int MAKE_RETURN_RATE_MULTIPLE_NUMBER = 100;
     private final List<Integer> lottoPrice = new ArrayList<>();
     private final List<Integer> lottoRank;
     private final int getLottoMoney;
@@ -31,7 +33,8 @@ public class LottoReturnRate {
         for (int i = INITIAL_NUMBER; i < lottoPrice.size(); i++) {
             sumOfLottoMoney += lottoRank.get(i) * lottoPrice.get(i);
         }
-        return (double) sumOfLottoMoney / getLottoMoney;
+        double realLottoReturnRate = (double) sumOfLottoMoney / getLottoMoney;
+        return Math.floor(realLottoReturnRate * MAKE_RETURN_RATE_MULTIPLE_NUMBER) / MAKE_RETURN_RATE_DEVIDE_NUMBER;
     }
 
     public List<Integer> getLottoPrice() {

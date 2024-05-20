@@ -40,7 +40,7 @@ public class LottoController {
 
     private Lottos buyLotto(int getLottoMoney) {
         outputView.printLottoCount(countBuyableLotto(getLottoMoney));
-        Lottos lottos = Lottos.makeLottos(countBuyableLotto(getLottoMoney));
+        Lottos lottos = new Lottos(countBuyableLotto(getLottoMoney));
         outputView.printSumOfLotto(lottos);
         return lottos;
     }
