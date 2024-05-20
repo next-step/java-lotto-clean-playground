@@ -6,10 +6,11 @@ import java.util.List;
 public class LottoTicket {
 
     private final List<LottoTicketStore> lottoTicket;
-    private static final int INITIAL_NUMBER = 0;
-    private static final int TICKET_PRICE = 1000;
     private final int ticketCount;
     private final NumberGenerator numberGenerator;
+
+    private static final int INITIAL_NUMBER = 0;
+    private static final int TICKET_PRICE = 1000;
 
     public List<LottoTicketStore> getLottoTicket() {
         return new ArrayList<>(lottoTicket);
