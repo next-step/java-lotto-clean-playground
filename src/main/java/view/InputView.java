@@ -17,7 +17,7 @@ public class InputView {
     public List<Integer> getWinNumbers() {
         System.out.println("지난 주 당첨 번호를 입력하시오:");
         String winNumbers = scanner.next();
-        return Arrays.stream(winNumbers.split(""))
+        return Arrays.stream(winNumbers.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
