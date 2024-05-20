@@ -11,7 +11,7 @@ public class LottoTicket {
     private final int ticketCount;
     private final NumberGenerator numberGenerator;
 
-    public LottoTicket(int money, NumberGenerator numberGenerator) {
+    private LottoTicket(int money, NumberGenerator numberGenerator) {
         this.ticketCount = money / TICKET_PRICE;
         this.numberGenerator = numberGenerator;
         this.lottoTicket = generateLottoTickets();
