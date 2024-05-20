@@ -21,8 +21,8 @@
 
 새로운 프로그래밍 요구사항
 
-- [ ] 모든 원시 값과 문자열을 포장한다. [원시 값 포장 ](https://jaehee329.tistory.com/22)
-- [ ] 일급 컬렉션을 쓴다. [일급 컬렉션](https://dev-cool.tistory.com/28)
+- [x] 모든 원시 값과 문자열을 포장한다. [원시 값 포장 ](https://jaehee329.tistory.com/22)
+- [x] 일급 컬렉션을 쓴다. [일급 컬렉션](https://dev-cool.tistory.com/28)
 
 Model
 CountLotto
@@ -56,7 +56,7 @@ OutputView
 ---------------------------
 Controller
 
-- [ ] 작동 
+- [x] 작동 
 
 
 
