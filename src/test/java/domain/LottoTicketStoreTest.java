@@ -1,43 +1,40 @@
 package domain;
 
-
-import fakeTest.FakeGenerateRandomNumber;
-import org.junit.jupiter.api.Assertions;
+import fakeTest.FakeGenerateNumberGenerator;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CreateLottoTicketTest {
-
-
+class LottoTicketStoreTest {
     @Test
     void 로또_가상값_테스트() {
 
         // given
-        FakeGenerateRandomNumber fakeGenerateRandomNumber = new FakeGenerateRandomNumber();
-        CreateLottoTicket createLottoTicket = new CreateLottoTicket();
+        NumberGenerator numberGenerator = new RandomNumberGenerator();
+        FakeGenerateNumberGenerator fakeGenerateRandomNumber = new FakeGenerateNumberGenerator();
+        LottoTicketStore lottoTicketStore = new LottoTicketStore(numberGenerator);
 
         // when
-        createLottoTicket.getLottoNumber();
+        lottoTicketStore.getLottoNumber();
         List<Integer> expectedValue = fakeGenerateRandomNumber.generateRandomNumber();
 
         // then
         assertEquals(6, expectedValue.size());
-        assertEquals(List.of(11, 23, 32, 44, 5, 16), expectedValue);
+        assertEquals(List.of(5, 16, 11, 23, 32, 44), expectedValue);
     }
 
     @Test
     void 로또_범위_테스트() {
 
         // given
-        CreateLottoTicket createLottoTicket = new CreateLottoTicket();
+        NumberGenerator numberGenerator = new RandomNumberGenerator();
+        LottoTicketStore lottoTicketStore = new LottoTicketStore(numberGenerator);
 
         // when
-        List<Integer> expectedValue = createLottoTicket.generateRandomNumber();
+        List<Integer> expectedValue = lottoTicketStore.getLottoNumber();
 
         // then
         for (int num : expectedValue) {
