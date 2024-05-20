@@ -1,6 +1,9 @@
 package view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -11,8 +14,11 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public String getWinNumber() {
+    public List<Integer> getWinNumbers() {
         System.out.println("지난 주 당첨 번호를 입력하시오:");
-        return scanner.next();
+        String winNumbers = scanner.next();
+        return Arrays.stream(winNumbers.split(""))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }
