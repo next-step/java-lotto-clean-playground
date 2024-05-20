@@ -15,7 +15,7 @@ public class LottoTicket {
         return new ArrayList<>(lottoTicket);
     }
 
-    private LottoTicket(int money, NumberGenerator numberGenerator) {
+    public LottoTicket(int money, NumberGenerator numberGenerator) {
         this.ticketCount = money / TICKET_PRICE;
         this.numberGenerator = numberGenerator;
         this.lottoTicket = generateLottoTickets();
