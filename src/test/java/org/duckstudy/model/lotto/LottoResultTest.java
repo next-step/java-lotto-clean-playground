@@ -14,6 +14,6 @@ class LottoResultTest {
     void calculateProfitRate() {
         LottoResult lottoResult = new LottoResult(Map.of(3, 2));
 
-        assertThat(lottoResult.calculateProfitRate(new Price(100000))).isEqualTo(0.1);
+        assertThat(lottoResult.calculateProfitRate(new Price(100000))).isEqualTo(10.0);
     }
 }
