@@ -1,6 +1,8 @@
 import domain.Input;
 import domain.GenerateLotto;
 import domain.WinningLotto;
+import exception.Lotto;
+import exception.Money;
 import view.Print;
 
 import java.util.ArrayList;

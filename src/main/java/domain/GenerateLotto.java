@@ -1,5 +1,8 @@
 package domain;
 
+import exception.Lotto;
+import exception.ManualNumber;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,6 +10,8 @@ import java.util.Set;
 
 public class GenerateLotto {
     ArrayList<ArrayList<Integer>> totalLotto = new ArrayList<>();
+
+    private final int LOTTO_PRICE = 1000;
 
     private ArrayList<Integer> getOne() {
         GenerateRandom random = new GenerateRandom();
@@ -25,7 +30,7 @@ public class GenerateLotto {
     }
 
     public ArrayList<ArrayList<Integer>> getLotto(int money) {
-        for (int i = 0; i < money; i += 1000) {
+        for (int i = 0; i < money; i += LOTTO_PRICE) {
             totalLotto.add(this.getOne());
         }
 
@@ -38,42 +43,24 @@ public class GenerateLotto {
 
         ArrayList<Integer> manualOne = input.setManualNumber();
 
-        for (int one: manualOne){
-            validateLottoRange(one);
-        }
-
-        if (manualOne.stream().distinct().count() != 6) {
-            throw new IllegalArgumentException("로또 번호 중복 입력은 불가능합니다.");
-        }
-
         Collections.sort(manualOne);
 
-        return manualOne;
+        return new Lotto(manualOne).lotto();
     }
 
     public void getManualLotto(int purchaseAmount, int manualCount) {
-        if (checkRemainingMoney(purchaseAmount, manualCount)) {
-            throw new IllegalArgumentException("구입 금액을 넘은 갯수 입니다.");
-        }
+        // TODO
+        ManualNumber manualNumber = new ManualNumber(purchaseAmount, manualCount);
+
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
 
-        for (int i = 0; i < manualCount; i++) {
+        for (int i = 0; i < manualNumber.count(); i++) {
             totalLotto.add(this.getManualOne());
         }
     }
 
     public int getRemainingMoney(int money, int manualCount) {
-        return money - (1000 * manualCount);
+        return money - (LOTTO_PRICE * manualCount);
     }
 
-    public boolean checkRemainingMoney(int money, int manualCount) {
-        return money < manualCount * 1000;
-    }
-
-    public void validateLottoRange(int number) {
-        if (number < 1 || number > 45) {
-            throw new IllegalArgumentException("1 ~ 45사이의 값만 입력할 수 있습니다.");
-        }
-
-    }
 }
