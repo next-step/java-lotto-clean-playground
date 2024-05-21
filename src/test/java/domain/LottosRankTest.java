@@ -14,14 +14,15 @@ class LottosRankTest {
     void getRankLottos() {
         //given
         final int lottoMoney = 3000;
-        final Lottos lottos = new Lottos(lottoMoney);
+        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
+        final Lottos lottos = new Lottos(lottoMoney, createLottoNumber);
         final String inputLastWeekNumber = "1,2,3,4,5,6";
         final LastWeekLottoNumber lastWeekLottoNumber = new LastWeekLottoNumber(inputLastWeekNumber);
         final LottosRank lottosRank = new LottosRank(lottos, lastWeekLottoNumber.getLastWeekLottoNumber());
         final List<Integer> expected = List.of(1, 1, 1, 1);
 
         //when
-        final int actual = 4;
+        final int actual = lottosRank.getRankLottos().size();
 
         //then
         assertEquals(expected.size(), actual);

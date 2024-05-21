@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public class Lotto{
+public class Lotto {
     private final List<Integer> lottoNumber;
 
     public Lotto(CreateLottoNumber createLottoNumber) {

@@ -14,7 +14,8 @@ class LottosTest {
     void getLottos() {
         //given
         final int lottoMoney = 3000;
-        final Lottos lottos = new Lottos(lottoMoney);
+        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
+        final Lottos lottos = new Lottos(lottoMoney, createLottoNumber);
         final int expected = 3;
 
         //when

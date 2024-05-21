@@ -32,8 +32,9 @@ public class LottoController {
 
     private Lottos buyLotto() {
         outputView.printLottoCount(getLottoMoney);
-        Lottos lottos = new Lottos(getLottoMoney);
-        for(Lotto lotto : lottos.getLottos()){
+        CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
+        Lottos lottos = new Lottos(getLottoMoney, createLottoNumber);
+        for (Lotto lotto : lottos.getLottos()) {
             outputView.printLotto(lotto.getLottoNumber());
         }
         return lottos;
@@ -47,7 +48,7 @@ public class LottoController {
     }
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber) {
-        LottosRank lottosRank = new LottosRank(lottos,lastWeekLottoNumber);
+        LottosRank lottosRank = new LottosRank(lottos, lastWeekLottoNumber);
         List<Integer> lottoRank = lottosRank.getRankLottos();
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRank, getLottoMoney);
         outputView.printLottoStatistics();

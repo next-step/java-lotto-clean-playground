@@ -17,11 +17,11 @@ public class LottoRank {
     }
 
     private int rankLotto() {
-        int count = RESET_NUMBER;
+        int correspondingLottoNumber = RESET_NUMBER;
         for (int elementOfLastWeekLottoNumber : lastWeekLottoNumber) {
-            count += checkSameLottoNumber(lotto.getLottoNumber(), elementOfLastWeekLottoNumber);
+            correspondingLottoNumber += checkSameLottoNumber(lotto.getLottoNumber(), elementOfLastWeekLottoNumber);
         }
-        return count;
+        return correspondingLottoNumber;
     }
 
     private int checkSameLottoNumber(List<Integer> lottoNumber, int elementOfLastWeekLottoNumber) {
