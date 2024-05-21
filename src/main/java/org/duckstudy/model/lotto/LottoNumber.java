@@ -17,7 +17,7 @@ public class LottoNumber {
 
     private void validateNumber(int number) {
         if (number < START_INCLUSIVE_NUMBER || number >= END_EXCLUSIVE_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1부터 45까지의 숫자여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는 1 이상 45 이하의 숫자여야 합니다.");
         }
     }
 

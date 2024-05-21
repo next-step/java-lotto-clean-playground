@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -22,19 +21,15 @@ class LottoTest {
     class LottoCreationTest {
 
         @Test
-        @DisplayName("1 이상 45 이하의 랜덤 숫자 6개를 가진 로또를 생성한다")
+        @DisplayName("랜덤으로 로또를 생성한다")
         void createRandomLottoSuccess() {
             Lotto lotto = Lotto.createRandomLotto();
 
-            assertAll(
-                    () -> assertThat(lotto.getLotto()).hasSize(6),
-                    () -> assertThat(lotto.getLotto())
-                            .allMatch(lottoNumber -> lottoNumber.getValue() >= 1 && lottoNumber.getValue() < 46)
-            );
+            assertThat(lotto.getLotto()).hasSize(6);
         }
 
         @Test
-        @DisplayName("입력받은 수로 로또를 생성한다")
+        @DisplayName("입력받은 로또 번호로 로또를 생성한다")
         void createManualLottoSuccess() {
             List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
                     .map(LottoNumber::new)
@@ -45,7 +40,7 @@ class LottoTest {
         }
 
         @Test
-        @DisplayName("로또를 생성할 때 6개의 숫자가 아니면 예외를 발생한다")
+        @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
         void createManualLottoFailWhenSizeIsNotSix() {
             List<LottoNumber> lottoNumbers = List.of(
                     new LottoNumber(1)
@@ -57,7 +52,7 @@ class LottoTest {
         }
 
         @Test
-        @DisplayName("로또를 생성할 때 중복된 숫자가 있으면 예외를 발생한다")
+        @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
         void createManualLottoFailWhenDuplicateNumberExists() {
             List<LottoNumber> lottoNumbers = Stream.of(1, 1, 2, 3, 4, 5)
                     .map(LottoNumber::new)
@@ -82,7 +77,7 @@ class LottoTest {
         }
 
         @Test
-        @DisplayName("로또 당첨 번호를 입력하면 당첨 금액을 계산한다")
+        @DisplayName("로또 숫자 매칭 개수를 입력하면 당첨 금액을 계산한다")
         void calculateWinningPrice() {
             assertThat(Lotto.calculateWinningPrice(3)).isEqualTo(new Price(5000));
         }
@@ -93,7 +88,7 @@ class LottoTest {
     class LottoComparisonTest {
 
         @Test
-        @DisplayName("로또 번호 중 일치하는 숫자의 개수를 반환한다")
+        @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
             Lotto lotto = Stream.of(1, 2, 3, 4, 5, 6)
                     .map(LottoNumber::new)
