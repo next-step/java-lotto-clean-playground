@@ -4,13 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoReturnRateTest {
+class LottosRankTest {
 
     @Test
-    void makeLottoPrice() {
-    }
-
-    @Test
-    void calculateLottoReturnRate() {
+    void getRankLottos() {
     }
 }

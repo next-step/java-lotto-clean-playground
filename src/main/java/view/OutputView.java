@@ -1,27 +1,22 @@
 package view;
 
-import domain.Lotto;
-import domain.Lottos;
-
 import java.util.List;
 
 public class OutputView {
 
     private static final int START_STATISTICS_NUMBER = 3;
+    private static final int DEVIDE_LOTTO_COUNT_NUMBER = 1000;
 
     public void printGetLottoMoney() {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
     public void printLottoCount(int lottoCount) {
-        System.out.println("\n" + lottoCount + "개를 구매했습니다.");
+        System.out.println("\n" + lottoCount / DEVIDE_LOTTO_COUNT_NUMBER + "개를 구매했습니다.");
     }
 
-    public void printSumOfLotto(Lottos lottos) {
-        List<Lotto> lottoList = lottos.getLottos();
-        for (Lotto lottoNumber : lottoList) {
-            System.out.println(lottoNumber.getLottoNumber().toString());
-        }
+    public void printLotto(List<Integer> lottoNumber) {
+            System.out.println(lottoNumber);
     }
 
     public void LastWeekLottoNumber() {

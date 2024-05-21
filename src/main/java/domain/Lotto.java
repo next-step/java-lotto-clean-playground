@@ -1,10 +1,8 @@
 package domain;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto{
-
     private final List<Integer> lottoNumber;
 
     public Lotto(CreateLottoNumber createLottoNumber) {
@@ -13,9 +11,5 @@ public class Lotto{
 
     public List<Integer> getLottoNumber() {
         return lottoNumber;
-    }
-
-    private void sortLottoNumber(List<Integer> lottoNumber) {
-        Collections.sort(lottoNumber);
     }
 }

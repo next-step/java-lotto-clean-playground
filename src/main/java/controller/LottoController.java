@@ -1,9 +1,6 @@
 package controller;
 
-import domain.LastWeekLottoNumber;
-import domain.LottoRank;
-import domain.LottoReturnRate;
-import domain.Lottos;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -11,7 +8,6 @@ import java.util.List;
 
 public class LottoController {
 
-    private static final int BUYABLE_LOTTO_DELIMITER = 1000;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -24,7 +20,7 @@ public class LottoController {
 
     public void startLotto() {
         getLottoMoney();
-        Lottos lottos = buyLotto(getLottoMoney);
+        Lottos lottos = buyLotto();
         List<Integer> lastWeekLottoNumber = getLastWeekLottoNumber();
         rankLotto(lottos, lastWeekLottoNumber);
     }
@@ -34,14 +30,12 @@ public class LottoController {
         getLottoMoney = inputView.getLottoMoney();
     }
 
-    private int countBuyableLotto(int getLottoMoney) {
-        return getLottoMoney / BUYABLE_LOTTO_DELIMITER;
-    }
-
-    private Lottos buyLotto(int getLottoMoney) {
-        outputView.printLottoCount(countBuyableLotto(getLottoMoney));
-        Lottos lottos = new Lottos(countBuyableLotto(getLottoMoney));
-        outputView.printSumOfLotto(lottos);
+    private Lottos buyLotto() {
+        outputView.printLottoCount(getLottoMoney);
+        Lottos lottos = new Lottos(getLottoMoney);
+        for(Lotto lotto : lottos.getLottos()){
+            outputView.printLotto(lotto.getLottoNumber());
+        }
         return lottos;
     }
 
@@ -49,18 +43,16 @@ public class LottoController {
         outputView.LastWeekLottoNumber();
         String inputLastWeekLottoNumber = inputView.inputLastWeekLottoNumber();
         LastWeekLottoNumber lottoNumber = new LastWeekLottoNumber(inputLastWeekLottoNumber);
-        lottoNumber.makeLastWeekLottoNumberList();
         return lottoNumber.getLastWeekLottoNumber();
     }
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber) {
-        LottoRank lottoRank = new LottoRank(lottos);
-        lottoRank.countCorrectLottoNumber(lastWeekLottoNumber);
-        lottoRank.rankLotto();
-        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRank.getLottoRank(), getLottoMoney);
+        LottosRank lottosRank = new LottosRank(lottos,lastWeekLottoNumber);
+        List<Integer> lottoRank = lottosRank.getRankLottos();
+        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRank, getLottoMoney);
         outputView.printLottoStatistics();
         double returnRate = lottoReturnRate.calculateLottoReturnRate();
-        outputView.printLottoRanker(lottoRank.getLottoRank(), lottoReturnRate.getLottoPrice());
+        outputView.printLottoRanker(lottoRank, lottoReturnRate.makeLottoPrice());
         outputView.printRateOfReturn(returnRate);
     }
 }
