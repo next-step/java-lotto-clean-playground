@@ -43,7 +43,7 @@ public class OutputView {
     }
 
     private void iterateWinningResult(Map<Integer, Integer> result) {
-        for (int i = 3; i <= 6; i++) {
+        for (int i = LottoResult.MIN_MATCHING_COUNT_TO_WIN; i <= LottoResult.MAX_MATCHING_COUNT_TO_WIN; i++) {
             System.out.printf("%d개 일치 (%d원)- ", i, Lotto.calculateWinningPrice(i).value());
             if (result.containsKey(i)) {
                 System.out.printf("%d개\n", result.get(i));

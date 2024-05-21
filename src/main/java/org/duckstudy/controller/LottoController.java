@@ -39,8 +39,7 @@ public class LottoController {
 
     private Lotto createWinningLotto() {
         try {
-            List<LottoNumber> lottoNumbers = createLottoNumber();
-            return new Lotto(lottoNumbers);
+            return new Lotto(createLottoNumber());
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createWinningLotto();
