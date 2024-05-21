@@ -13,11 +13,11 @@ public class RandomNumberGenerator implements NumberGenerator {
 
     @Override
     public List<Integer> generateRandomNumber() {
-        List<Integer> number = new ArrayList<>();
-        while (number.size() < LOTTO_SIZE) {
-            checkDuplicateNumber(number);
+        List<Integer> numbers = new ArrayList<>();
+        while (numbers.size() < LOTTO_SIZE) {
+            checkDuplicateNumber(numbers);
         }
-        return number;
+        return numbers;
     }
 
     private static void checkDuplicateNumber(List<Integer> number) {
