@@ -27,7 +27,7 @@ public class OutputView {
     private void printLotto(Lotto lotto) {
         List<Integer> lottoNumbers = lotto.getLotto().
                 stream()
-                .map(LottoNumber::value)
+                .map(LottoNumber::getValue)
                 .toList();
         System.out.println(lottoNumbers);
     }

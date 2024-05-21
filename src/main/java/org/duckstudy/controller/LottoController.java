@@ -22,7 +22,7 @@ public class LottoController {
     public void run() {
         Price price = createPrice();
         Lottos lottos = Lottos.generateLottosByPrice(price);
-        outputView.printLottos(lottos.lottos());
+        outputView.printLottos(lottos.getLottos());
 
         Lotto winningLotto = createWinningLotto();
         calculateWinningResult(price, lottos, winningLotto);

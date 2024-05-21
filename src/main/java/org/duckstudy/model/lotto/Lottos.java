@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.stream.Stream;
 import org.duckstudy.model.Price;
 
-public record Lottos(List<Lotto> lottos) {
+public class Lottos {
+
+    private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
         this.lottos = Collections.unmodifiableList(lottos);
@@ -27,5 +29,9 @@ public record Lottos(List<Lotto> lottos) {
     public LottoResult calculateWinningResult(Lotto winningLotto) {
         return new LottoResult(lottos.stream()
                 .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> 1))));
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }
