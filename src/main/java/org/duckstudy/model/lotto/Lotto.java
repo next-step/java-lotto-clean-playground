@@ -17,17 +17,16 @@ public class Lotto {
     private static final int[] WINNING_PRICE = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
     private static final List<Integer> NUMBERS;
 
-    private final List<LottoNumber> lotto;
-
     static {
         NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
                 .boxed()
                 .toList();
     }
 
+    private final List<LottoNumber> lotto;
+
     public Lotto(List<LottoNumber> lotto) {
         validateLotto(lotto);
-
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
@@ -54,6 +53,13 @@ public class Lotto {
         return new Price(WINNING_PRICE[count]);
     }
 
+    public int countMatchingNumber(Lotto compareLotto) {
+        return lotto.stream()
+                .filter(compareLotto.getLotto()::contains)
+                .toList()
+                .size();
+    }
+
     private void validateLotto(List<LottoNumber> lotto) {
         if (lotto.size() != 6) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
@@ -62,13 +68,6 @@ public class Lotto {
         if (lotto.stream().distinct().count() != 6) {
             throw new IllegalArgumentException("로또 번호는 중복되지 않아야 합니다.");
         }
-    }
-
-    public int countMatchingNumber(Lotto compareLotto) {
-        return lotto.stream()
-                .filter(compareLotto.getLotto()::contains)
-                .toList()
-                .size();
     }
 
     public List<LottoNumber> getLotto() {
