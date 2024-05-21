@@ -36,11 +36,43 @@ class PriceTest {
     class PriceCalculateTest {
 
         @Test
-        @DisplayName("로또 구매 금액을 입력하면 가격에 맞는 로또 개수를 계산한다")
-        void calculateLottoCountWhenInputPrice() {
-            Price price = new Price(10000);
+        @DisplayName("가격을 더한다")
+        void addPrice() {
+            Price price = new Price(1000);
 
-            assertThat(price.calculateLottoCount()).isEqualTo(10);
+            Price result = price.addPrice(new Price(2000));
+
+            assertThat(result).isEqualTo(new Price(3000));
+        }
+
+        @Test
+        @DisplayName("가격을 곱한다")
+        void multiplyPrice() {
+            Price price = new Price(1000);
+
+            Price result = price.multiplyTimes(3);
+
+            assertThat(result).isEqualTo(new Price(3000));
+        }
+
+        @Test
+        @DisplayName("가격을 나눈다")
+        void dividePrice() {
+            Price price = new Price(1000);
+
+            int result = price.dividedBy(3);
+
+            assertThat(result).isEqualTo(333);
+        }
+
+        @Test
+        @DisplayName("가격을 다른 가격으로 나눈다")
+        void dividePriceByPrice() {
+            Price price = new Price(1000);
+
+            double result = price.dividedBy(new Price(10));
+
+            assertThat(result).isEqualTo(100);
         }
     }
 }
