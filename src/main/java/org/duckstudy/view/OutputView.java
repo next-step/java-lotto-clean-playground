@@ -1,6 +1,7 @@
 package org.duckstudy.view;
 
 import java.util.List;
+import java.util.Map;
 import org.duckstudy.model.lotto.Lotto;
 
 public class OutputView {
@@ -19,5 +20,31 @@ public class OutputView {
         for (Lotto lotto : lottos) {
             System.out.println(lotto.getLotto());
         }
+    }
+
+    public void printInputWinningLotto() {
+        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
+    }
+
+    public void printWinningResult(Map<Integer, Integer> result) {
+        System.out.println("\n당첨 통계");
+        System.out.println("---------");
+        iterateWinningResult(result);
+    }
+
+    private void iterateWinningResult(Map<Integer, Integer> result) {
+        for (int i = 3; i <= 6; i++) {
+            System.out.printf("%d개 일치 (%d원)- ", i, Lotto.getWinningPrice(i));
+            if (result.containsKey(i)) {
+                System.out.printf("%d개\n", result.get(i));
+            } else {
+                System.out.println("0개");
+            }
+        }
+        System.out.println();
+    }
+
+    public void printTotalProfit(double totalProfitRate) {
+        System.out.printf("총 수익률은 %.2f입니다.\n", totalProfitRate);
     }
 }

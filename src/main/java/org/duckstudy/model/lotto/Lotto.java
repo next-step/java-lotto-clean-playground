@@ -1,16 +1,18 @@
 package org.duckstudy.model.lotto;
 
+import static java.util.Collections.shuffle;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toList;
+
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lotto {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
     private static final int END_EXCLUSIVE_NUMBER = 46;
+    private static final int[] WINNING_PRICE = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
     private static final List<Integer> NUMBERS;
 
     private final List<Integer> lotto;
@@ -22,17 +24,49 @@ public class Lotto {
     }
 
     public Lotto(List<Integer> lotto) {
+        validateLotto(lotto);
+
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
     public static Lotto createRandomLotto() {
         List<Integer> result = NUMBERS.stream()
-                .sorted(Comparator.comparingInt(i -> ThreadLocalRandom.current().nextInt()))
+                .collect(collectingAndThen(
+                        toList(),
+                        list -> {
+                            shuffle(list);
+                            return list.stream();
+                        }))
                 .limit(6)
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(toList());
 
         return new Lotto(result);
+    }
+
+    public static int getWinningPrice(int count) {
+        return WINNING_PRICE[count];
+    }
+
+    private void validateLotto(List<Integer> lotto) {
+        if (lotto.size() != 6) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+        }
+
+        if (lotto.stream().anyMatch(e -> e < START_INCLUSIVE_NUMBER || e >= END_EXCLUSIVE_NUMBER)) {
+            throw new IllegalArgumentException("로또 번호는 1부터 45까지의 숫자여야 합니다.");
+        }
+
+        if (lotto.stream().distinct().count() != 6) {
+            throw new IllegalArgumentException("로또 번호는 중복되지 않아야 합니다.");
+        }
+    }
+
+    public int countMatchingNumber(Lotto compareLotto) {
+        return lotto.stream()
+                .filter(compareLotto.getLotto()::contains)
+                .toList()
+                .size();
     }
 
     public List<Integer> getLotto() {
