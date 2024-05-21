@@ -60,7 +60,7 @@ class PriceTest {
         void dividePrice() {
             Price price = new Price(1000);
 
-            int result = price.dividedBy(3);
+            int result = price.dividedBy(3).getValue();
 
             assertThat(result).isEqualTo(333);
         }

@@ -46,7 +46,7 @@ public class Lotto {
     }
 
     public static int calculateLottoCount(Price price) {
-        return price.dividedBy(PER_PRICE);
+        return price.dividedBy(PER_PRICE).getValue();
     }
 
     public static Price calculateWinningPrice(int count) {
