@@ -7,15 +7,17 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
+import org.duckstudy.model.Price;
 
 public class Lotto {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
     private static final int END_EXCLUSIVE_NUMBER = 46;
+    private static final int PER_PRICE = 1000;
     private static final int[] WINNING_PRICE = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
     private static final List<Integer> NUMBERS;
 
-    private final List<Integer> lotto;
+    private final List<LottoNumber> lotto;
 
     static {
         NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
@@ -23,38 +25,38 @@ public class Lotto {
                 .toList();
     }
 
-    public Lotto(List<Integer> lotto) {
+    public Lotto(List<LottoNumber> lotto) {
         validateLotto(lotto);
 
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
     public static Lotto createRandomLotto() {
-        List<Integer> result = NUMBERS.stream()
-                .collect(collectingAndThen(
-                        toList(),
+        List<LottoNumber> result = NUMBERS.stream()
+                .collect(collectingAndThen(toList(),
                         list -> {
                             shuffle(list);
                             return list.stream();
                         }))
                 .limit(6)
                 .sorted()
+                .map(LottoNumber::new)
                 .collect(toList());
 
         return new Lotto(result);
     }
 
-    public static int getWinningPrice(int count) {
-        return WINNING_PRICE[count];
+    public static int calculateLottoCount(Price price) {
+        return price.dividedBy(PER_PRICE);
     }
 
-    private void validateLotto(List<Integer> lotto) {
+    public static Price calculateWinningPrice(int count) {
+        return new Price(WINNING_PRICE[count]);
+    }
+
+    private void validateLotto(List<LottoNumber> lotto) {
         if (lotto.size() != 6) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
-        }
-
-        if (lotto.stream().anyMatch(e -> e < START_INCLUSIVE_NUMBER || e >= END_EXCLUSIVE_NUMBER)) {
-            throw new IllegalArgumentException("로또 번호는 1부터 45까지의 숫자여야 합니다.");
         }
 
         if (lotto.stream().distinct().count() != 6) {
@@ -69,7 +71,7 @@ public class Lotto {
                 .size();
     }
 
-    public List<Integer> getLotto() {
+    public List<LottoNumber> getLotto() {
         return lotto;
     }
 }
