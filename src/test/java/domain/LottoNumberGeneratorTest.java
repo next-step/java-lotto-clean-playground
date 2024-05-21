@@ -20,7 +20,7 @@ class LottoNumberGeneratorTest {
         final List<Integer> expected = fakeLottoNumberGenerator.getRandomLottoNumber();
 
         //when
-        final List<Integer> actual = List.of(1,2,3,4,5,6);
+        final List<Integer> actual = List.of(1, 2, 3, 4, 5, 6);
 
         //then
         assertEquals(expected, actual);

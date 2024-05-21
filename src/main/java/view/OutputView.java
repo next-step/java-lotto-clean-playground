@@ -16,7 +16,7 @@ public class OutputView {
     }
 
     public void printLotto(List<Integer> lottoNumber) {
-            System.out.println(lottoNumber);
+        System.out.println(lottoNumber);
     }
 
     public void LastWeekLottoNumber() {

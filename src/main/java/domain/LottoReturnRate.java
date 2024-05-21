@@ -21,7 +21,7 @@ public class LottoReturnRate {
     }
 
     public List<Integer> makeLottoPrice() {
-        return List.of(FOURTH_RANKER_PRICE,THIRD_RANKER_PRICE,SECOND_RANKER_PRICE,FIRST_RANKER_PRICE);
+        return List.of(FOURTH_RANKER_PRICE, THIRD_RANKER_PRICE, SECOND_RANKER_PRICE, FIRST_RANKER_PRICE);
     }
 
     public double calculateLottoReturnRate() {

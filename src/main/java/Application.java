@@ -7,7 +7,7 @@ public class Application {
     public static void main(String[] args) {
         OutputView outputView = new OutputView();
         InputView inputView = new InputView();
-        LottoController buyLottoController = new LottoController(inputView,outputView);
+        LottoController buyLottoController = new LottoController(inputView, outputView);
         buyLottoController.startLotto();
     }
 }
