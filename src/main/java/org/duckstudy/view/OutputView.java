@@ -44,14 +44,16 @@ public class OutputView {
 
     private void iterateWinningResult(Map<Integer, Integer> result) {
         for (int i = LottoResult.MIN_MATCHING_COUNT_TO_WIN; i <= LottoResult.MAX_MATCHING_COUNT_TO_WIN; i++) {
-            System.out.printf("%d개 일치 (%d원)- ", i, Lotto.calculateWinningPrice(i).getValue());
-            if (result.containsKey(i)) {
-                System.out.printf("%d개\n", result.get(i));
-            } else {
-                System.out.println("0개");
-            }
+            printMatchingCount(result, i);
         }
         System.out.println();
+    }
+
+    private void printMatchingCount(Map<Integer, Integer> result, int cnt) {
+        System.out.printf("%d개 일치 (%d원)- ", cnt, Lotto.calculateWinningPrice(cnt).getValue());
+
+        int count = result.getOrDefault(cnt, 0);
+        System.out.printf("%d개\n", count);
     }
 
     public void printTotalProfit(double totalProfitRate) {
