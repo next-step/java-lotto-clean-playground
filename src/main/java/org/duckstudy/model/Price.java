@@ -25,4 +25,8 @@ public record Price(int value) {
     public int dividedBy(int divisor) {
         return value / divisor;
     }
+
+    public double dividedBy(Price divisor) {
+        return (double) value / divisor.value();
+    }
 }

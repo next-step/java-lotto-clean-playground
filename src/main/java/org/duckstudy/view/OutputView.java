@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
+import org.duckstudy.model.lotto.LottoResult;
 
 public class OutputView {
 
@@ -35,10 +36,10 @@ public class OutputView {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
     }
 
-    public void printWinningResult(Map<Integer, Integer> result) {
+    public void printWinningResult(LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
-        iterateWinningResult(result);
+        iterateWinningResult(result.getResult());
     }
 
     private void iterateWinningResult(Map<Integer, Integer> result) {

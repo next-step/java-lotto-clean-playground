@@ -1,10 +1,10 @@
 package org.duckstudy.controller;
 
 import java.util.List;
-import java.util.Map;
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
+import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
 import org.duckstudy.view.OutputView;
@@ -25,7 +25,7 @@ public class LottoController {
         outputView.printLottos(lottos.lottos());
 
         Lotto winningLotto = createWinningLotto();
-        calculateWinningResult(lottos, winningLotto, price);
+        calculateWinningResult(price, lottos, winningLotto);
     }
 
     private Price createPrice() {
@@ -54,28 +54,20 @@ public class LottoController {
                 .toList();
     }
 
-    private void calculateWinningResult(Lottos lottos, Lotto winningLotto, Price price) {
-        Map<Integer, Integer> result;
+    private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto) {
+        LottoResult result = calculateAndPrintLottoResult(lottos, winningLotto);
 
-        result = calculateMatchingCount(lottos, winningLotto);
-
-        calculateProfit(price, result);
+        calculateAndPrintProfitRate(price, result);
     }
 
-    private Map<Integer, Integer> calculateMatchingCount(Lottos lottos, Lotto winningLotto) {
-        Map<Integer, Integer> result = lottos.calculateWinningResult(winningLotto);
+    private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto) {
+        LottoResult result = lottos.calculateWinningResult(winningLotto);
         outputView.printWinningResult(result);
         return result;
     }
 
-    private void calculateProfit(Price price, Map<Integer, Integer> result) {
-        Price totalProfit = new Price(0);
-        for (int i = 3; i <= 6; i++) {
-            totalProfit = totalProfit.addPrice(Lotto.calculateWinningPrice(i)
-                    .multiplyTimes(result.getOrDefault(i, 0)));
-        }
-
-        double totalProfitRate = (double) totalProfit.value() / price.value();
-        outputView.printTotalProfit(totalProfitRate);
+    private void calculateAndPrintProfitRate(Price price, LottoResult result) {
+        double profitRate = result.calculateProfitRate(price);
+        outputView.printTotalProfit(profitRate);
     }
 }
