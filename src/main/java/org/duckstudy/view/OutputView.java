@@ -3,6 +3,7 @@ package org.duckstudy.view;
 import java.util.List;
 import java.util.Map;
 import org.duckstudy.model.lotto.Lotto;
+import org.duckstudy.model.lotto.LottoNumber;
 
 public class OutputView {
 
@@ -18,8 +19,16 @@ public class OutputView {
         System.out.printf("\n%d개를 구매했습니다.\n", lottos.size());
 
         for (Lotto lotto : lottos) {
-            System.out.println(lotto.getLotto());
+            printLotto(lotto);
         }
+    }
+
+    private void printLotto(Lotto lotto) {
+        List<Integer> lottoNumbers = lotto.getLotto().
+                stream()
+                .map(LottoNumber::value)
+                .toList();
+        System.out.println(lottoNumbers);
     }
 
     public void printInputWinningLotto() {
@@ -34,7 +43,7 @@ public class OutputView {
 
     private void iterateWinningResult(Map<Integer, Integer> result) {
         for (int i = 3; i <= 6; i++) {
-            System.out.printf("%d개 일치 (%d원)- ", i, Lotto.getWinningPrice(i));
+            System.out.printf("%d개 일치 (%d원)- ", i, Lotto.calculateWinningPrice(i).value());
             if (result.containsKey(i)) {
                 System.out.printf("%d개\n", result.get(i));
             } else {
