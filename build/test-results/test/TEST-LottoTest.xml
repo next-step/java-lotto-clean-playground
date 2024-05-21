@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LottoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-15T16:27:47" hostname="DAYOUNG" time="0.05">
+  <properties/>
+  <testcase name="생성된_로또번호는_중복되지_않아야_한다()" classname="LottoTest" time="0.05"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
