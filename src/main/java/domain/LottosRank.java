@@ -23,7 +23,7 @@ public class LottosRank {
     }
 
     private List<Integer> makeLottosRank() {
-        List<Integer> correspondingLottoNumber = makeCorrespondingLottoList();
+        List<Integer> correspondingLottoNumber = checkCorrespondingLottoNumber();
         List<Integer> rankLottos = new ArrayList<>();
         for (int i = START_RANK_NUMBER; i < LAST_RANK_NUMBER + INITIAL_NUMBER; i++) {
             int rankNumber = i;
@@ -33,7 +33,7 @@ public class LottosRank {
         return rankLottos;
     }
 
-    private List<Integer> makeCorrespondingLottoList() {
+    private List<Integer> checkCorrespondingLottoNumber() {
         List<Lotto> lottosBundle = lottos.getLottos();
         List<Integer> correspondingLottoNumber = new ArrayList<>();
         for (Lotto lotto : lottosBundle) {
