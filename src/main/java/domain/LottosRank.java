@@ -19,24 +19,24 @@ public class LottosRank {
     }
 
     private List<Integer> makeLottosRank() {
-        List<Integer> correspondingLottoList = makeCorrespondingLottoList();
+        List<Integer> correspondingLottoNumber = makeCorrespondingLottoList();
         List<Integer> rankLottos = new ArrayList<>();
         for (int i = START_RANK_NUMBER; i < LAST_RANK_NUMBER + INITIAL_NUMBER; i++) {
             int rankNumber = i;
-            long countRankNumber = correspondingLottoList.stream().filter(c -> c == rankNumber).count();
+            long countRankNumber = correspondingLottoNumber.stream().filter(c -> c == rankNumber).count();
             rankLottos.add((int) countRankNumber);
         }
         return rankLottos;
     }
 
     private List<Integer> makeCorrespondingLottoList() {
-        List<Lotto> lottoList = lottos.getLottos();
-        List<Integer> correspondingLottoList = new ArrayList<>();
-        for (Lotto lotto : lottoList) {
+        List<Lotto> lottosBundle = lottos.getLottos();
+        List<Integer> correspondingLottoNumber = new ArrayList<>();
+        for (Lotto lotto : lottosBundle) {
             LottoRank lottoRank = new LottoRank(lotto, lastWeekLottoNumber);
-            correspondingLottoList.add(lottoRank.getSameLottoNumber());
+            correspondingLottoNumber.add(lottoRank.getSameLottoNumber());
         }
-        return correspondingLottoList;
+        return correspondingLottoNumber;
     }
 
     public List<Integer> getRankLottos() {
