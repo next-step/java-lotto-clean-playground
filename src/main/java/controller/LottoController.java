@@ -18,12 +18,13 @@ public class LottoController {
     }
 
     public void play() {
+        Lottos lottos = createLottos();
+        printLottosHistory(lottos);
+    }
+
+    private Lottos createLottos() {
         String moneyInput = receiveLottoMoneyInput();
-
-        Lottos lottos = Lottos.createWith(dice, moneyInput);
-        outputView.printLottoSize(lottos.getLottosSize());
-
-        printLottoHistory(lottos);
+        return Lottos.createWith(dice, moneyInput);
     }
 
     private String receiveLottoMoneyInput() {
@@ -31,7 +32,8 @@ public class LottoController {
         return inputView.inputLottoMoneyValue();
     }
 
-    private void printLottoHistory(final Lottos lottos) {
+    private void printLottosHistory(final Lottos lottos) {
+        outputView.printLottoSize(lottos.getLottosSize());
         lottos.getTotalLottoNumbers()
                 .forEach(outputView::printLottoNumbers);
     }
