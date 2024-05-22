@@ -11,7 +11,7 @@ public class LottoRate {
     private static final int SIX_MATCHES = 20000000;
     private int sum = 0;
 
-    private List<Integer> matchesMoney() {
+    public List<Integer> matchesMoney() {
         return List.of(THREE_MATCHES, FOUR_MATCHES, FIVE_MATCHES, SIX_MATCHES);
     }
 

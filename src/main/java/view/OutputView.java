@@ -1,6 +1,6 @@
 package view;
 
-import domain.LottoTicket;
+import domain.LottoTicketDto;
 
 import java.util.List;
 
@@ -15,9 +15,8 @@ public class OutputView {
     private static final int INITIAL_NUMBER_TWO = 2;
     private static final int INITIAL_NUMBER_THREE = 3;
 
-
-    public void displayLottoTickets(List<LottoTicket> tickets) {
-        for (LottoTicket ticket : tickets) {
+    public void displayLottoTickets(List<LottoTicketDto> tickets) {
+        for (LottoTicketDto ticket : tickets) {
             System.out.println(ticket);
         }
     }

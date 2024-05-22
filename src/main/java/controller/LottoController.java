@@ -4,6 +4,7 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
@@ -25,7 +26,8 @@ public class LottoController {
         TicketCount ticketCount = new TicketCount(money);
         LottoTickets lottoTickets = new LottoTickets(new RandomNumberGenerator());
         List<LottoTicket> tickets = lottoTickets.generateLottoTickets(ticketCount.getCount());
-        outputView.displayLottoTickets(tickets);
+        List<LottoTicketDto> ticketDtos = convertToDto(tickets);
+        outputView.displayLottoTickets(ticketDtos);
         winningLotto(tickets, money);
     }
 
@@ -41,9 +43,17 @@ public class LottoController {
     private void winning(List<LottoTicket> tickets, WinningLotto winningLotto) {
         for (LottoTicket ticket : tickets) {
             int matchedNumbers = winningLotto.getCount(ticket.getNumbers());
-            WinningsMoney winningsMoney = new WinningsMoney();
-            List<Integer> matchesMoney = winningsMoney.matchesMoney();
+            LottoRate lottoRate = new LottoRate();
+            List<Integer> matchesMoney = lottoRate.matchesMoney();
             outputView.numberOfWinning(matchedNumbers, matchesMoney);
         }
+    }
+
+    private List<LottoTicketDto> convertToDto(List<LottoTicket> tickets) {
+        List<LottoTicketDto> ticketDtos = new ArrayList<>();
+        for (LottoTicket ticket : tickets) {
+            ticketDtos.add(new LottoTicketDto(ticket.getNumbers()));
+        }
+        return ticketDtos;
     }
 }
