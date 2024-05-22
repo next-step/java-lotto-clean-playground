@@ -16,6 +16,10 @@ public class LottoRank {
         this.rankLottoNumber = rankLotto();
     }
 
+    public int getSameLottoNumber() {
+        return rankLottoNumber;
+    }
+
     private int rankLotto() {
         int correspondingLottoNumber = RESET_NUMBER;
         for (int elementOfLastWeekLottoNumber : lastWeekLottoNumber) {
@@ -29,9 +33,5 @@ public class LottoRank {
             return INITIAL_NUMBER;
         }
         return RESET_NUMBER;
-    }
-
-    public int getSameLottoNumber() {
-        return rankLottoNumber;
     }
 }

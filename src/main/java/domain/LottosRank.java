@@ -18,6 +18,10 @@ public class LottosRank {
         this.rankLottos = makeLottosRank();
     }
 
+    public List<Integer> getRankLottos() {
+        return rankLottos;
+    }
+
     private List<Integer> makeLottosRank() {
         List<Integer> correspondingLottoNumber = makeCorrespondingLottoList();
         List<Integer> rankLottos = new ArrayList<>();
@@ -37,9 +41,5 @@ public class LottosRank {
             correspondingLottoNumber.add(lottoRank.getSameLottoNumber());
         }
         return correspondingLottoNumber;
-    }
-
-    public List<Integer> getRankLottos() {
-        return rankLottos;
     }
 }
