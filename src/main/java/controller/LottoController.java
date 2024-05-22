@@ -2,6 +2,7 @@ package controller;
 
 import model.dice.Dice;
 import model.lotto.Lottos;
+import model.lotto.vo.LottoMarket;
 import view.input.InputView;
 import view.output.OutputView;
 
@@ -18,13 +19,19 @@ public class LottoController {
     }
 
     public void play() {
-        Lottos lottos = createLottos();
+        LottoMarket market = prepareLottoMarketWithMoneyInput();
+        Lottos lottos = createLottos(market);
         printLottosHistory(lottos);
     }
 
-    private Lottos createLottos() {
+    private LottoMarket prepareLottoMarketWithMoneyInput() {
         String moneyInput = receiveLottoMoneyInput();
-        return Lottos.createWith(dice, moneyInput);
+        return LottoMarket.from(moneyInput);
+    }
+
+    private Lottos createLottos(final LottoMarket market) {
+        int makeLottoSize = market.calculateBoughtLottoSize();
+        return Lottos.createWith(dice, makeLottoSize);
     }
 
     private String receiveLottoMoneyInput() {
