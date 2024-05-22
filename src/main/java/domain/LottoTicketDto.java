@@ -11,7 +11,8 @@ public class LottoTicketDto {
         this.numbers = numbers;
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }
