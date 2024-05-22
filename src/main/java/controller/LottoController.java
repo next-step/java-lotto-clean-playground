@@ -5,6 +5,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.Random;
 
 public class LottoController {
 
@@ -31,8 +32,9 @@ public class LottoController {
     }
 
     private Lottos buyLotto() {
+        Random randomNumberGenerator = new Random();
         outputView.printLottoCount(getLottoMoney);
-        CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
+        CreateLottoNumber createLottoNumber = new LottoNumberGenerator(randomNumberGenerator);
         Lottos lottos = new Lottos(getLottoMoney, createLottoNumber);
         for (Lotto lotto : lottos.getLottos()) {
             outputView.printLotto(lotto.getLottoNumber());
