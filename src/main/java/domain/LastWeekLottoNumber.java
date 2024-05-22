@@ -9,13 +9,13 @@ public class LastWeekLottoNumber {
     private final List<Integer> lastWeekLottoNumber;
     private final String inputLastWeekLottoNumber;
 
-    public List<Integer> getLastWeekLottoNumber() {
-        return lastWeekLottoNumber;
-    }
-
     public LastWeekLottoNumber(String LastWeekLottoNumber) {
         this.inputLastWeekLottoNumber = LastWeekLottoNumber;
         this.lastWeekLottoNumber = makeLastWeekLottoNumberList();
+    }
+
+    public List<Integer> getLastWeekLottoNumber() {
+        return lastWeekLottoNumber;
     }
 
     private List<Integer> makeLastWeekLottoNumberList() {
