@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,8 +14,9 @@ class LottosTest {
     @DisplayName("로또 묶음 사이즈 테스트")
     void getLottos() {
         //given
+        final Random randomNumberGenerator = new Random();
         final int lottoMoney = 3000;
-        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
+        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator(randomNumberGenerator);
         final Lottos lottos = new Lottos(lottoMoney, createLottoNumber);
         final int expected = 3;
 
