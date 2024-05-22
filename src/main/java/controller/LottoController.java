@@ -29,14 +29,14 @@ public class LottoController {
         return LottoMarket.from(moneyInput);
     }
 
-    private Lottos createLottos(final LottoMarket market) {
-        int makeLottoSize = market.calculateBoughtLottoSize();
-        return Lottos.createWith(dice, makeLottoSize);
-    }
-
     private String receiveLottoMoneyInput() {
         outputView.printAskInputLottoMoney();
         return inputView.inputLottoMoneyValue();
+    }
+
+    private Lottos createLottos(final LottoMarket market) {
+        int makeLottoSize = market.calculateBoughtLottoSize();
+        return Lottos.createWith(dice, makeLottoSize);
     }
 
     private void printLottosHistory(final Lottos lottos) {
