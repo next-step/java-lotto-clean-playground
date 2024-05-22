@@ -15,9 +15,14 @@ public class WinningLotto {
     public int getCount(List<Integer> ticketNumbers) {
         int count = INITIAL_NUMBER;
         for (int number : ticketNumbers) {
-            if (winNumbers.contains(number)) {
-                count++;
-            }
+            count = numberOfWinnig(number, count);
+        }
+        return count;
+    }
+
+    private int numberOfWinnig(int number, int count) {
+        if (winNumbers.contains(number)) {
+            count++;
         }
         return count;
     }

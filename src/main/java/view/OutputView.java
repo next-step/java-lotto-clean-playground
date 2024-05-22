@@ -14,9 +14,7 @@ public class OutputView {
     private static final int INITIAL_NUMBER_ONE = 1;
     private static final int INITIAL_NUMBER_TWO = 2;
     private static final int INITIAL_NUMBER_THREE = 3;
-    private int sum = 0;
 
-    private static final List<Integer> winningsMoney = List.of(5000, 50000, 1500000, 20000000);
 
     public void displayLottoTickets(List<LottoTicket> tickets) {
         for (LottoTicket ticket : tickets) {
@@ -24,28 +22,21 @@ public class OutputView {
         }
     }
 
-    private static List<Integer> winningsMoney() {
-        return winningsMoney;
-    }
-
-    public void numberOfWinning(int count) {
+    public void numberOfWinning(int count, List<Integer> matchesMoney) {
         if (count == THREE_COUNT) {
-            System.out.printf("%d개 일치 (%d원)\n", count, winningsMoney.get(INITIAL_NUMBER_ZERO));
+            System.out.printf("%d개 일치 (%d원)\n", count, matchesMoney.get(INITIAL_NUMBER_ZERO));
         } else if (count == FOUR_COUNT) {
-            System.out.printf("%d개 일치 (%d원)\n", count, winningsMoney.get(INITIAL_NUMBER_ONE));
+            System.out.printf("%d개 일치 (%d원)\n", count, matchesMoney.get(INITIAL_NUMBER_ONE));
         } else if (count == FIVE_COUNT) {
-            System.out.printf("%d개 일치 (%d원)\n", count, winningsMoney.get(INITIAL_NUMBER_TWO));
+            System.out.printf("%d개 일치 (%d원)\n", count, matchesMoney.get(INITIAL_NUMBER_TWO));
         } else if (count == SIX_COUNT) {
-            System.out.printf("%d개 일치 (%d원)\n", count, winningsMoney.get(INITIAL_NUMBER_THREE));
+            System.out.printf("%d개 일치 (%d원)\n", count, matchesMoney.get(INITIAL_NUMBER_THREE));
         } else {
             System.out.printf("%d개 일치\n", count);
         }
     }
 
-    public void winningLottoRateOfResult(int payMoney) {
-        for (int i = 0; i < winningsMoney().size(); i++)
-            sum += winningsMoney().get(i);
-        double rateOfWinning = (double) sum / payMoney;
+    public void winningLottoRateOfResult(double rateOfWinning) {
         System.out.printf("총수익률은 %.2f", rateOfWinning);
     }
 }
