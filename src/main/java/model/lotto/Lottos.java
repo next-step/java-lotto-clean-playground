@@ -19,7 +19,9 @@ public class Lottos {
 
     public static Lottos createWith(final Dice dice, final String moneyInput) {
         int money = convertMoney(moneyInput);
-        validateMoneyDivideZero(money);
+
+        validateMoney(money);
+
         List<Lotto> lottos = makeLottosWithMoney(dice, money);
 
         return new Lottos(lottos);
@@ -29,6 +31,17 @@ public class Lottos {
         try {
             return Integer.parseInt(moneyInput);
         } catch (NumberFormatException exception) {
+            throw new MoneyFormatException();
+        }
+    }
+
+    private static void validateMoney(final int money) {
+        validateMoneyPositive(money);
+        validateMoneyDivideZero(money);
+    }
+
+    private static void validateMoneyPositive(final int money) {
+        if (money <= 0) {
             throw new MoneyFormatException();
         }
     }
