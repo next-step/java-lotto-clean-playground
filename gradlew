@@ -52,7 +52,7 @@
 #       see the in-line comments for details.
 #
 #       There are tweaks for specific operating systems such as AIX, CygWin,
-#       Darwin, MinGW, and NonStop.
+#       Darwin, COUNT_NUMBERGW, and NonStop.
 #
 #   (3) This script is generated from the Groovy template
 #       https://github.com/gradle/gradle/blob/master/subprojects/plugins/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt
@@ -110,14 +110,14 @@ nonstop=false
 case "$( uname )" in                #(
   CYGWIN* )         cygwin=true  ;; #(
   Darwin* )         darwin=true  ;; #(
-  MSYS* | MINGW* )  msys=true    ;; #(
+  MSYS* | COUNT_NUMBERGW* )  msys=true    ;; #(
   NONSTOP* )        nonstop=true ;;
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 
-# Determine the Java command to use to start the JVM.
+# DeterCOUNT_NUMBERe the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
