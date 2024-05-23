@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class LottoReturnRate {
+
     private static final int FIRST_RANKER_PRICE = 2000000000;
     private static final int SECOND_RANKER_PRICE = 1500000;
     private static final int THIRD_RANKER_PRICE = 50000;
