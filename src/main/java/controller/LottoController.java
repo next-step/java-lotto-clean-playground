@@ -12,26 +12,24 @@ public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
 
-    private int getLottoMoney;
-
     public LottoController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
     }
 
     public void startLotto() {
-        getLottoMoney();
-        Lottos lottos = buyLotto();
+        int lottoMoney = getLottoMoney();
+        Lottos lottos = buyLotto(lottoMoney);
         List<Integer> lastWeekLottoNumber = getLastWeekLottoNumber();
-        rankLotto(lottos, lastWeekLottoNumber);
+        rankLotto(lottos, lastWeekLottoNumber, lottoMoney);
     }
 
-    private void getLottoMoney() {
+    private int getLottoMoney() {
         outputView.printGetLottoMoney();
-        getLottoMoney = inputView.getLottoMoney();
+        return inputView.getLottoMoney();
     }
 
-    private Lottos buyLotto() {
+    private Lottos buyLotto(int getLottoMoney) {
         Random randomNumberGenerator = new Random();
         outputView.printLottoCount(getLottoMoney);
         CreateLottoNumber createLottoNumber = new LottoNumberGenerator(randomNumberGenerator);
@@ -49,7 +47,7 @@ public class LottoController {
         return lottoNumber.getLastWeekLottoNumber();
     }
 
-    private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber) {
+    private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber, int getLottoMoney) {
         LottosRank lottosRank = new LottosRank(lottos, lastWeekLottoNumber);
         List<Integer> lottoRank = lottosRank.getRankLottos();
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRank, getLottoMoney);
