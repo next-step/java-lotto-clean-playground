@@ -8,6 +8,7 @@ public class Lottos {
 
     private static final int INITIAL_NUMBER = 0;
     private static final int LOTTO_COUNT_NUMBER = 1000;
+
     private final int lottoMoney;
     private final List<Lotto> lottos;
 

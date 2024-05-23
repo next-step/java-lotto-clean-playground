@@ -13,6 +13,7 @@ public class LottoReturnRate {
     private static final int RESET_NUMBER = 0;
     private static final double MAKE_RETURN_RATE_DEVIDE_NUMBER = 100.0;
     private static final int MAKE_RETURN_RATE_MULTIPLE_NUMBER = 100;
+
     private final List<Integer> lottoRank;
     private final int getLottoMoney;
 

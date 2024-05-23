@@ -6,6 +6,7 @@ import java.util.List;
 public class LastWeekLottoNumber {
 
     private static final String SPLIT_STRING_DELIMITER = ",";
+
     private final List<Integer> lastWeekLottoNumber;
     private final String inputLastWeekLottoNumber;
 

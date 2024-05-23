@@ -6,6 +6,7 @@ public class LottoRank {
 
     private static final int RESET_NUMBER = 0;
     private static final int INITIAL_NUMBER = 1;
+
     private final List<Integer> lastWeekLottoNumber;
     private final int rankLottoNumber;
     private final Lotto lotto;

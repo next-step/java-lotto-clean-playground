@@ -8,6 +8,7 @@ public class LottosRank {
     private static final int INITIAL_NUMBER = 1;
     private static final int START_RANK_NUMBER = 3;
     private static final int LAST_RANK_NUMBER = 6;
+
     private final List<Integer> lastWeekLottoNumber;
     private final List<Integer> rankLottos;
     private final Lottos lottos;
