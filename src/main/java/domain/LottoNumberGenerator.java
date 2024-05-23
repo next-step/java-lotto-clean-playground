@@ -10,6 +10,7 @@ public class LottoNumberGenerator implements CreateLottoNumber {
     private static final int FIRST_LOTTO_NUMBER = 1;
     private static final int LAST_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBER_LENGTH_BOUNDARY = 6;
+
     private final Random randomNumberGenerator;
 
     public LottoNumberGenerator(Random randomNumberGenerator) {
