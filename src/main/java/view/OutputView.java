@@ -12,17 +12,17 @@ public class OutputView {
         System.out.println(LottoList);
     }
 
-    public void printWinningResult(int[] rankCounts, List<int[]> Ranks){
+    public void printWinningResult(int[] rankCounts, List<int[]> Ranks) {
         System.out.println("당첨 통계");
         System.out.println("--------");
-        for (int i=0;i<rankCounts.length;i++){
-            int[] rank=Ranks.get(i);
-            System.out.println(rank[0]+"개 일치 "+ rank[1]+"원- "+rankCounts[i]);
+        for (int i = 0; i < rankCounts.length; i++) {
+            int[] rank = Ranks.get(i);
+            System.out.println(rank[0] + "개 일치 " + rank[1] + "원- " + rankCounts[i]);
         }
     }
 
-    public void printProfit(double profit){
-        System.out.println("총 수익률은 "+profit+"입니다.");
+    public void printProfit(double profit) {
+        System.out.println("총 수익률은 " + profit + "입니다.");
     }
 
 
