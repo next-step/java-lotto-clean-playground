@@ -12,13 +12,17 @@ public class LottoTickets {
         this.numberGenerator = numberGenerator;
     }
 
-    public List<LottoTicket> generateLottoTickets(int ticketCount) {
+    public List<LottoTicket> generateLottoTicket(int ticketCount) {
         List<LottoTicket> tickets = new ArrayList<>();
+        generateLottoTickets(ticketCount, tickets);
+        return tickets;
+    }
+
+    private void generateLottoTickets(int ticketCount, List<LottoTicket> tickets) {
         for (int i = INITIAL_NUMBER; i < ticketCount; i++) {
             List<Integer> numbers = numberGenerator.generateRandomNumber();
             LottoTicket ticket = new LottoTicket(numbers);
             tickets.add(ticket);
         }
-        return tickets;
     }
 }
