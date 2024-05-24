@@ -5,14 +5,20 @@ import java.util.List;
 
 public class LottoMarket {
 
-    public List<Lotto> generateTickets(int price) {
-        LottoTickets lottoTickets = new LottoTickets(price);
-        int numberOfTickets = lottoTickets.getLottoTickets();
-        List<Lotto> lotto = new ArrayList<>();
+    private final int price;
 
-        generateLotto(numberOfTickets, lotto);
+    public LottoMarket(int price) {
+        this.price = price;
+    }
 
-        return lotto;
+    public Lottos generateTickets() {
+        LottoTicket lottoTicket = new LottoTicket(price);
+        int numberOfTickets = lottoTicket.getLottoTickets();
+        List<Lotto> lottoList = new ArrayList<>();
+
+        generateLotto(numberOfTickets, lottoList);
+
+        return new Lottos(lottoList);
     }
 
     private void generateLotto(int numberOfTickets, List<Lotto> lotto) {
