@@ -4,8 +4,8 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoController {
 
@@ -25,7 +25,7 @@ public class LottoController {
         int money = inputView.getMoney();
         TicketCount ticketCount = new TicketCount(money);
         LottoTickets lottoTickets = new LottoTickets(new RandomNumberGenerator());
-        List<LottoTicket> tickets = lottoTickets.generateLottoTickets(ticketCount.getCount());
+        List<LottoTicket> tickets = lottoTickets.generateLottoTicket(ticketCount.getCount());
         List<LottoTicketDto> ticketDtos = convertToDto(tickets);
         outputView.displayLottoTickets(ticketDtos);
         winningLotto(tickets, money);
@@ -35,25 +35,23 @@ public class LottoController {
         List<Integer> winNumbers = inputView.getWinNumbers();
         WinningLotto winningLotto = new WinningLotto(winNumbers);
         winning(tickets, winningLotto);
-        LottoRate lottoRate = new LottoRate();
-        double rateOfReturn = lottoRate.LottoRate(money);
-        outputView.winningLottoRateOfResult(rateOfReturn);
+        LottoRate lottoRate = new LottoRate(tickets, winningLotto);
+        double rateOfReturn = lottoRate.calculateRateOfReturn(money, inputView.BonusNumber());
+        outputView.LottoRateOfResult(rateOfReturn);
     }
 
     private void winning(List<LottoTicket> tickets, WinningLotto winningLotto) {
         for (LottoTicket ticket : tickets) {
             int matchedNumbers = winningLotto.getCount(ticket.getNumbers());
-            LottoRate lottoRate = new LottoRate();
-            List<Integer> matchesMoney = lottoRate.matchesMoney();
-            outputView.numberOfWinning(matchedNumbers, matchesMoney);
+            int matchedBonusNumbers = winningLotto.getBonusCount(ticket.getNumbers(), inputView.BonusNumber());
+            Ranking ranking = Ranking.valueOfCount(matchedNumbers, matchedBonusNumbers);
+            outputView.NumberOfWinning(ranking);
         }
     }
 
     private List<LottoTicketDto> convertToDto(List<LottoTicket> tickets) {
-        List<LottoTicketDto> ticketDtos = new ArrayList<>();
-        for (LottoTicket ticket : tickets) {
-            ticketDtos.add(new LottoTicketDto(ticket.getNumbers()));
-        }
-        return ticketDtos;
+        return tickets.stream()
+                .map(ticket -> new LottoTicketDto(ticket.getNumbers()))
+                .collect(Collectors.toList());
     }
 }
