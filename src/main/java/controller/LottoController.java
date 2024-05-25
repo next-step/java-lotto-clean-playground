@@ -33,17 +33,18 @@ public class LottoController {
 
     private void winningLotto(List<LottoTicket> tickets, int money) {
         List<Integer> winNumbers = inputView.getWinNumbers();
+        int bonusNumber = inputView.bonusNumber();
         WinningLotto winningLotto = new WinningLotto(winNumbers);
-        winning(tickets, winningLotto);
+        winning(tickets, winningLotto, bonusNumber);
         LottoRate lottoRate = new LottoRate(tickets, winningLotto);
-        double rateOfReturn = lottoRate.calculateRateOfReturn(money, inputView.BonusNumber());
+        double rateOfReturn = lottoRate.calculateRateOfReturn(money, bonusNumber);
         outputView.LottoRateOfResult(rateOfReturn);
     }
 
-    private void winning(List<LottoTicket> tickets, WinningLotto winningLotto) {
+    private void winning(List<LottoTicket> tickets, WinningLotto winningLotto, int bonusNumber) {
         for (LottoTicket ticket : tickets) {
             int matchedNumbers = winningLotto.getCount(ticket.getNumbers());
-            int matchedBonusNumbers = winningLotto.getBonusCount(ticket.getNumbers(), inputView.BonusNumber());
+            int matchedBonusNumbers = winningLotto.getBonusCount(ticket.getNumbers(), bonusNumber);
             Ranking ranking = Ranking.valueOfCount(matchedNumbers, matchedBonusNumbers);
             outputView.NumberOfWinning(ranking);
         }

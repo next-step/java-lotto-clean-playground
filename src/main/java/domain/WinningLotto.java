@@ -14,7 +14,9 @@ public class WinningLotto {
 
     public int getCount(List<Integer> ticketNumbers) {
         int count = INITIAL_NUMBER;
-        for (int number : ticketNumbers) return checkContain(number, count);
+        for (int number : ticketNumbers) {
+            count = checkContain(number, count);
+        }
         return count;
     }
 
@@ -29,9 +31,9 @@ public class WinningLotto {
     }
 
     private int checkBonusCount(List<Integer> ticketNumbers, int bonusNumber, int bonusCount) {
-        for (int i = INITIAL_NUMBER; i < ticketNumbers.size(); i++)
-            if (winNumbers.contains(bonusNumber))
-                bonusCount++;
+        if (ticketNumbers.contains(bonusNumber)) {
+            bonusCount++;
+        }
         return bonusCount;
     }
 }

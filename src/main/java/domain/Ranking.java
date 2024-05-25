@@ -2,11 +2,11 @@ package domain;
 
 public enum Ranking {
 
-    FIRST(6, 0, 2000000000, "6개 일치"),
-    SECOND(5, 1, 30000000, "5개 일치, 보너스 볼 일치"),
-    THIRD(5, 0, 1500000, "5개 일치"),
-    FOURTH(4, 0, 50000, "4개 일치"),
-    FIFTH(3, 0, 5000, "3개 일기"),
+    FIRST(6, 0, 2000000000, "6개 일치 1등입니다."),
+    SECOND(5, 1, 30000000, "5개 일치, 보너스 볼 일치 2등입니다."),
+    THIRD(5, 0, 1500000, "5개 일치 3등입니다."),
+    FOURTH(4, 0, 50000, "4개 일치 4등입니다."),
+    FIFTH(3, 0, 5000, "3개 일기 5등입니다."),
     ERROR(0, 0, 0, "");
 
     private final int countOfRanking;
@@ -43,5 +43,4 @@ public enum Ranking {
         }
         return null;
     }
-
 }
