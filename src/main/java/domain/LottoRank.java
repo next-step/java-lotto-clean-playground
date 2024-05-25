@@ -26,15 +26,18 @@ public class LottoRank {
         Map<Integer, Integer> rankLotto = checkCorrespondingLottosNumber(lottos, lastWeekLottoNumber);
         List<Integer> realRankLotto = new ArrayList<>();
         for (int i = LAST_RANKER; i < FIRST_RANKER + INITIAL_NUMBER; i++) {
-            if (!rankLotto.containsKey(i)) {
-                realRankLotto.add(RESET_NUMBER);
-            }
-            if (rankLotto.containsKey(i)) {
-                realRankLotto.add(rankLotto.get(i));
-            }
+            extracted(rankLotto, i, realRankLotto);
         }
-        System.out.println(realRankLotto);
         return realRankLotto;
+    }
+
+    private void extracted(Map<Integer, Integer> rankLotto, int rankNumber, List<Integer> realRankLotto) {
+        if (!rankLotto.containsKey(rankNumber)) {
+            realRankLotto.add(RESET_NUMBER);
+        }
+        if (rankLotto.containsKey(rankNumber)) {
+            realRankLotto.add(rankLotto.get(rankNumber));
+        }
     }
 
     private Map<Integer, Integer> checkCorrespondingLottosNumber(Lottos lottos, List<Integer> lastWeekLottoNumber) {
