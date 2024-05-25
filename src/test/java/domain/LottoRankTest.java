@@ -4,26 +4,28 @@ import FakeRandomNumber.FakeLottoNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoRankTest {
 
     @Test
-    @DisplayName("지난 수 로또 번호와 맞은 개수 테스트")
-    void getSameLottoNumber() {
+    @DisplayName("로또 랭크 반환 메서드 테스트")
+    void getLottoRank() {
         //given
-        final String inputLastWeekNumber = "1,2,3,4,5,6";
-        final LastWeekLottoNumber lastWeekLottoNumber = new LastWeekLottoNumber(inputLastWeekNumber);
-        final CreateLottoNumber createLottoNumber = new FakeLottoNumberGenerator();
-        final Lotto lotto = new Lotto(createLottoNumber);
-        final List<Integer> lastWeeklottoNumber = lastWeekLottoNumber.getLastWeekLottoNumber();
-        final LottoRank lottoRank = new LottoRank(lotto, lastWeeklottoNumber);
-        final int expected = lottoRank.getSameLottoNumber();
+        final FakeLottoNumberGenerator fakeLottoNumberGenerator = new FakeLottoNumberGenerator();
+        final int lottoMoney = 3000;
+        final Lottos lottos = new Lottos(fakeLottoNumberGenerator, lottoMoney);
+        final List<Integer> lastWeekLottoNumber = List.of(1,2,3,4,5,6);
+        final LottoRank lottoRank = new LottoRank(lottos,lastWeekLottoNumber);
+        final List<Integer> expected = new ArrayList<>(Arrays.asList(0,0,0,3));
 
         //when
-        final int actual = 6;
+        final List<Integer> actual = lottoRank.getLottoRank();
 
         //then
         assertEquals(expected, actual);
