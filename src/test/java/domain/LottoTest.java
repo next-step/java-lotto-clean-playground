@@ -4,6 +4,7 @@ import fakeTest.FakeGenerateNumberGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +19,7 @@ class LottoTest {
         LottoTickets lottos = new LottoTickets(fakeGenerateRandomNumber);
 
         // when
-        List<LottoTicket> tickets = lottos.generateLottoTickets(1);
+        List<LottoTicket> tickets = lottos.generateLottoTicket(1);
         List<Integer> generatedNumbers = tickets.get(0).getNumbers();
 
         // then
@@ -32,16 +33,17 @@ class LottoTest {
     void 로또_범위_테스트() {
 
         // given
+        Random random = new Random();
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoTickets lottos = new LottoTickets(numberGenerator);
 
         // when
-        List<LottoTicket> tickets = lottos.generateLottoTickets(1);
+        List<LottoTicket> tickets = lottos.generateLottoTicket(1);
         List<Integer> generatedNumbers = tickets.get(0).getNumbers();
 
         // then
         for (int num : generatedNumbers) {
-            assertTrue(1 <= num && num <= 45, "로또범위");
+            assertTrue(1 <= num && num <= 45);
         }
     }
 }
