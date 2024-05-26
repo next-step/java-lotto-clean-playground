@@ -18,27 +18,27 @@ public enum LottoPrice {
         this.lottoMessage = lottoMessage;
     }
 
-    public static List<String> getLottoMessageBundle(){
+    public static List<String> getLottoMessageBundle() {
         List<String> lottoMessages = new ArrayList<>();
-        for(LottoPrice lottoPrice : LottoPrice.values()){
+        for (LottoPrice lottoPrice : LottoPrice.values()) {
             lottoMessages.add(lottoPrice.getLottoMessege());
         }
         return lottoMessages;
     }
 
-    public static List<Integer> getLottoPriceBundle(){
+    public static List<Integer> getLottoPriceBundle() {
         List<Integer> lottoPrices = new ArrayList<>();
-        for(LottoPrice lottoPrice : LottoPrice.values()){
+        for (LottoPrice lottoPrice : LottoPrice.values()) {
             lottoPrices.add(lottoPrice.getLottoPrice());
         }
         return lottoPrices;
     }
 
-    private String getLottoMessege(){
+    private String getLottoMessege() {
         return lottoMessage;
     }
 
-    private int getLottoPrice(){
+    private int getLottoPrice() {
         return lottoPrice;
     }
 }

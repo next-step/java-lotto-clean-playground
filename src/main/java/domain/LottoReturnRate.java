@@ -17,7 +17,7 @@ public class LottoReturnRate {
         this.lottoReturnRate = calculateLottoReturnRate(lottoRank, getLottoMoney);
     }
 
-    public double getLottoReturnRate(){
+    public double getLottoReturnRate() {
         return lottoReturnRate;
     }
 

@@ -16,14 +16,14 @@ public class LottoNumberGenerator implements CreateLottoNumber {
     public List<Integer> getRandomLottoNumber() {
         List<Integer> getLotto = new ArrayList<>();
         for (int i = INITIAL_NUMBER; i < LOTTO_NUMBER_LENGTH_BOUNDARY; i++) {
-            int randomLottoNumber = checkDuplicateNumber(getLotto, randomNumberGenerator.nextInt(FIRST_LOTTO_NUMBER,LAST_LOTTO_NUMBER));
+            int randomLottoNumber = checkDuplicateNumber(getLotto, randomNumberGenerator.nextInt(FIRST_LOTTO_NUMBER, LAST_LOTTO_NUMBER));
             getLotto.add(randomLottoNumber);
         }
         return getLotto;
     }
 
-    private int generateRandomNumber(){
-        return randomNumberGenerator.nextInt(FIRST_LOTTO_NUMBER,LAST_LOTTO_NUMBER);
+    private int generateRandomNumber() {
+        return randomNumberGenerator.nextInt(FIRST_LOTTO_NUMBER, LAST_LOTTO_NUMBER);
     }
 
     private int checkDuplicateNumber(List<Integer> buyLotto, int randomLottoNumber) {

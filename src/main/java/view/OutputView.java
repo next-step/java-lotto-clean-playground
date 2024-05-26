@@ -4,7 +4,8 @@ import java.util.List;
 
 public class OutputView {
 
-    private static final int START_STATISTICS_NUMBER = 3;
+    private static final int RESET_NUMBER = 0;
+    private static final int LOTTO_RANK_BOUNDARY = 4;
     private static final int DEVIDE_LOTTO_COUNT_NUMBER = 1000;
 
     public void printGetLottoMoney() {
@@ -28,9 +29,9 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public void printLottoRank(List<String> lottoRankMessage, List<Integer> lottoRank){
-        for(int i=0;i<4;i++){
-            System.out.println(lottoRankMessage.get(i) + lottoRank.get(i)+"개");
+    public void printLottoRank(List<String> lottoRankMessage, List<Integer> lottoRank) {
+        for (int i = RESET_NUMBER; i < LOTTO_RANK_BOUNDARY; i++) {
+            System.out.println(lottoRankMessage.get(i) + lottoRank.get(i) + "개");
         }
     }
 

@@ -51,8 +51,7 @@ public class LottoController {
         List<Integer> lottoRanks = lottoRank.getLottoRank();
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
         outputView.printLottoStatistics();
-        double returnRate = lottoReturnRate.getLottoReturnRate();
-        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(),lottoRanks);
-        outputView.printRateOfReturn(returnRate);
+        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(), lottoRanks);
+        outputView.printRateOfReturn(lottoReturnRate.getLottoReturnRate());
     }
 }
