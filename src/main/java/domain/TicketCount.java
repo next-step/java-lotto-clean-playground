@@ -6,8 +6,8 @@ public class TicketCount {
 
     private final int money;
 
-    public TicketCount(int money) {
-        this.money = money;
+    public TicketCount(int money, int count) {
+        this.money = money - (count * TICKET_PRICE);
     }
 
     public int getCount() {
