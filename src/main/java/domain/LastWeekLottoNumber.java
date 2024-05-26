@@ -8,19 +8,17 @@ public class LastWeekLottoNumber {
     private static final String SPLIT_STRING_DELIMITER = ",";
 
     private final List<Integer> lastWeekLottoNumber;
-    private final String inputLastWeekLottoNumber;
 
     public LastWeekLottoNumber(String LastWeekLottoNumber) {
-        this.inputLastWeekLottoNumber = LastWeekLottoNumber;
-        this.lastWeekLottoNumber = makeLastWeekLottoNumberList();
+        this.lastWeekLottoNumber = makeLastWeekLottoNumberList(LastWeekLottoNumber);
     }
 
     public List<Integer> getLastWeekLottoNumber() {
         return lastWeekLottoNumber;
     }
 
-    private List<Integer> makeLastWeekLottoNumberList() {
-        List<String> inputLottoNumber = splitStringLottoNumber();
+    private List<Integer> makeLastWeekLottoNumberList(String inputLastWeekLottoNumber) {
+        List<String> inputLottoNumber = splitStringLottoNumber(inputLastWeekLottoNumber);
         List<Integer> lastWeekLottoNumber = new ArrayList<>();
         for (String lottoNumber : inputLottoNumber) {
             lastWeekLottoNumber.add(Integer.parseInt(lottoNumber));
@@ -28,7 +26,7 @@ public class LastWeekLottoNumber {
         return lastWeekLottoNumber;
     }
 
-    private List<String> splitStringLottoNumber() {
+    private List<String> splitStringLottoNumber(String inputLastWeekLottoNumber) {
         String[] lottoNumber = inputLastWeekLottoNumber.split(SPLIT_STRING_DELIMITER);
         return List.of(lottoNumber);
     }

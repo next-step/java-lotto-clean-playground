@@ -28,9 +28,9 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public void printLottoRanker(List<Integer> lottoRank, List<Integer> lottoPrice) {
-        for (int i = START_STATISTICS_NUMBER; i < lottoRank.size() + START_STATISTICS_NUMBER; i++) {
-            System.out.println(i + "개 일치 (" + lottoPrice.get(i - START_STATISTICS_NUMBER) + "원)- " + lottoRank.get(i - START_STATISTICS_NUMBER) + "개");
+    public void printLottoRank(List<String> lottoRankMessage, List<Integer> lottoRank){
+        for(int i=0;i<4;i++){
+            System.out.println(lottoRankMessage.get(i) + lottoRank.get(i)+"개");
         }
     }
 

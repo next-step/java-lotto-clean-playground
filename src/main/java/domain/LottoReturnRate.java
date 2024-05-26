@@ -28,7 +28,7 @@ public class LottoReturnRate {
     }
 
     public double calculateLottoReturnRate() {
-        List<Integer> lottoRankPrice = makeLottoPrice();
+        List<Integer> lottoRankPrice = LottoPrice.getLottoPriceBundle();
         int sumOfLottoMoney = RESET_NUMBER;
         for (int i = RESET_NUMBER; i < lottoRankPrice.size(); i++) {
             sumOfLottoMoney += lottoRank.get(i) * lottoRankPrice.get(i);

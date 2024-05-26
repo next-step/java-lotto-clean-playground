@@ -53,7 +53,7 @@ public class LottoController {
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
         outputView.printLottoStatistics();
         double returnRate = lottoReturnRate.calculateLottoReturnRate();
-        outputView.printLottoRanker(lottoRanks, lottoReturnRate.makeLottoPrice());
+        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(),lottoRanks);
         outputView.printRateOfReturn(returnRate);
     }
 }

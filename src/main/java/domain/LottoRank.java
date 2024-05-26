@@ -26,12 +26,13 @@ public class LottoRank {
         Map<Integer, Integer> rankLotto = checkCorrespondingLottosNumber(lottos, lastWeekLottoNumber);
         List<Integer> realRankLotto = new ArrayList<>();
         for (int i = LAST_RANKER; i < FIRST_RANKER + INITIAL_NUMBER; i++) {
-            extracted(rankLotto, i, realRankLotto);
+            saveRank(rankLotto, i, realRankLotto);
         }
+        System.out.println(realRankLotto);
         return realRankLotto;
     }
 
-    private void extracted(Map<Integer, Integer> rankLotto, int rankNumber, List<Integer> realRankLotto) {
+    private void saveRank(Map<Integer, Integer> rankLotto, int rankNumber, List<Integer> realRankLotto) {
         if (!rankLotto.containsKey(rankNumber)) {
             realRankLotto.add(RESET_NUMBER);
         }
@@ -43,19 +44,20 @@ public class LottoRank {
     private Map<Integer, Integer> checkCorrespondingLottosNumber(Lottos lottos, List<Integer> lastWeekLottoNumber) {
         Map<Integer, Integer> rankLotto = new HashMap<>();
         for (Lotto lotto : lottos.getLottos()) {
-            int count = checkCorrespondingLottoNumber(lotto.getLottoNumber(), lastWeekLottoNumber);
-            rankLotto.put(count, rankLotto.getOrDefault(count, RESET_NUMBER) + INITIAL_NUMBER);
+            int sameLottoNumber = checkCorrespondingLottoNumber(lotto.getLottoNumber(), lastWeekLottoNumber);
+            rankLotto.put(sameLottoNumber, rankLotto.getOrDefault(sameLottoNumber, RESET_NUMBER) + INITIAL_NUMBER);
         }
+        System.out.println(rankLotto);
         return rankLotto;
     }
 
     private int checkCorrespondingLottoNumber(List<Integer> lottoNumber, List<Integer> lastWeekLottoNumber) {
-        int count = RESET_NUMBER;
+        int sameLottoNumber = RESET_NUMBER;
         for (int elementOfLastWeekLottoNumber : lastWeekLottoNumber) {
             if (lottoNumber.contains(elementOfLastWeekLottoNumber)) {
-                count++;
+                sameLottoNumber++;
             }
         }
-        return count;
+        return sameLottoNumber;
     }
 }
