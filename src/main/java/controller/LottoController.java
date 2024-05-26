@@ -23,12 +23,21 @@ public class LottoController {
 
     public void run() {
         int money = inputView.getMoney();
-        TicketCount ticketCount = new TicketCount(money);
+        int passiveLottoCount = getPassiveLottoCount();
+        TicketCount ticketCount = new TicketCount(money, passiveLottoCount);
         LottoTickets lottoTickets = new LottoTickets(new RandomNumberGenerator());
         List<LottoTicket> tickets = lottoTickets.generateLottoTicket(ticketCount.getCount());
         List<LottoTicketDto> ticketDtos = convertToDto(tickets);
         outputView.displayLottoTickets(ticketDtos);
         winningLotto(tickets, money);
+    }
+
+    private int getPassiveLottoCount() {
+        int passiveLottoCount = inputView.getPassiveCount();
+        List<Integer> passiveNumbers = inputView.getPassiveNumber();
+        PassiveLottoTickets passiveLottoTickets = new PassiveLottoTickets(passiveLottoCount, passiveNumbers);
+        passiveLottoTickets.getTickets();
+        return passiveLottoCount;
     }
 
     private void winningLotto(List<LottoTicket> tickets, int money) {
