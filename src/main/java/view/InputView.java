@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -35,11 +36,15 @@ public class InputView {
         return count += scanner.nextInt();
     }
 
-    public List<Integer> getPassiveNumber() {
-        System.out.println("수동으로 구매할 로또 번호를 입력하세요:");
-        String passiveNumbers = scanner.next();
-        return Arrays.stream(passiveNumbers.split(COMMA))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+    public List<List<Integer>> getPassiveNumbers(int count) {
+        System.out.println("수동으로 구매할 로또 번호를 입력하세요 (쉼표로 구분):");
+        List<List<Integer>> passiveNumbers = new ArrayList<>();
+        for (int i = INITIAL_NUMBER; i < count; i++) {
+            String numbers = scanner.next();
+            passiveNumbers.add(Arrays.stream(numbers.split(COMMA))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList()));
+        }
+        return passiveNumbers;
     }
 }
