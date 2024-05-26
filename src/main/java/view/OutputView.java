@@ -2,7 +2,6 @@ package view;
 
 import domain.LottoTicketDto;
 import domain.Ranking;
-
 import java.util.List;
 
 public class OutputView {
