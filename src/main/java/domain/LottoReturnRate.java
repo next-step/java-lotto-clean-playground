@@ -7,27 +7,21 @@ import java.util.Random;
 
 public class LottoReturnRate {
 
-    private static final int FIRST_RANKER_PRICE = 2000000000;
-    private static final int SECOND_RANKER_PRICE = 1500000;
-    private static final int THIRD_RANKER_PRICE = 50000;
-    private static final int FOURTH_RANKER_PRICE = 5000;
     private static final int RESET_NUMBER = 0;
     private static final double MAKE_RETURN_RATE_DEVIDE_NUMBER = 100.0;
     private static final int MAKE_RETURN_RATE_MULTIPLE_NUMBER = 100;
 
-    private final List<Integer> lottoRank;
-    private final int getLottoMoney;
+    private final double lottoReturnRate;
 
     public LottoReturnRate(List<Integer> lottoRank, int getLottoMoney) {
-        this.lottoRank = lottoRank;
-        this.getLottoMoney = getLottoMoney;
+        this.lottoReturnRate = calculateLottoReturnRate(lottoRank, getLottoMoney);
     }
 
-    public List<Integer> makeLottoPrice() {
-        return List.of(FOURTH_RANKER_PRICE, THIRD_RANKER_PRICE, SECOND_RANKER_PRICE, FIRST_RANKER_PRICE);
+    public double getLottoReturnRate(){
+        return lottoReturnRate;
     }
 
-    public double calculateLottoReturnRate() {
+    private double calculateLottoReturnRate(List<Integer> lottoRank, int getLottoMoney) {
         List<Integer> lottoRankPrice = LottoPrice.getLottoPriceBundle();
         int sumOfLottoMoney = RESET_NUMBER;
         for (int i = RESET_NUMBER; i < lottoRankPrice.size(); i++) {

@@ -30,9 +30,8 @@ public class LottoController {
     }
 
     private Lottos buyLotto(int getLottoMoney) {
-        Random randomNumberGenerator = new Random();
         outputView.printLottoCount(getLottoMoney);
-        CreateLottoNumber createLottoNumber = new LottoNumberGenerator(randomNumberGenerator);
+        CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
         Lottos lottos = new Lottos(createLottoNumber, getLottoMoney);
         for (Lotto lotto : lottos.getLottos()) {
             outputView.printLotto(lotto.getLottoNumber());
@@ -52,7 +51,7 @@ public class LottoController {
         List<Integer> lottoRanks = lottoRank.getLottoRank();
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
         outputView.printLottoStatistics();
-        double returnRate = lottoReturnRate.calculateLottoReturnRate();
+        double returnRate = lottoReturnRate.getLottoReturnRate();
         outputView.printLottoRank(LottoPrice.getLottoMessageBundle(),lottoRanks);
         outputView.printRateOfReturn(returnRate);
     }

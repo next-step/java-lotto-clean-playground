@@ -14,9 +14,8 @@ class LottosTest {
     @DisplayName("로또 묶음 사이즈 테스트")
     void getLottos() {
         //given
-        final Random randomNumberGenerator = new Random();
         final int lottoMoney = 3000;
-        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator(randomNumberGenerator);
+        final CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
         final Lottos lottos = new Lottos(createLottoNumber, lottoMoney);
         final int expected = 3;
 

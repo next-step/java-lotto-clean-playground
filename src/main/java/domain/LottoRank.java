@@ -28,7 +28,6 @@ public class LottoRank {
         for (int i = LAST_RANKER; i < FIRST_RANKER + INITIAL_NUMBER; i++) {
             saveRank(rankLotto, i, realRankLotto);
         }
-        System.out.println(realRankLotto);
         return realRankLotto;
     }
 
@@ -47,7 +46,6 @@ public class LottoRank {
             int sameLottoNumber = checkCorrespondingLottoNumber(lotto.getLottoNumber(), lastWeekLottoNumber);
             rankLotto.put(sameLottoNumber, rankLotto.getOrDefault(sameLottoNumber, RESET_NUMBER) + INITIAL_NUMBER);
         }
-        System.out.println(rankLotto);
         return rankLotto;
     }
 
