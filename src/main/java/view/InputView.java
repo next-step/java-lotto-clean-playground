@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
-    private final Scanner scanner = new Scanner(System.in);
     private static final String COMMA = ",";
     private static final int INITIAL_NUMBER = 0;
+    private final Scanner scanner = new Scanner(System.in);
     private int count = 0;
 
     public int getMoney() {
