@@ -23,7 +23,7 @@ public class LottoReturnRate {
         List<Integer> lottoRankPrice = LottoPrice.getLottoPriceBundle();
         List<String> sameLottoNumbers = LottoPrice.getSameLottoNumberBundle();
         int sumOfLottoMoney = RESET_NUMBER;
-        int count = 0;
+        int count = RESET_NUMBER;
         for (String sameLottoNumber : sameLottoNumbers) {
             sumOfLottoMoney += lottoRank.get(sameLottoNumber) * lottoRankPrice.get(count);
             count++;
