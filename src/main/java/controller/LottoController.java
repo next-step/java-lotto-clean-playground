@@ -32,26 +32,27 @@ public class LottoController {
         int money = inputView.getMoney();
         int passiveLottoCount = inputView.getPassiveCount();
         List<List<Integer>> passiveNumbers = inputView.getPassiveNumbers(passiveLottoCount);
-        TicketCount ticketCount = new TicketCount(money, passiveLottoCount);
+        TicketCount.BuyMoney buyMoney = new TicketCount.BuyMoney(money, passiveLottoCount);
+        TicketCount.CountingTickets countingTickets = new TicketCount.CountingTickets(buyMoney);
         LottoTickets lottoTickets = new LottoTickets(new RandomNumberGenerator());
         lottoTickets.addPassiveTickets(passiveNumbers);
-        List<LottoTicket> tickets = lottoTickets.generateLottoTickets(ticketCount.getCount());
+        List<LottoTicket> tickets = lottoTickets.generateLottoTickets(countingTickets.getCount());
         List<LottoTicketDto> ticketDtos = convertToDto(tickets);
         outputView.displayLottoTickets(ticketDtos);
-        winningLotto(tickets, money);
+        winLotto(tickets, buyMoney.getAmount());
     }
 
-    private void winningLotto(List<LottoTicket> tickets, int money) {
+    private void winLotto(List<LottoTicket> tickets, int money) {
         List<Integer> winNumbers = inputView.getWinNumbers();
         int bonusNumber = inputView.bonusNumber();
         WinningLotto winningLotto = new WinningLotto(winNumbers);
-        winning(tickets, winningLotto, bonusNumber);
+        win(tickets, winningLotto, bonusNumber);
         LottoRate lottoRate = new LottoRate(tickets, winningLotto);
         double rateOfReturn = lottoRate.calculateRateOfReturn(money, bonusNumber);
         outputView.LottoRateOfResult(rateOfReturn);
     }
 
-    private void winning(List<LottoTicket> tickets, WinningLotto winningLotto, int bonusNumber) {
+    private void win(List<LottoTicket> tickets, WinningLotto winningLotto, int bonusNumber) {
         for (LottoTicket ticket : tickets) {
             int matchedNumbers = winningLotto.getCount(ticket.getNumbers());
             int matchedBonusNumbers = winningLotto.getBonusCount(ticket.getNumbers(), bonusNumber);
