@@ -5,7 +5,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 public class LottoController {
 
@@ -48,10 +48,10 @@ public class LottoController {
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber, int getLottoMoney) {
         LottoRank lottoRank = new LottoRank(lottos, lastWeekLottoNumber);
-        List<Integer> lottoRanks = lottoRank.getLottoRank();
+        Map<String, Integer> lottoRanks = lottoRank.getLottoRank();
         LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
         outputView.printLottoStatistics();
-        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(), lottoRanks);
+        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(), lottoRanks, LottoPrice.getSameLottoNumberBundle());
         outputView.printRateOfReturn(lottoReturnRate.getLottoReturnRate());
     }
 }

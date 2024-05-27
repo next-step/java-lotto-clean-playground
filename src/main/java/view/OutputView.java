@@ -1,11 +1,11 @@
 package view;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
     private static final int RESET_NUMBER = 0;
-    private static final int LOTTO_RANK_BOUNDARY = 4;
     private static final int DEVIDE_LOTTO_COUNT_NUMBER = 1000;
 
     public void printGetLottoMoney() {
@@ -24,14 +24,20 @@ public class OutputView {
         System.out.println("\n" + "지난 주 당첨 번호를 입력해 주세요.");
     }
 
+    public void inputBonusBall() {
+        System.out.println("보너스 볼을 입력해주세요.");
+    }
+
     public void printLottoStatistics() {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
     }
 
-    public void printLottoRank(List<String> lottoRankMessage, List<Integer> lottoRank) {
-        for (int i = RESET_NUMBER; i < LOTTO_RANK_BOUNDARY; i++) {
-            System.out.println(lottoRankMessage.get(i) + lottoRank.get(i) + "개");
+    public void printLottoRank(List<String> lottoRankMessage, Map<String, Integer> lottoRank, List<String> sameLottoNumbers) {
+        int count = RESET_NUMBER;
+        for (String sameLottoNumber : sameLottoNumbers) {
+            System.out.println(lottoRankMessage.get(count) + lottoRank.get(sameLottoNumber) + "개");
+            count++;
         }
     }
 

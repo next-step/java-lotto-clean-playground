@@ -13,4 +13,8 @@ public class InputView {
     public String inputLastWeekLottoNumber() {
         return input.next();
     }
+
+    public int inputBonusBall(){
+        return input.nextInt();
+    }
 }

@@ -4,9 +4,8 @@ import FakeRandomNumber.FakeLottoNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +18,12 @@ class LottoRankTest {
         final FakeLottoNumberGenerator fakeLottoNumberGenerator = new FakeLottoNumberGenerator();
         final int lottoMoney = 3000;
         final Lottos lottos = new Lottos(fakeLottoNumberGenerator, lottoMoney);
-        final List<Integer> lastWeekLottoNumber = List.of(1,2,3,4,5,6);
-        final LottoRank lottoRank = new LottoRank(lottos,lastWeekLottoNumber);
-        final List<Integer> expected = new ArrayList<>(Arrays.asList(0,0,0,3));
+        final List<Integer> lastWeekLottoNumber = List.of(1, 2, 3, 4, 5, 6);
+        final LottoRank lottoRank = new LottoRank(lottos, lastWeekLottoNumber);
+        final Map<String, Integer> expected = Map.of("3", 0, "4", 0, "5", 0, "6", 3);
 
         //when
-        final List<Integer> actual = lottoRank.getLottoRank();
+        final Map<String, Integer> actual = lottoRank.getLottoRank();
 
         //then
         assertEquals(expected, actual);
