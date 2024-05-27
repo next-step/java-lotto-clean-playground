@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private static final String COMMA = ",";
     private static final int INITIAL_NUMBER = 0;
     private int count = 0;
