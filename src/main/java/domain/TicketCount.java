@@ -4,8 +4,8 @@ public class TicketCount {
 
     private static final int TICKET_PRICE = 1000;
 
-    private BuyMoney buyMoney;
-    private CountingTickets countingTickets;
+    private final BuyMoney buyMoney;
+    private final CountingTickets countingTickets;
 
     public TicketCount(BuyMoney buyMoney) {
         this.buyMoney = buyMoney;
