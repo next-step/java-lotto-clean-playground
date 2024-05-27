@@ -8,10 +8,14 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
+    private Scanner scanner;
     private static final String COMMA = ",";
     private static final int INITIAL_NUMBER = 0;
-    private final Scanner scanner = new Scanner(System.in);
     private int count = 0;
+
+    public InputView(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public int getMoney() {
         System.out.println("금액을 입력하세요:");

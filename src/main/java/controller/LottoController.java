@@ -12,6 +12,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class LottoController {
@@ -20,7 +21,7 @@ public class LottoController {
     private final OutputView outputView;
 
     public LottoController() {
-        this.inputView = new InputView();
+        this.inputView = new InputView(new Scanner(System.in));
         this.outputView = new OutputView();
     }
 
