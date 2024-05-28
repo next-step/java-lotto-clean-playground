@@ -42,8 +42,14 @@ public class LottoController {
     private List<Integer> getLastWeekLottoNumber() {
         outputView.LastWeekLottoNumber();
         String inputLastWeekLottoNumber = inputView.inputLastWeekLottoNumber();
-        LastWeekLottoNumber lottoNumber = new LastWeekLottoNumber(inputLastWeekLottoNumber);
+        int bonusBall = getBonusBall();
+        LastWeekLottoNumber lottoNumber = new LastWeekLottoNumber(inputLastWeekLottoNumber, bonusBall);
         return lottoNumber.getLastWeekLottoNumber();
+    }
+
+    private int getBonusBall() {
+        outputView.inputBonusBall();
+        return inputView.inputBonusBall();
     }
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber, int getLottoMoney) {

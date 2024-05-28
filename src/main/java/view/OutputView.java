@@ -25,7 +25,7 @@ public class OutputView {
     }
 
     public void inputBonusBall() {
-        System.out.println("보너스 볼을 입력해주세요.");
+        System.out.println("\n보너스 볼을 입력해주세요.");
     }
 
     public void printLottoStatistics() {

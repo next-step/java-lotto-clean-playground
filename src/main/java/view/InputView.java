@@ -14,7 +14,7 @@ public class InputView {
         return input.next();
     }
 
-    public int inputBonusBall(){
+    public int inputBonusBall() {
         return input.nextInt();
     }
 }

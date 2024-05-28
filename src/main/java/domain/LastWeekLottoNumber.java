@@ -9,20 +9,21 @@ public class LastWeekLottoNumber {
 
     private final List<Integer> lastWeekLottoNumber;
 
-    public LastWeekLottoNumber(String LastWeekLottoNumber) {
-        this.lastWeekLottoNumber = makeLastWeekLottoNumberList(LastWeekLottoNumber);
+    public LastWeekLottoNumber(String LastWeekLottoNumber, int bonusBall) {
+        this.lastWeekLottoNumber = makeLastWeekLottoNumberList(LastWeekLottoNumber, bonusBall);
     }
 
     public List<Integer> getLastWeekLottoNumber() {
         return lastWeekLottoNumber;
     }
 
-    private List<Integer> makeLastWeekLottoNumberList(String inputLastWeekLottoNumber) {
+    private List<Integer> makeLastWeekLottoNumberList(String inputLastWeekLottoNumber, int bonusBall) {
         List<String> inputLottoNumber = splitStringLottoNumber(inputLastWeekLottoNumber);
         List<Integer> lastWeekLottoNumber = new ArrayList<>();
         for (String lottoNumber : inputLottoNumber) {
             lastWeekLottoNumber.add(Integer.parseInt(lottoNumber));
         }
+        lastWeekLottoNumber.add(bonusBall);
         return lastWeekLottoNumber;
     }
 

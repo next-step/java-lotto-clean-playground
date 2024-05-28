@@ -8,6 +8,7 @@ public class LottoRank {
 
     private static final int RESET_NUMBER = 0;
     private static final int INITIAL_NUMBER = 1;
+    private static final int BONUS_COUNT = 5;
 
     private final Map<String, Integer> lottoRank;
 
@@ -44,6 +45,13 @@ public class LottoRank {
                 sameLottoNumber++;
             }
         }
+        if (checkBonusNumber(lottoNumber, lastWeekLottoNumber, sameLottoNumber)) {
+            return LottoPrice.getBonusSameLottoNumber();
+        }
         return Integer.toString(sameLottoNumber);
+    }
+
+    private boolean checkBonusNumber(List<Integer> lottoNumber, List<Integer> lastWeekLottoNumber, int sameLottoNumber) {
+        return lottoNumber.contains(lastWeekLottoNumber.get(lastWeekLottoNumber.size() - INITIAL_NUMBER)) && sameLottoNumber == BONUS_COUNT;
     }
 }
