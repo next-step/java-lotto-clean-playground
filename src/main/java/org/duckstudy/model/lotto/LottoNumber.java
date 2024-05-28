@@ -5,7 +5,7 @@ import java.util.Objects;
 public class LottoNumber {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
-    private static final int END_EXCLUSIVE_NUMBER = 46;
+    private static final int END_INCLUSIVE_NUMBER = 45;
 
     private final int value;
 
@@ -16,7 +16,7 @@ public class LottoNumber {
     }
 
     private void validateNumber(int number) {
-        if (number < START_INCLUSIVE_NUMBER || number >= END_EXCLUSIVE_NUMBER) {
+        if (number < START_INCLUSIVE_NUMBER || number > END_INCLUSIVE_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 이상 45 이하의 숫자여야 합니다.");
         }
     }
