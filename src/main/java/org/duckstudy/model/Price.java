@@ -26,7 +26,7 @@ public class Price {
     }
 
     public int calculateLottoCount() {
-        return dividedBy(PER_PRICE).getValue();
+        return divideBy(PER_PRICE).getValue();
     }
 
     public Price addPrice(Price other) {
@@ -37,12 +37,20 @@ public class Price {
         return new Price(value * times);
     }
 
-    public Price dividedBy(int divisor) {
+    public Price divideBy(int divisor) {
+        checkIfZero(divisor);
         return new Price(value / divisor);
     }
 
-    public double dividedBy(Price divisor) {
+    public double divideBy(Price divisor) {
+        checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();
+    }
+
+    private void checkIfZero(int divisor) {
+        if (divisor == 0) {
+            throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
+        }
     }
 
     public int getValue() {

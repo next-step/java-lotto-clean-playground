@@ -30,7 +30,7 @@ public class LottoResult {
             profit = profit.addPrice(calculateWinningPrice(i)
                     .multiplyTimes(getMatchingCount(i)));
         }
-        return profit.dividedBy(price) * MAX_PERCENTAGE;
+        return profit.divideBy(price) * MAX_PERCENTAGE;
     }
 
     public Map<Integer, Integer> getResult() {

@@ -60,7 +60,7 @@ class PriceTest {
         void dividePrice() {
             Price price = new Price(1000);
 
-            int result = price.dividedBy(3).getValue();
+            int result = price.divideBy(3).getValue();
 
             assertThat(result).isEqualTo(333);
         }
@@ -70,9 +70,19 @@ class PriceTest {
         void dividePriceByPrice() {
             Price price = new Price(1000);
 
-            double result = price.dividedBy(new Price(10));
+            double result = price.divideBy(new Price(10));
 
             assertThat(result).isEqualTo(100);
+        }
+
+        @Test
+        @DisplayName("가격을 0원으로 나누면 예외가 발생한다")
+        void dividePriceByZeroPrice() {
+            Price price = new Price(1000);
+
+            assertThatThrownBy(() -> price.divideBy(new Price(0)))
+                    .isExactlyInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("0으로 나눌 수 없습니다.");
         }
     }
 }
