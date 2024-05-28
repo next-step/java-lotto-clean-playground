@@ -6,7 +6,9 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Lotto {
 
@@ -29,18 +31,20 @@ public class Lotto {
     }
 
     public static Lotto createRandomLotto() {
-        List<LottoNumber> result = NUMBERS.stream()
-                .collect(collectingAndThen(toList(),
-                        list -> {
-                            shuffle(list);
-                            return list.stream();
-                        }))
-                .limit(6)
+        return new Lotto(NUMBERS.stream()
+                .collect(getCollector())
+                .limit(LOTTO_SIZE)
                 .sorted()
                 .map(LottoNumber::valueOf)
-                .collect(toList());
+                .collect(toList()));
+    }
 
-        return new Lotto(result);
+    private static Collector<Integer, ?, Stream<Integer>> getCollector() {
+        return collectingAndThen(toList(),
+                (List<Integer> list) -> {
+                    shuffle(list);
+                    return list.stream();
+                });
     }
 
     public int countMatchingNumber(Lotto compareLotto) {
