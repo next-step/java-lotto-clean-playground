@@ -19,7 +19,7 @@ public class Lottos {
     }
 
     public static Lottos generateLottosByPrice(Price price) {
-        int lottoCount = Lotto.calculateLottoCount(price);
+        int lottoCount = price.calculateLottoCount();
 
         return Stream.generate(Lotto::createRandomLotto)
                 .limit(lottoCount)

@@ -1,5 +1,7 @@
 package org.duckstudy.model.lotto;
 
+import static org.duckstudy.model.Price.calculateWinningPrice;
+
 import java.util.Collections;
 import java.util.Map;
 import org.duckstudy.model.Price;
@@ -25,7 +27,7 @@ public class LottoResult {
     public double calculateProfitRate(Price price) {
         Price profit = new Price(INITIAL_PRICE);
         for (int i = MIN_MATCHING_COUNT_TO_WIN; i <= MAX_MATCHING_COUNT_TO_WIN; i++) {
-            profit = profit.addPrice(Lotto.calculateWinningPrice(i)
+            profit = profit.addPrice(calculateWinningPrice(i)
                     .multiplyTimes(getMatchingCount(i)));
         }
         return profit.dividedBy(price) * MAX_PERCENTAGE;

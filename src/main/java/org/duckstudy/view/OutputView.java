@@ -1,5 +1,7 @@
 package org.duckstudy.view;
 
+import static org.duckstudy.model.Price.calculateWinningPrice;
+
 import java.util.List;
 import java.util.Map;
 import org.duckstudy.model.lotto.Lotto;
@@ -50,7 +52,7 @@ public class OutputView {
     }
 
     private void printMatchingCount(Map<Integer, Integer> result, int cnt) {
-        System.out.printf("%d개 일치 (%d원)- ", cnt, Lotto.calculateWinningPrice(cnt).getValue());
+        System.out.printf("%d개 일치 (%d원)- ", cnt, calculateWinningPrice(cnt).getValue());
 
         int count = result.getOrDefault(cnt, 0);
         System.out.printf("%d개\n", count);

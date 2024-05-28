@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Price {
 
     private static final int INCLUSIVE_MIN_PRICE = 0;
+    private static final int PER_PRICE = 1000;
+    private static final int[] WINNING_PRICE = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
 
     private final int value;
 
@@ -17,6 +19,14 @@ public class Price {
         if (price < INCLUSIVE_MIN_PRICE) {
             throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", INCLUSIVE_MIN_PRICE));
         }
+    }
+
+    public static Price calculateWinningPrice(int count) {
+        return new Price(WINNING_PRICE[count]);
+    }
+
+    public int calculateLottoCount() {
+        return dividedBy(PER_PRICE).getValue();
     }
 
     public Price addPrice(Price other) {

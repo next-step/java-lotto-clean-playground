@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.duckstudy.model.Price.calculateWinningPrice;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -73,13 +74,13 @@ class LottoTest {
         void calculateLottoCountWhenInputPrice() {
             Price price = new Price(10000);
 
-            assertThat(Lotto.calculateLottoCount(price)).isEqualTo(10);
+            assertThat(price.calculateLottoCount()).isEqualTo(10);
         }
 
         @Test
         @DisplayName("로또 숫자 매칭 개수를 입력하면 당첨 금액을 계산한다")
-        void calculateWinningPrice() {
-            assertThat(Lotto.calculateWinningPrice(3)).isEqualTo(new Price(5000));
+        void calculateWinningPriceWhenInputMatchingCount() {
+            assertThat(calculateWinningPrice(3)).isEqualTo(new Price(5000));
         }
     }
 
