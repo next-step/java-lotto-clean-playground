@@ -38,7 +38,7 @@ class LottosTest {
         @DisplayName("당첨 로또 번호를 입력하면 로또 묶음의 당첨 결과를 계산한다")
         void calculateWinningResultWhenInputWinningLotto() {
             Lotto winningLotto = Stream.of(1, 2, 3, 4, 5, 6)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .collect(collectingAndThen(toList(), Lotto::new));
 
             List<Lotto> lottos = Stream.of(
@@ -47,7 +47,7 @@ class LottosTest {
                             Stream.of(1, 2, 3, 10, 11, 12)
                     )
                     .map(stream -> stream
-                            .map(LottoNumber::new)
+                            .map(LottoNumber::valueOf)
                             .collect(collectingAndThen(toList(), Lotto::new)))
                     .toList();
             Lottos compareLottos = new Lottos(lottos);

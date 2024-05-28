@@ -33,7 +33,7 @@ class LottoTest {
         @DisplayName("입력받은 로또 번호로 로또를 생성한다")
         void createManualLottoSuccess() {
             List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .toList();
 
             assertThatCode(() -> new Lotto(lottoNumbers))
@@ -44,7 +44,7 @@ class LottoTest {
         @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
         void createManualLottoFailWhenSizeIsNotSix() {
             List<LottoNumber> lottoNumbers = List.of(
-                    new LottoNumber(1)
+                    LottoNumber.valueOf(1)
             );
 
             assertThatThrownBy(() -> new Lotto(lottoNumbers))
@@ -56,7 +56,7 @@ class LottoTest {
         @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
         void createManualLottoFailWhenDuplicateNumberExists() {
             List<LottoNumber> lottoNumbers = Stream.of(1, 1, 2, 3, 4, 5)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .toList();
 
             assertThatThrownBy(() -> new Lotto(lottoNumbers))
@@ -92,11 +92,11 @@ class LottoTest {
         @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
             Lotto lotto = Stream.of(1, 2, 3, 4, 5, 6)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .collect(collectingAndThen(toList(), Lotto::new));
 
             Lotto compareLotto = Stream.of(1, 2, 3, 7, 8, 9)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .collect(collectingAndThen(toList(), Lotto::new));
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);

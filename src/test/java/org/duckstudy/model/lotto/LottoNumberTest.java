@@ -19,7 +19,7 @@ class LottoNumberTest {
         @Test
         @DisplayName("1 이상 45 이하의 숫자를 가진 로또 번호를 생성한다")
         void createLottoNumberSuccess() {
-            assertThatCode(() -> new LottoNumber(1))
+            assertThatCode(() -> LottoNumber.valueOf(1))
                     .doesNotThrowAnyException();
         }
 
@@ -27,7 +27,7 @@ class LottoNumberTest {
         @ValueSource(ints = {0, 46})
         @DisplayName("1 미만의 숫자이거나 45 초과의 숫자를 가진 로또 번호를 생성하면 예외를 발생한다")
         void createLottoNumberFail(int number) {
-            assertThatThrownBy(() -> new LottoNumber(number))
+            assertThatThrownBy(() -> LottoNumber.valueOf(number))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 1 이상 45 이하의 숫자여야 합니다.");
         }

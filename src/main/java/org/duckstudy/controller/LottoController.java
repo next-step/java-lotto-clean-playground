@@ -49,7 +49,7 @@ public class LottoController {
     private List<LottoNumber> createLottoNumber() {
         return inputView.inputWinningLotto()
                 .stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
     }
 

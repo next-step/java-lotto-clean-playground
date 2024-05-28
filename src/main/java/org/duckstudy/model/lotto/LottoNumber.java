@@ -6,16 +6,27 @@ public class LottoNumber {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
     private static final int END_INCLUSIVE_NUMBER = 45;
+    private static final LottoNumber[] cache = new LottoNumber[END_INCLUSIVE_NUMBER + 1];
+
+    static {
+        for (int i = 0; i < cache.length; i++) {
+            cache[i] = new LottoNumber(START_INCLUSIVE_NUMBER + i);
+        }
+    }
 
     private final int value;
 
-    public LottoNumber(int number) {
-        validateNumber(number);
-
+    private LottoNumber(int number) {
         this.value = number;
     }
 
-    private void validateNumber(int number) {
+    public static LottoNumber valueOf(int number) {
+        validateNumber(number);
+
+        return cache[number - START_INCLUSIVE_NUMBER];
+    }
+
+    private static void validateNumber(int number) {
         if (number < START_INCLUSIVE_NUMBER || number > END_INCLUSIVE_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 이상 45 이하의 숫자여야 합니다.");
         }

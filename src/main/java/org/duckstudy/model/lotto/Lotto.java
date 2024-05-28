@@ -37,7 +37,7 @@ public class Lotto {
                         }))
                 .limit(6)
                 .sorted()
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .collect(toList());
 
         return new Lotto(result);
