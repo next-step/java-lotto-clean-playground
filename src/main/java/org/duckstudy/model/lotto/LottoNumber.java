@@ -7,11 +7,12 @@ public class LottoNumber {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
     private static final int END_INCLUSIVE_NUMBER = 45;
-    private static final LottoNumber[] cache = new LottoNumber[END_INCLUSIVE_NUMBER];
+    private static final LottoNumber[] cache;
 
     static {
-        IntStream.range(0, END_INCLUSIVE_NUMBER)
-                .forEach(i -> cache[i] = new LottoNumber(START_INCLUSIVE_NUMBER + i));
+        cache = IntStream.range(0, END_INCLUSIVE_NUMBER)
+                .mapToObj(i -> new LottoNumber(START_INCLUSIVE_NUMBER + i))
+                .toArray(LottoNumber[]::new);
     }
 
     private final int value;
