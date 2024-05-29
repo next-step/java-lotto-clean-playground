@@ -1,9 +1,7 @@
 package org.duckstudy.controller;
 
-import java.util.List;
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
-import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
@@ -39,18 +37,11 @@ public class LottoController {
 
     private Lotto createWinningLotto() {
         try {
-            return new Lotto(createLottoNumber());
+            return new Lotto(inputView.inputWinningLotto());
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createWinningLotto();
         }
-    }
-
-    private List<LottoNumber> createLottoNumber() {
-        return inputView.inputWinningLotto()
-                .stream()
-                .map(LottoNumber::valueOf)
-                .toList();
     }
 
     private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto) {

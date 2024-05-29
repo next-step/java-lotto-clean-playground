@@ -3,7 +3,6 @@ package org.duckstudy.model.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.duckstudy.utils.LottoTestUtils.createLotto;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -69,8 +68,8 @@ class LottoTest {
         @Test
         @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
-            Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
-            Lotto compareLotto = createLotto(1, 2, 3, 7, 8, 9);
+            Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
+            Lotto compareLotto = new Lotto(1, 2, 3, 7, 8, 9);
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);
         }
