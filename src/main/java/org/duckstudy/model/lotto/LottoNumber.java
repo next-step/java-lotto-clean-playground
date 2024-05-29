@@ -28,7 +28,8 @@ public class LottoNumber {
 
     private static void validateNumber(int number) {
         if (number < START_INCLUSIVE_NUMBER || number > END_INCLUSIVE_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1 이상 45 이하의 숫자여야 합니다.");
+            throw new IllegalArgumentException(
+                    String.format("로또 번호는 %d 이상 %d 이하의 숫자여야 합니다.", START_INCLUSIVE_NUMBER, END_INCLUSIVE_NUMBER));
         }
     }
 
