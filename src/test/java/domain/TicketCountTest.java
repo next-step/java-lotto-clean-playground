@@ -13,14 +13,14 @@ class TicketCountTest {
         // given
         int amount = 6000;
         int count = 3;
+        int expectValue = 3000;
 
         // when
         TicketCount.BuyMoney buyMoney = new TicketCount.BuyMoney(amount, count);
-        int ActualValue = buyMoney.getAmount();
-        int expectValue = 3000;
+        int actualValue = buyMoney.getAmount();
 
         // then
-        Assertions.assertEquals(ActualValue, expectValue);
+        Assertions.assertEquals(actualValue, expectValue);
     }
 
     @Test
@@ -32,7 +32,8 @@ class TicketCountTest {
 
         // when&then
         assertThrows(RuntimeException.class, () -> {
-            new TicketCount.BuyMoney(amount, count);
-        });
+                    new TicketCount.BuyMoney(amount, count);
+                }
+        );
     }
 }
