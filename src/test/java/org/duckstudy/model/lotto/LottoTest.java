@@ -1,7 +1,5 @@
 package org.duckstudy.model.lotto;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -91,13 +89,8 @@ class LottoTest {
         @Test
         @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
-            Lotto lotto = Stream.of(1, 2, 3, 4, 5, 6)
-                    .map(LottoNumber::valueOf)
-                    .collect(collectingAndThen(toList(), Lotto::new));
-
-            Lotto compareLotto = Stream.of(1, 2, 3, 7, 8, 9)
-                    .map(LottoNumber::valueOf)
-                    .collect(collectingAndThen(toList(), Lotto::new));
+            Lotto lotto = Lotto.createLottoForTest(1, 2, 3, 4, 5, 6);
+            Lotto compareLotto = Lotto.createLottoForTest(1, 2, 3, 7, 8, 9);
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);
         }

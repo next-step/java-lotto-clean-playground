@@ -36,7 +36,6 @@ class LottosTest {
         @DisplayName("당첨된 로또 번호를 입력하면 당첨된 로또 묶음의 결과를 계산한다")
         void calculateWinningResultWhenInputWinningLotto() {
             Lotto winningLotto = createLottoForTest(1, 2, 3, 4, 5, 6);
-
             Lottos totalLottos = new Lottos(List.of(
                     winningLotto,
                     createLottoForTest(8, 9, 10, 11, 12, 13),
