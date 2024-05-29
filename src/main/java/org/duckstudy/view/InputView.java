@@ -2,6 +2,7 @@ package org.duckstudy.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class InputView {
 
@@ -13,11 +14,24 @@ public class InputView {
         this.outputView = outputView;
     }
 
-    public int inputPrice() throws IOException {
+    public int inputPrice() {
         outputView.printInputPrice();
         try {
             return Integer.parseInt(bufferedReader.readLine());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IOException e) {
+            throw new NumberFormatException("숫자만 입력 가능합니다.\n");
+        }
+    }
+
+    public int[] inputWinningLotto() {
+        outputView.printInputWinningLotto();
+
+        try {
+            return Arrays.stream(bufferedReader.readLine().split(","))
+                    .map(String::trim)
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+        } catch (NumberFormatException | IOException e) {
             throw new NumberFormatException("숫자만 입력 가능합니다.\n");
         }
     }

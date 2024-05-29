@@ -3,6 +3,7 @@ package org.duckstudy.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.duckstudy.model.Price.calculateWinningPrice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -36,11 +37,62 @@ class PriceTest {
     class PriceCalculateTest {
 
         @Test
+        @DisplayName("가격을 더한다")
+        void addPrice() {
+            Price price = new Price(1000);
+
+            Price result = price.addPrice(new Price(2000));
+
+            assertThat(result).isEqualTo(new Price(3000));
+        }
+
+        @Test
+        @DisplayName("가격을 곱한다")
+        void multiplyPrice() {
+            Price price = new Price(1000);
+
+            Price result = price.multiplyTimes(3);
+
+            assertThat(result).isEqualTo(new Price(3000));
+        }
+
+        @Test
+        @DisplayName("가격을 나눈다")
+        void dividePriceByPrice() {
+            Price price = new Price(1000);
+
+            double result = price.divideBy(new Price(10));
+
+            assertThat(result).isEqualTo(100);
+        }
+
+        @Test
+        @DisplayName("가격을 0원으로 나누면 예외가 발생한다")
+        void dividePriceByZeroPrice() {
+            Price price = new Price(1000);
+
+            assertThatThrownBy(() -> price.divideBy(new Price(0)))
+                    .isExactlyInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("0으로 나눌 수 없습니다.");
+        }
+    }
+
+    @Nested
+    @DisplayName("로또 계산 테스트")
+    class LottoCalculationTest {
+
+        @Test
         @DisplayName("로또 구매 금액을 입력하면 가격에 맞는 로또 개수를 계산한다")
         void calculateLottoCountWhenInputPrice() {
             Price price = new Price(10000);
 
             assertThat(price.calculateLottoCount()).isEqualTo(10);
+        }
+
+        @Test
+        @DisplayName("로또 숫자 매칭 개수를 입력하면 당첨 금액을 계산한다")
+        void calculateWinningPriceWhenInputMatchingCount() {
+            assertThat(calculateWinningPrice(3)).isEqualTo(new Price(5000));
         }
     }
 }
