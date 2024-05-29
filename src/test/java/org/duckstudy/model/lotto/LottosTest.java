@@ -1,12 +1,10 @@
 package org.duckstudy.model.lotto;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.duckstudy.model.lotto.Lotto.createLottoForTest;
 
 import java.util.List;
-import java.util.stream.Stream;
 import org.duckstudy.model.Price;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -35,29 +33,21 @@ class LottosTest {
     class LottosWinningTest {
 
         @Test
-        @DisplayName("당첨 로또 번호를 입력하면 로또 묶음의 당첨 결과를 계산한다")
+        @DisplayName("당첨된 로또 번호를 입력하면 당첨된 로또 묶음의 결과를 계산한다")
         void calculateWinningResultWhenInputWinningLotto() {
-            Lotto winningLotto = Stream.of(1, 2, 3, 4, 5, 6)
-                    .map(LottoNumber::valueOf)
-                    .collect(collectingAndThen(toList(), Lotto::new));
+            Lotto winningLotto = createLottoForTest(1, 2, 3, 4, 5, 6);
 
-            List<Lotto> lottos = Stream.of(
-                            Stream.of(1, 2, 3, 4, 5, 6),
-                            Stream.of(1, 2, 3, 7, 8, 9),
-                            Stream.of(1, 2, 3, 10, 11, 12)
-                    )
-                    .map(stream -> stream
-                            .map(LottoNumber::valueOf)
-                            .collect(collectingAndThen(toList(), Lotto::new)))
-                    .toList();
-            Lottos compareLottos = new Lottos(lottos);
+            Lottos totalLottos = new Lottos(List.of(
+                    winningLotto,
+                    createLottoForTest(8, 9, 10, 11, 12, 13),
+                    createLottoForTest(14, 15, 16, 17, 18, 19),
+                    createLottoForTest(20, 21, 22, 23, 24, 25)
+            ));
 
-            LottoResult lottoResult = compareLottos.calculateWinningResult(winningLotto);
+            LottoResult lottoResult = totalLottos.calculateWinningResult(winningLotto);
 
-            assertAll(
-                    () -> assertThat(lottoResult.getResult()).containsEntry(3, 2),
-                    () -> assertThat(lottoResult.getResult()).containsEntry(6, 1)
-            );
+            assertThat(lottoResult.getResult())
+                    .containsExactly(entry(0, 3), entry(6, 1));
         }
     }
 }
