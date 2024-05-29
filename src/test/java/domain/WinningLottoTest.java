@@ -1,10 +1,11 @@
 package domain;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WinningLottoTest {
 
@@ -21,8 +22,10 @@ class WinningLottoTest {
         int expectCount2 = winningLotto.getCount(ticketNumber2);
 
         // then
-        Assertions.assertEquals(6, expectCount1);
-        Assertions.assertEquals(4, expectCount2);
+        Assertions.assertAll(
+                () -> assertEquals(6, expectCount1),
+                () -> assertEquals(4, expectCount2)
+        );
     }
 
     @Test
@@ -33,12 +36,15 @@ class WinningLottoTest {
         List<Integer> ticketNumber1 = List.of(1, 2, 3, 4, 5, 6);
         List<Integer> ticketNumber2 = List.of(3, 4, 5, 6, 7, 8);
         int bonusNumber = 7;
+
         // when
         int bonusCount1 = winningLotto.getBonusCount(ticketNumber1, bonusNumber);
         int bonusCount2 = winningLotto.getBonusCount(ticketNumber2, bonusNumber);
 
         // then
-        Assertions.assertEquals(1, bonusCount2);
-        Assertions.assertEquals(0, bonusCount1);
+        Assertions.assertAll(
+                () -> assertEquals(1, bonusCount2),
+                () -> assertEquals(0, bonusCount1)
+        );
     }
 }
