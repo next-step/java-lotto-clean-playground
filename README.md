@@ -29,7 +29,7 @@ LottoRate
 
 - [x] enum에서 데이터 꺼내오기
 - [x] 수익률 계산하기
-- [ ] 수동 로또도 포함 
+- [x] 수동 로또도 포함 
 
 LottoTicket
 

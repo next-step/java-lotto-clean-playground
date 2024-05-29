@@ -5,7 +5,8 @@ import java.util.List;
 
 public class LottoTickets {
 
-    private static final Integer INITIAL_NUMBER = 0;
+    private static final int INITIAL_NUMBER = 0;
+
     private final NumberGenerator numberGenerator;
     private final List<LottoTicket> tickets;
 
