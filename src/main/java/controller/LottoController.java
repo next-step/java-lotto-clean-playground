@@ -26,6 +26,10 @@ public class LottoController {
     }
 
     public static void main(String[] args) {
+        LottoController.startLotto();
+    }
+
+    public static void startLotto() {
         new LottoController().run();
     }
 
