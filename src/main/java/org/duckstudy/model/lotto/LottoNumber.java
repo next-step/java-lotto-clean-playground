@@ -6,10 +6,10 @@ public class LottoNumber {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
     private static final int END_INCLUSIVE_NUMBER = 45;
-    private static final LottoNumber[] cache = new LottoNumber[END_INCLUSIVE_NUMBER + 1];
+    private static final LottoNumber[] cache = new LottoNumber[END_INCLUSIVE_NUMBER];
 
     static {
-        for (int i = 0; i < cache.length; i++) {
+        for (int i = 0; i < END_INCLUSIVE_NUMBER; i++) {
             cache[i] = new LottoNumber(START_INCLUSIVE_NUMBER + i);
         }
     }
