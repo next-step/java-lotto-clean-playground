@@ -12,14 +12,6 @@ public class TicketCount {
         this.countingTickets = new CountingTickets(buyMoney);
     }
 
-    public int getTicketCount() {
-        return countingTickets.getCount();
-    }
-
-    public int getRemainingMoney() {
-        return buyMoney.getAmount();
-    }
-
     public static class BuyMoney {
         private final int amount;
         private static final int EXCEPTION_INITIAL_NUMBER = 0;
