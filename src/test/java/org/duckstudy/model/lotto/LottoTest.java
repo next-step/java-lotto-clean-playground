@@ -3,11 +3,10 @@ package org.duckstudy.model.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.duckstudy.model.Price.calculateWinningPrice;
+import static org.duckstudy.utils.LottoTestUtils.createLotto;
 
 import java.util.List;
 import java.util.stream.Stream;
-import org.duckstudy.model.Price;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -64,33 +63,14 @@ class LottoTest {
     }
 
     @Nested
-    @DisplayName("로또 계산 테스트")
-    class LottoCalculationTest {
-
-        @Test
-        @DisplayName("로또 구매 금액을 입력하면 가격에 맞는 로또 개수를 계산한다")
-        void calculateLottoCountWhenInputPrice() {
-            Price price = new Price(10000);
-
-            assertThat(price.calculateLottoCount()).isEqualTo(10);
-        }
-
-        @Test
-        @DisplayName("로또 숫자 매칭 개수를 입력하면 당첨 금액을 계산한다")
-        void calculateWinningPriceWhenInputMatchingCount() {
-            assertThat(calculateWinningPrice(3)).isEqualTo(new Price(5000));
-        }
-    }
-
-    @Nested
     @DisplayName("로또 비교 테스트")
     class LottoComparisonTest {
 
         @Test
         @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
-            Lotto lotto = Lotto.createLottoForTest(1, 2, 3, 4, 5, 6);
-            Lotto compareLotto = Lotto.createLottoForTest(1, 2, 3, 7, 8, 9);
+            Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
+            Lotto compareLotto = createLotto(1, 2, 3, 7, 8, 9);
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);
         }

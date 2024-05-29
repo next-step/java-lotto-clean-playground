@@ -2,7 +2,7 @@ package org.duckstudy.model.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.duckstudy.model.lotto.Lotto.createLottoForTest;
+import static org.duckstudy.utils.LottoTestUtils.createLotto;
 
 import java.util.List;
 import org.duckstudy.model.Price;
@@ -35,12 +35,12 @@ class LottosTest {
         @Test
         @DisplayName("당첨된 로또 번호를 입력하면 당첨된 로또 묶음의 결과를 계산한다")
         void calculateWinningResultWhenInputWinningLotto() {
-            Lotto winningLotto = createLottoForTest(1, 2, 3, 4, 5, 6);
+            Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
             Lottos totalLottos = new Lottos(List.of(
                     winningLotto,
-                    createLottoForTest(8, 9, 10, 11, 12, 13),
-                    createLottoForTest(14, 15, 16, 17, 18, 19),
-                    createLottoForTest(20, 21, 22, 23, 24, 25)
+                    createLotto(8, 9, 10, 11, 12, 13),
+                    createLotto(14, 15, 16, 17, 18, 19),
+                    createLotto(20, 21, 22, 23, 24, 25)
             ));
 
             LottoResult lottoResult = totalLottos.calculateWinningResult(winningLotto);

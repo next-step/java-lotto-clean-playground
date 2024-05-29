@@ -47,12 +47,6 @@ public class Lotto {
                 });
     }
 
-    public static Lotto createLottoForTest(int... values) {
-        return new Lotto(IntStream.of(values)
-                .mapToObj(LottoNumber::valueOf)
-                .toList());
-    }
-
     public int countMatchingNumber(Lotto compareLotto) {
         return lotto.stream()
                 .filter(compareLotto.getLotto()::contains)
