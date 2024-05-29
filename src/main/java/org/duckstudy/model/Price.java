@@ -26,7 +26,7 @@ public class Price {
     }
 
     public int calculateLottoCount() {
-        return divideBy(PER_PRICE).getValue();
+        return divideBy(PER_PRICE);
     }
 
     public Price addPrice(Price other) {
@@ -37,9 +37,9 @@ public class Price {
         return new Price(value * times);
     }
 
-    public Price divideBy(int divisor) {
+    public int divideBy(int divisor) {
         checkIfZero(divisor);
-        return new Price(value / divisor);
+        return value / divisor;
     }
 
     public double divideBy(Price divisor) {

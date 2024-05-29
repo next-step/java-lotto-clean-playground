@@ -13,12 +13,12 @@ import java.util.stream.Stream;
 public class Lotto {
 
     private static final int START_INCLUSIVE_NUMBER = 1;
-    private static final int END_EXCLUSIVE_NUMBER = 46;
+    private static final int END_INCLUSIVE_NUMBER = 45;
     private static final List<Integer> NUMBERS;
     public static final int LOTTO_SIZE = 6;
 
     static {
-        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_EXCLUSIVE_NUMBER)
+        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_INCLUSIVE_NUMBER + 1)
                 .boxed()
                 .toList();
     }
@@ -56,7 +56,7 @@ public class Lotto {
 
     private void validateLotto(List<LottoNumber> lotto) {
         if (lotto.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException(String.format("로또 번호는 %d개여야 합니다.", LOTTO_SIZE));
         }
 
         if (lotto.stream().distinct().count() != LOTTO_SIZE) {
