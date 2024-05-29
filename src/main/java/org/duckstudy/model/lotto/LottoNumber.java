@@ -1,6 +1,7 @@
 package org.duckstudy.model.lotto;
 
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class LottoNumber {
 
@@ -9,9 +10,8 @@ public class LottoNumber {
     private static final LottoNumber[] cache = new LottoNumber[END_INCLUSIVE_NUMBER];
 
     static {
-        for (int i = 0; i < END_INCLUSIVE_NUMBER; i++) {
-            cache[i] = new LottoNumber(START_INCLUSIVE_NUMBER + i);
-        }
+        IntStream.range(0, END_INCLUSIVE_NUMBER)
+                .forEach(i -> cache[i] = new LottoNumber(START_INCLUSIVE_NUMBER + i));
     }
 
     private final int value;
