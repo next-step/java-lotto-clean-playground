@@ -41,7 +41,7 @@ public class Price {
         return new Price(value * times);
     }
 
-    public int divideBy(int divisor) {
+    private int divideBy(int divisor) {
         checkIfZero(divisor);
         return value / divisor;
     }
