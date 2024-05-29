@@ -8,7 +8,6 @@ import org.duckstudy.model.Price;
 
 public class LottoResult {
 
-    public static final int INITIAL_PRICE = 0;
     public static final int ZERO_COUNT = 0;
     public static final int MIN_MATCHING_COUNT_TO_WIN = 3;
     public static final int MAX_MATCHING_COUNT_TO_WIN = 6;
@@ -20,17 +19,18 @@ public class LottoResult {
         this.result = Collections.unmodifiableMap(result);
     }
 
-    public int getMatchingCount(int count) {
-        return result.getOrDefault(count, ZERO_COUNT);
-    }
-
     public double calculateProfitRate(Price price) {
-        Price profit = new Price(INITIAL_PRICE);
+        Price profit = Price.zero();
+
         for (int i = MIN_MATCHING_COUNT_TO_WIN; i <= MAX_MATCHING_COUNT_TO_WIN; i++) {
             profit = profit.addPrice(calculateWinningPrice(i)
                     .multiplyTimes(getMatchingCount(i)));
         }
         return profit.divideBy(price) * MAX_PERCENTAGE;
+    }
+
+    private int getMatchingCount(int count) {
+        return result.getOrDefault(count, ZERO_COUNT);
     }
 
     public Map<Integer, Integer> getResult() {
