@@ -1,6 +1,7 @@
 package domain;
 
 import fakeTest.FakeGenerateNumberGenerator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,9 +24,11 @@ class LottoTest {
 
         // then
         List<Integer> expectedValue = fakeGenerateRandomNumber.generateRandomNumber();
-        assertEquals(expectedValue, generatedNumbers);
-        assertEquals(6, generatedNumbers.size());
-        assertEquals(List.of(5, 16, 11, 23, 32, 44), generatedNumbers);
+        Assertions.assertAll(
+                () -> assertEquals(expectedValue, generatedNumbers),
+                () -> assertEquals(6, generatedNumbers.size()),
+                () -> assertEquals(List.of(5, 16, 11, 23, 32, 44), generatedNumbers)
+        );
     }
 
     @Test
@@ -41,7 +44,7 @@ class LottoTest {
 
         // then
         for (int num : generatedNumbers) {
-            assertTrue(1 <= num && num <= 45, "로또범위");
+            assertTrue(1 <= num && num <= 45, "범위 테스트 " + num);
         }
     }
 }

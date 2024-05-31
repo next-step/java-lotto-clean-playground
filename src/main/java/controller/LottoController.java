@@ -1,11 +1,19 @@
 package controller;
 
-import domain.*;
+import domain.LottoRate;
+import domain.LottoTicket;
+import domain.LottoTicketDto;
+import domain.LottoTickets;
+import domain.RandomNumberGenerator;
+import domain.Ranking;
+import domain.TicketCount;
+import domain.WinningLotto;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class LottoController {
 
@@ -13,47 +21,54 @@ public class LottoController {
     private final OutputView outputView;
 
     public LottoController() {
-        this.inputView = new InputView();
+        this.inputView = new InputView(new Scanner(System.in));
         this.outputView = new OutputView();
     }
 
     public static void main(String[] args) {
+        LottoController.startLotto();
+    }
+
+    public static void startLotto() {
         new LottoController().run();
     }
 
     public void run() {
         int money = inputView.getMoney();
-        TicketCount ticketCount = new TicketCount(money);
+        int passiveLottoCount = inputView.getPassiveCount();
+        List<List<Integer>> passiveNumbers = inputView.getPassiveNumbers(passiveLottoCount);
+        TicketCount.BuyMoney buyMoney = new TicketCount.BuyMoney(money, passiveLottoCount);
+        TicketCount.CountingTickets countingTickets = new TicketCount.CountingTickets(buyMoney);
         LottoTickets lottoTickets = new LottoTickets(new RandomNumberGenerator());
-        List<LottoTicket> tickets = lottoTickets.generateLottoTickets(ticketCount.getCount());
+        lottoTickets.addPassiveTickets(passiveNumbers);
+        List<LottoTicket> tickets = lottoTickets.generateLottoTickets(countingTickets.getCount());
         List<LottoTicketDto> ticketDtos = convertToDto(tickets);
         outputView.displayLottoTickets(ticketDtos);
-        winningLotto(tickets, money);
+        winLotto(tickets, buyMoney.getAmount());
     }
 
-    private void winningLotto(List<LottoTicket> tickets, int money) {
+    private void winLotto(List<LottoTicket> tickets, int money) {
         List<Integer> winNumbers = inputView.getWinNumbers();
+        int bonusNumber = inputView.bonusNumber();
         WinningLotto winningLotto = new WinningLotto(winNumbers);
-        winning(tickets, winningLotto);
-        LottoRate lottoRate = new LottoRate();
-        double rateOfReturn = lottoRate.LottoRate(money);
-        outputView.winningLottoRateOfResult(rateOfReturn);
+        win(tickets, winningLotto, bonusNumber);
+        LottoRate lottoRate = new LottoRate(tickets, winningLotto);
+        double rateOfReturn = lottoRate.calculateRateOfReturn(money, bonusNumber);
+        outputView.LottoRateOfResult(rateOfReturn);
     }
 
-    private void winning(List<LottoTicket> tickets, WinningLotto winningLotto) {
+    private void win(List<LottoTicket> tickets, WinningLotto winningLotto, int bonusNumber) {
         for (LottoTicket ticket : tickets) {
             int matchedNumbers = winningLotto.getCount(ticket.getNumbers());
-            LottoRate lottoRate = new LottoRate();
-            List<Integer> matchesMoney = lottoRate.matchesMoney();
-            outputView.numberOfWinning(matchedNumbers, matchesMoney);
+            int matchedBonusNumbers = winningLotto.getBonusCount(ticket.getNumbers(), bonusNumber);
+            Ranking ranking = Ranking.valueOfCount(matchedNumbers, matchedBonusNumbers);
+            outputView.NumberOfWinning(ranking);
         }
     }
 
     private List<LottoTicketDto> convertToDto(List<LottoTicket> tickets) {
-        List<LottoTicketDto> ticketDtos = new ArrayList<>();
-        for (LottoTicket ticket : tickets) {
-            ticketDtos.add(new LottoTicketDto(ticket.getNumbers()));
-        }
-        return ticketDtos;
+        return tickets.stream()
+                .map(ticket -> new LottoTicketDto(ticket.getNumbers()))
+                .collect(Collectors.toList());
     }
 }

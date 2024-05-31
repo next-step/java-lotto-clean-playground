@@ -15,15 +15,25 @@ public class WinningLotto {
     public int getCount(List<Integer> ticketNumbers) {
         int count = INITIAL_NUMBER;
         for (int number : ticketNumbers) {
-            count = numberOfWinnig(number, count);
+            count = checkContain(number, count);
         }
         return count;
     }
 
-    private int numberOfWinnig(int number, int count) {
-        if (winNumbers.contains(number)) {
-            count++;
-        }
+    public int getBonusCount(List<Integer> ticketNumbers, int bonusNumber) {
+        int bonusCount = INITIAL_NUMBER;
+        return checkBonusCount(ticketNumbers, bonusNumber, bonusCount);
+    }
+
+    private int checkContain(int number, int count) {
+        if (winNumbers.contains(number)) count++;
         return count;
+    }
+
+    private int checkBonusCount(List<Integer> ticketNumbers, int bonusNumber, int bonusCount) {
+        if (ticketNumbers.contains(bonusNumber)) {
+            bonusCount++;
+        }
+        return bonusCount;
     }
 }

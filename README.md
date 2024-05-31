@@ -25,19 +25,44 @@
 - [x] 일급 컬렉션을 쓴다. [일급 컬렉션](https://dev-cool.tistory.com/28)
 
 Model
-CountLotto
+LottoRate
 
-- [x] 금액에 따라 로또 개수 추출
+- [x] enum에서 데이터 꺼내오기
+- [x] 수익률 계산하기
+- [x] 수동 로또도 포함 
 
-GenerateRandomNumber
+LottoTicket
 
-- [x] 난수 생성
-- [x] 난수 중복 제거
+- [x] 일급 컬렉션으로 로또 관리
+
+LottoTicketDto
+
+- [x] outputView에서 상속을 위한 가상 일급컬렉션 생성
+
+LottoTickets
+
+- [x] 무작위 숫자에서 생성된 로또 여러 가지 티켓 관리하는 일급 컬렉션
+
+NumberGenerator
+
+- [x] 로또 생성하는 인터페이스 생성
+
+RandomNumberGenerator
+
+- [x] 인터페이스를 오버라이딩해 로또를 만드는 메서드
+
+Ranking
+
+- [x] 클린 코드를 위한 enum 사용
+
+TicketCount
+
+- [x] 티켓 갯수를 받는 메서드 구현
 
 WinningLotto
 
-- [x] 로또 일치 메서드
-- [x] 수익률 메서드
+- [x] 당첨 갯수 확인하는 메서드
+- [x] 보너스 볼 추가
 
  -------------------------
 View
@@ -45,7 +70,8 @@ View
 InputView
 
 - [x] 구입 금액 입력받기
-
+- [x] 보너스 볼 입력 메서드 구현
+- [x] 수동 로또 구매 메서드 
 OutputView
 
 - [x] 출력하기
