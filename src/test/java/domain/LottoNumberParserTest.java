@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LottoNumberParserTest {
 
     @Test
-    @DisplayName("로또 번호 입력 테스트")
+    @DisplayName("로또 번호 입력 테스트(보너스 볼 미포함)")
     void getLastWeekLottoNumber() {
         //given
         final String inputLastWeekNumber = "1,2,3,4,5,6";
@@ -39,5 +39,33 @@ class LottoNumberParserTest {
 
         //then
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("올바르지 않은 값을 입력한 경우 테스트")
+    void getLastWeekLottoNumber_generate_incorrect_exception(){
+        //given
+        final String lastWeekLottoNumber = "1,2,3,A,4,5";
+        final var expected = "올바른 숫자 입력하세요.";
+
+        //when
+        final RuntimeException actual = assertThrows(RuntimeException.class, () -> new LottoNumberParser(lastWeekLottoNumber));
+
+        //then
+        assertEquals(expected, actual.getMessage());
+    }
+
+    @Test
+    @DisplayName("로또 범위를 넘는 숫자를 입력하였을 경우 테스트")
+    void getLastWeekLottoNumber_generate_range_exception(){
+        //given
+        final String lastWeekLottoNumber = "1,2,3,4,5,50";
+        final var expected = "로또 범위 아님";
+
+        //when
+        final RuntimeException actual = assertThrows(RuntimeException.class, () -> new LottoNumberParser(lastWeekLottoNumber));
+
+        //then
+        assertEquals(expected, actual.getMessage());
     }
 }

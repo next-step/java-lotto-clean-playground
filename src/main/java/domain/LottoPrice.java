@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public enum LottoPrice {
@@ -34,6 +33,9 @@ public enum LottoPrice {
     public static int getLottoPrice(String sameLottoNumber) {
         if (Objects.equals(sameLottoNumber, BONUS.getSameLottoNumber())) {
             return BONUS.getLottoPrice();
+        }
+        if (Objects.equals(sameLottoNumber, "6")) {
+            return SIX.getLottoPrice();
         }
         LottoPrice[] lottoPrices = LottoPrice.values();
         return lottoPrices[Integer.parseInt(sameLottoNumber) - MAKE_FIRST_INDEX].getLottoPrice();

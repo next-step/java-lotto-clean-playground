@@ -23,7 +23,7 @@ public class LottoNumberParser {
         return realLottoNumber;
     }
 
-    public void addBonusBall(int bonusBall){
+    public void addBonusBall(int bonusBall) {
         realLottoNumber.add(bonusBall);
     }
 
@@ -44,20 +44,20 @@ public class LottoNumberParser {
         return List.of(parseLottoNumber);
     }
 
-    private void validateLottoNumber(String lottoNumber){
-        for(char lottoNumberElement : lottoNumber.toCharArray()){
-            if(!validateLottoNumberElement(lottoNumberElement)){
+    private void validateLottoNumber(String lottoNumber) {
+        for (char lottoNumberElement : lottoNumber.toCharArray()) {
+            if (!validateLottoNumberElement(lottoNumberElement)) {
                 throw new RuntimeException(EXCEPTION_ASCII_NUMBER);
             }
         }
     }
 
-    private boolean validateLottoNumberElement(char lottoNumberElement){
+    private boolean validateLottoNumberElement(char lottoNumberElement) {
         return lottoNumberElement >= FIRST_ASCII_NUMBER && lottoNumberElement <= LAST_ASCII_NUMBER;
     }
 
-    private void validateLottoNumberRange(int realLottoNumber){
-        if(realLottoNumber<FIRST_LOTTO_NUMBER || realLottoNumber>LAST_LOTTO_NUMBER){
+    private void validateLottoNumberRange(int realLottoNumber) {
+        if (realLottoNumber < FIRST_LOTTO_NUMBER || realLottoNumber > LAST_LOTTO_NUMBER) {
             throw new RuntimeException(EXCEPTION_LOTTO_RANGE);
         }
     }
