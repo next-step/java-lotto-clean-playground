@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoRank {
 
@@ -23,10 +21,12 @@ public class LottoRank {
     private Map<String, Integer> makeLottoRank(Lottos lottos, List<Integer> lastWeekLottoNumber) {
         Map<String, Integer> rankLotto = checkCorrespondingLottosNumber(lottos, lastWeekLottoNumber);
         List<String> sameLottoNumbers = LottoPrice.getSameLottoNumberBundle();
+        Map<String, Integer> sortedRankLotto = new HashMap<>();
         for (String sameLottoNumber : sameLottoNumbers) {
             rankLotto.put(sameLottoNumber, rankLotto.getOrDefault(sameLottoNumber, RESET_NUMBER) + RESET_NUMBER);
+            sortedRankLotto.put(sameLottoNumber, rankLotto.getOrDefault(sameLottoNumber, rankLotto.get(sameLottoNumber)));
         }
-        return rankLotto;
+        return new TreeMap<>(sortedRankLotto);
     }
 
     private Map<String, Integer> checkCorrespondingLottosNumber(Lottos lottos, List<Integer> lastWeekLottoNumber) {

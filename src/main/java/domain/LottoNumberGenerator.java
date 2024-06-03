@@ -26,9 +26,9 @@ public class LottoNumberGenerator implements CreateLottoNumber {
         return randomNumberGenerator.nextInt(FIRST_LOTTO_NUMBER, LAST_LOTTO_NUMBER);
     }
 
-    private int checkDuplicateNumber(List<Integer> buyLotto, int randomLottoNumber) {
-        if (buyLotto.contains(randomLottoNumber)) {
-            return checkDuplicateNumber(buyLotto, generateRandomNumber());
+    private int checkDuplicateNumber(List<Integer> getLotto, int randomLottoNumber) {
+        if (getLotto.contains(randomLottoNumber)) {
+            return checkDuplicateNumber(getLotto, generateRandomNumber());
         }
         return randomLottoNumber;
     }
