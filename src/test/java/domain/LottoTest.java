@@ -13,7 +13,7 @@ public class LottoTest {
     @Test
     @DisplayName("자동 로또 반환값 테스트")
     void autoLotto() {
-         //given
+        //given
         final FakeLottoNumberGenerator fakeLottoNumberGenerator = new FakeLottoNumberGenerator();
         final Lotto lotto = new Lotto(fakeLottoNumberGenerator);
         final List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
