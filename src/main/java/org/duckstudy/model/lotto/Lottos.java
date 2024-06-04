@@ -12,6 +12,8 @@ import org.duckstudy.model.Price;
 
 public class Lottos {
 
+    public static final int INCREMENT_UNIT = 1;
+
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
@@ -28,7 +30,8 @@ public class Lottos {
 
     public LottoResult calculateWinningResult(Lotto winningLotto) {
         return new LottoResult(lottos.stream()
-                .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> 1))));
+                .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> INCREMENT_UNIT)))
+        );
     }
 
     public List<Lotto> getLottos() {

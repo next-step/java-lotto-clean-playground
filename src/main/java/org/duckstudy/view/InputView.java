@@ -27,12 +27,16 @@ public class InputView {
         outputView.printInputWinningLotto();
 
         try {
-            return Arrays.stream(bufferedReader.readLine().split(","))
-                    .map(String::trim)
-                    .mapToInt(Integer::parseInt)
-                    .toArray();
+            return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {
             throw new NumberFormatException("숫자만 입력 가능합니다.\n");
         }
+    }
+
+    private int[] inputLottoNumber() throws IOException {
+        return Arrays.stream(bufferedReader.readLine().split(","))
+                .map(String::trim)
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 }

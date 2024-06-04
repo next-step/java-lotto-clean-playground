@@ -4,11 +4,14 @@ import static org.duckstudy.model.Price.calculateWinningPrice;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 
 public class OutputView {
+
+    public static final int DEFAULT_VALUE = 0;
 
     public void printInputPrice() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -20,18 +23,15 @@ public class OutputView {
 
     public void printLottos(List<Lotto> lottos) {
         System.out.printf("\n%d개를 구매했습니다.\n", lottos.size());
-
-        for (Lotto lotto : lottos) {
-            printLotto(lotto);
-        }
+        lottos.forEach(this::printLotto);
     }
 
     private void printLotto(Lotto lotto) {
-        List<Integer> lottoNumbers = lotto.getLotto().
-                stream()
+        System.out.println(lotto.getLotto()
+                .stream()
                 .map(LottoNumber::getValue)
-                .toList();
-        System.out.println(lottoNumbers);
+                .map(String::valueOf)
+                .collect(Collectors.joining(", ", "[", "]")));
     }
 
     public void printInputWinningLotto() {
@@ -54,7 +54,7 @@ public class OutputView {
     private void printMatchingCount(Map<Integer, Integer> result, int cnt) {
         System.out.printf("%d개 일치 (%d원)- ", cnt, calculateWinningPrice(cnt).getValue());
 
-        int count = result.getOrDefault(cnt, 0);
+        int count = result.getOrDefault(cnt, DEFAULT_VALUE);
         System.out.printf("%d개\n", count);
     }
 
