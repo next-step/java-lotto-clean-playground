@@ -1,14 +1,14 @@
 package org.duckstudy.view;
 
-import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
-import org.duckstudy.model.lotto.LottoMatch;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.constant.LottoMatch;
 
 public class OutputView {
 
@@ -58,10 +58,11 @@ public class OutputView {
 
     private void printMatchingResult(Map<Integer, Integer> result, LottoMatch lottoMatch) {
         int cnt = lottoMatch.getMatchCount();
+        int key = lottoMatch.getKey();
         int price = lottoMatch.getPrice();
 
         String matchPriceMessage = getMatchPrice(lottoMatch, cnt, price);
-        Integer matchingCount = result.getOrDefault(cnt, DEFAULT_VALUE);
+        Integer matchingCount = result.getOrDefault(key, DEFAULT_VALUE);
 
         System.out.println(matchPriceMessage + matchingCount + "개");
     }
