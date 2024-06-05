@@ -31,10 +31,9 @@ public class Lotto {
     }
 
     public Lotto(int... values) {
-        lotto = IntStream.of(values)
+        this(IntStream.of(values)
                 .mapToObj(LottoNumber::valueOf)
-                .toList();
-        validateLotto(lotto);
+                .toList());
     }
 
     public static Lotto createRandomLotto() {

@@ -19,11 +19,9 @@ public class LottoResult {
 
     public double calculateProfitRate(Price price) {
         Price profit = Price.zero();
-
         for (LottoMatch lottoMatch : LottoMatch.values()) {
             profit = getPrice(profit, lottoMatch);
         }
-
         return profit.divideBy(price) * 100;
     }
 
@@ -39,16 +37,16 @@ public class LottoResult {
         return result.getOrDefault(count, 0);
     }
 
-    public LottoResult addLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
+    public LottoResult updateResult(int matchingCount, boolean matchBonusNumber) {
         Map<Integer, Integer> result = new HashMap<>(this.result);
 
-        int matchingCount = lotto.countMatchingNumber(winningLotto);
-        if (matchingCount == MATCH_5.getMatchCount() && lotto.matchBonusNumber(bonusNumber)) {
-            result.put(MATCH_5_WITH_BONUS.getKey(),
-                    result.getOrDefault(MATCH_5_WITH_BONUS.getKey(), 0) + 1);
-            return new LottoResult(result);
+        if (matchingCount == MATCH_5.getMatchCount() && matchBonusNumber) {
+            return updateResultWithMatchingCount(result, MATCH_5_WITH_BONUS.getKey());
         }
+        return updateResultWithMatchingCount(result, matchingCount);
+    }
 
+    private LottoResult updateResultWithMatchingCount(Map<Integer, Integer> result, int matchingCount) {
         result.put(matchingCount, result.getOrDefault(matchingCount, 0) + 1);
         return new LottoResult(result);
     }
