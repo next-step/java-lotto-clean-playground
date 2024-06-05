@@ -38,17 +38,13 @@ public class LottoResult {
     }
 
     public LottoResult updateResult(int matchingCount, boolean matchBonusNumber) {
-        Map<Integer, Integer> result = new HashMap<>(this.result);
+        int key = matchingCount == MATCH_5.getMatchCount() && matchBonusNumber
+                ? MATCH_5_WITH_BONUS.getKey()
+                : matchingCount;
 
-        if (matchingCount == MATCH_5.getMatchCount() && matchBonusNumber) {
-            return updateResultWithMatchingCount(result, MATCH_5_WITH_BONUS.getKey());
-        }
-        return updateResultWithMatchingCount(result, matchingCount);
-    }
-
-    private LottoResult updateResultWithMatchingCount(Map<Integer, Integer> result, int matchingCount) {
-        result.put(matchingCount, result.getOrDefault(matchingCount, 0) + 1);
-        return new LottoResult(result);
+        HashMap<Integer, Integer> updateResult = new HashMap<>(result);
+        updateResult.put(key, updateResult.getOrDefault(key, 0) + 1);
+        return new LottoResult(updateResult);
     }
 
     public Map<Integer, Integer> getResult() {
