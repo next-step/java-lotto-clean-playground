@@ -28,7 +28,8 @@ public class Lottos {
     public LottoResult calculateWinningResult(Lotto winningLotto, LottoNumber bonusNumber) {
         LottoResult lottoResult = new LottoResult(Map.of());
         for (Lotto lotto : lottos) {
-            lottoResult = lottoResult.updateResult(lotto.countMatchingNumber(winningLotto),
+            lottoResult = lottoResult.updateResult(
+                    lotto.countMatchingNumber(winningLotto),
                     lotto.matchBonusNumber(bonusNumber));
         }
         return lottoResult;
