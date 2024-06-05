@@ -12,9 +12,6 @@ import org.duckstudy.model.Price;
 
 public class Lottos {
 
-    public static final int INCREMENT_UNIT = 1;
-    public static final int FIVE = 5;
-
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
@@ -31,13 +28,13 @@ public class Lottos {
 
     public LottoResult calculateWinningResult(Lotto winningLotto, LottoNumber bonusNumber) {
         LottoResult lottoResult = new LottoResult(lottos.stream()
-                .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> INCREMENT_UNIT))));
+                .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> 1))));
 
         return lottoResult.addResultByKey(
                 (int) lottos.stream()
-                        .filter(lotto -> lotto.countMatchingNumber(winningLotto) == FIVE
+                        .filter(lotto -> lotto.countMatchingNumber(winningLotto) == LottoMatch.MATCH_5.getMatchCount()
                                 && lotto.matchBonusNumber(bonusNumber))
-                        .count() * -FIVE
+                        .count() * -LottoMatch.MATCH_5.getMatchCount()
         );
     }
 

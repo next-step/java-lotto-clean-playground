@@ -1,11 +1,10 @@
 package org.duckstudy.view;
 
-import static org.duckstudy.model.Price.calculateWinningPrice;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
+import org.duckstudy.model.lotto.LottoMatch;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 
@@ -49,23 +48,27 @@ public class OutputView {
     }
 
     private void iterateWinningResult(Map<Integer, Integer> result) {
-        for (int i = LottoResult.MIN_MATCHING_COUNT_TO_WIN; i <= LottoResult.MAX_MATCHING_COUNT_TO_WIN; i++) {
-            printMatchingCount(result, i);
+        for (LottoMatch lottoMatch : LottoMatch.values()) {
+            printMatchingResult(result, lottoMatch);
         }
         System.out.println();
     }
 
-    private void printMatchingCount(Map<Integer, Integer> result, int cnt) {
-        System.out.printf("%d개 일치 (%d원)- ", cnt, calculateWinningPrice(cnt).getValue());
+    private void printMatchingResult(Map<Integer, Integer> result, LottoMatch lottoMatch) {
+        int cnt = lottoMatch.getMatchCount();
+        int price = lottoMatch.getPrice();
 
-        int count = result.getOrDefault(cnt, DEFAULT_VALUE);
-        System.out.printf("%d개\n", count);
+        String matchPriceMessage = getMatchPrice(lottoMatch, cnt, price);
+        Integer matchingCount = result.getOrDefault(cnt, DEFAULT_VALUE);
 
-        if (cnt == 5) {
-            cnt *= -1;
-            System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- ", -1 * cnt, calculateWinningPrice(cnt).getValue());
-            System.out.printf("%d개\n", result.getOrDefault(cnt, DEFAULT_VALUE));
+        System.out.println(matchPriceMessage + matchingCount + "개");
+    }
+
+    private String getMatchPrice(LottoMatch lottoMatch, int cnt, int price) {
+        if (lottoMatch == LottoMatch.MATCH_5_WITH_BONUS) {
+            return String.format("%d개 일치, 보너스 볼 일치(%d원)- ", cnt, price);
         }
+        return String.format("%d개 일치 (%d원)- ", cnt, price);
     }
 
     public void printTotalProfit(double totalProfitRate) {
