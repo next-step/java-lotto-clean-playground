@@ -39,4 +39,14 @@ public class InputView {
                 .mapToInt(Integer::parseInt)
                 .toArray();
     }
+
+    public int inputBonusNumber() {
+        outputView.printInputBonusNumber();
+
+        try {
+            return Integer.parseInt(bufferedReader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            throw new NumberFormatException("숫자만 입력 가능합니다.");
+        }
+    }
 }

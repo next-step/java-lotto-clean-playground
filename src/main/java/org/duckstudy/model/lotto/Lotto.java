@@ -34,6 +34,7 @@ public class Lotto {
         lotto = IntStream.of(values)
                 .mapToObj(LottoNumber::valueOf)
                 .toList();
+        validateLotto(lotto);
     }
 
     public static Lotto createRandomLotto() {
@@ -55,9 +56,13 @@ public class Lotto {
 
     public int countMatchingNumber(Lotto compareLotto) {
         return lotto.stream()
-                .filter(compareLotto.getLotto()::contains)
+                .filter(lottoNumber -> compareLotto.getLotto().contains(lottoNumber))
                 .toList()
                 .size();
+    }
+
+    public boolean matchBonusNumber(LottoNumber bonusNumber) {
+        return lotto.contains(bonusNumber);
     }
 
     private void validateLotto(List<LottoNumber> lotto) {

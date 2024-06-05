@@ -38,6 +38,10 @@ public class OutputView {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
     }
 
+    public void printInputBonusNumber() {
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+    }
+
     public void printWinningResult(LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
@@ -56,6 +60,12 @@ public class OutputView {
 
         int count = result.getOrDefault(cnt, DEFAULT_VALUE);
         System.out.printf("%d개\n", count);
+
+        if (cnt == 5) {
+            cnt *= -1;
+            System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- ", -1 * cnt, calculateWinningPrice(cnt).getValue());
+            System.out.printf("%d개\n", result.getOrDefault(cnt, DEFAULT_VALUE));
+        }
     }
 
     public void printTotalProfit(double totalProfitRate) {

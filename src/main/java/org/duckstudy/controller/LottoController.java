@@ -2,6 +2,7 @@ package org.duckstudy.controller;
 
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
+import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
@@ -23,7 +24,9 @@ public class LottoController {
         outputView.printLottos(lottos.getLottos());
 
         Lotto winningLotto = createWinningLotto();
-        calculateWinningResult(price, lottos, winningLotto);
+        LottoNumber bonusNumber = createBonusNumber(winningLotto);
+
+        calculateWinningResult(price, lottos, winningLotto, bonusNumber);
     }
 
     private Price createPrice() {
@@ -44,14 +47,30 @@ public class LottoController {
         }
     }
 
-    private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto) {
-        LottoResult result = calculateAndPrintLottoResult(lottos, winningLotto);
+    private LottoNumber createBonusNumber(Lotto winningLotto) {
+        try {
+            return checkAndGetBonusNumber(winningLotto, LottoNumber.valueOf(inputView.inputBonusNumber()));
+        } catch (IllegalArgumentException e) {
+            outputView.printException(e);
+            return createBonusNumber(winningLotto);
+        }
+    }
+
+    private LottoNumber checkAndGetBonusNumber(Lotto winningLotto, LottoNumber lottoNumber) {
+        if (winningLotto.getLotto().contains(lottoNumber)) {
+            throw new IllegalArgumentException("당첨 번호와 중복되는 보너스 볼은 입력할 수 없습니다.");
+        }
+        return lottoNumber;
+    }
+
+    private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = calculateAndPrintLottoResult(lottos, winningLotto, bonusNumber);
 
         calculateAndPrintProfitRate(price, result);
     }
 
-    private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto) {
-        LottoResult result = lottos.calculateWinningResult(winningLotto);
+    private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = lottos.calculateWinningResult(winningLotto, bonusNumber);
         outputView.printWinningResult(result);
         return result;
     }
