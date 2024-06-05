@@ -2,6 +2,8 @@ package org.duckstudy.model.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.LottoMatch.MAX_MATCH;
 
 import java.util.List;
 import org.duckstudy.model.Price;
@@ -32,20 +34,26 @@ class LottosTest {
     class LottosWinningTest {
 
         @Test
-        @DisplayName("당첨된 로또 번호를 입력하면 당첨된 로또 묶음의 결과를 계산한다")
+        @DisplayName("당첨된 로또 번호와 보너스 번호를 입력하면 당첨된 로또 묶음의 결과를 계산한다")
         void calculateWinningResultWhenInputWinningLotto() {
             Lotto winningLotto = new Lotto(1, 2, 3, 4, 5, 6);
+            LottoNumber bonusNumber = LottoNumber.valueOf(7);
             Lottos totalLottos = new Lottos(List.of(
                     winningLotto,
+                    new Lotto(1, 2, 3, 4, 5, 7),
                     new Lotto(8, 9, 10, 11, 12, 13),
                     new Lotto(14, 15, 16, 17, 18, 19),
                     new Lotto(20, 21, 22, 23, 24, 25)
             ));
 
-            LottoResult lottoResult = totalLottos.calculateWinningResult(winningLotto);
+            LottoResult lottoResult = totalLottos.calculateWinningResult(winningLotto, bonusNumber);
 
             assertThat(lottoResult.getResult())
-                    .containsExactly(entry(0, 3), entry(6, 1));
+                    .containsExactly(
+                            entry(0, 3),
+                            entry(MATCH_5_WITH_BONUS.getKey(), 1),
+                            entry(MAX_MATCH.getKey(), 1)
+                    );
         }
     }
 }

@@ -16,4 +16,17 @@ class LottoResultTest {
 
         assertThat(lottoResult.calculateProfitRate(new Price(100000))).isEqualTo(10.0);
     }
+
+    @Test
+    @DisplayName("로또 당첨 결과를 추가한다")
+    void addLottoResult() {
+        LottoResult lottoResult = new LottoResult(Map.of());
+        Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
+        Lotto winningLotto = new Lotto(1, 2, 3, 4, 5, 7);
+        LottoNumber bonusNumber = LottoNumber.valueOf(6);
+
+        lottoResult = lottoResult.addLottoResult(lotto, winningLotto, bonusNumber);
+
+        assertThat(lottoResult.getResult()).containsEntry(LottoMatch.MATCH_5_WITH_BONUS.getKey(), 1);
+    }
 }

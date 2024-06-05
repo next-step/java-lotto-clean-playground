@@ -3,7 +3,6 @@ package org.duckstudy.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.duckstudy.model.Price.calculateWinningPrice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -41,7 +40,7 @@ class PriceTest {
         void addPrice() {
             Price price = new Price(1000);
 
-            Price result = price.addPrice(new Price(2000));
+            Price result = price.addPrice(2000);
 
             assertThat(result).isEqualTo(new Price(3000));
         }
@@ -87,12 +86,6 @@ class PriceTest {
             Price price = new Price(10000);
 
             assertThat(price.calculateLottoCount()).isEqualTo(10);
-        }
-
-        @Test
-        @DisplayName("로또 숫자 매칭 개수를 입력하면 당첨 금액을 계산한다")
-        void calculateWinningPriceWhenInputMatchingCount() {
-            assertThat(calculateWinningPrice(3)).isEqualTo(new Price(5000));
         }
     }
 }
