@@ -1,6 +1,6 @@
 package org.duckstudy.model;
 
-import static org.duckstudy.model.lotto.LottoBoundary.LOTTO_PRICE;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.LOTTO_PRICE;
 
 import java.util.Objects;
 

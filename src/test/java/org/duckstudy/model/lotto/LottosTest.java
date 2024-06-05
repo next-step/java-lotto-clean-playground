@@ -2,8 +2,8 @@ package org.duckstudy.model.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
-import static org.duckstudy.model.lotto.LottoMatch.MAX_MATCH;
+import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.constant.LottoMatch.MAX_MATCH;
 
 import java.util.List;
 import org.duckstudy.model.Price;

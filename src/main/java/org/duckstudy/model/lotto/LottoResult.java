@@ -1,12 +1,13 @@
 package org.duckstudy.model.lotto;
 
-import static org.duckstudy.model.lotto.LottoMatch.MATCH_5;
-import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5;
+import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.duckstudy.model.Price;
+import org.duckstudy.model.lotto.constant.LottoMatch;
 
 public class LottoResult {
 

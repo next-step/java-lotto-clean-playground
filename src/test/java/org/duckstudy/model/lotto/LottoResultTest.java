@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import org.duckstudy.model.Price;
+import org.duckstudy.model.lotto.constant.LottoMatch;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

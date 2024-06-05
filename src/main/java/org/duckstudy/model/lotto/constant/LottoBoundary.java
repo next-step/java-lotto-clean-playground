@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.model.lotto.constant;
 
 public enum LottoBoundary {
 

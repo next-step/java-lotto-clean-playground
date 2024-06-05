@@ -1,7 +1,7 @@
 package org.duckstudy.model.lotto;
 
-import static org.duckstudy.model.lotto.LottoBoundary.END_INCLUSIVE_NUMBER;
-import static org.duckstudy.model.lotto.LottoBoundary.START_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.START_INCLUSIVE_NUMBER;
 
 import java.util.Objects;
 import java.util.stream.IntStream;

@@ -3,9 +3,9 @@ package org.duckstudy.model.lotto;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
-import static org.duckstudy.model.lotto.LottoBoundary.END_INCLUSIVE_NUMBER;
-import static org.duckstudy.model.lotto.LottoBoundary.LOTTO_SIZE;
-import static org.duckstudy.model.lotto.LottoBoundary.START_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.LOTTO_SIZE;
+import static org.duckstudy.model.lotto.constant.LottoBoundary.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
