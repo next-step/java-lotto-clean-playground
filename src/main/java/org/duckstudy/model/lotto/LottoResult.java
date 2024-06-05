@@ -1,5 +1,8 @@
 package org.duckstudy.model.lotto;
 
+import static org.duckstudy.model.lotto.LottoMatch.MATCH_5;
+import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +38,17 @@ public class LottoResult {
         return result.getOrDefault(count, 0);
     }
 
-    public LottoResult addResultByKey(int key) {
+    public LottoResult addLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
         Map<Integer, Integer> result = new HashMap<>(this.result);
-        result.put(key, result.getOrDefault(key, 0) + 1);
+
+        int matchingCount = lotto.countMatchingNumber(winningLotto);
+        if (matchingCount == MATCH_5.getMatchCount() && lotto.matchBonusNumber(bonusNumber)) {
+            result.put(MATCH_5_WITH_BONUS.getKey(),
+                    result.getOrDefault(MATCH_5_WITH_BONUS.getKey(), 0) + 1);
+            return new LottoResult(result);
+        }
+
+        result.put(matchingCount, result.getOrDefault(matchingCount, 0) + 1);
         return new LottoResult(result);
     }
 

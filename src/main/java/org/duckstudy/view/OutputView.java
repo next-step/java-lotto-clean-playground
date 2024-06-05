@@ -1,5 +1,7 @@
 package org.duckstudy.view;
 
+import static org.duckstudy.model.lotto.LottoMatch.MATCH_5_WITH_BONUS;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -65,7 +67,7 @@ public class OutputView {
     }
 
     private String getMatchPrice(LottoMatch lottoMatch, int cnt, int price) {
-        if (lottoMatch == LottoMatch.MATCH_5_WITH_BONUS) {
+        if (lottoMatch == MATCH_5_WITH_BONUS) {
             return String.format("%d개 일치, 보너스 볼 일치(%d원)- ", cnt, price);
         }
         return String.format("%d개 일치 (%d원)- ", cnt, price);
