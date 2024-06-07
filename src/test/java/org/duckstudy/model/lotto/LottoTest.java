@@ -18,7 +18,7 @@ class LottoTest {
     class LottoCreationTest {
 
         @Nested
-        @DisplayName("리스트로 입력받은 로또 생성 테스트")
+        @DisplayName("로또 번호 리스트로 입력받은 로또 생성 테스트")
         class LottoCreationWithListTest {
 
             @Test
@@ -61,7 +61,7 @@ class LottoTest {
         }
 
         @Nested
-        @DisplayName("배열로 입력받은 로또 생성 테스트")
+        @DisplayName("정수 리스트로 입력받은 로또 생성 테스트")
         class LottoCreationWithArrayTest {
 
             @Test
@@ -90,6 +90,19 @@ class LottoTest {
                         .hasMessage("로또 번호는 중복되지 않아야 합니다.");
             }
         }
+
+        @Nested
+        @DisplayName("랜덤 로또 생성 테스트")
+        class RandomLottoCreationTest {
+
+            @Test
+            @DisplayName("랜덤 로또를 생성한다")
+            void createRandomLotto() {
+
+                assertThatCode(Lotto::createRandomLotto)
+                        .doesNotThrowAnyException();
+            }
+        }
     }
 
     @Nested
@@ -104,6 +117,21 @@ class LottoTest {
             Lotto compareLotto = Lotto.from(List.of(1, 2, 3, 7, 8, 9));
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);
+        }
+    }
+
+    @Nested
+    @DisplayName("로또 번호 포함 여부 테스트")
+    class LottoContainsTest {
+
+        @Test
+        @DisplayName("로또 번호가 포함되어 있는지 확인한다")
+        void containsNumber() {
+
+            Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+            LottoNumber lottoNumber = LottoNumber.valueOf(3);
+
+            assertThat(lotto.containsNumber(lottoNumber)).isTrue();
         }
     }
 }
