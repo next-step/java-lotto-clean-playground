@@ -1,6 +1,7 @@
 package org.duckstudy.view;
 
-import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
+import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
+import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.LottoRank;
+import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class OutputView {
 
@@ -43,32 +44,36 @@ public class OutputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 
-    public void printWinningResult(LottoResult result) {
+    public void printLottoResult(LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
-        iterateWinningResult(result.getResult());
+        iterateLottoResult(result.getResult());
     }
 
-    private void iterateWinningResult(Map<Integer, Integer> result) {
-        for (LottoRank lottoRank : LottoRank.values()) {
-            printMatchingResult(result, lottoRank);
+    private void iterateLottoResult(Map<Integer, Integer> result) {
+        for (WinningRank winningRank : WinningRank.values()) {
+            printMatchingResult(result, winningRank);
         }
         System.out.println();
     }
 
-    private void printMatchingResult(Map<Integer, Integer> result, LottoRank lottoRank) {
-        int cnt = lottoRank.getMatchCount();
-        int key = lottoRank.getKey();
-        int price = lottoRank.getPrice();
+    private void printMatchingResult(Map<Integer, Integer> result, WinningRank winningRank) {
+        if (winningRank == NONE) {
+            return;
+        }
 
-        String matchPriceMessage = getMatchPrice(lottoRank, cnt, price);
+        int cnt = winningRank.getMatchCount();
+        int key = winningRank.getKey();
+        int price = winningRank.getPrice();
+
+        String matchPriceMessage = getMatchPrice(winningRank, cnt, price);
         Integer matchingCount = result.getOrDefault(key, DEFAULT_VALUE);
 
         System.out.println(matchPriceMessage + matchingCount + "개");
     }
 
-    private String getMatchPrice(LottoRank lottoRank, int cnt, int price) {
-        if (lottoRank == SECOND) {
+    private String getMatchPrice(WinningRank winningRank, int cnt, int price) {
+        if (winningRank == SECOND) {
             return String.format("%d개 일치, 보너스 볼 일치(%d원)- ", cnt, price);
         }
         return String.format("%d개 일치 (%d원)- ", cnt, price);

@@ -2,9 +2,10 @@ package org.duckstudy.model.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Map;
 import org.duckstudy.model.Price;
-import org.duckstudy.model.lotto.constant.LottoRank;
+import org.duckstudy.model.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +25,12 @@ class LottoResultTest {
     void updateResult() {
 
         LottoResult lottoResult = new LottoResult(Map.of());
+        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 7));
+        Lotto winningLotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = LottoNumber.valueOf(7);
 
-        lottoResult = lottoResult.updateResult(5, true);
+        lottoResult = lottoResult.createLottoResult(lotto, winningLotto, bonusNumber);
 
-        assertThat(lottoResult.getResult()).containsEntry(LottoRank.SECOND.getKey(), 1);
+        assertThat(lottoResult.getResult()).containsEntry(WinningRank.SECOND.getKey(), 1);
     }
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.duckstudy.model.Price;
-import org.duckstudy.model.lotto.constant.LottoRank;
+import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class LottoResult {
 
@@ -19,7 +19,7 @@ public class LottoResult {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
-        int key = LottoRank.findByMatchCountAndBonus(matchingCount, matchBonus)
+        int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus)
                 .getKey();
 
         return new LottoResult(Map.of(key, 1));
@@ -37,18 +37,18 @@ public class LottoResult {
 
     public double calculateProfitRate(Price price) {
         Price profit = Price.initialize();
-        for (LottoRank lottoRank : LottoRank.values()) {
-            profit = getPrice(profit, lottoRank);
+        for (WinningRank winningRank : WinningRank.values()) {
+            profit = getPrice(profit, winningRank);
         }
         return profit.divideByLottoPrice(price) * 100;
     }
 
-    private Price getPrice(Price profit, LottoRank lottoRank) {
-        if (getMatchingCount(lottoRank.getKey()) == 0) {
+    private Price getPrice(Price profit, WinningRank winningRank) {
+        if (getMatchingCount(winningRank.getKey()) == 0) {
             return profit;
         }
-        return profit.addPrice(lottoRank.getPrice())
-                .multiplyTimes(getMatchingCount(lottoRank.getKey()));
+        return profit.addPrice(winningRank.getPrice())
+                .multiplyTimes(getMatchingCount(winningRank.getKey()));
     }
 
     private int getMatchingCount(int count) {

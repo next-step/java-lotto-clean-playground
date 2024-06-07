@@ -1,6 +1,8 @@
 package org.duckstudy.model.lotto.constant;
 
-public enum LottoRank {
+import java.util.stream.Stream;
+
+public enum WinningRank {
 
     NONE(0, 0, 0),
     FIFTH(3, 5000, 3),
@@ -13,10 +15,20 @@ public enum LottoRank {
     private final int price;
     private final int key;
 
-    LottoRank(int matchCount, int price, int key) {
+    WinningRank(int matchCount, int price, int key) {
         this.matchCount = matchCount;
         this.price = price;
         this.key = key;
+    }
+
+    public static WinningRank findByMatchCountAndBonus(int matchCount, boolean matchBonus) {
+        if (matchCount == SECOND.getMatchCount() && matchBonus) {
+            return SECOND;
+        }
+        return Stream.of(values())
+                .filter(winningLank -> winningLank.getMatchCount() == matchCount)
+                .findFirst()
+                .orElse(NONE);
     }
 
     public int getMatchCount() {
