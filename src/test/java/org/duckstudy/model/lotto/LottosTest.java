@@ -46,7 +46,7 @@ class LottosTest {
                     new Lotto(20, 21, 22, 23, 24, 25)
             ));
 
-            LottoResult lottoResult = totalLottos.calculateWinningResult(winningLotto, bonusNumber);
+            LottoResult lottoResult = totalLottos.calculateTotalLottoResult(winningLotto, bonusNumber);
 
             assertThat(lottoResult.getResult())
                     .containsExactly(

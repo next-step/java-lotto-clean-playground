@@ -60,8 +60,8 @@ public class Lotto {
                 .size();
     }
 
-    public boolean matchBonusNumber(LottoNumber bonusNumber) {
-        return lotto.contains(bonusNumber);
+    public boolean containsNumber(LottoNumber lottoNumber) {
+        return lotto.contains(lottoNumber);
     }
 
     private void validateLotto(List<LottoNumber> lotto) {

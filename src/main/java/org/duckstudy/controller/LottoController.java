@@ -70,7 +70,7 @@ public class LottoController {
     }
 
     private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
-        LottoResult result = lottos.calculateWinningResult(winningLotto, bonusNumber);
+        LottoResult result = lottos.calculateTotalLottoResult(winningLotto, bonusNumber);
         outputView.printWinningResult(result);
         return result;
     }

@@ -25,14 +25,18 @@ public class Lottos {
                 .collect(collectingAndThen(toList(), Lottos::new));
     }
 
-    public LottoResult calculateWinningResult(Lotto winningLotto, LottoNumber bonusNumber) {
-        LottoResult lottoResult = new LottoResult(Map.of());
-        for (Lotto lotto : lottos) {
-            lottoResult = lottoResult.updateResult(
-                    lotto.countMatchingNumber(winningLotto),
-                    lotto.matchBonusNumber(bonusNumber));
-        }
-        return lottoResult;
+    public LottoResult calculateTotalLottoResult(Lotto winningLotto, LottoNumber bonusNumber) {
+        return lottos.stream()
+                .map(lotto -> calculateLottoResult(lotto, winningLotto, bonusNumber, new LottoResult(Map.of())))
+                .reduce(new LottoResult(Map.of()), LottoResult::merge);
+    }
+
+    private LottoResult calculateLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber,
+                                             LottoResult result
+    ) {
+        int matchingCount = lotto.countMatchingNumber(winningLotto);
+        boolean matchBonus = lotto.containsNumber(bonusNumber);
+        return result.updateResult(matchingCount, matchBonus);
     }
 
     public List<Lotto> getLottos() {

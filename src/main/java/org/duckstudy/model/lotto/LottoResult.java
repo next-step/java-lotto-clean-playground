@@ -17,6 +17,13 @@ public class LottoResult {
         this.result = Collections.unmodifiableMap(result);
     }
 
+    public LottoResult merge(LottoResult result) {
+        HashMap<Integer, Integer> mergedResult = new HashMap<>(this.result);
+        result.getResult()
+                .forEach((key, value) -> mergedResult.put(key, mergedResult.getOrDefault(key, 0) + value));
+        return new LottoResult(mergedResult);
+    }
+
     public double calculateProfitRate(Price price) {
         Price profit = Price.zero();
         for (LottoMatch lottoMatch : LottoMatch.values()) {
