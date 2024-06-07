@@ -1,15 +1,13 @@
 package org.duckstudy.model.lotto.constant;
 
-public enum LottoBoundary {
+public enum LottoNumberRange {
 
     START_INCLUSIVE_NUMBER(1),
-    END_INCLUSIVE_NUMBER(45),
-    LOTTO_SIZE(6),
-    LOTTO_PRICE(1000);
+    END_INCLUSIVE_NUMBER(45);
 
     private final int value;
 
-    LottoBoundary(int value) {
+    LottoNumberRange(int value) {
         this.value = value;
     }
 

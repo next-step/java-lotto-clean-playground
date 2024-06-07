@@ -1,13 +1,13 @@
 package org.duckstudy.model.lotto;
 
-import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5;
-import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
+import static org.duckstudy.model.lotto.constant.LottoRank.THIRD;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.duckstudy.model.Price;
-import org.duckstudy.model.lotto.constant.LottoMatch;
+import org.duckstudy.model.lotto.constant.LottoRank;
 
 public class LottoResult {
 
@@ -26,18 +26,18 @@ public class LottoResult {
 
     public double calculateProfitRate(Price price) {
         Price profit = Price.zero();
-        for (LottoMatch lottoMatch : LottoMatch.values()) {
-            profit = getPrice(profit, lottoMatch);
+        for (LottoRank lottoRank : LottoRank.values()) {
+            profit = getPrice(profit, lottoRank);
         }
-        return profit.divideBy(price) * 100;
+        return profit.divideByLottoPrice(price) * 100;
     }
 
-    private Price getPrice(Price profit, LottoMatch lottoMatch) {
-        if (getMatchingCount(lottoMatch.getKey()) == 0) {
+    private Price getPrice(Price profit, LottoRank lottoRank) {
+        if (getMatchingCount(lottoRank.getKey()) == 0) {
             return profit;
         }
-        return profit.addPrice(lottoMatch.getPrice())
-                .multiplyTimes(getMatchingCount(lottoMatch.getKey()));
+        return profit.addPrice(lottoRank.getPrice())
+                .multiplyTimes(getMatchingCount(lottoRank.getKey()));
     }
 
     private int getMatchingCount(int count) {
@@ -45,8 +45,8 @@ public class LottoResult {
     }
 
     public LottoResult updateResult(int matchingCount, boolean matchBonusNumber) {
-        int key = matchingCount == MATCH_5.getMatchCount() && matchBonusNumber
-                ? MATCH_5_WITH_BONUS.getKey()
+        int key = matchingCount == THIRD.getMatchCount() && matchBonusNumber
+                ? SECOND.getKey()
                 : matchingCount;
 
         HashMap<Integer, Integer> updateResult = new HashMap<>(result);

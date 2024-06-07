@@ -1,10 +1,10 @@
 package org.duckstudy.model;
 
-import static org.duckstudy.model.lotto.constant.LottoBoundary.LOTTO_PRICE;
-
 import java.util.Objects;
 
 public class Price {
+
+    private static final int LOTTO_PRICE = 1000;
 
     private final int value;
 
@@ -24,7 +24,7 @@ public class Price {
     }
 
     public int calculateLottoCount() {
-        return divideBy(LOTTO_PRICE.getValue());
+        return divideByLottoPrice();
     }
 
     public Price addPrice(int value) {
@@ -35,12 +35,12 @@ public class Price {
         return new Price(value * times);
     }
 
-    private int divideBy(int divisor) {
-        checkIfZero(divisor);
-        return value / divisor;
+    private int divideByLottoPrice() {
+        checkIfZero(LOTTO_PRICE);
+        return value / LOTTO_PRICE;
     }
 
-    public double divideBy(Price divisor) {
+    public double divideByLottoPrice(Price divisor) {
         checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();
     }

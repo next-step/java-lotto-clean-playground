@@ -3,9 +3,8 @@ package org.duckstudy.model.lotto;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
-import static org.duckstudy.model.lotto.constant.LottoBoundary.END_INCLUSIVE_NUMBER;
-import static org.duckstudy.model.lotto.constant.LottoBoundary.LOTTO_SIZE;
-import static org.duckstudy.model.lotto.constant.LottoBoundary.START_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.stream.Stream;
 public class Lotto {
 
     private static final List<Integer> NUMBERS;
+    private static final int LOTTO_SIZE = 6;
 
     static {
         NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER.getValue(), END_INCLUSIVE_NUMBER.getValue() + 1)
@@ -39,7 +39,7 @@ public class Lotto {
     public static Lotto createRandomLotto() {
         return new Lotto(NUMBERS.stream()
                 .collect(getCollector())
-                .limit(LOTTO_SIZE.getValue())
+                .limit(LOTTO_SIZE)
                 .sorted()
                 .map(LottoNumber::valueOf)
                 .collect(toList()));
@@ -65,11 +65,11 @@ public class Lotto {
     }
 
     private void validateLotto(List<LottoNumber> lotto) {
-        if (lotto.size() != LOTTO_SIZE.getValue()) {
-            throw new IllegalArgumentException(String.format("로또 번호는 %d개여야 합니다.", LOTTO_SIZE.getValue()));
+        if (lotto.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException(String.format("로또 번호는 %d개여야 합니다.", LOTTO_SIZE));
         }
 
-        if (lotto.stream().distinct().count() != LOTTO_SIZE.getValue()) {
+        if (lotto.stream().distinct().count() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복되지 않아야 합니다.");
         }
     }

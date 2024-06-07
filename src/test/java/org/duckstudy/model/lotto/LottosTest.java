@@ -2,8 +2,9 @@ package org.duckstudy.model.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
-import static org.duckstudy.model.lotto.constant.LottoMatch.MAX_MATCH;
+import static org.duckstudy.model.lotto.constant.LottoRank.FIRST;
+import static org.duckstudy.model.lotto.constant.LottoRank.NONE;
+import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
 
 import java.util.List;
 import org.duckstudy.model.Price;
@@ -52,9 +53,9 @@ class LottosTest {
 
             assertThat(lottoResult.getResult())
                     .containsExactly(
-                            entry(0, 3),
-                            entry(MATCH_5_WITH_BONUS.getKey(), 1),
-                            entry(MAX_MATCH.getKey(), 1)
+                            entry(NONE.getKey(), 3),
+                            entry(SECOND.getKey(), 1),
+                            entry(FIRST.getKey(), 1)
                     );
         }
     }

@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import org.duckstudy.model.Price;
-import org.duckstudy.model.lotto.constant.LottoMatch;
+import org.duckstudy.model.lotto.constant.LottoRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +27,6 @@ class LottoResultTest {
 
         lottoResult = lottoResult.updateResult(5, true);
 
-        assertThat(lottoResult.getResult()).containsEntry(LottoMatch.MATCH_5_WITH_BONUS.getKey(), 1);
+        assertThat(lottoResult.getResult()).containsEntry(LottoRank.SECOND.getKey(), 1);
     }
 }

@@ -1,6 +1,6 @@
 package org.duckstudy.view;
 
-import static org.duckstudy.model.lotto.constant.LottoMatch.MATCH_5_WITH_BONUS;
+import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.LottoMatch;
+import org.duckstudy.model.lotto.constant.LottoRank;
 
 public class OutputView {
 
@@ -50,25 +50,25 @@ public class OutputView {
     }
 
     private void iterateWinningResult(Map<Integer, Integer> result) {
-        for (LottoMatch lottoMatch : LottoMatch.values()) {
-            printMatchingResult(result, lottoMatch);
+        for (LottoRank lottoRank : LottoRank.values()) {
+            printMatchingResult(result, lottoRank);
         }
         System.out.println();
     }
 
-    private void printMatchingResult(Map<Integer, Integer> result, LottoMatch lottoMatch) {
-        int cnt = lottoMatch.getMatchCount();
-        int key = lottoMatch.getKey();
-        int price = lottoMatch.getPrice();
+    private void printMatchingResult(Map<Integer, Integer> result, LottoRank lottoRank) {
+        int cnt = lottoRank.getMatchCount();
+        int key = lottoRank.getKey();
+        int price = lottoRank.getPrice();
 
-        String matchPriceMessage = getMatchPrice(lottoMatch, cnt, price);
+        String matchPriceMessage = getMatchPrice(lottoRank, cnt, price);
         Integer matchingCount = result.getOrDefault(key, DEFAULT_VALUE);
 
         System.out.println(matchPriceMessage + matchingCount + "개");
     }
 
-    private String getMatchPrice(LottoMatch lottoMatch, int cnt, int price) {
-        if (lottoMatch == MATCH_5_WITH_BONUS) {
+    private String getMatchPrice(LottoRank lottoRank, int cnt, int price) {
+        if (lottoRank == SECOND) {
             return String.format("%d개 일치, 보너스 볼 일치(%d원)- ", cnt, price);
         }
         return String.format("%d개 일치 (%d원)- ", cnt, price);

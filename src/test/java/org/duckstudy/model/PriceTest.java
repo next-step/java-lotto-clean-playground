@@ -65,7 +65,7 @@ class PriceTest {
 
             Price price = new Price(1000);
 
-            double result = price.divideBy(new Price(10));
+            double result = price.divideByLottoPrice(new Price(10));
 
             assertThat(result).isEqualTo(100);
         }
@@ -76,7 +76,7 @@ class PriceTest {
 
             Price price = new Price(1000);
 
-            assertThatThrownBy(() -> price.divideBy(new Price(0)))
+            assertThatThrownBy(() -> price.divideByLottoPrice(new Price(0)))
                     .isExactlyInstanceOf(IllegalArgumentException.class)
                     .hasMessage("0으로 나눌 수 없습니다.");
         }
