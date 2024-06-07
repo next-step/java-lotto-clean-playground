@@ -1,11 +1,9 @@
 package org.duckstudy.model.lotto;
 
-import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
-import static org.duckstudy.model.lotto.constant.LottoRank.THIRD;
-
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.constant.LottoRank;
 
@@ -17,11 +15,24 @@ public class LottoResult {
         this.result = Collections.unmodifiableMap(result);
     }
 
-    public LottoResult merge(LottoResult result) {
-        HashMap<Integer, Integer> mergedResult = new HashMap<>(this.result);
-        result.getResult()
-                .forEach((key, value) -> mergedResult.put(key, mergedResult.getOrDefault(key, 0) + value));
-        return new LottoResult(mergedResult);
+    public static LottoResult createLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
+        int matchingCount = lotto.countMatchingNumber(winningLotto);
+        boolean matchBonus = lotto.containsNumber(bonusNumber);
+
+        int key = LottoRank.findByMatchCountAndBonus(matchingCount, matchBonus)
+                .getKey();
+
+        return new LottoResult(Map.of(key, 1));
+    }
+
+    public LottoResult merge(LottoResult other) {
+        return new LottoResult(Stream.of(this.result, other.result)
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        Integer::sum
+                )));
     }
 
     public double calculateProfitRate(Price price) {
@@ -42,16 +53,6 @@ public class LottoResult {
 
     private int getMatchingCount(int count) {
         return result.getOrDefault(count, 0);
-    }
-
-    public LottoResult updateResult(int matchingCount, boolean matchBonusNumber) {
-        int key = matchingCount == THIRD.getMatchCount() && matchBonusNumber
-                ? SECOND.getKey()
-                : matchingCount;
-
-        HashMap<Integer, Integer> updateResult = new HashMap<>(result);
-        updateResult.put(key, updateResult.getOrDefault(key, 0) + 1);
-        return new LottoResult(updateResult);
     }
 
     public Map<Integer, Integer> getResult() {
