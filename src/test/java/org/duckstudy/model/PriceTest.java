@@ -18,6 +18,7 @@ class PriceTest {
         @Test
         @DisplayName("가격이 0 이상일 경우 성공한다")
         void validateSuccessWhenPriceIsEqualOrGreaterThanZero() {
+
             assertThatCode(() -> new Price(1))
                     .doesNotThrowAnyException();
         }
@@ -25,6 +26,7 @@ class PriceTest {
         @Test
         @DisplayName("가격이 0보다 작을 경우 예외가 발생한다")
         void validateFailWhenPriceIsLessThanZero() {
+
             assertThatThrownBy(() -> new Price(-1))
                     .isExactlyInstanceOf(IllegalArgumentException.class)
                     .hasMessage("가격은 0원 이상이어야 합니다.");
@@ -38,6 +40,7 @@ class PriceTest {
         @Test
         @DisplayName("가격을 더한다")
         void addPrice() {
+
             Price price = new Price(1000);
 
             Price result = price.addPrice(2000);
@@ -48,6 +51,7 @@ class PriceTest {
         @Test
         @DisplayName("가격을 곱한다")
         void multiplyPrice() {
+
             Price price = new Price(1000);
 
             Price result = price.multiplyTimes(3);
@@ -58,6 +62,7 @@ class PriceTest {
         @Test
         @DisplayName("가격을 나눈다")
         void dividePriceByPrice() {
+
             Price price = new Price(1000);
 
             double result = price.divideBy(new Price(10));
@@ -68,6 +73,7 @@ class PriceTest {
         @Test
         @DisplayName("가격을 0원으로 나누면 예외가 발생한다")
         void dividePriceByZeroPrice() {
+
             Price price = new Price(1000);
 
             assertThatThrownBy(() -> price.divideBy(new Price(0)))
@@ -83,6 +89,7 @@ class PriceTest {
         @Test
         @DisplayName("로또 구매 금액을 입력하면 가격에 맞는 로또 개수를 계산한다")
         void calculateLottoCountWhenInputPrice() {
+
             Price price = new Price(10000);
 
             assertThat(price.calculateLottoCount()).isEqualTo(10);

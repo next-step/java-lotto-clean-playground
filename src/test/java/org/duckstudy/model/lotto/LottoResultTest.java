@@ -13,6 +13,7 @@ class LottoResultTest {
     @Test
     @DisplayName("로또 수익률을 계산한다")
     void calculateProfitRate() {
+
         LottoResult lottoResult = new LottoResult(Map.of(3, 2));
 
         assertThat(lottoResult.calculateProfitRate(new Price(100000))).isEqualTo(10.0);
@@ -21,6 +22,7 @@ class LottoResultTest {
     @Test
     @DisplayName("로또 당첨 결과를 업데이트한다")
     void updateResult() {
+
         LottoResult lottoResult = new LottoResult(Map.of());
 
         lottoResult = lottoResult.updateResult(5, true);
