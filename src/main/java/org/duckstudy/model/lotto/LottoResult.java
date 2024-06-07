@@ -25,7 +25,7 @@ public class LottoResult {
     }
 
     public double calculateProfitRate(Price price) {
-        Price profit = Price.zero();
+        Price profit = Price.initialize();
         for (LottoRank lottoRank : LottoRank.values()) {
             profit = getPrice(profit, lottoRank);
         }

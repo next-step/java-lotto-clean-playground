@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Price {
 
+    private static final int INCLUSIVE_MIN_PRICE = 0;
     private static final int LOTTO_PRICE = 1000;
 
     private final int value;
@@ -13,13 +14,13 @@ public class Price {
         this.value = price;
     }
 
-    public static Price zero() {
-        return new Price(0);
+    public static Price initialize() {
+        return new Price(INCLUSIVE_MIN_PRICE);
     }
 
     private void validatePrice(int price) {
-        if (price < 0) {
-            throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", 0));
+        if (price < INCLUSIVE_MIN_PRICE) {
+            throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", INCLUSIVE_MIN_PRICE));
         }
     }
 
