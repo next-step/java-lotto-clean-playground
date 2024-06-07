@@ -3,6 +3,7 @@ package org.duckstudy.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class InputView {
 
@@ -23,7 +24,7 @@ public class InputView {
         }
     }
 
-    public int[] inputWinningLotto() {
+    public List<Integer> inputWinningLotto() {
         outputView.printInputWinningLotto();
 
         try {
@@ -33,11 +34,11 @@ public class InputView {
         }
     }
 
-    private int[] inputLottoNumber() throws IOException {
+    private List<Integer> inputLottoNumber() throws IOException {
         return Arrays.stream(bufferedReader.readLine().split(","))
                 .map(String::trim)
-                .mapToInt(Integer::parseInt)
-                .toArray();
+                .map(Integer::parseInt)
+                .toList();
     }
 
     public int inputBonusNumber() {

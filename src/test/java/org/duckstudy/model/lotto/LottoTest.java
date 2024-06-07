@@ -24,6 +24,7 @@ class LottoTest {
             @Test
             @DisplayName("로또를 생성한다")
             void createLottoByListSuccess() {
+
                 List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
                         .map(LottoNumber::valueOf)
                         .toList();
@@ -35,6 +36,7 @@ class LottoTest {
             @Test
             @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
             void createLottoByListFailWhenSizeIsNotSix() {
+
                 List<LottoNumber> lottoNumbers = List.of(
                         LottoNumber.valueOf(1)
                 );
@@ -47,6 +49,7 @@ class LottoTest {
             @Test
             @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
             void createLottoByListFailWhenDuplicateNumberExists() {
+
                 List<LottoNumber> lottoNumbers = Stream.of(1, 1, 2, 3, 4, 5)
                         .map(LottoNumber::valueOf)
                         .toList();
@@ -64,18 +67,16 @@ class LottoTest {
             @Test
             @DisplayName("로또를 생성한다")
             void createLottoByListSuccess() {
-                int[] lottoNumbers = {1, 2, 3, 4, 5, 6};
 
-                assertThatCode(() -> new Lotto(lottoNumbers))
+                assertThatCode(() -> Lotto.from(List.of(1, 2, 3, 4, 5, 6)))
                         .doesNotThrowAnyException();
             }
 
             @Test
             @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
             void createLottoByListFailWhenSizeIsNotSix() {
-                int[] lottoNumbers = {1};
 
-                assertThatThrownBy(() -> new Lotto(lottoNumbers))
+                assertThatThrownBy(() -> Lotto.from(List.of(1)))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage("로또 번호는 6개여야 합니다.");
             }
@@ -83,9 +84,8 @@ class LottoTest {
             @Test
             @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
             void createLottoByListFailWhenDuplicateNumberExists() {
-                int[] lottoNumbers = {1, 1, 3, 4, 5, 6};
 
-                assertThatThrownBy(() -> new Lotto(lottoNumbers))
+                assertThatThrownBy(() -> Lotto.from(List.of(1, 1, 3, 4, 5, 6)))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage("로또 번호는 중복되지 않아야 합니다.");
             }
@@ -99,8 +99,9 @@ class LottoTest {
         @Test
         @DisplayName("일치하는 로또 번호의 개수를 반환한다")
         void countMatchingNumber() {
-            Lotto lotto = new Lotto(1, 2, 3, 4, 5, 6);
-            Lotto compareLotto = new Lotto(1, 2, 3, 7, 8, 9);
+
+            Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+            Lotto compareLotto = Lotto.from(List.of(1, 2, 3, 7, 8, 9));
 
             assertThat(lotto.countMatchingNumber(compareLotto)).isEqualTo(3);
         }

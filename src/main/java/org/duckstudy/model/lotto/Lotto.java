@@ -30,10 +30,10 @@ public class Lotto {
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
-    public Lotto(int... values) {
-        this(IntStream.of(values)
-                .mapToObj(LottoNumber::valueOf)
-                .toList());
+    public static Lotto from(List<Integer> values) {
+        return new Lotto(values.stream()
+                .map(LottoNumber::valueOf)
+                .collect(toList()));
     }
 
     public static Lotto createRandomLotto() {
