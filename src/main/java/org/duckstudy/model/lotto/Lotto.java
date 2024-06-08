@@ -26,7 +26,8 @@ public class Lotto {
     private final List<LottoNumber> lotto;
 
     public Lotto(List<LottoNumber> lotto) {
-        validateLotto(lotto);
+        validateLottoSize(lotto);
+        validateDuplicate(lotto);
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
@@ -64,11 +65,13 @@ public class Lotto {
         return lotto.contains(lottoNumber);
     }
 
-    private void validateLotto(List<LottoNumber> lotto) {
+    private void validateLottoSize(List<LottoNumber> lotto) {
         if (lotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(String.format("로또 번호는 %d개여야 합니다.", LOTTO_SIZE));
         }
+    }
 
+    private void validateDuplicate(List<LottoNumber> lotto) {
         if (lotto.stream().distinct().count() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복되지 않아야 합니다.");
         }
