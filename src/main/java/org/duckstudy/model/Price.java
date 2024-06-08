@@ -1,6 +1,8 @@
 package org.duckstudy.model;
 
 import java.util.Objects;
+import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class Price {
 
@@ -41,7 +43,7 @@ public class Price {
         return value / LOTTO_PRICE;
     }
 
-    public double divideByLottoPrice(Price divisor) {
+    public double divideByPrice(Price divisor) {
         checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();
     }
@@ -50,6 +52,19 @@ public class Price {
         if (divisor == 0) {
             throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
         }
+    }
+
+    public double calculateProfitRate(LottoResult result) {
+        Price profit = Price.initialize();
+        for (WinningRank winningRank : WinningRank.values()) {
+            profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
+        }
+        return profit.divideByPrice(this) * 100;
+    }
+
+    private Price accumulateProfit(WinningRank winningRank, int count) {
+        return this.addPrice(winningRank.getPrice())
+                .multiplyTimes(count);
     }
 
     public int getValue() {

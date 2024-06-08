@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class LottoResult {
@@ -35,23 +34,7 @@ public class LottoResult {
                 )));
     }
 
-    public double calculateProfitRate(Price price) {
-        Price profit = Price.initialize();
-        for (WinningRank winningRank : WinningRank.values()) {
-            profit = getPrice(profit, winningRank);
-        }
-        return profit.divideByLottoPrice(price) * 100;
-    }
-
-    private Price getPrice(Price profit, WinningRank winningRank) {
-        if (getMatchingCount(winningRank.getKey()) == 0) {
-            return profit;
-        }
-        return profit.addPrice(winningRank.getPrice())
-                .multiplyTimes(getMatchingCount(winningRank.getKey()));
-    }
-
-    private int getMatchingCount(int count) {
+    public int getMatchingCount(int count) {
         return result.getOrDefault(count, 0);
     }
 
