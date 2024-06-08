@@ -19,11 +19,11 @@ class LottoTest {
 
         @Nested
         @DisplayName("로또 번호 리스트로 입력받은 로또 생성 테스트")
-        class LottoCreationWithListTest {
+        class LottoCreationFromLottoNumberTest {
 
             @Test
             @DisplayName("로또를 생성한다")
-            void createLottoByListSuccess() {
+            void createLottoSuccess() {
 
                 List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
                         .map(LottoNumber::valueOf)
@@ -35,7 +35,7 @@ class LottoTest {
 
             @Test
             @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
-            void createLottoByListFailWhenSizeIsNotSix() {
+            void createLottoFailWhenSizeIsNotSix() {
 
                 List<LottoNumber> lottoNumbers = List.of(
                         LottoNumber.valueOf(1)
@@ -48,7 +48,7 @@ class LottoTest {
 
             @Test
             @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
-            void createLottoByListFailWhenDuplicateNumberExists() {
+            void createLottoFailWhenDuplicateNumberExists() {
 
                 List<LottoNumber> lottoNumbers = Stream.of(1, 1, 2, 3, 4, 5)
                         .map(LottoNumber::valueOf)
@@ -62,11 +62,11 @@ class LottoTest {
 
         @Nested
         @DisplayName("정수 리스트로 입력받은 로또 생성 테스트")
-        class LottoCreationWithArrayTest {
+        class LottoCreationFromIntegerTest {
 
             @Test
             @DisplayName("로또를 생성한다")
-            void createLottoByListSuccess() {
+            void createLottoSuccess() {
 
                 assertThatCode(() -> Lotto.from(List.of(1, 2, 3, 4, 5, 6)))
                         .doesNotThrowAnyException();
@@ -74,7 +74,7 @@ class LottoTest {
 
             @Test
             @DisplayName("로또를 생성할 때 6개의 로또 번호가 아니면 예외를 발생한다")
-            void createLottoByListFailWhenSizeIsNotSix() {
+            void createLottoFailWhenSizeIsNotSix() {
 
                 assertThatThrownBy(() -> Lotto.from(List.of(1)))
                         .isInstanceOf(IllegalArgumentException.class)
@@ -83,7 +83,7 @@ class LottoTest {
 
             @Test
             @DisplayName("로또를 생성할 때 중복된 로또 번호가 있으면 예외를 발생한다")
-            void createLottoByListFailWhenDuplicateNumberExists() {
+            void createLottoFailWhenDuplicateNumberExists() {
 
                 assertThatThrownBy(() -> Lotto.from(List.of(1, 1, 3, 4, 5, 6)))
                         .isInstanceOf(IllegalArgumentException.class)
