@@ -26,21 +26,12 @@ public class Price {
         }
     }
 
-    public int calculateLottoCount() {
-        return divideByLottoPrice();
-    }
-
     public Price addPrice(int value) {
         return new Price(this.value + value);
     }
 
     public Price multiplyTimes(int times) {
         return new Price(value * times);
-    }
-
-    private int divideByLottoPrice() {
-        checkIfZero(LOTTO_PRICE);
-        return value / LOTTO_PRICE;
     }
 
     public double divideByPrice(Price divisor) {
@@ -52,6 +43,11 @@ public class Price {
         if (divisor == 0) {
             throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
         }
+    }
+
+    public int calculateLottoCount() {
+        checkIfZero(LOTTO_PRICE);
+        return value / LOTTO_PRICE;
     }
 
     public double calculateProfitRate(LottoResult result) {

@@ -3,17 +3,14 @@ package org.duckstudy.view;
 import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
 import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
 
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class OutputView {
-
-    public static final int DEFAULT_VALUE = 0;
 
     public void printInputPrice() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -23,9 +20,10 @@ public class OutputView {
         System.out.println(e.getMessage());
     }
 
-    public void printLottos(List<Lotto> lottos) {
-        System.out.printf("\n%d개를 구매했습니다.\n", lottos.size());
-        lottos.forEach(this::printLotto);
+    public void printLottos(Lottos lottos) {
+        System.out.printf("\n%d개를 구매했습니다.\n", lottos.getSize());
+        lottos.getLottos()
+                .forEach(this::printLotto);
     }
 
     private void printLotto(Lotto lotto) {
@@ -47,17 +45,17 @@ public class OutputView {
     public void printLottoResult(LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
-        iterateLottoResult(result.getResult());
+        iterateLottoResult(result);
     }
 
-    private void iterateLottoResult(Map<Integer, Integer> result) {
+    private void iterateLottoResult(LottoResult result) {
         for (WinningRank winningRank : WinningRank.values()) {
             printMatchingResult(result, winningRank);
         }
         System.out.println();
     }
 
-    private void printMatchingResult(Map<Integer, Integer> result, WinningRank winningRank) {
+    private void printMatchingResult(LottoResult result, WinningRank winningRank) {
         if (winningRank == NONE) {
             return;
         }
@@ -67,7 +65,7 @@ public class OutputView {
         int price = winningRank.getPrice();
 
         String matchPriceMessage = getMatchPrice(winningRank, cnt, price);
-        Integer matchingCount = result.getOrDefault(key, DEFAULT_VALUE);
+        int matchingCount = result.getMatchingCount(key);
 
         System.out.println(matchPriceMessage + matchingCount + "개");
     }
@@ -81,5 +79,9 @@ public class OutputView {
 
     public void printTotalProfit(double totalProfitRate) {
         System.out.printf("총 수익률은 %.2f입니다.\n", totalProfitRate);
+    }
+
+    public void printExceptionForBonusNumber() {
+        System.out.println("보너스 볼은 당첨 번호와 중복되면 안됩니다.");
     }
 }

@@ -25,7 +25,7 @@ public class Lottos {
                 .collect(collectingAndThen(toList(), Lottos::new));
     }
 
-    public LottoResult createTotalLottoResult(Lotto winningLotto, LottoNumber bonusNumber) {
+    public LottoResult accumulateLottoResult(Lotto winningLotto, LottoNumber bonusNumber) {
         return lottos.stream()
                 .map(lotto -> LottoResult.createLottoResult(lotto, winningLotto, bonusNumber))
                 .reduce(new LottoResult(Map.of()), LottoResult::merge);
@@ -33,5 +33,9 @@ public class Lottos {
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public int getSize() {
+        return lottos.size();
     }
 }
