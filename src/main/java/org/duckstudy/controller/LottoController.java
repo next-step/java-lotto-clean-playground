@@ -48,16 +48,13 @@ public class LottoController {
     }
 
     private LottoNumber createBonusNumber(Lotto winningLotto) {
-        int bonusNumber = inputView.inputBonusNumber();
-        LottoNumber lottoNumber = LottoNumber.valueOf(bonusNumber);
-
-        if (winningLotto.containsNumber(lottoNumber)) {
+        LottoNumber bonusNumber = LottoNumber.valueOf(inputView.inputBonusNumber());
+        if (winningLotto.containsNumber(bonusNumber)) {
             outputView.printExceptionForBonusNumber();
             return createBonusNumber(winningLotto);
         }
-
         outputView.printExceptionForBonusNumber();
-        return lottoNumber;
+        return bonusNumber;
     }
 
     private void getWinningResult(Price price, Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
