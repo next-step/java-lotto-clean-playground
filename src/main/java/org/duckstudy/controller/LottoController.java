@@ -21,12 +21,12 @@ public class LottoController {
     public void run() {
         Price price = createPrice();
         Lottos lottos = Lottos.generateLottosByPrice(price);
-        outputView.printLottos(lottos.getLottos());
+        outputView.printLottos(lottos);
 
         Lotto winningLotto = createWinningLotto();
         LottoNumber bonusNumber = createBonusNumber(winningLotto);
 
-        calculateWinningResult(price, lottos, winningLotto, bonusNumber);
+        getWinningResult(price, lottos, winningLotto, bonusNumber);
     }
 
     private Price createPrice() {
@@ -48,35 +48,32 @@ public class LottoController {
     }
 
     private LottoNumber createBonusNumber(Lotto winningLotto) {
-        try {
-            return checkAndGetBonusNumber(winningLotto, LottoNumber.valueOf(inputView.inputBonusNumber()));
-        } catch (IllegalArgumentException e) {
-            outputView.printException(e);
+        int bonusNumber = inputView.inputBonusNumber();
+        LottoNumber lottoNumber = LottoNumber.valueOf(bonusNumber);
+
+        if (winningLotto.containsNumber(lottoNumber)) {
+            outputView.printExceptionForBonusNumber();
             return createBonusNumber(winningLotto);
         }
-    }
 
-    private LottoNumber checkAndGetBonusNumber(Lotto winningLotto, LottoNumber lottoNumber) {
-        if (winningLotto.getLotto().contains(lottoNumber)) {
-            throw new IllegalArgumentException("당첨 번호와 중복되는 보너스 볼은 입력할 수 없습니다.");
-        }
+        outputView.printExceptionForBonusNumber();
         return lottoNumber;
     }
 
-    private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
-        LottoResult result = calculateAndPrintLottoResult(lottos, winningLotto, bonusNumber);
+    private void getWinningResult(Price price, Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = createLottoResult(lottos, winningLotto, bonusNumber);
 
-        calculateAndPrintProfitRate(price, result);
+        calculateProfitRate(price, result);
     }
 
-    private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
-        LottoResult result = lottos.calculateTotalLottoResult(winningLotto, bonusNumber);
-        outputView.printWinningResult(result);
+    private LottoResult createLottoResult(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = lottos.accumulateLottoResult(winningLotto, bonusNumber);
+        outputView.printLottoResult(result);
         return result;
     }
 
-    private void calculateAndPrintProfitRate(Price price, LottoResult result) {
-        double profitRate = result.calculateProfitRate(price);
+    private void calculateProfitRate(Price price, LottoResult result) {
+        double profitRate = price.calculateProfitRate(result);
         outputView.printTotalProfit(profitRate);
     }
 }
