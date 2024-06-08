@@ -4,6 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import java.util.HashMap;
+import java.util.Map;
+import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -65,7 +69,7 @@ class PriceTest {
 
             Price price = new Price(1000);
 
-            double result = price.divideByLottoPrice(new Price(10));
+            double result = price.divideByPrice(new Price(10));
 
             assertThat(result).isEqualTo(100);
         }
@@ -76,7 +80,7 @@ class PriceTest {
 
             Price price = new Price(1000);
 
-            assertThatThrownBy(() -> price.divideByLottoPrice(new Price(0)))
+            assertThatThrownBy(() -> price.divideByPrice(new Price(0)))
                     .isExactlyInstanceOf(IllegalArgumentException.class)
                     .hasMessage("0으로 나눌 수 없습니다.");
         }
@@ -93,6 +97,17 @@ class PriceTest {
             Price price = new Price(10000);
 
             assertThat(price.calculateLottoCount()).isEqualTo(10);
+        }
+
+        @Test
+        @DisplayName("로또 수익률을 계산한다")
+        void calculateProfitRate() {
+            Price purchasePrice = new Price(15000);
+            Map<Integer, Integer> result = new HashMap<>();
+            result.put(WinningRank.FIRST.getKey(), 1);
+            LottoResult lottoResult = new LottoResult(result);
+
+            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(1.3333333333333334E7);
         }
     }
 }

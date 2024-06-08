@@ -2,9 +2,9 @@ package org.duckstudy.model.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.duckstudy.model.lotto.constant.LottoRank.FIRST;
-import static org.duckstudy.model.lotto.constant.LottoRank.NONE;
-import static org.duckstudy.model.lotto.constant.LottoRank.SECOND;
+import static org.duckstudy.model.lotto.constant.WinningRank.FIRST;
+import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
+import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
 
 import java.util.List;
 import org.duckstudy.model.Price;
@@ -23,9 +23,9 @@ class LottosTest {
         @DisplayName("구매 가격을 입력하면 가격에 맞는 로또 묶음을 생성한다")
         void createLottosWhenInputPrice() {
 
-            Price price = new Price(10000);
+            Price purchasePrice = new Price(10000);
 
-            Lottos lottos = Lottos.generateLottosByPrice(price);
+            Lottos lottos = Lottos.generateLottosByPrice(purchasePrice);
 
             assertThat(lottos.getLottos()).hasSize(10);
         }
@@ -49,7 +49,7 @@ class LottosTest {
                     Lotto.from(List.of(20, 21, 22, 23, 24, 25))
             ));
 
-            LottoResult lottoResult = totalLottos.calculateTotalLottoResult(winningLotto, bonusNumber);
+            LottoResult lottoResult = totalLottos.accumulateLottoResult(winningLotto, bonusNumber);
 
             assertThat(lottoResult.getResult())
                     .containsExactly(
