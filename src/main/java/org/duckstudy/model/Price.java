@@ -8,6 +8,8 @@ public class Price {
 
     private static final int INCLUSIVE_MIN_PRICE = 0;
     private static final int LOTTO_PRICE = 1000;
+    public static final int ZERO = 0;
+    public static final int PERCENT_BASE = 100;
 
     private final int value;
 
@@ -26,6 +28,12 @@ public class Price {
         }
     }
 
+    public void validateInputPrice() {
+        if (value <= ZERO) {
+            throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.\n", ZERO));
+        }
+    }
+
     public Price addPrice(int value) {
         return new Price(this.value + value);
     }
@@ -40,8 +48,8 @@ public class Price {
     }
 
     private void checkIfZero(int divisor) {
-        if (divisor == 0) {
-            throw new IllegalArgumentException("0으로 나눌 수 없습니다.");
+        if (divisor == ZERO) {
+            throw new IllegalArgumentException(String.format("%d으로 나눌 수 없습니다.", ZERO));
         }
     }
 
@@ -55,7 +63,7 @@ public class Price {
         for (WinningRank winningRank : WinningRank.values()) {
             profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
         }
-        return profit.divideByPrice(this) * 100;
+        return profit.divideByPrice(this) * PERCENT_BASE;
     }
 
     private Price accumulateProfit(WinningRank winningRank, int count) {

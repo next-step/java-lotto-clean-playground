@@ -8,6 +8,9 @@ import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class LottoResult {
 
+    public static final int DEFAULT_FREQUENCY = 1;
+    public static final int DEFAULT_VALUE = 0;
+
     private final Map<Integer, Integer> result;
 
     public LottoResult(Map<Integer, Integer> result) {
@@ -21,7 +24,7 @@ public class LottoResult {
         int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus)
                 .getKey();
 
-        return new LottoResult(Map.of(key, 1));
+        return new LottoResult(Map.of(key, DEFAULT_FREQUENCY));
     }
 
     public LottoResult merge(LottoResult other) {
@@ -35,7 +38,7 @@ public class LottoResult {
     }
 
     public int getMatchingCount(int count) {
-        return result.getOrDefault(count, 0);
+        return result.getOrDefault(count, DEFAULT_VALUE);
     }
 
     public Map<Integer, Integer> getResult() {

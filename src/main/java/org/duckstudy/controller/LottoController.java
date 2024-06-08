@@ -31,7 +31,9 @@ public class LottoController {
 
     private Price createPrice() {
         try {
-            return new Price(inputView.inputPrice());
+            Price price = new Price(inputView.inputPrice());
+            price.validateInputPrice();
+            return price;
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createPrice();
