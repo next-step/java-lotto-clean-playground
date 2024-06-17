@@ -3,6 +3,8 @@ package org.duckstudy.model.lotto;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,13 +14,11 @@ import java.util.stream.Stream;
 
 public class Lotto {
 
-    private static final int START_INCLUSIVE_NUMBER = 1;
-    private static final int END_INCLUSIVE_NUMBER = 45;
     private static final List<Integer> NUMBERS;
-    public static final int LOTTO_SIZE = 6;
+    private static final int LOTTO_SIZE = 6;
 
     static {
-        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_INCLUSIVE_NUMBER + 1)
+        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER.getValue(), END_INCLUSIVE_NUMBER.getValue() + 1)
                 .boxed()
                 .toList();
     }
@@ -26,14 +26,15 @@ public class Lotto {
     private final List<LottoNumber> lotto;
 
     public Lotto(List<LottoNumber> lotto) {
-        validateLotto(lotto);
+        validateLottoSize(lotto);
+        validateDuplicate(lotto);
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
-    public Lotto(int... values) {
-        lotto = IntStream.of(values)
-                .mapToObj(LottoNumber::valueOf)
-                .toList();
+    public static Lotto from(List<Integer> values) {
+        return new Lotto(values.stream()
+                .map(LottoNumber::valueOf)
+                .collect(toList()));
     }
 
     public static Lotto createRandomLotto() {
@@ -55,16 +56,22 @@ public class Lotto {
 
     public int countMatchingNumber(Lotto compareLotto) {
         return lotto.stream()
-                .filter(compareLotto.getLotto()::contains)
+                .filter(lottoNumber -> compareLotto.getLotto().contains(lottoNumber))
                 .toList()
                 .size();
     }
 
-    private void validateLotto(List<LottoNumber> lotto) {
+    public boolean containsNumber(LottoNumber lottoNumber) {
+        return lotto.contains(lottoNumber);
+    }
+
+    private void validateLottoSize(List<LottoNumber> lotto) {
         if (lotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(String.format("로또 번호는 %d개여야 합니다.", LOTTO_SIZE));
         }
+    }
 
+    private void validateDuplicate(List<LottoNumber> lotto) {
         if (lotto.stream().distinct().count() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복되지 않아야 합니다.");
         }

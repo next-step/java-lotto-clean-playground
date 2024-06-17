@@ -1,12 +1,11 @@
 package org.duckstudy.model.lotto;
 
 import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import org.duckstudy.model.Price;
 
@@ -26,12 +25,17 @@ public class Lottos {
                 .collect(collectingAndThen(toList(), Lottos::new));
     }
 
-    public LottoResult calculateWinningResult(Lotto winningLotto) {
-        return new LottoResult(lottos.stream()
-                .collect(groupingBy(winningLotto::countMatchingNumber, summingInt(e -> 1))));
+    public LottoResult accumulateLottoResult(Lotto winningLotto, LottoNumber bonusNumber) {
+        return lottos.stream()
+                .map(lotto -> LottoResult.createLottoResult(lotto, winningLotto, bonusNumber))
+                .reduce(new LottoResult(Map.of()), LottoResult::merge);
     }
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public int getSize() {
+        return lottos.size();
     }
 }

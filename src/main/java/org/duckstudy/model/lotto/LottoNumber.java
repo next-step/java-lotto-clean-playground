@@ -1,18 +1,20 @@
 package org.duckstudy.model.lotto;
 
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.constant.LottoNumberRange.START_INCLUSIVE_NUMBER;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class LottoNumber {
 
-    private static final int START_INCLUSIVE_NUMBER = 1;
-    private static final int END_INCLUSIVE_NUMBER = 45;
-    private static final LottoNumber[] cache;
+    private static final List<LottoNumber> cache;
 
     static {
-        cache = IntStream.range(0, END_INCLUSIVE_NUMBER)
-                .mapToObj(i -> new LottoNumber(START_INCLUSIVE_NUMBER + i))
-                .toArray(LottoNumber[]::new);
+        cache = IntStream.range(0, END_INCLUSIVE_NUMBER.getValue())
+                .mapToObj(i -> new LottoNumber(START_INCLUSIVE_NUMBER.getValue() + i))
+                .toList();
     }
 
     private final int value;
@@ -24,13 +26,14 @@ public class LottoNumber {
     public static LottoNumber valueOf(int number) {
         validateNumber(number);
 
-        return cache[number - START_INCLUSIVE_NUMBER];
+        return cache.get(number - START_INCLUSIVE_NUMBER.getValue());
     }
 
     private static void validateNumber(int number) {
-        if (number < START_INCLUSIVE_NUMBER || number > END_INCLUSIVE_NUMBER) {
+        if (number < START_INCLUSIVE_NUMBER.getValue() || number > END_INCLUSIVE_NUMBER.getValue()) {
             throw new IllegalArgumentException(
-                    String.format("로또 번호는 %d 이상 %d 이하의 숫자여야 합니다.", START_INCLUSIVE_NUMBER, END_INCLUSIVE_NUMBER));
+                    String.format("로또 번호는 %d 이상 %d 이하의 숫자여야 합니다.", START_INCLUSIVE_NUMBER.getValue(),
+                            END_INCLUSIVE_NUMBER.getValue()));
         }
     }
 

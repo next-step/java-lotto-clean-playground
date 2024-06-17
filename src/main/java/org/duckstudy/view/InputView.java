@@ -3,6 +3,7 @@ package org.duckstudy.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 public class InputView {
 
@@ -23,16 +24,30 @@ public class InputView {
         }
     }
 
-    public int[] inputWinningLotto() {
+    public List<Integer> inputWinningLotto() {
         outputView.printInputWinningLotto();
 
         try {
-            return Arrays.stream(bufferedReader.readLine().split(","))
-                    .map(String::trim)
-                    .mapToInt(Integer::parseInt)
-                    .toArray();
+            return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {
             throw new NumberFormatException("숫자만 입력 가능합니다.\n");
+        }
+    }
+
+    private List<Integer> inputLottoNumber() throws IOException {
+        return Arrays.stream(bufferedReader.readLine().split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
+    }
+
+    public int inputBonusNumber() {
+        outputView.printInputBonusNumber();
+
+        try {
+            return Integer.parseInt(bufferedReader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            throw new NumberFormatException("숫자만 입력 가능합니다.");
         }
     }
 }

@@ -1,17 +1,15 @@
 package org.duckstudy.model.lotto;
 
-import static org.duckstudy.model.Price.calculateWinningPrice;
-
 import java.util.Collections;
 import java.util.Map;
-import org.duckstudy.model.Price;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class LottoResult {
 
-    public static final int ZERO_COUNT = 0;
-    public static final int MIN_MATCHING_COUNT_TO_WIN = 3;
-    public static final int MAX_MATCHING_COUNT_TO_WIN = 6;
-    public static final int MAX_PERCENTAGE = 100;
+    public static final int DEFAULT_FREQUENCY = 1;
+    public static final int DEFAULT_VALUE = 0;
 
     private final Map<Integer, Integer> result;
 
@@ -19,18 +17,28 @@ public class LottoResult {
         this.result = Collections.unmodifiableMap(result);
     }
 
-    public double calculateProfitRate(Price price) {
-        Price profit = Price.zero();
+    public static LottoResult createLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
+        int matchingCount = lotto.countMatchingNumber(winningLotto);
+        boolean matchBonus = lotto.containsNumber(bonusNumber);
 
-        for (int i = MIN_MATCHING_COUNT_TO_WIN; i <= MAX_MATCHING_COUNT_TO_WIN; i++) {
-            profit = profit.addPrice(calculateWinningPrice(i)
-                    .multiplyTimes(getMatchingCount(i)));
-        }
-        return profit.divideBy(price) * MAX_PERCENTAGE;
+        int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus)
+                .getKey();
+
+        return new LottoResult(Map.of(key, DEFAULT_FREQUENCY));
     }
 
-    private int getMatchingCount(int count) {
-        return result.getOrDefault(count, ZERO_COUNT);
+    public LottoResult merge(LottoResult other) {
+        return new LottoResult(Stream.of(this.result, other.result)
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        Integer::sum
+                )));
+    }
+
+    public int getMatchingCount(int count) {
+        return result.getOrDefault(count, DEFAULT_VALUE);
     }
 
     public Map<Integer, Integer> getResult() {

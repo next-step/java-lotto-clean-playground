@@ -2,6 +2,7 @@ package org.duckstudy.controller;
 
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
+import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
@@ -20,15 +21,19 @@ public class LottoController {
     public void run() {
         Price price = createPrice();
         Lottos lottos = Lottos.generateLottosByPrice(price);
-        outputView.printLottos(lottos.getLottos());
+        outputView.printLottos(lottos);
 
         Lotto winningLotto = createWinningLotto();
-        calculateWinningResult(price, lottos, winningLotto);
+        LottoNumber bonusNumber = createBonusNumber(winningLotto);
+
+        getWinningResult(price, lottos, winningLotto, bonusNumber);
     }
 
     private Price createPrice() {
         try {
-            return new Price(inputView.inputPrice());
+            Price price = new Price(inputView.inputPrice());
+            price.validateInputPrice();
+            return price;
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createPrice();
@@ -37,27 +42,37 @@ public class LottoController {
 
     private Lotto createWinningLotto() {
         try {
-            return new Lotto(inputView.inputWinningLotto());
+            return Lotto.from(inputView.inputWinningLotto());
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
             return createWinningLotto();
         }
     }
 
-    private void calculateWinningResult(Price price, Lottos lottos, Lotto winningLotto) {
-        LottoResult result = calculateAndPrintLottoResult(lottos, winningLotto);
-
-        calculateAndPrintProfitRate(price, result);
+    private LottoNumber createBonusNumber(Lotto winningLotto) {
+        LottoNumber bonusNumber = LottoNumber.valueOf(inputView.inputBonusNumber());
+        if (winningLotto.containsNumber(bonusNumber)) {
+            outputView.printExceptionForBonusNumber();
+            return createBonusNumber(winningLotto);
+        }
+        outputView.printExceptionForBonusNumber();
+        return bonusNumber;
     }
 
-    private LottoResult calculateAndPrintLottoResult(Lottos lottos, Lotto winningLotto) {
-        LottoResult result = lottos.calculateWinningResult(winningLotto);
-        outputView.printWinningResult(result);
+    private void getWinningResult(Price price, Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = createLottoResult(lottos, winningLotto, bonusNumber);
+
+        calculateProfitRate(price, result);
+    }
+
+    private LottoResult createLottoResult(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoResult result = lottos.accumulateLottoResult(winningLotto, bonusNumber);
+        outputView.printLottoResult(result);
         return result;
     }
 
-    private void calculateAndPrintProfitRate(Price price, LottoResult result) {
-        double profitRate = result.calculateProfitRate(price);
+    private void calculateProfitRate(Price price, LottoResult result) {
+        double profitRate = price.calculateProfitRate(result);
         outputView.printTotalProfit(profitRate);
     }
 }
