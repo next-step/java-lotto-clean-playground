@@ -9,4 +9,12 @@ public class Lottos {
     public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
+
+    public int getBuyLottoCount() {
+        return lottos.size();
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
+    }
 }
