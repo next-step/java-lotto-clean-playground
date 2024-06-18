@@ -31,7 +31,7 @@ public enum WinningRank {
                 .orElseThrow(() -> new IllegalArgumentException("적절한 당첨 등수를 찾을 수 없습니다."));
     }
 
-    public boolean isMatch(int matchCount, boolean matchBonus) {
+    private boolean isMatch(int matchCount, boolean matchBonus) {
         return isMatchPredicate.test(matchCount, matchBonus);
     }
 
