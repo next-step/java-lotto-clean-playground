@@ -9,8 +9,8 @@ public class LastWeekLottoNumber {
 
     private final List<Integer> lastWeekLottoNumber;
 
-    public LastWeekLottoNumber(String LastWeekLottoNumber, int bonusBall) {
-        this.lastWeekLottoNumber = makeLastWeekLottoNumberList(LastWeekLottoNumber, bonusBall);
+    public LastWeekLottoNumber(String lastWeekLottoNumber, int bonusBall) {
+        this.lastWeekLottoNumber = makeLastWeekLottoNumberList(lastWeekLottoNumber, bonusBall);
     }
 
     public List<Integer> getLastWeekLottoNumber() {
