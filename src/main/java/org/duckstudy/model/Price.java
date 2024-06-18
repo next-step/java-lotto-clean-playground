@@ -18,7 +18,7 @@ public class Price {
         this.value = price;
     }
 
-    public static Price initialize() {
+    public static Price zero() {
         return new Price(INCLUSIVE_MIN_PRICE);
     }
 
@@ -59,7 +59,7 @@ public class Price {
     }
 
     public double calculateProfitRate(LottoResult result) {
-        Price profit = Price.initialize();
+        Price profit = Price.zero();
         for (WinningRank winningRank : WinningRank.values()) {
             profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
         }

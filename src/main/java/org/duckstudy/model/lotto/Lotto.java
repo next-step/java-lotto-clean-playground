@@ -3,8 +3,8 @@ package org.duckstudy.model.lotto;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
-import static org.duckstudy.model.lotto.constant.LottoNumberRange.END_INCLUSIVE_NUMBER;
-import static org.duckstudy.model.lotto.constant.LottoNumberRange.START_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.LottoNumber.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.model.lotto.LottoNumber.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Lotto {
     private static final int LOTTO_SIZE = 6;
 
     static {
-        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER.getValue(), END_INCLUSIVE_NUMBER.getValue() + 1)
+        NUMBERS = IntStream.range(START_INCLUSIVE_NUMBER, END_INCLUSIVE_NUMBER + 1)
                 .boxed()
                 .toList();
     }
