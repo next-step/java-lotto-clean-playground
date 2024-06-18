@@ -21,8 +21,7 @@ public class LottoResult {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
-        int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus)
-                .getKey();
+        int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus);
 
         return new LottoResult(Map.of(key, DEFAULT_FREQUENCY));
     }

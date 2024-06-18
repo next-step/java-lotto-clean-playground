@@ -15,19 +15,19 @@ class WinningRankTest {
     @ParameterizedTest
     @MethodSource("generateMatchCountAndMatchBonus")
     void findWinningRankSuccess(int matchCount, boolean matchBonus,
-                                WinningRank expected) {
+                                int expected) {
         assertThat(WinningRank.findByMatchCountAndBonus(matchCount, matchBonus))
                 .isEqualTo(expected);
     }
 
     static Stream<Arguments> generateMatchCountAndMatchBonus() {
         return Stream.of(
-                Arguments.of(0, false, WinningRank.NONE),
-                Arguments.of(3, false, WinningRank.FIFTH),
-                Arguments.of(4, false, WinningRank.FOURTH),
-                Arguments.of(5, false, WinningRank.THIRD),
-                Arguments.of(5, true, WinningRank.SECOND),
-                Arguments.of(6, false, WinningRank.FIRST)
+                Arguments.of(0, false, WinningRank.NONE.getKey()),
+                Arguments.of(3, false, WinningRank.FIFTH.getKey()),
+                Arguments.of(4, false, WinningRank.FOURTH.getKey()),
+                Arguments.of(5, false, WinningRank.THIRD.getKey()),
+                Arguments.of(5, true, WinningRank.SECOND.getKey()),
+                Arguments.of(6, false, WinningRank.FIRST.getKey())
         );
     }
 }

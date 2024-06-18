@@ -24,10 +24,11 @@ public enum WinningRank {
         this.isMatchPredicate = isMatchPredicate;
     }
 
-    public static WinningRank findByMatchCountAndBonus(int matchCount, boolean matchBonus) {
+    public static int findByMatchCountAndBonus(int matchCount, boolean matchBonus) {
         return Stream.of(values())
                 .filter(winningLank -> winningLank.isMatch(matchCount, matchBonus))
                 .findFirst()
+                .map(WinningRank::getKey)
                 .orElseThrow(() -> new IllegalArgumentException("적절한 당첨 등수를 찾을 수 없습니다."));
     }
 
