@@ -2,12 +2,11 @@ package controller;
 
 import domain.*;
 import view.InputView;
+import view.LottoRankDto;
 import view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class LottoController {
 
@@ -68,12 +67,11 @@ public class LottoController {
     }
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber, int getLottoMoney) {
-        LottoRank lottoRank = new LottoRank(lottos, lastWeekLottoNumber);
-        Map<String, Integer> lottoRanks = lottoRank.getLottoRank();
-        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
-        List<LottoRankDto> lottoRankDtos = lottoRanks.entrySet().stream().map(rank -> new LottoRankDto(rank.getKey(), rank.getValue())).toList();
+        LottoRankBundle lottoRankBundle = new LottoRankBundle(lottos, lastWeekLottoNumber);
+        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRankBundle.getLottoRank(), getLottoMoney);
         outputView.printLottoStatistics();
-        for(LottoRankDto lottoRankDto : lottoRankDtos){
+        for(LottoRank lottoRank : lottoRankBundle.getLottoRank()){
+            LottoRankDto lottoRankDto = new LottoRankDto(lottoRank.getLottoRank(), lottoRank.getLottoRankNumber());
             outputView.printLottoRank(lottoRankDto.toString());
         }
         outputView.printRateOfReturn(lottoReturnRate.getLottoReturnRate());

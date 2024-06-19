@@ -1,4 +1,6 @@
-package domain;
+package view;
+
+import domain.LottoPrice;
 
 public class LottoRankDto {
 

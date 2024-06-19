@@ -24,7 +24,7 @@ public class Lotto {
         List<Integer> singleLotto = new ArrayList<>(createLottoNumber.getRandomLottoNumber());
         sortLottoNumber(singleLotto);
         List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for(int lottoNumberElement : singleLotto){
+        for (int lottoNumberElement : singleLotto) {
             LottoNumber lottoNumber = new LottoNumber(lottoNumberElement);
             lottoNumbers.add(lottoNumber);
         }
@@ -34,7 +34,7 @@ public class Lotto {
     private List<LottoNumber> makePassiveLotto(List<Integer> inputPassiveLottoNumber) {
         List<Integer> passiveLottoNumber = new ArrayList<>(inputPassiveLottoNumber);
         List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for(int lottoNumberElement : passiveLottoNumber){
+        for (int lottoNumberElement : passiveLottoNumber) {
             LottoNumber lottoNumber = new LottoNumber(lottoNumberElement);
             lottoNumbers.add(lottoNumber);
         }

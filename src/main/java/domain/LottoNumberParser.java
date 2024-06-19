@@ -1,7 +1,7 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class LottoNumberParser {
 
@@ -39,10 +39,9 @@ public class LottoNumberParser {
     }
 
     private void validateLottoNumber(String lottoNumber) {
-        try{
+        try {
             Integer.parseInt(lottoNumber);
-        }
-        catch (NumberFormatException exception){
+        } catch (NumberFormatException exception) {
             throw new RuntimeException(EXCEPTION_NUMBER);
         }
     }

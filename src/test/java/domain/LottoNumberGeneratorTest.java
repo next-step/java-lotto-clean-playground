@@ -13,14 +13,14 @@ class LottoNumberGeneratorTest {
     @Test
     @DisplayName("로또 숫자 생성 인터페이스 테스트")
     void getRandomLottoNumber() {
-        //given
-        final FakeLottoNumberGenerator fakeLottoNumberGenerator = new FakeLottoNumberGenerator();
-        final List<Integer> expected = fakeLottoNumberGenerator.getRandomLottoNumber();
+        // given
+        final CreateLottoNumber createLottoNumber = new FakeLottoNumberGenerator();
+        final List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
 
-        //when
-        final List<Integer> actual = List.of(1, 2, 3, 4, 5, 6);
+        // when
+        final List<Integer> actual = createLottoNumber.getRandomLottoNumber();
 
-        //then
+        // then
         assertEquals(expected, actual);
     }
 }

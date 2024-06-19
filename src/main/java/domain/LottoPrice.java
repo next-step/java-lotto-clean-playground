@@ -1,7 +1,7 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public enum LottoPrice {
@@ -13,6 +13,7 @@ public enum LottoPrice {
     SIX("6", 2000000000);
 
     private static final int MAKE_FIRST_INDEX = 3;
+    private static final String LAST_INDEX_NUMBER = "6";
 
     private final String sameLottoNumber;
     private final int lottoPrice;
@@ -34,7 +35,7 @@ public enum LottoPrice {
         if (Objects.equals(sameLottoNumber, BONUS.getSameLottoNumber())) {
             return BONUS.getLottoPrice();
         }
-        if (Objects.equals(sameLottoNumber, "6")) {
+        if (Objects.equals(sameLottoNumber, LAST_INDEX_NUMBER)) {
             return SIX.getLottoPrice();
         }
         LottoPrice[] lottoPrices = LottoPrice.values();

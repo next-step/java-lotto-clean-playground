@@ -12,7 +12,7 @@ class LottosTest {
     @Test
     @DisplayName("로또 묶음 사이즈 테스트")
     void getLottos() {
-        //given
+        // given
         final int lottoMoney = 3000;
         final String inputPassiveLottoNumber = "1,2,3,4,5,6";
         final LottoNumberParser lottoNumberParser = new LottoNumberParser(inputPassiveLottoNumber);
@@ -21,10 +21,10 @@ class LottosTest {
         final Lottos lottos = new Lottos(createLottoNumber, lottoNumberParsers, lottoMoney);
         final int expected = 3;
 
-        //when
+        // when
         final int actual = lottos.getLottos().size();
 
-        //then
+        // then
         assertEquals(expected, actual);
     }
 }
