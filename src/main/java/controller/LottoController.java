@@ -47,7 +47,8 @@ public class LottoController {
         CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
         Lottos lottos = new Lottos(createLottoNumber, passiveLottoNumber.getPassiveLottoNumbers(), getLottoMoney);
         for (Lotto lotto : lottos.getLottos()) {
-            outputView.printLotto(lotto.getLottoNumber());
+            List<Integer> lottoNumber = lotto.getLottoNumber().stream().map(LottoNumber::getLottoNumber).toList();
+            outputView.printLotto(lottoNumber);
         }
         return lottos;
     }

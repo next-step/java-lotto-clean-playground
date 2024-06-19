@@ -1,12 +1,12 @@
 package domain;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> lottoNumber;
+    private final List<LottoNumber> lottoNumber;
 
     public Lotto(CreateLottoNumber createLottoNumber) {
         this.lottoNumber = makeAutoLotto(createLottoNumber);
@@ -16,18 +16,29 @@ public class Lotto {
         this.lottoNumber = makePassiveLotto(inputPassiveLottoNumber);
     }
 
-    public List<Integer> getLottoNumber() {
+    public List<LottoNumber> getLottoNumber() {
         return lottoNumber;
     }
 
-    private List<Integer> makeAutoLotto(CreateLottoNumber createLottoNumber) {
+    private List<LottoNumber> makeAutoLotto(CreateLottoNumber createLottoNumber) {
         List<Integer> singleLotto = new ArrayList<>(createLottoNumber.getRandomLottoNumber());
         sortLottoNumber(singleLotto);
-        return singleLotto;
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for(int lottoNumberElement : singleLotto){
+            LottoNumber lottoNumber = new LottoNumber(lottoNumberElement);
+            lottoNumbers.add(lottoNumber);
+        }
+        return lottoNumbers;
     }
 
-    private List<Integer> makePassiveLotto(List<Integer> inputPassiveLottoNumber) {
-        return new ArrayList<>(inputPassiveLottoNumber);
+    private List<LottoNumber> makePassiveLotto(List<Integer> inputPassiveLottoNumber) {
+        List<Integer> passiveLottoNumber = new ArrayList<>(inputPassiveLottoNumber);
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for(int lottoNumberElement : passiveLottoNumber){
+            LottoNumber lottoNumber = new LottoNumber(lottoNumberElement);
+            lottoNumbers.add(lottoNumber);
+        }
+        return lottoNumbers;
     }
 
     private void sortLottoNumber(List<Integer> lottoNumber) {
