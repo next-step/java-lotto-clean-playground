@@ -13,4 +13,13 @@ public class Lotto {
     public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    public static Lotto createLotto() {
+        LottoNumbers lottoNumbers = new LottoNumbers();
+        return new Lotto(lottoNumbers.generateLottoNumber());
+    }
+
+    public static Lotto createLotto(List<Integer> lottoNumbers) {
+        return new Lotto(lottoNumbers);
+    }
 }
