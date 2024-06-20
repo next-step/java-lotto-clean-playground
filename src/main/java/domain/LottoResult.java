@@ -1,25 +1,21 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LottoResult {
 
     private final List<LottoRank> ranks;
-    private final int[] rankCounts;
+    private final List<Integer> rankCounts;
     private final int price;
     private int totalPrize;
 
 
     public LottoResult(List<Integer> winCount, int price) {
-        this.ranks = new ArrayList<>();
-        ranks.add(new LottoRank(6, 2000000000));
-        ranks.add(new LottoRank(5, 1500000));
-        ranks.add(new LottoRank(4, 50000));
-        ranks.add(new LottoRank(3, 5000));
-
-        this.rankCounts = new int[ranks.size()];
-        this.price=price;
+        this.ranks = Arrays.asList(LottoRank.FIRST, LottoRank.SECOND, LottoRank.THIRD, LottoRank.FOURTH);
+        this.rankCounts = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
+        this.price = price;
         calculateRankCounts(winCount);
     }
 
@@ -32,12 +28,12 @@ public class LottoResult {
     private void updateRankCount(int count) {
         for (int i = 0; i < ranks.size(); i++) {
             if (ranks.get(i).getCount() == count) {
-                rankCounts[i]++;
+                rankCounts.set(i, rankCounts.get(i) + 1);
             }
         }
     }
 
-    public int[] getRankCounts() {
+    public List<Integer> getRankCounts() {
         return rankCounts;
     }
 
@@ -47,13 +43,13 @@ public class LottoResult {
 
     public int getTotalPrize() {
         for (int i = 0; i < ranks.size(); i++) {
-            totalPrize += ranks.get(i).getPrize() * rankCounts[i];
+            totalPrize += ranks.get(i).getPrize() * rankCounts.get(i);
         }
         return totalPrize;
     }
 
-    public double getProfitRate(){
-        totalPrize=getTotalPrize();
-        return ((double)totalPrize/price);
+    public double getProfitRate() {
+        totalPrize = getTotalPrize();
+        return ((double) totalPrize / price);
     }
 }
