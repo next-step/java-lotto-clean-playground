@@ -1,6 +1,11 @@
 package controller;
 
-import domain.*;
+import domain.LottoMarket;
+import domain.Lottos;
+import domain.Lotto;
+import domain.LottoRank;
+import domain.LottoWin;
+import domain.LottoResult;
 import view.InputView;
 import view.OutputView;
 
@@ -13,10 +18,9 @@ public class LottoController {
     private final OutputView outputView;
     private int price;
 
-    public LottoController(InputView inputView, OutputView outputView, int price) {
+    public LottoController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.price = price;
     }
 
     public void LottoRun() {
@@ -37,10 +41,11 @@ public class LottoController {
 
     private void LottoWin(Lottos lottos) {
         String inputWinNumber = inputView.inputWinningNumber();
-        LottoWin lottoWinning = new LottoWin(lottos.getLottos(), inputWinNumber);
-        LottoResult lottoResult = new LottoResult(lottoWinning.getWinCount(), price);
+        LottoWin lottoWinning = new LottoWin();
+        List<Integer> winCounts = lottoWinning.calculateWinCounts(lottos.getLottos(), inputWinNumber);
+        LottoResult lottoResult = new LottoResult(winCounts, price);
 
-        int[] rankCounts = lottoResult.getRankCounts();
+        List rankCounts = lottoResult.getRankCounts();
         List<int[]> Ranks = new ArrayList<>();
         createRank(lottoResult, Ranks);
 
