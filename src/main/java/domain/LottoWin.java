@@ -5,24 +5,23 @@ import java.util.List;
 
 public class LottoWin {
 
-    private final List<Integer> winNumber;
-    private final List<Integer> winCount;
+    private static final String SPLIT_CHAR = ",";
 
-    public LottoWin(List<Lotto> lottoList, String inputNumber) {
-        this.winNumber = splitString(inputNumber);
-        this.winCount = addWinCount(lottoList);
+    public List<Integer> calculateWinCounts(List<Lotto> lottoList, String inputNumber) {
+        List<Integer> winNumber = splitString(inputNumber);
+        return addWinCount(lottoList, winNumber);
     }
 
     private List<Integer> splitString(String inputNumber) {
         List<Integer> numbers = new ArrayList<>();
-        String[] splitNumbers = inputNumber.split(",");
+        String[] splitNumbers = inputNumber.split(SPLIT_CHAR);
         for (String number : splitNumbers) {
             numbers.add(Integer.parseInt(number));
         }
         return numbers;
     }
 
-    private List<Integer> addWinCount(List<Lotto> lottoList) {
+    private List<Integer> addWinCount(List<Lotto> lottoList, List<Integer> winNumber) {
         List<Integer> winCount = new ArrayList<>();
         for (Lotto lotto : lottoList) {
             winCount.add(checkWinNumber(lotto.getLottoNumbers(), winNumber));
@@ -43,9 +42,5 @@ public class LottoWin {
             count++;
         }
         return count;
-    }
-
-    public List<Integer> getWinCount() {
-        return winCount;
     }
 }
