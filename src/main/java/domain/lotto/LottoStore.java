@@ -26,7 +26,7 @@ public class LottoStore {
         return lottoTickets;
     }
 
-    private static int getCount(Money money) {
+    private int getCount(Money money) {
         return money.getAmount() / LOTTO_PRICE;
     }
 }
