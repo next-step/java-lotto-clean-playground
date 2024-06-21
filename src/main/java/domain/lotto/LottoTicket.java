@@ -38,7 +38,7 @@ public class LottoTicket {
     }
 
     private void sortByAsc(List<Integer> lottoNumbers) {
-        lottoNumbers.sort(Comparator.comparingInt(i -> i));
+        lottoNumbers.sort(Comparator.naturalOrder());
     }
 
     @Override
