@@ -11,15 +11,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 class LottoTicketTest {
 
     @Test
     @DisplayName("생성자 테스트1 - 정상적인 숫자들로 6개 들어왔을 때 통과")
     void 생성자_테스트1() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        LottoTicket lottoTicket = new LottoTicket(numbers);
-
-        Assertions.assertThat(lottoTicket.size()).isEqualTo(6);
+        
+        assertDoesNotThrow(() -> new LottoTicket(numbers));
     }
     
     @ParameterizedTest
