@@ -2,7 +2,7 @@ package domain.lotto;
 
 public class Money {
     
-    public final int amount;
+    private final int amount;
 
     public Money(int amount) {
         validate(amount);
