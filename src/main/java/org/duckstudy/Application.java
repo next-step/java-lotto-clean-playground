@@ -10,7 +10,7 @@ public class Application {
     public static void main(String[] args) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         OutputView outputView = new OutputView();
-        InputView inputView = new InputView(bufferedReader, outputView);
+        InputView inputView = new InputView(bufferedReader);
 
         LottoController lottoController = new LottoController(outputView, inputView);
         lottoController.run();

@@ -8,15 +8,12 @@ import java.util.List;
 public class InputView {
 
     private final BufferedReader bufferedReader;
-    private final OutputView outputView;
 
-    public InputView(BufferedReader bufferedReader, OutputView outputView) {
+    public InputView(BufferedReader bufferedReader) {
         this.bufferedReader = bufferedReader;
-        this.outputView = outputView;
     }
 
     public int inputPrice() {
-        outputView.printInputPrice();
         try {
             return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException | IOException e) {
@@ -25,8 +22,6 @@ public class InputView {
     }
 
     public List<Integer> inputWinningLotto() {
-        outputView.printInputWinningLotto();
-
         try {
             return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {
@@ -42,8 +37,6 @@ public class InputView {
     }
 
     public int inputBonusNumber() {
-        outputView.printInputBonusNumber();
-
         try {
             return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException | IOException e) {
@@ -52,8 +45,6 @@ public class InputView {
     }
 
     public int inputManualLottoCount() {
-        outputView.printInputManualLottoCount();
-
         try {
             return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException | IOException e) {

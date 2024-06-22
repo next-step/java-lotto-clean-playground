@@ -41,6 +41,7 @@ public class LottoController {
     }
 
     private Price createPrice() {
+        outputView.printInputPrice();
         try {
             Price price = new Price(inputView.inputPrice());
             price.validateInputPrice();
@@ -60,6 +61,7 @@ public class LottoController {
     }
 
     private LottoCount createManualLottoCount(LottoCount lottoCount) {
+        outputView.printInputManualLottoCount();
         try {
             LottoCount manualLottoCount = new LottoCount(inputView.inputManualLottoCount());
             manualLottoCount.validateManualLottoCount(lottoCount.getCount());
@@ -80,6 +82,7 @@ public class LottoController {
     }
 
     private Lotto createWinningLotto() {
+        outputView.printInputWinningLotto();
         try {
             return Lotto.from(inputView.inputWinningLotto());
         } catch (IllegalArgumentException e) {
@@ -89,6 +92,7 @@ public class LottoController {
     }
 
     private LottoNumber createBonusNumber(Lotto winningLotto) {
+        outputView.printInputBonusNumber();
         try {
             LottoNumber bonusNumber = LottoNumber.valueOf(inputView.inputBonusNumber());
             validateBonusNumber(winningLotto, bonusNumber);
