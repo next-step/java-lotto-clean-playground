@@ -61,4 +61,26 @@ class LottosTest {
                     );
         }
     }
+
+    @Nested
+    @DisplayName("로또 묶음 병합 테스트")
+    class LottosMergeTest {
+
+        @Test
+        @DisplayName("로또 묶음을 병합하면 하나의 로또 묶음으로 생성한다")
+        void mergeLottos() {
+
+            Lottos lottos1 = new Lottos(List.of(
+                    Lotto.from(List.of(1, 2, 3, 4, 5, 6))
+            ));
+
+            Lottos lottos2 = new Lottos(List.of(
+                    Lotto.from(List.of(7, 8, 9, 10, 11, 12))
+            ));
+
+            Lottos mergedLottos = lottos1.merge(lottos2);
+
+            assertThat(mergedLottos.getLottos()).hasSize(2);
+        }
+    }
 }

@@ -38,6 +38,47 @@ class PriceTest {
     }
 
     @Nested
+    @DisplayName("입력 가격 검증 테스트")
+    class InputPriceValidationTest {
+
+        @Test
+        @DisplayName("입력 가격이 양수일 경우 성공한다")
+        void validateInputPriceSuccessWhenPriceIsEqualOrGreaterThanZero() {
+
+            Price price = new Price(1);
+
+            assertThatCode(price::validateInputPrice)
+                    .doesNotThrowAnyException();
+        }
+
+        @Test
+        @DisplayName("입력 가격이 0 이하일 경우 예외가 발생한다")
+        void validateInputPriceFailWhenPriceIsZero() {
+
+            Price price = new Price(0);
+
+            assertThatThrownBy(price::validateInputPrice)
+                    .isExactlyInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("가격은 0원 이상이어야 합니다.\n");
+        }
+    }
+
+    @Nested
+    @DisplayName("가격 생성 테스트")
+    class PriceCreationTest {
+
+        @Test
+        @DisplayName("0원으로 가격을 생성하면 성공한다")
+        void createPriceWhenZero() {
+
+            Price price = Price.zero();
+
+            assertThat(price).isEqualTo(new Price(0));
+        }
+    }
+
+
+    @Nested
     @DisplayName("가격 계산 테스트")
     class PriceCalculateTest {
 
