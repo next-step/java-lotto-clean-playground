@@ -1,9 +1,11 @@
 package org.duckstudy.view;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 public class InputView {
 
@@ -21,7 +23,7 @@ public class InputView {
         }
     }
 
-    public List<Integer> inputWinningLotto() {
+    public Set<Integer> inputWinningLotto() {
         try {
             return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {
@@ -29,11 +31,11 @@ public class InputView {
         }
     }
 
-    private List<Integer> inputLottoNumber() throws IOException {
+    private Set<Integer> inputLottoNumber() throws IOException {
         return Arrays.stream(bufferedReader.readLine().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .toList();
+                .collect(toSet());
     }
 
     public int inputBonusNumber() {
@@ -52,7 +54,7 @@ public class InputView {
         }
     }
 
-    public List<Integer> inputManualLotto() {
+    public Set<Integer> inputManualLotto() {
         try {
             return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {

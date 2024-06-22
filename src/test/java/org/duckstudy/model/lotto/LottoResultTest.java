@@ -2,8 +2,8 @@ package org.duckstudy.model.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.duckstudy.model.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,8 +15,8 @@ class LottoResultTest {
     @DisplayName("로또 결과를 생성한다")
     void createLottoResult() {
 
-        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 7));
-        Lotto winningLotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        Lotto lotto = Lotto.from(Set.of(1, 2, 3, 4, 5, 7));
+        Lotto winningLotto = Lotto.from(Set.of(1, 2, 3, 4, 5, 6));
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
 
         LottoResult lottoResult = LottoResult.createLottoResult(lotto, winningLotto, bonusNumber);
