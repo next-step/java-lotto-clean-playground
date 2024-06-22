@@ -13,11 +13,12 @@ public class LottoResult {
 
     private final Map<Integer, Integer> result;
 
-    public LottoResult(Map<Integer, Integer> result) {
+    public LottoResult(final Map<Integer, Integer> result) {
         this.result = Collections.unmodifiableMap(result);
     }
 
-    public static LottoResult createLottoResult(Lotto lotto, Lotto winningLotto, LottoNumber bonusNumber) {
+    public static LottoResult createLottoResult(final Lotto lotto, final Lotto winningLotto,
+                                                final LottoNumber bonusNumber) {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
@@ -26,7 +27,7 @@ public class LottoResult {
         return new LottoResult(Map.of(key, DEFAULT_FREQUENCY));
     }
 
-    public LottoResult merge(LottoResult other) {
+    public LottoResult merge(final LottoResult other) {
         return new LottoResult(Stream.of(this.result, other.result)
                 .flatMap(map -> map.entrySet().stream())
                 .collect(Collectors.toMap(
@@ -36,7 +37,7 @@ public class LottoResult {
                 )));
     }
 
-    public int getMatchingCount(int key) {
+    public int getMatchingCount(final int key) {
         return result.getOrDefault(key, DEFAULT_VALUE);
     }
 

@@ -18,17 +18,17 @@ public class LottoNumber {
 
     private final int value;
 
-    private LottoNumber(int number) {
+    private LottoNumber(final int number) {
         this.value = number;
     }
 
-    public static LottoNumber valueOf(int number) {
+    public static LottoNumber valueOf(final int number) {
         validateNumber(number);
 
         return cache.get(number - START_INCLUSIVE_NUMBER);
     }
 
-    private static void validateNumber(int number) {
+    private static void validateNumber(final int number) {
         if (number < START_INCLUSIVE_NUMBER || number > END_INCLUSIVE_NUMBER) {
             throw new IllegalArgumentException(
                     String.format("로또 번호는 %d 이상 %d 이하의 숫자여야 합니다.", START_INCLUSIVE_NUMBER,

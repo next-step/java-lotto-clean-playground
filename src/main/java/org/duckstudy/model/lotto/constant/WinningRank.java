@@ -17,14 +17,15 @@ public enum WinningRank {
     private final int key;
     private final BiPredicate<Integer, Boolean> isMatchPredicate;
 
-    WinningRank(int matchCount, int price, int key, BiPredicate<Integer, Boolean> isMatchPredicate) {
+    WinningRank(final int matchCount, final int price, final int key,
+                final BiPredicate<Integer, Boolean> isMatchPredicate) {
         this.matchCount = matchCount;
         this.price = price;
         this.key = key;
         this.isMatchPredicate = isMatchPredicate;
     }
 
-    public static int findByMatchCountAndBonus(int matchCount, boolean matchBonus) {
+    public static int findByMatchCountAndBonus(final int matchCount, final boolean matchBonus) {
         return Stream.of(values())
                 .filter(winningLank -> winningLank.isMatch(matchCount, matchBonus))
                 .findFirst()
@@ -32,7 +33,7 @@ public enum WinningRank {
                 .orElseThrow(() -> new IllegalArgumentException("적절한 당첨 등수를 찾을 수 없습니다."));
     }
 
-    private boolean isMatch(int matchCount, boolean matchBonus) {
+    private boolean isMatch(final int matchCount, final boolean matchBonus) {
         return isMatchPredicate.test(matchCount, matchBonus);
     }
 

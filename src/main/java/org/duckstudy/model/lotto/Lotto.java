@@ -27,12 +27,12 @@ public class Lotto {
 
     private final Set<LottoNumber> lotto;
 
-    public Lotto(Set<LottoNumber> lotto) {
+    public Lotto(final Set<LottoNumber> lotto) {
         validateLottoSize(lotto);
         this.lotto = Collections.unmodifiableSet(lotto);
     }
 
-    public static Lotto from(Set<Integer> values) {
+    public static Lotto from(final Set<Integer> values) {
         return new Lotto(values.stream()
                 .map(LottoNumber::valueOf)
                 .collect(toSet()));
@@ -55,18 +55,18 @@ public class Lotto {
                 });
     }
 
-    public int countMatchingNumber(Lotto compareLotto) {
+    public int countMatchingNumber(final Lotto compareLotto) {
         return lotto.stream()
                 .filter(lottoNumber -> compareLotto.getLotto().contains(lottoNumber))
                 .toList()
                 .size();
     }
 
-    public boolean containsNumber(LottoNumber lottoNumber) {
+    public boolean containsNumber(final LottoNumber lottoNumber) {
         return lotto.contains(lottoNumber);
     }
 
-    private void validateLottoSize(Set<LottoNumber> lotto) {
+    private void validateLottoSize(final Set<LottoNumber> lotto) {
         if (lotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(String.format("로또 번호는 중복되지 않은 %d개여야 합니다.\n", LOTTO_SIZE));
         }

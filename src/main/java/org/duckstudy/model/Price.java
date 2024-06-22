@@ -14,7 +14,7 @@ public class Price {
 
     private final int value;
 
-    public Price(int price) {
+    public Price(final int price) {
         validatePrice(price);
         this.value = price;
     }
@@ -23,7 +23,7 @@ public class Price {
         return new Price(INCLUSIVE_MIN_PRICE);
     }
 
-    private void validatePrice(int price) {
+    private void validatePrice(final int price) {
         if (price < INCLUSIVE_MIN_PRICE) {
             throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", INCLUSIVE_MIN_PRICE));
         }
@@ -35,16 +35,16 @@ public class Price {
         }
     }
 
-    public Price addPrice(int value) {
+    public Price addPrice(final int value) {
         return new Price(this.value + value);
     }
 
-    public double divideByPrice(Price divisor) {
+    public double divideByPrice(final Price divisor) {
         checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();
     }
 
-    private void checkIfZero(int divisor) {
+    private void checkIfZero(final int divisor) {
         if (divisor == ZERO) {
             throw new IllegalArgumentException(String.format("%d으로 나눌 수 없습니다.", ZERO));
         }
@@ -55,7 +55,7 @@ public class Price {
         return new LottoCount(value / LOTTO_PRICE);
     }
 
-    public double calculateProfitRate(LottoResult result) {
+    public double calculateProfitRate(final LottoResult result) {
         Price profit = Price.zero();
         for (WinningRank winningRank : WinningRank.values()) {
             profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
@@ -63,7 +63,7 @@ public class Price {
         return profit.divideByPrice(this) * PERCENT_BASE;
     }
 
-    private Price accumulateProfit(WinningRank winningRank, int count) {
+    private Price accumulateProfit(final WinningRank winningRank, final int count) {
         return this.addPrice(winningRank.getPrice() * count);
     }
 

@@ -16,17 +16,17 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printException(Exception e) {
+    public void printException(final Exception e) {
         System.out.println(e.getMessage());
     }
 
-    public void printLottos(int manualLottoCount, int autoLottoCount, Lottos lottos) {
+    public void printLottos(final int manualLottoCount, final int autoLottoCount, final Lottos lottos) {
         System.out.printf("\n수동으로 %d개, 자동으로 %d개를 구매했습니다.\n", manualLottoCount, autoLottoCount);
         lottos.getLottos()
                 .forEach(this::printLotto);
     }
 
-    private void printLotto(Lotto lotto) {
+    private void printLotto(final Lotto lotto) {
         System.out.println(lotto.getLotto()
                 .stream()
                 .map(LottoNumber::getValue)
@@ -42,20 +42,20 @@ public class OutputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 
-    public void printLottoResult(LottoResult result) {
+    public void printLottoResult(final LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         iterateLottoResult(result);
     }
 
-    private void iterateLottoResult(LottoResult result) {
+    private void iterateLottoResult(final LottoResult result) {
         for (WinningRank winningRank : WinningRank.values()) {
             printMatchingResult(result, winningRank);
         }
         System.out.println();
     }
 
-    private void printMatchingResult(LottoResult result, WinningRank winningRank) {
+    private void printMatchingResult(final LottoResult result, final WinningRank winningRank) {
         if (winningRank == NONE) {
             return;
         }
@@ -70,14 +70,14 @@ public class OutputView {
         System.out.println(matchPriceMessage + matchingCount + "개");
     }
 
-    private String getMatchPrice(WinningRank winningRank, int cnt, int price) {
+    private String getMatchPrice(final WinningRank winningRank, final int cnt, final int price) {
         if (winningRank == SECOND) {
             return String.format("%d개 일치, 보너스 볼 일치(%d원)- ", cnt, price);
         }
         return String.format("%d개 일치 (%d원)- ", cnt, price);
     }
 
-    public void printTotalProfit(double totalProfitRate) {
+    public void printTotalProfit(final double totalProfitRate) {
         System.out.printf("총 수익률은 %.2f입니다.\n", totalProfitRate);
     }
 
