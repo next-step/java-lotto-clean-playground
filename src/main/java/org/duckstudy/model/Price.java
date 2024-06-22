@@ -1,6 +1,7 @@
 package org.duckstudy.model;
 
 import java.util.Objects;
+import org.duckstudy.model.lotto.LottoCount;
 import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
@@ -53,9 +54,9 @@ public class Price {
         }
     }
 
-    public int calculateLottoCount() {
+    public LottoCount calculateLottoCount() {
         checkIfZero(LOTTO_PRICE);
-        return value / LOTTO_PRICE;
+        return new LottoCount(value / LOTTO_PRICE);
     }
 
     public double calculateProfitRate(LottoResult result) {
@@ -67,8 +68,7 @@ public class Price {
     }
 
     private Price accumulateProfit(WinningRank winningRank, int count) {
-        return this.addPrice(winningRank.getPrice())
-                .multiplyTimes(count);
+        return this.addPrice(winningRank.getPrice() * count);
     }
 
     public int getValue() {

@@ -104,10 +104,10 @@ class PriceTest {
         void calculateProfitRate() {
             Price purchasePrice = new Price(15000);
             Map<Integer, Integer> result = new HashMap<>();
-            result.put(WinningRank.FIRST.getKey(), 1);
+            result.put(WinningRank.SECOND.getKey(), 1);
             LottoResult lottoResult = new LottoResult(result);
 
-            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(1.3333333333333334E7);
+            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(200000.0);
         }
     }
 }
