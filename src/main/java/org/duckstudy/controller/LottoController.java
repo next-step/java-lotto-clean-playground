@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
+import org.duckstudy.model.lotto.LottoCount;
 import org.duckstudy.model.lotto.LottoNumber;
 import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
@@ -22,16 +23,16 @@ public class LottoController {
 
     public void run() {
         Price price = createPrice();
-        int totalLottoCount = price.calculateLottoCount();
+        LottoCount totalLottoCount = price.calculateLottoCount();
 
-        int manualLottoCount = getManualLottoCount(totalLottoCount);
-        Lottos manualLottos = createManualLottos(manualLottoCount);
+        LottoCount manualLottoCount = createManualLottoCount(totalLottoCount);
+        Lottos manualLottos = createManualLottos(manualLottoCount.getCount());
 
-        int autoLottoCount = totalLottoCount - manualLottoCount;
-        Lottos autoLottos = Lottos.generateLottos(autoLottoCount);
+        LottoCount autoLottoCount = totalLottoCount.subtract(manualLottoCount);
+        Lottos autoLottos = Lottos.generateLottos(autoLottoCount.getCount());
 
         Lottos totalLottos = manualLottos.merge(autoLottos);
-        outputView.printLottos(manualLottoCount, autoLottoCount, totalLottos);
+        outputView.printLottos(manualLottoCount.getCount(), autoLottoCount.getCount(), totalLottos);
 
         Lotto winningLotto = createWinningLotto();
         LottoNumber bonusNumber = createBonusNumber(winningLotto);
@@ -58,23 +59,14 @@ public class LottoController {
                 .collect(Collectors.toList()));
     }
 
-    private int getManualLottoCount(int lottoCount) {
+    private LottoCount createManualLottoCount(LottoCount lottoCount) {
         try {
-            int manualLottoCount = inputView.inputManualLottoCount();
-            validateManualLottoCount(lottoCount, manualLottoCount);
+            LottoCount manualLottoCount = new LottoCount(inputView.inputManualLottoCount());
+            manualLottoCount.validateManualLottoCount(lottoCount.getCount());
             return manualLottoCount;
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
-            return getManualLottoCount(lottoCount);
-        }
-    }
-
-    private void validateManualLottoCount(int lottoCount, int manualLottoCount) {
-        if (manualLottoCount < 0) {
-            throw new IllegalArgumentException("음수로 입력할 수 없습니다.\n");
-        }
-        if (manualLottoCount > lottoCount) {
-            throw new IllegalArgumentException("수동으로 구매할 로또 수가 전체 로또 수를 초과합니다.\n");
+            return createManualLottoCount(lottoCount);
         }
     }
 
