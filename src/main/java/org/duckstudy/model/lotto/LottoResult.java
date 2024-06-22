@@ -36,8 +36,8 @@ public class LottoResult {
                 )));
     }
 
-    public int getMatchingCount(int count) {
-        return result.getOrDefault(count, DEFAULT_VALUE);
+    public int getMatchingCount(int key) {
+        return result.getOrDefault(key, DEFAULT_VALUE);
     }
 
     public Map<Integer, Integer> getResult() {

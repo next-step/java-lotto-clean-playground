@@ -96,7 +96,7 @@ class PriceTest {
 
             Price price = new Price(10000);
 
-            assertThat(price.calculateLottoCount()).isEqualTo(10);
+            assertThat(price.calculateLottoCount().getCount()).isEqualTo(10);
         }
 
         @Test

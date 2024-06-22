@@ -20,12 +20,14 @@ class LottosTest {
     class LottosCreationTest {
 
         @Test
-        @DisplayName("구매 가격을 입력하면 가격에 맞는 로또 묶음을 생성한다")
+        @DisplayName("구매 개수를 입력하면 가격에 맞는 로또 묶음을 생성한다")
         void createLottosWhenInputPrice() {
 
             Price purchasePrice = new Price(10000);
+            int lottoCount = purchasePrice.calculateLottoCount()
+                    .getCount();
 
-            Lottos lottos = Lottos.generateLottosByPrice(purchasePrice);
+            Lottos lottos = Lottos.generateLottos(lottoCount);
 
             assertThat(lottos.getLottos()).hasSize(10);
         }
