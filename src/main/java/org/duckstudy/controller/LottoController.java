@@ -23,21 +23,25 @@ public class LottoController {
 
     public void run() {
         Price price = createPrice();
-        LottoCount totalLottoCount = price.calculateLottoCount();
-
-        LottoCount manualLottoCount = createManualLottoCount(totalLottoCount);
-        Lottos manualLottos = createManualLottos(manualLottoCount.getCount());
-
-        LottoCount autoLottoCount = totalLottoCount.subtract(manualLottoCount);
-        Lottos autoLottos = Lottos.generateLottos(autoLottoCount.getCount());
-
-        Lottos totalLottos = manualLottos.merge(autoLottos);
-        outputView.printLottos(manualLottoCount.getCount(), autoLottoCount.getCount(), totalLottos);
+        Lottos totalLottos = createTotalLottos(price);
 
         Lotto winningLotto = createWinningLotto();
         LottoNumber bonusNumber = createBonusNumber(winningLotto);
 
         getWinningResult(price, totalLottos, winningLotto, bonusNumber);
+    }
+
+    private Lottos createTotalLottos(Price price) {
+        LottoCount totalLottoCount = price.calculateLottoCount();
+        LottoCount manualLottoCount = createManualLottoCount(totalLottoCount);
+        Lottos manualLottos = createManualLottos(manualLottoCount.getCount());
+
+        LottoCount autoLottoCount = totalLottoCount.subtract(manualLottoCount);
+        Lottos autoLottos = Lottos.generateLottos(autoLottoCount.getCount());
+        Lottos totalLottos = manualLottos.merge(autoLottos);
+
+        outputView.printLottos(manualLottoCount.getCount(), autoLottoCount.getCount(), totalLottos);
+        return totalLottos;
     }
 
     private Price createPrice() {
