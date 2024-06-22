@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import org.duckstudy.model.Price;
 
 public class Lottos {
 
@@ -17,9 +16,7 @@ public class Lottos {
         this.lottos = Collections.unmodifiableList(lottos);
     }
 
-    public static Lottos generateLottosByPrice(Price price) {
-        int lottoCount = price.calculateLottoCount();
-
+    public static Lottos generateLottos(int lottoCount) {
         return Stream.generate(Lotto::createRandomLotto)
                 .limit(lottoCount)
                 .collect(collectingAndThen(toList(), Lottos::new));
@@ -31,11 +28,13 @@ public class Lottos {
                 .reduce(new LottoResult(Map.of()), LottoResult::merge);
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    public Lottos merge(Lottos other) {
+        return new Lottos(Stream.of(this.lottos, other.lottos)
+                .flatMap(List::stream)
+                .collect(toList()));
     }
 
-    public int getSize() {
-        return lottos.size();
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }

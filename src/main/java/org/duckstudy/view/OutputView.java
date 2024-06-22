@@ -20,8 +20,8 @@ public class OutputView {
         System.out.println(e.getMessage());
     }
 
-    public void printLottos(Lottos lottos) {
-        System.out.printf("\n%d개를 구매했습니다.\n", lottos.getSize());
+    public void printLottos(int manualLottoCount, int autoLottoCount, Lottos lottos) {
+        System.out.printf("\n수동으로 %d개, 자동으로 %d개를 구매했습니다.\n", manualLottoCount, autoLottoCount);
         lottos.getLottos()
                 .forEach(this::printLotto);
     }
@@ -81,7 +81,11 @@ public class OutputView {
         System.out.printf("총 수익률은 %.2f입니다.\n", totalProfitRate);
     }
 
-    public void printExceptionForBonusNumber() {
-        System.out.println("보너스 볼은 당첨 번호와 중복되면 안됩니다.");
+    public void printInputManualLottoCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public void printInputManualLotto() {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
     }
 }
