@@ -39,10 +39,6 @@ public class Price {
         return new Price(this.value + value);
     }
 
-    public Price multiplyTimes(int times) {
-        return new Price(value * times);
-    }
-
     public double divideByPrice(Price divisor) {
         checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();

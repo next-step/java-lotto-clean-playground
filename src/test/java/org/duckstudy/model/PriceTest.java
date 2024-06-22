@@ -94,17 +94,6 @@ class PriceTest {
         }
 
         @Test
-        @DisplayName("가격을 곱한다")
-        void multiplyPrice() {
-
-            Price price = new Price(1000);
-
-            Price result = price.multiplyTimes(3);
-
-            assertThat(result).isEqualTo(new Price(3000));
-        }
-
-        @Test
         @DisplayName("가격을 나눈다")
         void dividePriceByPrice() {
 
