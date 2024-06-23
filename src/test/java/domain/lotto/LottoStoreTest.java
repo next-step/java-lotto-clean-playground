@@ -16,4 +16,13 @@ class LottoStoreTest {
 
         Assertions.assertThat(lottoTickets).hasSize(14);
     }
+
+    @Test
+    @DisplayName("1000원 단위가 아닌 돈이 들어오면 예외 발생")
+    void 입금액이_1000원_단위가_아닌_돈이_들어오면_예외_발생() {
+        LottoStore lottoStore = new LottoStore(new AutoLottoGenerator());
+
+        Assertions.assertThatThrownBy(() -> lottoStore.sellLottos(new Money(14500)))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
 }

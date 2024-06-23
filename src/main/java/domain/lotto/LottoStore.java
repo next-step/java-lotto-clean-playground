@@ -14,6 +14,8 @@ public class LottoStore {
     }
 
     public List<LottoTicket> sellLottos(Money money) {
+
+        checkMoneyUnit(money);
         int count = getCount(money);
 
         List<LottoTicket> lottoTickets = new ArrayList<>();
@@ -24,6 +26,12 @@ public class LottoStore {
         }
 
         return lottoTickets;
+    }
+
+    private void checkMoneyUnit(Money money) {
+        if (money.getAmount() % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("1000원 단위의 돈만 받음");
+        }
     }
 
     private int getCount(Money money) {
