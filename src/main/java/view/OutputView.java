@@ -3,22 +3,25 @@ package view;
 import model.Lotto;
 import model.Lottos;
 
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class OutputView {
 
-    private static final String DELIMITER = ", ";
+    private static final String DELIMITER = "\n";
 
     public static void showLotto(final Lottos lottos) {
         System.out.printf("%d개를 구매했습니다.%n", lottos.getBuyLottoCount());
 
-        for (Lotto lotto : lottos.getLottos()) {
-            final String lottoNumber = lotto.getNumbers().stream()
-                    .sorted()
-                    .map(String::valueOf)
-                    .collect(Collectors.joining(DELIMITER));
+        StringJoiner stringJoiner = new StringJoiner(DELIMITER);
 
-            System.out.printf("[%s]%n", lottoNumber);
+        for (Lotto lotto : lottos.getLottos()) {
+            final List<Integer> numbers = lotto.getNumbers();
+            Collections.sort(numbers);
+            stringJoiner.add(numbers.toString());
         }
+
+        System.out.println(stringJoiner);
     }
 }
