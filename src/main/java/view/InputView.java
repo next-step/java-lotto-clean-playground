@@ -10,7 +10,11 @@ public class InputView {
         return input.nextInt();
     }
 
-    public String inputLastWeekLottoNumber() {
+    public int getPassiveLottoCount() {
+        return input.nextInt();
+    }
+
+    public String inputLottoNumber() {
         return input.next();
     }
 

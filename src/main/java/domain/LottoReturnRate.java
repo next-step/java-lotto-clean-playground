@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.List;
-import java.util.Map;
 
 public class LottoReturnRate {
 
@@ -11,21 +10,20 @@ public class LottoReturnRate {
 
     private final double lottoReturnRate;
 
-    public LottoReturnRate(Map<String, Integer> lottoRank, int getLottoMoney) {
-        this.lottoReturnRate = calculateLottoReturnRate(lottoRank, getLottoMoney);
+    public LottoReturnRate(List<LottoRank> lottoRanks, int getLottoMoney) {
+        this.lottoReturnRate = calculateLottoReturnRate(lottoRanks, getLottoMoney);
     }
 
     public double getLottoReturnRate() {
         return lottoReturnRate;
     }
 
-    private double calculateLottoReturnRate(Map<String, Integer> lottoRank, int getLottoMoney) {
+    private double calculateLottoReturnRate(List<LottoRank> lottoRanks, int getLottoMoney) {
         List<Integer> lottoRankPrice = LottoPrice.getLottoPriceBundle();
-        List<String> sameLottoNumbers = LottoPrice.getSameLottoNumberBundle();
         int sumOfLottoMoney = RESET_NUMBER;
         int count = RESET_NUMBER;
-        for (String sameLottoNumber : sameLottoNumbers) {
-            sumOfLottoMoney += lottoRank.get(sameLottoNumber) * lottoRankPrice.get(count);
+        for (LottoRank lottoRank : lottoRanks) {
+            sumOfLottoMoney += lottoRank.getLottoRankNumber() * lottoRankPrice.get(count);
             count++;
         }
         double lottoReturnRate = (double) sumOfLottoMoney / getLottoMoney;

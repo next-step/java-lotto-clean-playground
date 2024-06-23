@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lottos {
@@ -11,20 +10,32 @@ public class Lottos {
 
     private final List<Lotto> lottos;
 
-    public Lottos(CreateLottoNumber createLottoNumber, int lottoMoney) {
-        this.lottos = makeLottos(createLottoNumber, lottoMoney);
+    public Lottos(CreateLottoNumber createLottoNumber, List<LottoNumberParser> inputPassiveLottoNumber, int lottoMoney) {
+        this.lottos = makeLottos(createLottoNumber, inputPassiveLottoNumber, lottoMoney);
     }
 
     public List<Lotto> getLottos() {
         return lottos;
     }
 
-    private List<Lotto> makeLottos(CreateLottoNumber createLottoNumber, int lottoMoney) {
+    private List<Lotto> makeLottos(CreateLottoNumber createLottoNumber, List<LottoNumberParser> inputPassiveLottoNumbers, int lottoMoney) {
         List<Lotto> lottosBundle = new ArrayList<>();
-        for (int i = INITIAL_NUMBER; i < lottoMoney / LOTTO_COUNT_NUMBER; i++) {
+        makePassiveLotto(inputPassiveLottoNumbers, lottosBundle);
+        makeAutoLotto(createLottoNumber, inputPassiveLottoNumbers, lottoMoney, lottosBundle);
+        return lottosBundle;
+    }
+
+    private void makeAutoLotto(CreateLottoNumber createLottoNumber, List<LottoNumberParser> inputPassiveLottoNumbers, int lottoMoney, List<Lotto> lottosBundle) {
+        for (int i = INITIAL_NUMBER; i < (lottoMoney / LOTTO_COUNT_NUMBER) - inputPassiveLottoNumbers.size(); i++) {
             Lotto lotto = new Lotto(createLottoNumber);
             lottosBundle.add(lotto);
         }
-        return lottosBundle;
+    }
+
+    private void makePassiveLotto(List<LottoNumberParser> inputPassiveLottoNumbers, List<Lotto> lottosBundle) {
+        for (LottoNumberParser passiveLottoNumber : inputPassiveLottoNumbers) {
+            Lotto lotto = new Lotto(passiveLottoNumber.getRealLottoNumber());
+            lottosBundle.add(lotto);
+        }
     }
 }

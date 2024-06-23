@@ -1,28 +1,30 @@
 package domain;
 
-import FakeRandomNumber.FakeLottoNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LottosTest {
+
     @Test
     @DisplayName("로또 묶음 사이즈 테스트")
     void getLottos() {
-        //given
+        // given
         final int lottoMoney = 3000;
+        final String inputPassiveLottoNumber = "1,2,3,4,5,6";
+        final LottoNumberParser lottoNumberParser = new LottoNumberParser(inputPassiveLottoNumber);
+        final List<LottoNumberParser> lottoNumberParsers = List.of(lottoNumberParser);
         final CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
-        final Lottos lottos = new Lottos(createLottoNumber, lottoMoney);
+        final Lottos lottos = new Lottos(createLottoNumber, lottoNumberParsers, lottoMoney);
         final int expected = 3;
 
-        //when
+        // when
         final int actual = lottos.getLottos().size();
 
-        //then
+        // then
         assertEquals(expected, actual);
     }
 }

@@ -1,34 +1,26 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public enum LottoPrice {
 
-    THREE("3", 5000, "3개 일치 (5000원)- "),
-    FOUR("4", 50000, "4개 일치 (50000원)- "),
-    FIVE("5", 1500000, "5개 일치 (1500000원)- "),
-    BONUS("5BONUS", 30000000, "5개 일치, 보너스 볼 일치(30000000)- "),
-    SIX("6", 2000000000, "6개 일치 (2000000000원)- ");
+    THREE("3", 5000),
+    FOUR("4", 50000),
+    FIVE("5", 1500000),
+    BONUS("5BONUS", 30000000),
+    SIX("6", 2000000000);
 
+    private static final int MAKE_FIRST_INDEX = 3;
+    private static final String LAST_INDEX_NUMBER = "6";
 
-    private static final String BONUS_SAME_LOTTO_NUMBER = "5BONUS";
     private final String sameLottoNumber;
     private final int lottoPrice;
-    private final String lottoMessage;
 
-    LottoPrice(String sameLottoNumber, int lottoPrice, String lottoMessage) {
+    LottoPrice(String sameLottoNumber, int lottoPrice) {
         this.sameLottoNumber = sameLottoNumber;
         this.lottoPrice = lottoPrice;
-        this.lottoMessage = lottoMessage;
-    }
-
-    public static List<String> getLottoMessageBundle() {
-        List<String> lottoMessages = new ArrayList<>();
-        for (LottoPrice lottoPrice : LottoPrice.values()) {
-            lottoMessages.add(lottoPrice.getLottoMessege());
-        }
-        return lottoMessages;
     }
 
     public static List<Integer> getLottoPriceBundle() {
@@ -39,6 +31,17 @@ public enum LottoPrice {
         return lottoPrices;
     }
 
+    public static int getLottoPrice(String sameLottoNumber) {
+        if (Objects.equals(sameLottoNumber, BONUS.getSameLottoNumber())) {
+            return BONUS.getLottoPrice();
+        }
+        if (Objects.equals(sameLottoNumber, LAST_INDEX_NUMBER)) {
+            return SIX.getLottoPrice();
+        }
+        LottoPrice[] lottoPrices = LottoPrice.values();
+        return lottoPrices[Integer.parseInt(sameLottoNumber) - MAKE_FIRST_INDEX].getLottoPrice();
+    }
+
     public static List<String> getSameLottoNumberBundle() {
         List<String> sameLottoNumbers = new ArrayList<>();
         for (LottoPrice lottoPrice : LottoPrice.values()) {
@@ -47,21 +50,12 @@ public enum LottoPrice {
         return sameLottoNumbers;
     }
 
-    public static String getBonusSameLottoNumber(){
-        for(LottoPrice lottoPrice : LottoPrice.values()){
-            if(BONUS_SAME_LOTTO_NUMBER.equals(lottoPrice.getSameLottoNumber())){
-                return lottoPrice.getSameLottoNumber();
-            }
-        }
-        return null;
+    public static String getBonusSameLottoNumber() {
+        return BONUS.getSameLottoNumber();
     }
 
     private String getSameLottoNumber() {
         return sameLottoNumber;
-    }
-
-    private String getLottoMessege() {
-        return lottoMessage;
     }
 
     private int getLottoPrice() {

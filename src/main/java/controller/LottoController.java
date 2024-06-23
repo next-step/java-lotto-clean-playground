@@ -2,12 +2,15 @@ package controller;
 
 import domain.*;
 import view.InputView;
+import view.LottoRankDto;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LottoController {
+
+    private static final int RESET_NUMBER = 0;
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -30,21 +33,32 @@ public class LottoController {
     }
 
     private Lottos buyLotto(int getLottoMoney) {
-        outputView.printLottoCount(getLottoMoney);
+        outputView.printPassiveLottoCount();
+        int passiveLottoNumberCount = inputView.getPassiveLottoCount();
+        outputView.printPassiveLottoNumber();
+        List<String> passiveLottoNumbers = new ArrayList<>();
+        for (int i = RESET_NUMBER; i < passiveLottoNumberCount; i++) {
+            String passiveLottoNumber = inputView.inputLottoNumber();
+            passiveLottoNumbers.add(passiveLottoNumber);
+        }
+        PassiveLottoNumber passiveLottoNumber = new PassiveLottoNumber(passiveLottoNumbers);
+        outputView.printLottoCount(getLottoMoney, passiveLottoNumberCount);
         CreateLottoNumber createLottoNumber = new LottoNumberGenerator();
-        Lottos lottos = new Lottos(createLottoNumber, getLottoMoney);
+        Lottos lottos = new Lottos(createLottoNumber, passiveLottoNumber.getPassiveLottoNumbers(), getLottoMoney);
         for (Lotto lotto : lottos.getLottos()) {
-            outputView.printLotto(lotto.getLottoNumber());
+            List<Integer> lottoNumber = lotto.getLottoNumber().stream().map(LottoNumber::getLottoNumber).toList();
+            outputView.printLotto(lottoNumber);
         }
         return lottos;
     }
 
     private List<Integer> getLastWeekLottoNumber() {
         outputView.LastWeekLottoNumber();
-        String inputLastWeekLottoNumber = inputView.inputLastWeekLottoNumber();
+        String inputLastWeekLottoNumber = inputView.inputLottoNumber();
+        LottoNumberParser lottoNumberParser = new LottoNumberParser(inputLastWeekLottoNumber);
         int bonusBall = getBonusBall();
-        LastWeekLottoNumber lottoNumber = new LastWeekLottoNumber(inputLastWeekLottoNumber, bonusBall);
-        return lottoNumber.getLastWeekLottoNumber();
+        lottoNumberParser.addBonusBall(bonusBall);
+        return lottoNumberParser.getRealLottoNumber();
     }
 
     private int getBonusBall() {
@@ -53,11 +67,13 @@ public class LottoController {
     }
 
     private void rankLotto(Lottos lottos, List<Integer> lastWeekLottoNumber, int getLottoMoney) {
-        LottoRank lottoRank = new LottoRank(lottos, lastWeekLottoNumber);
-        Map<String, Integer> lottoRanks = lottoRank.getLottoRank();
-        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRanks, getLottoMoney);
+        LottoRankBundle lottoRankBundle = new LottoRankBundle(lottos, lastWeekLottoNumber);
+        LottoReturnRate lottoReturnRate = new LottoReturnRate(lottoRankBundle.getLottoRank(), getLottoMoney);
         outputView.printLottoStatistics();
-        outputView.printLottoRank(LottoPrice.getLottoMessageBundle(), lottoRanks, LottoPrice.getSameLottoNumberBundle());
+        for(LottoRank lottoRank : lottoRankBundle.getLottoRank()){
+            LottoRankDto lottoRankDto = new LottoRankDto(lottoRank.getLottoRank(), lottoRank.getLottoRankNumber());
+            outputView.printLottoRank(lottoRankDto.toString());
+        }
         outputView.printRateOfReturn(lottoReturnRate.getLottoReturnRate());
     }
 }
