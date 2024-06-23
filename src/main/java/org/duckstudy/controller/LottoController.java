@@ -6,7 +6,7 @@ import org.duckstudy.model.Price;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoCount;
 import org.duckstudy.model.lotto.LottoNumber;
-import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.LottoStatistics;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.view.InputView;
 import org.duckstudy.view.OutputView;
@@ -115,18 +115,18 @@ public class LottoController {
 
     private void getWinningResult(final Price price, final Lottos lottos, final Lotto winningLotto,
                                   final LottoNumber bonusNumber) {
-        LottoResult result = createLottoResult(lottos, winningLotto, bonusNumber);
+        LottoStatistics result = createLottoResult(lottos, winningLotto, bonusNumber);
         calculateProfitRate(price, result);
     }
 
-    private LottoResult createLottoResult(final Lottos lottos, final Lotto winningLotto,
-                                          final LottoNumber bonusNumber) {
-        LottoResult result = lottos.accumulateLottoResult(winningLotto, bonusNumber);
+    private LottoStatistics createLottoResult(final Lottos lottos, final Lotto winningLotto,
+                                              final LottoNumber bonusNumber) {
+        LottoStatistics result = lottos.accumulateLottoResult(winningLotto, bonusNumber);
         outputView.printLottoResult(result);
         return result;
     }
 
-    private void calculateProfitRate(final Price price, final LottoResult result) {
+    private void calculateProfitRate(final Price price, final LottoStatistics result) {
         double profitRate = price.calculateProfitRate(result);
         outputView.printTotalProfit(profitRate);
     }

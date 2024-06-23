@@ -6,29 +6,29 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
-public class LottoResult {
+public class LottoStatistics {
 
     public static final int DEFAULT_FREQUENCY = 1;
     public static final int DEFAULT_VALUE = 0;
 
-    private final Map<Integer, Integer> result;
+    private final Map<Integer, Integer> statistics;
 
-    public LottoResult(final Map<Integer, Integer> result) {
-        this.result = Collections.unmodifiableMap(result);
+    public LottoStatistics(final Map<Integer, Integer> statistics) {
+        this.statistics = Collections.unmodifiableMap(statistics);
     }
 
-    public static LottoResult createLottoResult(final Lotto lotto, final Lotto winningLotto,
-                                                final LottoNumber bonusNumber) {
+    public static LottoStatistics createLottoResult(final Lotto lotto, final Lotto winningLotto,
+                                                    final LottoNumber bonusNumber) {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
         int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus);
 
-        return new LottoResult(Map.of(key, DEFAULT_FREQUENCY));
+        return new LottoStatistics(Map.of(key, DEFAULT_FREQUENCY));
     }
 
-    public LottoResult merge(final LottoResult other) {
-        return new LottoResult(Stream.of(this.result, other.result)
+    public LottoStatistics merge(final LottoStatistics other) {
+        return new LottoStatistics(Stream.of(this.statistics, other.statistics)
                 .flatMap(map -> map.entrySet().stream())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -38,10 +38,10 @@ public class LottoResult {
     }
 
     public int getMatchingCount(final int key) {
-        return result.getOrDefault(key, DEFAULT_VALUE);
+        return statistics.getOrDefault(key, DEFAULT_VALUE);
     }
 
-    public Map<Integer, Integer> getResult() {
-        return result;
+    public Map<Integer, Integer> getStatistics() {
+        return statistics;
     }
 }

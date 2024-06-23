@@ -2,7 +2,7 @@ package org.duckstudy.model;
 
 import java.util.Objects;
 import org.duckstudy.model.lotto.LottoCount;
-import org.duckstudy.model.lotto.LottoResult;
+import org.duckstudy.model.lotto.LottoStatistics;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
 public class Price {
@@ -55,7 +55,7 @@ public class Price {
         return new LottoCount(value / LOTTO_PRICE);
     }
 
-    public double calculateProfitRate(final LottoResult result) {
+    public double calculateProfitRate(final LottoStatistics result) {
         Price profit = Price.zero();
         for (WinningRank winningRank : WinningRank.values()) {
             profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));

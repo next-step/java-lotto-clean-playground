@@ -22,10 +22,10 @@ public class Lottos {
                 .collect(collectingAndThen(toList(), Lottos::new));
     }
 
-    public LottoResult accumulateLottoResult(final Lotto winningLotto, final LottoNumber bonusNumber) {
+    public LottoStatistics accumulateLottoResult(final Lotto winningLotto, final LottoNumber bonusNumber) {
         return lottos.stream()
-                .map(lotto -> LottoResult.createLottoResult(lotto, winningLotto, bonusNumber))
-                .reduce(new LottoResult(Map.of()), LottoResult::merge);
+                .map(lotto -> LottoStatistics.createLottoResult(lotto, winningLotto, bonusNumber))
+                .reduce(new LottoStatistics(Map.of()), LottoStatistics::merge);
     }
 
     public Lottos merge(final Lottos other) {
