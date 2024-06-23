@@ -1,18 +1,18 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LottoPaper {
     private int rowNum;
-    private ArrayList<ArrayList> rows;
-
+    private List<Row> rows;
     public LottoPaper(int rowNum) {
         validateRowNum(rowNum);
         this.rowNum = rowNum;
         this.rows = new ArrayList<>();
     }
 
-    public void writeRow(ArrayList<Integer> row){
+    public void writeRow(Row row){
         rows.add(row);
     }
 
@@ -20,7 +20,7 @@ public class LottoPaper {
         return rowNum;
     }
 
-    public ArrayList<ArrayList> getRows() {
+    public List<Row> getRows() {
         return rows;
     }
 

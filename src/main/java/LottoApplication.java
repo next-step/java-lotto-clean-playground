@@ -10,10 +10,8 @@ public class LottoApplication {
         LottoMachine lottoMachine = new LottoMachine(new RandomNumberGenerator());
 
         int price = inputView.getPrice();
-        lottoMachine.calculateRowNum(price);
+        lottoMachine.generatePaper(price);
         outputView.printRowNumber(lottoMachine.getWorkingPaperRowNum());
-        lottoMachine.generatePaper();
-        lottoMachine.generateRows();
         outputView.printPaper(lottoMachine.getWorkingPaper());
     }
 }

@@ -6,30 +6,27 @@ public class LottoMachine {
     private LottoPaper workingPaper;
     private int workingPaperRowNum;
 
+    private static final int PRICE_UNIT = 1000;
+
     public LottoMachine(NumberGenerator numberGenerator){
         this.numberGenerator = numberGenerator;
     }
 
-    public void calculateRowNum(int price){
-        checkPriceUnit(price);
-        workingPaperRowNum = price / 1000;
+    public void generatePaper(int price){
+        calculateRowNum(price);
+        workingPaper = new LottoPaper(workingPaperRowNum);
+        generateRows();
     }
 
-    private void checkMinPrice(int price){
-        if(price < 1000){
-            throw new IllegalArgumentException("최소 금액은 1000원입니다.");
-        }
+    public void calculateRowNum(int price){
+        checkPriceUnit(price);
+        workingPaperRowNum = price / PRICE_UNIT;
     }
 
     private void checkPriceUnit(int price){
-        checkMinPrice(price);
-        if(price%1000 != 0){
+        if(price%PRICE_UNIT != 0){
             throw new IllegalArgumentException("금액은 1000원 단위입니다.");
         }
-    }
-
-    public void generatePaper(){
-        workingPaper = new LottoPaper(workingPaperRowNum);
     }
 
     public void generateRows(){
@@ -45,7 +42,7 @@ public class LottoMachine {
         if(workingPaper == null){
             throw new RuntimeException("Generate Lotto Paper first");
         }
-        workingPaper.writeRow(numberGenerator.getNumbers());
+        workingPaper.writeRow(new Row(numberGenerator.getNumbers()));
     }
 
     public int getWorkingPaperRowNum() {

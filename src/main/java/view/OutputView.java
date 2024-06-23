@@ -1,7 +1,9 @@
 package view;
 
 import domain.LottoPaper;
+import domain.Row;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OutputView {
 
@@ -10,9 +12,9 @@ public class OutputView {
     }
 
     public void printPaper(LottoPaper lottoPaper){
-        ArrayList<ArrayList> rows = lottoPaper.getRows();
+        List<Row> rows = lottoPaper.getRows();
         for(int i = 0; i< lottoPaper.getRowNum(); i++){
-            System.out.println(rows.get(i).toString());
+            System.out.println(rows.get(i).getNums().toString());
         }
     }
 }
