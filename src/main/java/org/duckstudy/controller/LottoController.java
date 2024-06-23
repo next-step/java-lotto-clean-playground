@@ -28,7 +28,7 @@ public class LottoController {
         Lotto winningLotto = createWinningLotto();
         LottoNumber bonusNumber = createBonusNumber(winningLotto);
 
-        getWinningResult(price, totalLottos, winningLotto, bonusNumber);
+        printWinningResult(price, totalLottos, winningLotto, bonusNumber);
     }
 
     private Lottos createTotalLottos(final Price price) {
@@ -113,21 +113,11 @@ public class LottoController {
         }
     }
 
-    private void getWinningResult(final Price price, final Lottos lottos, final Lotto winningLotto,
-                                  final LottoNumber bonusNumber) {
-        LottoStatistics result = createLottoResult(lottos, winningLotto, bonusNumber);
-        calculateProfitRate(price, result);
-    }
+    private void printWinningResult(Price price, Lottos totalLottos, Lotto winningLotto, LottoNumber bonusNumber) {
+        LottoStatistics statistics = totalLottos.accumulateLottoResult(winningLotto, bonusNumber);
+        outputView.printLottoStatistics(statistics);
 
-    private LottoStatistics createLottoResult(final Lottos lottos, final Lotto winningLotto,
-                                              final LottoNumber bonusNumber) {
-        LottoStatistics result = lottos.accumulateLottoResult(winningLotto, bonusNumber);
-        outputView.printLottoResult(result);
-        return result;
-    }
-
-    private void calculateProfitRate(final Price price, final LottoStatistics result) {
-        double profitRate = price.calculateProfitRate(result);
+        double profitRate = price.calculateProfitRate(statistics);
         outputView.printTotalProfit(profitRate);
     }
 }

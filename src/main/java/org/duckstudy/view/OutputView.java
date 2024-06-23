@@ -42,7 +42,7 @@ public class OutputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 
-    public void printLottoResult(final LottoStatistics result) {
+    public void printLottoStatistics(final LottoStatistics result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         iterateLottoResult(result);

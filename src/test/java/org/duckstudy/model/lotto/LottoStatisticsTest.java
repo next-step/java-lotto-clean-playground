@@ -8,12 +8,12 @@ import org.duckstudy.model.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("로또 당첨 결과 테스트")
+@DisplayName("로또 당첨 통계 테스트")
 class LottoStatisticsTest {
 
     @Test
-    @DisplayName("로또 결과를 생성한다")
-    void createLottoResult() {
+    @DisplayName("로또 당첨 통계를 생성한다")
+    void createLottoStatistics() {
 
         Lotto lotto = Lotto.from(Set.of(1, 2, 3, 4, 5, 7));
         Lotto winningLotto = Lotto.from(Set.of(1, 2, 3, 4, 5, 6));
@@ -26,8 +26,8 @@ class LottoStatisticsTest {
     }
 
     @Test
-    @DisplayName("로또 결과를 병합한다")
-    void mergeLottoResult() {
+    @DisplayName("로또 당첨 통계를 병합한다")
+    void mergeLottoStatistics() {
 
         LottoStatistics lottoStatistics1 = new LottoStatistics(Map.of(3, 2));
         LottoStatistics lottoStatistics2 = new LottoStatistics(Map.of(3, 1));
