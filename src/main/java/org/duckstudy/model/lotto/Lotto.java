@@ -8,6 +8,7 @@ import static org.duckstudy.model.lotto.LottoNumber.END_INCLUSIVE_NUMBER;
 import static org.duckstudy.model.lotto.LottoNumber.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collector;
@@ -29,7 +30,7 @@ public class Lotto {
 
     public Lotto(final Set<LottoNumber> lotto) {
         validateLottoSize(lotto);
-        this.lotto = Collections.unmodifiableSet(lotto);
+        this.lotto = new HashSet<>(lotto);
     }
 
     public static Lotto from(final Set<Integer> values) {
@@ -73,6 +74,6 @@ public class Lotto {
     }
 
     public Set<LottoNumber> getLotto() {
-        return lotto;
+        return Collections.unmodifiableSet(lotto);
     }
 }

@@ -3,6 +3,7 @@ package org.duckstudy.model.lotto;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(final List<Lotto> lottos) {
-        this.lottos = Collections.unmodifiableList(lottos);
+        this.lottos = new ArrayList<>(lottos);
     }
 
     public static Lottos generateLottos(final int lottoCount) {
@@ -35,6 +36,6 @@ public class Lottos {
     }
 
     public List<Lotto> getLottos() {
-        return lottos;
+        return Collections.unmodifiableList(lottos);
     }
 }

@@ -1,6 +1,7 @@
 package org.duckstudy.model.lotto;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,7 +15,7 @@ public class LottoStatistics {
     private final Map<Integer, Integer> statistics;
 
     public LottoStatistics(final Map<Integer, Integer> statistics) {
-        this.statistics = Collections.unmodifiableMap(statistics);
+        this.statistics = new HashMap<>(statistics);
     }
 
     public static LottoStatistics createLottoResult(final Lotto lotto, final Lotto winningLotto,
@@ -42,6 +43,6 @@ public class LottoStatistics {
     }
 
     public Map<Integer, Integer> getStatistics() {
-        return statistics;
+        return Collections.unmodifiableMap(statistics);
     }
 }
