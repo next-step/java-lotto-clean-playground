@@ -1,42 +1,29 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import util.Errors;
 
 public class Lotto {
 
-    private final static int LOTTO_SIZE = 6;
+    public final static int SIZE = 6;
 
-    private final NumberGenerator numberGenerator;
+    private final List<Integer> numbers;
 
-    private final List<Integer> lotto;
-
-    public Lotto(NumberGenerator numberGenerator) {
-        this.numberGenerator = numberGenerator;
-        this.lotto = createLotto();
+    public Lotto(List<Integer> numbers) {
+        validateLottoNumbersSize(numbers);
+        this.numbers = numbers;
     }
 
-    private List<Integer> createLotto() {
-        List<Integer> lotto = new ArrayList<>();
-        for (int count = 0; count < LOTTO_SIZE; count++) {
-            lotto.add(getLottoNumber(lotto));
-        }
-        Collections.shuffle(lotto);
-        return lotto;
-    }
-
-    private int getLottoNumber(List<Integer> lotto) {
-        while (true) {
-            int randomNumber = numberGenerator.generate();
-            if (!lotto.contains(randomNumber)) {
-                return randomNumber;
-            }
+    private void validateLottoNumbersSize(List<Integer> numbers) {
+        if (numbers.size() != SIZE) {
+            throw new IllegalArgumentException(Errors.WRONG_LOTTO_SIZE);
         }
     }
 
     @Override
     public String toString() {
-        return lotto.toString();
+        Collections.sort(numbers);
+        return numbers.toString();
     }
 }

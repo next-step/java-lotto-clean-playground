@@ -1,17 +1,13 @@
 package view;
 
+import domain.Price;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import util.Errors;
 
 public class InputView {
 
-    private String getUserStringInput() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
-    public int getUserIntegerInput() {
+    private int getUserIntegerInput() {
         try {
             Scanner scanner = new Scanner(System.in);
             return scanner.nextInt();
@@ -20,4 +16,8 @@ public class InputView {
         }
     }
 
+    public Price getPrice() {
+        final int userIntegerInput = getUserIntegerInput();
+        return new Price(userIntegerInput);
+    }
 }

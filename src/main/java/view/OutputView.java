@@ -1,6 +1,5 @@
 package view;
 
-import domain.Lottos;
 import java.util.List;
 import java.util.StringJoiner;
 
