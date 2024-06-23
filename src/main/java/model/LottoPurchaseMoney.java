@@ -1,12 +1,12 @@
 package model;
 
-public class Money {
+public class LottoPurchaseMoney {
 
     private static final int LOTTO_EXPENSE = 1000;
 
     private final int value;
 
-    public Money(int value) {
+    public LottoPurchaseMoney(int value) {
         validateValue(value);
         this.value = value;
     }

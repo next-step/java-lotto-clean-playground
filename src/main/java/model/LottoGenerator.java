@@ -14,9 +14,9 @@ public class LottoGenerator {
             31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
             41, 42, 43, 44, 45);
 
-    public Lottos generateRandomLotto(final Money money) {
+    public Lottos generateRandomLotto(final LottoPurchaseMoney lottoPurchaseMoney) {
         final List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < money.getPurchaseQuantity(); i++) {
+        for (int i = 0; i < lottoPurchaseMoney.getPurchaseQuantity(); i++) {
             Collections.shuffle(NUMBERS);
             lottos.add(new Lotto(new ArrayList<>(NUMBERS.subList(0, 6))));
         }

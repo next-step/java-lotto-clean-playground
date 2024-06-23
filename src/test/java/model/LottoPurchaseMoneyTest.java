@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class MoneyTest {
+class LottoPurchaseMoneyTest {
 
     @DisplayName("구매금액이 음수이면 예외를 발생한다.")
     @Test
@@ -17,7 +17,7 @@ class MoneyTest {
         int value = -1;
         // when
         // then
-        assertThatThrownBy(() -> new Money(value))
+        assertThatThrownBy(() -> new LottoPurchaseMoney(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입금액은 음수가 될 수 없습니다.");
     }
@@ -29,7 +29,7 @@ class MoneyTest {
         // given
         // when
         // then
-        assertThatThrownBy(() -> new Money(value))
+        assertThatThrownBy(() -> new LottoPurchaseMoney(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입금액은 1000단위이어야 합니다.");
     }
@@ -39,10 +39,10 @@ class MoneyTest {
     void get_lotto_count() {
         // given
         final int pay = 10000;
-        final Money money = new Money(pay);
+        final LottoPurchaseMoney lottoPurchaseMoney = new LottoPurchaseMoney(pay);
 
         // when
-        final int result = money.getPurchaseQuantity();
+        final int result = lottoPurchaseMoney.getPurchaseQuantity();
 
         // then
         assertThat(result).isEqualTo(10);
