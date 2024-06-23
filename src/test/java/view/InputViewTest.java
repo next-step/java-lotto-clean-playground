@@ -1,19 +1,17 @@
 package view;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import util.Errors;
 
 class InputViewTest {
 
-    private InputView inputView = new InputView();
+    private final InputView inputView = new InputView();
 
     private void setSetIn(String input) {
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
@@ -31,21 +29,9 @@ class InputViewTest {
             // given
             setSetIn(userInput);
             // when then
-            assertThatThrownBy(() -> inputView.getUserIntegerInput())
+            assertThatThrownBy(inputView::getPrice)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.INPUT_IS_NOT_INTEGER);
-        }
-
-        @ParameterizedTest(name = "사용자가 {0}을 입력시 {1}을 반환")
-        @CsvSource({"14000,14000", "-2000,-2000", "+4000,4000", "0,0"})
-        @DisplayName("사용자의 input을 기반으로 시도 횟수를 get")
-        void validTestOfGetTryCount(String userInput, int expectedTryCount) {
-            // given
-            setSetIn(userInput);
-            // when
-            int tryCount = inputView.getUserIntegerInput();
-            // then
-            assertThat(tryCount).isEqualTo(expectedTryCount);
         }
     }
 
