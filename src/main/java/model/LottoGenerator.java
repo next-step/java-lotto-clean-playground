@@ -1,6 +1,9 @@
 package model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class LottoGenerator {
 
@@ -13,11 +16,9 @@ public class LottoGenerator {
 
     public Lottos generateRandomLotto(final Money money) {
         final List<Lotto> lottos = new ArrayList<>();
-        Collections.shuffle(NUMBERS);
-        Random random = new Random();
         for (int i = 0; i < money.getPurchaseQuantity(); i++) {
-            final int randomNumber = random.nextInt(0, 40);
-            lottos.add(new Lotto(NUMBERS.subList(randomNumber, randomNumber + 6)));
+            Collections.shuffle(NUMBERS);
+            lottos.add(new Lotto(new ArrayList<>(NUMBERS.subList(0, 6))));
         }
         return new Lottos(lottos);
     }
