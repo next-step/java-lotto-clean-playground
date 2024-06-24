@@ -45,4 +45,8 @@ public class LottoTicket {
     public String toString() {
         return lottoNumbers.toString();
     }
+
+    public boolean contains(Integer winningNumber) {
+        return lottoNumbers.contains(winningNumber);
+    }
 }

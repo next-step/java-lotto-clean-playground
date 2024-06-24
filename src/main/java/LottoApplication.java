@@ -1,7 +1,4 @@
-import domain.lotto.AutoLottoGenerator;
-import domain.lotto.LottoStore;
-import domain.lotto.LottoTicket;
-import domain.lotto.Money;
+import domain.lotto.*;
 import view.InputView;
 import view.OutputView;
 
@@ -17,6 +14,10 @@ public class LottoApplication {
         List<LottoTicket> lottoTickets = lottoStore.sellLottos(money);
 
         OutputView.printResult(lottoTickets);
+
+        final LottoResult lottoResult = InputView.inputWinningNumbers();
+
+        OutputView.printStatistics(money, lottoResult, lottoTickets);
     }
 
     public static void main(String[] args) {
