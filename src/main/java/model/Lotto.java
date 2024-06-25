@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,14 @@ public class Lotto {
     public Lotto(final List<Integer> numbers) {
         validateNumbers(numbers);
         this.numbers = numbers;
+    }
+
+    public static Lotto from(final String[] input) {
+        final List<Integer> numbers = Arrays.stream(input)
+                .map(Integer::parseInt)
+                .toList();
+
+        return new Lotto(numbers);
     }
 
     private void validateNumbers(final List<Integer> numbers) {
