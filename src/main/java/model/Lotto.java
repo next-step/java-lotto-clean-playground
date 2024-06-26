@@ -52,6 +52,19 @@ public class Lotto {
         }
     }
 
+    public Rank getRank(final Lotto winningLotto) {
+        int correctCnt = numbers.stream()
+                .filter(winningLotto::containNumber)
+                .toList()
+                .size();
+
+        return Rank.findPlace(correctCnt);
+    }
+
+    private boolean containNumber(final int number) {
+        return numbers.contains(number);
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }
