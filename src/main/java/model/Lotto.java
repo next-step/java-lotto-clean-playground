@@ -1,9 +1,6 @@
 package model;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Lotto {
 
@@ -15,6 +12,7 @@ public class Lotto {
 
     public Lotto(final List<Integer> numbers) {
         validateNumbers(numbers);
+        Collections.sort(numbers);
         this.numbers = numbers;
     }
 

@@ -18,7 +18,6 @@ public class OutputView {
 
         for (Lotto lotto : lottos.getLottos()) {
             final List<Integer> numbers = lotto.getNumbers();
-            Collections.sort(numbers);
             stringJoiner.add(numbers.toString());
         }
 
