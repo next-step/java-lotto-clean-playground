@@ -1,7 +1,8 @@
 import model.Lotto;
 import model.LottoGenerator;
-import model.Lottos;
 import model.LottoPurchaseMoney;
+import model.LottoResult;
+import model.Lottos;
 import view.InputView;
 import view.OutputView;
 
@@ -13,6 +14,9 @@ public class Application {
 
         final Lottos lottos = lottoGenerator.generateRandomLotto(lottoPurchaseMoney);
         OutputView.showLotto(lottos);
+
         final Lotto winningLotto = Lotto.from(InputView.inputWinningLotto());
+        final LottoResult result = lottos.getResult(winningLotto);
+        OutputView.showResult(result, lottoPurchaseMoney);
     }
 }
