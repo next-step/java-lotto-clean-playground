@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -19,7 +20,7 @@ public class Lotto {
     public static Lotto from(final String[] input) {
         final List<Integer> numbers = Arrays.stream(input)
                 .map(Integer::parseInt)
-                .toList();
+                .collect(Collectors.toList());
 
         return new Lotto(numbers);
     }
