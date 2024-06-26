@@ -10,6 +10,17 @@ public class LottoResult {
         this.result = result;
     }
 
+    public double getRateOfReturn(final int purchaseMoney) {
+        int reward = getReward();
+        return reward / (double) purchaseMoney;
+    }
+
+    private int getReward() {
+        return result.keySet().stream()
+                .mapToInt(rank -> rank.getReward() * result.get(rank))
+                .sum();
+    }
+
     public Map<Rank, Integer> getResult() {
         return result;
     }
