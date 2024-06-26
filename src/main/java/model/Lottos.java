@@ -1,5 +1,7 @@
 package model;
 
+import common.Rank;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

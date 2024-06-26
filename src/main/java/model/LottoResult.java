@@ -1,5 +1,7 @@
 package model;
 
+import common.Rank;
+
 import java.util.Map;
 
 public class LottoResult {
