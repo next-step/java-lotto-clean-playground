@@ -33,3 +33,48 @@ flowchart LR
 4. 사용자는 LottoStore로부터 최종적으로 List<LottoTicket> 만 받게 된다.
 
 각 개체들끼리는 내부에선 무엇을 하는지 신경 안 쓰도록 해보며, 최대한 메시지로만 생각해서 보내보도록 해보았다.
+
+# 2단계 - 로또 당첨
+
+## 기능 요구사항
+
+- 로또 당첨 번호를 받아 일치한 번호 수에 따라 당첨 결과를 보여준다.
+- 실행 결과
+
+위 요구사항에 따라 14000원 어치 로또를 구매하였을 경우 프로그램을 실행한 결과는 다음과 같다.
+
+## 새로운 프로그래밍 요구사항
+
+- 모든 원시 값과 문자열을 포장한다.
+- 일급 컬렉션을 쓴다.
+
+## 내가 생각한 객체 설계
+
+- 당첨 번호를 가진 LottoResult 객체. 몇 등인지 당첨 정보를 찾아주는 책임을 갖고 있음
+    - findPrize를 통해 lottoTicket의 있는 숫자와 자신의 당첨 번호로 Prize를 찾아 준다.
+
+```mermaid
+---
+title: 당첨 금액 찾기
+---
+classDiagram
+note for LottoResult "당첨 번호를 갖고 있음. 몇 등인지 당첨 정보를 찾아주는 책임을 갖고 있음"
+note for Prize "LottoResult에서만 사용돼서 내부에 위치"
+
+namespace 당첨 번호 관리 {
+    class LottoResult{
+        +List<Integer> winningNumbers
+        +findPrize()
+    }
+
+    class Prize{
+        <<enumeration>>
+        FIRST
+        SECOND
+        THIRD
+        FOURTH
+        LOSING_TICKET
+        + findByMatch()
+    }  
+}
+```

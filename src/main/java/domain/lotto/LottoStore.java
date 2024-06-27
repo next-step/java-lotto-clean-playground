@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.common.Money;
 import java.util.ArrayList;
 import java.util.List;
 
