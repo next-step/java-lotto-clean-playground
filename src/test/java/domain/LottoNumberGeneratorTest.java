@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class LottoGeneratorTest {
+class LottoNumberGeneratorTest {
 
-    private final LottoGenerator lottoGenerator = new LottoGenerator();
+    private final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
     @Nested
     @DisplayName("로또 생성 테스트")
@@ -22,7 +22,7 @@ class LottoGeneratorTest {
             // given
             PurchasePrice purchasePrice = new PurchasePrice(inputPrice);
             // when
-            Lottos lottos = lottoGenerator.generateLottos(purchasePrice);
+            Lottos lottos = lottoNumberGenerator.generateLottos(purchasePrice);
             // then
             assertThat(lottos.getSize())
                 .isEqualTo(expectedNumberOfLotto);
