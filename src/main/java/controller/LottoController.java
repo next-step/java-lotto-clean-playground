@@ -1,7 +1,7 @@
 package controller;
 
 import domain.Lotto;
-import domain.Price;
+import domain.PurchasePrice;
 import domain.Lottos;
 import java.util.List;
 import service.LottoService;
@@ -15,17 +15,17 @@ public class LottoController {
     private final LottoService lottoService = new LottoService();
 
     public void execute() {
-        final Price price = getPrice();
-        final Lottos lottos = lottoService.getLottos(price);
+        final PurchasePrice purchasePrice = getPurchasePrice();
+        final Lottos lottos = lottoService.getLottos(purchasePrice);
         printLottosStatus(lottos);
 
         final Lotto winningLotto = getWinningLotto();
     }
 
-    private Price getPrice() {
-        outputView.printInputPriceGuide();
+    private PurchasePrice getPurchasePrice() {
+        outputView.printInputPurchasePriceGuide();
         final int userIntegerInput = inputView.getUserIntegerInput();
-        return new Price(userIntegerInput);
+        return new PurchasePrice(userIntegerInput);
     }
 
     private void printLottosStatus(Lottos lottos) {
