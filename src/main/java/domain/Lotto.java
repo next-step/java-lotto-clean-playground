@@ -46,4 +46,18 @@ public class Lotto {
         Collections.sort(numbers);
         return numbers.toString();
     }
+
+    public List<Integer> getNumbers() {
+        return Collections.unmodifiableList(numbers);
+    }
+
+    public int getMatchingNumberCount(List<Integer> comparingNumbers) {
+        int matchingNumberCount = 0;
+        for (Integer number : numbers) {
+            if (comparingNumbers.contains(number)) {
+                matchingNumberCount ++;
+            }
+        }
+        return matchingNumberCount;
+    }
 }

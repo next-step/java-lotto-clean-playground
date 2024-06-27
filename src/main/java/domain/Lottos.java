@@ -22,4 +22,13 @@ public class Lottos {
         }
         return status;
     }
+
+    public List<Score> getScores(List<Integer> winningNumbers) {
+        List<Score> scores = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            int matchingNumberCount = lotto.getMatchingNumberCount(winningNumbers);
+            scores.add(new Score(matchingNumberCount));
+        }
+        return scores;
+    }
 }
