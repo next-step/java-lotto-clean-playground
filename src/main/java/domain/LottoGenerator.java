@@ -7,11 +7,7 @@ import java.util.stream.IntStream;
 
 public class LottoGenerator {
 
-    private static final int MIN_LOTTO_NUMBER = 1;
-    private static final int MAX_LOTTO_NUMBER = 45;
-    private static final int LOTTO_PRICE = 1000;
-
-    private static final List<Integer> NUMBERS = IntStream.rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
+    private static final List<Integer> NUMBERS = IntStream.rangeClosed(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER)
                                                         .boxed()
                                                         .toList();
 
@@ -28,7 +24,7 @@ public class LottoGenerator {
     }
 
     private int getNumberOfLotto(Price price) {
-        return price.price() / LOTTO_PRICE;
+        return price.price() / Lotto.PRICE;
     }
 
     private List<Integer> getNumbers() {
