@@ -59,6 +59,6 @@ public class OutputView {
     }
 
     public void printROI(double roi) {
-        System.out.printf("총 수익률은 %.2f입니다.", roi);
+        System.out.printf("총 수익률은 %.2f입니다.%n", roi);
     }
 }

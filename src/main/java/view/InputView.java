@@ -13,12 +13,8 @@ public class InputView {
     private Scanner scanner;
 
     private String getUserStringInput() {
-        try {
-            scanner = new Scanner(System.in);
-            return scanner.nextLine();
-        } finally {
-            scanner.close();
-        }
+        scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 
     public int getUserIntegerInput() {
@@ -27,8 +23,6 @@ public class InputView {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
             throw new IllegalArgumentException(Errors.INPUT_IS_NOT_INTEGER);
-        } finally {
-            scanner.close();
         }
     }
 
