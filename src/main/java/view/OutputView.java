@@ -28,4 +28,9 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printInputWinningNumbers() {
+        printEmptyLine();
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    }
+
 }
