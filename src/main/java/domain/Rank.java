@@ -27,7 +27,7 @@ public enum Rank {
 
     public static Rank getByScore(Score score) {
         for (Rank rank : Rank.values()) {
-            if (rank.getScoreCutoff() == score.getValue()) {
+            if (rank.getScoreCutoff() == score.value()) {
                 return rank;
             }
         }
