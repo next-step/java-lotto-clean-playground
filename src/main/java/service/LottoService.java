@@ -25,6 +25,9 @@ public class LottoService {
     }
 
     private int getNumberOfLotto(PurchasePrice purchasePrice) {
+        if (Lotto.PRICE == 0) {
+            return purchasePrice.price();
+        }
         return purchasePrice.price() / Lotto.PRICE;
     }
 
