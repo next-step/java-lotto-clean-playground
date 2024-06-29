@@ -13,13 +13,20 @@ public class LottoController {
     private final LottoService lottoService = new LottoService();
 
     public void execute() {
-        outputView.printInputPriceGuide();
-        final Price price = inputView.getPrice();
-
+        final Price price = getPrice();
         final Lottos lottos = lottoService.getLottos(price);
+        printLottosStatus(lottos);
+    }
 
+    private Price getPrice() {
+        outputView.printInputPriceGuide();
+        return inputView.getPrice();
+    }
+
+    private void printLottosStatus(Lottos lottos) {
         outputView.printNumberOfLotto(lottos.getSize());
         outputView.printStatusOfLottos(lottos.getStatus());
     }
+
 
 }
