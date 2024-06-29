@@ -59,4 +59,24 @@ class LottoTest {
         }
     }
 
+    private static Stream<Arguments> methodSourceOfGetMatchingNumberCount() {
+        return Stream.of(
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(45, 40, 1, 2, 3, 4), 2),
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(45, 40, 10, 30, 3, 4), 4)
+        );
+    }
+
+    @ParameterizedTest(name = "{0}라는 로또와 {1}을 비교했을 때, 같은 숫자의 개수는 {2}개이다.")
+    @MethodSource("methodSourceOfGetMatchingNumberCount")
+    @DisplayName("주어진 리스트와 몇 개의 숫자가 일치하는지 계산할 수 있다.")
+    void getMatchingNumberTest(List<Integer> lottoNumbers, List<Integer> comparingNumbers, int expectedCount) {
+        // given
+        Lotto lotto = new Lotto(lottoNumbers);
+        // when
+        final int matchingNumberCount = lotto.getMatchingNumberCount(comparingNumbers);
+        // then
+        assertThat(matchingNumberCount)
+            .isEqualTo(expectedCount);
+    }
+
 }
