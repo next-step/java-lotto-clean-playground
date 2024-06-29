@@ -1,6 +1,9 @@
 package view;
 
+import domain.LottoResult;
+import domain.Rank;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 
 public class OutputView {
@@ -31,6 +34,33 @@ public class OutputView {
     public void printInputWinningNumbers() {
         printEmptyLine();
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    }
+
+
+    public void printLottoResultStart() {
+        printEmptyLine();
+        System.out.println("당첨 통계\n---------");
+    }
+
+    public void printLottoResult(int scoreCutoff, int prizeMoney, int count) {
+        System.out.printf("%d개 일치 (%d원)- %d개%n", scoreCutoff, prizeMoney, count);
+    }
+
+    private void printRankCountMap(LottoResult lottoResult) {
+        final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
+        for (Rank rank : rankCountMap.keySet()) {
+            if (rank == Rank.LAST_PLACE) {
+                continue;
+            }
+            System.out.printf("%d개 일치 (%d원)- %d개%n",
+                              rank.getScoreCutoff(),
+                              rank.getPrizeMoney(),
+                              rankCountMap.get(rank));
+        }
+    }
+
+    public void printROI(double roi) {
+        System.out.printf("총 수익률은 %.2f입니다.", roi);
     }
 
 }
