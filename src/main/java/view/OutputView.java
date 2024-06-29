@@ -45,20 +45,7 @@ public class OutputView {
         System.out.printf("%d개 일치 (%d원)- %d개%n", scoreCutoff, prizeMoney, count);
     }
 
-    private void printRankCountMap(LottoResult lottoResult) {
-        final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
-        for (Rank rank : rankCountMap.keySet()) {
-            if (rank == Rank.LAST_PLACE) {
-                continue;
-            }
-            System.out.printf("%d개 일치 (%d원)- %d개%n",
-                              rank.getScoreCutoff(),
-                              rank.getPrizeMoney(),
-                              rankCountMap.get(rank));
-        }
-    }
-
     public void printROI(double roi) {
-        System.out.printf("총 수익률은 %.2f입니다.%n", roi);
+        System.out.printf("총 수익률은 %.2f입니다.", roi);
     }
 }
