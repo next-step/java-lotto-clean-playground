@@ -29,7 +29,7 @@ class InputViewTest {
             // given
             setSetIn(userInput);
             // when then
-            assertThatThrownBy(inputView::getPrice)
+            assertThatThrownBy(inputView::getUserIntegerInput)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.INPUT_IS_NOT_INTEGER);
         }

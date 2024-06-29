@@ -11,8 +11,8 @@ public class LottoGenerator {
                                                         .boxed()
                                                         .toList();
 
-    public Lottos generateLottos(Price price) {
-        final int numberOfLotto = getNumberOfLotto(price);
+    public Lottos generateLottos(PurchasePrice purchasePrice) {
+        final int numberOfLotto = getNumberOfLotto(purchasePrice);
 
         Lottos lottos = new Lottos();
         for (int count = 0; count < numberOfLotto; count++) {
@@ -23,8 +23,8 @@ public class LottoGenerator {
         return lottos;
     }
 
-    private int getNumberOfLotto(Price price) {
-        return price.price() / Lotto.PRICE;
+    private int getNumberOfLotto(PurchasePrice purchasePrice) {
+        return purchasePrice.price() / Lotto.PRICE;
     }
 
     private List<Integer> getNumbers() {

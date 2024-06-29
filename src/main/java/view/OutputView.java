@@ -7,7 +7,7 @@ public class OutputView {
 
     private static final String DELIMITER_OF_LOTTOS_STATUS = "\n";
 
-    public void printInputPriceGuide() {
+    public void printInputPurchasePriceGuide() {
         System.out.println("구입 금액을 입력해 주세요.");
     }
 

@@ -2,9 +2,9 @@ package domain;
 
 import util.Errors;
 
-public record Price(int price) {
+public record PurchasePrice(int price) {
 
-    public Price {
+    public PurchasePrice {
         validatePriceIsNotNegative(price);
     }
 

@@ -20,9 +20,9 @@ class LottoGeneratorTest {
         @DisplayName("구입금액으로 1000원짜리 로또를 몇 개 살 수 있는지 구할 수 있다.")
         void getNumberOfLottosTest(int inputPrice, int expectedNumberOfLotto) {
             // given
-            Price price = new Price(inputPrice);
+            PurchasePrice purchasePrice = new PurchasePrice(inputPrice);
             // when
-            Lottos lottos = lottoGenerator.generateLottos(price);
+            Lottos lottos = lottoGenerator.generateLottos(purchasePrice);
             // then
             assertThat(lottos.getSize())
                 .isEqualTo(expectedNumberOfLotto);
