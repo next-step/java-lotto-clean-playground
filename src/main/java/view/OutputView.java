@@ -36,7 +36,6 @@ public class OutputView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
-
     public void printLottoResultStart() {
         printEmptyLine();
         System.out.println("당첨 통계\n---------");
@@ -49,5 +48,4 @@ public class OutputView {
     public void printROI(double roi) {
         System.out.printf("총 수익률은 %.2f입니다.%n", roi);
     }
-
 }

@@ -1,10 +1,10 @@
 package service;
 
 import domain.Lotto;
-import domain.LottoNumberGenerator;
 import domain.LottoResult;
-import domain.Lottos;
 import domain.PurchasePrice;
+import domain.LottoNumberGenerator;
+import domain.Lottos;
 import domain.Score;
 import java.util.List;
 
@@ -25,6 +25,9 @@ public class LottoService {
     }
 
     private int getNumberOfLotto(PurchasePrice purchasePrice) {
+        if (Lotto.PRICE == 0) {
+            return purchasePrice.price();
+        }
         return purchasePrice.price() / Lotto.PRICE;
     }
 
