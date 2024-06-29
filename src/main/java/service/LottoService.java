@@ -2,8 +2,10 @@ package service;
 
 import domain.Lotto;
 import domain.LottoNumberGenerator;
+import domain.LottoResult;
 import domain.Lottos;
 import domain.PurchasePrice;
+import domain.Score;
 import java.util.List;
 
 public class LottoService {
@@ -24,6 +26,12 @@ public class LottoService {
 
     private int getNumberOfLotto(PurchasePrice purchasePrice) {
         return purchasePrice.price() / Lotto.PRICE;
+    }
+
+    public LottoResult getLottoResult(Lotto winningLotto, Lottos lottos) {
+        final List<Integer> winningNumbers = winningLotto.getNumbers();
+        final List<Score> scores = lottos.getScores(winningNumbers);
+        return new LottoResult(scores);
     }
 
 }
