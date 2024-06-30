@@ -3,6 +3,7 @@ package view;
 import domain.lotto.LottoResult;
 import domain.common.Money;
 
+import domain.lotto.LottoTicket;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -22,6 +23,6 @@ public class InputView {
             .mapToInt(Integer::parseInt)
             .boxed()
             .toList();
-        return new LottoResult(list);
+        return new LottoResult(new LottoTicket(list));
     }
 }

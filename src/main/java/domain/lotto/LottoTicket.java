@@ -49,4 +49,8 @@ public class LottoTicket {
     public boolean contains(Integer winningNumber) {
         return lottoNumbers.contains(winningNumber);
     }
+
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
+    }
 }

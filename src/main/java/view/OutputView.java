@@ -1,7 +1,7 @@
 package view;
 
 import domain.lotto.LottoResult;
-import domain.lotto.LottoResult.Prize;
+import domain.lotto.Prize;
 import domain.lotto.LottoTicket;
 import domain.common.Money;
 import java.util.LinkedHashMap;
