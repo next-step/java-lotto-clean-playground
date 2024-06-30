@@ -9,7 +9,6 @@ import domain.LottoResult;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
@@ -41,21 +40,15 @@ public class LottoController {
 
     private void LottoWin(Lottos lottos) {
         String inputWinNumber = inputView.inputWinningNumber();
+        int userBonusBall = inputView.inputBonusBall();
+        Lotto lotto = Lotto.createLotto();
+        int generateBonusNumber = lotto.getBonusNumber();
+
         LottoWin lottoWinning = new LottoWin();
-        List<Integer> winCounts = lottoWinning.calculateWinCounts(lottos.getLottos(), inputWinNumber);
+        List<LottoRank> winCounts = lottoWinning.calculateWinCounts(lottos.getLottos(), inputWinNumber, userBonusBall, generateBonusNumber);
         LottoResult lottoResult = new LottoResult(winCounts, price);
 
-        List rankCounts = lottoResult.getRankCounts();
-        List<int[]> Ranks = new ArrayList<>();
-        createRank(lottoResult, Ranks);
-
-        outputView.printWinningResult(rankCounts, Ranks);
+        outputView.printWinningResult(lottoResult.getRankResult().getRankCounts());
         outputView.printProfit(lottoResult.getProfitRate());
-    }
-
-    private void createRank(LottoResult lottoResult, List<int[]> Ranks) {
-        for (LottoRank rank : lottoResult.getRanks()) {
-            Ranks.add(new int[]{rank.getCount(), rank.getPrize()});
-        }
     }
 }
