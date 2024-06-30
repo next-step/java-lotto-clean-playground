@@ -35,13 +35,16 @@ public class InputView {
         List<Integer> numbers = new ArrayList<>();
         final String[] inputNumbers = input.split(DELIMITER_OF_NUMBERS);
         for (String inputNumber : inputNumbers) {
-            try {
-                int number = Integer.parseInt(inputNumber.trim());
-                numbers.add(number);
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException(Errors.INPUT_NUMBER_IS_NOT_INTEGER);
-            }
+            numbers.add(convertStringToInt(inputNumber));
         }
         return numbers;
+    }
+
+    private int convertStringToInt(String inputNumber) {
+        try {
+            return Integer.parseInt(inputNumber.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(Errors.INPUT_NUMBER_IS_NOT_INTEGER);
+        }
     }
 }

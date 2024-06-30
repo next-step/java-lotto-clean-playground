@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Rank {
 
     FIRST_PLACE(6, 2000000000),
@@ -26,12 +28,10 @@ public enum Rank {
     }
 
     public static Rank getByScore(Score score) {
-        for (Rank rank : Rank.values()) {
-            if (rank.getScoreCutoff() == score.value()) {
-                return rank;
-            }
-        }
-        return LAST_PLACE;
+        return Arrays.stream(Rank.values())
+            .filter(rank -> rank.getScoreCutoff() == score.value())
+            .findFirst()
+            .orElse(LAST_PLACE);
     }
 
 }

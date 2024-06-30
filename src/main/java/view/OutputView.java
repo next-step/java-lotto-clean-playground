@@ -1,9 +1,6 @@
 package view;
 
-import domain.LottoResult;
-import domain.Rank;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 
 public class OutputView {

@@ -4,18 +4,15 @@ import java.util.Collections;
 import java.util.List;
 import util.Errors;
 
-public class Lotto {
+public record Lotto(List<Integer> numbers) {
 
     public final static int SIZE = 6;
     public final static int MIN_NUMBER = 1;
     public final static int MAX_NUMBER = 45;
     public final static int PRICE = 1000;
 
-    private final List<Integer> numbers;
-
-    public Lotto(List<Integer> numbers) {
+    public Lotto {
         validateNumbers(numbers);
-        this.numbers = numbers;
     }
 
     private void validateNumbers(List<Integer> numbers) {
@@ -25,9 +22,13 @@ public class Lotto {
 
     private void validateNumbersRange(List<Integer> numbers) {
         for (Integer number : numbers) {
-            if (!isNumberInRange(number)) {
-                throw new IllegalArgumentException(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
-            }
+            validateNumberRange(number);
+        }
+    }
+
+    private void validateNumberRange(Integer number) {
+        if (!isNumberInRange(number)) {
+            throw new IllegalArgumentException(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
         }
     }
 
@@ -47,17 +48,23 @@ public class Lotto {
         return numbers.toString();
     }
 
-    public List<Integer> getNumbers() {
+    @Override
+    public List<Integer> numbers() {
         return Collections.unmodifiableList(numbers);
     }
 
     public int getMatchingNumberCount(List<Integer> comparingNumbers) {
         int matchingNumberCount = 0;
         for (Integer number : numbers) {
-            if (comparingNumbers.contains(number)) {
-                matchingNumberCount ++;
-            }
+            matchingNumberCount += booleanToInt(comparingNumbers.contains(number));
         }
         return matchingNumberCount;
+    }
+
+    private int booleanToInt(boolean result) {
+        if (result) {
+            return 1;
+        }
+        return 0;
     }
 }

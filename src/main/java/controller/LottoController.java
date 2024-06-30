@@ -2,8 +2,8 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoResult;
-import domain.PurchasePrice;
 import domain.Lottos;
+import domain.PurchasePrice;
 import domain.Rank;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class LottoController {
 
         final Lotto winningLotto = getWinningLotto();
         final LottoResult lottoResult = lottoService.getLottoResult(winningLotto, lottos);
-        printLottoResult(lottoResult, purchasePrice);
+        printLottoResultAndRoi(lottoResult, purchasePrice);
     }
 
     private PurchasePrice getPurchasePrice() {
@@ -44,21 +44,24 @@ public class LottoController {
         return new Lotto(winningNumbers);
     }
 
-    private void printLottoResult(LottoResult lottoResult, PurchasePrice purchasePrice) {
+    private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {
         outputView.printLottoResultStart();
-        printEachResult(lottoResult);
+        printLottoResult(lottoResult);
         outputView.printROI(lottoResult.getROI(purchasePrice));
     }
 
-    private void printEachResult(LottoResult lottoResult) {
+    private void printLottoResult(LottoResult lottoResult) {
         final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
         for (Rank rank : rankCountMap.keySet()) {
-            if (rank == Rank.LAST_PLACE) {
-                continue;
-            }
-            outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(),
-                                        rankCountMap.get(rank));
+            printEachLottoResult(rank, rankCountMap);
         }
+    }
+
+    private void printEachLottoResult(Rank rank, Map<Rank, Integer> rankCountMap) {
+        if (rank == Rank.LAST_PLACE) {
+            return;
+        }
+        outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(), rankCountMap.get(rank));
     }
 
 }

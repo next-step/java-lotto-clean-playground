@@ -32,7 +32,7 @@ public class LottoService {
     }
 
     public LottoResult getLottoResult(Lotto winningLotto, Lottos lottos) {
-        final List<Integer> winningNumbers = winningLotto.getNumbers();
+        final List<Integer> winningNumbers = winningLotto.numbers();
         final List<Score> scores = lottos.getScores(winningNumbers);
         return new LottoResult(scores);
     }
