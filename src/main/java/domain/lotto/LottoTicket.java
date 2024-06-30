@@ -53,4 +53,19 @@ public class LottoTicket {
     public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    public int contains(LottoTicket winningTicket) {
+        int match = 0;
+        for (Integer winningNumber : winningTicket.getLottoNumbers()) {
+            match = getMatch(winningNumber, match);
+        }
+        return match;
+    }
+
+    private int getMatch(Integer winningNumber, int match) {
+        if (contains(winningNumber)) {
+            match++;
+        }
+        return match;
+    }
 }

@@ -7,7 +7,7 @@ public enum Prize {
     SECOND(5, new Money(1_500_000)),
     THIRD(4, new Money(50_000)),
     FOURTH(3, new Money(5_000)),
-    LOSING_TICKET(null, Money.ZERO);
+    LOSING_TICKET(0, Money.ZERO);
 
     private final Integer match;
     private final Money money;
@@ -23,7 +23,7 @@ public enum Prize {
                 return prize;
             }
         }
-        return null;
+        return LOSING_TICKET;
     }
 
     public Integer getMatch() {
