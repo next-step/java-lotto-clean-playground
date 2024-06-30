@@ -14,6 +14,11 @@ public class Lotto {
         return lottoNumbers;
     }
 
+    public int getBonusNumber() {
+        LottoNumbers lottoNumbers = new LottoNumbers();
+        return lottoNumbers.generateBonusNumber();
+    }
+
     public static Lotto createLotto() {
         LottoNumbers lottoNumbers = new LottoNumbers();
         return new Lotto(lottoNumbers.generateLottoNumber());
