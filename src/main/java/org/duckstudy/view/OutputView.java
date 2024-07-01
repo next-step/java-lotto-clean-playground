@@ -31,6 +31,7 @@ public class OutputView {
         System.out.println(lotto.getLotto()
                 .stream()
                 .map(LottoNumber::getValue)
+                .sorted()
                 .map(String::valueOf)
                 .collect(Collectors.joining(", ", "[", "]")));
     }
