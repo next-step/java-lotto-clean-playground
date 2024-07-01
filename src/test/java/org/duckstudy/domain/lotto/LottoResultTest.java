@@ -1,10 +1,10 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import java.util.Set;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

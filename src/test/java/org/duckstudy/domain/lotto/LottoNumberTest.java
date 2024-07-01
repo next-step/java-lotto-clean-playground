@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

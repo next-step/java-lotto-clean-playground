@@ -1,4 +1,4 @@
-package org.duckstudy.model;
+package org.duckstudy.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -6,8 +6,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

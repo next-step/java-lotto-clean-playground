@@ -1,11 +1,11 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
-import static org.duckstudy.model.lotto.LottoNumber.END_INCLUSIVE_NUMBER;
-import static org.duckstudy.model.lotto.LottoNumber.START_INCLUSIVE_NUMBER;
+import static org.duckstudy.domain.lotto.LottoNumber.END_INCLUSIVE_NUMBER;
+import static org.duckstudy.domain.lotto.LottoNumber.START_INCLUSIVE_NUMBER;
 
 import java.util.Collections;
 import java.util.HashSet;

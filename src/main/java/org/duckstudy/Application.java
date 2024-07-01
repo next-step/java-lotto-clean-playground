@@ -2,9 +2,9 @@ package org.duckstudy;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import org.duckstudy.controller.LottoController;
-import org.duckstudy.view.InputView;
-import org.duckstudy.view.OutputView;
+import org.duckstudy.game.LottoGame;
+import org.duckstudy.io.InputView;
+import org.duckstudy.io.OutputView;
 
 public class Application {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class Application {
         OutputView outputView = new OutputView();
         InputView inputView = new InputView(bufferedReader);
 
-        LottoController lottoController = new LottoController(outputView, inputView);
-        lottoController.run();
+        LottoGame lottoGame = new LottoGame(outputView, inputView);
+        lottoGame.run();
     }
 }

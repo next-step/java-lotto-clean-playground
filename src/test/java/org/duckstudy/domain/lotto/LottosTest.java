@@ -1,14 +1,14 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.duckstudy.model.lotto.constant.WinningRank.FIRST;
-import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
-import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
+import static org.duckstudy.domain.lotto.constant.WinningRank.FIRST;
+import static org.duckstudy.domain.lotto.constant.WinningRank.NONE;
+import static org.duckstudy.domain.lotto.constant.WinningRank.SECOND;
 
 import java.util.List;
 import java.util.Set;
-import org.duckstudy.model.Price;
+import org.duckstudy.domain.Price;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

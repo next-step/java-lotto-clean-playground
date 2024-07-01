@@ -1,22 +1,22 @@
-package org.duckstudy.controller;
+package org.duckstudy.game;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.duckstudy.model.Price;
-import org.duckstudy.model.lotto.Lotto;
-import org.duckstudy.model.lotto.LottoCount;
-import org.duckstudy.model.lotto.LottoNumber;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.Lottos;
-import org.duckstudy.view.InputView;
-import org.duckstudy.view.OutputView;
+import org.duckstudy.domain.Price;
+import org.duckstudy.domain.lotto.Lotto;
+import org.duckstudy.domain.lotto.LottoCount;
+import org.duckstudy.domain.lotto.LottoNumber;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.Lottos;
+import org.duckstudy.io.InputView;
+import org.duckstudy.io.OutputView;
 
-public class LottoController {
+public class LottoGame {
 
     private final OutputView outputView;
     private final InputView inputView;
 
-    public LottoController(final OutputView outputView, final InputView inputView) {
+    public LottoGame(final OutputView outputView, final InputView inputView) {
         this.outputView = outputView;
         this.inputView = inputView;
     }

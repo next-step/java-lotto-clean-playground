@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;

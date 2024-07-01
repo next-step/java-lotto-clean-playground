@@ -1,11 +1,11 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 
 public class LottoResult {
 

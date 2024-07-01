@@ -1,9 +1,9 @@
-package org.duckstudy.model;
+package org.duckstudy.domain;
 
 import java.util.Objects;
-import org.duckstudy.model.lotto.LottoCount;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.LottoCount;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 
 public class Price {
 

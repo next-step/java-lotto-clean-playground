@@ -1,15 +1,15 @@
-package org.duckstudy.view;
+package org.duckstudy.io;
 
-import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
-import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
+import static org.duckstudy.domain.lotto.constant.WinningRank.NONE;
+import static org.duckstudy.domain.lotto.constant.WinningRank.SECOND;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.duckstudy.model.lotto.Lotto;
-import org.duckstudy.model.lotto.LottoNumber;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.Lottos;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.Lotto;
+import org.duckstudy.domain.lotto.LottoNumber;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.Lottos;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 
 public class OutputView {
 

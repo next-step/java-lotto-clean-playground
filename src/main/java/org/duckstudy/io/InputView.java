@@ -1,4 +1,4 @@
-package org.duckstudy.view;
+package org.duckstudy.io;
 
 import static java.util.stream.Collectors.toSet;
 

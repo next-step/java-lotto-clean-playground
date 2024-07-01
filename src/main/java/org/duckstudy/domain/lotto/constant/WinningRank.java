@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto.constant;
+package org.duckstudy.domain.lotto.constant;
 
 import java.util.Arrays;
 import java.util.List;

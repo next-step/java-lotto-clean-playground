@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import java.util.List;
 import java.util.Objects;

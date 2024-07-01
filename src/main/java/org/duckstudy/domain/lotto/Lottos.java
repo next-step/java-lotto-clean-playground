@@ -1,4 +1,4 @@
-package org.duckstudy.model.lotto;
+package org.duckstudy.domain.lotto;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
