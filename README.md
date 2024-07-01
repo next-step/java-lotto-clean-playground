@@ -4,7 +4,7 @@
 
 - `Application` : 로또 실행을 담당하는 진입점 클래스
 
-## model
+## domain
 
 - `Price` : 구매 가격 VO
 
@@ -20,14 +20,14 @@
 
 - `WinningRank` : 당첨 순위 Enum
 
-## view
+## io
 
 - `InputView` : 입력을 담당하는 클래스
 - `OutputView` : 출력을 담당하는 클래스
 
-## controller
+## game
 
-- `LottoController` : 로또 전체 흐름을 제어하는 클래스
+- `LottoGame` : 로또 게임을 담당하는 클래스
 
 <br/>
 
