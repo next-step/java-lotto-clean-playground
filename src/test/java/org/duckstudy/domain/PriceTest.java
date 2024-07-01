@@ -1,4 +1,4 @@
-package org.duckstudy.model;
+package org.duckstudy.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
@@ -6,8 +6,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -38,6 +38,47 @@ class PriceTest {
     }
 
     @Nested
+    @DisplayName("입력 가격 검증 테스트")
+    class InputPriceValidationTest {
+
+        @Test
+        @DisplayName("입력 가격이 양수일 경우 성공한다")
+        void validateInputPriceSuccessWhenPriceIsEqualOrGreaterThanZero() {
+
+            Price price = new Price(1);
+
+            assertThatCode(price::validateInputPrice)
+                    .doesNotThrowAnyException();
+        }
+
+        @Test
+        @DisplayName("입력 가격이 0 이하일 경우 예외가 발생한다")
+        void validateInputPriceFailWhenPriceIsZero() {
+
+            Price price = new Price(0);
+
+            assertThatThrownBy(price::validateInputPrice)
+                    .isExactlyInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("가격은 0원 이상이어야 합니다.\n");
+        }
+    }
+
+    @Nested
+    @DisplayName("가격 생성 테스트")
+    class PriceCreationTest {
+
+        @Test
+        @DisplayName("0원으로 가격을 생성하면 성공한다")
+        void createPriceWhenZero() {
+
+            Price price = Price.zero();
+
+            assertThat(price).isEqualTo(new Price(0));
+        }
+    }
+
+
+    @Nested
     @DisplayName("가격 계산 테스트")
     class PriceCalculateTest {
 
@@ -48,17 +89,6 @@ class PriceTest {
             Price price = new Price(1000);
 
             Price result = price.addPrice(2000);
-
-            assertThat(result).isEqualTo(new Price(3000));
-        }
-
-        @Test
-        @DisplayName("가격을 곱한다")
-        void multiplyPrice() {
-
-            Price price = new Price(1000);
-
-            Price result = price.multiplyTimes(3);
 
             assertThat(result).isEqualTo(new Price(3000));
         }
@@ -96,18 +126,18 @@ class PriceTest {
 
             Price price = new Price(10000);
 
-            assertThat(price.calculateLottoCount()).isEqualTo(10);
+            assertThat(price.calculateLottoCount().getCount()).isEqualTo(10);
         }
 
         @Test
         @DisplayName("로또 수익률을 계산한다")
         void calculateProfitRate() {
             Price purchasePrice = new Price(15000);
-            Map<Integer, Integer> result = new HashMap<>();
-            result.put(WinningRank.FIRST.getKey(), 1);
+            Map<WinningRank, Integer> result = new HashMap<>();
+            result.put(WinningRank.SECOND, 1);
             LottoResult lottoResult = new LottoResult(result);
 
-            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(1.3333333333333334E7);
+            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(200000.0);
         }
     }
 }

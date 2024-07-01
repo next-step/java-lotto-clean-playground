@@ -1,22 +1,21 @@
-package org.duckstudy.view;
+package org.duckstudy.io;
+
+import static java.util.stream.Collectors.toSet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 public class InputView {
 
     private final BufferedReader bufferedReader;
-    private final OutputView outputView;
 
-    public InputView(BufferedReader bufferedReader, OutputView outputView) {
+    public InputView(BufferedReader bufferedReader) {
         this.bufferedReader = bufferedReader;
-        this.outputView = outputView;
     }
 
     public int inputPrice() {
-        outputView.printInputPrice();
         try {
             return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException | IOException e) {
@@ -24,9 +23,7 @@ public class InputView {
         }
     }
 
-    public List<Integer> inputWinningLotto() {
-        outputView.printInputWinningLotto();
-
+    public Set<Integer> inputWinningLotto() {
         try {
             return inputLottoNumber();
         } catch (NumberFormatException | IOException e) {
@@ -34,20 +31,34 @@ public class InputView {
         }
     }
 
-    private List<Integer> inputLottoNumber() throws IOException {
+    private Set<Integer> inputLottoNumber() throws IOException {
         return Arrays.stream(bufferedReader.readLine().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .toList();
+                .collect(toSet());
     }
 
     public int inputBonusNumber() {
-        outputView.printInputBonusNumber();
-
         try {
             return Integer.parseInt(bufferedReader.readLine());
         } catch (NumberFormatException | IOException e) {
             throw new NumberFormatException("숫자만 입력 가능합니다.");
+        }
+    }
+
+    public int inputManualLottoCount() {
+        try {
+            return Integer.parseInt(bufferedReader.readLine());
+        } catch (NumberFormatException | IOException e) {
+            throw new NumberFormatException("숫자만 입력 가능합니다.");
+        }
+    }
+
+    public Set<Integer> inputManualLotto() {
+        try {
+            return inputLottoNumber();
+        } catch (NumberFormatException | IOException e) {
+            throw new NumberFormatException("숫자만 입력 가능합니다.\n");
         }
     }
 }

@@ -1,8 +1,9 @@
-package org.duckstudy.model;
+package org.duckstudy.domain;
 
 import java.util.Objects;
-import org.duckstudy.model.lotto.LottoResult;
-import org.duckstudy.model.lotto.constant.WinningRank;
+import org.duckstudy.domain.lotto.LottoCount;
+import org.duckstudy.domain.lotto.LottoResult;
+import org.duckstudy.domain.lotto.constant.WinningRank;
 
 public class Price {
 
@@ -13,16 +14,16 @@ public class Price {
 
     private final int value;
 
-    public Price(int price) {
+    public Price(final int price) {
         validatePrice(price);
         this.value = price;
     }
 
-    public static Price initialize() {
+    public static Price zero() {
         return new Price(INCLUSIVE_MIN_PRICE);
     }
 
-    private void validatePrice(int price) {
+    private void validatePrice(final int price) {
         if (price < INCLUSIVE_MIN_PRICE) {
             throw new IllegalArgumentException(String.format("가격은 %d원 이상이어야 합니다.", INCLUSIVE_MIN_PRICE));
         }
@@ -34,41 +35,36 @@ public class Price {
         }
     }
 
-    public Price addPrice(int value) {
+    public Price addPrice(final int value) {
         return new Price(this.value + value);
     }
 
-    public Price multiplyTimes(int times) {
-        return new Price(value * times);
-    }
-
-    public double divideByPrice(Price divisor) {
+    public double divideByPrice(final Price divisor) {
         checkIfZero(divisor.getValue());
         return (double) value / divisor.getValue();
     }
 
-    private void checkIfZero(int divisor) {
+    private void checkIfZero(final int divisor) {
         if (divisor == ZERO) {
             throw new IllegalArgumentException(String.format("%d으로 나눌 수 없습니다.", ZERO));
         }
     }
 
-    public int calculateLottoCount() {
+    public LottoCount calculateLottoCount() {
         checkIfZero(LOTTO_PRICE);
-        return value / LOTTO_PRICE;
+        return new LottoCount(value / LOTTO_PRICE);
     }
 
-    public double calculateProfitRate(LottoResult result) {
-        Price profit = Price.initialize();
+    public double calculateProfitRate(final LottoResult result) {
+        Price profit = Price.zero();
         for (WinningRank winningRank : WinningRank.values()) {
-            profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
+            profit = profit.accumulateProfit(winningRank.getPrice(), result.getMatchingCount(winningRank));
         }
         return profit.divideByPrice(this) * PERCENT_BASE;
     }
 
-    private Price accumulateProfit(WinningRank winningRank, int count) {
-        return this.addPrice(winningRank.getPrice())
-                .multiplyTimes(count);
+    private Price accumulateProfit(final int price, final int count) {
+        return this.addPrice(price * count);
     }
 
     public int getValue() {
