@@ -1,7 +1,7 @@
 package org.duckstudy.model.lotto.constant;
 
+import java.util.Arrays;
 import java.util.function.BiPredicate;
-import java.util.stream.Stream;
 
 public enum WinningRank {
 
@@ -26,7 +26,7 @@ public enum WinningRank {
     }
 
     public static int findByMatchCountAndBonus(final int matchCount, final boolean matchBonus) {
-        return Stream.of(values())
+        return Arrays.stream(values())
                 .filter(winningLank -> winningLank.isMatch(matchCount, matchBonus))
                 .findFirst()
                 .map(WinningRank::getKey)

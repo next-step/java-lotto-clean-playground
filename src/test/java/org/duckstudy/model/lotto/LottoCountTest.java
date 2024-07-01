@@ -42,8 +42,9 @@ class LottoCountTest {
         public void validateManualLottoCountSuccessWhenManualLottoCountIsNotGreaterThanTotalLottoCount() {
 
             LottoCount manualLottoCount = new LottoCount(10);
+            LottoCount totalLottoCount = new LottoCount(15);
 
-            assertThatCode(() -> manualLottoCount.validateManualLottoCount(10))
+            assertThatCode(() -> manualLottoCount.validateManualLottoCount(totalLottoCount))
                     .doesNotThrowAnyException();
         }
 
@@ -51,9 +52,10 @@ class LottoCountTest {
         @DisplayName("수동으로 구매할 로또 수가 전체 로또 수를 초과하면 예외가 발생한다")
         public void validateManualLottoCountFailWhenManualLottoCountIsGreaterThanTotalLottoCount() {
 
-            LottoCount lottoCount = new LottoCount(10);
+            LottoCount manualLottoCount = new LottoCount(20);
+            LottoCount totalLottoCount = new LottoCount(15);
 
-            assertThatThrownBy(() -> lottoCount.validateManualLottoCount(5))
+            assertThatThrownBy(() -> manualLottoCount.validateManualLottoCount(totalLottoCount))
                     .isExactlyInstanceOf(IllegalArgumentException.class)
                     .hasMessage("수동으로 구매할 로또 수가 전체 로또 수를 초과합니다.\n");
         }

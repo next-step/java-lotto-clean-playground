@@ -17,8 +17,8 @@ public class LottoCount {
         }
     }
 
-    public void validateManualLottoCount(final int totalLottoCount) {
-        if (count > totalLottoCount) {
+    public void validateManualLottoCount(final LottoCount totalLottoCount) {
+        if (count > totalLottoCount.getCount()) {
             throw new IllegalArgumentException("수동으로 구매할 로또 수가 전체 로또 수를 초과합니다.\n");
         }
     }

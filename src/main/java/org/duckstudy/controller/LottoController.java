@@ -68,7 +68,7 @@ public class LottoController {
         outputView.printInputManualLottoCount();
         try {
             LottoCount manualLottoCount = new LottoCount(inputView.inputManualLottoCount());
-            manualLottoCount.validateManualLottoCount(lottoCount.getCount());
+            manualLottoCount.validateManualLottoCount(lottoCount);
             return manualLottoCount;
         } catch (IllegalArgumentException e) {
             outputView.printException(e);
