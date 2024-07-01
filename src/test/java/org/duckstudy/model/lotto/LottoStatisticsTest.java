@@ -22,19 +22,19 @@ class LottoStatisticsTest {
         LottoStatistics lottoStatistics = LottoStatistics.createLottoResult(lotto, winningLotto, bonusNumber);
 
         assertThat(lottoStatistics.getStatistics())
-                .containsEntry(WinningRank.SECOND.getKey(), 1);
+                .containsEntry(WinningRank.SECOND, 1);
     }
 
     @Test
     @DisplayName("로또 당첨 통계를 병합한다")
     void mergeLottoStatistics() {
 
-        LottoStatistics lottoStatistics1 = new LottoStatistics(Map.of(3, 2));
-        LottoStatistics lottoStatistics2 = new LottoStatistics(Map.of(3, 1));
+        LottoStatistics lottoStatistics1 = new LottoStatistics(Map.of(WinningRank.FIFTH, 2));
+        LottoStatistics lottoStatistics2 = new LottoStatistics(Map.of(WinningRank.FIFTH, 1));
 
         LottoStatistics mergedLottoStatistics = lottoStatistics1.merge(lottoStatistics2);
 
         assertThat(mergedLottoStatistics.getStatistics())
-                .containsEntry(3, 3);
+                .containsEntry(WinningRank.FIFTH, 3);
     }
 }

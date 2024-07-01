@@ -58,13 +58,13 @@ public class Price {
     public double calculateProfitRate(final LottoStatistics result) {
         Price profit = Price.zero();
         for (WinningRank winningRank : WinningRank.values()) {
-            profit = profit.accumulateProfit(winningRank, result.getMatchingCount(winningRank.getKey()));
+            profit = profit.accumulateProfit(winningRank.getPrice(), result.getMatchingCount(winningRank));
         }
         return profit.divideByPrice(this) * PERCENT_BASE;
     }
 
-    private Price accumulateProfit(final WinningRank winningRank, final int count) {
-        return this.addPrice(winningRank.getPrice() * count);
+    private Price accumulateProfit(final int price, final int count) {
+        return this.addPrice(price * count);
     }
 
     public int getValue() {

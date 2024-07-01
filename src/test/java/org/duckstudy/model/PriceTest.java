@@ -133,8 +133,8 @@ class PriceTest {
         @DisplayName("로또 수익률을 계산한다")
         void calculateProfitRate() {
             Price purchasePrice = new Price(15000);
-            Map<Integer, Integer> result = new HashMap<>();
-            result.put(WinningRank.SECOND.getKey(), 1);
+            Map<WinningRank, Integer> result = new HashMap<>();
+            result.put(WinningRank.SECOND, 1);
             LottoStatistics lottoStatistics = new LottoStatistics(result);
 
             assertThat(purchasePrice.calculateProfitRate(lottoStatistics)).isEqualTo(200000.0);

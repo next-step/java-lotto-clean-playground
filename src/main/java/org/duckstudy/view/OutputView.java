@@ -3,6 +3,7 @@ package org.duckstudy.view;
 import static org.duckstudy.model.lotto.constant.WinningRank.NONE;
 import static org.duckstudy.model.lotto.constant.WinningRank.SECOND;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
@@ -60,12 +61,12 @@ public class OutputView {
             return;
         }
 
-        int cnt = winningRank.getMatchCount();
-        int key = winningRank.getKey();
+        List<Integer> matchCounts = winningRank.getMatchCount();
+//        int key = winningRank.getKey();
         int price = winningRank.getPrice();
 
-        String matchPriceMessage = getMatchPrice(winningRank, cnt, price);
-        int matchingCount = result.getMatchingCount(key);
+        String matchPriceMessage = getMatchPrice(winningRank, matchCounts.get(0), price);
+        int matchingCount = result.getMatchingCount(winningRank);
 
         System.out.println(matchPriceMessage + matchingCount + "개");
     }

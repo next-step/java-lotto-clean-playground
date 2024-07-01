@@ -56,9 +56,9 @@ class LottosTest {
 
             assertThat(lottoStatistics.getStatistics())
                     .containsExactly(
-                            entry(NONE.getKey(), 3),
-                            entry(SECOND.getKey(), 1),
-                            entry(FIRST.getKey(), 1)
+                            entry(NONE, 3),
+                            entry(SECOND, 1),
+                            entry(FIRST, 1)
                     );
         }
     }

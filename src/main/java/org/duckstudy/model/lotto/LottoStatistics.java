@@ -12,9 +12,9 @@ public class LottoStatistics {
     public static final int DEFAULT_FREQUENCY = 1;
     public static final int DEFAULT_VALUE = 0;
 
-    private final Map<Integer, Integer> statistics;
+    private final Map<WinningRank, Integer> statistics;
 
-    public LottoStatistics(final Map<Integer, Integer> statistics) {
+    public LottoStatistics(final Map<WinningRank, Integer> statistics) {
         this.statistics = new HashMap<>(statistics);
     }
 
@@ -23,9 +23,9 @@ public class LottoStatistics {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
-        int key = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus);
+        WinningRank winningRank = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus);
 
-        return new LottoStatistics(Map.of(key, DEFAULT_FREQUENCY));
+        return new LottoStatistics(Map.of(winningRank, DEFAULT_FREQUENCY));
     }
 
     public LottoStatistics merge(final LottoStatistics other) {
@@ -38,11 +38,11 @@ public class LottoStatistics {
                 )));
     }
 
-    public int getMatchingCount(final int key) {
-        return statistics.getOrDefault(key, DEFAULT_VALUE);
+    public int getMatchingCount(final WinningRank winningRank) {
+        return statistics.getOrDefault(winningRank, DEFAULT_VALUE);
     }
 
-    public Map<Integer, Integer> getStatistics() {
+    public Map<WinningRank, Integer> getStatistics() {
         return Collections.unmodifiableMap(statistics);
     }
 }
