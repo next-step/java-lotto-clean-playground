@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.duckstudy.model.lotto.Lotto;
 import org.duckstudy.model.lotto.LottoNumber;
-import org.duckstudy.model.lotto.LottoStatistics;
+import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.Lottos;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
@@ -43,26 +43,25 @@ public class OutputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 
-    public void printLottoStatistics(final LottoStatistics result) {
+    public void printLottoResult(final LottoResult result) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         iterateLottoResult(result);
     }
 
-    private void iterateLottoResult(final LottoStatistics result) {
+    private void iterateLottoResult(final LottoResult result) {
         for (WinningRank winningRank : WinningRank.values()) {
             printMatchingResult(result, winningRank);
         }
         System.out.println();
     }
 
-    private void printMatchingResult(final LottoStatistics result, final WinningRank winningRank) {
+    private void printMatchingResult(final LottoResult result, final WinningRank winningRank) {
         if (winningRank == NONE) {
             return;
         }
 
         List<Integer> matchCounts = winningRank.getMatchCount();
-//        int key = winningRank.getKey();
         int price = winningRank.getPrice();
 
         String matchPriceMessage = getMatchPrice(winningRank, matchCounts.get(0), price);

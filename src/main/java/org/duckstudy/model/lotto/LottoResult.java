@@ -7,29 +7,29 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.duckstudy.model.lotto.constant.WinningRank;
 
-public class LottoStatistics {
+public class LottoResult {
 
     public static final int DEFAULT_FREQUENCY = 1;
     public static final int DEFAULT_VALUE = 0;
 
-    private final Map<WinningRank, Integer> statistics;
+    private final Map<WinningRank, Integer> result;
 
-    public LottoStatistics(final Map<WinningRank, Integer> statistics) {
-        this.statistics = new HashMap<>(statistics);
+    public LottoResult(final Map<WinningRank, Integer> result) {
+        this.result = new HashMap<>(result);
     }
 
-    public static LottoStatistics createLottoResult(final Lotto lotto, final Lotto winningLotto,
-                                                    final LottoNumber bonusNumber) {
+    public static LottoResult createLottoResult(final Lotto lotto, final Lotto winningLotto,
+                                                final LottoNumber bonusNumber) {
         int matchingCount = lotto.countMatchingNumber(winningLotto);
         boolean matchBonus = lotto.containsNumber(bonusNumber);
 
         WinningRank winningRank = WinningRank.findByMatchCountAndBonus(matchingCount, matchBonus);
 
-        return new LottoStatistics(Map.of(winningRank, DEFAULT_FREQUENCY));
+        return new LottoResult(Map.of(winningRank, DEFAULT_FREQUENCY));
     }
 
-    public LottoStatistics merge(final LottoStatistics other) {
-        return new LottoStatistics(Stream.of(this.statistics, other.statistics)
+    public LottoResult merge(final LottoResult other) {
+        return new LottoResult(Stream.of(this.result, other.result)
                 .flatMap(map -> map.entrySet().stream())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -39,10 +39,10 @@ public class LottoStatistics {
     }
 
     public int getMatchingCount(final WinningRank winningRank) {
-        return statistics.getOrDefault(winningRank, DEFAULT_VALUE);
+        return result.getOrDefault(winningRank, DEFAULT_VALUE);
     }
 
-    public Map<WinningRank, Integer> getStatistics() {
-        return Collections.unmodifiableMap(statistics);
+    public Map<WinningRank, Integer> getResult() {
+        return Collections.unmodifiableMap(result);
     }
 }

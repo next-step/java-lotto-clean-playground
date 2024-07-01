@@ -6,7 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.duckstudy.model.lotto.LottoStatistics;
+import org.duckstudy.model.lotto.LottoResult;
 import org.duckstudy.model.lotto.constant.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -135,9 +135,9 @@ class PriceTest {
             Price purchasePrice = new Price(15000);
             Map<WinningRank, Integer> result = new HashMap<>();
             result.put(WinningRank.SECOND, 1);
-            LottoStatistics lottoStatistics = new LottoStatistics(result);
+            LottoResult lottoResult = new LottoResult(result);
 
-            assertThat(purchasePrice.calculateProfitRate(lottoStatistics)).isEqualTo(200000.0);
+            assertThat(purchasePrice.calculateProfitRate(lottoResult)).isEqualTo(200000.0);
         }
     }
 }

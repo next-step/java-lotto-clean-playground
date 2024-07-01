@@ -52,9 +52,9 @@ class LottosTest {
                     Lotto.from(Set.of(20, 21, 22, 23, 24, 25))
             ));
 
-            LottoStatistics lottoStatistics = totalLottos.accumulateLottoResult(winningLotto, bonusNumber);
+            LottoResult lottoResult = totalLottos.accumulateLottoResult(winningLotto, bonusNumber);
 
-            assertThat(lottoStatistics.getStatistics())
+            assertThat(lottoResult.getResult())
                     .containsExactly(
                             entry(NONE, 3),
                             entry(SECOND, 1),
