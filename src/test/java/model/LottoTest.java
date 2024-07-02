@@ -92,4 +92,23 @@ class LottoTest {
                 Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 11)), Rank.SECOND_PLACE),
                 Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), Rank.FIRST_PLACE));
     }
+
+    @DisplayName("로또 입력이 숫자로만 구성되어 있지 않으면 예외를 발생한다.")
+    @MethodSource("wrongLottoInput")
+    @ParameterizedTest
+    void lotto_without_number(String[] input) {
+        // given
+        // when
+        // then
+        assertThatThrownBy(() -> Lotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("숫자입력만 허용합니다.");
+    }
+
+    private static Stream<Arguments> wrongLottoInput() {
+        return Stream.of(
+                Arguments.of((Object) new String[]{"1ab", "1", "2", "4"}),
+                Arguments.of((Object) new String[]{"일", "이", "삼"}),
+                Arguments.of((Object) new String[]{"!@#", "$%^", "&*"}));
+    }
 }
