@@ -27,5 +27,4 @@ public class Lotto {
     public static Lotto createLotto(List<Integer> lottoNumbers) {
         return new Lotto(lottoNumbers);
     }
-
 }

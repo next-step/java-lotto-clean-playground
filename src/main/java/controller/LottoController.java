@@ -1,6 +1,12 @@
 package controller;
 
-import domain.*;
+import domain.Lotto;
+import domain.Lottos;
+import domain.LottoRank;
+import domain.LottoMarket;
+import domain.LottoResult;
+import domain.LottoNumberList;
+import domain.LottoWin;
 import view.InputView;
 import view.OutputView;
 
@@ -11,7 +17,6 @@ public class LottoController {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private int price;
 
     public LottoController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
