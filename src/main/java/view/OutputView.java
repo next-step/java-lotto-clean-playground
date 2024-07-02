@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printLottoTickets(int lottoTickets) {
-        System.out.println(lottoTickets + "개를 구매했습니다.");
+    public void printLottoTickets(int AutoLottoTickets, int PassiveLottoTickets) {
+        System.out.println("자동" + AutoLottoTickets + "개, 수동" + PassiveLottoTickets + "개 를 구매했습니다.");
     }
 
     public void printLotto(List<Integer> LottoList) {
@@ -29,5 +29,4 @@ public class OutputView {
     public void printProfit(double profit) {
         System.out.println("총 수익률은 " + profit + "입니다.");
     }
-
 }

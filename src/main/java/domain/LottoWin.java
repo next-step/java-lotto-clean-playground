@@ -5,20 +5,8 @@ import java.util.List;
 
 public class LottoWin {
 
-    private static final String SPLIT_CHAR = ",";
-
-    public List<LottoRank> calculateWinCounts(List<Lotto> lottoList, String inputWinNumber, int userBonusNumber, int generateBonusNumber) {
-        List<Integer> winNumber = splitString(inputWinNumber);
+    public List<LottoRank> calculateWinCounts(List<Lotto> lottoList, List<Integer> winNumber, int userBonusNumber, int generateBonusNumber) {
         return addWinCount(lottoList, winNumber, userBonusNumber, generateBonusNumber);
-    }
-
-    public List<Integer> splitString(String inputWinNumber) {
-        List<Integer> numbers = new ArrayList<>();
-        String[] splitNumbers = inputWinNumber.split(SPLIT_CHAR);
-        for (String number : splitNumbers) {
-            numbers.add(Integer.parseInt(number));
-        }
-        return numbers;
     }
 
     private List<LottoRank> addWinCount(List<Lotto> lottoList, List<Integer> winNumber, int userBonusNumber, int generateBonusNumber) {

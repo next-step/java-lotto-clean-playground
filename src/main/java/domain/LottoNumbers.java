@@ -16,9 +16,10 @@ public class LottoNumbers implements LottoNumberGenerate {
         for (int number = 0; number < MAX_LOTTO_NUMBER; number++) {
             numbers.add(number + 1);
         }
-
         Collections.shuffle(numbers);
-        return numbers.subList(0, LOTTO_SIZE);
+        List<Integer> lottoNumbers = numbers.subList(0, LOTTO_SIZE);
+        Collections.sort(lottoNumbers);
+        return lottoNumbers;
     }
 
     @Override
