@@ -25,28 +25,28 @@ public class LottoRankTest {
     @Test
     void 당첨등수_확인_테스트() {
         final List<Integer> LottoNumber = Arrays.asList(1, 3, 5, 7, 9, 11);
-        final Lotto lotto= Lotto.createLotto(LottoNumber);
-        final String winNumber="1,3,5,7,9,12";
-        final int userBonusNumber=5;
-        final int generateBonusNumber=10;
+        final Lotto lotto = Lotto.createLotto(LottoNumber);
+        final List<Integer> winNumber = new LottoNumberList("1,3,5,7,9,12").getNumbers();
+        final int userBonusNumber = 5;
+        final int generateBonusNumber = 10;
 
         LottoWin lottoWinning = new LottoWin();
-        List<LottoRank> expectedRank= Arrays.asList(SECOND);
+        List<LottoRank> expectedRank = Arrays.asList(SECOND);
 
         List<LottoRank> actualRank = lottoWinning.calculateWinCounts(Collections.singletonList(lotto), winNumber, userBonusNumber, generateBonusNumber);
         assertEquals(expectedRank, actualRank);
     }
 
     @Test
-    void 보너스볼_당첨된_경우(){
+    void 보너스볼_당첨된_경우() {
         final List<Integer> LottoNumber = Arrays.asList(1, 3, 5, 7, 9, 11);
-        final Lotto lotto= Lotto.createLotto(LottoNumber);
-        final String winNumber="1,3,5,7,9,12";
-        final int userBonusNumber=10;
-        final int generateBonusNumber=10;
+        final Lotto lotto = Lotto.createLotto(LottoNumber);
+        final List<Integer> winNumber = new LottoNumberList("1,3,5,7,9,12").getNumbers();
+        final int userBonusNumber = 10;
+        final int generateBonusNumber = 10;
 
         LottoWin lottoWinning = new LottoWin();
-        List<LottoRank> expectedRank= Arrays.asList(BONUS);
+        List<LottoRank> expectedRank = Arrays.asList(BONUS);
 
         List<LottoRank> actualRank = lottoWinning.calculateWinCounts(Collections.singletonList(lotto), winNumber, userBonusNumber, generateBonusNumber);
         assertEquals(expectedRank, actualRank);
@@ -56,7 +56,7 @@ public class LottoRankTest {
     void 당첨금액_확인_테스트() {
         final List<Integer> lottoNumber = Arrays.asList(1, 3, 5, 7, 9, 11);
         final Lotto lotto = Lotto.createLotto(lottoNumber);
-        final String winNumber = "1,3,5,7,9,11";
+        final List<Integer> winNumber = new LottoNumberList("1,3,5,7,9,11").getNumbers();
         final int userBonusNumber = 10;
         final int generatedBonusNumber = 10;
 
@@ -74,7 +74,7 @@ public class LottoRankTest {
     void 수익률_테스트() {
         final List<Integer> lottoNumber = Arrays.asList(1, 3, 5, 7, 9, 11);
         final Lotto lotto = Lotto.createLotto(lottoNumber);
-        final String winNumber = "1,3,5,7,9,11";
+        final List<Integer> winNumber = new LottoNumberList("1,3,5,7,9,11").getNumbers();
         final int userBonusNumber = 10;
         final int generatedBonusNumber = 10;
 
@@ -88,16 +88,4 @@ public class LottoRankTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void 잘못된_당첨번호_입력_테스트() {
-        final List<Integer> lottoNumber = Arrays.asList(1, 3, 5, 7, 9, 11);
-        final Lotto lotto = Lotto.createLotto(lottoNumber);
-        final String winNumber = "1,3,5,7,9,A";
-        final int userBonusNumber = 10;
-        final int generatedBonusNumber = 10;
-
-        LottoWin lottoWinning = new LottoWin();
-        assertThrows(NumberFormatException.class, () ->
-                lottoWinning.calculateWinCounts(Collections.singletonList(lotto), winNumber, userBonusNumber, generatedBonusNumber));
-    }
 }
