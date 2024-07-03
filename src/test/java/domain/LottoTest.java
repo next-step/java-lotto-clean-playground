@@ -77,6 +77,25 @@ class LottoTest {
                 .hasMessage(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
         }
 
+        private static Stream<Arguments> methodSourceOfRangeTest() {
+            return Stream.of(
+                Arguments.arguments(List.of(0, 0, 0, 0, 0, 0)),
+                Arguments.arguments(List.of(50, 60, 70, 80, 90, 100))
+            );
+        }
+
+        @ParameterizedTest(name = "{0}은 1~45 사이가 아닌 숫자가 있으므로 예외가 발생한다..")
+        @MethodSource("methodSourceOfRangeTest")
+        @DisplayName("생성되는 로또는 1 ~ 45 사이의 숫자들의 구성으로 이루어져있다..")
+        void numberRangeTest(List<Integer> inputNumbers) {
+            // given
+            // when
+            // then
+            assertThatThrownBy(() -> new Lotto(inputNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
+        }
+
     }
 
     private static Stream<Arguments> methodSourceOfGetMatchingNumberCount() {
