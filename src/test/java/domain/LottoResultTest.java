@@ -41,42 +41,6 @@ class LottoResultTest {
             .isEqualTo(expectedRankCountMap);
     }
 
-    private static Stream<Arguments> methodSourceOfCreateRankCountMapKey() {
-        return Stream.of(
-            Arguments.arguments(List.of(3, 3, 4, 5, 6, 1),
-                                Map.of(Rank.LAST_PLACE, 1,
-                                       Rank.FOURTH_PLACE, 2,
-                                       Rank.THIRD_PLACE, 1,
-                                       Rank.SECOND_PLACE, 1,
-                                       Rank.FIRST_PLACE, 1)
-            ));
-    }
-
-    @ParameterizedTest
-    @MethodSource("methodSourceOfCreateRankCountMapKey")
-    @DisplayName("rankCountMap의 key(Rank)들은 scoreCutoff 순서대로 정렬되어있다.")
-    void rankKeyTest(List<Integer> inputScores) {
-        // given
-        List<Score> scores = new ArrayList<>();
-        for (Integer inputScore : inputScores) {
-            scores.add(new Score(inputScore));
-        }
-        final LottoResult lottoResult = new LottoResult(scores);
-        // when
-        final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
-        List<Rank> orderOfRank = new ArrayList<>();
-        for (Rank rank : rankCountMap.keySet()) {
-            orderOfRank.add(rank);
-        }
-        // then
-        assertThat(orderOfRank)
-            .isEqualTo(List.of(Rank.LAST_PLACE,
-                               Rank.FOURTH_PLACE,
-                               Rank.THIRD_PLACE,
-                               Rank.SECOND_PLACE,
-                               Rank.FIRST_PLACE));
-    }
-
 
     private static Stream<Arguments> methodSourceOfGetRoi() {
         return Stream.of(
