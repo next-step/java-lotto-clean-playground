@@ -1,7 +1,9 @@
 package domain;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import util.Errors;
 
 public record Lotto(List<Integer> numbers) {
@@ -18,6 +20,7 @@ public record Lotto(List<Integer> numbers) {
     private void validateNumbers(List<Integer> numbers) {
         validateNumbersRange(numbers);
         validateLottoNumbersSize(numbers);
+        validateDuplicateNumbers(numbers);
     }
 
     private void validateNumbersRange(List<Integer> numbers) {
@@ -30,6 +33,17 @@ public record Lotto(List<Integer> numbers) {
         if (!isNumberInRange(number)) {
             throw new IllegalArgumentException(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
         }
+    }
+
+    private void validateDuplicateNumbers(List<Integer> numbers) {
+        if (hasDuplicates(numbers)) {
+            throw new IllegalArgumentException(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
+        }
+    }
+
+    private boolean hasDuplicates(List<Integer> numbers) {
+        Set<Integer> numberSet = new HashSet<>(numbers);
+        return numberSet.size() != numbers.size();
     }
 
     private boolean isNumberInRange(int number) {

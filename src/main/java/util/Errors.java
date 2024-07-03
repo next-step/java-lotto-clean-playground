@@ -10,4 +10,5 @@ public class Errors {
     public static final String NUMBER_IS_NOT_IN_VALID_RANGE = String.format("로또 각 숫자는 %d~%d사이의 숫자입니다.",
                                                                             Lotto.MIN_NUMBER, Lotto.MAX_NUMBER);
     public static final String INPUT_NUMBER_IS_NOT_INTEGER = "당첨 숫자로는 정수가 입력되어야 합니다.";
+    public static final String NUMBERS_HAS_DUPLICATE_NUMBER = "로또 내 각 숫자는 중복될 수 없습니다.";
 }

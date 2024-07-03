@@ -21,8 +21,8 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfCreateLotto() {
             return Stream.of(
-                Arguments.arguments(List.of(1, 4, 1, 30, 31, 32, 33)),
-                Arguments.arguments(List.of(10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15))
+                Arguments.arguments(List.of(1, 4, 2, 30, 31, 32, 33)),
+                Arguments.arguments(List.of(10, 11, 12, 13, 14, 15, 16, 17, 18))
             );
         }
 
@@ -57,6 +57,26 @@ class LottoTest {
             assertThat(lottoStatus)
                 .isEqualTo(expectedStatus);
         }
+
+        private static Stream<Arguments> methodSourceOfDuplicateTest() {
+            return Stream.of(
+                Arguments.arguments(List.of(1, 4, 1, 1, 1, 1)),
+                Arguments.arguments(List.of(10, 10, 11, 11, 12, 12))
+            );
+        }
+
+        @ParameterizedTest(name = "{0}은 중복된 숫자가 있으므로 예외가 발생한다..")
+        @MethodSource("methodSourceOfDuplicateTest")
+        @DisplayName("생성되는 로또는 중복되지 않은 숫자들의 구성으로 이루어져있다..")
+        void duplicateNumbersTest(List<Integer> inputNumbers) {
+            // given
+            // when
+            // then
+            assertThatThrownBy(() -> new Lotto(inputNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
+        }
+
     }
 
     private static Stream<Arguments> methodSourceOfGetMatchingNumberCount() {
