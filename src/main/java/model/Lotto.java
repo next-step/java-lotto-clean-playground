@@ -1,6 +1,6 @@
 package model;
 
-import common.Rank;
+import global.Rank;
 
 import java.util.Arrays;
 import java.util.Collections;

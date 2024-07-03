@@ -1,6 +1,6 @@
 package view;
 
-import common.Rank;
+import global.Rank;
 
 import java.util.List;
 import java.util.Map;
