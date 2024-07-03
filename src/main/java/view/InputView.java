@@ -7,6 +7,7 @@ import domain.lotto.LottoTicket;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -22,7 +23,7 @@ public class InputView {
         List<Integer> list = Arrays.stream(scanner.nextLine().split(", "))
             .mapToInt(Integer::parseInt)
             .boxed()
-            .toList();
+            .collect(Collectors.toList());
         return new LottoResult(new LottoTicket(list));
     }
 }

@@ -3,6 +3,8 @@ import domain.lotto.AutoLottoGenerator;
 import domain.lotto.LottoResult;
 import domain.lotto.LottoStore;
 import domain.lotto.LottoTicket;
+import domain.lotto.dto.StatistsDto;
+import domain.lotto.service.LottoService;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -20,7 +22,10 @@ public class LottoApplication {
 
         final LottoResult lottoResult = InputView.inputWinningNumbers();
 
-        OutputView.printStatistics(money, lottoResult, lottoTickets);
+        final LottoService lottoService = new LottoService();
+        StatistsDto statistsDto = lottoService.makeStatistics(money, lottoResult, lottoTickets);
+
+        OutputView.printStatistics(statistsDto);
     }
 
     public static void main(String[] args) {
