@@ -5,42 +5,45 @@ import java.util.List;
 
 public class LottoWin {
 
-    private static final String SPLIT_CHAR = ",";
-
-    public List<Integer> calculateWinCounts(List<Lotto> lottoList, String inputNumber) {
-        List<Integer> winNumber = splitString(inputNumber);
-        return addWinCount(lottoList, winNumber);
+    public List<LottoRank> calculateWinCounts(List<Lotto> lottoList, List<Integer> winNumber, int userBonusNumber, int generateBonusNumber) {
+        return addWinCount(lottoList, winNumber, userBonusNumber, generateBonusNumber);
     }
 
-    private List<Integer> splitString(String inputNumber) {
-        List<Integer> numbers = new ArrayList<>();
-        String[] splitNumbers = inputNumber.split(SPLIT_CHAR);
-        for (String number : splitNumbers) {
-            numbers.add(Integer.parseInt(number));
-        }
-        return numbers;
-    }
-
-    private List<Integer> addWinCount(List<Lotto> lottoList, List<Integer> winNumber) {
-        List<Integer> winCount = new ArrayList<>();
+    private List<LottoRank> addWinCount(List<Lotto> lottoList, List<Integer> winNumber, int userBonusNumber, int generateBonusNumber) {
+        List<LottoRank> winCount = new ArrayList<>();
         for (Lotto lotto : lottoList) {
-            winCount.add(checkWinNumber(lotto.getLottoNumbers(), winNumber));
+            int count = checkWinNumber(lotto.getLottoNumbers(), winNumber);
+            boolean bonusMatch = checkBonusMatch(userBonusNumber, generateBonusNumber);
+            winCount.add(getLottoRank(count, bonusMatch));
         }
         return winCount;
     }
 
-    private int checkWinNumber(List<Integer> actualNumber, List<Integer> winNumber) {
+    public int checkWinNumber(List<Integer> lottoNumbers, List<Integer> winNumber) {
         int count = 0;
         for (int number : winNumber) {
-            count = getCount(actualNumber, count, number);
+            count += getCount(lottoNumbers, number);
         }
         return count;
     }
 
-    private int getCount(List<Integer> actualNumber, int count, int number) {
+    private int getCount(List<Integer> actualNumber, int number) {
         if (actualNumber.contains(number)) {
-            count++;
+            return 1;
         }
-        return count;
+        return 0;
+    }
+
+    public boolean checkBonusMatch(int userBonusNumber, int generatedBonusNumber) {
+        return userBonusNumber == generatedBonusNumber;
+    }
+
+    private LottoRank getLottoRank(int count, boolean bonusMatch) {
+        for (LottoRank rank : LottoRank.values()) {
+            if (rank.getCount() == count && (!rank.isBonusMatch() || bonusMatch)) {
+                return rank;
+            }
+        }
+        return LottoRank.NONE;
     }
 }

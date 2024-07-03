@@ -3,14 +3,16 @@ package domain;
 public class LottoMarket {
 
     private final int price;
+    private final int PassiveLottoCount;
 
-    public LottoMarket(int price) {
+    public LottoMarket(int price, int PassiveLottoCount) {
+        this.PassiveLottoCount = PassiveLottoCount;
         this.price = price;
     }
 
     public Lottos generateTickets() {
-        LottoTicket lottoTicket = new LottoTicket(price);
+        LottoAutoTicket lottoTicket = new LottoAutoTicket(price, PassiveLottoCount);
         int numberOfTickets = lottoTicket.getLottoTickets();
-        return Lottos.generateLottos(numberOfTickets);
+        return Lottos.generateAutoLottos(numberOfTickets);
     }
 }
