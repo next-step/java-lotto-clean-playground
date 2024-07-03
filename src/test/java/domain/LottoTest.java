@@ -40,22 +40,22 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfToString() {
             return Stream.of(
-                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), "[1, 2, 3, 8, 9, 10]"),
-                Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), "[10, 20, 25, 30, 40, 45]")
+                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), Arrays.asList(1, 2, 3, 8,9, 10)),
+                Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(10, 20, 25, 30, 40, 45))
             );
         }
 
         @ParameterizedTest(name = "{0}이 로또 numbers이면 해당 로또를 toString() 한 값은 {1}이다.")
         @MethodSource("methodSourceOfToString")
-        @DisplayName("로또를 toString() 하면 정렬된 숫자를 string으로 반환한다.")
-        void toStringTest(List<Integer> inputNumbers, String expectedStatus) {
+        @DisplayName("로또를 numbers() 하면 정렬된 숫자를 반환한다.")
+        void toStringTest(List<Integer> inputNumbers, List<Integer> expectedNumbers) {
             // given
             Lotto lotto = new Lotto(inputNumbers);
             // when
-            String lottoStatus = lotto.toString();
+            List<Integer> lottoNumbers = lotto.numbers();
             // then
-            assertThat(lottoStatus)
-                .isEqualTo(expectedStatus);
+            assertThat(lottoNumbers)
+                .containsExactlyElementsOf(expectedNumbers);
         }
 
         private static Stream<Arguments> methodSourceOfDuplicateTest() {

@@ -15,10 +15,10 @@ public class Lottos {
         return lottos.size();
     }
 
-    public List<String> getStatus() {
-        List<String> status = new ArrayList<>();
+    public List<List<Integer>> getStatus() {
+        List<List<Integer>> status = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            status.add(lotto.toString());
+            status.add(lotto.numbers());
         }
         return status;
     }
