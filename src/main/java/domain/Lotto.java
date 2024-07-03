@@ -68,17 +68,9 @@ public record Lotto(List<Integer> numbers) {
     }
 
     public int getMatchingNumberCount(List<Integer> comparingNumbers) {
-        int matchingNumberCount = 0;
-        for (Integer number : numbers) {
-            matchingNumberCount += booleanToInt(comparingNumbers.contains(number));
-        }
-        return matchingNumberCount;
-    }
-
-    private int booleanToInt(boolean result) {
-        if (result) {
-            return 1;
-        }
-        return 0;
+        return numbers.stream()
+            .filter(comparingNumbers::contains)
+            .toList()
+            .size();
     }
 }
