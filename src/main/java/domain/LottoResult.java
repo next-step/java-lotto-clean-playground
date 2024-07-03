@@ -1,14 +1,13 @@
 package domain;
 
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class LottoResult {
 
-    private final Map<Rank, Integer> rankCountMap = new TreeMap<>(Comparator.comparingInt(Rank::getScoreCutoff));
+    private final Map<Rank, Integer> rankCountMap = new HashMap<>();
 
     public LottoResult(List<Score> scores) {
         initRankCountMap();

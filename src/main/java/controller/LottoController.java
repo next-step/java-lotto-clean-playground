@@ -13,6 +13,9 @@ import view.OutputView;
 
 public class LottoController {
 
+    private final static List<Rank> OUTPUT_ORDER_OF_RANK  =
+        List.of(Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
+
     private final OutputView outputView = new OutputView();
     private final InputView inputView = new InputView();
     private final LottoService lottoService = new LottoService();
@@ -52,16 +55,9 @@ public class LottoController {
 
     private void printLottoResult(LottoResult lottoResult) {
         final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
-        for (Rank rank : rankCountMap.keySet()) {
-            printEachLottoResult(rank, rankCountMap);
+        for (Rank rank : OUTPUT_ORDER_OF_RANK) {
+            outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(), rankCountMap.get(rank));
         }
-    }
-
-    private void printEachLottoResult(Rank rank, Map<Rank, Integer> rankCountMap) {
-        if (rank == Rank.LAST_PLACE) {
-            return;
-        }
-        outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(), rankCountMap.get(rank));
     }
 
 }
