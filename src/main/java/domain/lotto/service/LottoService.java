@@ -39,29 +39,16 @@ public class LottoService {
     }
 
     private List<MatchResult> getMathResult(Map<Prize, Integer> prizes) {
-        List<MatchResult> matchResults = new ArrayList<>();
-        for (Map.Entry<Prize, Integer> prizeIntegerEntry : prizes.entrySet()) {
-            Prize prize = prizeIntegerEntry.getKey();
-            Integer match = prize.getMatch();
-            Money money = prize.getMoney();
-            if (prize == Prize.LOSING_TICKET) continue;
-
-            Integer count = prizeIntegerEntry.getValue();
-            matchResults.add(new MatchResult(match, money.getAmount(), count));
-        }
-        return matchResults;
+        return prizes.keySet().stream()
+            .filter(k -> k != Prize.LOSING_TICKET)
+            .map(k -> new MatchResult(k.getMatch(), k.getMoney().getAmount(), prizes.get(k)))
+            .toList();
     }
     
     private Money calculateTotalMoney(Map<Prize, Integer> prizes) {
-        Money total = Money.ZERO;
-        for (Map.Entry<Prize, Integer> prizeIntegerEntry : prizes.entrySet()) {
-            Prize prize = prizeIntegerEntry.getKey();
-            if (prize == Prize.LOSING_TICKET) continue;
-
-            Money money = prize.getMoney();
-            Integer count = prizeIntegerEntry.getValue();
-            total = total.plus(money.multiply(count));
-        }
-        return total;
+        int totalPrize = prizes.keySet().stream()
+            .mapToInt(k -> k.getMoney().getAmount() * prizes.get(k))
+            .sum();
+        return new Money(totalPrize);
     }
 }
