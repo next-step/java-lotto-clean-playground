@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class LottoTicketTest {
@@ -44,5 +45,41 @@ class LottoTicketTest {
         List<Integer> numbers = Arrays.asList(1, 1, 2, 2, 3, 3);
         Assertions.assertThatThrownBy(() -> new LottoTicket(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @MethodSource("mathCount")
+    void 포함_개수_확인(LottoTicket winningLottoTicket, LottoTicket myTicket, int match) {
+        assertThat(myTicket.contains(winningLottoTicket)).isEqualTo(match);
+    }
+
+    private static Stream<Arguments> mathCount() {
+        return Stream.of(
+            Arguments.arguments(
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                6
+            ),
+            Arguments.arguments(
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 45)),
+                5
+            ),
+            Arguments.arguments(
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 44, 45)),
+                4
+            ),
+            Arguments.arguments(
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(Arrays.asList(1, 2, 3, 43, 44, 45)),
+                3
+            ),
+            Arguments.arguments(
+                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(Arrays.asList(1, 2, 42, 43, 44, 45)),
+                2
+            )
+        );
     }
 }
