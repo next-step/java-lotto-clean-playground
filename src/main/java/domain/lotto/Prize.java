@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import domain.common.Money;
+import java.util.Arrays;
 
 public enum Prize {
     FIRST(6, new Money(2_000_000_000)),
@@ -18,12 +19,10 @@ public enum Prize {
     }
 
     public static Prize findByMatch(int match) {
-        for (Prize prize: values()) {
-            if (prize.match.equals(match)) {
-                return prize;
-            }
-        }
-        return LOSING_TICKET;
+        return Arrays.stream(values())
+            .filter(prize -> prize.match.equals(match))
+            .findFirst()
+            .orElseGet(() -> Prize.LOSING_TICKET);
     }
 
     public Integer getMatch() {
