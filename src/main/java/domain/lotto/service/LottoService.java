@@ -15,7 +15,7 @@ import java.util.Map;
 public class LottoService {
 
     public StatistsDto makeStatistics(Money myMoney, LottoResult lottoResult, List<LottoTicket> lottoTickets) {
-        Map<Prize, Integer> prizes = getPrizes();
+        Map<Prize, Integer> prizes = initPrizes();
         
         lottoTickets.forEach(lottoTicket -> {
             Prize prize = lottoResult.findPrize(lottoTicket);
@@ -29,7 +29,7 @@ public class LottoService {
         return new StatistsDto(matchResults, profitRate);
     }
 
-    private Map<Prize, Integer> getPrizes() {
+    private Map<Prize, Integer> initPrizes() {
         Map<Prize, Integer> prizes = new LinkedHashMap<>();
         prizes.put(Prize.FOURTH, 0);
         prizes.put(Prize.THIRD, 0);
