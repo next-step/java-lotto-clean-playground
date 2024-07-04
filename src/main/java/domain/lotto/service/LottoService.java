@@ -6,8 +6,6 @@ import domain.lotto.LottoTicket;
 import domain.lotto.Prize;
 import domain.lotto.dto.MatchResult;
 import domain.lotto.dto.StatistsDto;
-
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
