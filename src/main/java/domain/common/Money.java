@@ -2,8 +2,9 @@ package domain.common;
 
 public class Money {
 
-    private final int amount;
     public static final Money ZERO = new Money(0);
+
+    private final int amount;
 
     public Money(int amount) {
         validate(amount);
