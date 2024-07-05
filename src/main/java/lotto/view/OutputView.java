@@ -7,6 +7,9 @@ import lotto.message.ConsoleMessage;
 
 public class OutputView {
 
+    private OutputView() {
+    }
+
     public static void printLottoes(List<Lotto> lottoList) {
         System.out.printf(ConsoleMessage.COUNT_LOTTO.getMessage(), lottoList.size());
 
