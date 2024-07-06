@@ -1,20 +1,26 @@
-package lotto;
+package lotto.generator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class RandomNumberGenerator implements NumberGenerator{
+import lotto.Constant;
+
+public class RandomNumberGenerator implements NumberGenerator {
 
     private final Random random = new Random();
 
     @Override
     public List<Integer> generateLottoNum() {
         List<Integer> lotto = new ArrayList<>();
+        int num;
 
-        for(int i = 0; i < Constant.LOTTO_NUM_COUNT; i++){
-            lotto.add(random.nextInt(45));
+        while(lotto.size() != Constant.LOTTO_NUM_COUNT){
+            num = random.nextInt(45) + 1;
+            if (!lotto.contains(num)) {
+                lotto.add(num);
+            }
         }
         Collections.sort(lotto);
 

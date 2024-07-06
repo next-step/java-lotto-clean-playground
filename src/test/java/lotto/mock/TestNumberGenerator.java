@@ -2,7 +2,7 @@ package lotto.mock;
 
 import java.util.List;
 
-import lotto.NumberGenerator;
+import lotto.generator.NumberGenerator;
 
 public class TestNumberGenerator implements NumberGenerator {
 

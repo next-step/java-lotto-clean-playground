@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import lotto.domain.Lotto;
+import lotto.generator.NumberGenerator;
+import lotto.generator.RandomNumberGenerator;
 import lotto.mock.Lotto7NumberGenerator;
 
 class LottoTest {

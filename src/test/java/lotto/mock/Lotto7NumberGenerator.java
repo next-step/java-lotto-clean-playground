@@ -2,9 +2,7 @@ package lotto.mock;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Nested;
-
-import lotto.NumberGenerator;
+import lotto.generator.NumberGenerator;
 
 public class Lotto7NumberGenerator implements NumberGenerator {
 

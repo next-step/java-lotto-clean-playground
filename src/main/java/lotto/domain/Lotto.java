@@ -3,7 +3,7 @@ package lotto.domain;
 import java.util.List;
 
 import lotto.Constant;
-import lotto.NumberGenerator;
+import lotto.generator.NumberGenerator;
 import lotto.message.ErrorMessage;
 
 public class Lotto {

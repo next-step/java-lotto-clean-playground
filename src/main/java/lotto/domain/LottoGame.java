@@ -1,22 +1,23 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lotto.Constant;
-import lotto.NumberGenerator;
-import lotto.RandomNumberGenerator;
+import lotto.generator.NumberGenerator;
 import lotto.message.ErrorMessage;
 
 public class LottoGame {
     private final int price;
-    private List<Lotto> lottoList;
+    private final List<Lotto> lottoList = new ArrayList<>();
     private final int trial;
-    private final NumberGenerator numberGenerator = new RandomNumberGenerator();
+    private final NumberGenerator numberGenerator;
 
-    public LottoGame(int price) {
+    public LottoGame(int price, NumberGenerator numberGenerator) {
         validatePrice(price);
         this.price = price;
         this.trial = getTrial();
+        this.numberGenerator = numberGenerator;
         makeLottoList();
     }
 
