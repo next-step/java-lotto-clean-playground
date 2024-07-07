@@ -15,12 +15,14 @@ public class LottoResult {
         this.rewardRate = rewardRate;
     }
 
-    public List<Integer> getResult() {
-        return result;
+    public LottoResultDto toDto() {
+        List<Integer> newResult = new ArrayList<>();
+        newResult.addAll(result);
+        return new LottoResultDto(newResult, totalReward, rewardRate);
     }
 
-    public void setResult(List<Integer> result) {
-        this.result = result;
+    public List<Integer> getResult() {
+        return result;
     }
 
     public long getTotalReward() {
@@ -31,17 +33,7 @@ public class LottoResult {
         this.totalReward = totalReward;
     }
 
-    public double getRewardRate() {
-        return rewardRate;
-    }
-
     public void setRewardRate(double rewardRate) {
         this.rewardRate = rewardRate;
-    }
-
-    public LottoResultDto toDto() {
-        List<Integer> newResult = new ArrayList<>();
-        newResult.addAll(result);
-        return new LottoResultDto(newResult, totalReward, rewardRate);
     }
 }

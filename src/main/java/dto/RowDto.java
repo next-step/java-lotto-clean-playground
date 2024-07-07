@@ -12,11 +12,11 @@ public class RowDto {
         this.nums = nums;
     }
 
-    public List<Integer> getNums(){
+    public List<Integer> getNums() {
         return nums;
     }
 
-    public Row toEntity(){
+    public Row toEntity() {
         List<Integer> newNums = new ArrayList<>();
         for (int i = 0; i < ROW_SIZE; i++) {
             newNums.add(nums.get(i));

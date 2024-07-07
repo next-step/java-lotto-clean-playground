@@ -1,7 +1,6 @@
 package dto;
 
 import domain.LottoPaper;
-import domain.Row;
 import java.util.List;
 
 public class LottoPaperDto {
@@ -21,9 +20,9 @@ public class LottoPaperDto {
         return rows;
     }
 
-    public LottoPaper toEntity(){
+    public LottoPaper toEntity() {
         LottoPaper lottoPaperEntity = new LottoPaper(rowNum);
-        for(int i = 0; i < rowNum; i++){
+        for (int i = 0; i < rowNum; i++) {
             lottoPaperEntity.writeRow(rows.get(i).toEntity());
         }
         return lottoPaperEntity;
