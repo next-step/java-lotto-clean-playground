@@ -24,8 +24,6 @@ public class Result {
     }
 
     public void addResult(Rank rank) {
-        System.out.println(rank);
-        System.out.println(result.get(rank));
         result.put(rank, result.get(rank) + 1);
     }
 

@@ -35,7 +35,7 @@ public class CheckPlace {
                     match++;
                 }
             }
-            if (lotto.getLottoNums().contains(winNums.getBonusNum())) {
+            if (match == 5 && lotto.getLottoNums().contains(winNums.getBonusNum())) {
                 isBonus = true;
             }
 
@@ -45,7 +45,7 @@ public class CheckPlace {
         }
     }
 
-    public Result getResult(){
+    public Result getResult() {
         return result;
     }
 }

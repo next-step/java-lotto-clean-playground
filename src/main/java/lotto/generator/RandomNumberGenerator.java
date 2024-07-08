@@ -16,7 +16,7 @@ public class RandomNumberGenerator implements NumberGenerator {
         List<Integer> lotto = new ArrayList<>();
         int num;
 
-        while(lotto.size() != Constant.LOTTO_NUM_COUNT){
+        while (lotto.size() != Constant.LOTTO_NUM_COUNT) {
             num = random.nextInt(45) + 1;
             if (!lotto.contains(num)) {
                 lotto.add(num);

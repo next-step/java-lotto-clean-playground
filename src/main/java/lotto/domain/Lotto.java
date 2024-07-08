@@ -12,18 +12,24 @@ public class Lotto {
 
     private List<Integer> lottoNums;
 
-    public Lotto(NumberGenerator numberGenerator){
+    public Lotto(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
         lottoNums = numberGenerator.generateLottoNum();     // 생성자에서 어디까지의 역할을 해야하는가?
         validateLotto();
     }
 
-    public List<Integer> getLottoNums(){
+    public Lotto(List<Integer> lottoNums) {
+        this.numberGenerator = null;
+        this.lottoNums = lottoNums;
+        validateLotto();
+    }
+
+    public List<Integer> getLottoNums() {
         return lottoNums;
     }
 
-    private void validateLotto(){
-        if(lottoNums.size() != Constant.LOTTO_NUM_COUNT){
+    private void validateLotto() {
+        if (lottoNums.size() != Constant.LOTTO_NUM_COUNT) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_NUM.getMessage());
         }
     }

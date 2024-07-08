@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.CheckPlace;
+import lotto.domain.CustomLotto;
 import lotto.domain.Reward;
 import lotto.domain.WinNums;
 import lotto.generator.NumberGenerator;
@@ -15,8 +16,10 @@ public class Controller {
 
     public void run() {
         int inputMoney = InputView.getMoney();
-        LottoGame lottoGame = new LottoGame(inputMoney, numberGenerator);
-        OutputView.printLottoes(lottoGame.getLottoList());
+        int customCount = InputView.getCustomLottoCount();
+        CustomLotto customLotto = new CustomLotto(InputView.getCustomLotto(customCount));
+        LottoGame lottoGame = new LottoGame(inputMoney, numberGenerator, customLotto);
+        OutputView.printLottoes(customCount, lottoGame.getLottoList());
         WinNums winNums = new WinNums(InputView.getWinLotto(), InputView.getBonusBall());
         CheckPlace checkPlace = new CheckPlace(lottoGame, winNums);
         OutputView.printStatistics(checkPlace.getResultMap());

@@ -6,7 +6,6 @@ import lotto.Rank;
 
 public class Reward {
     private final int inputMoney;
-    private double rewardRate;
     private int totalReward;
     private Map<Rank, Integer> resultMap;
 
@@ -26,7 +25,7 @@ public class Reward {
         if (totalReward == 0) {
             return "0";
         }
-        rewardRate = (double) totalReward / inputMoney;
+        double rewardRate = (double)totalReward / inputMoney;
         return String.format("%.2f", rewardRate);
     }
 

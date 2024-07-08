@@ -12,12 +12,14 @@ public class LottoGame {
     private final List<Lotto> lottoList = new ArrayList<>();
     private final int trial;
     private final NumberGenerator numberGenerator;
+    private final CustomLotto customLotto;
 
-    public LottoGame(int price, NumberGenerator numberGenerator) {
+    public LottoGame(int price, NumberGenerator numberGenerator, CustomLotto customLotto) {
         validatePrice(price);
         this.price = price;
         this.trial = getTrial();
         this.numberGenerator = numberGenerator;
+        this.customLotto = customLotto;
         makeLottoList();
     }
 
@@ -26,7 +28,11 @@ public class LottoGame {
     }
 
     private void makeLottoList() {
-        for (int i = 0; i < trial; i++) {
+        for (Lotto customLotto : customLotto.getCustomLottoList()) {
+            lottoList.add(customLotto);
+        }
+
+        for (int j = 0; j < trial - customLotto.getCustomLottoCount(); j++) {
             lottoList.add(new Lotto(numberGenerator));
         }
     }
