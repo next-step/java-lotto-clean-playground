@@ -20,4 +20,8 @@ public final class Constant {
     public static final int SECOND_REWARD = 30000000;
 
     public static final int FIRST_REWARD = 2000000000;
+
+    public static final int MIN_NUM = 1;
+
+    public static final int MAX_NUM = 45;
 }

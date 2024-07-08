@@ -2,13 +2,18 @@ package lotto.domain;
 
 import java.util.List;
 
+import lotto.Constant;
+import lotto.message.ErrorMessage;
+
 public class WinNums {
-    private List<Integer> winNums;
-    private int bonusNum;
+    private final List<Integer> winNums;
+    private final int bonusNum;
 
     public WinNums(List<Integer> winNums, int bonusNum) {
         this.winNums = winNums;
         this.bonusNum = bonusNum;
+        validateNum();
+        validateBonusNum();
     }
 
     public List<Integer> getWinNums() {
@@ -17,5 +22,19 @@ public class WinNums {
 
     public int getBonusNum() {
         return bonusNum;
+    }
+
+    private void validateNum() {
+        for (int num : winNums) {
+            if (num >= Constant.MIN_NUM && num <= Constant.MAX_NUM) {
+                throw new IllegalArgumentException(ErrorMessage.INVALID_NUM.getMessage());
+            }
+        }
+    }
+
+    private void validateBonusNum() {
+        if (bonusNum >= Constant.MIN_NUM && bonusNum <= Constant.MAX_NUM) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUM.getMessage());
+        }
     }
 }
