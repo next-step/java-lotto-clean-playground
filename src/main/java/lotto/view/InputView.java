@@ -1,11 +1,9 @@
 package lotto.view;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 import lotto.message.ConsoleMessage;
@@ -19,8 +17,7 @@ public class InputView {
 
     public static int getMoney() {
         System.out.println(ConsoleMessage.INPUT_MONEY.getMessage());
-        Integer inputMoney = Integer.parseInt(scanner.nextLine());
-        return inputMoney;
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static List<Integer> getWinLotto() {
