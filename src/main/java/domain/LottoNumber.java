@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class LottoNumber {
 
     private final int number;
@@ -10,7 +12,7 @@ public class LottoNumber {
     }
 
     private void verifyRangeNumber(int number) {
-        if (number > 45 || number < 1) {
+        if (number > Constant.MAX_NUM || number < Constant.MIN_NUM) {
             throw new IllegalArgumentException("잘못된 범위의 숫자 입니다. 번호: " + number);
         }
     }
@@ -27,5 +29,10 @@ public class LottoNumber {
             return false;
         LottoNumber lottoNumber = (LottoNumber)o;
         return this.number == lottoNumber.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number);
     }
 }

@@ -31,7 +31,7 @@ public class LottoGenerator {
     }
 
     public void verifyCountNumber(List<LottoNumber> manualNumber) {
-        if (manualNumber.size() != 6) {
+        if (manualNumber.size() != Constant.LOTTO_COUNT) {
             throw new IllegalArgumentException("번호의 개수가 올바르지 않습니다.");
         }
     }

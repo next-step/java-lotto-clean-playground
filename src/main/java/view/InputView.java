@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import domain.Constant;
 import domain.Lotto;
 import domain.LottoGenerator;
 
 public class InputView {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static final int LOTTO_PRICE = 1_000;
 
     public static int inputPurchasePrice() {
         System.out.println("구입 금액을 입력해 주세요.");
-        int purchaseCount = Integer.parseInt(scanner.nextLine()) / LOTTO_PRICE;
+        int purchaseCount = Integer.parseInt(scanner.nextLine()) / Constant.LOTTO_PRICE;
         return purchaseCount;
     }
 

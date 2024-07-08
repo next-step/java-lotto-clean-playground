@@ -11,7 +11,7 @@ public class RandomNumberGenerator {
     private final List<Integer> numbers;
 
     public RandomNumberGenerator() {
-        numbers = IntStream.rangeClosed(1, 45)
+        numbers = IntStream.rangeClosed(Constant.MIN_NUM, Constant.MAX_NUM)
             .boxed()
             .collect(Collectors.toCollection(ArrayList::new));
     }
