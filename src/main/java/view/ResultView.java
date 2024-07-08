@@ -10,12 +10,13 @@ import domain.Winnings;
 public class ResultView {
 
     public static void printLottoNumbers(LottoList lottoList) {
-        int numberOfLotto = lottoList.getNumberOfLotto();
+        int numberOfManualLotto = lottoList.getNumberOfManualLotto();
+        int numberOfAutoLotto = lottoList.getNumberOfLotto() - numberOfManualLotto;
         List<Lotto> lottos = lottoList.getLottoList();
 
-        System.out.println(String.format("%s개를 구매했습니다.", numberOfLotto));
-        for (int i = 0; i < numberOfLotto; i++) {
-            System.out.println(lottos.get(i).getLottoNumber());
+        System.out.println(String.format("수동으로 %s개, 자동으로 %s개를 구매했습니다.", numberOfManualLotto, numberOfAutoLotto));
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.getLottoNumber());
         }
     }
 

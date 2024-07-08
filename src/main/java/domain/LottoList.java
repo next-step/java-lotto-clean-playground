@@ -7,13 +7,20 @@ public class LottoList {
 
     private final List<Lotto> lottoList = new ArrayList<>();
     private int numberOfLotto;
+    private int numberOfManualLotto;
 
     public LottoList() {
 
     }
 
-    public void addLotto(Lotto lotto) {
+    public void addAutoLotto(Lotto lotto) {
         lottoList.add(lotto);
+        numberOfLotto++;
+    }
+
+    public void addManualLotto(Lotto lotto) {
+        lottoList.add(lotto);
+        numberOfManualLotto++;
         numberOfLotto++;
     }
 
@@ -23,5 +30,9 @@ public class LottoList {
 
     public int getNumberOfLotto() {
         return this.numberOfLotto;
+    }
+
+    public int getNumberOfManualLotto() {
+        return this.numberOfManualLotto;
     }
 }

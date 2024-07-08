@@ -14,9 +14,18 @@ public class Application {
         LottoGenerator lottoGenerator = new LottoGenerator();
         LottoList lottoList = new LottoList();
 
-        for (int i = 0; i < numberOfLotto; i++) {
+        int numberOfManualLotto = InputView.inputNumberOfManualLotto();
+        int numberOfAutoLotto = numberOfLotto - numberOfManualLotto;
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < numberOfManualLotto; i++){
+            String lottoNumber = InputView.inputManualLottoNumber();
+            lottoList.addManualLotto(lottoGenerator.generateManualLotto(lottoNumber));
+        }
+
+        for (int i = 0; i < numberOfAutoLotto; i++) {
             RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-            lottoList.addLotto(lottoGenerator.generateAutoLotto(randomNumberGenerator.getRandomNumber()));
+            lottoList.addAutoLotto(lottoGenerator.generateAutoLotto(randomNumberGenerator.getRandomNumber()));
         }
         ResultView.printLottoNumbers(lottoList);
 
