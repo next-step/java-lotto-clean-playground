@@ -1,39 +1,29 @@
+import java.util.List;
+
 import domain.Lotto;
-import domain.LottoGenerator;
-import domain.LottoList;
-import domain.RandomNumberGenerator;
+import domain.LottoStatus;
 import domain.WinningsCalculator;
 import view.InputView;
 import view.ResultView;
 
 public class Application {
 
-    public static void main(final String... args) {
+    public static void main(String[] args) {
 
-        final int numberOfLotto = InputView.inputPurchasePrice();
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        LottoList lottoList = new LottoList();
+        int lottoCount = InputView.inputPurchasePrice();
+        int manualLottoCount = InputView.inputManualLotto();
+        int autoLottoCount = lottoCount - manualLottoCount;
+        List<Lotto> lottoList = InputView.inputManualLottoNumber(manualLottoCount);
+        LottoStatus lottoStatus = new LottoStatus(lottoList);
+        lottoStatus.addAutoLotto(autoLottoCount);
 
-        int numberOfManualLotto = InputView.inputNumberOfManualLotto();
-        int numberOfAutoLotto = numberOfLotto - numberOfManualLotto;
+        ResultView.printLottoNumbers(lottoStatus, manualLottoCount);
 
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        for (int i = 0; i < numberOfManualLotto; i++){
-            String lottoNumber = InputView.inputManualLottoNumber();
-            lottoList.addManualLotto(lottoGenerator.generateManualLotto(lottoNumber));
-        }
+        lottoStatus.setWinningNumber(InputView.inputWinningNumber());
+        lottoStatus.setBonusNumber(InputView.inputBonusNumber());
 
-        for (int i = 0; i < numberOfAutoLotto; i++) {
-            RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-            lottoList.addAutoLotto(lottoGenerator.generateAutoLotto(randomNumberGenerator.getRandomNumber()));
-        }
-        ResultView.printLottoNumbers(lottoList);
-
-        String input = InputView.inputWinningNumber();
-        int bonusNumber = InputView.inputBonusNumber();
         WinningsCalculator winningsCalculator = new WinningsCalculator();
-        Lotto winningNumber = lottoGenerator.generateManualLotto(input);
-        winningsCalculator.updateWinningsResult(lottoList, winningNumber.getLottoNumber(), bonusNumber);
-        ResultView.printWinningState(winningsCalculator.getWinningsResult(), winningsCalculator.getRateOfReturn());
+        winningsCalculator.updateWinningsResult(lottoStatus);
+        ResultView.printWinningState(winningsCalculator.getWinningsResult(), winningsCalculator.getProfit());
     }
 }

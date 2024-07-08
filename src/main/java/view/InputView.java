@@ -1,12 +1,11 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import domain.Lotto;
+import domain.LottoGenerator;
 
 public class InputView {
 
@@ -15,21 +14,25 @@ public class InputView {
 
     public static int inputPurchasePrice() {
         System.out.println("구입 금액을 입력해 주세요.");
-        int a = scanner.nextInt() / LOTTO_PRICE;
-        scanner.nextLine();
-        return a;
+        int purchaseCount = Integer.parseInt(scanner.nextLine()) / LOTTO_PRICE;
+        return purchaseCount;
     }
 
-    public static int inputNumberOfManualLotto() {
+    public static int inputManualLotto() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        int numberOfLotto = scanner.nextInt();
-        scanner.nextLine();
-        return numberOfLotto;
+        return Integer.parseInt(scanner.nextLine());
     }
 
-    public static String inputManualLottoNumber() {
+    public static List<Lotto> inputManualLottoNumber(int manualCount) {
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        List<Lotto> lottoList = new ArrayList<>();
 
-        return scanner.nextLine();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < manualCount; i++) {
+            Lotto lotto = lottoGenerator.generateManualLotto(scanner.nextLine());
+            lottoList.add(lotto);
+        }
+        return lottoList;
     }
 
     public static String inputWinningNumber() {

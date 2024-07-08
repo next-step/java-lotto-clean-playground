@@ -19,19 +19,12 @@ public enum Winnings {
         this.bonusNumber = bonusNumber;
     }
 
-    public static Winnings getWinnings(int matchCount, boolean bonusNumber) {
-        return Arrays.stream(values())
-            .filter(winnings -> winnings.matchCount == matchCount)
-            .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("일치하는 당첨 등수가 없습니다."));
-    }
-
     public static Winnings of(int matchCount, boolean bonusNumber){
         if (matchCount == 5) {
             return Arrays.stream(values())
                 .filter(winnings -> winnings.bonusNumber == bonusNumber)
                 .findAny()
-                .get();
+                .orElseThrow();
         }
         return Arrays.stream(Winnings.values())
             .filter(winning -> winning.matchCount == matchCount)

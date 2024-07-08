@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,59 +8,56 @@ import java.util.NoSuchElementException;
 
 public class WinningsCalculator {
 
-    private Map<Winnings, Integer> winningsResult = new HashMap<>();
-    private int winningPrize;
-    private double rateOfReturn;
+    private final Map<Winnings, Integer> winningsResult = new HashMap<>();
+    private int prize;
+    private double profit;
 
     public WinningsCalculator() {
-        for (Winnings winning : Winnings.values()) {
-            winningsResult.put(winning, 0);
-        }
+        Arrays.stream(Winnings.values())
+            .forEach(winnings -> winningsResult.put(winnings, 0));
     }
 
-    public void updateWinningsResult(LottoList lottoList, List<Integer> winningNumber, int bonusNumber) {
-        List<Lotto> lottos = lottoList.getLottoList();
-        for (Lotto lotto : lottos) {
-            int matchCount = calculateMatchCount(winningNumber, lotto.getLottoNumber());
+    public void updateWinningsResult(LottoStatus lottoStatus) {
+        List<Lotto> lottoList = lottoStatus.getLottoList();
+        Lotto winningNumber = lottoStatus.getWinningNumber();
+        LottoNumber bonusNumber = lottoStatus.getBonusNumber();
+        for (Lotto lotto : lottoList) {
+            int matchCount = calculateMatchCount(winningNumber.getLottoNumber(), lotto.getLottoNumber());
             boolean bonusCount = calculateBonusCount(bonusNumber, lotto.getLottoNumber());
             updateWinningsResult(matchCount, bonusCount);
-            System.out.println(String.format("일치숫자: %d, 보너스: %s", matchCount, bonusCount));
         }
-        calculateRateOfResult(lottoList.getNumberOfLotto());
+        calculateProfit(lottoStatus.getLottoList().size());
     }
 
-    private int calculateMatchCount(List<Integer> winningNumber, List<Integer> lottoNumber) {
+    private int calculateMatchCount(List<LottoNumber> winningNumber, List<LottoNumber> lottoNumber) {
         return (int)lottoNumber.stream()
             .filter(winningNumber::contains)
             .count();
     }
 
-    private boolean calculateBonusCount(int bonusNumber, List<Integer> lottoNumber) {
-        if (lottoNumber.contains(bonusNumber)) {
-            return true;
-        }
-        return false;
+    private boolean calculateBonusCount(LottoNumber bonusNumber, List<LottoNumber> lottoNumber) {
+        return lottoNumber.contains(bonusNumber);
     }
 
     private void updateWinningsResult(int matchCount, boolean bonusNumber) {
         try {
             Winnings winnings = Winnings.of(matchCount, bonusNumber);
             this.winningsResult.merge(winnings, 1, Integer::sum);
-            winningPrize += winnings.getWinningPrize();
+            prize += winnings.getWinningPrize();
         } catch (NoSuchElementException ignore) {
 
         }
     }
 
-    private void calculateRateOfResult(int numberOfLotto) {
-        rateOfReturn = (double) winningPrize / (numberOfLotto * 1000);
+    private void calculateProfit(int lottoCount) {
+        profit = (double)prize / (lottoCount * 1000);
     }
 
     public Map<Winnings, Integer> getWinningsResult() {
         return this.winningsResult;
     }
 
-    public double getRateOfReturn() {
-        return this.rateOfReturn;
+    public double getProfit() {
+        return this.profit;
     }
 }

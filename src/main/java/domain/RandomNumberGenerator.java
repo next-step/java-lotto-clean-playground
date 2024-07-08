@@ -8,15 +8,16 @@ import java.util.stream.IntStream;
 
 public class RandomNumberGenerator {
 
-    private final ArrayList<Integer> randomNumber;
+    private final List<Integer> numbers;
 
     public RandomNumberGenerator() {
-        randomNumber = IntStream.rangeClosed(1, 45)
+        numbers = IntStream.rangeClosed(1, 45)
             .boxed()
             .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public List<Integer> getRandomNumber() {
+    public List<Integer> getNumbers() {
+        List<Integer> randomNumber = new ArrayList<>(numbers);
         Collections.shuffle(randomNumber);
         return randomNumber.subList(0, 6);
     }
