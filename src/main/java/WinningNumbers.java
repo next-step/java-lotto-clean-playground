@@ -3,10 +3,12 @@ import java.util.List;
 
 public class WinningNumbers {
     private List<Integer> numbers;
+    private int bonusNumber;
 
-    public WinningNumbers(List<Integer> numbers) {
+    public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         Collections.sort(numbers);
         this.numbers = numbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public int countMatchingNumbers(Lotto lotto) {
@@ -18,5 +20,9 @@ public class WinningNumbers {
             }
         }
         return matchCount;
+    }
+
+    public boolean containsBonusNumber(Lotto lotto) {
+        return lotto.getNumbers().contains(bonusNumber);
     }
 }

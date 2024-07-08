@@ -19,6 +19,8 @@ public class InputHandler {
         for (String number : inputs) {
             winningNumbers.add(Integer.parseInt(number));
         }
-        return new WinningNumbers(winningNumbers);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = scanner.nextInt();
+        return new WinningNumbers(winningNumbers, bonusNumber);
     }
 }
