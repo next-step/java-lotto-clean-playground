@@ -29,9 +29,7 @@ public class LottoGame {
     }
 
     private void makeLottoList() {
-        for (Lotto customLotto : customLotto.getCustomLottoList()) {
-            lottoList.add(customLotto);
-        }
+        lottoList.addAll(customLotto.getCustomLottoList());
 
         for (int j = 0; j < trial - customLotto.getCustomLottoCount(); j++) {
             lottoList.add(new Lotto(numberGenerator));

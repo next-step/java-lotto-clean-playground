@@ -6,10 +6,10 @@ import java.util.Map;
 import lotto.Rank;
 
 public class CheckPlace {
-    private WinNums winNums;
-    private Result result;
-    private List<Lotto> lottoList;
-    private List<Integer> winList;
+    private final WinNums winNums;
+    private final Result result;
+    private final List<Lotto> lottoList;
+    private final List<Integer> winList;
 
     public CheckPlace(LottoGame lottoGame, WinNums winNums) {
         this.winNums = winNums;

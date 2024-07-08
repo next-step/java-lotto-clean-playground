@@ -7,7 +7,7 @@ import lotto.Rank;
 public class Reward {
     private final int inputMoney;
     private int totalReward;
-    private Map<Rank, Integer> resultMap;
+    private final Map<Rank, Integer> resultMap;
 
     public Reward(Result result, int inputMoney) {
         this.inputMoney = inputMoney;

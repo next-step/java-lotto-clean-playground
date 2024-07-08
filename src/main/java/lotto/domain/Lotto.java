@@ -8,7 +8,7 @@ import lotto.message.ErrorMessage;
 
 public class Lotto {
 
-    private List<Integer> lottoNums;
+    private final List<Integer> lottoNums;
 
     public Lotto(NumberGenerator numberGenerator) {
         lottoNums = numberGenerator.generateLottoNum();     // 생성자에서 어디까지의 역할을 해야하는가?
