@@ -4,10 +4,8 @@ import java.util.Scanner;
 
 public class InputView {
 
-    public String getMoney() {
+    public String getInput() {
         Scanner scanner = new Scanner(System.in);
-        String money = scanner.next();
-        scanner.close();
-        return money;
+        return scanner.nextLine();
     }
 }

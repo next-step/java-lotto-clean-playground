@@ -3,7 +3,7 @@ package lotto.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import lotto.utils.generator.NumberGenerator;
+import lotto.utils.generator.Generator;
 
 public class Lottos {
 
@@ -13,7 +13,7 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public static Lottos of(final NumberGenerator generator, final int lottoSize) {
+    public static Lottos of(final Generator generator, final int lottoSize) {
         List<Lotto> lottos = new ArrayList<>();
         for (int size = 0; size < lottoSize; size++) {
             lottos.add(Lotto.from(generator));

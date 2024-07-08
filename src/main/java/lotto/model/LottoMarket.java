@@ -2,37 +2,25 @@ package lotto.model;
 
 import static lotto.global.Constants.LOTTO_COST;
 
+import lotto.utils.generator.Generator;
+
 public class LottoMarket {
-    private final int money;
+    private final Generator generator;
 
-    private LottoMarket(final int money) {
-        this.money = money;
+    public LottoMarket(final Generator generator) {
+        this.generator = generator;
     }
 
-    public static LottoMarket from(final String moneyInput) {
-        int money = convertMoney(moneyInput);
-        validate(money);
+    public Lottos getLottosByMoney(final Money money) {
+        validateDivideZero(money.getMoney());
 
-        return new LottoMarket(money);
+        int lottoSize = getLottoSize(money.getMoney(), LOTTO_COST);
+
+        return createLottos(lottoSize);
     }
 
-    private static int convertMoney(final String moneyInput) {
-        try {
-            return Integer.parseInt(moneyInput);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("돈이 아니거나 형식이 잘못됨");
-        }
-    }
-
-    private static void validate(final int money) {
-        validatePositive(money);
-        validateDivideZero(money);
-    }
-
-    private static void validatePositive(final int money) {
-        if (money <= 0) {
-            throw new IllegalArgumentException("돈은 0보다 커야함");
-        }
+    private Lottos createLottos(final int lottoSize) {
+        return Lottos.of(generator, lottoSize);
     }
 
     private static void validateDivideZero(final int money) {
@@ -41,7 +29,7 @@ public class LottoMarket {
         }
     }
 
-    public int getLottoSize() {
-        return this.money / LOTTO_COST;
+    public int getLottoSize(final int money, final int cost) {
+        return money / cost;
     }
 }
