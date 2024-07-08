@@ -17,11 +17,13 @@ public class WinningsCalculator {
         }
     }
 
-    public void updateWinningsResult(List<Integer> winningNumber, LottoList lottoList) {
+    public void updateWinningsResult(LottoList lottoList, List<Integer> winningNumber, int bonusNumber) {
         List<Lotto> lottos = lottoList.getLottoList();
         for (Lotto lotto : lottos) {
             int matchCount = calculateMatchCount(winningNumber, lotto.getLottoNumber());
-            updateWiningState(matchCount);
+            boolean bonusCount = calculateBonusCount(bonusNumber, lotto.getLottoNumber());
+            updateWinningsResult(matchCount, bonusCount);
+            System.out.println(String.format("일치숫자: %d, 보너스: %s", matchCount, bonusCount));
         }
         calculateRateOfResult(lottoList.getNumberOfLotto());
     }
@@ -32,9 +34,16 @@ public class WinningsCalculator {
             .count();
     }
 
-    private void updateWiningState(int matchCount) {
+    private boolean calculateBonusCount(int bonusNumber, List<Integer> lottoNumber) {
+        if (lottoNumber.contains(bonusNumber)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void updateWinningsResult(int matchCount, boolean bonusNumber) {
         try {
-            Winnings winnings = Winnings.of(matchCount);
+            Winnings winnings = Winnings.of(matchCount, bonusNumber);
             this.winningsResult.merge(winnings, 1, Integer::sum);
             winningPrize += winnings.getWinningPrize();
         } catch (NoSuchElementException ignore) {
