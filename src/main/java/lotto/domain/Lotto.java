@@ -33,7 +33,7 @@ public class Lotto {
 
     private void validateLottoNum(){
         for(int num : lottoNums){
-            if(num >= Constant.MIN_NUM && num <= Constant.MAX_NUM){
+            if(!(num >= Constant.MIN_NUM && num <= Constant.MAX_NUM)){
                 throw new IllegalArgumentException(ErrorMessage.INVALID_NUM.getMessage());
             }
         }

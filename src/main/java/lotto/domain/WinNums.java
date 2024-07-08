@@ -26,14 +26,14 @@ public class WinNums {
 
     private void validateNum() {
         for (int num : winNums) {
-            if (num >= Constant.MIN_NUM && num <= Constant.MAX_NUM) {
+            if (!(num >= Constant.MIN_NUM && num <= Constant.MAX_NUM)) {
                 throw new IllegalArgumentException(ErrorMessage.INVALID_NUM.getMessage());
             }
         }
     }
 
     private void validateBonusNum() {
-        if (bonusNum >= Constant.MIN_NUM && bonusNum <= Constant.MAX_NUM) {
+        if (!(bonusNum >= Constant.MIN_NUM && bonusNum <= Constant.MAX_NUM)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_NUM.getMessage());
         }
     }

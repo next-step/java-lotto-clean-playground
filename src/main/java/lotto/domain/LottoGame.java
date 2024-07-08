@@ -20,6 +20,7 @@ public class LottoGame {
         this.trial = getTrial();
         this.numberGenerator = numberGenerator;
         this.customLotto = customLotto;
+        validateTrial();
         makeLottoList();
     }
 
@@ -45,5 +46,11 @@ public class LottoGame {
 
     private int getTrial() {
         return price / Constant.LOTTO_PRICE;
+    }
+
+    private void validateTrial(){
+        if(trial < customLotto.getCustomLottoCount()){
+            throw new IllegalArgumentException(ErrorMessage.TOO_MANY_CUSTOM.getMessage());
+        }
     }
 }
