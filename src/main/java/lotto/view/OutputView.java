@@ -22,15 +22,16 @@ public class OutputView {
     }
 
     public static void printStatics(Map<LottoRate, Integer> rate, double rateOfReturn) {
+        System.out.println("""
+            당첨 통계
+            ---------
+            """);
         for (LottoRate detail : LottoRate.values()) {
             if (detail == LottoRate.NONE) {
                 continue;
             }
-            System.out.printf("%d개 일치 (%d원)- %d개%n",
-                detail.getMatchCount(),
-                detail.getPrice(),
-                rate.getOrDefault(detail, 0)
-            );
+            Integer count = rate.getOrDefault(detail, 0);
+            System.out.println(detail.getViewMessage(count));
         }
         System.out.printf("총 수익률은 %.2f입니다.%n", rateOfReturn);
     }

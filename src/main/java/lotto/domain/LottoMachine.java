@@ -25,7 +25,8 @@ public class LottoMachine {
 
     public Map<LottoRate, Integer> matchAnswer(LottoGroup lottos) {
         List<Integer> answerNumber = InputView.inputAnswerNumber();
-        AnswerLotto answerLotto = new AnswerLotto(answerNumber);
+        int bonusNumber = InputView.inputBonusNumber();
+        AnswerLotto answerLotto = new AnswerLotto(answerNumber, bonusNumber);
         return answerLotto.calculateResult(lottos.getLottos());
     }
 
