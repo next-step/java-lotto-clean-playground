@@ -1,7 +1,7 @@
 package lotto.controller;
 
+import lotto.model.Lotto;
 import lotto.model.LottoMarket;
-import lotto.model.LottoNumber;
 import lotto.model.LottoResult;
 import lotto.model.Lottos;
 import lotto.model.Money;
@@ -21,16 +21,20 @@ public class LottoController {
     }
 
     public void run() {
-        final Lottos lottos = getLottosByMoney();
+        final Lottos lottos = getLottos();
+
         outputView.printLottosHistory(lottos);
 
         final LottoResult result = getLottoResult(lottos);
         outputView.printLottoResult(result);
     }
 
-    private Lottos getLottosByMoney() {
+    private Lottos getLottos() {
         final Money money = getMoney();
-        return market.getLottosByMoney(money);
+        final int customAmount = getCustomAmount();
+        final Lottos lottosCustom = getCustomLottos(customAmount);
+
+        return market.getLottos(money, lottosCustom);
     }
 
     private Money getMoney() {
@@ -38,6 +42,25 @@ public class LottoController {
         final String money = inputView.getInput();
 
         return Money.from(money);
+    }
+
+    private int getCustomAmount() {
+        outputView.printAskInputCustom();
+
+        return inputView.getNumber();
+    }
+
+    private Lottos getCustomLottos(int size) {
+        Lottos lottos = new Lottos();
+
+        outputView.printAskInputLottoNumbers();
+
+        for (int i = 0; i < size; i++) {
+            String input = inputView.getInput();
+            lottos.addCustom(Lotto.from(input));
+        }
+
+        return lottos;
     }
 
     private LottoResult getLottoResult(final Lottos lottos) {

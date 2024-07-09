@@ -11,12 +11,17 @@ public class LottoMarket {
         this.generator = generator;
     }
 
-    public Lottos getLottosByMoney(final Money money) {
+    public Lottos getLottos(final Money money, Lottos customLottos) {
         validateDivideZero(money.getMoney());
 
-        int lottoSize = getLottoSize(money.getMoney(), LOTTO_COST);
+        int customMoney = customLottos.customSize() * LOTTO_COST;
+        int lottoSize = getLottoSize(money.getMoney() - customMoney, LOTTO_COST);
 
-        return createLottos(lottoSize);
+        Lottos lottos = createLottos(lottoSize);
+
+        lottos.addAllCustom(customLottos);
+
+        return lottos;
     }
 
     private Lottos createLottos(final int lottoSize) {

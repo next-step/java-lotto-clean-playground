@@ -12,8 +12,16 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
+    public void printAskInputCustom() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public void printAskInputLottoNumbers() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
     public void printLottosHistory(final Lottos lottos) {
-        printLottoSize(lottos.size());
+        printLottoSize(lottos.customSize(), lottos.autoSize());
         lottos.getLottos()
             .forEach(this::printLottoNumbers);
     }
@@ -32,8 +40,8 @@ public class OutputView {
         printResult(result);
     }
 
-    private void printLottoSize(final int size) {
-        System.out.printf("%n%s개를 구매했습니다.%n", size);
+    private void printLottoSize(final int customSize, final int autoSize) {
+        System.out.printf("%n수동으로 %s장, 자동으로 %s개를 구매했습니다.%n", customSize, autoSize);
     }
 
     private void printLottoNumbers(final Lotto lotto) {

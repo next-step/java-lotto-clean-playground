@@ -26,6 +26,15 @@ public class Lotto {
         return new Lotto(lottoNumbers);
     }
 
+    public static Lotto from(String input) {
+        Set<LottoNumber> lotto = Arrays.stream(input.split(", "))
+            .map(Integer::parseInt)
+            .map(LottoNumber::from)
+            .collect(Collectors.toSet());
+
+        return new Lotto(lotto);
+    }
+
     public Rank getRank(WinNumbers winNumbers) {
         Set<LottoNumber> retain = new HashSet<>(numbers);
         retain.retainAll(winNumbers.getWinNumbers());
