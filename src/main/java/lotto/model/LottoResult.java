@@ -3,7 +3,6 @@ package lotto.model;
 import static lotto.global.Constants.LOTTO_COST;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 import lotto.global.Rank;

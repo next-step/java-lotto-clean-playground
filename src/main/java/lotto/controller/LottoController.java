@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.model.LottoMarket;
+import lotto.model.LottoNumber;
 import lotto.model.LottoResult;
 import lotto.model.Lottos;
 import lotto.model.Money;
@@ -41,6 +42,7 @@ public class LottoController {
 
     private LottoResult getLottoResult(final Lottos lottos) {
         WinNumbers winNumbers = getWinNumbers();
+
         return LottoResult.of(lottos, winNumbers);
     }
 
@@ -49,7 +51,13 @@ public class LottoController {
 
         final String winNumbers = inputView.getInput();
 
-        return WinNumbers.from(winNumbers);
+        outputView.printAskInputBonusNumber();
+
+        final String bonusNumber = inputView.getInput();
+
+        return WinNumbers.of(winNumbers, bonusNumber);
     }
+
+
 
 }

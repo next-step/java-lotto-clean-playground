@@ -3,23 +3,26 @@ package lotto.global;
 import java.util.Arrays;
 
 public enum Rank {
-    FIRST(2_000_000_000, 6),
-    SECOND(1_500_000, 5),
-    THIRD(50_000, 4),
-    FOURTH(5_000, 3),
-    UN_LUCK(0, 0);
+    FIRST(2_000_000_000, 6, false),
+    SECOND(30_000_000, 5, true),
+    THIRD(1_500_000, 5, false),
+    FOURTH(50_000, 4, false),
+    FIFTH(5_000, 3, false),
+    UN_LUCK(0, 0, false);
 
     private final int reward;
     private final int match;
+    private final boolean bonus;
 
-    Rank(final int reward, final int match) {
+    Rank(final int reward, final int match, final boolean bonus) {
         this.reward = reward;
         this.match = match;
+        this.bonus = bonus;
     }
 
-    public static Rank getRankByMatch(int match) {
+    public static Rank getRank(int match, boolean bonus) {
         return Arrays.stream(Rank.values())
-            .filter(rank -> rank.match == match)
+            .filter(rank -> rank.match == match && rank.bonus == bonus)
             .findFirst()
             .orElse(UN_LUCK);
     }
