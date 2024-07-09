@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import domain.Lotto;
+import domain.WinningNumbers;
+
 public class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
 

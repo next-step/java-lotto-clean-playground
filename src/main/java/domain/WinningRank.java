@@ -1,3 +1,5 @@
+package domain;
+
 public enum WinningRank {
     THREE(3, 5000),
     FOUR(4, 50000),

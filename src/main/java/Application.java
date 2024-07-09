@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoApp {
+import domain.Lotto;
+import domain.LottoGameResult;
+import domain.LottoMachine;
+import domain.WinningNumbers;
+
+public class Application {
     public static void main(String[] args) {
         InputHandler inputHandler = new InputHandler();
         LottoMachine lottoMachine = new LottoMachine();
