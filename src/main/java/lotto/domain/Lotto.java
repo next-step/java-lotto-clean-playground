@@ -4,10 +4,12 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
+        this.numbers = numbers.stream()
+            .map(LottoNumber::new)
+            .toList();
     }
 
     public static Lotto create(NumberGenerator numberGenerator) {
@@ -16,6 +18,8 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return numbers.stream()
+            .map(LottoNumber::getNumber)
+            .toList();
     }
 }

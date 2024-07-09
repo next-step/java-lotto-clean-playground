@@ -11,8 +11,9 @@ public class LottoMachine {
 
     private static final int LOTTO_PRICE = 1000;
 
-    public void buyLotto(int money) {
-        LottoGroup lottos = new LottoGroup();
+    public void buyLotto(int money, List<List<Integer>> manualNumbers) {
+        money -= manualNumbers.size() * LOTTO_PRICE;
+        LottoGroup lottos = new LottoGroup(manualNumbers);
         for (int i = 0; i < money; i += LOTTO_PRICE) {
             Lotto lotto = Lotto.create(new LottoNumberGenerator());
             lottos.add(lotto);

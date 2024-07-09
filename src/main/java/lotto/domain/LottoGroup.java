@@ -11,6 +11,12 @@ public class LottoGroup {
         this.lottos = new ArrayList<>();
     }
 
+    public LottoGroup(List<List<Integer>> lottos) {
+        this.lottos = lottos.stream()
+            .map(Lotto::new)
+            .toList();
+    }
+
     public void add(Lotto lotto) {
         this.lottos.add(lotto);
     }

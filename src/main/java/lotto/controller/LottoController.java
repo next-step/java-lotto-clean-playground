@@ -7,7 +7,9 @@ public class LottoController {
 
     public void start() {
         var money = InputView.inputMoney();
+        var manualCount = InputView.inputManualBuyCount();
+        var manualNumbers = InputView.inputManualNumbers(manualCount);
         LottoMachine machine = new LottoMachine();
-        machine.buyLotto(money);
+        machine.buyLotto(money, manualNumbers);
     }
 }
