@@ -1,25 +1,29 @@
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class WinningNumbers {
-    private List<Integer> numbers;
-    private int bonusNumber;
+    private final Set<LottoNumber> numbers;
+    private final LottoNumber bonusNumber;
 
     public WinningNumbers(List<Integer> numbers, int bonusNumber) {
-        Collections.sort(numbers);
-        this.numbers = numbers;
-        this.bonusNumber = bonusNumber;
+        if (numbers.size() != 6) {
+            throw new IllegalArgumentException("당첨 번호는 정확히 6개여야 합니다.");
+        }
+        this.numbers = numbers.stream()
+            .map(LottoNumber::new)
+            .collect(Collectors.toSet());
+        if (this.numbers.size() != 6) {
+            throw new IllegalArgumentException("당첨 번호는 중복되지 않아야 합니다.");
+        }
+        this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
     public int countMatchingNumbers(Lotto lotto) {
-        List<Integer> lottoNumbers = lotto.getNumbers();
-        int matchCount = 0;
-        for (int number : lottoNumbers) {
-            if (numbers.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
+        return (int) lotto.getNumbers().stream()
+            .filter(numbers::contains)
+            .count();
     }
 
     public boolean containsBonusNumber(Lotto lotto) {
