@@ -15,11 +15,20 @@ public class Lottos {
         return lottos.size();
     }
 
-    public List<String> getStatus() {
-        List<String> status = new ArrayList<>();
+    public List<List<Integer>> getStatus() {
+        List<List<Integer>> status = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            status.add(lotto.toString());
+            status.add(lotto.numbers());
         }
         return status;
+    }
+
+    public List<Score> getScores(List<Integer> winningNumbers) {
+        List<Score> scores = new ArrayList<>();
+        for (Lotto lotto : lottos) {
+            int matchingNumberCount = lotto.getMatchingNumberCount(winningNumbers);
+            scores.add(new Score(matchingNumberCount));
+        }
+        return scores;
     }
 }

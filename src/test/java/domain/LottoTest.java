@@ -21,8 +21,8 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfCreateLotto() {
             return Stream.of(
-                Arguments.arguments(List.of(1, 4, 1, 30, 31, 32, 33)),
-                Arguments.arguments(List.of(10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15))
+                Arguments.arguments(List.of(1, 4, 2, 30, 31, 32, 33)),
+                Arguments.arguments(List.of(10, 11, 12, 13, 14, 15, 16, 17, 18))
             );
         }
 
@@ -40,23 +40,82 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfToString() {
             return Stream.of(
-                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), "[1, 2, 3, 8, 9, 10]"),
-                Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), "[10, 20, 25, 30, 40, 45]")
+                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), Arrays.asList(1, 2, 3, 8,9, 10)),
+                Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(10, 20, 25, 30, 40, 45))
             );
         }
 
         @ParameterizedTest(name = "{0}이 로또 numbers이면 해당 로또를 toString() 한 값은 {1}이다.")
         @MethodSource("methodSourceOfToString")
-        @DisplayName("로또를 toString() 하면 정렬된 숫자를 string으로 반환한다.")
-        void toStringTest(List<Integer> inputNumbers, String expectedStatus) {
+        @DisplayName("로또를 numbers() 하면 정렬된 숫자를 반환한다.")
+        void toStringTest(List<Integer> inputNumbers, List<Integer> expectedNumbers) {
             // given
             Lotto lotto = new Lotto(inputNumbers);
             // when
-            String lottoStatus = lotto.toString();
+            List<Integer> lottoNumbers = lotto.numbers();
             // then
-            assertThat(lottoStatus)
-                .isEqualTo(expectedStatus);
+            assertThat(lottoNumbers)
+                .containsExactlyElementsOf(expectedNumbers);
         }
+
+        private static Stream<Arguments> methodSourceOfDuplicateTest() {
+            return Stream.of(
+                Arguments.arguments(List.of(1, 4, 1, 1, 1, 1)),
+                Arguments.arguments(List.of(10, 10, 11, 11, 12, 12))
+            );
+        }
+
+        @ParameterizedTest(name = "{0}은 중복된 숫자가 있으므로 예외가 발생한다..")
+        @MethodSource("methodSourceOfDuplicateTest")
+        @DisplayName("생성되는 로또는 중복되지 않은 숫자들의 구성으로 이루어져있다..")
+        void duplicateNumbersTest(List<Integer> inputNumbers) {
+            // given
+            // when
+            // then
+            assertThatThrownBy(() -> new Lotto(inputNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
+        }
+
+        private static Stream<Arguments> methodSourceOfRangeTest() {
+            return Stream.of(
+                Arguments.arguments(List.of(0, 0, 0, 0, 0, 0)),
+                Arguments.arguments(List.of(50, 60, 70, 80, 90, 100))
+            );
+        }
+
+        @ParameterizedTest(name = "{0}은 1~45 사이가 아닌 숫자가 있으므로 예외가 발생한다..")
+        @MethodSource("methodSourceOfRangeTest")
+        @DisplayName("생성되는 로또는 1 ~ 45 사이의 숫자들의 구성으로 이루어져있다..")
+        void numberRangeTest(List<Integer> inputNumbers) {
+            // given
+            // when
+            // then
+            assertThatThrownBy(() -> new Lotto(inputNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
+        }
+
+    }
+
+    private static Stream<Arguments> methodSourceOfGetMatchingNumberCount() {
+        return Stream.of(
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(45, 40, 1, 2, 3, 4), 2),
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(45, 40, 10, 30, 3, 4), 4)
+        );
+    }
+
+    @ParameterizedTest(name = "{0}라는 로또와 {1}을 비교했을 때, 같은 숫자의 개수는 {2}개이다.")
+    @MethodSource("methodSourceOfGetMatchingNumberCount")
+    @DisplayName("주어진 리스트와 몇 개의 숫자가 일치하는지 계산할 수 있다.")
+    void getMatchingNumberTest(List<Integer> lottoNumbers, List<Integer> comparingNumbers, int expectedCount) {
+        // given
+        Lotto lotto = new Lotto(lottoNumbers);
+        // when
+        final int matchingNumberCount = lotto.getMatchingNumberCount(comparingNumbers);
+        // then
+        assertThat(matchingNumberCount)
+            .isEqualTo(expectedCount);
     }
 
 }
