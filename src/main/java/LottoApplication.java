@@ -1,17 +1,24 @@
-import domain.LottoMachine;
-import domain.RandomNumberGenerator;
+import controller.LottoController;
+import domain.LottoPrice;
+import domain.Row;
+import dto.LottoPaperDto;
+import dto.LottoResultDto;
 import view.InputView;
 import view.OutputView;
 
 public class LottoApplication {
     public static void main(String[] args) {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
-        LottoMachine lottoMachine = new LottoMachine(new RandomNumberGenerator());
+        final LottoController lottoController = new LottoController();
+        final InputView inputView = new InputView();
+        final OutputView outputView = new OutputView();
+        LottoPrice price = new LottoPrice(inputView.getPrice());
+        LottoPaperDto lottoPaper = lottoController.buyLotto(price);
+        outputView.printRowNumber(lottoPaper.getRowNum());
+        outputView.printPaper(lottoPaper);
 
-        int price = inputView.getPrice();
-        lottoMachine.generatePaper(price);
-        outputView.printRowNumber(lottoMachine.getWorkingPaperRowNum());
-        outputView.printPaper(lottoMachine.getWorkingPaper());
+        Row answer = inputView.getAnswer();
+        LottoResultDto lottoResult = lottoController.checkLotto(lottoPaper, answer);
+        outputView.printResult(lottoResult);
+        outputView.printRewardRate(lottoResult);
     }
 }
