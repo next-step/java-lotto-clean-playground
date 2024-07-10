@@ -24,4 +24,8 @@ public class LottoPurchaseMoney {
     public int getPurchaseQuantity() {
         return value / LOTTO_EXPENSE;
     }
+
+    public int getValue() {
+        return value;
+    }
 }
