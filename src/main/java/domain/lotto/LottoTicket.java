@@ -7,21 +7,21 @@ import java.util.List;
 public class LottoTicket {
 
     private static final int LOTTO_SIZE_LIMIT = 6;
-    
+
     private final List<Integer> lottoNumbers;
 
     public LottoTicket(List<Integer> lottoNumbers) {
         validateSize(lottoNumbers);
         validateDuplicate(lottoNumbers);
         sortByAsc(lottoNumbers);
-        
+
         this.lottoNumbers = lottoNumbers;
     }
-    
+
     public int size() {
         return lottoNumbers.size();
     }
-    
+
     private void validateSize(List<Integer> lottoNumbers) {
         if (lottoNumbers.size() == LOTTO_SIZE_LIMIT) {
             return;
@@ -29,7 +29,7 @@ public class LottoTicket {
 
         throw new IllegalArgumentException("올바르지 않은 사이즈");
     }
-    
+
     private void validateDuplicate(List<Integer> lottoNumbers) {
         HashSet<Integer> hashSet = new HashSet<>(lottoNumbers);
         if (hashSet.size() < LOTTO_SIZE_LIMIT) {
@@ -44,5 +44,16 @@ public class LottoTicket {
     @Override
     public String toString() {
         return lottoNumbers.toString();
+    }
+
+    public boolean contains(Integer winningNumber) {
+        return lottoNumbers.contains(winningNumber);
+    }
+
+    public int contains(LottoTicket winningTicket) {
+        return lottoNumbers.stream()
+            .filter(winningTicket::contains)
+            .toList()
+            .size();
     }
 }
