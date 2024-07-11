@@ -17,9 +17,13 @@ public class InputView {
         return readNextInt();
     }
 
-    public int readBonusNumber() {
+    public int readBonusNumber(Lotto lotto) {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return readNextInt();
+        int bonusNumber = readNextInt();
+        if (lotto.numbers().contains(bonusNumber)) {
+            throw new RuntimeException("이미 뽑힌 볼입니다.");
+        }
+        return bonusNumber;
     }
 
     public List<Lotto> readManualLottos(Integer count) {

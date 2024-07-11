@@ -29,11 +29,18 @@ public class OutputView {
     }
 
     private void printResult(Rank rank, Integer count) {
-        String bonus = rank.containsBonus()? ", 보너스 볼 일치": " ";
+        String bonus = getBonusText(rank);
         System.out.println(String.format("%d개 일치%s(%d원)- %d개",
             rank.matchCount(),
             bonus,
             rank.price(),
             count));
+    }
+
+    private String getBonusText(Rank rank) {
+        if (rank.containsBonus()) {
+            return ", 보너스 볼 일치";
+        }
+        return " ";
     }
 }

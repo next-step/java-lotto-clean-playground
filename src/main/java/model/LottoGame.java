@@ -30,7 +30,7 @@ public class LottoGame {
         List<Lotto> autoLottos = RandomLottoGenerator.generateLottoNumbers(autoCount);
         outputView.printMyLottos(manualLottos, autoLottos);
         Lotto winningLotto = inputView.readWinningLotto();
-        Integer bonusNumber = inputView.readBonusNumber();
+        Integer bonusNumber = inputView.readBonusNumber(winningLotto);
         List<Lotto> myLottos = concatMyLottos(manualLottos, autoLottos);
         Map<Rank, Integer> myResult = calculateResult(myLottos, winningLotto, bonusNumber);
         outputView.printResult(myResult);
