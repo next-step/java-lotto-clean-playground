@@ -1,11 +1,11 @@
 package lotto.model;
 
-import static lotto.global.Constants.MAX_NUMBER;
-import static lotto.global.Constants.MIN_NUMBER;
-
 import java.util.Objects;
 
 public class LottoNumber {
+
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
 
     private final int value;
 

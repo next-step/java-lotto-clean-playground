@@ -1,6 +1,8 @@
 package lotto.model;
 
 import static lotto.global.Constants.*;
+import static lotto.model.LottoNumber.MAX_NUMBER;
+import static lotto.model.LottoNumber.MIN_NUMBER;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,6 +13,8 @@ import lotto.global.Rank;
 import lotto.utils.generator.Generator;
 
 public class Lotto {
+    private static final int NUMBERS_SIZE = 6;
+
     private final Set<LottoNumber> numbers;
 
     public Lotto(final Set<LottoNumber> numbers) {

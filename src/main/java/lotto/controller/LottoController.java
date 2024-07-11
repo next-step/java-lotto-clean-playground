@@ -51,13 +51,13 @@ public class LottoController {
     }
 
     private Lottos getCustomLottos(int size) {
-        Lottos lottos = new Lottos();
+        Lottos lottos = new Lottos(size);
 
         outputView.printAskInputLottoNumbers();
 
         for (int i = 0; i < size; i++) {
             String input = inputView.getInput();
-            lottos.addCustom(Lotto.from(input));
+            lottos.add(Lotto.from(input));
         }
 
         return lottos;

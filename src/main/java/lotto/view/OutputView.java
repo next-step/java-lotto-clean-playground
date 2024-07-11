@@ -21,7 +21,7 @@ public class OutputView {
     }
 
     public void printLottosHistory(final Lottos lottos) {
-        printLottoSize(lottos.customSize(), lottos.autoSize());
+        printLottoSize(lottos.getCustomSize(), lottos.size() - lottos.getCustomSize());
         lottos.getLottos()
             .forEach(this::printLottoNumbers);
     }

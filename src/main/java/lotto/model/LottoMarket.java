@@ -14,12 +14,13 @@ public class LottoMarket {
     public Lottos getLottos(final Money money, Lottos customLottos) {
         validateDivideZero(money.getMoney());
 
-        int customMoney = customLottos.customSize() * LOTTO_COST;
+        int customMoney = customLottos.getCustomSize() * LOTTO_COST;
         int lottoSize = getLottoSize(money.getMoney() - customMoney, LOTTO_COST);
 
         Lottos lottos = createLottos(lottoSize);
+        lottos.setCustomSize(customLottos.getCustomSize());
 
-        lottos.addAllCustom(customLottos);
+        lottos.addAll(customLottos);
 
         return lottos;
     }
