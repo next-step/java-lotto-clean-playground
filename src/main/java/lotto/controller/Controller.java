@@ -16,13 +16,17 @@ public class Controller {
 
     public void run() {
         int inputMoney = InputView.getMoney();
+
         int customCount = InputView.getCustomLottoCount();
         CustomLotto customLotto = new CustomLotto(InputView.getCustomLotto(customCount));
+
         LottoGame lottoGame = new LottoGame(inputMoney, numberGenerator, customLotto);
         OutputView.printLottoes(customCount, lottoGame.getLottoList());
+
         WinNums winNums = new WinNums(InputView.getWinLotto(), InputView.getBonusBall());
         CheckPlace checkPlace = new CheckPlace(lottoGame, winNums);
         OutputView.printStatistics(checkPlace.getResultMap());
+
         Reward reward = new Reward(checkPlace.getResult(), inputMoney);
         OutputView.printReward(reward.getRate());
     }
