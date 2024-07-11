@@ -17,8 +17,8 @@ public class ResultView {
         System.out.println(String.format("수동으로 %s개, 자동으로 %s개를 구매했습니다.", manualLottoCount, autoLottoCount));
         for (Lotto lotto : lottoList) {
             List<Integer> lottoNumber = lotto.getLottoNumber().stream()
-                    .map(LottoNumber::getNumber)
-                        .toList();
+                .map(LottoNumber::getNumber)
+                .toList();
             System.out.println(lottoNumber);
         }
     }
@@ -29,7 +29,8 @@ public class ResultView {
             System.out.println(String.format(getResultMessage(winnings),
                 winnings.getMatchCount(),
                 winnings.getWinningPrize(),
-                result.get(winnings)));
+                result.get(winnings))
+            );
         }
         System.out.println(String.format("총 수익률은 %.2f입니다.", rateOfResult));
     }
