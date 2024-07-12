@@ -43,4 +43,8 @@ public enum Rank {
     public int getCorrectCnt() {
         return correctCnt;
     }
+
+    public boolean hasBonusBall() {
+        return hasBonusBall;
+    }
 }

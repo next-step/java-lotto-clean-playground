@@ -33,7 +33,7 @@ public class OutputView {
     }
 
     private static String getPlacePhrase(final Map<Rank, Integer> lottoResult, final Rank rank) {
-        if (rank == Rank.SECOND_PLACE) {
+        if (rank.hasBonusBall()) {
             return String.format("%d개 일치, 보너스 볼 일치 (%d원)- %d개", rank.getCorrectCnt(), rank.getReward(), lottoResult.get(rank));
         }
 
