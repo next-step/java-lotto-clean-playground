@@ -2,6 +2,7 @@ package controller;
 
 import model.Lotto;
 import model.LottoGenerator;
+import model.LottoNumber;
 import model.LottoPurchaseMoney;
 import model.LottoResult;
 import model.Lottos;
@@ -21,16 +22,22 @@ public class LottoController {
         final LottoGenerator lottoGenerator = new LottoGenerator();
 
         final Lottos lottos = lottoGenerator.generateRandomLotto(lottoPurchaseMoney);
-        OutputView.showLotto(transToLottoDto(lottos), lottos.getBuyLottoCount());
+        OutputView.showLotto(transToLottosDto(lottos), lottos.getBuyLottoCount());
 
-        final Lotto winningLotto = Lotto.from(InputView.inputWinningLotto());
+        final Lotto winningLotto = Lotto.fromStringsInput(InputView.inputWinningLotto());
         final LottoResult result = lottos.getResult(winningLotto);
         OutputView.showResult(result.getResult(), result.getRateOfReturn(lottoPurchaseMoney.getValue()));
     }
 
-    private List<List<Integer>> transToLottoDto(final Lottos lottos) {
+    private List<List<Integer>> transToLottosDto(final Lottos lottos) {
         return lottos.getLottos().stream()
-                .map(Lotto::getNumbers)
+                .map(this::transToLottoDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<Integer> transToLottoDto(final Lotto lotto) {
+        return lotto.getNumbers().stream()
+                .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
     }
 }
