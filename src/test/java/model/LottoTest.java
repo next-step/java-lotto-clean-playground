@@ -71,13 +71,15 @@ class LottoTest {
 
     @DisplayName("우승 로또가 주어졌을 때 일치 개수에 따라 등수를 반환한다.")
     @MethodSource("winningLottoAndRank")
-    @ParameterizedTest(name = "우승 로또가 {0}일때 등수는 {1}이다.")
-    void get_rank_with_winning_lotto(Lotto winningLotto, Rank expect) {
+    @ParameterizedTest(name = "우승 로또가 {0}이고 보너스 볼이 {1}일 때 등수는 {2}이다.")
+    void get_rank_with_winning_lotto(List<Integer> winningNumber, Integer number, Rank expect) {
         // given
         final Lotto lotto = Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final Lotto winningLotto = Lotto.fromNumbers(winningNumber);
+        final LottoNumber bonusNumber = new LottoNumber(number);
 
         // when
-        final Rank result = lotto.getRank(winningLotto);
+        final Rank result = lotto.getRank(winningLotto, bonusNumber);
 
         // then
         assertThat(result).isEqualTo(expect);
@@ -85,12 +87,12 @@ class LottoTest {
 
     private static Stream<Arguments> winningLottoAndRank() {
         return Stream.of(
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 7, 8, 9, 10, 11)), Rank.LAST_PLACE),
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 2, 8, 9, 10, 11)), Rank.LAST_PLACE),
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 2, 3, 9, 10, 11)), Rank.FOURTH_PLACE),
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 10, 11)), Rank.THIRD_PLACE),
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 11)), Rank.SECOND_PLACE),
-                Arguments.of(Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), Rank.FIRST_PLACE));
+                Arguments.of(Arrays.asList(1, 7, 8, 9, 10, 11), 6, Rank.LAST_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 9, 10, 11), 6, Rank.FIFTH_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 10, 11), 6, Rank.FOURTH_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 11), 10, Rank.THIRD_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 10), 6, Rank.SECOND_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), 11, Rank.FIRST_PLACE));
     }
 
     @DisplayName("로또 입력이 숫자로만 구성되어 있지 않으면 예외를 발생한다.")

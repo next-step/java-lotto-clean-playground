@@ -54,13 +54,13 @@ public class Lotto {
         }
     }
 
-    public Rank getRank(final Lotto winningLotto) {
+    public Rank getRank(final Lotto winningLotto, final LottoNumber bonusNumber) {
         int correctCnt = numbers.stream()
                 .filter(winningLotto::containNumber)
                 .toList()
                 .size();
 
-        return Rank.findPlace(correctCnt);
+        return Rank.findPlace(correctCnt, containNumber(bonusNumber));
     }
 
     private boolean containNumber(final LottoNumber number) {

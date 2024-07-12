@@ -14,11 +14,11 @@ class RankTest {
 
     @DisplayName("로또의 일치 개수에 따라 알맞은 Rank를 반환한다.")
     @MethodSource("correctCntAndRank")
-    @ParameterizedTest(name = "로또의 일치 개수가 {0}개이면 등수는 {1}이다.")
-    void get_Rank_with_correct_count(int correctCnt, Rank expect) {
+    @ParameterizedTest(name = "로또의 일치 개수가 {0}개이고 보너스 볼 일치 여부가 {1}이면 등수는 {2}이다.")
+    void get_Rank_with_correct_count(int correctCnt, boolean hasBonusNumber, Rank expect) {
         // given
         // when
-        final Rank result = Rank.findPlace(correctCnt);
+        final Rank result = Rank.findPlace(correctCnt, hasBonusNumber);
 
         // then
         assertThat(result).isEqualTo(expect);
@@ -26,11 +26,11 @@ class RankTest {
 
     private static Stream<Arguments> correctCntAndRank() {
         return Stream.of(
-                Arguments.of(6, Rank.FIRST_PLACE),
-                Arguments.of(5, Rank.SECOND_PLACE),
-                Arguments.of(4, Rank.THIRD_PLACE),
-                Arguments.of(3, Rank.FOURTH_PLACE),
-                Arguments.of(2, Rank.LAST_PLACE),
-                Arguments.of(1, Rank.LAST_PLACE));
+                Arguments.of(6, false, Rank.FIRST_PLACE),
+                Arguments.of(5, true, Rank.SECOND_PLACE),
+                Arguments.of(5, false, Rank.THIRD_PLACE),
+                Arguments.of(4, false, Rank.FOURTH_PLACE),
+                Arguments.of(3, false, Rank.FIFTH_PLACE),
+                Arguments.of(2, false, Rank.LAST_PLACE));
     }
 }

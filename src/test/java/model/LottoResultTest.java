@@ -24,7 +24,7 @@ class LottoResultTest {
         final double result = lottoResult.getRateOfReturn(purchaseMoney);
 
         // then
-        double expect = 5000 / (double) purchaseMoney;
+        double expect = 50000 / (double) purchaseMoney;
         Assertions.assertThat(result).isEqualTo(expect);
     }
 }
