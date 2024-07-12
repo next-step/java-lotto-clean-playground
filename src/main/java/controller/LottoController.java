@@ -25,6 +25,8 @@ public class LottoController {
         OutputView.showLotto(transToLottosDto(lottos), lottos.getBuyLottoCount());
 
         final Lotto winningLotto = Lotto.fromStringsInput(InputView.inputWinningLotto());
+        final LottoNumber bonusNumber = LottoNumber.from(InputView.inputBonusNumber());
+
         final LottoResult result = lottos.getResult(winningLotto);
         OutputView.showResult(result.getResult(), result.getRateOfReturn(lottoPurchaseMoney.getValue()));
     }
