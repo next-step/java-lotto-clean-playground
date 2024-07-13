@@ -32,6 +32,7 @@ public class LottoService {
         prizes.put(Prize.FOURTH, 0);
         prizes.put(Prize.THIRD, 0);
         prizes.put(Prize.SECOND, 0);
+        prizes.put(Prize.SECOND_BONUS_BALL, 0);
         prizes.put(Prize.FIRST, 0);
         return prizes;
     }
@@ -39,7 +40,7 @@ public class LottoService {
     private List<MatchResult> getMathResult(Map<Prize, Integer> prizes) {
         return prizes.keySet().stream()
             .filter(k -> k != Prize.LOSING_TICKET)
-            .map(k -> new MatchResult(k.getMatch(), k.getMoney().getAmount(), prizes.get(k)))
+            .map(k -> new MatchResult(k.getMatch(), k.getMoney().getAmount(), prizes.get(k), k.hasBonusNumber()))
             .toList();
     }
     

@@ -20,27 +20,32 @@ class LottoResultTest {
     private static Stream<Arguments> test() {
         return Stream.of(
             Arguments.arguments(
-                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6)),
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(15)),
                 createLottoTicket(1, 2, 3, 4, 5, 6),
                 Prize.FIRST
             ),
             Arguments.arguments(
-                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6)),
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(45)),
+                createLottoTicket(1, 2, 3, 4, 5, 45),
+                Prize.SECOND_BONUS_BALL
+            ),
+            Arguments.arguments(
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(15)),
                 createLottoTicket(1, 2, 3, 4, 5, 45),
                 Prize.SECOND
             ),
             Arguments.arguments(
-                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6)),
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(15)),
                 createLottoTicket(1, 2, 3, 4, 44, 45),
                 Prize.THIRD
             ),
             Arguments.arguments(
-                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6)),
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(15)),
                 createLottoTicket(1, 2, 3, 43, 44, 45),
                 Prize.FOURTH
             ),
             Arguments.arguments(
-                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6)),
+                new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(15)),
                 createLottoTicket(1, 2, 42, 43, 44, 45),
                 Prize.LOSING_TICKET
             )

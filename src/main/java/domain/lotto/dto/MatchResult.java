@@ -8,10 +8,13 @@ public class MatchResult {
     
     private final Integer count;
 
-    public MatchResult(Integer match, Integer amount, Integer count) {
+    private final boolean hasBonusNumber;
+
+    public MatchResult(Integer match, Integer amount, Integer count, boolean hasBonusNumber) {
         this.match = match;
         this.amount = amount;
         this.count = count;
+        this.hasBonusNumber = hasBonusNumber;
     }
 
     public Integer getMatch() {
@@ -24,5 +27,9 @@ public class MatchResult {
 
     public Integer getCount() {
         return count;
+    }
+
+    public boolean hasHasBonusNumber() {
+        return hasBonusNumber;
     }
 }

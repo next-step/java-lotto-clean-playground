@@ -56,4 +56,9 @@ public class LottoTicket {
             .toList()
             .size();
     }
+
+    public boolean hasBonusNumber(LottoNumber bonusNumber) {
+        return lottoNumbers.stream()
+            .anyMatch(bonusNumber::equals);
+    }
 }
