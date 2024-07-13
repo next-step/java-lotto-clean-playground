@@ -8,9 +8,9 @@ public class LottoTicket {
 
     private static final int LOTTO_SIZE_LIMIT = 6;
 
-    private final List<Integer> lottoNumbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    public LottoTicket(List<Integer> lottoNumbers) {
+    public LottoTicket(List<LottoNumber> lottoNumbers) {
         validateSize(lottoNumbers);
         validateDuplicate(lottoNumbers);
         sortByAsc(lottoNumbers);
@@ -22,7 +22,7 @@ public class LottoTicket {
         return lottoNumbers.size();
     }
 
-    private void validateSize(List<Integer> lottoNumbers) {
+    private void validateSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() == LOTTO_SIZE_LIMIT) {
             return;
         }
@@ -30,15 +30,15 @@ public class LottoTicket {
         throw new IllegalArgumentException("올바르지 않은 사이즈");
     }
 
-    private void validateDuplicate(List<Integer> lottoNumbers) {
-        HashSet<Integer> hashSet = new HashSet<>(lottoNumbers);
+    private void validateDuplicate(List<LottoNumber> lottoNumbers) {
+        HashSet<LottoNumber> hashSet = new HashSet<>(lottoNumbers);
         if (hashSet.size() < LOTTO_SIZE_LIMIT) {
             throw new IllegalArgumentException("중복 값 포함");
         }
     }
 
-    private void sortByAsc(List<Integer> lottoNumbers) {
-        lottoNumbers.sort(Comparator.naturalOrder());
+    private void sortByAsc(List<LottoNumber> lottoNumbers) {
+        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getNumber));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class LottoTicket {
         return lottoNumbers.toString();
     }
 
-    public boolean contains(Integer winningNumber) {
+    public boolean contains(LottoNumber winningNumber) {
         return lottoNumbers.contains(winningNumber);
     }
 
