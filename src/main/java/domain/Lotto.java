@@ -56,7 +56,6 @@ public record Lotto(List<Integer> numbers) {
         }
     }
 
-    @Override
     public List<Integer> numbers() {
         Collections.sort(numbers);
         return Collections.unmodifiableList(numbers);
