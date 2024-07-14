@@ -16,7 +16,7 @@ import view.OutputView;
 public class LottoController {
 
     private final static List<Rank> OUTPUT_ORDER_OF_RANK =
-        List.of(Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
+        List.of(Rank.FIFTH_PLACE, Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
 
     private final OutputView outputView = new OutputView();
     private final InputView inputView = new InputView();
