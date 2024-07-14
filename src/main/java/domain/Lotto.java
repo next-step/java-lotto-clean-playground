@@ -68,4 +68,8 @@ public record Lotto(List<Integer> numbers) {
             .toList()
             .size();
     }
+
+    public boolean isContains(int number) {
+        return numbers.contains(number);
+    }
 }

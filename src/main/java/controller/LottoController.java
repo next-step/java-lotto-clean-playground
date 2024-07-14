@@ -1,10 +1,12 @@
 package controller;
 
+import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.PurchasePrice;
 import domain.Rank;
+import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import service.LottoService;
@@ -13,7 +15,7 @@ import view.OutputView;
 
 public class LottoController {
 
-    private final static List<Rank> OUTPUT_ORDER_OF_RANK  =
+    private final static List<Rank> OUTPUT_ORDER_OF_RANK =
         List.of(Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
 
     private final OutputView outputView = new OutputView();
@@ -25,7 +27,7 @@ public class LottoController {
         final Lottos lottos = lottoService.generateLottos(purchasePrice);
         printLottosStatus(lottos);
 
-        final Lotto winningLotto = getWinningLotto();
+        final WinningLotto winningLotto = getWinningLotto();
         final LottoResult lottoResult = lottoService.getLottoResult(winningLotto, lottos);
         printLottoResultAndRoi(lottoResult, purchasePrice);
     }
@@ -41,10 +43,21 @@ public class LottoController {
         outputView.printStatusOfLottos(lottos.getStatus());
     }
 
-    private Lotto getWinningLotto() {
+    private WinningLotto getWinningLotto() {
+        final Lotto winningNumbers = getWinningNumbers();
+        final BonusBall bonusBall = getBonusBall();
+        return new WinningLotto(winningNumbers, bonusBall);
+    }
+
+    private Lotto getWinningNumbers() {
         outputView.printInputWinningNumbers();
         final List<Integer> winningNumbers = inputView.getWinningNumbers();
         return new Lotto(winningNumbers);
+    }
+
+    private BonusBall getBonusBall() {
+        outputView.printInputBonusNumber();
+        return inputView.getBonusNumber();
     }
 
     private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {

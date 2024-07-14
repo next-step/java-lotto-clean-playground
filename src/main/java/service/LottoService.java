@@ -6,6 +6,7 @@ import domain.PurchasePrice;
 import domain.LottoNumberGenerator;
 import domain.Lottos;
 import domain.Score;
+import domain.WinningLotto;
 import java.util.List;
 
 public class LottoService {
@@ -31,9 +32,9 @@ public class LottoService {
         return purchasePrice.price() / Lotto.PRICE;
     }
 
-    public LottoResult getLottoResult(Lotto winningLotto, Lottos lottos) {
+    public LottoResult getLottoResult(WinningLotto winningLotto, Lottos lottos) {
         final List<Integer> winningNumbers = winningLotto.numbers();
-        final List<Score> scores = lottos.getScores(winningNumbers);
+        final List<Score> scores = lottos.getScores(winningNumbers); // Score -> 점수, 보너스볼 일치 여부
         return new LottoResult(scores);
     }
 
