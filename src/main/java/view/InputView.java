@@ -1,6 +1,5 @@
 package view;
 
-import domain.BonusBall;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -47,10 +46,5 @@ public class InputView {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(Errors.INPUT_NUMBER_IS_NOT_INTEGER);
         }
-    }
-
-    public BonusBall getBonusNumber() {
-        final int userIntegerInput = getUserIntegerInput();
-        return new BonusBall(userIntegerInput);
     }
 }
