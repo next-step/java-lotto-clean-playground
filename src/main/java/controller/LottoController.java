@@ -69,7 +69,8 @@ public class LottoController {
     private void printLottoResult(LottoResult lottoResult) {
         final Map<Rank, Integer> rankCountMap = lottoResult.getRankCountMap();
         for (Rank rank : OUTPUT_ORDER_OF_RANK) {
-            outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(), rankCountMap.get(rank));
+            outputView.printLottoResult(rank.getScoreCutoff(), rank.getPrizeMoney(), rank.isBonusBallMatching(),
+                                        rankCountMap.get(rank));
         }
     }
 

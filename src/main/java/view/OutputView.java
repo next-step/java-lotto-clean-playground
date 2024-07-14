@@ -50,7 +50,10 @@ public class OutputView {
         System.out.println("당첨 통계\n---------");
     }
 
-    public void printLottoResult(int scoreCutoff, int prizeMoney, int count) {
+    public void printLottoResult(int scoreCutoff, int prizeMoney, boolean isBonusBallMatching, int count) {
+        if (isBonusBallMatching) {
+            System.out.printf("%d개 일치, 보너스 볼 일치(%d원)- %d개%n", scoreCutoff, prizeMoney, count);
+        }
         System.out.printf("%d개 일치 (%d원)- %d개%n", scoreCutoff, prizeMoney, count);
     }
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public enum Rank {
 
     FIRST_PLACE(6, 2000000000, false),
-    SECOND_PLACE(5,1500000, true),
+    SECOND_PLACE(5,30000000, true),
     THIRD_PLACE(5,1500000, false),
 
     FOURTH_PLACE(4,50000, false),
