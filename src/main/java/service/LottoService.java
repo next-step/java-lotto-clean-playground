@@ -33,8 +33,7 @@ public class LottoService {
     }
 
     public LottoResult getLottoResult(WinningLotto winningLotto, Lottos lottos) {
-        final List<Integer> winningNumbers = winningLotto.numbers();
-        final List<Score> scores = lottos.getScores(winningNumbers); // Score -> 점수, 보너스볼 일치 여부
+        final List<Score> scores = lottos.getScores(winningLotto);
         return new LottoResult(scores);
     }
 

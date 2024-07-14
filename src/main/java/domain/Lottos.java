@@ -23,12 +23,22 @@ public class Lottos {
         return status;
     }
 
-    public List<Score> getScores(List<Integer> winningNumbers) {
+    public List<Score> getScores(WinningLotto winningLotto) {
         List<Score> scores = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            int matchingNumberCount = lotto.getMatchingNumberCount(winningNumbers);
-            scores.add(new Score(matchingNumberCount));
+            final Score score = getScore(lotto, winningLotto);
+            scores.add(score);
         }
         return scores;
+    }
+
+    private Score getScore(Lotto lotto, WinningLotto winningLotto) {
+        final List<Integer> winningLottoNumbers = winningLotto.getWinningLottoNumbers();
+        final int bonusBallNumber = winningLotto.getBonusBallNumber();
+
+        int matchingNumberCount = lotto.getMatchingNumberCount(winningLottoNumbers);
+        final boolean isMatchingBonusNumber = lotto.isContains(bonusBallNumber);
+
+        return new Score(matchingNumberCount, isMatchingBonusNumber);
     }
 }

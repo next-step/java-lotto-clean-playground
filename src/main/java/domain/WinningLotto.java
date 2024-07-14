@@ -20,7 +20,11 @@ public class WinningLotto {
         }
     }
 
-    public List<Integer> getLottoNumber() {
+    public List<Integer> getWinningLottoNumbers() {
         return lotto.numbers();
+    }
+
+    public int getBonusBallNumber() {
+        return bonusBall.number();
     }
 }
