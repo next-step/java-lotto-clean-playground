@@ -57,7 +57,8 @@ public class LottoController {
 
     private BonusBall getBonusBall() {
         outputView.printInputBonusNumber();
-        return inputView.getBonusNumber();
+        final int bonusNumber = inputView.getUserIntegerInput();
+        return new BonusBall(bonusNumber);
     }
 
     private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {

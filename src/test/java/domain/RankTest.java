@@ -12,22 +12,29 @@ class RankTest {
 
     private static Stream<Arguments> methodSourceOfRankTest() {
         return Stream.of(
-            Arguments.arguments(0, Rank.LAST_PLACE),
-            Arguments.arguments(1, Rank.LAST_PLACE),
-            Arguments.arguments(2, Rank.LAST_PLACE),
-            Arguments.arguments(3, Rank.FOURTH_PLACE),
-            Arguments.arguments(4, Rank.THIRD_PLACE),
-            Arguments.arguments(5, Rank.SECOND_PLACE),
-            Arguments.arguments(6, Rank.FIRST_PLACE)
+            Arguments.arguments(0, true, Rank.LAST_PLACE),
+            Arguments.arguments(0, false, Rank.LAST_PLACE),
+            Arguments.arguments(1, true, Rank.LAST_PLACE),
+            Arguments.arguments(1, false, Rank.LAST_PLACE),
+            Arguments.arguments(2, true, Rank.LAST_PLACE),
+            Arguments.arguments(2, false, Rank.LAST_PLACE),
+            Arguments.arguments(3, true, Rank.FIFTH_PLACE),
+            Arguments.arguments(3, false, Rank.FIFTH_PLACE),
+            Arguments.arguments(4, true, Rank.FOURTH_PLACE),
+            Arguments.arguments(4, false, Rank.FOURTH_PLACE),
+            Arguments.arguments(5, true, Rank.SECOND_PLACE),
+            Arguments.arguments(5, false, Rank.THIRD_PLACE),
+            Arguments.arguments(6, true, Rank.FIRST_PLACE),
+            Arguments.arguments(6, false, Rank.FIRST_PLACE)
         );
     }
 
-    @ParameterizedTest(name = "{0}개가 일치하면 등수는 {1}이다.")
+    @ParameterizedTest(name = "{0}개가 일치하고 보너스 번호의 일치여부는 {1}이면 등수는 {2}이다.")
     @MethodSource("methodSourceOfRankTest")
     @DisplayName("맞춘 개수(Score)로 등수(Rank)를 구할 수 있다.")
-    void rankTest(int inputScore, Rank expectedRank) {
+    void rankTest(int inputScore, boolean isBonusBallMatching, Rank expectedRank) {
         // given
-        Score score = new Score(inputScore);
+        Score score = new Score(inputScore, isBonusBallMatching);
         // when
         final Rank rank = Rank.getByScore(score);
         // then

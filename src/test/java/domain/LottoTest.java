@@ -40,7 +40,7 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfToString() {
             return Stream.of(
-                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), Arrays.asList(1, 2, 3, 8,9, 10)),
+                Arguments.arguments(Arrays.asList(10, 9, 8, 1, 2, 3), Arrays.asList(1, 2, 3, 8, 9, 10)),
                 Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), Arrays.asList(10, 20, 25, 30, 40, 45))
             );
         }
@@ -116,6 +116,25 @@ class LottoTest {
         // then
         assertThat(matchingNumberCount)
             .isEqualTo(expectedCount);
+    }
+
+    private static Stream<Arguments> methodSourceOfContainsTest() {
+        return Stream.of(
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), 10, true),
+            Arguments.arguments(Arrays.asList(45, 40, 10, 30, 20, 25), 43, false)
+        );
+    }
+
+    @ParameterizedTest(name = "{0}의 로또 번호에 {1}이 포함되어있는지의 여부는 {2}이다.")
+    @MethodSource("methodSourceOfContainsTest")
+    @DisplayName("특정 숫자가 로또번호에 포함되어있는지 판단할 수 있다.")
+    void containsTest(List<Integer> lottoNumbers, int givenNumber, boolean expectedResult) {
+        // given
+        final Lotto lotto = new Lotto(lottoNumbers);
+        // when
+        final boolean result = lotto.isContains(givenNumber);
+        // then
+        assertThat(result).isEqualTo(expectedResult);
     }
 
 }
