@@ -1,10 +1,12 @@
 package view;
 
+import domain.Rank;
 import dto.LottoPaperDto;
 import dto.LottoResultDto;
 import dto.RowDto;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -25,10 +27,22 @@ public class OutputView {
     public void printResult(LottoResultDto lottoResult) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        List<Integer> result = lottoResult.getResult();
-        for (int i = 0; i < result.size(); i++) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", i + 3, REWARD.get(i), result.get(i));
+        Map<Rank, Integer> resultMap = lottoResult.getResultMap();
+        for (Rank rank : Rank.values()) {
+            printByRank(rank, resultMap);
         }
+    }
+
+    public void printByRank(Rank rank, Map<Rank, Integer> resultMap){
+        if(rank == Rank.MISS){
+            return;
+        }
+        System.out.printf("%d개 일치", rank.getMatchCount());
+        if(rank == Rank.SECOND){
+            System.out.printf(", 보너스 볼 일치(%d원) - %d개\n", rank.getRewardMoney(), resultMap.get(rank));
+            return;
+        }
+        System.out.printf(" (%d원)- %d개\n", rank.getRewardMoney(), resultMap.get(rank));
     }
 
     public void printRewardRate(LottoResultDto lottoResultDto) {

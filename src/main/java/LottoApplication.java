@@ -1,8 +1,9 @@
 import controller.LottoController;
+import domain.BonusNum;
 import domain.LottoPrice;
-import domain.Row;
 import dto.LottoPaperDto;
 import dto.LottoResultDto;
+import dto.RowDto;
 import view.InputView;
 import view.OutputView;
 
@@ -16,8 +17,9 @@ public class LottoApplication {
         outputView.printRowNumber(lottoPaper.getRowNum());
         outputView.printPaper(lottoPaper);
 
-        Row answer = inputView.getAnswer();
-        LottoResultDto lottoResult = lottoController.checkLotto(lottoPaper, answer);
+        RowDto answer = inputView.getAnswer();
+        BonusNum bonusNum = inputView.getBonus();
+        LottoResultDto lottoResult = lottoController.checkLotto(lottoPaper, answer, bonusNum);
         outputView.printResult(lottoResult);
         outputView.printRewardRate(lottoResult);
     }

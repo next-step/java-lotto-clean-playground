@@ -1,20 +1,22 @@
 package dto;
 
-import java.util.List;
+import domain.LottoResult;
+import domain.Rank;
+import java.util.Map;
 
 public class LottoResultDto {
-    private List<Integer> result;
+    private Map<Rank, Integer> resultMap;
     private long totalReward;
     private double rewardRate;
 
-    public LottoResultDto(List<Integer> result, long totalReward, double rewardRate) {
-        this.result = result;
-        this.totalReward = totalReward;
-        this.rewardRate = rewardRate;
+    public LottoResultDto(LottoResult lottoResult) {
+        this.resultMap = lottoResult.resultMap();
+        this.totalReward = lottoResult.totalReward();
+        this.rewardRate = lottoResult.rewardRate();
     }
 
-    public List<Integer> getResult() {
-        return result;
+    public Map<Rank, Integer> getResultMap() {
+        return resultMap;
     }
 
     public long getTotalReward() {

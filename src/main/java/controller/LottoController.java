@@ -1,9 +1,10 @@
 package controller;
 
+import domain.BonusNum;
 import domain.LottoPrice;
-import domain.Row;
 import dto.LottoPaperDto;
 import dto.LottoResultDto;
+import dto.RowDto;
 import service.LottoService;
 
 
@@ -14,8 +15,8 @@ public class LottoController {
         return lottoService.generatePaper(price);
     }
 
-    public LottoResultDto checkLotto(LottoPaperDto lottoPaper, Row answer) {
-        LottoResultDto result = lottoService.evaluatePaper(lottoPaper, answer);
+    public LottoResultDto checkLotto(LottoPaperDto lottoPaper, RowDto answer, BonusNum bonusNum) {
+        LottoResultDto result = lottoService.evaluatePaper(lottoPaper, answer, bonusNum);
         return result;
     }
 }

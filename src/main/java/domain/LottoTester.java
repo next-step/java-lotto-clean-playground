@@ -1,41 +1,54 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoTester {
-    private final List<Integer> REWARD = Arrays.asList(5000, 50000, 1500000, 2000000000);
-    private final int ROW_SIZE = 6;
-    private final int MIN_COUNT = 3;
+
+    private static final List<Integer> REWARD = Arrays.asList(5000, 50000, 1500000, 2000000000);
+    private static final int ROW_SIZE = 6;
+    private static final int MIN_COUNT = 3;
 
     public LottoTester() {
     }
 
-    public LottoResult evaluatePaper(LottoPaper paper, Row answer) {
-        LottoResult workingResult = new LottoResult(Arrays.asList(0, 0, 0, 0), 0, 0);
+    public LottoResult evaluatePaper(LottoPaper paper, Row answer, BonusNum bonusNum) {
+        Map<Rank, Integer> resultMap = new EnumMap<>(Rank.class);
+        initMap(resultMap);
         for (Row row : paper.getRows()) {
-            checkRow(row, answer, workingResult);
+            checkRow(row, answer, resultMap, bonusNum);
         }
-        calculateReward(workingResult);
-        calculateRate(paper, workingResult);
-        return workingResult;
+        int reward = calculateReward(resultMap);
+        double rewardRate = calculateRate(paper, reward);
+        return new LottoResult(resultMap, reward, rewardRate);
     }
 
-    private void checkRow(Row row, Row answer, LottoResult workingResult) {
+    private void initMap(Map<Rank, Integer> resultMap) {
+        for (Rank rank : Rank.values()) {
+            resultMap.put(rank, 0);
+        }
+    }
+
+    private void checkRow(Row row, Row answer, Map<Rank, Integer> resultMap, BonusNum bonusNum) {
         List<Integer> nums = row.getNums();
         int count = 0;
         for (int i = 0; i < ROW_SIZE; i++) {
             count += checkNum(nums.get(i), answer);
         }
-        saveRecord(count, workingResult);
+        saveRecord(Rank.getRank(count, bonusCheck(row, bonusNum)), resultMap);
     }
 
-    private void saveRecord(int count, LottoResult workingResult) {
-        if (count < MIN_COUNT) {
-            return;
+    private void saveRecord(Rank rank, Map<Rank, Integer> resultMap) {
+        resultMap.put(rank, resultMap.get(rank) + 1);
+    }
+
+    private boolean bonusCheck(Row row, BonusNum bonusNum) {
+        if (row.getNums().contains(bonusNum.num())) {
+            return true;
         }
-        int index = count - 3;
-        workingResult.getResult().set(index, workingResult.getResult().get(index) + 1);
+        return false;
     }
 
     private int checkNum(int num1, Row answer) {
@@ -45,18 +58,17 @@ public class LottoTester {
         return 0;
     }
 
-    private void calculateReward(LottoResult workingResult) {
+    private int calculateReward(Map<Rank, Integer> resultMap) {
         int workingPaperReward = 0;
-        for (int i = MIN_COUNT; i <= ROW_SIZE; i++) {
-            int index = i - MIN_COUNT;
-            workingPaperReward += workingResult.getResult().get(index) * REWARD.get(index);
+        for (Rank rank : Rank.values()) {
+            workingPaperReward += resultMap.get(rank) * rank.getRewardMoney();
         }
-        workingResult.setTotalReward(workingPaperReward);
+        return workingPaperReward;
     }
 
-    private void calculateRate(LottoPaper workingPaper, LottoResult workingResult) {
-        double reward = workingResult.getTotalReward() / 1000;
-        double price = workingPaper.getRowNum();
-        workingResult.setRewardRate(Math.round(reward / price * 100) / 100.0);
+    private double calculateRate(LottoPaper paper, int reward) {
+        double totalReward = reward / 1000;
+        double price = paper.getRowNum();
+        return Math.round(totalReward / price * 100) / 100.0;
     }
 }

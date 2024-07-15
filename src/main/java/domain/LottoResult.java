@@ -1,39 +1,7 @@
 package domain;
 
-import dto.LottoResultDto;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
-public class LottoResult {
-    private List<Integer> result;
-    private long totalReward;
-    private double rewardRate;
-
-    public LottoResult(List<Integer> result, long totalReward, double rewardRate) {
-        this.result = result;
-        this.totalReward = totalReward;
-        this.rewardRate = rewardRate;
-    }
-
-    public LottoResultDto toDto() {
-        List<Integer> newResult = new ArrayList<>();
-        newResult.addAll(result);
-        return new LottoResultDto(newResult, totalReward, rewardRate);
-    }
-
-    public List<Integer> getResult() {
-        return result;
-    }
-
-    public long getTotalReward() {
-        return totalReward;
-    }
-
-    public void setTotalReward(long totalReward) {
-        this.totalReward = totalReward;
-    }
-
-    public void setRewardRate(double rewardRate) {
-        this.rewardRate = rewardRate;
-    }
-}
+public record LottoResult(Map<Rank, Integer> resultMap,
+                          long totalReward,
+                          double rewardRate) { }

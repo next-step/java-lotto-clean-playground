@@ -5,11 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RowDto {
-    private List<Integer> nums;
+
     private static final int ROW_SIZE = 6;
+    private List<Integer> nums;
 
     public RowDto(List<Integer> nums) {
         this.nums = nums;
+    }
+
+    public RowDto(Row row) {
+        List<Integer> newNums = new ArrayList<>();
+        for (int i = 0; i < ROW_SIZE; i++) {
+            newNums.add(row.getNums().get(i));
+        }
+        this.nums = newNums;
     }
 
     public List<Integer> getNums() {

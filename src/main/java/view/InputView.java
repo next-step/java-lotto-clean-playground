@@ -1,9 +1,8 @@
 package view;
 
-import domain.Row;
-import java.util.ArrayList;
+import domain.BonusNum;
+import dto.RowDto;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -21,10 +20,10 @@ public class InputView {
         }
     }
 
-    public Row getAnswer() {
+    public RowDto getAnswer() {
         try {
             System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-            Row row = new Row(Arrays
+            RowDto row = new RowDto(Arrays
                     .stream(scanner.nextLine().split(", "))
                     .mapToInt(Integer::parseInt)
                     .boxed()
@@ -33,6 +32,17 @@ public class InputView {
             return row;
         } catch (Exception e) {
             throw new IllegalArgumentException("당첨번호는 , 로 구분된 숫자입니다.");
+        }
+    }
+
+    public BonusNum getBonus() {
+        try {
+            System.out.println("보너스 볼을 읿력해 주세요.");
+            BonusNum bonusNum = new BonusNum(Integer.parseInt(scanner.nextLine()));
+            System.out.println("");
+            return bonusNum;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("보너스 번호는 숫자입니다.");
         }
     }
 
