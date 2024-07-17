@@ -2,6 +2,7 @@ package domain.lotto;
 
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -50,5 +51,12 @@ class LottoResultTest {
                 Prize.LOSING_TICKET
             )
         );
+    }
+    
+    @Test
+    void 보너스번호가_이미_당첨번호에_있으면_예외발생() {
+        Assertions.assertThatThrownBy(() -> new LottoResult(createLottoTicket(1, 2, 3, 4, 5, 6), new LottoNumber(1)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("보너스 번호가 이미 당첨 번호에 존재합니다.");
     }
 }
