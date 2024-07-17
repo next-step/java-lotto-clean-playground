@@ -3,9 +3,10 @@ package domain.lotto;
 import java.util.Objects;
 
 public class LottoNumber {
-    private final static int MIN_LOTTO_NUMBER = 1;
-    private final static int MAX_LOTTO_NUMBER = 45;
-    private final static String OUT_OF_RANGE = "로또번호는 1~45의 범위입니다.";
+    
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final String OUT_OF_RANGE = "로또번호는 1~45의 범위입니다.";
 
     private final int number;
 
