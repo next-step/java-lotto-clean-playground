@@ -1,7 +1,7 @@
 package view;
 
-import domain.BonusNum;
-import dto.RowDto;
+import domain.BonusNumBer;
+import domain.Row;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -12,7 +12,8 @@ public class InputView {
     public int getPrice() {
         try {
             System.out.println("구입금액을 입력해 주세요.");
-            int price = Integer.parseInt(scanner.nextLine());
+            int price = scanner.nextInt();
+            scanner.nextLine();
             minCheck(price);
             return price;
         } catch (Exception e) {
@@ -20,10 +21,10 @@ public class InputView {
         }
     }
 
-    public RowDto getAnswer() {
+    public Row getAnswer() {
         try {
             System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-            RowDto row = new RowDto(Arrays
+            Row row = new Row(Arrays
                     .stream(scanner.nextLine().split(", "))
                     .mapToInt(Integer::parseInt)
                     .boxed()
@@ -35,12 +36,13 @@ public class InputView {
         }
     }
 
-    public BonusNum getBonus() {
+    public BonusNumBer getBonus() {
         try {
             System.out.println("보너스 볼을 읿력해 주세요.");
-            BonusNum bonusNum = new BonusNum(Integer.parseInt(scanner.nextLine()));
+            BonusNumBer bonusNumBer = new BonusNumBer(scanner.nextInt());
+            scanner.nextLine();
             System.out.println("");
-            return bonusNum;
+            return bonusNumBer;
         } catch (Exception e) {
             throw new IllegalArgumentException("보너스 번호는 숫자입니다.");
         }

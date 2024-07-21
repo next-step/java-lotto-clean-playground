@@ -28,4 +28,8 @@ public class Row {
             throw new RuntimeException("로또 한줄의 수는 중복될 수 없습니다.");
         }
     }
+
+    public boolean containsNumber(int number) {
+        return nums.contains(number);
+    }
 }

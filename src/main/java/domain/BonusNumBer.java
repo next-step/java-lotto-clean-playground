@@ -1,8 +1,8 @@
 package domain;
 
-public record BonusNum(int num) {
+public record BonusNumBer(int num) {
 
-    public BonusNum {
+    public BonusNumBer {
         rangeCheck(num);
     }
 

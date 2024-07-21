@@ -1,6 +1,7 @@
 package service;
 
-import domain.BonusNum;
+import domain.BonusNumBer;
+import domain.LottoAnswer;
 import domain.LottoMachine;
 import domain.LottoPrice;
 import domain.LottoResult;
@@ -16,9 +17,9 @@ public class LottoService {
         return new LottoPaperDto(lottoMachine.generatePaper(price));
     }
 
-    public LottoResultDto evaluatePaper(LottoPaperDto lottoPaperDto, RowDto answer, BonusNum bonusNum) {
+    public LottoResultDto evaluatePaper(LottoPaperDto lottoPaperDto, LottoAnswer lottoAnswer) {
         LottoTester lottoTester = new LottoTester();
-        LottoResult lottoResult = lottoTester.evaluatePaper(lottoPaperDto.toEntity(), answer.toEntity(), bonusNum);
+        LottoResult lottoResult = lottoTester.evaluatePaper(lottoPaperDto.toEntity(), lottoAnswer);
         return new LottoResultDto(lottoResult);
     }
 }

@@ -14,11 +14,11 @@ public class LottoTester {
     public LottoTester() {
     }
 
-    public LottoResult evaluatePaper(LottoPaper paper, Row answer, BonusNum bonusNum) {
+    public LottoResult evaluatePaper(LottoPaper paper, LottoAnswer lottoAnswer) {
         Map<Rank, Integer> resultMap = new EnumMap<>(Rank.class);
         initMap(resultMap);
         for (Row row : paper.getRows()) {
-            checkRow(row, answer, resultMap, bonusNum);
+            checkRow(row, lottoAnswer, resultMap);
         }
         int reward = calculateReward(resultMap);
         double rewardRate = calculateRate(paper, reward);
@@ -31,28 +31,28 @@ public class LottoTester {
         }
     }
 
-    private void checkRow(Row row, Row answer, Map<Rank, Integer> resultMap, BonusNum bonusNum) {
+    private void checkRow(Row row, LottoAnswer lottoAnswer, Map<Rank, Integer> resultMap) {
         List<Integer> nums = row.getNums();
         int count = 0;
         for (int i = 0; i < ROW_SIZE; i++) {
-            count += checkNum(nums.get(i), answer);
+            count += checkNum(nums.get(i), lottoAnswer.answer());
         }
-        saveRecord(Rank.getRank(count, bonusCheck(row, bonusNum)), resultMap);
+        saveRecord(Rank.getRank(count, bonusCheck(row, lottoAnswer.bonusNumBer())), resultMap);
     }
 
     private void saveRecord(Rank rank, Map<Rank, Integer> resultMap) {
         resultMap.put(rank, resultMap.get(rank) + 1);
     }
 
-    private boolean bonusCheck(Row row, BonusNum bonusNum) {
-        if (row.getNums().contains(bonusNum.num())) {
+    private boolean bonusCheck(Row row, BonusNumBer bonusNumBer) {
+        if (row.containsNumber(bonusNumBer.num())) {
             return true;
         }
         return false;
     }
 
     private int checkNum(int num1, Row answer) {
-        if (answer.getNums().contains(num1)) {
+        if (answer.containsNumber(num1)) {
             return 1;
         }
         return 0;
