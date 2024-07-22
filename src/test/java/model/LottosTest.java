@@ -16,11 +16,12 @@ class LottosTest {
     @Test
     void get_lotto_result_with_winning_lotto() {
         // given
-        final Lottos lottos = new Lottos(List.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new Lotto(Arrays.asList(2, 3, 4, 5, 6, 7))));
-        final Lotto winningLotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final Lottos lottos = new Lottos(List.of(Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), Lotto.fromNumbers(Arrays.asList(2, 3, 4, 5, 6, 7))));
+        final Lotto winningLotto = Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final LottoNumber bonusNumber = new LottoNumber(7);
 
         // when
-        final LottoResult result = lottos.getResult(winningLotto);
+        final LottoResult result = lottos.getResult(winningLotto, bonusNumber);
 
         // then
         final Map<Rank, Integer> resultMap = result.getResult();

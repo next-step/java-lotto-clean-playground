@@ -22,7 +22,7 @@ class LottoTest {
         // given
         // when
         // then
-        assertThatThrownBy(() -> new Lotto(numbers))
+        assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또는 6개의 숫자로 구성되어야 합니다.");
     }
@@ -40,7 +40,7 @@ class LottoTest {
         // given
         // when
         // then
-        assertThatThrownBy(() -> new Lotto(numbers))
+        assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 내 동일한 숫자가 있으면 안됩니다.");
     }
@@ -58,9 +58,9 @@ class LottoTest {
         // given
         // when
         // then
-        assertThatThrownBy(() -> new Lotto(numbers))
+        assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1과 45사이의 숫자이어야 합니다.");
+                .hasMessage("로또 번호 및 보너스 볼은 1과 45사이의 숫자이어야 합니다.");
     }
 
     private static Stream<Arguments> lottoWithWrongNumber() {
@@ -71,13 +71,15 @@ class LottoTest {
 
     @DisplayName("우승 로또가 주어졌을 때 일치 개수에 따라 등수를 반환한다.")
     @MethodSource("winningLottoAndRank")
-    @ParameterizedTest(name = "우승 로또가 {0}일때 등수는 {1}이다.")
-    void get_rank_with_winning_lotto(Lotto winningLotto, Rank expect) {
+    @ParameterizedTest(name = "우승 로또가 {0}이고 보너스 볼이 {1}일 때 등수는 {2}이다.")
+    void get_rank_with_winning_lotto(List<Integer> winningNumber, Integer number, Rank expect) {
         // given
-        final Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final Lotto lotto = Lotto.fromNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+        final Lotto winningLotto = Lotto.fromNumbers(winningNumber);
+        final LottoNumber bonusNumber = new LottoNumber(number);
 
         // when
-        final Rank result = lotto.getRank(winningLotto);
+        final Rank result = lotto.getRank(winningLotto, bonusNumber);
 
         // then
         assertThat(result).isEqualTo(expect);
@@ -85,12 +87,12 @@ class LottoTest {
 
     private static Stream<Arguments> winningLottoAndRank() {
         return Stream.of(
-                Arguments.of(new Lotto(Arrays.asList(1, 7, 8, 9, 10, 11)), Rank.LAST_PLACE),
-                Arguments.of(new Lotto(Arrays.asList(1, 2, 8, 9, 10, 11)), Rank.LAST_PLACE),
-                Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 9, 10, 11)), Rank.FOURTH_PLACE),
-                Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 4, 10, 11)), Rank.THIRD_PLACE),
-                Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 11)), Rank.SECOND_PLACE),
-                Arguments.of(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)), Rank.FIRST_PLACE));
+                Arguments.of(Arrays.asList(1, 7, 8, 9, 10, 11), 6, Rank.LAST_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 9, 10, 11), 6, Rank.FIFTH_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 10, 11), 6, Rank.FOURTH_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 11), 10, Rank.THIRD_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 10), 6, Rank.SECOND_PLACE),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), 11, Rank.FIRST_PLACE));
     }
 
     @DisplayName("로또 입력이 숫자로만 구성되어 있지 않으면 예외를 발생한다.")
@@ -100,7 +102,7 @@ class LottoTest {
         // given
         // when
         // then
-        assertThatThrownBy(() -> Lotto.from(input))
+        assertThatThrownBy(() -> Lotto.fromStringsInput(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("숫자입력만 허용합니다.");
     }

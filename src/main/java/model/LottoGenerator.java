@@ -18,7 +18,7 @@ public class LottoGenerator {
         final List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoPurchaseMoney.getPurchaseQuantity(); i++) {
             Collections.shuffle(NUMBERS);
-            lottos.add(new Lotto(new ArrayList<>(NUMBERS.subList(0, 6))));
+            lottos.add(Lotto.fromNumbers(new ArrayList<>(NUMBERS.subList(0, 6))));
         }
         return new Lottos(lottos);
     }

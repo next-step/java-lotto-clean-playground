@@ -14,10 +14,10 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public LottoResult getResult(final Lotto winningLotto) {
+    public LottoResult getResult(final Lotto winningLotto, final LottoNumber bonusNumber) {
         final Map<Rank, Integer> result = initMap();
         for (Lotto lotto : lottos) {
-            final Rank rank = lotto.getRank(winningLotto);
+            final Rank rank = lotto.getRank(winningLotto, bonusNumber);
             result.put(rank, result.get(rank) + 1);
         }
 

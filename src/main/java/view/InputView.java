@@ -18,4 +18,10 @@ public class InputView {
         final String input = sc.nextLine();
         return input.split(DELIMITER);
     }
+
+    public static String inputBonusNumber() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        return sc.nextLine();
+    }
 }

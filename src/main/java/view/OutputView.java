@@ -24,11 +24,19 @@ public class OutputView {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
-        List<Rank> ranks = List.of(Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
+        List<Rank> ranks = List.of(Rank.FIFTH_PLACE, Rank.FOURTH_PLACE, Rank.THIRD_PLACE, Rank.SECOND_PLACE, Rank.FIRST_PLACE);
         for (Rank rank : ranks) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", rank.getCorrectCnt(), rank.getReward(), lottoResult.get(rank));
+            System.out.println(getPlacePhrase(lottoResult, rank));
         }
 
         System.out.printf("총 수익률은 %.2f입니다", rateOfReward);
+    }
+
+    private static String getPlacePhrase(final Map<Rank, Integer> lottoResult, final Rank rank) {
+        if (rank.hasBonusBall()) {
+            return String.format("%d개 일치, 보너스 볼 일치 (%d원)- %d개", rank.getCorrectCnt(), rank.getReward(), lottoResult.get(rank));
+        }
+
+        return String.format("%d개 일치 (%d원)- %d개", rank.getCorrectCnt(), rank.getReward(), lottoResult.get(rank));
     }
 }
