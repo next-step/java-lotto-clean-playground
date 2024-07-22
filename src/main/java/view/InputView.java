@@ -1,5 +1,6 @@
 package view;
 
+import domain.lotto.LottoNumber;
 import domain.lotto.LottoResult;
 import domain.common.Money;
 
@@ -17,13 +18,20 @@ public class InputView {
         return new Money(scanner.nextInt());
     }
 
-    public static LottoResult inputWinningNumbers() {
+    public static LottoTicket inputWinningNumbers() {
         final Scanner scanner = new Scanner(System.in);
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> list = Arrays.stream(scanner.nextLine().split(", "))
+        List<LottoNumber> list = Arrays.stream(scanner.nextLine().split(", "))
             .mapToInt(Integer::parseInt)
             .boxed()
+            .map(LottoNumber::new)
             .collect(Collectors.toList());
-        return new LottoResult(new LottoTicket(list));
+        return new LottoTicket(list);
+    }
+
+    public static LottoNumber inputBonusNumber() {
+        final Scanner scanner = new Scanner(System.in);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return new LottoNumber(scanner.nextInt());
     }
 }

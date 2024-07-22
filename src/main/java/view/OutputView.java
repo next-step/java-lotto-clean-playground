@@ -1,6 +1,7 @@
 package view;
 
 import domain.lotto.LottoTicket;
+import domain.lotto.dto.MatchResult;
 import domain.lotto.dto.StatistsDto;
 
 import java.util.List;
@@ -20,8 +21,19 @@ public class OutputView {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        statistsDto.getMatchResults().forEach(m -> System.out.println(m.getMatch() + "개 일치 (" + m.getAmount() + "원) - " + m.getCount() + "개"));
+        statistsDto.getMatchResults()
+            .forEach(m -> {
+                final String bonusComment = getBonusComment(m);
+                System.out.println(m.getMatch() + "개 일치" + bonusComment + "(" + m.getAmount() + "원) - " + m.getCount() + "개");
+            });
         
         System.out.printf("총 수익률은 %.2f입니다.", statistsDto.getProfitRate());
+    }
+
+    private static String getBonusComment(MatchResult m) {
+        if (m.hasHasBonusNumber()) {
+            return ", 보너스 볼 일치";
+        }
+        return "";
     }
 }

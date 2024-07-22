@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static domain.util.LottoUtil.createLottoTicket;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -19,7 +20,14 @@ class LottoTicketTest {
     @Test
     @DisplayName("생성자 테스트1 - 정상적인 숫자들로 6개 들어왔을 때 통과")
     void 생성자_테스트1() {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<LottoNumber> numbers = Arrays.asList(
+            new LottoNumber(1), 
+            new LottoNumber(2), 
+            new LottoNumber(3), 
+            new LottoNumber(4), 
+            new LottoNumber(5), 
+            new LottoNumber(6)
+        );
         
         assertDoesNotThrow(() -> new LottoTicket(numbers));
     }
@@ -27,22 +35,45 @@ class LottoTicketTest {
     @ParameterizedTest
     @MethodSource("test")
     @DisplayName("생성자 테스트2 - 6개 미만, 초과로 들어왔을 때 예외 발생")
-    void 생성자_테스트2(List<Integer> numbers) {
+    void 생성자_테스트2(List<LottoNumber> numbers) {
         Assertions.assertThatThrownBy(() -> new LottoTicket(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
     
     private static Stream<Arguments> test() {
         return Stream.of(
-                Arguments.arguments(Arrays.asList(1, 2, 3)),
-                Arguments.arguments(Arrays.asList(1, 2, 3, 4, 5, 6, 7))
+                Arguments.arguments(
+                    Arrays.asList(
+                        new LottoNumber(1), 
+                        new LottoNumber(2), 
+                        new LottoNumber(3)
+                    )
+                ),
+                Arguments.arguments(
+                    Arrays.asList(
+                        new LottoNumber(1), 
+                        new LottoNumber(2), 
+                        new LottoNumber(3), 
+                        new LottoNumber(4), 
+                        new LottoNumber(5), 
+                        new LottoNumber(6), 
+                        new LottoNumber(7)
+                    )
+                )
         );
     }
 
     @Test
     @DisplayName("생성자 테스트3 - 중복된 값 들어온 경우 예외 발생")
     void 생성자_테스트3() {
-        List<Integer> numbers = Arrays.asList(1, 1, 2, 2, 3, 3);
+        List<LottoNumber> numbers = Arrays.asList(
+            new LottoNumber(1), 
+            new LottoNumber(1), 
+            new LottoNumber(2), 
+            new LottoNumber(2), 
+            new LottoNumber(3), 
+            new LottoNumber(3)
+        );
         Assertions.assertThatThrownBy(() -> new LottoTicket(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -56,28 +87,28 @@ class LottoTicketTest {
     private static Stream<Arguments> mathCount() {
         return Stream.of(
             Arguments.arguments(
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
                 6
             ),
             Arguments.arguments(
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 45)),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
+                createLottoTicket(1, 2, 3, 4, 5, 45),
                 5
             ),
             Arguments.arguments(
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 44, 45)),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
+                createLottoTicket(1, 2, 3, 4, 44, 45),
                 4
             ),
             Arguments.arguments(
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(Arrays.asList(1, 2, 3, 43, 44, 45)),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
+                createLottoTicket(1, 2, 3, 43, 44, 45),
                 3
             ),
             Arguments.arguments(
-                new LottoTicket(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(Arrays.asList(1, 2, 42, 43, 44, 45)),
+                createLottoTicket(1, 2, 3, 4, 5, 6),
+                createLottoTicket(1, 2, 42, 43, 44, 45),
                 2
             )
         );

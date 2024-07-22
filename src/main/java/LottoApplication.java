@@ -1,10 +1,10 @@
 import domain.common.Money;
 import domain.lotto.AutoLottoGenerator;
+import domain.lotto.LottoNumber;
 import domain.lotto.LottoResult;
 import domain.lotto.LottoStore;
 import domain.lotto.LottoTicket;
 import domain.lotto.dto.StatistsDto;
-import domain.lotto.service.LottoService;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -20,10 +20,12 @@ public class LottoApplication {
 
         OutputView.printResult(lottoTickets);
 
-        final LottoResult lottoResult = InputView.inputWinningNumbers();
+        final LottoTicket winningTicket = InputView.inputWinningNumbers();
+        final LottoNumber bonusNumber = InputView.inputBonusNumber();
 
-        final LottoService lottoService = new LottoService();
-        StatistsDto statistsDto = lottoService.makeStatistics(money, lottoResult, lottoTickets);
+        final LottoResult lottoResult = new LottoResult(winningTicket, bonusNumber);
+
+        StatistsDto statistsDto = lottoResult.makeStatistics(money, lottoTickets);
 
         OutputView.printStatistics(statistsDto);
     }
