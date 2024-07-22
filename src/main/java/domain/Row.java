@@ -1,12 +1,11 @@
 package domain;
 
-import dto.RowDto;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Row {
-    private List<Integer> nums;
+
     private static final int ROW_SIZE = 6;
+    private List<Integer> nums;
 
     public Row(List<Integer> nums) {
         sizeCheck(nums);
@@ -30,11 +29,7 @@ public class Row {
         }
     }
 
-    public RowDto toDto() {
-        List<Integer> newNums = new ArrayList<>();
-        for (int i = 0; i < ROW_SIZE; i++) {
-            newNums.add(nums.get(i));
-        }
-        return new RowDto(newNums);
+    public boolean containsNumber(int number) {
+        return nums.contains(number);
     }
 }

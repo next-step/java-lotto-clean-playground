@@ -1,9 +1,8 @@
 package view;
 
+import domain.BonusNumBer;
 import domain.Row;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -13,7 +12,8 @@ public class InputView {
     public int getPrice() {
         try {
             System.out.println("구입금액을 입력해 주세요.");
-            int price = Integer.parseInt(scanner.nextLine());
+            int price = scanner.nextInt();
+            scanner.nextLine();
             minCheck(price);
             return price;
         } catch (Exception e) {
@@ -33,6 +33,18 @@ public class InputView {
             return row;
         } catch (Exception e) {
             throw new IllegalArgumentException("당첨번호는 , 로 구분된 숫자입니다.");
+        }
+    }
+
+    public BonusNumBer getBonus() {
+        try {
+            System.out.println("보너스 볼을 읿력해 주세요.");
+            BonusNumBer bonusNumBer = new BonusNumBer(scanner.nextInt());
+            scanner.nextLine();
+            System.out.println("");
+            return bonusNumBer;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("보너스 번호는 숫자입니다.");
         }
     }
 
