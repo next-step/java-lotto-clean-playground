@@ -56,7 +56,6 @@ public record Lotto(List<Integer> numbers) {
         }
     }
 
-    @Override
     public List<Integer> numbers() {
         Collections.sort(numbers);
         return Collections.unmodifiableList(numbers);
@@ -67,5 +66,9 @@ public record Lotto(List<Integer> numbers) {
             .filter(comparingNumbers::contains)
             .toList()
             .size();
+    }
+
+    public boolean isContains(int number) {
+        return numbers.contains(number);
     }
 }

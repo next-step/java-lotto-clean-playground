@@ -1,5 +1,5 @@
 package domain;
 
-public record Score(int value) {
+public record Score(int value, boolean isBonusBallMatching) {
 
 }

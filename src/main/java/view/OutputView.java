@@ -50,11 +50,22 @@ public class OutputView {
         System.out.println("당첨 통계\n---------");
     }
 
-    public void printLottoResult(int scoreCutoff, int prizeMoney, int count) {
-        System.out.printf("%d개 일치 (%d원)- %d개%n", scoreCutoff, prizeMoney, count);
+    public void printLottoResult(int scoreCutoff, int prizeMoney, boolean isBonusBallMatching, int count) {
+        System.out.println(getLottoResultContent(scoreCutoff, prizeMoney, isBonusBallMatching, count));
+    }
+
+    private String getLottoResultContent(int scoreCutoff, int prizeMoney, boolean isBonusBallMatching, int count) {
+        if (isBonusBallMatching) {
+           return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개", scoreCutoff, prizeMoney, count);
+        }
+        return String.format("%d개 일치 (%d원)- %d개", scoreCutoff, prizeMoney, count);
     }
 
     public void printROI(double roi) {
         System.out.printf("총 수익률은 %.2f입니다.%n", roi);
+    }
+
+    public void printInputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
     }
 }
