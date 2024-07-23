@@ -7,6 +7,7 @@ import model.LottoNumber;
 import model.LottoPurchaseMoney;
 import model.LottoResult;
 import model.Lottos;
+import model.ManualBuyCount;
 import view.InputView;
 import view.OutputView;
 
@@ -20,6 +21,7 @@ public class LottoController {
 
     public void run() {
         final LottoPurchaseMoney lottoPurchaseMoney = new LottoPurchaseMoney(InputView.inputMoney());
+        final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
         final LottoGenerator lottoGenerator = new LottoGenerator();
 
         final Lottos lottos = lottoGenerator.generateRandomLotto(lottoPurchaseMoney);

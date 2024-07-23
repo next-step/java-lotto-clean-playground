@@ -24,4 +24,10 @@ public class InputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
         return sc.nextLine();
     }
+
+    public static String inputManualLottoCnt() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return sc.nextLine();
+    }
 }
