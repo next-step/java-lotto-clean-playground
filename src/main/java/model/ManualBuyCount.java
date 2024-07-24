@@ -39,6 +39,10 @@ public class ManualBuyCount {
         }
     }
 
+    public int getCount() {
+        return count;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

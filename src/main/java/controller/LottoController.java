@@ -22,6 +22,7 @@ public class LottoController {
     public void run() {
         final LottoPurchaseMoney lottoPurchaseMoney = new LottoPurchaseMoney(InputView.inputMoney());
         final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
+        final Lottos manualLotto = Lottos.forManualInput(InputView.inputManualLotto(manualBuyCount.getCount()));
         final LottoGenerator lottoGenerator = new LottoGenerator();
 
         final Lottos lottos = lottoGenerator.generateRandomLotto(lottoPurchaseMoney);

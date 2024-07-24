@@ -10,8 +10,16 @@ public class Lottos {
 
     private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> lottos) {
+    public Lottos(final List<Lotto> lottos) {
         this.lottos = lottos;
+    }
+
+    public static Lottos forManualInput(final List<String[]> manualInput) {
+        List<Lotto> lottos = manualInput.stream()
+                .map(Lotto::fromStringsInput)
+                .toList();
+
+        return new Lottos(lottos);
     }
 
     public LottoResult getResult(final Lotto winningLotto, final LottoNumber bonusNumber) {
