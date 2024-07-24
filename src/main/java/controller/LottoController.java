@@ -16,23 +16,27 @@ import java.util.stream.Collectors;
 
 public class LottoController {
 
-    public LottoController() {
-    }
-
     public void run() {
         final LottoPurchaseMoney lottoPurchaseMoney = new LottoPurchaseMoney(InputView.inputMoney());
-        final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
-        final Lottos manualLotto = Lottos.forManualInput(InputView.inputManualLotto(manualBuyCount.getCount()));
-        final LottoGenerator lottoGenerator = new LottoGenerator();
-
-        final Lottos lottos = lottoGenerator.generateRandomLotto(lottoPurchaseMoney);
-        OutputView.showLotto(transToLottosDto(lottos), lottos.getBuyLottoCount());
+        final Lottos lottos = generateLottos(lottoPurchaseMoney);
 
         final Lotto winningLotto = Lotto.fromStringsInput(InputView.inputWinningLotto());
         final LottoNumber bonusNumber = BonusNumber.of(InputView.inputBonusNumber(), transToLottoDto(winningLotto));
 
         final LottoResult result = lottos.getResult(winningLotto, bonusNumber);
         OutputView.showResult(result.getResult(), result.getRateOfReturn(lottoPurchaseMoney.getValue()));
+    }
+
+    private Lottos generateLottos(LottoPurchaseMoney lottoPurchaseMoney) {
+        final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
+        final Lottos manualLotto = Lottos.forManualInput(InputView.inputManualLotto(manualBuyCount.getCount()));
+
+        final LottoGenerator lottoGenerator = new LottoGenerator();
+        final Lottos autoLotto = lottoGenerator.generateRandomLotto(lottoPurchaseMoney, manualBuyCount);
+
+        final Lottos lottos = new Lottos(manualLotto.getLottos(), autoLotto.getLottos());
+        OutputView.showLotto(transToLottosDto(lottos), manualLotto.getBuyLottoCount(), autoLotto.getBuyLottoCount());
+        return lottos;
     }
 
     private List<List<Integer>> transToLottosDto(final Lottos lottos) {
