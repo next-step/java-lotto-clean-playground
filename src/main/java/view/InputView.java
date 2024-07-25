@@ -1,10 +1,10 @@
 package view;
 
 import domain.lotto.LottoNumber;
-import domain.lotto.LottoResult;
 import domain.common.Money;
 
 import domain.lotto.LottoTicket;
+import domain.lotto.ManualCount;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -33,5 +33,11 @@ public class InputView {
         final Scanner scanner = new Scanner(System.in);
         System.out.println("보너스 볼을 입력해 주세요.");
         return new LottoNumber(scanner.nextInt());
+    }
+
+    public static ManualCount inputManualCount() {
+        final Scanner scanner = new Scanner(System.in);
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return new ManualCount(scanner.nextInt());
     }
 }
