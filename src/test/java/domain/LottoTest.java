@@ -21,8 +21,8 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfCreateLotto() {
             return Stream.of(
-                Arguments.arguments(List.of(1, 4, 2, 30, 31, 32, 33)),
-                Arguments.arguments(List.of(10, 11, 12, 13, 14, 15, 16, 17, 18))
+                Arguments.arguments(Arrays.asList(1, 4, 2, 30, 31, 32, 33)),
+                Arguments.arguments(Arrays.asList(10, 11, 12, 13, 14, 15, 16, 17, 18))
             );
         }
 
@@ -33,7 +33,7 @@ class LottoTest {
             // given
             // when
             // then
-            assertThatThrownBy(() -> new Lotto(inputNumbers))
+            assertThatThrownBy(() -> Lotto.from(inputNumbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.WRONG_LOTTO_SIZE);
         }
@@ -50,9 +50,9 @@ class LottoTest {
         @DisplayName("로또를 numbers() 하면 정렬된 숫자를 반환한다.")
         void toStringTest(List<Integer> inputNumbers, List<Integer> expectedNumbers) {
             // given
-            Lotto lotto = new Lotto(inputNumbers);
+            Lotto lotto = Lotto.from(inputNumbers);
             // when
-            List<Integer> lottoNumbers = lotto.numbers();
+            List<Integer> lottoNumbers = lotto.getNumbers();
             // then
             assertThat(lottoNumbers)
                 .containsExactlyElementsOf(expectedNumbers);
@@ -60,8 +60,8 @@ class LottoTest {
 
         private static Stream<Arguments> methodSourceOfDuplicateTest() {
             return Stream.of(
-                Arguments.arguments(List.of(1, 4, 1, 1, 1, 1)),
-                Arguments.arguments(List.of(10, 10, 11, 11, 12, 12))
+                Arguments.arguments(Arrays.asList(1, 4, 1, 1, 1, 1)),
+                Arguments.arguments(Arrays.asList(10, 10, 11, 11, 12, 12))
             );
         }
 
@@ -72,15 +72,15 @@ class LottoTest {
             // given
             // when
             // then
-            assertThatThrownBy(() -> new Lotto(inputNumbers))
+            assertThatThrownBy(() -> Lotto.from(inputNumbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
         }
 
         private static Stream<Arguments> methodSourceOfRangeTest() {
             return Stream.of(
-                Arguments.arguments(List.of(0, 0, 0, 0, 0, 0)),
-                Arguments.arguments(List.of(50, 60, 70, 80, 90, 100))
+                Arguments.arguments(Arrays.asList(0, 0, 0, 0, 0, 0)),
+                Arguments.arguments(Arrays.asList(50, 60, 70, 80, 90, 100))
             );
         }
 
@@ -91,7 +91,7 @@ class LottoTest {
             // given
             // when
             // then
-            assertThatThrownBy(() -> new Lotto(inputNumbers))
+            assertThatThrownBy(() -> Lotto.from(inputNumbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
         }
@@ -110,9 +110,10 @@ class LottoTest {
     @DisplayName("주어진 리스트와 몇 개의 숫자가 일치하는지 계산할 수 있다.")
     void getMatchingNumberTest(List<Integer> lottoNumbers, List<Integer> comparingNumbers, int expectedCount) {
         // given
-        Lotto lotto = new Lotto(lottoNumbers);
+        Lotto lotto = Lotto.from(lottoNumbers);
+        final Lotto comparingLotto = Lotto.from(comparingNumbers);
         // when
-        final int matchingNumberCount = lotto.getMatchingNumberCount(comparingNumbers);
+        final int matchingNumberCount = lotto.getMatchingNumberCount(comparingLotto);
         // then
         assertThat(matchingNumberCount)
             .isEqualTo(expectedCount);
@@ -130,7 +131,7 @@ class LottoTest {
     @DisplayName("특정 숫자가 로또번호에 포함되어있는지 판단할 수 있다.")
     void containsTest(List<Integer> lottoNumbers, int givenNumber, boolean expectedResult) {
         // given
-        final Lotto lotto = new Lotto(lottoNumbers);
+        final Lotto lotto = Lotto.from(lottoNumbers);
         // when
         final boolean result = lotto.isContains(givenNumber);
         // then

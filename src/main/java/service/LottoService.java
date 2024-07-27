@@ -1,12 +1,12 @@
 package service;
 
+import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.PurchasePrice;
 import domain.LottoNumberGenerator;
 import domain.Lottos;
 import domain.Score;
-import domain.WinningLotto;
 import java.util.List;
 
 public class LottoService {
@@ -19,7 +19,7 @@ public class LottoService {
         Lottos lottos = new Lottos();
         for (int count = 0; count < numberOfLotto; count++) {
             final List<Integer> numbers = lottoNumberGenerator.generate();
-            final Lotto lotto = new Lotto(numbers);
+            final Lotto lotto = Lotto.from(numbers);
             lottos.addLotto(lotto);
         }
         return lottos;
@@ -32,8 +32,8 @@ public class LottoService {
         return purchasePrice.price() / Lotto.PRICE;
     }
 
-    public LottoResult getLottoResult(WinningLotto winningLotto, Lottos lottos) {
-        final List<Score> scores = lottos.getScores(winningLotto);
+    public LottoResult getLottoResult(Lottos lottos, Lotto winningLotto, BonusBall bonusBall) {
+        final List<Score> scores = lottos.getScores(winningLotto, bonusBall);
         return new LottoResult(scores);
     }
 

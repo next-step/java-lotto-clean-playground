@@ -6,7 +6,6 @@ import domain.LottoResult;
 import domain.Lottos;
 import domain.PurchasePrice;
 import domain.Rank;
-import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import service.LottoService;
@@ -27,8 +26,10 @@ public class LottoController {
         final Lottos lottos = lottoService.generateLottos(purchasePrice);
         printLottosStatus(lottos);
 
-        final WinningLotto winningLotto = getWinningLotto();
-        final LottoResult lottoResult = lottoService.getLottoResult(winningLotto, lottos);
+        final Lotto winningLotto = getWinningLotto();
+        final BonusBall bonusBall = getBonusBall(winningLotto);
+
+        final LottoResult lottoResult = lottoService.getLottoResult(lottos, winningLotto, bonusBall);
         printLottoResultAndRoi(lottoResult, purchasePrice);
     }
 
@@ -43,22 +44,16 @@ public class LottoController {
         outputView.printStatusOfLottos(lottos.getStatus());
     }
 
-    private WinningLotto getWinningLotto() {
-        final Lotto winningNumbers = getWinningNumbers();
-        final BonusBall bonusBall = getBonusBall();
-        return new WinningLotto(winningNumbers, bonusBall);
-    }
-
-    private Lotto getWinningNumbers() {
+    private Lotto getWinningLotto() {
         outputView.printInputWinningNumbers();
         final List<Integer> winningNumbers = inputView.getWinningNumbers();
-        return new Lotto(winningNumbers);
+        return Lotto.from(winningNumbers);
     }
 
-    private BonusBall getBonusBall() {
+    private BonusBall getBonusBall(Lotto winningLotto) {
         outputView.printInputBonusNumber();
         final int bonusNumber = inputView.getUserIntegerInput();
-        return new BonusBall(bonusNumber);
+        return BonusBall.createIfNotInList(bonusNumber, winningLotto);
     }
 
     private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {
