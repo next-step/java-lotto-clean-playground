@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
+import static model.exception.ExceptionMessage.BONUS_BALL_IN_WINNING_LOTTO_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BonusNumberTest {
@@ -21,6 +22,6 @@ class BonusNumberTest {
         // then
         assertThatThrownBy(() -> BonusNumber.of(input, winningLotto))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("보너스 볼은 당첨 번호에 포함되어 있으면 안됩니다.");
+                .hasMessage(BONUS_BALL_IN_WINNING_LOTTO_ERROR_MESSAGE);
     }
 }

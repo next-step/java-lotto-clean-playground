@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static model.exception.ExceptionMessage.MANUAL_BUY_COST_OVER_PURCHASE_MONEY_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.MANUAL_BUY_COUNT_INPUT_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.MANUAL_BUY_COUNT_UNDER_ZERO_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ManualBuyCountTest {
@@ -20,7 +23,7 @@ class ManualBuyCountTest {
         // then
         assertThatThrownBy(() -> ManualBuyCount.of(input, lottoPurchaseMoney))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("수동 구매 개수는 숫자이어야 합니다.");
+                .hasMessage(MANUAL_BUY_COUNT_INPUT_ERROR_MESSAGE);
     }
 
     @DisplayName("수동 구입 개수가 구입 금액을 넘어서면 예외를 발생한다.")
@@ -34,7 +37,7 @@ class ManualBuyCountTest {
         // then
         assertThatThrownBy(() -> ManualBuyCount.of(input, lottoPurchaseMoney))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("수동 구매 비용이 구입금액 비용을 넘을 수 없습니다.");
+                .hasMessage(MANUAL_BUY_COST_OVER_PURCHASE_MONEY_ERROR_MESSAGE);
     }
 
     @DisplayName("구입 개수가 음수이면 예외를 발생한다.")
@@ -48,6 +51,6 @@ class ManualBuyCountTest {
         // then
         assertThatThrownBy(() -> ManualBuyCount.of(input, lottoPurchaseMoney))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("수동 구매 개수는 음수가 될 수 없습니다.");
+                .hasMessage(MANUAL_BUY_COUNT_UNDER_ZERO_ERROR_MESSAGE);
     }
 }

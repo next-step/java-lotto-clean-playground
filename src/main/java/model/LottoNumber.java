@@ -3,6 +3,9 @@ package model;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static model.exception.ExceptionMessage.LOTTO_NUMBER_INPUT_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.LOTTO_NUMBER_NOT_IN_1_TO_45_ERROR_MESSAGE;
+
 public class LottoNumber {
 
     private static final int LOTTO_MIN_NUMBER = 1;
@@ -23,13 +26,13 @@ public class LottoNumber {
 
     private void validateNumber1to45(final int number) {
         if (number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER) {
-            throw new IllegalArgumentException("로또 번호 및 보너스 볼은 1과 45사이의 숫자이어야 합니다.");
+            throw new IllegalArgumentException(LOTTO_NUMBER_NOT_IN_1_TO_45_ERROR_MESSAGE);
         }
     }
 
     protected static void validateStringInput(final String input) {
         if (!REGEX.matcher(input).matches()) {
-            throw new IllegalArgumentException("숫자입력만 허용합니다.");
+            throw new IllegalArgumentException(LOTTO_NUMBER_INPUT_ERROR_MESSAGE);
         }
     }
 

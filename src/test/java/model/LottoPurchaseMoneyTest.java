@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static model.exception.ExceptionMessage.LOTTO_PURCHASE_MONEY_NOT_DIVIDED_1000_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -31,7 +32,7 @@ class LottoPurchaseMoneyTest {
         // then
         assertThatThrownBy(() -> new LottoPurchaseMoney(value))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입금액은 1000단위이어야 합니다.");
+                .hasMessage(LOTTO_PURCHASE_MONEY_NOT_DIVIDED_1000_ERROR_MESSAGE);
     }
 
     @DisplayName("로또 구매 개수 구한다.")

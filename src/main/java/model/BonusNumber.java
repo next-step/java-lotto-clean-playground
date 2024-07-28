@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import static model.exception.ExceptionMessage.BONUS_BALL_IN_WINNING_LOTTO_ERROR_MESSAGE;
+
 public class BonusNumber extends LottoNumber {
 
     public BonusNumber(final int number) {
@@ -17,7 +19,7 @@ public class BonusNumber extends LottoNumber {
 
     private static void validateContainInput(final int input, final List<Integer> lotto) {
         if (lotto.contains(input)) {
-            throw new IllegalArgumentException("보너스 볼은 당첨 번호에 포함되어 있으면 안됩니다.");
+            throw new IllegalArgumentException(BONUS_BALL_IN_WINNING_LOTTO_ERROR_MESSAGE);
         }
     }
 }

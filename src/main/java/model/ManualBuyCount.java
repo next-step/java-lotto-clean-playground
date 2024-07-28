@@ -3,6 +3,10 @@ package model;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static model.exception.ExceptionMessage.MANUAL_BUY_COST_OVER_PURCHASE_MONEY_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.MANUAL_BUY_COUNT_INPUT_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.MANUAL_BUY_COUNT_UNDER_ZERO_ERROR_MESSAGE;
+
 public class ManualBuyCount {
 
     private static final Pattern REGEX = Pattern.compile("^(0|[-]?[1-9]\\d*)$");
@@ -23,19 +27,19 @@ public class ManualBuyCount {
 
     private void validateCountAboveZero(final int count) {
         if (count < 0) {
-            throw new IllegalArgumentException("수동 구매 개수는 음수가 될 수 없습니다.");
+            throw new IllegalArgumentException(MANUAL_BUY_COUNT_UNDER_ZERO_ERROR_MESSAGE);
         }
     }
 
     private static void validateInputNumber(final String input) {
         if (!REGEX.matcher(input).matches()) {
-            throw new IllegalArgumentException("수동 구매 개수는 숫자이어야 합니다.");
+            throw new IllegalArgumentException(MANUAL_BUY_COUNT_INPUT_ERROR_MESSAGE);
         }
     }
 
     private static void validateCountRange(final LottoPurchaseMoney money, final int count) {
         if (count > money.getPurchaseQuantity()) {
-            throw new IllegalArgumentException("수동 구매 비용이 구입금액 비용을 넘을 수 없습니다.");
+            throw new IllegalArgumentException(MANUAL_BUY_COST_OVER_PURCHASE_MONEY_ERROR_MESSAGE);
         }
     }
 
