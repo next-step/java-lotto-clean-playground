@@ -26,7 +26,7 @@ public class LottoPaperDto {
     }
 
     public LottoPaper toEntity() {
-        LottoPaper lottoPaperEntity = new LottoPaper(rowNum);
+        LottoPaper lottoPaperEntity = new LottoPaper();
         for (int i = 0; i < rowNum; i++) {
             lottoPaperEntity.writeRow(rows.get(i).toEntity());
         }

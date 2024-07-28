@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printRowNumber(int rowNum) {
-        System.out.println(rowNum + "개를 구매했습니다.");
+    public void printRowNumber(int manualNumber, int rowNum) {
+        System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + rowNum + "개를 구매했습니다.");
     }
 
     public final List<Integer> REWARD = Arrays.asList(5000, 50000, 1500000, 2000000000);
@@ -33,12 +33,12 @@ public class OutputView {
         }
     }
 
-    public void printByRank(Rank rank, Map<Rank, Integer> resultMap){
-        if(rank == Rank.MISS){
+    public void printByRank(Rank rank, Map<Rank, Integer> resultMap) {
+        if (rank == Rank.MISS) {
             return;
         }
         System.out.printf("%d개 일치", rank.getMatchCount());
-        if(rank == Rank.SECOND){
+        if (rank == Rank.SECOND) {
             System.out.printf(", 보너스 볼 일치(%d원) - %d개\n", rank.getRewardMoney(), resultMap.get(rank));
             return;
         }
