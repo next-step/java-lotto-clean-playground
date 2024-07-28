@@ -27,7 +27,7 @@ public class LottoController {
         OutputView.showResult(result.getResult(), result.getRateOfReturn(lottoPurchaseMoney.getValue()));
     }
 
-    private Lottos generateLottos(LottoPurchaseMoney lottoPurchaseMoney) {
+    private Lottos generateLottos(final LottoPurchaseMoney lottoPurchaseMoney) {
         final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
         final Lottos manualLotto = Lottos.forManualInput(InputView.inputManualLotto(manualBuyCount.getCount()));
 

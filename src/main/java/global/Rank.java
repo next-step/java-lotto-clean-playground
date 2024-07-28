@@ -21,7 +21,7 @@ public enum Rank {
         this.hasBonusBall = hasBonusBall;
     }
 
-    public static Rank findPlace(int correct, boolean hasBonusBall) {
+    public static Rank findPlace(final int correct, final boolean hasBonusBall) {
         if (isSecondPlace(correct, hasBonusBall)) {
             return SECOND_PLACE;
         }
@@ -32,7 +32,7 @@ public enum Rank {
                 .orElse(LAST_PLACE);
     }
 
-    private static boolean isSecondPlace(int correct, boolean hasBonusBall) {
+    private static boolean isSecondPlace(final int correct, final boolean hasBonusBall) {
         return correct == 5 && hasBonusBall;
     }
 

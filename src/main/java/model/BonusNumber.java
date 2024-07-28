@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BonusNumber extends LottoNumber {
 
-    public BonusNumber(int number) {
+    public BonusNumber(final int number) {
         super(number);
     }
 
@@ -15,7 +15,7 @@ public class BonusNumber extends LottoNumber {
         return new BonusNumber(number);
     }
 
-    private static void validateContainInput(int input, List<Integer> lotto) {
+    private static void validateContainInput(final int input, final List<Integer> lotto) {
         if (lotto.contains(input)) {
             throw new IllegalArgumentException("보너스 볼은 당첨 번호에 포함되어 있으면 안됩니다.");
         }

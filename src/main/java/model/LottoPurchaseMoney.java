@@ -6,7 +6,7 @@ public class LottoPurchaseMoney {
 
     private final int value;
 
-    public LottoPurchaseMoney(int value) {
+    public LottoPurchaseMoney(final int value) {
         validateValue(value);
         this.value = value;
     }
