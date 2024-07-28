@@ -21,7 +21,7 @@ public class LottoService {
         return lottos;
     }
 
-    public Lotto generateLotto() {
+    private Lotto generateLotto() {
         final List<Integer> numbers = lottoNumberGenerator.generate();
         return Lotto.from(numbers);
     }

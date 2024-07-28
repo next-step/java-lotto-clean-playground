@@ -33,11 +33,8 @@ class LottosTest {
         @DisplayName("lottos에 lotto를 추가할 수 있다.")
         void addLottoTest(List<Lotto> bunchOfLotto, int expectedLottosSize) {
             // given
-            Lottos lottos = new Lottos();
             // when
-            for (Lotto lotto : bunchOfLotto) {
-                lottos.addLotto(lotto);
-            }
+            final Lottos lottos = Lottos.from(bunchOfLotto);
             // then
             assertThat(lottos.getSize())
                 .isEqualTo(expectedLottosSize);
