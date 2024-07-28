@@ -4,7 +4,8 @@ import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.PurchasePrice;
+import domain.LottoPurchasePrice;
+import domain.ManualLottoCount;
 import domain.Rank;
 import java.util.List;
 import java.util.Map;
@@ -21,22 +22,30 @@ public class LottoController {
     private final InputView inputView = new InputView();
     private final LottoService lottoService = new LottoService();
 
-    public void execute() {
-        final PurchasePrice purchasePrice = getPurchasePrice();
-        final Lottos lottos = lottoService.generateLottos(purchasePrice);
+    public void execute() { // TODO : 길이 줄이기
+        final LottoPurchasePrice lottoPurchasePrice = getPurchasePrice();
+        final ManualLottoCount manualLottoCount = getManualLottoCount(lottoPurchasePrice);
+
+        final Lottos lottos = lottoService.generateLottos();
         printLottosStatus(lottos);
 
         final Lotto winningLotto = getWinningLotto();
         final BonusBall bonusBall = getBonusBall(winningLotto);
 
         final LottoResult lottoResult = lottoService.getLottoResult(lottos, winningLotto, bonusBall);
-        printLottoResultAndRoi(lottoResult, purchasePrice);
+        printLottoResultAndRoi(lottoResult, lottoPurchasePrice);
     }
 
-    private PurchasePrice getPurchasePrice() {
+    private LottoPurchasePrice getPurchasePrice() {
         outputView.printInputPurchasePriceGuide();
         final int userIntegerInput = inputView.getUserIntegerInput();
-        return new PurchasePrice(userIntegerInput);
+        return new LottoPurchasePrice(userIntegerInput);
+    }
+
+    private ManualLottoCount getManualLottoCount(LottoPurchasePrice purchasePrice) {
+        outputView.printInputManualLottoCount();
+        final int userIntegerInput = inputView.getUserIntegerInput();
+        return new ManualLottoCount(userIntegerInput, purchasePrice);
     }
 
     private void printLottosStatus(Lottos lottos) {
@@ -56,10 +65,10 @@ public class LottoController {
         return BonusBall.createIfNotInList(bonusNumber, winningLotto);
     }
 
-    private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {
+    private void printLottoResultAndRoi(LottoResult lottoResult, LottoPurchasePrice lottoPurchasePrice) {
         outputView.printLottoResultStart();
         printLottoResult(lottoResult);
-        outputView.printROI(lottoResult.getROI(purchasePrice));
+        outputView.printROI(lottoResult.getROI(lottoPurchasePrice));
     }
 
     private void printLottoResult(LottoResult lottoResult) {

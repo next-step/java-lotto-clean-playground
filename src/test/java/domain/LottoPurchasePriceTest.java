@@ -1,19 +1,35 @@
-package service;
-
+package domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import domain.Lottos;
-import domain.LottoPurchasePrice;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import util.Errors;
 
-class LottoServiceTest {
+class LottoPurchasePriceTest {
 
-    private final LottoService lottoService = new LottoService();
+    @Nested
+    @DisplayName("구입금액 생성 테스트")
+    class createPurchasePrice {
+
+        @ParameterizedTest(name = "input으로 들어온 구입금액이 {0}이라면 음수여서 에러가 발생한다")
+        @ValueSource(ints = {-1, -10000, -9000})
+        @DisplayName("입력된 금액만큼 구입금액 객체를 생성한다.")
+        void createInputPriceTest(int inputPrice) {
+            // given
+            // when
+            // then
+            assertThatThrownBy(() -> new LottoPurchasePrice(inputPrice))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Errors.INPUT_PRICE_IS_NEGATIVE);
+        }
+    }
 
     private static Stream<Arguments> methodSourceOfGenerateLottos() {
         return Stream.of(
@@ -30,9 +46,9 @@ class LottoServiceTest {
         // given
         final LottoPurchasePrice lottoPurchasePrice = new LottoPurchasePrice(inputPurchasePrice);
         // when
-        final Lottos lottos = lottoService.generateLottos(lottoPurchasePrice);
+        final int lottoCount = lottoPurchasePrice.getLottoCount();
         // then
-        assertThat(lottos.getSize())
+        assertThat(lottoCount)
             .isEqualTo(expectedCount);
     }
 

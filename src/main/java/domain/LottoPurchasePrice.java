@@ -2,9 +2,9 @@ package domain;
 
 import util.Errors;
 
-public record PurchasePrice(int price) {
+public record LottoPurchasePrice(int price) {
 
-    public PurchasePrice {
+    public LottoPurchasePrice {
         validatePriceIsNotNegative(price);
     }
 
@@ -14,4 +14,10 @@ public record PurchasePrice(int price) {
         }
     }
 
+    public int getLottoCount() {
+        if (Lotto.PRICE == 0) {
+            return price;
+        }
+        return price / Lotto.PRICE;
+    }
 }

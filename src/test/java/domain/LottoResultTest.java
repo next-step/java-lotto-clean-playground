@@ -66,9 +66,9 @@ class LottoResultTest {
             scores.add(new Score(inputScores.get(i), isMatchingLst.get(i)));
         }
         final LottoResult lottoResult = new LottoResult(scores);
-        final PurchasePrice purchasePrice = new PurchasePrice(inputPurchasePrice);
+        final LottoPurchasePrice lottoPurchasePrice = new LottoPurchasePrice(inputPurchasePrice);
         // when
-        final double roi = lottoResult.getROI(purchasePrice);
+        final double roi = lottoResult.getROI(lottoPurchasePrice);
         // then
         assertThat(roi)
             .isEqualTo(expectedROI);
