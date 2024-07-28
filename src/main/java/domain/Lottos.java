@@ -7,8 +7,12 @@ public class Lottos {
 
     private final List<Lotto> lottos;
 
-    public Lottos() {
-        this.lottos = new ArrayList<>();
+    private Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
+    }
+
+    public static Lottos from(List<Lotto> lottos) {
+        return new Lottos(lottos);
     }
 
     public void addLotto(Lotto lotto) {

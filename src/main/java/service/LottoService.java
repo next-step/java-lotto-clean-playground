@@ -12,14 +12,18 @@ public class LottoService {
 
     private final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
-    public Lottos generateLottos(int lottoCount) {
-        Lottos lottos = new Lottos();
-        for (int count = 0; count < lottoCount; count++) {
-            final List<Integer> numbers = lottoNumberGenerator.generate();
-            final Lotto lotto = Lotto.from(numbers);
+    public Lottos generateLottos(List<Lotto> manualLottos, int totalLottoCount) {
+        Lottos lottos = Lottos.from(manualLottos);
+        while (lottos.getSize() < totalLottoCount) {
+            final Lotto lotto = generateLotto();
             lottos.addLotto(lotto);
         }
         return lottos;
+    }
+
+    public Lotto generateLotto() {
+        final List<Integer> numbers = lottoNumberGenerator.generate();
+        return Lotto.from(numbers);
     }
 
     public LottoResult getLottoResult(Lottos lottos, Lotto winningLotto, BonusBall bonusBall) {

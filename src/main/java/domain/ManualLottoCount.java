@@ -29,4 +29,7 @@ public class ManualLottoCount {
         }
     }
 
+    public int getValue() {
+        return value;
+    }
 }

@@ -2,11 +2,12 @@ package controller;
 
 import domain.BonusBall;
 import domain.Lotto;
+import domain.LottoPurchasePrice;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.LottoPurchasePrice;
 import domain.ManualLottoCount;
 import domain.Rank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import service.LottoService;
@@ -22,11 +23,10 @@ public class LottoController {
     private final InputView inputView = new InputView();
     private final LottoService lottoService = new LottoService();
 
-    public void execute() { // TODO : 길이 줄이기
+    public void execute() {
         final LottoPurchasePrice lottoPurchasePrice = getPurchasePrice();
-        final ManualLottoCount manualLottoCount = getManualLottoCount(lottoPurchasePrice);
-
-        final Lottos lottos = lottoService.generateLottos();
+        final List<Lotto> manualLottos = getManualLottos(lottoPurchasePrice);
+        final Lottos lottos = generateLottos(lottoPurchasePrice, manualLottos);
         printLottosStatus(lottos);
 
         final Lotto winningLotto = getWinningLotto();
@@ -42,10 +42,33 @@ public class LottoController {
         return new LottoPurchasePrice(userIntegerInput);
     }
 
+    private List<Lotto> getManualLottos(LottoPurchasePrice purchasePrice) {
+        final ManualLottoCount manualLottoCount = getManualLottoCount(purchasePrice);
+
+        outputView.printInputManualLottoNumber();
+
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int count = 0; count < manualLottoCount.getValue(); count++) {
+            final Lotto manualLotto = getAndCreateLotto();
+            manualLottos.add(manualLotto);
+        }
+        return manualLottos;
+    }
+
     private ManualLottoCount getManualLottoCount(LottoPurchasePrice purchasePrice) {
         outputView.printInputManualLottoCount();
         final int userIntegerInput = inputView.getUserIntegerInput();
         return new ManualLottoCount(userIntegerInput, purchasePrice);
+    }
+
+    private Lotto getAndCreateLotto() {
+        final List<Integer> lottoNumber = inputView.getLottoNumber();
+        return Lotto.from(lottoNumber);
+    }
+
+    private Lottos generateLottos(LottoPurchasePrice purchasePrice, List<Lotto> manualLottos) {
+        final int totalLottoCount = purchasePrice.getLottoCount();
+        return lottoService.generateLottos(manualLottos, totalLottoCount);
     }
 
     private void printLottosStatus(Lottos lottos) {
@@ -55,8 +78,7 @@ public class LottoController {
 
     private Lotto getWinningLotto() {
         outputView.printInputWinningNumbers();
-        final List<Integer> winningNumbers = inputView.getWinningNumbers();
-        return Lotto.from(winningNumbers);
+        return getAndCreateLotto();
     }
 
     private BonusBall getBonusBall(Lotto winningLotto) {
