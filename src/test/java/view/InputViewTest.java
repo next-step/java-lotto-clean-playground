@@ -36,7 +36,7 @@ class InputViewTest {
     }
 
     @Nested
-    @DisplayName("로또 당첨번호 입력 테스트")
+    @DisplayName("로또 입력 테스트")
     class inputWinningNumbersTest {
 
         private static Stream<Arguments> methodSourceOfWinningNumbers() {
