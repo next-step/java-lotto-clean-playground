@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import domain.common.Money;
+import java.util.Objects;
 
 public class LottoPurchasePrice {
 
@@ -33,5 +34,22 @@ public class LottoPurchasePrice {
 
     public int getCount() {
         return count;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        LottoPurchasePrice that = (LottoPurchasePrice) object;
+        return getCount() == that.getCount();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getCount());
     }
 }

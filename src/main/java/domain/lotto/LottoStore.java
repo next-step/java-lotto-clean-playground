@@ -14,9 +14,9 @@ public class LottoStore {
         this.lottoGenerators = lottoGenerators;
     }
 
-    public List<LottoTicket> sellLottos(int totalCount, ManualCount manualCount) {
+    public List<LottoTicket> sellLottos(LottoPurchasePrice lottoPurchasePrice, ManualCount manualCount) {
 
-        int autoCount = totalCount - manualCount.getCount();
+        int autoCount = lottoPurchasePrice.getCount() - manualCount.getCount();
 
         List<LottoTicket> lottoTickets = new ArrayList<>();
 

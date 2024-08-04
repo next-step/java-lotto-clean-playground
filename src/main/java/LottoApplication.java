@@ -5,6 +5,7 @@ import domain.lotto.LottoPurchasePrice;
 import domain.lotto.LottoResult;
 import domain.lotto.LottoStore;
 import domain.lotto.LottoTicket;
+import domain.lotto.LottoTickets;
 import domain.lotto.ManualCount;
 import domain.lotto.dto.StatistsDto;
 import domain.lotto.generator.AutoLottoGenerator;
@@ -24,19 +25,22 @@ public class LottoApplication {
         final LottoPurchasePrice lottoPurchasePrice = new LottoPurchasePrice(money);
 
         final ManualCount manualCount = new ManualCount(lottoPurchasePrice.getCount(), InputView.inputManualCount());
+        final List<String[]> manualLottoNumbers = InputView.inputManualLotto(manualCount.getCount());
+
+        LottoTickets manualLottos = LottoTickets.createManualLottoTicket(manualLottoNumbers);
 
         LottoStore lottoStore = new LottoStore(initGenerators());
 
-        List<LottoTicket> lottoTickets = lottoStore.sellLottos(lottoPurchasePrice.getCount(), manualCount);
+        List<LottoTicket> autoLottoTickets = lottoStore.sellLottos(lottoPurchasePrice, manualCount);
 
-        OutputView.printResult(lottoTickets);
+        OutputView.printResult(autoLottoTickets);
 
         final LottoTicket winningTicket = InputView.inputWinningNumbers();
         final LottoNumber bonusNumber = InputView.inputBonusNumber();
 
         final LottoResult lottoResult = new LottoResult(winningTicket, bonusNumber);
 
-        StatistsDto statistsDto = lottoResult.makeStatistics(money, lottoTickets);
+        StatistsDto statistsDto = lottoResult.makeStatistics(money, autoLottoTickets);
 
         OutputView.printStatistics(statistsDto);
     }

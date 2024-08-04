@@ -1,8 +1,10 @@
 package domain.lotto;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
 
@@ -60,5 +62,15 @@ public class LottoTicket {
     public boolean hasBonusNumber(LottoNumber bonusNumber) {
         return lottoNumbers.stream()
             .anyMatch(bonusNumber::equals);
+    }
+
+    public static LottoTicket fromStringsInput(final String[] input) {
+        final List<LottoNumber> numbers = Arrays.stream(input)
+            .mapToInt(Integer::parseInt)
+            .boxed()
+            .map(LottoNumber::new)
+            .collect(Collectors.toList());
+
+        return new LottoTicket(numbers);
     }
 }
