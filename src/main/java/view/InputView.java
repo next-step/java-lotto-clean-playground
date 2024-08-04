@@ -35,9 +35,9 @@ public class InputView {
         return new LottoNumber(scanner.nextInt());
     }
 
-    public static ManualCount inputManualCount() {
+    public static int inputManualCount() {
         final Scanner scanner = new Scanner(System.in);
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return new ManualCount(scanner.nextInt());
+        return scanner.nextInt();
     }
 }

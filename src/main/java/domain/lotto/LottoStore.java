@@ -8,18 +8,14 @@ import java.util.Map;
 
 public class LottoStore {
 
-    private static final int LOTTO_PRICE = 1000;
-    
     private final Map<IssuanceType, LottoGenerator> lottoGenerators;
 
     public LottoStore(Map<IssuanceType, LottoGenerator> lottoGenerators) {
         this.lottoGenerators = lottoGenerators;
     }
 
-    public List<LottoTicket> sellLottos(Money money, ManualCount manualCount) {
+    public List<LottoTicket> sellLottos(int totalCount, ManualCount manualCount) {
 
-        checkMoneyUnit(money);
-        int totalCount = getCount(money);
         int autoCount = totalCount - manualCount.getCount();
 
         List<LottoTicket> lottoTickets = new ArrayList<>();
@@ -49,15 +45,5 @@ public class LottoStore {
             LottoTicket issuedTicket = lottoGenerator.issue();
             lottoTickets.add(issuedTicket);
         }
-    }
-
-    private void checkMoneyUnit(Money money) {
-        if (money.getAmount() % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("1000원 단위의 돈만 받음");
-        }
-    }
-
-    private int getCount(Money money) {
-        return money.getAmount() / LOTTO_PRICE;
     }
 }

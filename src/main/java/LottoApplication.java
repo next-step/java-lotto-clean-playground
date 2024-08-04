@@ -1,6 +1,7 @@
 import domain.common.Money;
 import domain.lotto.IssuanceType;
 import domain.lotto.LottoNumber;
+import domain.lotto.LottoPurchasePrice;
 import domain.lotto.LottoResult;
 import domain.lotto.LottoStore;
 import domain.lotto.LottoTicket;
@@ -20,11 +21,13 @@ public class LottoApplication {
     public void start() {
         final Money money = InputView.inputMoney();
 
-        final ManualCount manualCount = InputView.inputManualCount();
+        final LottoPurchasePrice lottoPurchasePrice = new LottoPurchasePrice(money);
+
+        final ManualCount manualCount = new ManualCount(lottoPurchasePrice.getCount(), InputView.inputManualCount());
 
         LottoStore lottoStore = new LottoStore(initGenerators());
 
-        List<LottoTicket> lottoTickets = lottoStore.sellLottos(money, manualCount);
+        List<LottoTicket> lottoTickets = lottoStore.sellLottos(lottoPurchasePrice.getCount(), manualCount);
 
         OutputView.printResult(lottoTickets);
 
