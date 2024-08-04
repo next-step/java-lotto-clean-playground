@@ -26,8 +26,7 @@ public class LottoController {
     public void execute() {
         final LottoPurchasePrice lottoPurchasePrice = getPurchasePrice();
         final List<Lotto> manualLottos = getManualLottos(lottoPurchasePrice);
-        final Lottos lottos = generateLottos(lottoPurchasePrice, manualLottos);
-        printLottosStatus(lottos);
+        final Lottos lottos = generateAndPrintLottos(lottoPurchasePrice, manualLottos);
 
         final Lotto winningLotto = getWinningLotto();
         final BonusBall bonusBall = getBonusBall(winningLotto);
@@ -66,14 +65,12 @@ public class LottoController {
         return Lotto.from(lottoNumber);
     }
 
-    private Lottos generateLottos(LottoPurchasePrice purchasePrice, List<Lotto> manualLottos) {
+    private Lottos generateAndPrintLottos(LottoPurchasePrice purchasePrice, List<Lotto> manualLottos) {
         final int totalLottoCount = purchasePrice.getLottoCount();
-        return lottoService.generateLottos(manualLottos, totalLottoCount);
-    }
-
-    private void printLottosStatus(Lottos lottos) {
-        outputView.printNumberOfLotto(lottos.getSize());
+        outputView.printNumberOfLotto(manualLottos.size(), totalLottoCount);
+        final Lottos lottos = lottoService.generateLottos(manualLottos, totalLottoCount);
         outputView.printStatusOfLottos(lottos.getStatus());
+        return lottos;
     }
 
     private Lotto getWinningLotto() {
