@@ -26,10 +26,10 @@ public class LottoResult {
 
     public double getROI(LottoPurchasePrice lottoPurchasePrice) {
         final int totalPrizeMoney = getTotalPrizeMoney();
-        if (lottoPurchasePrice.price() == 0) {
+        if (lottoPurchasePrice.getPrice() == 0) {
             return 0;
         }
-        return (double) totalPrizeMoney / lottoPurchasePrice.price();
+        return (double) totalPrizeMoney / lottoPurchasePrice.getPrice();
     }
 
     private int getTotalPrizeMoney() {
