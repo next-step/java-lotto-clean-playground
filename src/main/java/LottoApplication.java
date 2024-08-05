@@ -1,5 +1,4 @@
 import domain.common.Money;
-import domain.lotto.IssuanceType;
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoPurchasePrice;
 import domain.lotto.LottoResult;
@@ -7,12 +6,7 @@ import domain.lotto.LottoTicket;
 import domain.lotto.LottoTickets;
 import domain.lotto.ManualCount;
 import domain.lotto.dto.StatistsDto;
-import domain.lotto.generator.AutoLottoGenerator;
-import domain.lotto.generator.LottoGenerator;
-import domain.lotto.generator.ManualLottoGenerator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
@@ -45,13 +39,6 @@ public class LottoApplication {
         StatistsDto statistsDto = lottoResult.makeStatistics(money, mergedLottoTickets.getLottoTickets());
 
         OutputView.printStatistics(statistsDto);
-    }
-
-    private static Map<IssuanceType, LottoGenerator> initGenerators() {
-        Map<IssuanceType, LottoGenerator> lottoGenerators = new HashMap<>();
-        lottoGenerators.put(IssuanceType.MANUAL, new ManualLottoGenerator());
-        lottoGenerators.put(IssuanceType.AUTO, new AutoLottoGenerator());
-        return lottoGenerators;
     }
 
     public static void main(String[] args) {

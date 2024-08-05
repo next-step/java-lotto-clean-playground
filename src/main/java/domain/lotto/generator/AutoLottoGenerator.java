@@ -1,6 +1,5 @@
 package domain.lotto.generator;
 
-import domain.lotto.IssuanceType;
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoTicket;
 import java.util.Collections;
@@ -21,11 +20,6 @@ public class AutoLottoGenerator implements LottoGenerator {
                 .range(LOTTO_START_NUMBER, LOTTO_END_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean supports(IssuanceType issuanceType) {
-        return issuanceType == IssuanceType.AUTO;
     }
 
     public LottoTicket issue() {
