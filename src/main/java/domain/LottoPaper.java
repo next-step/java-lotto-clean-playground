@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoPaper {
-    private int rowNum;
     private List<Row> rows;
 
-    public LottoPaper(int rowNum) {
-        validateRowNum(rowNum);
-        this.rowNum = rowNum;
+    public LottoPaper() {
         this.rows = new ArrayList<>();
     }
 
@@ -18,16 +15,10 @@ public class LottoPaper {
     }
 
     public int getRowNum() {
-        return rowNum;
+        return rows.size();
     }
 
     public List<Row> getRows() {
         return rows;
-    }
-
-    private void validateRowNum(int rowNum) {
-        if (rowNum < 1) {
-            throw new IllegalArgumentException("rowNum must be greater than 0");
-        }
     }
 }

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public class LottoMachine {
 
     private NumberGenerator numberGenerator;
@@ -10,18 +12,22 @@ public class LottoMachine {
         this.numberGenerator = numberGenerator;
     }
 
-    public LottoPaper generatePaper(LottoPrice price) {
-        LottoPaper lottoPaper = new LottoPaper(calculateRowNum(price));
-        generateRows(lottoPaper);
+    public LottoPaper generatePaper(LottoPrice price, List<Row> manualRows) {
+        LottoPaper lottoPaper = new LottoPaper();
+        addManualRows(lottoPaper, manualRows);
+        int rowNum = price.price() / 1000 - manualRows.size();
+        generateRows(lottoPaper, rowNum);
         return lottoPaper;
     }
 
-    public int calculateRowNum(LottoPrice price) {
-        return price.price() / PRICE_UNIT;
+    public void addManualRows(LottoPaper lottoPaper, List<Row> manualRows) {
+        for(Row manualRow : manualRows) {
+            lottoPaper.writeRow(manualRow);
+        }
     }
 
-    public void generateRows(LottoPaper lottoPaper) {
-        for (int i = 0; i < lottoPaper.getRowNum(); i++) {
+    public void generateRows(LottoPaper lottoPaper, int rowNum) {
+        for (int i = 0; i < rowNum; i++) {
             generateRow(lottoPaper);
         }
     }
