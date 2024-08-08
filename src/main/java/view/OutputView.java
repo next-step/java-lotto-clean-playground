@@ -8,9 +8,9 @@ import java.util.List;
 
 public class OutputView {
 
-    public static void printResult(List<LottoTicket> lottoTickets) {
+    public static void printResult(int manualCount, int autoCount, List<LottoTicket> lottoTickets) {
         System.out.println();
-        System.out.println(lottoTickets.size() + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
         for (LottoTicket lottoTicket : lottoTickets) {
             System.out.println(lottoTicket);
         }
