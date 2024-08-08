@@ -14,9 +14,10 @@ public class OutputView {
         System.out.println("구입 금액을 입력해 주세요.");
     }
 
-    public void printNumberOfLotto(int numberOfLotto) {
+    public void printNumberOfLotto(int numberOfManualLotto, int totalNumberOfLotto) {
         printEmptyLine();
-        System.out.printf("%d개를 구매했습니다.%n", numberOfLotto);
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", numberOfManualLotto,
+                          (totalNumberOfLotto-numberOfManualLotto));
     }
 
     public void printStatusOfLottos(List<List<Integer>> statusOfLottos) {
@@ -67,5 +68,13 @@ public class OutputView {
 
     public void printInputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
+    public void printInputManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요");
+    }
+
+    public void printInputManualLottoNumber() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }

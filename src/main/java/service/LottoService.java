@@ -1,39 +1,33 @@
 package service;
 
+import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoResult;
-import domain.PurchasePrice;
 import domain.LottoNumberGenerator;
 import domain.Lottos;
 import domain.Score;
-import domain.WinningLotto;
 import java.util.List;
 
 public class LottoService {
 
     private final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
-    public Lottos generateLottos(PurchasePrice purchasePrice) {
-        final int numberOfLotto = getNumberOfLotto(purchasePrice);
-
-        Lottos lottos = new Lottos();
-        for (int count = 0; count < numberOfLotto; count++) {
-            final List<Integer> numbers = lottoNumberGenerator.generate();
-            final Lotto lotto = new Lotto(numbers);
+    public Lottos generateLottos(List<Lotto> manualLottos, int totalLottoCount) {
+        Lottos lottos = Lottos.from(manualLottos);
+        while (lottos.getSize() < totalLottoCount) {
+            final Lotto lotto = generateLotto();
             lottos.addLotto(lotto);
         }
         return lottos;
     }
 
-    private int getNumberOfLotto(PurchasePrice purchasePrice) {
-        if (Lotto.PRICE == 0) {
-            return purchasePrice.price();
-        }
-        return purchasePrice.price() / Lotto.PRICE;
+    private Lotto generateLotto() {
+        final List<Integer> numbers = lottoNumberGenerator.generate();
+        return Lotto.from(numbers);
     }
 
-    public LottoResult getLottoResult(WinningLotto winningLotto, Lottos lottos) {
-        final List<Score> scores = lottos.getScores(winningLotto);
+    public LottoResult getLottoResult(Lottos lottos, Lotto winningLotto, BonusBall bonusBall) {
+        final List<Score> scores = lottos.getScores(winningLotto, bonusBall);
         return new LottoResult(scores);
     }
 

@@ -2,6 +2,7 @@ package domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -20,9 +21,9 @@ class LottosTest {
             return Stream.of(
                 Arguments.arguments(
                     List.of(
-                        new Lotto(List.of(1, 2, 3, 4, 5, 6)),
-                        new Lotto(List.of(1, 3, 5, 7, 9, 11)),
-                        new Lotto(List.of(45, 44, 43, 42, 41, 40)))
+                        Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                        Lotto.from(Arrays.asList(1, 3, 5, 7, 9, 11)),
+                       Lotto.from(Arrays.asList(45, 44, 43, 42, 41, 40)))
                     , 3)
             );
         }
@@ -32,11 +33,8 @@ class LottosTest {
         @DisplayName("lottos에 lotto를 추가할 수 있다.")
         void addLottoTest(List<Lotto> bunchOfLotto, int expectedLottosSize) {
             // given
-            Lottos lottos = new Lottos();
             // when
-            for (Lotto lotto : bunchOfLotto) {
-                lottos.addLotto(lotto);
-            }
+            final Lottos lottos = Lottos.from(bunchOfLotto);
             // then
             assertThat(lottos.getSize())
                 .isEqualTo(expectedLottosSize);

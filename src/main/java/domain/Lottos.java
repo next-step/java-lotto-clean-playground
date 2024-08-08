@@ -5,7 +5,15 @@ import java.util.List;
 
 public class Lottos {
 
-    private final List<Lotto> lottos = new ArrayList<>();
+    private final List<Lotto> lottos;
+
+    private Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
+    }
+
+    public static Lottos from(List<Lotto> lottos) {
+        return new Lottos(lottos);
+    }
 
     public void addLotto(Lotto lotto) {
         this.lottos.add(lotto);
@@ -18,26 +26,23 @@ public class Lottos {
     public List<List<Integer>> getStatus() {
         List<List<Integer>> status = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            status.add(lotto.numbers());
+            status.add(lotto.getNumbers());
         }
         return status;
     }
 
-    public List<Score> getScores(WinningLotto winningLotto) {
+    public List<Score> getScores(Lotto winningLotto, BonusBall bonusBall) {
         List<Score> scores = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            final Score score = getScore(lotto, winningLotto);
+            final Score score = getScore(lotto, winningLotto, bonusBall);
             scores.add(score);
         }
         return scores;
     }
 
-    private Score getScore(Lotto lotto, WinningLotto winningLotto) {
-        final List<Integer> winningLottoNumbers = winningLotto.getWinningLottoNumbers();
-        final int bonusBallNumber = winningLotto.getBonusBallNumber();
-
-        int matchingNumberCount = lotto.getMatchingNumberCount(winningLottoNumbers);
-        final boolean isMatchingBonusNumber = lotto.isContains(bonusBallNumber);
+    private Score getScore(Lotto lotto, Lotto winningLotto, BonusBall bonusBall) {
+        int matchingNumberCount = lotto.getMatchingNumberCount(winningLotto);
+        final boolean isMatchingBonusNumber = lotto.isContains(bonusBall);
 
         return new Score(matchingNumberCount, isMatchingBonusNumber);
     }

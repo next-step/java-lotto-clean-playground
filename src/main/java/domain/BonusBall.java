@@ -2,15 +2,20 @@ package domain;
 
 import util.Errors;
 
-public record BonusBall(int number) {
+public class BonusBall extends LottoNumber {
 
-    public BonusBall {
-        isNumberInRange(number);
+    private BonusBall(int value) {
+        super(value);
     }
 
-    private void isNumberInRange(int number) {
-        if (number < Lotto.MIN_NUMBER || number > Lotto.MAX_NUMBER) {
-            throw new IllegalArgumentException(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
+    public static BonusBall createIfNotInList(int value, Lotto lotto) {
+        if (validateValueInLotto(value, lotto)) {
+            throw new IllegalArgumentException(Errors.BONUS_NUMBER_IS_IN_LOTTO_NUMBER);
         }
+        return new BonusBall(value);
+    }
+
+    private static boolean validateValueInLotto(int value, Lotto lotto) {
+        return lotto.isContains(value);
     }
 }

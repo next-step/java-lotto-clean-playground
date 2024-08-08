@@ -2,11 +2,12 @@ package controller;
 
 import domain.BonusBall;
 import domain.Lotto;
+import domain.LottoPurchasePrice;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.PurchasePrice;
+import domain.ManualLottoCount;
 import domain.Rank;
-import domain.WinningLotto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import service.LottoService;
@@ -23,48 +24,70 @@ public class LottoController {
     private final LottoService lottoService = new LottoService();
 
     public void execute() {
-        final PurchasePrice purchasePrice = getPurchasePrice();
-        final Lottos lottos = lottoService.generateLottos(purchasePrice);
-        printLottosStatus(lottos);
+        final LottoPurchasePrice lottoPurchasePrice = getPurchasePrice();
+        final List<Lotto> manualLottos = getManualLottos(lottoPurchasePrice);
+        final Lottos lottos = generateAndPrintLottos(lottoPurchasePrice, manualLottos);
 
-        final WinningLotto winningLotto = getWinningLotto();
-        final LottoResult lottoResult = lottoService.getLottoResult(winningLotto, lottos);
-        printLottoResultAndRoi(lottoResult, purchasePrice);
+        final Lotto winningLotto = getWinningLotto();
+        final BonusBall bonusBall = getBonusBall(winningLotto);
+
+        final LottoResult lottoResult = lottoService.getLottoResult(lottos, winningLotto, bonusBall);
+        printLottoResultAndRoi(lottoResult, lottoPurchasePrice);
     }
 
-    private PurchasePrice getPurchasePrice() {
+    private LottoPurchasePrice getPurchasePrice() {
         outputView.printInputPurchasePriceGuide();
         final int userIntegerInput = inputView.getUserIntegerInput();
-        return new PurchasePrice(userIntegerInput);
+        return new LottoPurchasePrice(userIntegerInput);
     }
 
-    private void printLottosStatus(Lottos lottos) {
-        outputView.printNumberOfLotto(lottos.getSize());
+    private List<Lotto> getManualLottos(LottoPurchasePrice purchasePrice) {
+        final ManualLottoCount manualLottoCount = getManualLottoCount(purchasePrice);
+
+        outputView.printInputManualLottoNumber();
+
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int count = 0; count < manualLottoCount.getValue(); count++) {
+            final Lotto manualLotto = getAndCreateLotto();
+            manualLottos.add(manualLotto);
+        }
+        return manualLottos;
+    }
+
+    private ManualLottoCount getManualLottoCount(LottoPurchasePrice purchasePrice) {
+        outputView.printInputManualLottoCount();
+        final int userIntegerInput = inputView.getUserIntegerInput();
+        return new ManualLottoCount(userIntegerInput, purchasePrice);
+    }
+
+    private Lotto getAndCreateLotto() {
+        final List<Integer> lottoNumber = inputView.getLottoNumber();
+        return Lotto.from(lottoNumber);
+    }
+
+    private Lottos generateAndPrintLottos(LottoPurchasePrice purchasePrice, List<Lotto> manualLottos) {
+        final int totalLottoCount = purchasePrice.getLottoCount();
+        outputView.printNumberOfLotto(manualLottos.size(), totalLottoCount);
+        final Lottos lottos = lottoService.generateLottos(manualLottos, totalLottoCount);
         outputView.printStatusOfLottos(lottos.getStatus());
+        return lottos;
     }
 
-    private WinningLotto getWinningLotto() {
-        final Lotto winningNumbers = getWinningNumbers();
-        final BonusBall bonusBall = getBonusBall();
-        return new WinningLotto(winningNumbers, bonusBall);
-    }
-
-    private Lotto getWinningNumbers() {
+    private Lotto getWinningLotto() {
         outputView.printInputWinningNumbers();
-        final List<Integer> winningNumbers = inputView.getWinningNumbers();
-        return new Lotto(winningNumbers);
+        return getAndCreateLotto();
     }
 
-    private BonusBall getBonusBall() {
+    private BonusBall getBonusBall(Lotto winningLotto) {
         outputView.printInputBonusNumber();
         final int bonusNumber = inputView.getUserIntegerInput();
-        return new BonusBall(bonusNumber);
+        return BonusBall.createIfNotInList(bonusNumber, winningLotto);
     }
 
-    private void printLottoResultAndRoi(LottoResult lottoResult, PurchasePrice purchasePrice) {
+    private void printLottoResultAndRoi(LottoResult lottoResult, LottoPurchasePrice lottoPurchasePrice) {
         outputView.printLottoResultStart();
         printLottoResult(lottoResult);
-        outputView.printROI(lottoResult.getROI(purchasePrice));
+        outputView.printROI(lottoResult.getROI(lottoPurchasePrice));
     }
 
     private void printLottoResult(LottoResult lottoResult) {

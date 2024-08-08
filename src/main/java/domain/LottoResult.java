@@ -24,12 +24,12 @@ public class LottoResult {
         }
     }
 
-    public double getROI(PurchasePrice purchasePrice) {
+    public double getROI(LottoPurchasePrice lottoPurchasePrice) {
         final int totalPrizeMoney = getTotalPrizeMoney();
-        if (purchasePrice.price() == 0) {
+        if (lottoPurchasePrice.getPrice() == 0) {
             return 0;
         }
-        return (double) totalPrizeMoney / purchasePrice.price();
+        return (double) totalPrizeMoney / lottoPurchasePrice.getPrice();
     }
 
     private int getTotalPrizeMoney() {

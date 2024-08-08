@@ -1,74 +1,71 @@
 package domain;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import util.Errors;
 
-public record Lotto(List<Integer> numbers) {
+public class Lotto {
+
+    private final List<LottoNumber> numbers;
 
     public final static int SIZE = 6;
-    public final static int MIN_NUMBER = 1;
-    public final static int MAX_NUMBER = 45;
     public final static int PRICE = 1000;
 
-    public Lotto {
+    public Lotto(List<LottoNumber> numbers) {
         validateNumbers(numbers);
+        this.numbers = List.copyOf(numbers);
     }
 
-    private void validateNumbers(List<Integer> numbers) {
-        validateNumbersRange(numbers);
+    private void validateNumbers(List<LottoNumber> numbers) {
         validateLottoNumbersSize(numbers);
         validateDuplicateNumbers(numbers);
     }
 
-    private void validateNumbersRange(List<Integer> numbers) {
-        for (Integer number : numbers) {
-            validateNumberRange(number);
-        }
-    }
-
-    private void validateNumberRange(Integer number) {
-        if (!isNumberInRange(number)) {
-            throw new IllegalArgumentException(Errors.NUMBER_IS_NOT_IN_VALID_RANGE);
-        }
-    }
-
-    private void validateDuplicateNumbers(List<Integer> numbers) {
-        if (hasDuplicates(numbers)) {
-            throw new IllegalArgumentException(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
-        }
-    }
-
-    private boolean hasDuplicates(List<Integer> numbers) {
-        Set<Integer> numberSet = new HashSet<>(numbers);
-        return numberSet.size() != numbers.size();
-    }
-
-    private boolean isNumberInRange(int number) {
-        return number >= MIN_NUMBER && number <= MAX_NUMBER;
-    }
-
-    private void validateLottoNumbersSize(List<Integer> numbers) {
+    private void validateLottoNumbersSize(List<LottoNumber> numbers) {
         if (numbers.size() != SIZE) {
             throw new IllegalArgumentException(Errors.WRONG_LOTTO_SIZE);
         }
     }
 
-    public List<Integer> numbers() {
-        Collections.sort(numbers);
-        return Collections.unmodifiableList(numbers);
+    private void validateDuplicateNumbers(List<LottoNumber> numbers) {
+        if (hasDuplicates(numbers)) {
+            throw new IllegalArgumentException(Errors.NUMBERS_HAS_DUPLICATE_NUMBER);
+        }
     }
 
-    public int getMatchingNumberCount(List<Integer> comparingNumbers) {
+    public static Lotto from(List<Integer> values) {
+        final List<LottoNumber> lottoNumbers = values.stream()
+            .map(LottoNumber::new)
+            .toList();
+        return new Lotto(lottoNumbers);
+    }
+
+    private boolean hasDuplicates(List<LottoNumber> numbers) {
+        Set<LottoNumber> numberSet = new HashSet<>(numbers);
+        return numberSet.size() != numbers.size();
+    }
+
+    public List<Integer> getNumbers() {
+        List<LottoNumber> sortedNumbers = numbers.stream()
+            .sorted()
+            .toList();
+        return sortedNumbers.stream()
+            .map(LottoNumber::getValue).toList();
+    }
+
+    public int getMatchingNumberCount(Lotto comparingLotto) {
         return numbers.stream()
-            .filter(comparingNumbers::contains)
+            .filter(comparingLotto::isContains)
             .toList()
             .size();
     }
 
-    public boolean isContains(int number) {
-        return numbers.contains(number);
+    public boolean isContains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
+    }
+
+    public boolean isContains(int value) {
+        return isContains(new LottoNumber(value));
     }
 }

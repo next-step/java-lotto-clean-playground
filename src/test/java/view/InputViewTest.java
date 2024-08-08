@@ -36,7 +36,7 @@ class InputViewTest {
     }
 
     @Nested
-    @DisplayName("로또 당첨번호 입력 테스트")
+    @DisplayName("로또 입력 테스트")
     class inputWinningNumbersTest {
 
         private static Stream<Arguments> methodSourceOfWinningNumbers() {
@@ -46,27 +46,27 @@ class InputViewTest {
             );
         }
 
-        @ParameterizedTest(name = "사용자가 당첨 숫자로 {0}을 입력하면 쉼표를 구분자로 해당 6개의 숫자가 담긴 리스트가 생성된다.")
+        @ParameterizedTest(name = "사용자가 로또 숫자로 {0}을 입력하면 쉼표를 구분자로 해당 6개의 숫자가 담긴 리스트가 생성된다.")
         @MethodSource("methodSourceOfWinningNumbers")
         @DisplayName("쉼표를 기준으로 숫자를 분리해 리스트를 만들어낸다")
         void getWinningNumbersTest(String userInput, List<Integer> expectedWinningNumbers) {
             // given
             setSetIn(userInput);
             // when
-            final List<Integer> winningNumbers = inputView.getWinningNumbers();
+            final List<Integer> winningNumbers = inputView.getLottoNumber();
             // then
             assertThat(winningNumbers)
                 .isEqualTo(expectedWinningNumbers);
         }
 
-        @ParameterizedTest(name = "사용자가 당첨 숫자로 {0}을 입력하면 숫자가 아니기 때문에 에러가 발생한다.")
+        @ParameterizedTest(name = "사용자가 로또 숫자로 {0}을 입력하면 숫자가 아니기 때문에 에러가 발생한다.")
         @ValueSource(strings = {"1,2,ㅠㅠ,3,4,5", "a,b,c,d,e,f", ".,?,*,a,ㅁ,A"})
         @DisplayName("시도 횟수로 숫자가 아닌 다른 것이 입력되면 예외를 반환한다.")
         void getWinningNumbersExceptionTest(String userInput) {
             // given
             setSetIn(userInput);
             // when then
-            assertThatThrownBy(inputView::getWinningNumbers)
+            assertThatThrownBy(inputView::getLottoNumber)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Errors.INPUT_NUMBER_IS_NOT_INTEGER);
         }
