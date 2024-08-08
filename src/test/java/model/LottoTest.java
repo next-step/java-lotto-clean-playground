@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static model.exception.ExceptionMessage.LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.LOTTO_NUMBER_INPUT_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.LOTTO_NUMBER_NOT_IN_1_TO_45_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.LOTTO_SIZE_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -24,7 +28,7 @@ class LottoTest {
         // then
         assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또는 6개의 숫자로 구성되어야 합니다.");
+                .hasMessage(LOTTO_SIZE_ERROR_MESSAGE);
     }
 
     private static Stream<Arguments> lottoWithWrongSize() {
@@ -42,7 +46,7 @@ class LottoTest {
         // then
         assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 내 동일한 숫자가 있으면 안됩니다.");
+                .hasMessage(LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE);
     }
 
     private static Stream<Arguments> lottoWithDuplicatedNumber() {
@@ -60,7 +64,7 @@ class LottoTest {
         // then
         assertThatThrownBy(() -> Lotto.fromNumbers(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호 및 보너스 볼은 1과 45사이의 숫자이어야 합니다.");
+                .hasMessage(LOTTO_NUMBER_NOT_IN_1_TO_45_ERROR_MESSAGE);
     }
 
     private static Stream<Arguments> lottoWithWrongNumber() {
@@ -104,7 +108,7 @@ class LottoTest {
         // then
         assertThatThrownBy(() -> Lotto.fromStringsInput(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("숫자입력만 허용합니다.");
+                .hasMessage(LOTTO_NUMBER_INPUT_ERROR_MESSAGE);
     }
 
     private static Stream<Arguments> wrongLottoInput() {

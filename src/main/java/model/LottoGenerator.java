@@ -14,9 +14,11 @@ public class LottoGenerator {
             31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
             41, 42, 43, 44, 45);
 
-    public Lottos generateRandomLotto(final LottoPurchaseMoney lottoPurchaseMoney) {
+    public Lottos generateRandomLotto(final LottoPurchaseMoney lottoPurchaseMoney, final ManualBuyCount manualBuyCount) {
         final List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoPurchaseMoney.getPurchaseQuantity(); i++) {
+
+        int autoGenerateCount = lottoPurchaseMoney.getPurchaseQuantity() - manualBuyCount.getCount();
+        for (int i = 0; i < autoGenerateCount; i++) {
             Collections.shuffle(NUMBERS);
             lottos.add(Lotto.fromNumbers(new ArrayList<>(NUMBERS.subList(0, 6))));
         }

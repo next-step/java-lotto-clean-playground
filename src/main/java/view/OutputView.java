@@ -10,8 +10,8 @@ public class OutputView {
 
     private static final String DELIMITER = "\n";
 
-    public static void showLotto(final List<List<Integer>> lottos, int buyCnt) {
-        System.out.printf("\n%d개를 구매했습니다.\n", buyCnt);
+    public static void showLotto(final List<List<Integer>> lottos, final int manualBuyCnt, final int autoBuyCnt) {
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualBuyCnt, autoBuyCnt);
 
         StringJoiner stringJoiner = new StringJoiner(DELIMITER);
         for (List<Integer> lotto : lottos) {

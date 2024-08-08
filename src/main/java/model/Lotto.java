@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static model.exception.ExceptionMessage.LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE;
+import static model.exception.ExceptionMessage.LOTTO_SIZE_ERROR_MESSAGE;
+
 public class Lotto {
 
     private static final int LOTTO_NUMBER_SIZE = 6;
@@ -43,14 +46,14 @@ public class Lotto {
 
     private void validateNumbersSize(final List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_NUMBER_SIZE) {
-            throw new IllegalArgumentException("로또는 6개의 숫자로 구성되어야 합니다.");
+            throw new IllegalArgumentException(LOTTO_SIZE_ERROR_MESSAGE);
         }
     }
 
     private void validateDuplicateNumbers(final List<LottoNumber> numbers) {
         Set<LottoNumber> notDuplicatedNumbers = new HashSet<>(numbers);
         if (notDuplicatedNumbers.size() != numbers.size()) {
-            throw new IllegalArgumentException("로또 내 동일한 숫자가 있으면 안됩니다.");
+            throw new IllegalArgumentException(LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE);
         }
     }
 
