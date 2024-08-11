@@ -37,7 +37,7 @@ public enum Rank {
 
     public static Rank getByScore(Score score) {
         return Arrays.stream(Rank.values())
-            .filter(rank -> rank.getScoreCutoff() == score.value())
+            .filter(rank -> rank.getScoreCutoff() == score.matchingCount())
             .filter(rank -> isMatchingBonusBall(rank, score))
             .findFirst()
             .orElse(Rank.LAST_PLACE);
