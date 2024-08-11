@@ -47,11 +47,10 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
-        List<LottoNumber> sortedNumbers = numbers.stream()
+        return numbers.stream()
             .sorted()
+            .map(LottoNumber::getValue)
             .toList();
-        return sortedNumbers.stream()
-            .map(LottoNumber::getValue).toList();
     }
 
     public int getMatchingNumberCount(Lotto comparingLotto) {
