@@ -28,7 +28,6 @@ public class Lotto {
 
     public Lotto(final List<LottoNumber> numbers) {
         validateNumbers(numbers);
-        numbers.sort(Comparator.comparingInt(LottoNumber::getNumber));
         this.numbers = numbers;
     }
 
@@ -45,7 +44,7 @@ public class Lotto {
     public static Lotto fromNumbers(final List<Integer> input) {
         final List<LottoNumber> numbers = input.stream()
                 .map(LottoNumber::new)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Lotto(numbers);
     }
@@ -53,7 +52,7 @@ public class Lotto {
     public static Lotto fromStringsInput(final String[] input) {
         final List<LottoNumber> numbers = Arrays.stream(input)
                 .map(LottoNumber::from)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Lotto(numbers);
     }

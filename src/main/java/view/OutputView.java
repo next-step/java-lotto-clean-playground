@@ -2,6 +2,7 @@ package view;
 
 import global.Rank;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -15,6 +16,7 @@ public class OutputView {
 
         StringJoiner stringJoiner = new StringJoiner(DELIMITER);
         for (List<Integer> lotto : lottos) {
+            Collections.sort(lotto);
             stringJoiner.add(lotto.toString());
         }
         System.out.println(stringJoiner);

@@ -35,7 +35,7 @@ public class Lottos {
     public static Lottos forManualInput(final List<String[]> manualInput) {
         List<Lotto> lottos = manualInput.stream()
                 .map(Lotto::fromStringsInput)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Lottos(lottos);
     }
