@@ -2,7 +2,6 @@ package controller;
 
 import model.BonusNumber;
 import model.Lotto;
-import model.LottoGenerator;
 import model.LottoNumber;
 import model.LottoPurchaseMoney;
 import model.LottoResult;
@@ -30,9 +29,7 @@ public class LottoController {
     private Lottos generateLottos(final LottoPurchaseMoney lottoPurchaseMoney) {
         final ManualBuyCount manualBuyCount = ManualBuyCount.of(InputView.inputManualLottoCnt(), lottoPurchaseMoney);
         final Lottos manualLotto = Lottos.forManualInput(InputView.inputManualLotto(manualBuyCount.getCount()));
-
-        final LottoGenerator lottoGenerator = new LottoGenerator();
-        final Lottos autoLotto = lottoGenerator.generateRandomLotto(lottoPurchaseMoney, manualBuyCount);
+        final Lottos autoLotto = Lottos.forRandomGenerate(lottoPurchaseMoney, manualBuyCount);
 
         final Lottos lottos = new Lottos(manualLotto.getLottos(), autoLotto.getLottos());
         OutputView.showLotto(transToLottosDto(lottos), manualLotto.getBuyLottoCount(), autoLotto.getBuyLottoCount());
@@ -41,13 +38,13 @@ public class LottoController {
 
     private List<List<Integer>> transToLottosDto(final Lottos lottos) {
         return lottos.getLottos().stream()
-                .map(this::transToLottoDto)
-                .collect(Collectors.toList());
+            .map(this::transToLottoDto)
+            .collect(Collectors.toList());
     }
 
     private List<Integer> transToLottoDto(final Lotto lotto) {
         return lotto.getNumbers().stream()
-                .map(LottoNumber::getNumber)
-                .collect(Collectors.toList());
+            .map(LottoNumber::getNumber)
+            .collect(Collectors.toList());
     }
 }

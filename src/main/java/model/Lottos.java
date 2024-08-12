@@ -21,6 +21,17 @@ public class Lottos {
         this.lottos = manual;
     }
 
+    public static Lottos forRandomGenerate(final LottoPurchaseMoney lottoPurchaseMoney, final ManualBuyCount manualBuyCount) {
+        final List<Lotto> lottos = new ArrayList<>();
+
+        int autoGenerateCount = lottoPurchaseMoney.getPurchaseQuantity() - manualBuyCount.getCount();
+        for (int i = 0; i < autoGenerateCount; i++) {
+            lottos.add(Lotto.byRandomGenerate());
+        }
+
+        return new Lottos(lottos);
+    }
+
     public static Lottos forManualInput(final List<String[]> manualInput) {
         List<Lotto> lottos = manualInput.stream()
                 .map(Lotto::fromStringsInput)
