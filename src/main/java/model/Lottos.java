@@ -32,7 +32,7 @@ public class Lottos {
         return new Lottos(lottos);
     }
 
-    public static Lottos forManualInput(final List<String[]> manualInput) {
+    public static Lottos forManualInput(final List<List<String>> manualInput) {
         List<Lotto> lottos = manualInput.stream()
                 .map(Lotto::fromStringsInput)
                 .toList();

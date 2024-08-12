@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,11 +15,11 @@ public class InputView {
         return sc.nextInt();
     }
 
-    public static String[] inputWinningLotto() {
+    public static List<String> inputWinningLotto() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         final String input = sc.nextLine();
-        return input.split(DELIMITER);
+        return Arrays.asList(input.split(DELIMITER));
     }
 
     public static String inputBonusNumber() {
@@ -33,13 +34,14 @@ public class InputView {
         return sc.nextLine();
     }
 
-    public static List<String[]> inputManualLotto(final int count) {
-        List<String[]> inputs = new ArrayList<>();
+    public static List<List<String>> inputManualLotto(final int count) {
+        List<List<String>> inputs = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         for (int i = 0; i < count; i++) {
-            inputs.add(sc.nextLine().split(DELIMITER));
+            final String[] split = sc.nextLine().split(DELIMITER);
+            inputs.add(Arrays.asList(split));
         }
 
         return inputs;

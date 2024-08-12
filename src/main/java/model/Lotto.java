@@ -49,8 +49,8 @@ public class Lotto {
         return new Lotto(numbers);
     }
 
-    public static Lotto fromStringsInput(final String[] input) {
-        final List<LottoNumber> numbers = Arrays.stream(input)
+    public static Lotto fromStringsInput(final List<String> input) {
+        final List<LottoNumber> numbers = input.stream()
                 .map(LottoNumber::from)
                 .toList();
 
