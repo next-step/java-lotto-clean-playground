@@ -81,7 +81,7 @@ class LottoTicketTest {
     @ParameterizedTest
     @MethodSource("mathCount")
     void 포함_개수_확인(LottoTicket winningLottoTicket, LottoTicket myTicket, int match) {
-        assertThat(myTicket.contains(winningLottoTicket)).isEqualTo(match);
+        assertThat(myTicket.getCorrectCount(winningLottoTicket)).isEqualTo(match);
     }
 
     private static Stream<Arguments> mathCount() {

@@ -52,7 +52,7 @@ public class LottoTicket {
         return lottoNumbers.contains(winningNumber);
     }
 
-    public int contains(LottoTicket winningTicket) {
+    public int getCorrectCount(LottoTicket winningTicket) {
         return lottoNumbers.stream()
             .filter(winningTicket::contains)
             .toList()

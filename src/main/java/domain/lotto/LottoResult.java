@@ -27,7 +27,7 @@ public class LottoResult {
     }
 
     public Prize findPrize(LottoTicket lottoTicket) {
-        final int match = lottoTicket.contains(winningTicket);
+        final int match = lottoTicket.getCorrectCount(winningTicket);
         final boolean hasBonusNumber = lottoTicket.hasBonusNumber(bonusNumber);
         return Prize.findByMatch(match, hasBonusNumber);
     }
