@@ -36,7 +36,7 @@ public class LottoApplication {
 
         final LottoResult lottoResult = new LottoResult(winningTicket, bonusNumber);
 
-        StatistsDto statistsDto = lottoResult.makeStatistics(money, mergedLottoTickets.getLottoTickets());
+        StatistsDto statistsDto = StatistsDto.makeStatistics(money, mergedLottoTickets.getLottoTickets(), lottoResult);
 
         OutputView.printStatistics(statistsDto);
     }
