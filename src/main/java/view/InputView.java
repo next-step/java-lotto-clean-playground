@@ -23,7 +23,7 @@ public class InputView {
     public static LottoTicket inputWinningNumbers() {
         final Scanner scanner = new Scanner(System.in);
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<LottoNumber> list = Arrays.stream(scanner.nextLine().split(", "))
+        List<LottoNumber> list = Arrays.stream(scanner.nextLine().split(DELIMITER))
             .mapToInt(Integer::parseInt)
             .boxed()
             .map(LottoNumber::new)
