@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -29,13 +30,13 @@ public class LottoTicket {
             return;
         }
 
-        throw new IllegalArgumentException("올바르지 않은 사이즈");
+        throw new IllegalArgumentException(ExceptionMessage.LOTTO_NUMBERS_INVALID_SIZE);
     }
 
     private void validateDuplicate(List<LottoNumber> lottoNumbers) {
         HashSet<LottoNumber> hashSet = new HashSet<>(lottoNumbers);
         if (hashSet.size() < LOTTO_SIZE_LIMIT) {
-            throw new IllegalArgumentException("중복 값 포함");
+            throw new IllegalArgumentException(ExceptionMessage.DUPLICATE_VALUE);
         }
     }
 

@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,8 @@ class LottoTicketTest {
     @DisplayName("생성자 테스트2 - 6개 미만, 초과로 들어왔을 때 예외 발생")
     void 생성자_테스트2(List<LottoNumber> numbers) {
         Assertions.assertThatThrownBy(() -> new LottoTicket(numbers))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.LOTTO_NUMBERS_INVALID_SIZE);
     }
     
     private static Stream<Arguments> test() {
@@ -75,7 +77,8 @@ class LottoTicketTest {
             new LottoNumber(3)
         );
         Assertions.assertThatThrownBy(() -> new LottoTicket(numbers))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage(ExceptionMessage.DUPLICATE_VALUE);
     }
 
     @ParameterizedTest

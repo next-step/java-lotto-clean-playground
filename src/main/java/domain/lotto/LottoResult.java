@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import domain.common.Money;
 import domain.lotto.dto.MatchResult;
 import domain.lotto.dto.StatistsDto;
@@ -9,8 +10,6 @@ import java.util.Map;
 
 public class LottoResult {
 
-    private static final String ALREADY_EXIST = "보너스 번호가 이미 당첨 번호에 존재합니다.";
-    
     private final LottoTicket winningTicket;
     private final LottoNumber bonusNumber;
 
@@ -22,7 +21,7 @@ public class LottoResult {
 
     private void checkBonusBallExist(LottoTicket winningTicket, LottoNumber bonusNumber) {
         if (winningTicket.contains(bonusNumber)) {
-            throw new IllegalArgumentException(ALREADY_EXIST);
+            throw new IllegalArgumentException(ExceptionMessage.LOTTO_BONUS_NUMBER_ALREADY_EXIST);
         }
     }
 

@@ -13,7 +13,7 @@ public class Money {
 
     private void validate(int amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("음수가 들어올 수 없음");
+            throw new IllegalArgumentException(ExceptionMessage.NEGATIVE_NUMBER);
         }
     }
 

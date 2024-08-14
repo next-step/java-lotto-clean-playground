@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -32,6 +33,7 @@ class LottoNumberTest {
     @ValueSource(ints = {0, 46, 100})
     void 범위_외에는_예외발생(int number) {
         Assertions.assertThatThrownBy(() -> new LottoNumber(number))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage(ExceptionMessage.LOTTO_NUMBER_OUT_OF_RANGE);
     }
 }
