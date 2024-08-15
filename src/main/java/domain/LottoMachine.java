@@ -15,7 +15,7 @@ public class LottoMachine {
     public LottoPaper generatePaper(LottoPrice price, List<Row> manualRows) {
         LottoPaper lottoPaper = new LottoPaper();
         addManualRows(lottoPaper, manualRows);
-        int rowNum = price.price() / 1000 - manualRows.size();
+        int rowNum = price.price() / PRICE_UNIT - manualRows.size();
         generateRows(lottoPaper, rowNum);
         return lottoPaper;
     }

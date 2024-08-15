@@ -1,9 +1,9 @@
 package view;
 
+import domain.LottoPaper;
+import domain.LottoResult;
 import domain.Rank;
-import dto.LottoPaperDto;
-import dto.LottoResultDto;
-import dto.RowDto;
+import domain.Row;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,15 @@ public class OutputView {
 
     public final List<Integer> REWARD = Arrays.asList(5000, 50000, 1500000, 2000000000);
 
-    public void printPaper(LottoPaperDto lottoPaper) {
-        List<RowDto> rows = lottoPaper.getRows();
+    public void printPaper(LottoPaper lottoPaper) {
+        List<Row> rows = lottoPaper.getRows();
         for (int i = 0; i < lottoPaper.getRowNum(); i++) {
             System.out.println(rows.get(i).getNums().toString());
         }
         System.out.println();
     }
 
-    public void printResult(LottoResultDto lottoResult) {
+    public void printResult(LottoResult lottoResult) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         Map<Rank, Integer> resultMap = lottoResult.getResultMap();
@@ -45,7 +45,7 @@ public class OutputView {
         System.out.printf(" (%d원)- %d개\n", rank.getRewardMoney(), resultMap.get(rank));
     }
 
-    public void printRewardRate(LottoResultDto lottoResultDto) {
-        System.out.println("총 수익률은 " + lottoResultDto.getRewardRate() + "입니다.");
+    public void printRewardRate(LottoResult lottoResult) {
+        System.out.println("총 수익률은 " + lottoResult.getRewardRate() + "입니다.");
     }
 }
