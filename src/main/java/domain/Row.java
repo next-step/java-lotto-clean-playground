@@ -24,7 +24,7 @@ public class Row {
     }
 
     public void duplicateCheck(List<LottoNumber> nums) {
-        if (ROW_SIZE != nums.stream().distinct().count()) {
+        if (ROW_SIZE != nums.stream().mapToInt(LottoNumber::getNumber).distinct().count()) {
             throw new RuntimeException("로또 한줄의 수는 중복될 수 없습니다.");
         }
     }
