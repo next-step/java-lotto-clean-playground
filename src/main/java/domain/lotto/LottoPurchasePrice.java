@@ -22,7 +22,7 @@ public class LottoPurchasePrice {
         }
     }
 
-    private static void validateMoneyUnit(Money money) {
+    private void validateMoneyUnit(Money money) {
         if (money.getAmount() % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(ExceptionMessage.LOTTO_ALLOWED_MONEY_UNIT);
         }
