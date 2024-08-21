@@ -37,8 +37,7 @@ public class StatistsDto {
 
         List<MatchResult> matchResults = getMathResult(prizes);
         Money total = calculateTotalMoney(prizes);
-        double profitRate = (double) total.getAmount() / myMoney.getAmount();
-        profitRate = Math.floor(profitRate * 100) / 100;
+        final double profitRate = myMoney.getProfitRate(total);
         return new StatistsDto(matchResults, profitRate);
     }
 

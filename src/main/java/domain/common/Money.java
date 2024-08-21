@@ -11,6 +11,12 @@ public class Money {
         this.amount = amount;
     }
 
+    public double getProfitRate(Money total) {
+        double profitRate = (double) total.getAmount() / getAmount();
+        profitRate = Math.floor(profitRate * 100) / 100;
+        return profitRate;
+    }
+
     private void validate(int amount) {
         if (amount < 0) {
             throw new IllegalArgumentException(ExceptionMessage.NEGATIVE_NUMBER);
