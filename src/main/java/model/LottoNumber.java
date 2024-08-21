@@ -43,8 +43,8 @@ public class LottoNumber {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LottoNumber that = (LottoNumber) o;
+        if (o == null) return false;
+        if (!(o instanceof LottoNumber that)) return false;
         return number == that.number;
     }
 
