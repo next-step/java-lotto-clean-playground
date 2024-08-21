@@ -5,11 +5,9 @@ import global.Rank;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static model.exception.ExceptionMessage.LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE;
 import static model.exception.ExceptionMessage.LOTTO_SIZE_ERROR_MESSAGE;
@@ -34,11 +32,7 @@ public class Lotto {
     public static Lotto byRandomGenerate() {
         Collections.shuffle(NUMBERS);
         final List<Integer> randomNumbers = new ArrayList<>(NUMBERS.subList(0, LOTTO_NUMBER_SIZE));
-        final List<LottoNumber> lottoNumbers = randomNumbers.stream()
-            .map(LottoNumber::new)
-            .toList();
-
-        return new Lotto(lottoNumbers);
+        return fromNumbers(randomNumbers);
     }
 
     public static Lotto fromNumbers(final List<Integer> input) {
@@ -77,9 +71,9 @@ public class Lotto {
 
     public Rank getRank(final Lotto winningLotto, final LottoNumber bonusNumber) {
         int correctCnt = numbers.stream()
-                .filter(winningLotto::containNumber)
-                .toList()
-                .size();
+            .filter(winningLotto::containNumber)
+            .toList()
+            .size();
 
         return Rank.findPlace(correctCnt, containNumber(bonusNumber));
     }
