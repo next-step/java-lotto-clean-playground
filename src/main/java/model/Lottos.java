@@ -13,7 +13,7 @@ public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(final List<Lotto> lottos) {
-        this.lottos = lottos;
+        this.lottos = List.copyOf(lottos);
     }
 
     public Lottos(final List<Lotto> manual, final List<Lotto> auto) {

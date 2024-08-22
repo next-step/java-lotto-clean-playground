@@ -26,7 +26,7 @@ public class Lotto {
 
     public Lotto(final List<LottoNumber> numbers) {
         validateNumbers(numbers);
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
     }
 
     public static Lotto byRandomGenerate() {
