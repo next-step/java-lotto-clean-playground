@@ -5,12 +5,12 @@ public record LottoPrice(int price, int manualNumber) {
     private static final int PRICE_UNIT = 1000;
 
     public LottoPrice (int price, int manualNumber){
-        this.price = price;
-        this.manualNumber = manualNumber;
         checkMinimum(price);
         checkPriceUnit(price);
         checkManualNumberMin(manualNumber);
         checkManualNumberMax(manualNumber);
+        this.price = price;
+        this.manualNumber = manualNumber;
     }
 
     private void checkPriceUnit(int price){
