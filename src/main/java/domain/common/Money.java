@@ -30,8 +30,4 @@ public class Money {
     public Money plus(Money money) {
         return new Money(amount + money.amount);
     }
-
-    public Money multiply(int v) {
-        return new Money(amount * v);
-    }
 }
