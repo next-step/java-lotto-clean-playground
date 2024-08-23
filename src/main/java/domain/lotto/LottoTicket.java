@@ -18,7 +18,7 @@ public class LottoTicket {
         validateDuplicate(lottoNumbers);
         sortByAsc(lottoNumbers);
 
-        this.lottoNumbers = lottoNumbers;
+        this.lottoNumbers = List.copyOf(lottoNumbers);
     }
 
     public int size() {
