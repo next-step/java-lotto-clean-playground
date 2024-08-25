@@ -8,7 +8,7 @@ public record LottoPrice(int price, int manualNumber) {
         checkMinimum(price);
         checkPriceUnit(price);
         checkManualNumberMin(manualNumber);
-        checkManualNumberMax(manualNumber);
+        checkManualNumberMax(manualNumber, price);
         this.price = price;
         this.manualNumber = manualNumber;
     }
@@ -31,7 +31,7 @@ public record LottoPrice(int price, int manualNumber) {
         }
     }
 
-    private void checkManualNumberMax(int manualNumber){
+    private void checkManualNumberMax(int manualNumber, int price){
         if(manualNumber > price / 1000){
             throw new IllegalArgumentException("금액으로 구매할 수 있는 로또 수를 초과했습니다.");
         }

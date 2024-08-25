@@ -1,16 +1,17 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Row {
 
     private static final int ROW_SIZE = 6;
-    private List<LottoNumber> nums;
+    private final List<LottoNumber> nums;
 
     public Row(List<LottoNumber> nums) {
         sizeCheck(nums);
         duplicateCheck(nums);
-        this.nums = List.copyOf(nums);
+        this.nums = Collections.unmodifiableList(nums);
     }
 
     public List<LottoNumber> getNums() {
