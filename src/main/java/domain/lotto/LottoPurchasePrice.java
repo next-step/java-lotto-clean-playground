@@ -1,11 +1,11 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import domain.common.Money;
 import java.util.Objects;
 
 public class LottoPurchasePrice {
 
-    private static final String NEGATIVE_NUMBER = "음수 입력을 불가능합니다.";
     private static final int LOTTO_PRICE = 1000;
 
     private final int count;
@@ -18,13 +18,13 @@ public class LottoPurchasePrice {
 
     private void validateNegativeNumber(Money money) {
         if (money.getAmount() < 0) {
-            throw new IllegalArgumentException(NEGATIVE_NUMBER);
+            throw new IllegalArgumentException(ExceptionMessage.NEGATIVE_NUMBER);
         }
     }
 
-    private static void validateMoneyUnit(Money money) {
+    private void validateMoneyUnit(Money money) {
         if (money.getAmount() % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("1000원 단위의 돈만 받음");
+            throw new IllegalArgumentException(ExceptionMessage.LOTTO_ALLOWED_MONEY_UNIT);
         }
     }
 

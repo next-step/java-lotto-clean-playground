@@ -1,12 +1,12 @@
 package domain.lotto;
 
+import domain.common.ExceptionMessage;
 import java.util.Objects;
 
 public class LottoNumber {
     
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
-    private static final String OUT_OF_RANGE = "로또번호는 1~45의 범위입니다.";
 
     private final int number;
 
@@ -17,7 +17,7 @@ public class LottoNumber {
 
     private void validate(int number) {
         if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
-            throw new IllegalArgumentException(OUT_OF_RANGE);
+            throw new IllegalArgumentException(ExceptionMessage.LOTTO_NUMBER_OUT_OF_RANGE);
         }
     }
 

@@ -11,9 +11,15 @@ public class Money {
         this.amount = amount;
     }
 
+    public double getProfitRate(Money total) {
+        double profitRate = (double) total.getAmount() / getAmount();
+        profitRate = Math.floor(profitRate * 100) / 100;
+        return profitRate;
+    }
+
     private void validate(int amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("음수가 들어올 수 없음");
+            throw new IllegalArgumentException(ExceptionMessage.NEGATIVE_NUMBER);
         }
     }
 
@@ -23,9 +29,5 @@ public class Money {
 
     public Money plus(Money money) {
         return new Money(amount + money.amount);
-    }
-
-    public Money multiply(int v) {
-        return new Money(amount * v);
     }
 }
