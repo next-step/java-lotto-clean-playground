@@ -8,9 +8,9 @@ import java.util.Random;
 public class RandomNumberGenerator implements NumberGenerator{
 
     @Override
-    public List<Integer> getNumbers(){
+    public List<LottoNumber> getNumbers(){
         Collections.shuffle(allNumbers);
-        List<Integer> row = new ArrayList<>();
+        List<LottoNumber> row = new ArrayList<>();
         for(int i = 0; i < 6; i++){
             row.add(allNumbers.get(i));
         }

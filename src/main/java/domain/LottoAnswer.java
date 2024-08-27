@@ -1,4 +1,4 @@
 package domain;
 
-public record LottoAnswer(Row answer, BonusNumBer bonusNumBer) {
+public record LottoAnswer(Row answer, LottoNumber bonusNumBer) {
 }

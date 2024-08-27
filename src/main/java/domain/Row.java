@@ -1,35 +1,36 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Row {
 
     private static final int ROW_SIZE = 6;
-    private List<Integer> nums;
+    private final List<LottoNumber> nums;
 
-    public Row(List<Integer> nums) {
+    public Row(List<LottoNumber> nums) {
         sizeCheck(nums);
         duplicateCheck(nums);
-        this.nums = nums;
+        this.nums = Collections.unmodifiableList(nums);
     }
 
-    public List<Integer> getNums() {
+    public List<LottoNumber> getNums() {
         return nums;
     }
 
-    public void sizeCheck(List<Integer> nums) {
+    public void sizeCheck(List<LottoNumber> nums) {
         if (nums.size() != ROW_SIZE) {
             throw new RuntimeException("로또 한줄은 수가 6개 필요합니다.");
         }
     }
 
-    public void duplicateCheck(List<Integer> nums) {
-        if (nums.size() != nums.stream().distinct().count()) {
+    public void duplicateCheck(List<LottoNumber> nums) {
+        if (ROW_SIZE != nums.stream().mapToInt(LottoNumber::getNumber).distinct().count()) {
             throw new RuntimeException("로또 한줄의 수는 중복될 수 없습니다.");
         }
     }
 
-    public boolean containsNumber(int number) {
+    public boolean containsNumber(LottoNumber number) {
         return nums.contains(number);
     }
 }

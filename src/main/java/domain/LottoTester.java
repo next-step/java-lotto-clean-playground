@@ -32,7 +32,7 @@ public class LottoTester {
     }
 
     private void checkRow(Row row, LottoAnswer lottoAnswer, Map<Rank, Integer> resultMap) {
-        List<Integer> nums = row.getNums();
+        List<LottoNumber> nums = row.getNums();
         int count = 0;
         for (int i = 0; i < ROW_SIZE; i++) {
             count += checkNum(nums.get(i), lottoAnswer.answer());
@@ -44,15 +44,15 @@ public class LottoTester {
         resultMap.put(rank, resultMap.get(rank) + 1);
     }
 
-    private boolean bonusCheck(Row row, BonusNumBer bonusNumBer) {
-        if (row.containsNumber(bonusNumBer.num())) {
+    private boolean bonusCheck(Row row, LottoNumber bonusNumBer) {
+        if (row.containsNumber(bonusNumBer)) {
             return true;
         }
         return false;
     }
 
-    private int checkNum(int num1, Row answer) {
-        if (answer.containsNumber(num1)) {
+    private int checkNum(LottoNumber number, Row answer) {
+        if (answer.containsNumber(number)) {
             return 1;
         }
         return 0;

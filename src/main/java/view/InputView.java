@@ -1,6 +1,6 @@
 package view;
 
-import domain.BonusNumBer;
+import domain.LottoNumber;
 import domain.Row;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class InputView {
             Row row = new Row(Arrays
                     .stream(scanner.nextLine().split(", "))
                     .mapToInt(Integer::parseInt)
-                    .boxed()
+                    .mapToObj(num -> new LottoNumber(num))
                     .toList());
             System.out.println("");
             return row;
@@ -39,10 +39,10 @@ public class InputView {
         }
     }
 
-    public BonusNumBer getBonus() {
+    public LottoNumber getBonus() {
         try {
             System.out.println("보너스 볼을 읿력해 주세요.");
-            BonusNumBer bonusNumBer = new BonusNumBer(scanner.nextInt());
+            LottoNumber bonusNumBer = new LottoNumber(scanner.nextInt());
             scanner.nextLine();
             System.out.println("");
             return bonusNumBer;
@@ -88,7 +88,7 @@ public class InputView {
         return new Row(Arrays
                 .stream(scanner.nextLine().split(", "))
                 .mapToInt(Integer::parseInt)
-                .boxed()
+                .mapToObj(num -> new LottoNumber(num))
                 .toList());
     }
 }
