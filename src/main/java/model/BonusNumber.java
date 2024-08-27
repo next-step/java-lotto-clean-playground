@@ -12,7 +12,7 @@ public class BonusNumber extends LottoNumber {
 
     public static BonusNumber of(final String input, final List<Integer> winningLotto) {
         validateStringInput(input);
-        int number = Integer.parseInt(input);
+        final int number = Integer.parseInt(input);
         validateContainInput(number, winningLotto);
         return new BonusNumber(number);
     }

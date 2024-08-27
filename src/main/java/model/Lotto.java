@@ -2,39 +2,51 @@ package model;
 
 import global.Rank;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static model.exception.ExceptionMessage.LOTTO_HAS_SAME_NUMBER_ERROR_MESSAGE;
 import static model.exception.ExceptionMessage.LOTTO_SIZE_ERROR_MESSAGE;
 
 public class Lotto {
 
+    private static final List<Integer> NUMBERS = Arrays.asList(
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+        41, 42, 43, 44, 45);
     private static final int LOTTO_NUMBER_SIZE = 6;
+
     private final List<LottoNumber> numbers;
 
     public Lotto(final List<LottoNumber> numbers) {
         validateNumbers(numbers);
-        numbers.sort(Comparator.comparingInt(LottoNumber::getNumber));
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
+    }
+
+    public static Lotto byRandomGenerate() {
+        Collections.shuffle(NUMBERS);
+        final List<Integer> randomNumbers = new ArrayList<>(NUMBERS.subList(0, LOTTO_NUMBER_SIZE));
+        return fromNumbers(randomNumbers);
     }
 
     public static Lotto fromNumbers(final List<Integer> input) {
         final List<LottoNumber> numbers = input.stream()
                 .map(LottoNumber::new)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Lotto(numbers);
     }
 
-    public static Lotto fromStringsInput(final String[] input) {
-        final List<LottoNumber> numbers = Arrays.stream(input)
+    public static Lotto fromStringsInput(final List<String> input) {
+        final List<LottoNumber> numbers = input.stream()
                 .map(LottoNumber::from)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Lotto(numbers);
     }
@@ -59,9 +71,9 @@ public class Lotto {
 
     public Rank getRank(final Lotto winningLotto, final LottoNumber bonusNumber) {
         int correctCnt = numbers.stream()
-                .filter(winningLotto::containNumber)
-                .toList()
-                .size();
+            .filter(winningLotto::containNumber)
+            .toList()
+            .size();
 
         return Rank.findPlace(correctCnt, containNumber(bonusNumber));
     }

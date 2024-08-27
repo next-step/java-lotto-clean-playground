@@ -9,7 +9,7 @@ public class LottoResult {
     private final Map<Rank, Integer> result;
 
     public LottoResult(final Map<Rank, Integer> result) {
-        this.result = result;
+        this.result = Map.copyOf(result);
     }
 
     public double getRateOfReturn(final int purchaseMoney) {

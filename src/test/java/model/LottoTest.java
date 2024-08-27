@@ -102,7 +102,7 @@ class LottoTest {
     @DisplayName("로또 입력이 숫자로만 구성되어 있지 않으면 예외를 발생한다.")
     @MethodSource("wrongLottoInput")
     @ParameterizedTest
-    void lotto_without_number(String[] input) {
+    void lotto_without_number(List<String> input) {
         // given
         // when
         // then
@@ -113,8 +113,8 @@ class LottoTest {
 
     private static Stream<Arguments> wrongLottoInput() {
         return Stream.of(
-                Arguments.of((Object) new String[]{"1ab", "1", "2", "4"}),
-                Arguments.of((Object) new String[]{"일", "이", "삼"}),
-                Arguments.of((Object) new String[]{"!@#", "$%^", "&*"}));
+                Arguments.of(List.of("1ab", "1", "2", "4")),
+                Arguments.of(List.of("일", "이", "삼")),
+                Arguments.of(List.of("!@#", "$%^", "&*")));
     }
 }
