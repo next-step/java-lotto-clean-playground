@@ -2,15 +2,10 @@ package domain;
 
 import util.Errors;
 
-public class LottoPurchasePrice {
+public record LottoPurchasePrice(int price) {
 
-    private final int price;
-    private final int lottoCount;
-
-    public LottoPurchasePrice(int price) {
+    public LottoPurchasePrice {
         validatePriceIsNotNegative(price);
-        this.price = price;
-        this.lottoCount = calculateLottoCount();
     }
 
     private void validatePriceIsNotNegative(int price) {
@@ -19,18 +14,10 @@ public class LottoPurchasePrice {
         }
     }
 
-    private int calculateLottoCount() {
+    public int getLottoCount() {
         if (Lotto.PRICE == 0) {
             return this.price;
         }
         return this.price / Lotto.PRICE;
-    }
-
-    public int getLottoCount() {
-        return this.lottoCount;
-    }
-
-    public int getPrice() {
-        return this.price;
     }
 }
