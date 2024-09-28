@@ -1,5 +1,6 @@
 package view;
 
+import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoNumbers;
 
@@ -14,7 +15,13 @@ public class InputView {
     public int readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
 
-        return sc.nextInt();
+        int amount =  sc.nextInt();
+
+        if (amount % (Lotto.PRICE) != 0) {
+            throw new IllegalArgumentException("Lotto의 가격은 1000원입니다.");
+        }
+
+        return amount;
     }
 
     public int readManualCount() {
