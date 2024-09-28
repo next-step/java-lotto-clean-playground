@@ -1,9 +1,9 @@
 package view;
 
 import domain.LottoNumber;
+import domain.LottoNumbers;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -23,14 +23,14 @@ public class InputView {
         return sc.nextInt();
     }
 
-    public List<LottoNumber> readManualLottoNumbers() {
+    public LottoNumbers readManualLottoNumbers() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
         String[] numbers = sc.nextLine().trim().split(",");
 
-        return Arrays
+        return new LottoNumbers(Arrays
                 .stream(numbers)
                 .map(LottoNumber::from)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 }
