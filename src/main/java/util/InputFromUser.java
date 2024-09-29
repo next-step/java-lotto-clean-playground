@@ -9,4 +9,8 @@ public class InputFromUser {
     public static int inputBuyingCosts() {
         return Integer.parseInt(scanner.nextLine());
     }
+
+    public static String inputLastWeekWinningLottoNumber() {
+        return scanner.nextLine();
+    }
 }
