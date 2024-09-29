@@ -15,16 +15,18 @@ public class LottoController {
     private final LottosCreator lottosCreator;
     private final LottoCountCalculator lottoCountCalculator;
     private final UpdateWinningLottos updateWinningLottos;
+    private final RateOfReturnCalculator rateOfReturnCalculator;
 
-    public LottoController(LottosCreator lottosCreator, LottoCountCalculator lottoCountCalculator, UpdateWinningLottos updateWinningLottos) {
+    public LottoController(LottosCreator lottosCreator, LottoCountCalculator lottoCountCalculator, UpdateWinningLottos updateWinningLottos, RateOfReturnCalculator rateOfReturnCalculator) {
         this.lottosCreator = lottosCreator;
         this.lottoCountCalculator = lottoCountCalculator;
         this.updateWinningLottos = updateWinningLottos;
+        this.rateOfReturnCalculator = rateOfReturnCalculator;
     }
 
     public void startLottoApplication() {
-        final int lottoCount = inputCosts();
-
+        final int buyingCosts = inputCosts();
+        final int lottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts);
         Lottos lottos = makeLottos(lottoCount);
 
         printLottos(lottos, lottoCount);
@@ -33,12 +35,12 @@ public class LottoController {
 
         updateWinningLottos.updateWinningLottos(lottos, lastWeekWinnerLotto);
 
-        printWinningLottos();
+        printWinningLottosAndRateOfReturn(buyingCosts);
     }
 
     private int inputCosts() {
         InputView.printBuyingCosts();
-        return lottoCountCalculator.calculateLottoCount(InputFromUser.inputBuyingCosts());
+        return InputFromUser.inputBuyingCosts();
     }
 
     private Lottos makeLottos(final int lottoCount) {
@@ -66,11 +68,12 @@ public class LottoController {
         );
     }
 
-    private void printWinningLottos() {
+    private void printWinningLottosAndRateOfReturn(final int buyingCosts) {
         OutputView.printTotalWinning();
         Arrays.stream(WinningLottos.values())
                 .forEach(winningLottos ->
                         OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount())
                 );
+        OutputView.printRateOfReturn(rateOfReturnCalculator.calculateRateOfReturn(buyingCosts));
     }
 }

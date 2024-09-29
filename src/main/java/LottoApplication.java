@@ -7,7 +7,8 @@ public class LottoApplication {
         LottoController lottoController = new LottoController(
                 new LottosCreator(new RandomLottoMakeStrategy()),
                 new LottoCountCalculator(),
-                new UpdateWinningLottos(new CorrectLottoNumbersCheck()));
+                new UpdateWinningLottos(new CorrectLottoNumbersCheck()),
+                new RateOfReturnCalculator());
         lottoController.startLottoApplication();
     }
 }
