@@ -1,14 +1,13 @@
 import controller.LottoController;
-import domain.LottoCountCalculator;
-import domain.LottosCreator;
-import domain.RandomLottoMakeStrategy;
+import domain.*;
 
 public class LottoApplication {
 
     public static void main(String[] args) {
         LottoController lottoController = new LottoController(
                 new LottosCreator(new RandomLottoMakeStrategy()),
-                new LottoCountCalculator());
+                new LottoCountCalculator(),
+                new UpdateWinningLottos(new CorrectLottoNumbersCheck()));
         lottoController.startLottoApplication();
     }
 }
