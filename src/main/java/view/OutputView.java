@@ -11,4 +11,17 @@ public class OutputView {
     public static void printBuyingLotto(List<Integer> lotto) {
         System.out.println(lotto);
     }
+
+    public static void printTotalWinning() {
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+    }
+
+    public static void printWinningLottoResult(final int correctCount, final int prizeMoney, final int correctLottoCount) {
+        System.out.println(correctCount + "개 일치 (" + prizeMoney + "원)- " + correctLottoCount + "개");
+    }
+
+    public static void printRateOfReturn(final double rateOfReturn) {
+        System.out.printf("총 수익률은 %.2f입니다.", rateOfReturn);
+    }
 }
