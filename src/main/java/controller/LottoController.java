@@ -21,24 +21,23 @@ public class LottoController {
     }
 
     public void startLottoApplication() {
-        final int buyingCosts = inputCosts();
-        final int lottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts);
+        final int lottoCount = inputCosts();
 
         Lottos lottos = makeLottos(lottoCount);
 
-        printResult(lottos, lottoCount);
+        printLottos(lottos, lottoCount);
     }
 
     private int inputCosts() {
         InputView.printBuyingCosts();
-        return InputFromUser.inputBuyingCosts();
+        return lottoCountCalculator.calculateLottoCount(InputFromUser.inputBuyingCosts());
     }
 
     private Lottos makeLottos(final int lottoCount) {
         return lottosCreator.createLottos(lottoCount);
     }
 
-    private void printResult(final Lottos lottos, final int lottoCount) {
+    private void printLottos(final Lottos lottos, final int lottoCount) {
         OutputView.printCompleteBuyingLotto(lottoCount);
         printLottos(lottos.getLottos());
     }
