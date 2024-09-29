@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@DisplayName("로또 생성 테스트")
+@DisplayName("로또 생성 전략 테스트")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class RandomLottoMakeStrategyTest {
 
@@ -25,7 +25,7 @@ public class RandomLottoMakeStrategyTest {
     })
     public void makeLotto(final int lottoNumber, final boolean expected) {
         //given
-        LottoMakeStrategy lottoMakeStrategy = new TestMakeLottoStrategy();
+        LottoMakeStrategy lottoMakeStrategy = new TestLottoMakeStrategy();
 
         //when
         List<Integer> result = lottoMakeStrategy.makeLotto();
@@ -34,10 +34,4 @@ public class RandomLottoMakeStrategyTest {
         Assertions.assertThat(result.contains(lottoNumber)).isEqualTo(expected);
     }
 
-    static class TestMakeLottoStrategy implements LottoMakeStrategy {
-        @Override
-        public List<Integer> makeLotto() {
-            return new ArrayList<Integer>(List.of(5, 14, 16, 35, 38, 44));
-        }
-    }
 }
