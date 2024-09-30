@@ -15,4 +15,8 @@ public class Lotto {
     public static Lotto creatAutoLotto() {
         return new Lotto(lottoNumberGenerator.generateLottoNumbers());
     }
+
+    public LottoNumbers getLottoNumbers() {
+        return lottoNumbers;
+    }
 }
