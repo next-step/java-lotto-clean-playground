@@ -5,6 +5,8 @@ import domain.LottoNumber;
 import domain.LottoNumbers;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -69,9 +71,13 @@ public class InputView {
     private LottoNumbers numbersToLottoNumbers() {
         String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
 
-        return new LottoNumbers(Arrays
+        List<LottoNumber> lottoNumbers = Arrays
                 .stream(numbers)
                 .map(LottoNumber::from)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+
+        Collections.sort(lottoNumbers);
+
+        return new LottoNumbers(lottoNumbers);
     }
 }
