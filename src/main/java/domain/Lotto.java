@@ -2,8 +2,9 @@ package domain;
 
 public class Lotto {
     public static final int PRICE = 1000;
+    private static final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
+
     private LottoNumbers lottoNumbers;
-    private final RandomStrategy lottoRandomStrategy = new LottoRandomStrategy();
 
 
 
@@ -11,9 +12,7 @@ public class Lotto {
         this.lottoNumbers = lottoNumbers;
     }
 
-//    public Lotto createLotto() {
-//
-//        return new Lotto(LottoNumbers.createDifferentLottoNumbers());
-//    }
-
+    public static Lotto creatAutoLotto() {
+        return new Lotto(lottoNumberGenerator.generateLottoNumbers());
+    }
 }
