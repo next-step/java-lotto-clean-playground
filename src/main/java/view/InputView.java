@@ -36,6 +36,37 @@ public class InputView {
             System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         }
 
+        return numbersToLottoNumbers();
+
+//        String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
+//
+//        return new LottoNumbers(Arrays
+//                .stream(numbers)
+//                .map(LottoNumber::from)
+//                .collect(Collectors.toList()));
+    }
+
+    public LottoNumbers readWinnerNumbers() {
+        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
+
+        return numbersToLottoNumbers();
+
+//        String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
+//
+//        return new LottoNumbers(Arrays
+//                .stream(numbers)
+//                .map(LottoNumber::from)
+//                .collect(Collectors.toList()));
+    }
+
+    public LottoNumber readBonusNumber() {
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        String number = sc.nextLine();
+
+        return LottoNumber.from(number);
+    }
+
+    private LottoNumbers numbersToLottoNumbers() {
         String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
 
         return new LottoNumbers(Arrays
