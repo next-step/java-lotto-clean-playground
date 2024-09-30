@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,6 +17,7 @@ public class LottoNumberGenerator {
         for (int i = 0; i < LottoNumbers.SIZE; i++) {
             value.add(generateLottoNumber());
         }
+        Collections.shuffle(value);
 
         return new LottoNumbers(value);
     }
