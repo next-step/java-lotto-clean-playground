@@ -5,9 +5,12 @@
 -로또 1장의 가격은 1000원이다.
 
 구입금액을 입력해 주세요. // -> Input View
+
 14000 // -> Input View(Scanner)
 
+
 14개를 구매했습니다. // -> Output View
+
 [8, 21, 23, 41, 42, 43] // -> Output View, collection-List? ArrayList, sort, no duplicate!!
 
 
