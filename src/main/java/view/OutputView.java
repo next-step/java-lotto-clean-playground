@@ -48,8 +48,6 @@ public class OutputView {
                 .map(Lotto::getLottoNumbers)
                 .map(LottoNumbers::getNumbers).toList();
 
-        int length = flatLottosNumbers.size();
-
         for (List<LottoNumber> flatLottosNumber : flatLottosNumbers) {
             System.out.print("[");
             for (int j = 0; j < LottoNumbers.SIZE; j++) {
