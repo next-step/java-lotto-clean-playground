@@ -20,11 +20,11 @@ public class WinnerStatistic {
         int cnt = 0;
         boolean bonusFlag = false;
 
-        for (int i = 0; i < lottos.size(); i++) {
+        for (Lotto lotto : lottos) {
             cnt = 0;
             bonusFlag = false;
 
-            List<LottoNumber> lottoNumbers = lottos.get(i).getLottoNumbers().getNumbers();
+            List<LottoNumber> lottoNumbers = lotto.getLottoNumbers().getNumbers();
 
             for (int j = 0; j < winnerNumbers.getNumbers().size(); j++) {
                 if (lottoNumbers.contains(winnerNumbers.getNumbers().get(j))) {

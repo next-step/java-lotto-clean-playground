@@ -50,10 +50,10 @@ public class OutputView {
 
         int length = flatLottosNumbers.size();
 
-        for (int i = 0; i < length; i++) {
+        for (List<LottoNumber> flatLottosNumber : flatLottosNumbers) {
             System.out.print("[");
             for (int j = 0; j < LottoNumbers.SIZE; j++) {
-                System.out.print(flatLottosNumbers.get(i).get(j).getValue());
+                System.out.print(flatLottosNumber.get(j).getValue());
 
                 if (j != LottoNumbers.SIZE - 1) {
                     System.out.print(", ");
