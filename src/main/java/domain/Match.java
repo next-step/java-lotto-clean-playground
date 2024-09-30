@@ -62,9 +62,9 @@ public enum Match {
             return FIVEWITHBONUS;
         } else if (c == SIX.count) {
             return SIX;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     @Override
