@@ -1,4 +1,7 @@
-import domain.*;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoNumbers;
+import domain.WinnerStatistic;
 import view.InputView;
 import view.OutputView;
 
