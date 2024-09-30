@@ -71,4 +71,15 @@ public class OutputView {
             System.out.println(m.print() + statistic.get(m));
         }
     }
+
+    public void printEarnRate(double rate) {
+        System.out.print("총 수익률은 " + Math.floor(rate * 100)/100.0 + "입니다.");
+
+        if (rate < 1) {
+            System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+            return;
+        }
+
+        System.out.println("(기준이 1이기 때문에 결과적으로 이득라는 의미임)");
+    }
 }
