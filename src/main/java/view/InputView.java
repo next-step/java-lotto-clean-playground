@@ -30,8 +30,11 @@ public class InputView {
         return Integer.parseInt(sc.nextLine());
     }
 
-    public LottoNumbers readManualLottoNumbers() {
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+//    flag: 한번만 출력하기 위해서
+    public LottoNumbers readManualLottoNumbers(int flag) {
+        if (flag == 0) {
+            System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        }
 
         String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
 
