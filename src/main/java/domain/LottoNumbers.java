@@ -6,6 +6,10 @@ public class LottoNumbers {
     public static final int SIZE = 6;
     private final List<LottoNumber> numbers;
 
+    public List<LottoNumber> getNumbers() {
+        return numbers;
+    }
+
     public LottoNumbers(List<LottoNumber> numbers) {
         validateNumber(numbers);
         this.numbers = numbers;
