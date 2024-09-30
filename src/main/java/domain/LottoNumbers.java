@@ -1,10 +1,9 @@
 package domain;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class LottoNumbers {
-    private static final int SIZE = 6;
+    public static final int SIZE = 6;
     private final List<LottoNumber> numbers;
 
     public LottoNumbers(List<LottoNumber> numbers) {
