@@ -43,9 +43,9 @@ public enum WinningLottos {
         this.lottoCount += 1;
     }
 
-    public static WinningLottos of(final int correctCount) {
+    public static WinningLottos of(final int correctCount, final boolean isSecondPrize) {
         return Arrays.stream(values())
-                .filter(winningLottos -> winningLottos.correctCount == correctCount)
+                .filter(winningLottos -> winningLottos.correctCount == correctCount && winningLottos.isSecondPrize == isSecondPrize)
                 .findFirst()
                 .orElse(null);
     }

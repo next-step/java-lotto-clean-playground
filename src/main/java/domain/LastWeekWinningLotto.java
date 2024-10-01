@@ -10,4 +10,8 @@ public class LastWeekWinningLotto extends Lotto {
         super(lotto);
         this.bonusNumber = bonusNumber;
     }
+
+    public int getBonusNumber() {
+        return bonusNumber;
+    }
 }

@@ -28,13 +28,14 @@ public class WinningLottosTest {
     @DisplayName("일치 개수에 따른 로또 모음을 가져올 수 있다.")
     @ParameterizedTest
     @CsvSource({
-            "3, THREE_CORRECT_LOTTOS",
-            "4, FOUR_CORRECT_LOTTOS",
-            "5, FIVE_CORRECT_LOTTOS",
-            "6, SIX_CORRECT_LOTTOS",
+            "3, false, THREE_CORRECT_LOTTOS",
+            "4, false, FOUR_CORRECT_LOTTOS",
+            "5, false, FIVE_CORRECT_LOTTOS",
+            "5, true, FIVE_AND_BONUS_CORRECT_LOTTOS",
+            "6, false, SIX_CORRECT_LOTTOS",
     })
-    public void convertStringToInteger(final int correctCount, final WinningLottos expected) {
+    public void convertStringToInteger(final int correctCount, final boolean isSecondPrize, final WinningLottos expected) {
         //given, when, then
-        Assertions.assertThat(WinningLottos.of(correctCount)).isEqualTo(expected);
+        Assertions.assertThat(WinningLottos.of(correctCount, isSecondPrize)).isEqualTo(expected);
     }
 }
