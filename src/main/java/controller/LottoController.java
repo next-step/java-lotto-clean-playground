@@ -17,7 +17,7 @@ public class LottoController {
     private final UpdateWinningLottos updateWinningLottos;
     private final RateOfReturnCalculator rateOfReturnCalculator;
 
-    public LottoController(LottosCreator lottosCreator, LottoCountCalculator lottoCountCalculator, UpdateWinningLottos updateWinningLottos, RateOfReturnCalculator rateOfReturnCalculator) {
+    public LottoController(final LottosCreator lottosCreator, final LottoCountCalculator lottoCountCalculator, final UpdateWinningLottos updateWinningLottos, final RateOfReturnCalculator rateOfReturnCalculator) {
         this.lottosCreator = lottosCreator;
         this.lottoCountCalculator = lottoCountCalculator;
         this.updateWinningLottos = updateWinningLottos;

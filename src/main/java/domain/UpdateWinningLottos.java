@@ -4,7 +4,7 @@ public class UpdateWinningLottos {
 
     private final CorrectLottoNumbersCheck correctLottoNumbersCheck;
 
-    public UpdateWinningLottos(CorrectLottoNumbersCheck correctLottoNumbersCheck) {
+    public UpdateWinningLottos(final CorrectLottoNumbersCheck correctLottoNumbersCheck) {
         this.correctLottoNumbersCheck = correctLottoNumbersCheck;
     }
 

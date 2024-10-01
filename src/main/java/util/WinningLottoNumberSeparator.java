@@ -7,7 +7,7 @@ public class WinningLottoNumberSeparator {
 
     private static final String SPLIT_CHARACTERS = ", ";
 
-    public static List<String> separateWinningLottoNumbers(String winningLottoNumbers) {
+    public static List<String> separateWinningLottoNumbers(final String winningLottoNumbers) {
         return new ArrayList<String>(List.of(winningLottoNumbers.split(SPLIT_CHARACTERS)));
     }
 }

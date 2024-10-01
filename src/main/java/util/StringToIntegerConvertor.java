@@ -5,7 +5,7 @@ import java.util.List;
 
 public class StringToIntegerConvertor {
 
-    public static List<Integer> convertStringToInteger(List<String> winningLottoNumbers) {
+    public static List<Integer> convertStringToInteger(final List<String> winningLottoNumbers) {
         return winningLottoNumbers.stream()
                 .map(Integer::parseInt)
                 .toList();
