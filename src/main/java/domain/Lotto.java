@@ -1,12 +1,12 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class Lotto{
-    private final Set<Integer> lottoNumbers;
+public class Lotto {
+    private final List<Integer> lotto;
 
-    public Lotto(Set<Integer> lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+    public Lotto(List<Integer> lotto) {
+        this.lotto = new ArrayList<>(lotto);
     }
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class LottoNumberGenerator {
     public List<Integer> pickLottoNumbers() {
         lottoNumbers.clear();
         lottoNumbers.addAll(initializeNumbers().subList(0, 6));
+        Collections.sort(lottoNumbers);
         return lottoNumbers;
     }
 }
