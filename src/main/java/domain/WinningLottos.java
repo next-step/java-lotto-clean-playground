@@ -4,19 +4,23 @@ import java.util.Arrays;
 
 public enum WinningLottos {
 
-    THREE_CORRECT_LOTTOS(3, 5000, 0),
-    FOUR_CORRECT_LOTTOS(4, 50000, 0),
-    FIVE_CORRECT_LOTTOS(5, 1500000, 0),
-    SIX_CORRECT_LOTTOS(6, 2000000000, 0);
+    THREE_CORRECT_LOTTOS(3, 5000, 0, false),
+    FOUR_CORRECT_LOTTOS(4, 50000, 0, false),
+    FIVE_CORRECT_LOTTOS(5, 1500000, 0, false),
+    FIVE_AND_BONUS_CORRECT_LOTTOS(5, 30000000, 0, true),
+
+    SIX_CORRECT_LOTTOS(6, 2000000000, 0, false);
 
     private final int correctCount;
     private final int prizeMoney;
     private int lottoCount;
+    private final boolean isSecondPrize;
 
-    WinningLottos(int correctCount, int prizeMoney, int lottoCount) {
+    WinningLottos(final int correctCount, final int prizeMoney, final int lottoCount, final boolean isSecondPrize) {
         this.correctCount = correctCount;
         this.prizeMoney = prizeMoney;
         this.lottoCount = lottoCount;
+        this.isSecondPrize = isSecondPrize;
     }
 
     public int getCorrectCount() {
@@ -29,6 +33,10 @@ public enum WinningLottos {
 
     public int getLottoCount() {
         return lottoCount;
+    }
+
+    public boolean isSecondPrize() {
+        return isSecondPrize;
     }
 
     public void addWinnerLotto() {

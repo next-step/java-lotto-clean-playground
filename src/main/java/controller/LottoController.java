@@ -72,7 +72,7 @@ public class LottoController {
         OutputView.printTotalWinning();
         Arrays.stream(WinningLottos.values())
                 .forEach(winningLottos ->
-                        OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount())
+                        OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount(), winningLottos.isSecondPrize())
                 );
         OutputView.printRateOfReturn(rateOfReturnCalculator.calculateRateOfReturn(buyingCosts));
     }

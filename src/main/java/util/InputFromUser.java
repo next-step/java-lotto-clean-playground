@@ -13,4 +13,8 @@ public class InputFromUser {
     public static String inputLastWeekWinningLottoNumber() {
         return scanner.nextLine();
     }
+
+    public static int inputLastWeekWinningLottoBonusNumber() {
+        return scanner.nextInt();
+    }
 }

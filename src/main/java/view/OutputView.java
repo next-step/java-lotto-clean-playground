@@ -17,7 +17,11 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public static void printWinningLottoResult(final int correctCount, final int prizeMoney, final int correctLottoCount) {
+    public static void printWinningLottoResult(final int correctCount, final int prizeMoney, final int correctLottoCount, final boolean isSecondPrize) {
+        if (isSecondPrize) {
+            System.out.println(correctCount + "개 일치, 보너스 볼 일치(" + prizeMoney + "원)- " + correctLottoCount + "개");
+            return;
+        }
         System.out.println(correctCount + "개 일치 (" + prizeMoney + "원)- " + correctLottoCount + "개");
     }
 
