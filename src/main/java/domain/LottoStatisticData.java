@@ -3,38 +3,27 @@ package domain;
 import java.util.HashMap;
 import java.util.List;
 
-public class WinnerStatistic {
+public class LottoStatisticData {
     private final LottoNumbers winnerNumbers;
     private final LottoNumber bonusNumber;
 
     private final HashMap<Match, Integer> match;
 
-    public WinnerStatistic(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> lottos) {
+    public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> lottos) {
         this.winnerNumbers = winnerNumbers;
         this.bonusNumber = bonusNumber;
-        this.match = findMatchedNumber(lottos);
+        this.match = compileLottosStatistic(lottos);
     }
 
-    private HashMap<Match, Integer> findMatchedNumber(List<Lotto> lottos) {
+    private HashMap<Match, Integer> compileLottosStatistic(List<Lotto> lottos) {
         HashMap<Match, Integer> matchCounts = initializeMatchMap();
-        int cnt = 0;
-        boolean bonusFlag = false;
 
         for (Lotto lotto : lottos) {
-            cnt = 0;
-            bonusFlag = false;
-
             List<LottoNumber> lottoNumbers = lotto.getLottoNumbers().getNumbers();
 
-            for (int j = 0; j < winnerNumbers.getNumbers().size(); j++) {
-                if (lottoNumbers.contains(winnerNumbers.getNumbers().get(j))) {
-                    cnt++;
-                }
-            }
+            int cnt = findMatchNumberCount(lottoNumbers);
 
-            if (cnt < 6 && lottoNumbers.contains(bonusNumber)) {
-                bonusFlag = true;
-            }
+            boolean bonusFlag = findBonusMatched(cnt, lottoNumbers);
 
             Match match = Match.from(cnt, bonusFlag);
 
@@ -43,9 +32,29 @@ public class WinnerStatistic {
             }
         }
 
-
         return matchCounts;
     }
+
+    private int findMatchNumberCount(List<LottoNumber> lottoNumbers) {
+        int cnt = 0;
+
+        for (int j = 0; j < winnerNumbers.getNumbers().size(); j++) {
+            if (lottoNumbers.contains(winnerNumbers.getNumbers().get(j))) {
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+
+    private boolean findBonusMatched(int cnt, List<LottoNumber> lottoNumbers) {
+        if (cnt < 6 && lottoNumbers.contains(bonusNumber)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
     private HashMap<Match, Integer> initializeMatchMap() {

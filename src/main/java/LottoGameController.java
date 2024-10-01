@@ -1,7 +1,7 @@
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoNumbers;
-import domain.WinnerStatistic;
+import domain.LottoStatisticData;
 import view.InputView;
 import view.OutputView;
 
@@ -41,24 +41,19 @@ public class LottoGameController {
             LottoNumber bonusNumber = inputView.readBonusNumber();
 
 
-            WinnerStatistic winnerStatistic = new WinnerStatistic(winnerNumbers, bonusNumber, lottos);
+            LottoStatisticData lottoStatisticData = new LottoStatisticData(winnerNumbers, bonusNumber, lottos);
 
-            outputView.printStatistic(winnerStatistic.getMatch());
+            outputView.printStatistic(lottoStatisticData.getMatch());
 
-            double earnRate = winnerStatistic.calculateRate(amount);
+            double earnRate = lottoStatisticData.calculateRate(amount);
             outputView.printEarnRate(earnRate);
 
 
 
 
         } catch (Exception e) {
-            System.out.println("err");
             System.out.println(e.getMessage());
         }
-
-
-
-
     }
 
     private List<Lotto> purchaseLottos(int autoCount, int manualCount) {
