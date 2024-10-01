@@ -43,7 +43,7 @@ public class LottoGameController {
 
             LottoStatisticData lottoStatisticData = new LottoStatisticData(winnerNumbers, bonusNumber, lottos);
 
-            outputView.printStatistic(lottoStatisticData.getMatch());
+            outputView.printStatistic(lottoStatisticData.getMatchStatistic());
 
             double earnRate = lottoStatisticData.calculateRate(amount);
             outputView.printEarnRate(earnRate);

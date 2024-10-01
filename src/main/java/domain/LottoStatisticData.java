@@ -6,13 +6,12 @@ import java.util.List;
 public class LottoStatisticData {
     private final LottoNumbers winnerNumbers;
     private final LottoNumber bonusNumber;
-
-    private final HashMap<Match, Integer> match;
+    private final HashMap<Match, Integer> matchStatistic;
 
     public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> lottos) {
         this.winnerNumbers = winnerNumbers;
         this.bonusNumber = bonusNumber;
-        this.match = compileLottosStatistic(lottos);
+        this.matchStatistic = compileLottosStatistic(lottos);
     }
 
     private HashMap<Match, Integer> compileLottosStatistic(List<Lotto> lottos) {
@@ -23,13 +22,9 @@ public class LottoStatisticData {
 
             int cnt = findMatchNumberCount(lottoNumbers);
 
-            boolean bonusFlag = findBonusMatched(cnt, lottoNumbers);
+            boolean bonusFlag = isBonusMatched(cnt, lottoNumbers);
 
-            Match match = Match.from(cnt, bonusFlag);
-
-            if (match != null) {
-                matchCounts.put(match, matchCounts.get(match) + 1);
-            }
+            upDateMatchStatistic(cnt, bonusFlag, matchCounts);
         }
 
         return matchCounts;
@@ -38,8 +33,8 @@ public class LottoStatisticData {
     private int findMatchNumberCount(List<LottoNumber> lottoNumbers) {
         int cnt = 0;
 
-        for (int j = 0; j < winnerNumbers.getNumbers().size(); j++) {
-            if (lottoNumbers.contains(winnerNumbers.getNumbers().get(j))) {
+        for (LottoNumber lottoNumber : winnerNumbers.getNumbers()) {
+            if (lottoNumbers.contains(lottoNumber)) {
                 cnt++;
             }
         }
@@ -47,8 +42,16 @@ public class LottoStatisticData {
         return cnt;
     }
 
-    private boolean findBonusMatched(int cnt, List<LottoNumber> lottoNumbers) {
-        return cnt < 6 && lottoNumbers.contains(bonusNumber);
+    private boolean isBonusMatched(int cnt, List<LottoNumber> lottoNumbers) {
+        return cnt == 5 && lottoNumbers.contains(bonusNumber);
+    }
+
+    private void upDateMatchStatistic(int cnt, boolean bonusFlag, HashMap<Match, Integer> matchCounts) {
+        Match match = Match.from(cnt, bonusFlag);
+
+        if (match != null) {
+            matchCounts.put(match, matchCounts.get(match) + 1);
+        }
     }
 
 
@@ -64,14 +67,14 @@ public class LottoStatisticData {
 
     public double calculateRate(int amount) {
         int totalEarnAmount = 0;
-        for (Match m: match.keySet()) {
-            totalEarnAmount += match.get(m) * m.getPrice();
+        for (Match m: matchStatistic.keySet()) {
+            totalEarnAmount += matchStatistic.get(m) * m.getPrice();
         }
 
         return (double) totalEarnAmount / amount;
     }
 
-    public HashMap<Match, Integer> getMatch() {
-        return match;
+    public HashMap<Match, Integer> getMatchStatistic() {
+        return matchStatistic;
     }
 }
