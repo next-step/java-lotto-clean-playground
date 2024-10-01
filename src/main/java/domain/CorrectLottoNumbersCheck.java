@@ -21,9 +21,6 @@ public class CorrectLottoNumbersCheck {
     }
 
     public boolean checkBonusNumber(final LastWeekWinningLotto lastWeekWinnerLotto, final Lotto lotto) {
-        if (lotto.getLottoNumber().contains(lastWeekWinnerLotto.getBonusNumber())) {
-            return true;
-        }
-        return true;
+        return lotto.getLottoNumber().contains(lastWeekWinnerLotto.getBonusNumber());
     }
 }
