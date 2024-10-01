@@ -29,7 +29,13 @@ public class InputView {
     public int readManualCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
 
-        return Integer.parseInt(sc.nextLine());
+        int count =  Integer.parseInt(sc.nextLine());
+
+        if (count < 0) {
+            throw  new IllegalArgumentException("수동 구매 로또 갯수는 0 이상이여야 합니다.");
+        }
+
+        return count;
     }
 
 //    flag: 한번만 출력하기 위해서
