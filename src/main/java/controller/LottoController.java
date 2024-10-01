@@ -31,7 +31,7 @@ public class LottoController {
 
         printLottos(lottos, lottoCount);
 
-        Lotto lastWeekWinnerLotto = inputLastWeekWinningLottoNumber();
+        LastWeekWinningLotto lastWeekWinnerLotto = inputLastWeekWinningLottoNumber();
 
         updateWinningLottos.updateWinningLottos(lottos, lastWeekWinnerLotto);
 
@@ -58,13 +58,15 @@ public class LottoController {
         }
     }
 
-    private Lotto inputLastWeekWinningLottoNumber() {
+    private LastWeekWinningLotto inputLastWeekWinningLottoNumber() {
         InputView.printLastWeekWinningLottoNumber();
         final List<String> lastWeekWinningLottoNumber = WinningLottoNumberSeparator.separateWinningLottoNumbers(
                 InputFromUser.inputLastWeekWinningLottoNumber()
         );
-        return new Lotto(
-                StringToIntegerConvertor.convertStringToInteger(lastWeekWinningLottoNumber)
+        InputView.printLastWeekWinningLottoBonusNumber();
+        final int bonusNumber = InputFromUser.inputLastWeekWinningLottoBonusNumber();
+        return new LastWeekWinningLotto(
+                StringToIntegerConvertor.convertStringToInteger(lastWeekWinningLottoNumber), bonusNumber
         );
     }
 
