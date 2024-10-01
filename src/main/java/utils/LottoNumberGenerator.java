@@ -7,21 +7,23 @@ import java.util.List;
 
 public class LottoNumberGenerator {
 
-    private final List<Integer> lottoNumbers = new ArrayList<>();
-
-    private List<Integer> initializeNumbers() {
+    private static List<Integer> initializeNumbers() {
         List<Integer> numList = new ArrayList<>();
+
         for (int i = 1; i <= 45; i++) {
             numList.add(i);
         }
         Collections.shuffle(numList);
+
         return numList;
     }
 
-    public List<Integer> pickLottoNumbers() {
-        lottoNumbers.clear();
+    public static List<Integer> pickLottoNumbers() {
+        List<Integer> lottoNumbers = new ArrayList<>();
+
         lottoNumbers.addAll(initializeNumbers().subList(0, 6));
         Collections.sort(lottoNumbers);
+
         return lottoNumbers;
     }
 }
