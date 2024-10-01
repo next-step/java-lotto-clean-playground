@@ -48,11 +48,7 @@ public class LottoStatisticData {
     }
 
     private boolean findBonusMatched(int cnt, List<LottoNumber> lottoNumbers) {
-        if (cnt < 6 && lottoNumbers.contains(bonusNumber)) {
-            return true;
-        }
-
-        return false;
+        return cnt < 6 && lottoNumbers.contains(bonusNumber);
     }
 
 
