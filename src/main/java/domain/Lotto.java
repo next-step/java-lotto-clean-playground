@@ -1,2 +1,42 @@
-package PACKAGE_NAME;public class Lotto {
+package domain;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Lotto{
+
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private List<Integer> lottoNumbers;
+
+    public Lotto() {
+        this.lottoNumbers = generateLottoNumbers();
+    }
+
+    //로또 번호 자동 생성 메서드(1~45 사이 중복없는 6개의 숫자)
+    private List<Integer> generateLottoNumbers(){
+
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i=1; i<=45; i++){
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+        List<Integer> selectedNumbers = numbers.subList(0,6);
+
+        Collections.sort(selectedNumbers);
+        // ArrayList의 contains() 메소드는 어디 사용되는지 모르겠습니다.
+
+        return new ArrayList<>(selectedNumbers);
+    }
+
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
+    }
+
+    //당첨 번호와 일치하는 번호 개수 반환
+    public int countMatches(List<Integer> winningNumbers){
+        return (int) lottoNumbers.stream().filter(winningNumbers::contains).count();
+    }
+
 }
