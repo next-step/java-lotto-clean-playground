@@ -13,7 +13,7 @@ public class WinnigNumbersChecker {
     private final static int MATCH_COUNT_SIX = 6;
 
     private int countMatchingNumbers(List<Integer> lotto) {
-        List<Integer> winningNumbers = WinningNumberFomatter.formWinningNumbers();
+        List<Integer> winningNumbers = WinningNumberFomatter.formedWinningNumbers;
 
         return (int) lotto.stream()
                 .filter(winningNumbers::contains)

@@ -10,7 +10,7 @@ public class InputView {
         return input.nextInt();
     }
 
-    public static String inputLastWinningNumbers(){
+    public static String inputWinningNumbers(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return input.nextLine();
     }
