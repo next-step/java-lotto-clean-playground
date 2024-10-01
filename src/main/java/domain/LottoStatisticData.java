@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,10 +9,10 @@ public class LottoStatisticData {
     private final LottoNumber bonusNumber;
     private final HashMap<Match, Integer> matchStatistic;
 
-    public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> lottos) {
+    public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> purchasedLottos) {
         this.winnerNumbers = winnerNumbers;
         this.bonusNumber = bonusNumber;
-        this.matchStatistic = compileLottosStatistic(lottos);
+        this.matchStatistic = compileLottosStatistic(purchasedLottos);
     }
 
     private HashMap<Match, Integer> compileLottosStatistic(List<Lotto> lottos) {
@@ -58,9 +59,9 @@ public class LottoStatisticData {
 
     private HashMap<Match, Integer> initializeMatchMap() {
         HashMap<Match, Integer> matchCounts = new HashMap<Match, Integer>();
-        for (Match m: Match.values()) {
-            matchCounts.put(m, 0);
-        }
+
+        Arrays.stream(Match.values())
+                .forEach(v -> matchCounts.put(v, 0));
 
         return matchCounts;
     }
@@ -71,7 +72,7 @@ public class LottoStatisticData {
             totalEarnAmount += matchStatistic.get(m) * m.getPrice();
         }
 
-        return (double) totalEarnAmount / amount;
+        return Math.floor((double) totalEarnAmount / amount * 100)/100.0;
     }
 
     public HashMap<Match, Integer> getMatchStatistic() {
