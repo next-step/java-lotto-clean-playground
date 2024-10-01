@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import util.StringToIntegerConvertor;
-import util.WinningLottoNumberSeparator;
 
 import java.util.ArrayList;
 import java.util.List;

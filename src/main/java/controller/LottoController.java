@@ -3,7 +3,7 @@ package controller;
 import domain.*;
 import util.InputFromUser;
 import util.StringToIntegerConvertor;
-import util.WinningLottoNumberSeparator;
+import util.LottoNumberSeparator;
 import view.InputView;
 import view.OutputView;
 
@@ -60,7 +60,7 @@ public class LottoController {
 
     private LastWeekWinningLotto inputLastWeekWinningLottoNumber() {
         InputView.printLastWeekWinningLottoNumber();
-        final List<String> lastWeekWinningLottoNumber = WinningLottoNumberSeparator.separateWinningLottoNumbers(
+        final List<String> lastWeekWinningLottoNumber = LottoNumberSeparator.separateWinningLottoNumbers(
                 InputFromUser.inputLastWeekWinningLottoNumber()
         );
         InputView.printLastWeekWinningLottoBonusNumber();

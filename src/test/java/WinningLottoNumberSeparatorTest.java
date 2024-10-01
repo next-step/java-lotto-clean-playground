@@ -1,15 +1,11 @@
 
 
-import domain.Lotto;
-import domain.LottoMakeStrategy;
-import domain.Lottos;
-import domain.LottosCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-import util.WinningLottoNumberSeparator;
+import util.LottoNumberSeparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +22,7 @@ public class WinningLottoNumberSeparatorTest {
         List<String> expected = new ArrayList<String>(List.of("1", "2", "3", "4", "5", "6"));
 
         //when
-        List<String> result = WinningLottoNumberSeparator.separateWinningLottoNumbers(lastWeekWinningLottoNumber);
+        List<String> result = LottoNumberSeparator.separateWinningLottoNumbers(lastWeekWinningLottoNumber);
 
         //then
         Assertions.assertThat(result).usingRecursiveComparison().isEqualTo(expected);

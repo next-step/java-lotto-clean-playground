@@ -3,7 +3,7 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinningLottoNumberSeparator {
+public class LottoNumberSeparator {
 
     private static final String SPLIT_CHARACTERS = ", ";
 
