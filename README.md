@@ -8,14 +8,15 @@
 
 14000 // -> Input View(Scanner)
 
-
 14개를 구매했습니다. // -> Output View
 
 [8, 21, 23, 41, 42, 43] // -> Output View, collection-List? ArrayList, sort, no duplicate!!
 
 
+
 // 2단계
 지난 주 당첨 번호를 입력해 주세요. // -> Input View
+
 1, 2, 3, 4, 5, 6 // -> Input View(Scanner)
 
 당첨 통계 // -> Output View
