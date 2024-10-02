@@ -1,12 +1,10 @@
-import domain.Lotto;
-import domain.LottoShop;
-import domain.Lottos;
-import domain.WinnigNumbersChecker;
+import domain.*;
 import utils.WinningNumberFomatter;
+import utils.WinningResult;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -21,7 +19,8 @@ public class Main {
         WinningNumberFomatter.formWinningNumbers(inputWinningNumbers);
 
         WinnigNumbersChecker winnigNumbersChecker = new WinnigNumbersChecker(lottos);
-        Map<Integer,Integer> winningResultMap = winnigNumbersChecker.analizeResultToMap();
+        List<Integer> winningResultList = winnigNumbersChecker.analizeResultToList();
+        Map<Integer,Integer> winningResultMap = WinningResult.analizeResultToMap(winningResultList);
         OutputView.printWinningResult(winningResultMap);
     }
 }
