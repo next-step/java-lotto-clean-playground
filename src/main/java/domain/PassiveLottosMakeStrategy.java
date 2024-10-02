@@ -1,5 +1,6 @@
 package domain;
 
+import util.LottoNumberConvertor;
 import util.LottoNumberSeparator;
 import util.StringToIntegerConvertor;
 
@@ -16,10 +17,8 @@ public class PassiveLottosMakeStrategy implements LottoMakeStrategy {
     @Override
     public Lottos makeLottos() {
         return new Lottos(lottoNumbers.stream()
-                .map(lottoNumbers -> new Lotto(
-                                StringToIntegerConvertor.convertStringToInteger(LottoNumberSeparator.separateWinningLottoNumbers(lottoNumbers))
-                        )
-                ).toList()
-        );
+                .map(lottoNumbers -> new Lotto(LottoNumberConvertor.convertLottoNumbers(lottoNumbers))
+                )
+                .toList());
     }
 }
