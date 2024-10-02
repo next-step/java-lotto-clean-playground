@@ -13,4 +13,10 @@ public class Lotto {
     public List<Integer> getLotto() {
         return lotto;
     }
+
+    public int matchingNumbers(List<Integer> winningNumbers){
+        return (int) lotto.stream()
+                .filter(winningNumbers::contains)
+                .count();
+    }
 }

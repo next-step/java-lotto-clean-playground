@@ -3,8 +3,9 @@ package view;
 import domain.Lotto;
 import domain.Lottos;
 import domain.Rank;
-import utils.WinningResult;
-import static utils.WinningResult.resultMap;
+
+import java.util.Map;
+
 
 public class OutputView {
 
@@ -14,7 +15,7 @@ public class OutputView {
         }
     }
 
-    public static void printWinningResult() {
+    public static void printWinningResult(Map<Rank,Integer> resultMap) {
         System.out.println("당첨 통계");
         System.out.println("_________");
         System.out.println("3개 일치 (5000원) - " + resultMap.get(Rank.FIFTH) + "개");
@@ -24,8 +25,7 @@ public class OutputView {
         System.out.println("6개 일치 (2000000000원) - " + resultMap.get(Rank.FIRST) + "개");
     }
 
-    public static void printProfitability(int inputMoney){
-        String profitability = WinningResult.calculateProfitability(inputMoney);
-        System.out.println("총 수익률은 "+profitability+"입니다.");
+    public static void printProfitability(double profitability){
+        System.out.printf("총 수익률은 %.2f입니다.", profitability);
     }
 }
