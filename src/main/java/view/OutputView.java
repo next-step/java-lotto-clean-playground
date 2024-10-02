@@ -2,11 +2,13 @@ package view;
 
 import domain.Lotto;
 import domain.Lottos;
+import domain.Prize;
 
 import java.util.Map;
 
 public class OutputView {
 
+    //구입한 로또 개수
     public static void printNumberOfLottos(int numberOfLottos) {
         System.out.println(numberOfLottos + "개를 구매했습니다.");
     }
@@ -17,26 +19,19 @@ public class OutputView {
         }
     }
 
-    public static void printWinningStatistics(Map<Integer, Integer> matchCounts, int prize3, int prize4, int prize5, int prize6) {
+    public static void printWinningStatistics(Map<Prize, Integer> matchCounts) {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        matchCounts.forEach((matches, count) -> {
-            switch (matches) {
-                case 3:
-                    System.out.println(matches + "개 일치 (" + prize3 + "원)- " + count + "개");
-                    break;
-                case 4:
-                    System.out.println(matches + "개 일치 (" + prize4 + "원)- " + count + "개");
-                    break;
-                case 5:
-                    System.out.println(matches + "개 일치 (" + prize5 + "원)- " + count + "개");
-                    break;
-                case 6:
-                    System.out.println(matches + "개 일치 (" + prize6 + "원)- " + count + "개");
-                    break;
+        for (Prize prize: Prize.values()){
+            if (prize == Prize.FIVE_MATCHES_BONUS){
+                System.out.println("5개 일치, 보너스 볼 일치(" + prize.getPrizeAmount() + "원)- " + matchCounts.get(prize) + "개");
             }
-        });
+            //else 쓰는게 효율적일 것 같지만 조건때문에
+            if (prize != Prize.FIVE_MATCHES_BONUS) {
+                System.out.println(prize.getMatchingCount() + "개 일치 (" + prize.getPrizeAmount() + "원)- " + matchCounts.get(prize) + "개");
+            }
+        }
     }
 
     public static void printReturnRate(double returnRate) {

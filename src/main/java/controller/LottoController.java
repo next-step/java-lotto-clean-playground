@@ -24,19 +24,19 @@ public class LottoController {
         OutputView.printLottos(lottos);
 
         List<Integer> winningNumbers = InputView.LottoWinningNumber(numberOfLottos);// 로또 당첨번호 입력
+        int bonusNumber = InputView.BonusBall();
 
+        //통계 계산
         Statistics statistics = new Statistics();
         for (Lotto lotto : lottos.getLottos()) {
             int matchedCount = lotto.countMatches(winningNumbers);
-            statistics.updateStatistics(matchedCount);  // 통계 업데이트
+            boolean isBonusMatch = lotto.contains(bonusNumber);
+            statistics.updateStatistics(matchedCount, isBonusMatch);  // 통계 업데이트
         }
 
         //출력
-        OutputView.printWinningStatistics(statistics.getMatchCounts(),
-                statistics.getPrize3(),
-                statistics.getPrize4(),
-                statistics.getPrize5(),
-                statistics.getPrize6());
+        OutputView.printWinningStatistics(statistics.getMatchCounts());
+
 
         double returnRate = statistics.calculateReturnRate(price);
         OutputView.printReturnRate(returnRate);

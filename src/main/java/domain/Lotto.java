@@ -35,8 +35,13 @@ public class Lotto{
     }
 
     //당첨 번호와 일치하는 번호 개수 반환
-    public int countMatches(List<Integer> winningNumbers){
+    public int countMatches(List<Integer> winningNumbers) {
         return (int) lottoNumbers.stream().filter(winningNumbers::contains).count();
+    }
+
+    //보너스 번호가 로또 번호에 포함되는지 확인
+    public boolean contains(int bonusNumber){
+        return lottoNumbers.contains(bonusNumber);
     }
 
 }
