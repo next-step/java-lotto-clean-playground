@@ -34,7 +34,7 @@ public class WinningLottosTest {
             "5, true, FIVE_AND_BONUS_CORRECT_LOTTOS",
             "6, false, SIX_CORRECT_LOTTOS",
     })
-    public void convertStringToInteger(final int correctCount, final boolean isSecondPrize, final WinningLottos expected) {
+    private void convertStringToInteger(final int correctCount, final boolean isSecondPrize, final WinningLottos expected) {
         //given, when, then
         Assertions.assertThat(WinningLottos.of(correctCount, isSecondPrize)).isEqualTo(expected);
     }

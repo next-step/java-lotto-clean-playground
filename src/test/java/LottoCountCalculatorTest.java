@@ -15,10 +15,11 @@ public class LottoCountCalculatorTest {
         //given
         LottoCountCalculator lottoCountCalculator = new LottoCountCalculator();
         final int buyingCosts = 14000;
-        final int expected = 14;
+        final int expected = 12;
+        final int passiveLottoCount = 2;
 
         //when
-        final int result = lottoCountCalculator.calculateLottoCount(buyingCosts);
+        final int result = lottoCountCalculator.calculateLottoCount(buyingCosts, passiveLottoCount);
 
         //then
         Assertions.assertThat(result).isEqualTo(expected);
