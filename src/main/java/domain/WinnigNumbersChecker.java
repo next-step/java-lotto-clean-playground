@@ -3,7 +3,6 @@ package domain;
 import utils.WinningNumberFomatter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class WinnigNumbersChecker {
     Lottos lottos;
@@ -11,6 +10,10 @@ public class WinnigNumbersChecker {
     private final static int MATCH_COUNT_FOUR = 4;
     private final static int MATCH_COUNT_FIVE = 5;
     private final static int MATCH_COUNT_SIX = 6;
+
+    public WinnigNumbersChecker(Lottos lottos) {
+        this.lottos = lottos;
+    }
 
     private int countMatchingNumbers(List<Integer> lotto) {
         List<Integer> winningNumbers = WinningNumberFomatter.formedWinningNumbers;
@@ -26,21 +29,24 @@ public class WinnigNumbersChecker {
         for (Lotto lotto : lottos.getLottos()) {
             resultList.add(countMatchingNumbers(lotto.getLotto()));
         }
+
+        System.out.println(resultList);
         return resultList;
     }
 
     public Map<Integer, Integer> analizeResultToMap() {
         List<Integer> resultList = analizeResultToList();
-        List<Integer> keys = Arrays.asList(MATCH_COUNT_THREE,
-                                            MATCH_COUNT_FOUR,
-                                            MATCH_COUNT_FIVE,
-                                            MATCH_COUNT_SIX);
+        List<Integer> keys = Arrays.asList(
+                MATCH_COUNT_THREE,
+                MATCH_COUNT_FOUR,
+                MATCH_COUNT_FIVE,
+                MATCH_COUNT_SIX);
 
-        Map<Integer,Integer> resultMap = new HashMap<>();
+        Map<Integer, Integer> resultMap = new HashMap<>();
 
-        for(Integer key : keys){
-            int count = Collections.frequency(resultList,key);
-            resultMap.put(key,count);
+        for (Integer key : keys) {
+            int count = Collections.frequency(resultList, key);
+            resultMap.put(key, count);
         }
 
         return resultMap;
