@@ -20,7 +20,8 @@ public class Main {
 
         WinnigNumbersChecker winnigNumbersChecker = new WinnigNumbersChecker(lottos);
         List<Integer> winningResultList = winnigNumbersChecker.analizeResultToList();
-        Map<Integer,Integer> winningResultMap = WinningResult.analizeResultToMap(winningResultList);
-        OutputView.printWinningResult(winningResultMap);
+        WinningResult.analizeResultToMap(winningResultList);
+        OutputView.printWinningResult();
+        OutputView.printProfitability(inputMoney);
     }
 }
