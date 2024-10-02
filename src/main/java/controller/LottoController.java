@@ -26,20 +26,14 @@ public class LottoController {
         final int buyingCosts = inputCosts();
         final int passiveLottoCount = inputPassiveLottoCount();
         final int autoLottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts, passiveLottoCount);
-        final List<String> passiveLottosNumbers = inputPassiveLottos(passiveLottoCount);
 
-        Lottos passiveLottos = makeLottos(
-                new PassiveLottosMakeStrategy(passiveLottosNumbers)
-        );
-        Lottos autoLottos = makeLottos(
-                new RandomLottosMakeStrategy(autoLottoCount)
-        );
+        Lottos passiveLottos = makeLottos(new PassiveLottosMakeStrategy(inputPassiveLottos(passiveLottoCount)));
+        Lottos autoLottos = makeLottos(new RandomLottosMakeStrategy(autoLottoCount));
 
         printAllLottos(passiveLottos, autoLottos);
 
-        WinningLotto lastWeekWinnerLotto = inputLastWeekWinningLottoNumber();
-
-        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, lastWeekWinnerLotto);
+        WinningLotto winningLotto = inputLastWeekWinningLottoNumber();
+        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, winningLotto);
 
         printWinningLottosAndRateOfReturn(buyingCosts);
     }
@@ -47,6 +41,11 @@ public class LottoController {
     private int inputCosts() {
         InputView.printBuyingCosts();
         return InputFromUser.inputBuyingCosts();
+    }
+
+    private int inputPassiveLottoCount() {
+        InputView.printPassiveLottoCount();
+        return InputFromUser.inputPassiveLottoCount();
     }
 
     private Lottos makeLottos(final LottoMakeStrategy lottoMakeStrategy) {
@@ -84,11 +83,6 @@ public class LottoController {
                         OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount(), winningLottos.isSecondPrize())
                 );
         OutputView.printRateOfReturn(rateOfReturnCalculator.calculateRateOfReturn(buyingCosts));
-    }
-
-    private int inputPassiveLottoCount() {
-        InputView.printPassiveLottoCount();
-        return InputFromUser.inputPassiveLottoCount();
     }
 
     private List<String> inputPassiveLottos(final int passiveLottoCount) {
