@@ -1,8 +1,6 @@
 import domain.*;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,6 +13,11 @@ import java.util.stream.Stream;
 @DisplayName("로또 당첨 업데이트 테스트")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class UpdateWinningLottosTest {
+
+    @BeforeEach
+    public void initializeWinningLotto() {
+        WinningLottosStatus.initialize();
+    }
 
     @DisplayName("로또 당첨 시 당첨 로또목록을 업데이트 한다.")
     @ParameterizedTest

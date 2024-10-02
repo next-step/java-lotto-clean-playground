@@ -49,4 +49,11 @@ public enum WinningLottosStatus {
                 .findFirst()
                 .orElse(null);
     }
+
+    //테스트 용 메소드
+    public static void initialize() {
+        for (WinningLottosStatus winningLottosStatus : WinningLottosStatus.values()) {
+            winningLottosStatus.lottoCount = 0;
+        }
+    }
 }
