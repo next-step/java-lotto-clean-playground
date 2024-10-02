@@ -19,10 +19,10 @@ public class Main {
         WinningNumberFomatter.formWinningNumbers(inputWinningNumbers);
 
         final int inputBonus = InputView.inputBonus();
-        new BonusNumber(inputBonus);
+        final BonusNumber bonusNumber = new BonusNumber(inputBonus);
 
-        WinnigNumbersChecker winnigNumbersChecker = new WinnigNumbersChecker(lottos);
-        List<Integer> winningResultList = winnigNumbersChecker.analizeResultToList();
+        WinnigNumbersChecker winnigNumbersChecker = new WinnigNumbersChecker(lottos,bonusNumber);
+        List<Rank> winningResultList = winnigNumbersChecker.analizeResultToList();
         WinningResult.analizeResultToMap(winningResultList);
         OutputView.printWinningResult();
         OutputView.printProfitability(inputMoney);

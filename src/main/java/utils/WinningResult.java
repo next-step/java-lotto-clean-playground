@@ -1,25 +1,18 @@
 package utils;
 
+import domain.Rank;
+
 import java.util.*;
 
 public class WinningResult {
 
-    public final static Map<String, Integer> resultMap = new HashMap<>();
-    public final static String MATCH_THREE = "3";
-    public final static String MATCH_FOUR = "4";
-    public final static String MATCH_FIVE = "5";
-    public final static String MATCH_SIX = "6";
+    public final static Map<Rank, Integer> resultMap = new HashMap<>();
 
-    public static Map<String, Integer> analizeResultToMap(List<Integer> resultList) {
-        List<String> keys = Arrays.asList(
-                MATCH_THREE,
-                MATCH_FOUR,
-                MATCH_FIVE,
-                MATCH_SIX);
+    public static Map<Rank, Integer> analizeResultToMap(List<Rank> resultList) {
 
-        for (String key : keys) {
-            int count = Collections.frequency(resultList, Integer.parseInt(key));
-            resultMap.put(key, count);
+        for (Rank rank : Rank.values()) {
+            int count = Collections.frequency(resultList,rank);
+            resultMap.put(rank, count);
         }
 
         return resultMap;
@@ -28,10 +21,9 @@ public class WinningResult {
     public static int calculateTotal() {
         int sum = 0;
 
-        sum += resultMap.get(MATCH_THREE) * 5000;
-        sum += resultMap.get(MATCH_FOUR) * 50000;
-        sum += resultMap.get(MATCH_FIVE) * 1500000;
-        sum += resultMap.get(MATCH_SIX) * 2000000000;
+        for (Rank rank : resultMap.keySet()){
+            sum += resultMap.get(rank) * rank.getPrizeMoney();
+        }
 
         return sum;
     }
