@@ -1,5 +1,6 @@
 package util;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class InputFromUser {
@@ -19,6 +20,11 @@ public class InputFromUser {
     }
 
     public static int inputPassiveLottoCount() {
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static List<Integer> inputPassiveLottos() {
+        String lottoNumbers = scanner.nextLine();
+        return StringToIntegerConvertor.convertStringToInteger(LottoNumberSeparator.separateWinningLottoNumbers(lottoNumbers));
     }
 }
