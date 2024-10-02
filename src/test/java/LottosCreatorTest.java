@@ -1,7 +1,6 @@
 import domain.Lotto;
 import domain.LottoMakeStrategy;
 import domain.Lottos;
-import domain.LottosCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -21,15 +20,13 @@ public class LottosCreatorTest {
         //given
         final List<Integer> lottoNumber = List.of(5, 14, 16, 35, 38, 44);
         final Lotto lotto = new Lotto(lottoNumber);
-        final int lottoCount = 1;
 
         LottoMakeStrategy lottoMakeStrategy = new TestLottoMakeStrategy();
-        LottosCreator lottosCreator = new LottosCreator(lottoMakeStrategy);
 
         Lottos expected = new Lottos(new ArrayList<Lotto>(List.of(lotto)));
 
         //when
-        Lottos result = lottosCreator.createLottos(lottoCount);
+        Lottos result = lottoMakeStrategy.makeLottos();
 
         //then
         Assertions.assertThat(result).usingRecursiveComparison().isEqualTo(expected);

@@ -1,4 +1,6 @@
+import domain.Lotto;
 import domain.LottoMakeStrategy;
+import domain.Lottos;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,10 +29,10 @@ public class RandomLottoMakeStrategyTest {
         LottoMakeStrategy lottoMakeStrategy = new TestLottoMakeStrategy();
 
         //when
-        List<Integer> result = lottoMakeStrategy.makeLottos();
+        Lotto result = lottoMakeStrategy.makeLottos().getLottos().get(0);
 
         //then
-        Assertions.assertThat(result.contains(lottoNumber)).isEqualTo(expected);
+        Assertions.assertThat(result.getLottoNumber().contains(lottoNumber)).isEqualTo(expected);
     }
 
 }

@@ -1,8 +1,6 @@
 package domain;
 
 import util.LottoNumberConvertor;
-import util.LottoNumberSeparator;
-import util.StringToIntegerConvertor;
 
 import java.util.List;
 
