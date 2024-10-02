@@ -9,18 +9,18 @@ public class UpdateWinningLottos {
         this.correctLottoNumbersCheck = correctLottoNumbersCheck;
     }
 
-    public void updateWinningLottos(final Lottos lottos, final LastWeekWinningLotto lastWeekWinnerLotto) {
+    public void updateWinningLottos(final Lottos lottos, final WinningLotto lastWeekWinnerLotto) {
         for (Lotto lotto : lottos.getLottos()) {
             updateWinningLotto(lotto, lastWeekWinnerLotto);
         }
     }
 
-    private void updateWinningLotto(final Lotto lotto, final LastWeekWinningLotto lastWeekWinnerLotto) {
+    private void updateWinningLotto(final Lotto lotto, final WinningLotto lastWeekWinnerLotto) {
         final int correctCount = correctLottoNumbersCheck.checkCorrectLottoNumbers(lastWeekWinnerLotto, lotto);
         final boolean isBonusMatched = correctLottoNumbersCheck.checkBonusNumber(lastWeekWinnerLotto, lotto);
         final boolean isSecondPrize = checkSecondPrize(correctCount, isBonusMatched);
-        if (WinningLottos.of(correctCount, isSecondPrize) != null) {
-            WinningLottos.of(correctCount, isSecondPrize).addWinnerLotto();
+        if (WinningLottosStatus.of(correctCount, isSecondPrize) != null) {
+            WinningLottosStatus.of(correctCount, isSecondPrize).addWinnerLotto();
         }
     }
 

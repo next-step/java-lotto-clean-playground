@@ -8,7 +8,7 @@ public class RateOfReturnCalculator {
 
     private int calculateTotalPrize() {
         int totalPrize = 0;
-        for (WinningLottos winningLottos : WinningLottos.values()) {
+        for (WinningLottosStatus winningLottos : WinningLottosStatus.values()) {
             totalPrize += winningLottos.getPrizeMoney() * winningLottos.getLottoCount();
         }
         return totalPrize;

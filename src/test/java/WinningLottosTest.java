@@ -1,4 +1,4 @@
-import domain.WinningLottos;
+import domain.WinningLottosStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -15,14 +15,14 @@ public class WinningLottosTest {
     @DisplayName("4개가 일치하는 로또의 개수가 하나 증가한다.")
     public void convertStringToInteger() {
         //given
-        WinningLottos winningLottos = WinningLottos.FOUR_CORRECT_LOTTOS;
+        WinningLottosStatus winningLottos = WinningLottosStatus.FOUR_CORRECT_LOTTOS;
         final int expected = 1;
 
         //when
         winningLottos.addWinnerLotto();
 
         //then
-        Assertions.assertThat(WinningLottos.FOUR_CORRECT_LOTTOS.getLottoCount()).isEqualTo(expected);
+        Assertions.assertThat(WinningLottosStatus.FOUR_CORRECT_LOTTOS.getLottoCount()).isEqualTo(expected);
     }
 
     @DisplayName("일치 개수에 따른 로또 모음을 가져올 수 있다.")
@@ -34,8 +34,8 @@ public class WinningLottosTest {
             "5, true, FIVE_AND_BONUS_CORRECT_LOTTOS",
             "6, false, SIX_CORRECT_LOTTOS",
     })
-    private void convertStringToInteger(final int correctCount, final boolean isSecondPrize, final WinningLottos expected) {
+    private void convertStringToInteger(final int correctCount, final boolean isSecondPrize, final WinningLottosStatus expected) {
         //given, when, then
-        Assertions.assertThat(WinningLottos.of(correctCount, isSecondPrize)).isEqualTo(expected);
+        Assertions.assertThat(WinningLottosStatus.of(correctCount, isSecondPrize)).isEqualTo(expected);
     }
 }

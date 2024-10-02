@@ -1,13 +1,10 @@
-import domain.LottoMakeStrategy;
 import domain.RateOfReturnCalculator;
-import domain.WinningLottos;
+import domain.WinningLottosStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 @DisplayName("총 수익률 계산 테스트")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -18,9 +15,9 @@ public class RateOfReturnCalculatorTest {
     public void calculateRateOfReturn() {
         //given
         final int buyingCosts = 5000;
-        WinningLottos.THREE_CORRECT_LOTTOS.addWinnerLotto();
+        WinningLottosStatus.THREE_CORRECT_LOTTOS.addWinnerLotto();
         RateOfReturnCalculator rateOfReturnCalculator = new RateOfReturnCalculator();
-        final double expected = (double) WinningLottos.THREE_CORRECT_LOTTOS.getPrizeMoney() / (double) buyingCosts;
+        final double expected = (double) WinningLottosStatus.THREE_CORRECT_LOTTOS.getPrizeMoney() / (double) buyingCosts;
 
         //when
         final double result = rateOfReturnCalculator.calculateRateOfReturn(buyingCosts);

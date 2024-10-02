@@ -5,7 +5,7 @@ public class CorrectLottoNumbersCheck {
     private static final int IS_CORRECT_LOTTO_NUMBER = 1;
     private static final int IS_NOT_CORRECT_LOTTO_NUMBER = 0;
 
-    public int checkCorrectLottoNumbers(final LastWeekWinningLotto winningLotto, final Lotto lotto) {
+    public int checkCorrectLottoNumbers(final WinningLotto winningLotto, final Lotto lotto) {
         int correctCount = 0;
         for (int lottoNumber : lotto.getLottoNumber()) {
             correctCount += isContainedWinningLottoNumbers(lottoNumber, winningLotto);
@@ -20,7 +20,7 @@ public class CorrectLottoNumbersCheck {
         return IS_NOT_CORRECT_LOTTO_NUMBER;
     }
 
-    public boolean checkBonusNumber(final LastWeekWinningLotto lastWeekWinnerLotto, final Lotto lotto) {
+    public boolean checkBonusNumber(final WinningLotto lastWeekWinnerLotto, final Lotto lotto) {
         return lotto.getLottoNumber().contains(lastWeekWinnerLotto.getBonusNumber());
     }
 }

@@ -1,5 +1,5 @@
 import domain.CorrectLottoNumbersCheck;
-import domain.LastWeekWinningLotto;
+import domain.WinningLotto;
 import domain.Lotto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ public class CorrectLottoNumbersCheckTest {
         CorrectLottoNumbersCheck correctLottoNumbersCheck = new CorrectLottoNumbersCheck();
 
         Lotto lotto = new Lotto(new ArrayList<Integer>(List.of(7, 2, 19, 4, 5, 54)));
-        LastWeekWinningLotto winningLotto = new LastWeekWinningLotto(new ArrayList<Integer>(List.of(1, 2, 3, 4, 5, 6)), 7);
+        WinningLotto winningLotto = new WinningLotto(new ArrayList<Integer>(List.of(1, 2, 3, 4, 5, 6)), 7);
         final int expected = 3;
 
         //when
@@ -38,7 +38,7 @@ public class CorrectLottoNumbersCheckTest {
         CorrectLottoNumbersCheck correctLottoNumbersCheck = new CorrectLottoNumbersCheck();
 
         Lotto lotto = new Lotto(new ArrayList<Integer>(List.of(7, 2, 19, 4, 5, 54)));
-        LastWeekWinningLotto winningLotto = new LastWeekWinningLotto(new ArrayList<Integer>(List.of(1, 2, 3, 4, 5, 6)), 7);
+        WinningLotto winningLotto = new WinningLotto(new ArrayList<Integer>(List.of(1, 2, 3, 4, 5, 6)), 7);
         final boolean expected = true;
 
         //when
