@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.stream.IntStream;
-
 public class LottosCreator {
 
     private final LottoMakeStrategy lottoMakeStrategy;
@@ -10,10 +8,7 @@ public class LottosCreator {
         this.lottoMakeStrategy = lottoMakeStrategy;
     }
 
-    public Lottos createLottos(final int lottoCount) {
-        return new Lottos(IntStream.range(0, lottoCount)
-                .mapToObj(i ->
-                        new Lotto(lottoMakeStrategy.makeLotto())
-                ).toList());
+    public Lottos createLottos() {
+        return lottoMakeStrategy.makeLottos();
     }
 }

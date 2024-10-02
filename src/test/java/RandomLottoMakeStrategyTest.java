@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @DisplayName("로또 생성 전략 테스트")
@@ -28,7 +27,7 @@ public class RandomLottoMakeStrategyTest {
         LottoMakeStrategy lottoMakeStrategy = new TestLottoMakeStrategy();
 
         //when
-        List<Integer> result = lottoMakeStrategy.makeLotto();
+        List<Integer> result = lottoMakeStrategy.makeLottos();
 
         //then
         Assertions.assertThat(result.contains(lottoNumber)).isEqualTo(expected);

@@ -2,6 +2,7 @@ package util;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class InputFromUser {
 
@@ -23,8 +24,9 @@ public class InputFromUser {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public static List<Integer> inputPassiveLottos() {
-        String lottoNumbers = scanner.nextLine();
-        return StringToIntegerConvertor.convertStringToInteger(LottoNumberSeparator.separateWinningLottoNumbers(lottoNumbers));
+    public static List<String> inputPassiveLottos(final int passiveLottoCount) {
+        return IntStream.range(0, passiveLottoCount)
+                .mapToObj(i -> scanner.nextLine())
+                .toList();
     }
 }

@@ -7,20 +7,16 @@ import util.LottoNumberSeparator;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class LottoController {
 
-    private final LottosCreator lottosCreator;
     private final LottoCountCalculator lottoCountCalculator;
     private final UpdateWinningLottos updateWinningLottos;
     private final RateOfReturnCalculator rateOfReturnCalculator;
 
-    public LottoController(final LottosCreator lottosCreator, final LottoCountCalculator lottoCountCalculator, final UpdateWinningLottos updateWinningLottos, final RateOfReturnCalculator rateOfReturnCalculator) {
-        this.lottosCreator = lottosCreator;
+    public LottoController(final LottoCountCalculator lottoCountCalculator, final UpdateWinningLottos updateWinningLottos, final RateOfReturnCalculator rateOfReturnCalculator) {
         this.lottoCountCalculator = lottoCountCalculator;
         this.updateWinningLottos = updateWinningLottos;
         this.rateOfReturnCalculator = rateOfReturnCalculator;
@@ -29,25 +25,23 @@ public class LottoController {
     public void startLottoApplication() {
         final int buyingCosts = inputCosts();
         final int passiveLottoCount = inputPassiveLottoCount();
-        final int lottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts, passiveLottoCount);
-        Lottos passiveLottos = makePassiveLottos(passiveLottoCount);
-        Lottos autoLottos = makeLottos(lottoCount);
-        Lottos lottos = mergeLottos(passiveLottos, autoLottos);
+        final int autoLottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts, passiveLottoCount);
+        final List<String> passiveLottosNumbers = inputPassiveLottos(passiveLottoCount);
 
-        printLottos(lottos, lottoCount, passiveLottoCount);
+        Lottos passiveLottos = makeLottos(
+                new PassiveLottosMakeStrategy(passiveLottosNumbers)
+        );
+        Lottos autoLottos = makeLottos(
+                new RandomLottosMakeStrategy(autoLottoCount)
+        );
+
+        printAllLottos(passiveLottos, autoLottos);
 
         WinningLotto lastWeekWinnerLotto = inputLastWeekWinningLottoNumber();
 
-        updateWinningLottos.updateWinningLottos(lottos, lastWeekWinnerLotto);
+        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, lastWeekWinnerLotto);
 
         printWinningLottosAndRateOfReturn(buyingCosts);
-    }
-
-    private Lottos mergeLottos(Lottos passiveLottos, Lottos autoLottos) {
-        List<Lotto> lottos = new ArrayList<Lotto>();
-        lottos.addAll(passiveLottos.getLottos());
-        lottos.addAll(autoLottos.getLottos());
-        return new Lottos(lottos);
     }
 
     private int inputCosts() {
@@ -55,13 +49,14 @@ public class LottoController {
         return InputFromUser.inputBuyingCosts();
     }
 
-    private Lottos makeLottos(final int lottoCount) {
-        return lottosCreator.createLottos(lottoCount);
+    private Lottos makeLottos(final LottoMakeStrategy lottoMakeStrategy) {
+        return lottoMakeStrategy.makeLottos();
     }
 
-    private void printLottos(final Lottos lottos, final int lottoCount, final int passiveLottoCount) {
-        OutputView.printCompleteBuyingLotto(passiveLottoCount, lottoCount);
-        printLottos(lottos.getLottos());
+    private void printAllLottos(final Lottos passiveLottos, final Lottos autoLottos) {
+        OutputView.printCompleteBuyingLotto(passiveLottos.getLottosCount(), autoLottos.getLottosCount());
+        printLottos(passiveLottos.getLottos());
+        printLottos(autoLottos.getLottos());
     }
 
     private void printLottos(final List<Lotto> lottos) {
@@ -96,13 +91,8 @@ public class LottoController {
         return InputFromUser.inputPassiveLottoCount();
     }
 
-    private Lottos makePassiveLottos(final int passiveLottoCount) {
+    private List<String> inputPassiveLottos(final int passiveLottoCount) {
         InputView.printPassiveLottoNumbers();
-        return new Lottos(
-                IntStream.range(0, passiveLottoCount)
-                        .mapToObj(i ->
-                                new Lotto(InputFromUser.inputPassiveLottos())
-                        ).toList()
-        );
+        return InputFromUser.inputPassiveLottos(passiveLottoCount);
     }
 }

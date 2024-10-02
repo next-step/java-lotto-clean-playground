@@ -9,9 +9,12 @@ public class UpdateWinningLottos {
         this.correctLottoNumbersCheck = correctLottoNumbersCheck;
     }
 
-    public void updateWinningLottos(final Lottos lottos, final WinningLotto lastWeekWinnerLotto) {
-        for (Lotto lotto : lottos.getLottos()) {
-            updateWinningLotto(lotto, lastWeekWinnerLotto);
+    public void updateWinningLottos(final Lottos passiveLottos, final Lottos autoLottos, final WinningLotto winnerLotto) {
+        for (Lotto lotto : passiveLottos.getLottos()) {
+            updateWinningLotto(lotto, winnerLotto);
+        }
+        for (Lotto lotto : autoLottos.getLottos()) {
+            updateWinningLotto(lotto, winnerLotto);
         }
     }
 
