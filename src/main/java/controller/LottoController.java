@@ -26,10 +26,11 @@ public class LottoController {
 
     public void startLottoApplication() {
         final int buyingCosts = inputCosts();
+        final int passiveCount = inputPassiveLottoCount();
         final int lottoCount = lottoCountCalculator.calculateLottoCount(buyingCosts);
         Lottos lottos = makeLottos(lottoCount);
 
-        printLottos(lottos, lottoCount);
+        printLottos(lottos, lottoCount, passiveCount);
 
         LastWeekWinningLotto lastWeekWinnerLotto = inputLastWeekWinningLottoNumber();
 
@@ -47,8 +48,8 @@ public class LottoController {
         return lottosCreator.createLottos(lottoCount);
     }
 
-    private void printLottos(final Lottos lottos, final int lottoCount) {
-        OutputView.printCompleteBuyingLotto(lottoCount);
+    private void printLottos(final Lottos lottos, final int lottoCount, final int passiveLottoCount) {
+        OutputView.printCompleteBuyingLotto(lottoCount, passiveLottoCount);
         printLottos(lottos.getLottos());
     }
 
@@ -77,5 +78,10 @@ public class LottoController {
                         OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount(), winningLottos.isSecondPrize())
                 );
         OutputView.printRateOfReturn(rateOfReturnCalculator.calculateRateOfReturn(buyingCosts));
+    }
+
+    private int inputPassiveLottoCount() {
+        InputView.printPassiveLottoCount();
+        return InputFromUser.inputPassiveLottoCount();
     }
 }

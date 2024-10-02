@@ -4,8 +4,8 @@ import java.util.List;
 
 public class OutputView {
 
-    public static void printCompleteBuyingLotto(final int lottoCount) {
-        System.out.println(lottoCount + "개를 구매했습니다.");
+    public static void printCompleteBuyingLotto(final int passiveLottoCount, final int autoLottoCount) {
+        System.out.println("수동으로 " + passiveLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
     }
 
     public static void printBuyingLotto(final List<Integer> lotto) {

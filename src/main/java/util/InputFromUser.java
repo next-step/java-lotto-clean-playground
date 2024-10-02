@@ -17,4 +17,8 @@ public class InputFromUser {
     public static int inputLastWeekWinningLottoBonusNumber() {
         return scanner.nextInt();
     }
+
+    public static int inputPassiveLottoCount() {
+        return scanner.nextInt();
+    }
 }
