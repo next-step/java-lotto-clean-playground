@@ -2,7 +2,6 @@ package controller;
 
 import domain.Lotto;
 import domain.Lottos;
-import domain.RandomNumberGenerater;
 import domain.Statistics;
 import view.InputView;
 import view.OutputView;
@@ -14,7 +13,7 @@ public class LottoController {
 
     private static final int LOTTO_PRICE = 1000;
 
-    public void buyLottos(){
+    public void buyLottos() {
 
         int price = InputView.readPrice();
         int numberOfLottos = price / LOTTO_PRICE; //총 로또 구매 개수
@@ -25,26 +24,27 @@ public class LottoController {
         List<Lotto> handLottos = InputView.handLottosNumber(numberOfHandLottos);
 
         //자동 로또 번호 생성
-        Lottos autolottos = new Lottos(numberOfAutoLottos);
+        //Lottos autoLottos = new Lottos(numberOfAutoLottos);
+        Lottos autoLottos = Lottos.fromAutoLottos(numberOfAutoLottos);
 
         //로또 합치기
         List<Lotto> finalLottos = new ArrayList<>(handLottos);
-        finalLottos.addAll(autolottos.getLottos());
+        finalLottos.addAll(autoLottos.getLottos());
 
         //로또 정보 출력
-        OutputView.printNumberOfLottos(numberOfHandLottos,numberOfAutoLottos);
+        OutputView.printNumberOfLottos(numberOfHandLottos, numberOfAutoLottos);
         OutputView.printLottos(finalLottos);
 
         //당첨 번호
-        List<Integer> winningNumbers = InputView.LottoWinningNumber(numberOfLottos);// 로또 당첨번호 입력
-        int bonusNumber = InputView.BonusBall();
+        List<Integer> winningNumbers = InputView.lottoWinningNumber();// 로또 당첨번호 입력
+        int bonusNumber = InputView.bonusBall();
 
         //통계 계산
         Statistics statistics = new Statistics();
         for (Lotto lotto : finalLottos) {
             int matchedCount = lotto.countMatches(winningNumbers);
             boolean isBonusMatch = lotto.contains(bonusNumber);
-            statistics.updateStatistics(matchedCount, isBonusMatch);  // 통계 업데이트
+            statistics.matchCountUpdate(matchedCount, isBonusMatch);  // 통계 업데이트
         }
 
         //출력

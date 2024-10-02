@@ -1,25 +1,18 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Lottos {
 
     private final List<Lotto> lottos;
 
-    public Lottos(int numberOfLottos) { //로또 자동생성 생성자
-        this.lottos = generateLottos(numberOfLottos);
+    public Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 
-    //구입한 자동 로또개수만큼 로또 자동 생성
-    private List<Lotto> generateLottos(int numberOfAutoLottos){
-
-        List<Lotto> lottoList = new ArrayList<>();
-        for (int i=0; i<numberOfAutoLottos; i++){
-            lottoList.add(new Lotto());
-        }
-
-        return lottoList;
+    //정적 팩토리 메서드
+    public static Lottos fromAutoLottos(int numberOfAutoLottos) {
+        return LottoFactory.createAutoLottos(numberOfAutoLottos);
     }
 
     public List<Lotto> getLottos() {
