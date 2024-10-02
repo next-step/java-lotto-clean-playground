@@ -18,6 +18,9 @@ public class Main {
         final String inputWinningNumbers = InputView.inputWinningNumbers();
         WinningNumberFomatter.formWinningNumbers(inputWinningNumbers);
 
+        final int inputBonus = InputView.inputBonus();
+        new BonusNumber(inputBonus);
+
         WinnigNumbersChecker winnigNumbersChecker = new WinnigNumbersChecker(lottos);
         List<Integer> winningResultList = winnigNumbersChecker.analizeResultToList();
         WinningResult.analizeResultToMap(winningResultList);

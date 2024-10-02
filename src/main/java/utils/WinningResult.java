@@ -5,17 +5,17 @@ import java.util.*;
 public class WinningResult {
 
     public final static Map<String, Integer> resultMap = new HashMap<>();
-    public final static String MATCH_COUNT_THREE = "3";
-    public final static String MATCH_COUNT_FOUR = "4";
-    public final static String  MATCH_COUNT_FIVE = "5";
-    public final static String MATCH_COUNT_SIX = "6";
+    public final static String MATCH_THREE = "3";
+    public final static String MATCH_FOUR = "4";
+    public final static String MATCH_FIVE = "5";
+    public final static String MATCH_SIX = "6";
 
     public static Map<String, Integer> analizeResultToMap(List<Integer> resultList) {
         List<String> keys = Arrays.asList(
-                MATCH_COUNT_THREE,
-                MATCH_COUNT_FOUR,
-                MATCH_COUNT_FIVE,
-                MATCH_COUNT_SIX);
+                MATCH_THREE,
+                MATCH_FOUR,
+                MATCH_FIVE,
+                MATCH_SIX);
 
         for (String key : keys) {
             int count = Collections.frequency(resultList, Integer.parseInt(key));
@@ -28,10 +28,10 @@ public class WinningResult {
     public static int calculateTotal() {
         int sum = 0;
 
-        sum += resultMap.get(MATCH_COUNT_THREE) * 5000;
-        sum += resultMap.get(MATCH_COUNT_FOUR) * 50000;
-        sum += resultMap.get(MATCH_COUNT_FIVE) * 1500000;
-        sum += resultMap.get(MATCH_COUNT_SIX) * 2000000000;
+        sum += resultMap.get(MATCH_THREE) * 5000;
+        sum += resultMap.get(MATCH_FOUR) * 50000;
+        sum += resultMap.get(MATCH_FIVE) * 1500000;
+        sum += resultMap.get(MATCH_SIX) * 2000000000;
 
         return sum;
     }
