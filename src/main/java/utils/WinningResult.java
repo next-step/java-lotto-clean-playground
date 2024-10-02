@@ -4,21 +4,21 @@ import java.util.*;
 
 public class WinningResult {
 
-    public final static Map<Integer, Integer> resultMap = new HashMap<>();
-    private final static int MATCH_COUNT_THREE = 3;
-    private final static int MATCH_COUNT_FOUR = 4;
-    private final static int MATCH_COUNT_FIVE = 5;
-    private final static int MATCH_COUNT_SIX = 6;
+    public final static Map<String, Integer> resultMap = new HashMap<>();
+    public final static String MATCH_COUNT_THREE = "3";
+    public final static String MATCH_COUNT_FOUR = "4";
+    public final static String  MATCH_COUNT_FIVE = "5";
+    public final static String MATCH_COUNT_SIX = "6";
 
-    public static Map<Integer, Integer> analizeResultToMap(List<Integer> resultList) {
-        List<Integer> keys = Arrays.asList(
+    public static Map<String, Integer> analizeResultToMap(List<Integer> resultList) {
+        List<String> keys = Arrays.asList(
                 MATCH_COUNT_THREE,
                 MATCH_COUNT_FOUR,
                 MATCH_COUNT_FIVE,
                 MATCH_COUNT_SIX);
 
-        for (Integer key : keys) {
-            int count = Collections.frequency(resultList, key);
+        for (String key : keys) {
+            int count = Collections.frequency(resultList, Integer.parseInt(key));
             resultMap.put(key, count);
         }
 
@@ -29,15 +29,15 @@ public class WinningResult {
         int sum = 0;
 
         sum += resultMap.get(MATCH_COUNT_THREE) * 5000;
-        sum += resultMap.get(MATCH_COUNT_THREE) * 50000;
-        sum += resultMap.get(MATCH_COUNT_THREE) * 1500000;
-        sum += resultMap.get(MATCH_COUNT_THREE) *2000000000;
+        sum += resultMap.get(MATCH_COUNT_FOUR) * 50000;
+        sum += resultMap.get(MATCH_COUNT_FIVE) * 1500000;
+        sum += resultMap.get(MATCH_COUNT_SIX) * 2000000000;
 
         return sum;
     }
 
     public static String calculateProfitability(int inputMoney) {
-        double profitability = (double) WinningResult.calculateTotal() /inputMoney;
+        double profitability = (double) WinningResult.calculateTotal() / inputMoney;
 
         return String.format("%.2f",profitability);
     }
