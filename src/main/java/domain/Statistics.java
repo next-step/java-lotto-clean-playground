@@ -39,7 +39,7 @@ public class Statistics {
     public double calculateReturnRate(int totalSpent){
         int totalEarnings = 0;
         for (Prize prize: Prize.values()){
-            totalEarnings += matchCounts.get(prize.getMatchingCount()* prize.getPrizeAmount());
+            totalEarnings += matchCounts.getOrDefault(prize,0)* prize.getPrizeAmount();
         }
         return (double) totalEarnings / totalSpent;
     }
