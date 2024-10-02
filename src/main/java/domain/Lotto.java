@@ -9,8 +9,18 @@ public class Lotto{
     private static final int LOTTO_NUMBER_COUNT = 6;
     private List<Integer> lottoNumbers;
 
+    //로또 번호 자동 생성 생성자
     public Lotto() {
         this.lottoNumbers = generateLottoNumbers();
+    }
+
+    //로또 번호 수동 생성 생성자
+    public Lotto(List<Integer> numbers){
+        if (numbers.size()!=LOTTO_NUMBER_COUNT){
+            throw new IllegalStateException("로또 번호는 6개여야 합니다.");
+        }
+        this.lottoNumbers = new ArrayList<>(numbers);
+        Collections.sort(this.lottoNumbers);
     }
 
     //로또 번호 자동 생성 메서드(1~45 사이 중복없는 6개의 숫자)

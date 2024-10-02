@@ -17,18 +17,31 @@ public class LottoController {
     public void buyLottos(){
 
         int price = InputView.readPrice();
-        int numberOfLottos = price / LOTTO_PRICE; //로또 구매 개수
-        OutputView.printNumberOfLottos(numberOfLottos);
+        int numberOfLottos = price / LOTTO_PRICE; //총 로또 구매 개수
+        int numberOfHandLottos = InputView.numberOfhandLottos();
+        int numberOfAutoLottos = numberOfLottos - numberOfHandLottos;
 
-        Lottos lottos = new Lottos(numberOfLottos);  // 로또 자동 생성
-        OutputView.printLottos(lottos);
+        //수동 로또 번호 입력
+        List<Lotto> handLottos = InputView.handLottosNumber(numberOfHandLottos);
 
+        //자동 로또 번호 생성
+        Lottos autolottos = new Lottos(numberOfAutoLottos);
+
+        //로또 합치기
+        List<Lotto> finalLottos = new ArrayList<>(handLottos);
+        finalLottos.addAll(autolottos.getLottos());
+
+        //로또 정보 출력
+        OutputView.printNumberOfLottos(numberOfHandLottos,numberOfAutoLottos);
+        OutputView.printLottos(finalLottos);
+
+        //당첨 번호
         List<Integer> winningNumbers = InputView.LottoWinningNumber(numberOfLottos);// 로또 당첨번호 입력
         int bonusNumber = InputView.BonusBall();
 
         //통계 계산
         Statistics statistics = new Statistics();
-        for (Lotto lotto : lottos.getLottos()) {
+        for (Lotto lotto : finalLottos) {
             int matchedCount = lotto.countMatches(winningNumbers);
             boolean isBonusMatch = lotto.contains(bonusNumber);
             statistics.updateStatistics(matchedCount, isBonusMatch);  // 통계 업데이트
