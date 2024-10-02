@@ -23,3 +23,4 @@ public class LottoGame {
         return 0;
     }
 }
+
