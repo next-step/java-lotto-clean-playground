@@ -7,6 +7,7 @@ import view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class LottoGameController {
     private final InputView inputView;
@@ -30,7 +31,6 @@ public class LottoGameController {
             }
 
             int automaticCount = lottoCount - manualCount;
-
 
             List<Lotto> lottos = purchaseLottos(automaticCount, manualCount);
 
@@ -57,18 +57,27 @@ public class LottoGameController {
     }
 
     private List<Lotto> purchaseLottos(int autoCount, int manualCount) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < manualCount; i++) {
-            LottoNumbers lottoNumbers = inputView.readManualLottoNumbers(i);
-            lottos.add(new Lotto(lottoNumbers));
+
+        if (manualCount > 0) {
+            inputView.printReadManualLottoMessage();
         }
+
+        List<Lotto> manualLottos = IntStream.range(0, manualCount)
+                .mapToObj(i -> inputView.readManualLottoNumbers())
+                .map(Lotto::new)
+                .toList();
 
         System.out.println();
 
-        for (int i = 0; i < autoCount; i++) {
-            Lotto lotto = Lotto.creatAutoLotto();
-            lottos.add(lotto);
-        }
+        List<Lotto> autoLottos = IntStream.range(0, autoCount)
+                .mapToObj(i -> Lotto.creatAutoLotto())
+                .toList();
+
+        List<Lotto> lottos = new ArrayList<>() {{
+            addAll(manualLottos);
+            addAll(autoLottos);
+        }};
+
 
         return lottos;
     }

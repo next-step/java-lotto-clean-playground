@@ -39,32 +39,17 @@ public class InputView {
     }
 
 //    flag: 한번만 출력하기 위해서
-    public LottoNumbers readManualLottoNumbers(int flag) {
-        if (flag == 0) {
-            System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        }
-
+    public LottoNumbers readManualLottoNumbers() {
         return numbersToLottoNumbers();
-
-//        String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
-//
-//        return new LottoNumbers(Arrays
-//                .stream(numbers)
-//                .map(LottoNumber::from)
-//                .collect(Collectors.toList()));
     }
 
+    public void printReadManualLottoMessage() {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+    }
     public LottoNumbers readWinnerNumbers() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
 
         return numbersToLottoNumbers();
-
-//        String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
-//
-//        return new LottoNumbers(Arrays
-//                .stream(numbers)
-//                .map(LottoNumber::from)
-//                .collect(Collectors.toList()));
     }
 
     public LottoNumber readBonusNumber() {
