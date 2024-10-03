@@ -1,22 +1,23 @@
 package domain;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoStatisticData {
     private final LottoNumbers winnerNumbers;
     private final LottoNumber bonusNumber;
-    private final HashMap<Match, Integer> matchStatistic;
+    private final Map<Match, Integer> matchStatistic;
 
     public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> purchasedLottos) {
         this.winnerNumbers = winnerNumbers;
         this.bonusNumber = bonusNumber;
-        this.matchStatistic = compileLottosStatistic(purchasedLottos);
+        this.matchStatistic = calculateLottosStatistic(purchasedLottos);
     }
 
-    private HashMap<Match, Integer> compileLottosStatistic(List<Lotto> lottos) {
-        HashMap<Match, Integer> matchCounts = initializeMatchMap();
+    private Map<Match, Integer> calculateLottosStatistic(List<Lotto> lottos) {
+        Map<Match, Integer> matchCounts = initializeMatchMap();
 
         for (Lotto lotto : lottos) {
             List<LottoNumber> lottoNumbers = lotto.getLottoNumbers().getNumbers();
@@ -25,7 +26,7 @@ public class LottoStatisticData {
 
             boolean bonusFlag = isBonusMatched(cnt, lottoNumbers);
 
-            upDateMatchStatistic(cnt, bonusFlag, matchCounts);
+            updateMatchStatistic(cnt, bonusFlag, matchCounts);
         }
 
         return matchCounts;
@@ -47,7 +48,7 @@ public class LottoStatisticData {
         return cnt == 5 && lottoNumbers.contains(bonusNumber);
     }
 
-    private void upDateMatchStatistic(int cnt, boolean bonusFlag, HashMap<Match, Integer> matchCounts) {
+    private void updateMatchStatistic(int cnt, boolean bonusFlag, Map<Match, Integer> matchCounts) {
         Match match = Match.from(cnt, bonusFlag);
 
         if (match != null) {
@@ -55,15 +56,9 @@ public class LottoStatisticData {
         }
     }
 
-
-
-    private HashMap<Match, Integer> initializeMatchMap() {
-        HashMap<Match, Integer> matchCounts = new HashMap<Match, Integer>();
-
-        Arrays.stream(Match.values())
-                .forEach(v -> matchCounts.put(v, 0));
-
-        return matchCounts;
+    private Map<Match, Integer> initializeMatchMap() {
+        return Arrays.stream(Match.values())
+                .collect(Collectors.toMap(v-> v, v ->0));
     }
 
     public double calculateRate(int amount) {
@@ -75,7 +70,7 @@ public class LottoStatisticData {
         return Math.floor((double) totalEarnAmount / amount * 100)/100.0;
     }
 
-    public HashMap<Match, Integer> getMatchStatistic() {
+    public Map<Match, Integer> getMatchStatistic() {
         return matchStatistic;
     }
 }

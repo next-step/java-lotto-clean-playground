@@ -5,8 +5,8 @@ import domain.LottoNumber;
 import domain.LottoNumbers;
 import domain.Match;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -61,7 +61,7 @@ public class OutputView {
         }
     }
 
-    public void printStatistic(HashMap<Match, Integer> statistic) {
+    public void printStatistic(Map<Match, Integer> statistic) {
         System.out.println("당첨 통계\n" +
                 "---------");
 

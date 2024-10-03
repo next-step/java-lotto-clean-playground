@@ -29,7 +29,7 @@ public class LottoNumbers {
     }
 
     private void validateDuplicate(List<LottoNumber> numbers) {
-        Set<LottoNumber> setNumbers = new HashSet<LottoNumber>(numbers);
+        Set<LottoNumber> setNumbers = new HashSet<>(numbers);
 
         if (setNumbers.size() != numbers.size()) {
             throw new IllegalArgumentException("로또 번호는 중복이 없어야 합니다");
