@@ -13,8 +13,8 @@ public class LottoShop {
     }
 
     // 자동 로또 개수
-    public int countAutoLottoTickets(int inputMoney, int ManualCount) {
-        return (inputMoney / LOTTO_PRICE) - ManualCount;
+    public int countAutoLottoTickets(int inputMoney, int manualCount) {
+        return (inputMoney / LOTTO_PRICE) - manualCount;
     }
 
     // 자동 로또 생성 및 로또 합치기

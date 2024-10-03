@@ -11,8 +11,8 @@ public class LottoTest {
 
     @DisplayName("로또_번호가_6개가_아니면_예외가_발생한다")
     @Test
-    void 로또_번호가_6개가_아니면_예외가_발생한다(){
-        List<Integer> Lottos = Arrays.asList(1,2,3);
+    void 로또_번호가_6개가_아니면_예외가_발생한다() {
+        List<Integer> Lottos = Arrays.asList(1, 2, 3);
 
         assertThatThrownBy(() -> new Lotto(Lottos))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -21,8 +21,8 @@ public class LottoTest {
 
     @DisplayName("로또_번호가_중복이_있으면_예외가_발생한다")
     @Test
-    void 로또_번호가_중복이_있으면_예외가_발생한다(){
-        List<Integer> Lottos = Arrays.asList(1,1,1,1,1,1);
+    void 로또_번호가_중복이_있으면_예외가_발생한다() {
+        List<Integer> Lottos = Arrays.asList(1, 1, 1, 1, 1, 1);
 
         assertThatThrownBy(() -> new Lotto(Lottos))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -31,11 +31,12 @@ public class LottoTest {
 
     @DisplayName("로또_번호가_1부터_45사이가_아니면_예외가_발생한다")
     @Test
-    void 로또_번호가_1부터_45사이가_아니면_예외가_발생한다(){
-        List<Integer> Lottos = Arrays.asList(100,200,300,400,500,600);
+    void 로또_번호가_1부터_45사이가_아니면_예외가_발생한다() {
+        List<Integer> Lottos = Arrays.asList(100, 200, 300, 400, 500, 600);
 
         assertThatThrownBy(() -> new Lotto(Lottos))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1 ~ 45 사이의 자연수여야 합니다.");
     }
+
 }
