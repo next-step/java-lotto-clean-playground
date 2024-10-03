@@ -38,5 +38,4 @@ public class LottoResult {
 
         return profitability;
     }
-
 }

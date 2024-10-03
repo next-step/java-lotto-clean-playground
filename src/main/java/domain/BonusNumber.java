@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.List;
 
 public class BonusNumber {
     private final int bonusNumber;
@@ -19,5 +18,4 @@ public class BonusNumber {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
-
 }

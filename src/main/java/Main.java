@@ -36,5 +36,4 @@ public class Main {
         OutputView.printWinningResult(lottoResult.getCounMap());
         OutputView.printProfitability(lottoResult.calculateProfitability(inputMoney));
     }
-
 }

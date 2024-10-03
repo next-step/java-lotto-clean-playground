@@ -31,5 +31,4 @@ public class NumberFormatter {
             throw new IllegalArgumentException("입력된 숫자가 없습니다. 숫자를 입력해 주세요.");
         }
     }
-
 }

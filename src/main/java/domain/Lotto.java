@@ -46,5 +46,4 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는 1 ~ 45 사이의 자연수여야 합니다.");
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Arrays;
 
 public enum Rank {
     FIRST(6, false, 2000000000),
@@ -20,12 +19,11 @@ public enum Rank {
         this.prizeMoney = prizeMoney;
     }
 
-    public boolean matches(int matchCount, boolean matchBonus) {
-        return this.matchCount == matchCount && this.matchBonus == matchBonus;
-    }
-
     public int getPrizeMoney() {
         return prizeMoney;
     }
 
+    public boolean matches(int matchCount, boolean matchBonus) {
+        return this.matchCount == matchCount && this.matchBonus == matchBonus;
+    }
 }
