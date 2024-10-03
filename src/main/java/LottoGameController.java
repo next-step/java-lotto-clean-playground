@@ -73,12 +73,9 @@ public class LottoGameController {
                 .mapToObj(i -> Lotto.creatAutoLotto())
                 .toList();
 
-        List<Lotto> lottos = new ArrayList<>() {{
+        return new ArrayList<>() {{
             addAll(manualLottos);
             addAll(autoLottos);
         }};
-
-
-        return lottos;
     }
 }

@@ -8,7 +8,7 @@ public class Lotto {
 
 
 
-    public Lotto(final LottoNumbers lottoNumbers) {
+    public Lotto(LottoNumbers lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
