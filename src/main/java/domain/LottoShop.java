@@ -14,14 +14,17 @@ public class LottoShop {
         this.lottos = new Lottos(new ArrayList<>());
     }
 
-    public int countLottoTickets(int inputMoney) {
-        return inputMoney / LOTTO_PRICE;
+    // 자동 로또 개수
+    public int countAutoLottoTickets(int inputMoney,int ManualCount) {
+        return (inputMoney / LOTTO_PRICE) - ManualCount;
     }
 
-    public Lottos saveLottos() {
-        int tickets = countLottoTickets(inputMoney);
-
-        for (int i = 0; i < tickets; i++) {
+    // 자동 로또 생성 및 로또 합치기
+    public Lottos saveLottos(int autoLottoCount, Lottos manualLottos) {
+        for(Lotto manualLotto : manualLottos.getLottos()){
+            lottos.add(new Lotto(manualLotto.getLotto()));
+        }
+        for (int i = 0; i < autoLottoCount; i++) {
             lottos.add(new Lotto(LottoNumberGenerator.pickLottoNumbers()));
         }
 

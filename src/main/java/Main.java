@@ -1,5 +1,5 @@
 import domain.*;
-import utils.WinningNumberFomatter;
+import utils.NumberFormatter;
 import view.InputView;
 import view.OutputView;
 
@@ -10,14 +10,19 @@ public class Main {
         // 구입 금액 입력
         final int inputMoney = InputView.inputMoney();
 
+        // 수동 로또 구매
+        final int manualCount = InputView.inputManualCount();
+        final Lottos ManualLottos = InputView.inputManualNumber(manualCount);
+
         // 자동 로또 구매 후 출력
         LottoShop lottoShop = new LottoShop(inputMoney);
-        Lottos lottos = lottoShop.saveLottos();
+        final int autoCount = lottoShop.countAutoLottoTickets(inputMoney,manualCount);
+        Lottos lottos = lottoShop.saveLottos(autoCount,ManualLottos);
         OutputView.printLottos(lottos);
 
         // 당첨 번호 입력
         final String inputWinningNumbers = InputView.inputWinningNumbers();
-        List<Integer> winNumbers = WinningNumberFomatter.formWinningNumbers(inputWinningNumbers);
+        List<Integer> winNumbers = NumberFormatter.formNumbers(inputWinningNumbers);
 
         // 보너스 번호 입력
         final int inputBonus = InputView.inputBonus();
