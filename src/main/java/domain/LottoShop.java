@@ -15,13 +15,13 @@ public class LottoShop {
     }
 
     // 자동 로또 개수
-    public int countAutoLottoTickets(int inputMoney,int ManualCount) {
+    public int countAutoLottoTickets(int inputMoney, int ManualCount) {
         return (inputMoney / LOTTO_PRICE) - ManualCount;
     }
 
     // 자동 로또 생성 및 로또 합치기
     public Lottos saveLottos(int autoLottoCount, Lottos manualLottos) {
-        for(Lotto manualLotto : manualLottos.getLottos()){
+        for (Lotto manualLotto : manualLottos.getLottos()) {
             lottos.add(new Lotto(manualLotto.getLotto()));
         }
         for (int i = 0; i < autoLottoCount; i++) {

@@ -15,7 +15,7 @@ public class LottoResult {
         }
     }
 
-    public Map<Rank, Integer> getCounMap(){
+    public Map<Rank, Integer> getCounMap() {
         return countMap;
     }
 
