@@ -15,7 +15,7 @@ public class Main {
         final Lottos ManualLottos = InputView.inputManualNumber(manualCount);
 
         // 자동 로또 구매 후 출력
-        LottoShop lottoShop = new LottoShop(inputMoney);
+        LottoShop lottoShop = new LottoShop();
         final int autoCount = lottoShop.countAutoLottoTickets(inputMoney, manualCount);
         Lottos lottos = lottoShop.saveLottos(autoCount, ManualLottos);
         OutputView.printLottos(lottos);

@@ -5,12 +5,10 @@ import utils.LottoNumberGenerator;
 import java.util.ArrayList;
 
 public class LottoShop {
-    private final int inputMoney;
     private final static int LOTTO_PRICE = 1000;
     Lottos lottos;
 
-    public LottoShop(int inputMoney) {
-        this.inputMoney = inputMoney;
+    public LottoShop() {
         this.lottos = new Lottos(new ArrayList<>());
     }
 
