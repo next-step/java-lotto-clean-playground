@@ -1,5 +1,5 @@
+import domain.Lotto;
 import domain.LottoNumber;
-import domain.LottoNumbers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class LottoNumbersTest {
+public class LottoTest {
     @Test
     void 로또_숫자는_총_6개여야한다() {
         List<LottoNumber> value = new ArrayList<>();
@@ -28,7 +28,7 @@ public class LottoNumbersTest {
         value.add(new LottoNumber(6));
 
         Assertions.assertDoesNotThrow(() -> {
-            LottoNumbers lottoNumbers = new LottoNumbers(value);
+            new Lotto(value);
         });
     }
 
@@ -36,7 +36,7 @@ public class LottoNumbersTest {
     @MethodSource("methodSourceTestArguments")
     void 로또_숫자_6개가_아니면_예외발생(List<LottoNumber> value) {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            LottoNumbers lottoNumbers = new LottoNumbers(value);
+            new Lotto(value);
         });
     }
 
@@ -73,7 +73,7 @@ public class LottoNumbersTest {
         value.add(new LottoNumber(6));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            LottoNumbers lottoNumbers = new LottoNumbers(value);
+            new Lotto(value);
         });
     }
 }

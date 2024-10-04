@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class LottoStatisticDataTest {
     @ParameterizedTest
     @MethodSource("methodSourceTestArguments")
-    void 수익률을_계산한다(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> puchasedLottos) {
+    void 수익률을_계산한다(List<LottoNumber> winnerNumbers, LottoNumber bonusNumber, List<Lotto> puchasedLottos) {
         LottoStatisticData lottoStatisticData = new LottoStatisticData(winnerNumbers, bonusNumber, puchasedLottos);
 
         var actual = lottoStatisticData.calculateRate(puchasedLottos.size());
@@ -28,7 +28,7 @@ public class LottoStatisticDataTest {
 
     @ParameterizedTest
     @MethodSource("methodSourceTestArguments")
-    void 당첨_통계를_생성한다(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> puchasedLottos) {
+    void 당첨_통계를_생성한다(List<LottoNumber> winnerNumbers, LottoNumber bonusNumber, List<Lotto> puchasedLottos) {
         LottoStatisticData lottoStatisticData = new LottoStatisticData(winnerNumbers, bonusNumber, puchasedLottos);
 
         System.out.println(lottoStatisticData.calculateRate(8000));
@@ -53,111 +53,95 @@ public class LottoStatisticDataTest {
 
     }
     private static Stream<Arguments> methodSourceTestArguments() {
-        LottoNumbers winnerNumbers = new LottoNumbers(List.of(
+        List<LottoNumber> winnerNumbers = List.of(
                 new LottoNumber(1),
                 new LottoNumber(2),
                 new LottoNumber(3),
                 new LottoNumber(4),
                 new LottoNumber(5),
                 new LottoNumber(6)
-        ));
+        );
 
         List<Lotto> puchasedLottos = List.of(
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(3),
-                                        new LottoNumber(4),
-                                        new LottoNumber(5),
-                                        new LottoNumber(6)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(3),
+                                    new LottoNumber(4),
+                                    new LottoNumber(5),
+                                    new LottoNumber(6)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(3),
-                                        new LottoNumber(4),
-                                        new LottoNumber(5),
-                                        new LottoNumber(7)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(3),
+                                    new LottoNumber(4),
+                                    new LottoNumber(5),
+                                    new LottoNumber(7)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(3),
-                                        new LottoNumber(4),
-                                        new LottoNumber(5),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(3),
+                                    new LottoNumber(4),
+                                    new LottoNumber(5),
+                                    new LottoNumber(45)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(3),
-                                        new LottoNumber(4),
-                                        new LottoNumber(44),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(3),
+                                    new LottoNumber(4),
+                                    new LottoNumber(44),
+                                    new LottoNumber(45)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(3),
-                                        new LottoNumber(43),
-                                        new LottoNumber(44),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(3),
+                                    new LottoNumber(43),
+                                    new LottoNumber(44),
+                                    new LottoNumber(45)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(2),
-                                        new LottoNumber(42),
-                                        new LottoNumber(43),
-                                        new LottoNumber(44),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(2),
+                                    new LottoNumber(42),
+                                    new LottoNumber(43),
+                                    new LottoNumber(44),
+                                    new LottoNumber(45)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(1),
-                                        new LottoNumber(41),
-                                        new LottoNumber(42),
-                                        new LottoNumber(43),
-                                        new LottoNumber(44),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(1),
+                                    new LottoNumber(41),
+                                    new LottoNumber(42),
+                                    new LottoNumber(43),
+                                    new LottoNumber(44),
+                                    new LottoNumber(45)
+                            )
                 ),
                 new Lotto(
-                        new LottoNumbers(
-                                List.of(
-                                        new LottoNumber(40),
-                                        new LottoNumber(41),
-                                        new LottoNumber(42),
-                                        new LottoNumber(43),
-                                        new LottoNumber(44),
-                                        new LottoNumber(45)
-                                )
-                        )
+                            List.of(
+                                    new LottoNumber(40),
+                                    new LottoNumber(41),
+                                    new LottoNumber(42),
+                                    new LottoNumber(43),
+                                    new LottoNumber(44),
+                                    new LottoNumber(45)
+                            )
                 )
         );
 

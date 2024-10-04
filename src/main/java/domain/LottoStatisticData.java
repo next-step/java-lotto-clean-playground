@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoStatisticData {
-    private final LottoNumbers winnerNumbers;
+    private final List<LottoNumber> winnerNumbers;
     private final LottoNumber bonusNumber;
     private final Map<Match, Integer> matchStatistic;
 
-    public LottoStatisticData(LottoNumbers winnerNumbers, LottoNumber bonusNumber, List<Lotto> purchasedLottos) {
+    public LottoStatisticData(List<LottoNumber> winnerNumbers, LottoNumber bonusNumber, List<Lotto> purchasedLottos) {
         this.winnerNumbers = winnerNumbers;
         this.bonusNumber = bonusNumber;
         this.matchStatistic = calculateLottosStatistic(purchasedLottos);
@@ -20,7 +20,7 @@ public class LottoStatisticData {
         Map<Match, Integer> matchCounts = initializeMatchMap();
 
         for (Lotto lotto : lottos) {
-            List<LottoNumber> lottoNumbers = lotto.getLottoNumbers().getNumbers();
+            List<LottoNumber> lottoNumbers = lotto.getLottoNumbers();
 
             int cnt = findMatchNumberCount(lottoNumbers);
 
@@ -35,7 +35,7 @@ public class LottoStatisticData {
     private int findMatchNumberCount(List<LottoNumber> lottoNumbers) {
         int cnt = 0;
 
-        for (LottoNumber lottoNumber : winnerNumbers.getNumbers()) {
+        for (LottoNumber lottoNumber : winnerNumbers) {
             if (lottoNumbers.contains(lottoNumber)) {
                 cnt++;
             }

@@ -2,7 +2,6 @@ package view;
 
 import domain.Lotto;
 import domain.LottoNumber;
-import domain.LottoNumbers;
 import domain.Match;
 
 import java.util.List;
@@ -32,7 +31,6 @@ public class OutputView {
     public void printLottosNumbers(List<Lotto> lottos) {
         lottos.stream()
                 .map(Lotto::getLottoNumbers)
-                .map(LottoNumbers::getNumbers)
                 .forEach(
                         list -> {
                             System.out.print("[");
@@ -47,14 +45,14 @@ public class OutputView {
 
         List<List<LottoNumber>> flatLottosNumbers = lottos.stream()
                 .map(Lotto::getLottoNumbers)
-                .map(LottoNumbers::getNumbers).toList();
+                .toList();
 
         for (List<LottoNumber> flatLottosNumber : flatLottosNumbers) {
             System.out.print("[");
-            for (int j = 0; j < LottoNumbers.SIZE; j++) {
+            for (int j = 0; j < Lotto.SIZE; j++) {
                 System.out.print(flatLottosNumber.get(j).getValue());
 
-                if (j != LottoNumbers.SIZE - 1) {
+                if (j != Lotto.SIZE - 1) {
                     System.out.print(", ");
                 }
             }

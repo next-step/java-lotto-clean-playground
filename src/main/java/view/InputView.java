@@ -1,7 +1,6 @@
 package view;
 
 import domain.LottoNumber;
-import domain.LottoNumbers;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,14 +31,14 @@ public class InputView {
     }
 
 //    flag: 한번만 출력하기 위해서
-    public LottoNumbers readManualLottoNumbers() {
+    public List<LottoNumber> readManualLottoNumbers() {
         return numbersToLottoNumbers();
     }
 
     public void printReadManualLottoMessage() {
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
     }
-    public LottoNumbers readWinnerNumbers() {
+    public List<LottoNumber> readWinnerNumbers() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
 
         return numbersToLottoNumbers();
@@ -52,7 +51,7 @@ public class InputView {
         return LottoNumber.from(number);
     }
 
-    private LottoNumbers numbersToLottoNumbers() {
+    private List<LottoNumber> numbersToLottoNumbers() {
         String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
 
         List<LottoNumber> lottoNumbers = Arrays
@@ -62,6 +61,6 @@ public class InputView {
 
         Collections.sort(lottoNumbers);
 
-        return new LottoNumbers(lottoNumbers);
+        return lottoNumbers;
     }
 }

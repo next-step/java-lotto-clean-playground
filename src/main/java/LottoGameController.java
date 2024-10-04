@@ -38,7 +38,7 @@ public class LottoGameController {
             outputView.printPurchasedCount(automaticCount, manualCount);
             outputView.printLottosNumbers(lottos);
 
-            LottoNumbers winnerNumbers = inputView.readWinnerNumbers();
+            List<LottoNumber> winnerNumbers = inputView.readWinnerNumbers();
             LottoNumber bonusNumber = inputView.readBonusNumber();
 
 

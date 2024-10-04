@@ -15,7 +15,7 @@ public class LottoNumberGenerator {
     ));
 
     private static final int RANDOM_INDEX = 0;
-    public LottoNumbers generateLottoNumbers() {
+    public List<LottoNumber> generateLottoNumbers() {
         // 이걸로 배열 등록하면 Collections shuffle 에서 터짐 왜?
 //        List<Integer> capableNumber = List.of(
 //                1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -26,12 +26,10 @@ public class LottoNumberGenerator {
 //        );
 
         Collections.shuffle(capableNumber);
-        return new LottoNumbers(
-                capableNumber.subList(0, LottoNumbers.SIZE)
+        return capableNumber.subList(0, Lotto.SIZE)
                         .stream()
                         .sorted()
                         .map(LottoNumber::new)
-                        .toList()
-        );
+                        .toList();
     }
 }
