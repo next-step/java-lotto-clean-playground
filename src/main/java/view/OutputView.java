@@ -37,9 +37,10 @@ public class OutputView {
                         list -> {
                             System.out.print("[");
                             list.forEach(
-                                    l ->  {
-                                        System.out.print(l.getValue() + ", ");
-                                    });
+                                    l ->
+                                        System.out.print(l.getValue() + ", ")
+                            );
+
                             System.out.print("]\n");
                         });
 
