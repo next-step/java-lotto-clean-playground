@@ -19,9 +19,9 @@ public class InputView {
 
         int amount =  Integer.parseInt(sc.nextLine());
 
-        if (amount % (Lotto.PRICE) != 0) {
-            throw new IllegalArgumentException("Lotto의 가격은 1000원입니다.");
-        }
+//        if (amount % (Lotto.PRICE) != 0) {
+//            throw new IllegalArgumentException("Lotto의 가격은 1000원입니다.");
+//        }
 
         return amount;
     }

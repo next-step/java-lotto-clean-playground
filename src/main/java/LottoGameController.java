@@ -1,7 +1,4 @@
-import domain.Lotto;
-import domain.LottoNumber;
-import domain.LottoNumbers;
-import domain.LottoStatisticData;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -21,8 +18,12 @@ public class LottoGameController {
     public void run() {
 
         try {
+            LottoShop lottoShop = new LottoShop();
+
             int amount = inputView.readPurchaseAmount();
-            int lottoCount = amount / Lotto.PRICE;
+            lottoShop.countLottoByAmount(amount);
+
+            int lottoCount = lottoShop.calculateLottoCount(amount);
 
             int manualCount = inputView.readManualCount();
 

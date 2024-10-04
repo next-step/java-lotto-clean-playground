@@ -1,9 +1,7 @@
 package domain;
 
 public class Lotto {
-    public static final int PRICE = 1000;
     private static final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
-
     private LottoNumbers lottoNumbers;
 
 

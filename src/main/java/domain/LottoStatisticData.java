@@ -58,7 +58,7 @@ public class LottoStatisticData {
 
     private Map<Match, Integer> initializeMatchMap() {
         return Arrays.stream(Match.values())
-                .collect(Collectors.toMap(v-> v, v ->0));
+                .collect(Collectors.toMap(v -> v, v -> 0));
     }
 
     public double calculateRate(int amount) {
