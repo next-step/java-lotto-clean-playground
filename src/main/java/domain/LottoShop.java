@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class LottoShop {
     private final static int LOTTO_PRICE = 1000;
-    private final Lottos lottos;
+    private Lottos lottos;
 
     public LottoShop() {
         this.lottos = new Lottos(new ArrayList<>());
