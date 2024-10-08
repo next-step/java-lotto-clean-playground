@@ -9,22 +9,27 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoShopTest {
+    @SuppressWarnings("NonAsciiCharacters")
 
     @DisplayName("자동_로또_수를_계산한다")
     @Test
     void 자동_로또_수를_계산한다() {
+        // given
         LottoShop lottoShop = new LottoShop();
         int inputMoney = 5000;
         int manualCount = 2;
 
+        // when
         int autoLottoCount = lottoShop.countAutoLottoTickets(inputMoney, manualCount);
 
+        // then
         assertThat(autoLottoCount).isEqualTo(3);
     }
 
     @DisplayName("수동과_자동_로또를_합친다")
     @Test
     void 수동과_자동_로또를_합친다() {
+        // given
         LottoShop lottoShop = new LottoShop();
         Lottos manualLottos = new Lottos(Arrays.asList(
                 new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
@@ -32,8 +37,10 @@ public class LottoShopTest {
         ));
         int autoLottoCount = 3; // 자동으로 3개의 로또 생성
 
+        // when
         Lottos combinedLottos = lottoShop.saveLottos(autoLottoCount, manualLottos);
 
+        //then
         //수동 로또만 확인
         assertThat(combinedLottos.getLottos())
                 .extracting(Lotto::getLotto)

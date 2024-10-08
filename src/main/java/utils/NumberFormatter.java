@@ -27,7 +27,7 @@ public class NumberFormatter {
     }
 
     private static void checkNull(String inputNumbers){
-        if (inputNumbers == null || inputNumbers.trim().isEmpty()) {
+        if (inputNumbers == null || inputNumbers.isBlank()) {
             throw new IllegalArgumentException("입력된 숫자가 없습니다. 숫자를 입력해 주세요.");
         }
     }
