@@ -19,21 +19,21 @@ public class Main {
         final Lottos ManualLottos = InputView.inputManualNumber(manualCount);
 
         // 자동 로또 구매 후 출력
-        LottoShop lottoShop = new LottoShop();
+        final LottoShop lottoShop = new LottoShop();
         final int autoCount = lottoShop.countAutoLottoTickets(inputMoney, manualCount);
-        Lottos lottos = lottoShop.saveLottos(autoCount, ManualLottos);
+        final Lottos lottos = lottoShop.saveLottos(autoCount, ManualLottos);
         OutputView.printLottos(lottos);
 
         // 당첨 번호 입력
         final String inputWinningNumbers = InputView.inputWinningNumbers();
-        List<Integer> winNumbers = NumberFormatter.formNumbers(inputWinningNumbers);
+        final List<Integer> winNumbers = NumberFormatter.formNumbers(inputWinningNumbers);
 
         // 보너스 번호 입력
         final int inputBonus = InputView.inputBonus();
         final BonusNumber bonusNumber = new BonusNumber(inputBonus);
 
         // 결과 출력
-        LottoResult lottoResult = new LottoResult();
+        final LottoResult lottoResult = new LottoResult();
         for (Lotto lotto : lottos.getLottos()) {
             lottoResult.matchCountUp(lotto.matchingNumbers(winNumbers), bonusNumber.match(lotto));
         }
