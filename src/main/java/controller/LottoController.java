@@ -26,9 +26,9 @@ public class LottoController {
 
         Lottos passiveLottos = makeLottos(new PassiveLottosMakeStrategy(inputPassiveLottos(passiveLottoCount)));
         Lottos autoLottos = makeLottos(new RandomLottosMakeStrategy(autoLottoCount));
-        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, inputLastWeekWinningLottoNumber());
-
         printAllLottos(passiveLottos, autoLottos);
+
+        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, inputLastWeekWinningLottoNumber());
         printWinningLottosAndRateOfReturn(buyingCosts);
     }
 
