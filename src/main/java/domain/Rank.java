@@ -21,10 +21,6 @@ public enum Rank {
         this.prizeMoney = prizeMoney;
     }
 
-    public int getPrizeMoney() {
-        return prizeMoney;
-    }
-
     public boolean matches(int matchCount, boolean matchBonus) {
         return this.matchCount == matchCount && this.matchBonus == matchBonus;
     }
@@ -34,5 +30,9 @@ public enum Rank {
                 .filter(rank -> rank.matches(count, bonus))
                 .findFirst()
                 .orElse(NONE);
+    }
+
+    public int getPrizeMoney() {
+        return prizeMoney;
     }
 }
