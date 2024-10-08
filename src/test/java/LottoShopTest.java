@@ -32,8 +32,8 @@ public class LottoShopTest {
         // given
         LottoShop lottoShop = new LottoShop();
         Lottos manualLottos = new Lottos(Arrays.asList(
-                new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new Lotto(Arrays.asList(7, 8, 9, 10, 11, 12))
+                new Lotto(LottoFixture.DUMMY_NUMBER_1),
+                new Lotto(LottoFixture.DUMMY_NUMBER_2)
         ));
         int autoLottoCount = 3; // 자동으로 3개의 로또 생성
 
@@ -45,8 +45,8 @@ public class LottoShopTest {
         assertThat(combinedLottos.getLottos())
                 .extracting(Lotto::getLotto)
                 .contains(
-                        Arrays.asList(1, 2, 3, 4, 5, 6),
-                        Arrays.asList(7, 8, 9, 10, 11, 12)
+                        LottoFixture.DUMMY_NUMBER_1,
+                        LottoFixture.DUMMY_NUMBER_2
                 );
 
         //자동 로또는 개수만 확인
