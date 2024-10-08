@@ -25,4 +25,8 @@ public class Lotto {
             matchLottoNumber += 1;
         }
     }
+
+    public boolean checkContainedBonusLottoNumber(final int bonusLottoNumber) {
+        return lottoNumber.contains(bonusLottoNumber);
+    }
 }

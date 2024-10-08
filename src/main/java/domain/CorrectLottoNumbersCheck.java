@@ -9,7 +9,7 @@ public class CorrectLottoNumbersCheck {
         return lotto.getMatchLottoNumber();
     }
 
-    public boolean checkBonusNumber(final WinningLotto lastWeekWinnerLotto, final Lotto lotto) {
-        return lotto.getLottoNumber().contains(lastWeekWinnerLotto.getBonusNumber());
+    public boolean checkBonusNumber(final WinningLotto winningLotto, final Lotto lotto) {
+        return lotto.checkContainedBonusLottoNumber(winningLotto.getBonusNumber());
     }
 }
