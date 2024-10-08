@@ -1,6 +1,8 @@
 package domain;
 
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, false, 2000000000),
     SECOND(5, true, 30000000),
@@ -25,5 +27,12 @@ public enum Rank {
 
     public boolean matches(int matchCount, boolean matchBonus) {
         return this.matchCount == matchCount && this.matchBonus == matchBonus;
+    }
+
+    public Rank findRank(int count, boolean bonus){
+        return Arrays.stream(Rank.values())
+                .filter(rank -> rank.matches(count, bonus))
+                .findFirst()
+                .orElse(NONE);
     }
 }

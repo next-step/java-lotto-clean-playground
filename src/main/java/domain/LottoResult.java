@@ -11,7 +11,6 @@ public class LottoResult {
 
     private final Map<Rank, Integer> countMap = new HashMap<>();
 
-
     public LottoResult() {
         for (Rank rank : Rank.values()) {
             countMap.put(rank, 0);
@@ -23,12 +22,8 @@ public class LottoResult {
     }
 
     // 순위 찾아서 해당 순위 count 증가시키는 함수
-    public void matchCountUp(int matchCount, boolean matchBonus) {
-        Rank foundRank = Arrays.stream(Rank.values())
-                .filter(rank -> rank.matches(matchCount, matchBonus))
-                .findFirst()
-                .orElse(NONE);
-
+    public void matchCountUp(int count, boolean bonus) {
+        Rank foundRank = NONE.findRank(count,bonus);
         countMap.put(foundRank, countMap.get(foundRank) + 1);
     }
 
