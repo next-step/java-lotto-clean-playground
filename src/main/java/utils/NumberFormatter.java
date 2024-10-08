@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NumberFormatter {
     private final static String COMMA = ",";
-    public final static List<Integer> formedNumbers = new ArrayList<>();
+    private final static List<Integer> formedNumbers = new ArrayList<>();
 
     public static List<Integer> formNumbers(String inputNumbers) {
         checkNull(inputNumbers);
