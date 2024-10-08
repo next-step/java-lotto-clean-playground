@@ -5,17 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static utils.LottoNumberGenerator.LOTTO_SIZE;
+import static utils.LottoNumberGenerator.MAX_NUMBER;
+import static utils.LottoNumberGenerator.MIN_NUMBER;
+
 public class Lotto {
     private final List<Integer> lotto;
 
     public Lotto(List<Integer> lotto) {
         this.lotto = new ArrayList<>(lotto);
-
-        checkSize();
-        checkDuplicates();
-        for(Integer lottoNumber : lotto){
-            checkRange(lottoNumber);
-        }
+        validate();
     }
 
     public List<Integer> getLotto() {
@@ -28,8 +27,16 @@ public class Lotto {
                 .count();
     }
 
+    private void validate(){
+        checkSize();
+        checkDuplicates();
+        for(Integer lottoNumber : lotto){
+            checkRange(lottoNumber);
+        }
+    }
+
     private void checkSize() {
-        if (lotto.size() != 6) {
+        if (lotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
@@ -42,7 +49,7 @@ public class Lotto {
     }
 
     private void checkRange(int lottoNumber) {
-        if (lottoNumber < 1 || lottoNumber > 45) {
+        if (lottoNumber < MIN_NUMBER || lottoNumber > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 ~ 45 사이의 자연수여야 합니다.");
         }
     }

@@ -6,10 +6,15 @@ import java.util.List;
 
 public class LottoNumberGenerator {
 
+    public final static int MIN_NUMBER = 1;
+    public final static int MAX_NUMBER = 45;
+    public final static int LOTTO_SIZE = 6;
+
+
     private static List<Integer> initializeNumbers() {
         List<Integer> numList = new ArrayList<>();
 
-        for (int i = 1; i <= 45; i++) {
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
             numList.add(i);
         }
         Collections.shuffle(numList);
@@ -20,7 +25,7 @@ public class LottoNumberGenerator {
     public static List<Integer> pickLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
 
-        lottoNumbers.addAll(initializeNumbers().subList(0, 6));
+        lottoNumbers.addAll(initializeNumbers().subList(0, LOTTO_SIZE));
         Collections.sort(lottoNumbers);
 
         return lottoNumbers;
