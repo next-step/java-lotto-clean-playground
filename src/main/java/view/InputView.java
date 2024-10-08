@@ -17,7 +17,7 @@ public class InputView {
         System.out.println("구입금액을 입력해 주세요.");
         try {
             int money = input.nextInt();
-            input.nextLine();;
+            input.nextLine();
             return money;
         } catch (InputMismatchException e){
             input.nextLine();

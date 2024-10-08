@@ -1,4 +1,8 @@
-import domain.*;
+import domain.BonusNumber;
+import domain.Lotto;
+import domain.LottoResult;
+import domain.LottoShop;
+import domain.Lottos;
 import utils.NumberFormatter;
 import view.InputView;
 import view.OutputView;

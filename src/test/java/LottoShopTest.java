@@ -34,12 +34,15 @@ public class LottoShopTest {
 
         Lottos combinedLottos = lottoShop.saveLottos(autoLottoCount, manualLottos);
 
+        //수동 로또만 확인
         assertThat(combinedLottos.getLottos())
                 .extracting(Lotto::getLotto)
-                .containsExactlyInAnyOrder(
+                .contains(
                         Arrays.asList(1, 2, 3, 4, 5, 6),
                         Arrays.asList(7, 8, 9, 10, 11, 12)
                 );
-    }
 
+        //자동 로또는 개수만 확인
+        assertThat(combinedLottos.getLottos().size() - 2).isEqualTo(autoLottoCount);
+    }
 }

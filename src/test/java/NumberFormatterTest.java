@@ -38,5 +38,4 @@ public class NumberFormatterTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("입력 값에 숫자가 아닌 값이 포함되어 있습니다.");
     }
-
 }
