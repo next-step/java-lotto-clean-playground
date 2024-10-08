@@ -6,18 +6,10 @@ public class CorrectLottoNumbersCheck {
     private static final int IS_NOT_CORRECT_LOTTO_NUMBER = 0;
 
     public int checkCorrectLottoNumbers(final WinningLotto winningLotto, final Lotto lotto) {
-        int correctCount = 0;
-        for (int lottoNumber : lotto.getLottoNumber()) {
-            correctCount += isContainedWinningLottoNumbers(lottoNumber, winningLotto);
+        for (final int winningLottoNumber : winningLotto.getLottoNumber()) {
+            lotto.checkContainedWinningLottoNumbers(winningLottoNumber);
         }
-        return correctCount;
-    }
-
-    private int isContainedWinningLottoNumbers(final int lottoNumber, final Lotto winningLotto) {
-        if (winningLotto.getLottoNumber().contains(lottoNumber)) {
-            return IS_CORRECT_LOTTO_NUMBER;
-        }
-        return IS_NOT_CORRECT_LOTTO_NUMBER;
+        return lotto.getMatchLottoNumber();
     }
 
     public boolean checkBonusNumber(final WinningLotto lastWeekWinnerLotto, final Lotto lotto) {
