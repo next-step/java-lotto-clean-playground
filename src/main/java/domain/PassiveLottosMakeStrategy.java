@@ -15,7 +15,7 @@ public class PassiveLottosMakeStrategy implements LottoMakeStrategy {
     @Override
     public Lottos makeLottos() {
         return new Lottos(lottoNumbers.stream()
-                .map(lottoNumbers -> new Lotto(LottoNumberConvertor.convertLottoNumbers(lottoNumbers))
+                .map(lottoNumbers -> new Lotto(LottoNumberConvertor.convert(lottoNumbers))
                 )
                 .toList());
     }

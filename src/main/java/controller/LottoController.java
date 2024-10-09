@@ -65,7 +65,7 @@ public class LottoController {
 
     private WinningLotto inputLastWeekWinningLottoNumber() {
         InputView.printLastWeekWinningLottoNumber();
-        final List<Integer> winningLotto = LottoNumberConvertor.convertLottoNumbers(InputFromUser.inputLastWeekWinningLottoNumber());
+        final List<Integer> winningLotto = LottoNumberConvertor.convert(InputFromUser.inputLastWeekWinningLottoNumber());
 
         InputView.printLastWeekWinningLottoBonusNumber();
         final int bonusNumber = InputFromUser.inputLastWeekWinningLottoBonusNumber();

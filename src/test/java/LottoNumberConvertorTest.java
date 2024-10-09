@@ -20,7 +20,7 @@ public class LottoNumberConvertorTest {
         List<Integer> expected = new ArrayList<Integer>(List.of(1, 2, 3, 4, 5, 6));
 
         //when
-        List<Integer> result = LottoNumberConvertor.convertLottoNumbers(lottoNumbers);
+        List<Integer> result = LottoNumberConvertor.convert(lottoNumbers);
 
         //then
         Assertions.assertThat(result).usingRecursiveComparison().isEqualTo(expected);

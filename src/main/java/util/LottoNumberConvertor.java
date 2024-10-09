@@ -7,7 +7,7 @@ public class LottoNumberConvertor {
 
     private static final String SPLIT_CHARACTERS = ", ";
 
-    public static List<Integer> convertLottoNumbers(final String lottoNumbers) {
+    public static List<Integer> convert(final String lottoNumbers) {
         return splitLottoNumbers(lottoNumbers).stream()
                 .map(Integer::parseInt)
                 .toList();
