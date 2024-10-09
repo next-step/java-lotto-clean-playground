@@ -39,14 +39,11 @@ public class Statistics {
     //수익률 계산 메서드
     public double calculateReturnRate(int totalSpent) {
         int totalEarnings = 0;
-<<<<<<< HEAD
+
         for (Prize prize : Prize.values()) {
             totalEarnings += matchCounts.getOrDefault(prize, 0) * prize.getPrizeAmount();
-=======
-        for (Prize prize: Prize.values()){
-            totalEarnings += matchCounts.getOrDefault(prize,0)* prize.getPrizeAmount();
->>>>>>> 3c1981496e2da5ad9d55b394c292cecd8ff7ceaf
         }
+
         return (double) totalEarnings / totalSpent;
     }
 }

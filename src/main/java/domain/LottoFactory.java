@@ -18,6 +18,7 @@ public class LottoFactory {
         List<Lotto> lottoList = generateLottos(numberOfAutoLottos);
         return new Lottos(lottoList);
     }
+
     //구입한 자동 로또개수만큼 로또 자동 생성
     private static List<Lotto> generateLottos(int numberOfAutoLottos) {
 
