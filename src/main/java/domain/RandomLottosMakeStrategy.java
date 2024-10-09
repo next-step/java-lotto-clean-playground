@@ -11,7 +11,7 @@ public class RandomLottosMakeStrategy implements LottoMakeStrategy {
     private final int START_EXTRACT_INDEX = 0;
     private final int LOTTO_NUMBER_COUNT = 6;
 
-    public final List<Integer> lottoNumbers = new ArrayList<Integer>(
+    private final List<Integer> lottoNumbers = new ArrayList<Integer>(
             List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
                     21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
