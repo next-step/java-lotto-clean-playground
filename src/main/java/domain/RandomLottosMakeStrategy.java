@@ -8,6 +8,8 @@ import java.util.stream.IntStream;
 public class RandomLottosMakeStrategy implements LottoMakeStrategy {
 
     private final int lottoCount;
+    private final int START_EXTRACT_INDEX = 0;
+    private final int LOTTO_NUMBER_COUNT = 6;
 
     public final List<Integer> lottoNumbers = new ArrayList<Integer>(
             List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
