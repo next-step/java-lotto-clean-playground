@@ -2,16 +2,21 @@ package domain;
 
 import java.util.List;
 
-public class WinningLotto extends Lotto {
+public class WinningLotto {
 
+    private final Lotto lotto;
     private final int bonusNumber;
 
     public WinningLotto(final List<Integer> lotto, final int bonusNumber) {
-        super(lotto);
+        this.lotto = new Lotto(lotto);
         this.bonusNumber = bonusNumber;
     }
 
     public int getBonusNumber() {
         return bonusNumber;
+    }
+
+    public Lotto getLotto() {
+        return lotto;
     }
 }
