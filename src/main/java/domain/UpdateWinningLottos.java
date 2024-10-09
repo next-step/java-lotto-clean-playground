@@ -22,7 +22,7 @@ public class UpdateWinningLottos {
         final int correctCount = correctLottoNumbersCheck.checkCorrectLottoNumbers(lastWeekWinnerLotto, lotto);
         final boolean isBonusMatched = correctLottoNumbersCheck.checkBonusNumber(lastWeekWinnerLotto, lotto);
         final boolean isSecondPrize = checkSecondPrize(correctCount, isBonusMatched);
-        if (WinningLottosStatus.of(correctCount, isSecondPrize) != null) {
+        if (!WinningLottosStatus.of(correctCount, isSecondPrize).equals(WinningLottosStatus.NOT_WINNING_LOTTOS)) {
             WinningLottosStatus.of(correctCount, isSecondPrize).addWinnerLotto();
         }
     }

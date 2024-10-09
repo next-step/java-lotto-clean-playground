@@ -33,7 +33,7 @@ public class LottoCalculatorTest {
         final int buyingCosts = 5000;
         WinningLottosStatus.THREE_CORRECT_LOTTOS.addWinnerLotto();
         LottoCalculator lottoCalculator = new LottoCalculator();
-        final double expected = (double) WinningLottosStatus.THREE_CORRECT_LOTTOS.getPrizeMoney() / (double) buyingCosts;
+        final double expected = (double) WinningLottosStatus.THREE_CORRECT_LOTTOS.getPrizeMoney() / buyingCosts;
 
         //when
         final double result = lottoCalculator.calculateRateOfReturn(buyingCosts);

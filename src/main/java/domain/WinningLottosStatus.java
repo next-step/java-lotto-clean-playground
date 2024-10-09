@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public enum WinningLottosStatus {
 
+    NOT_WINNING_LOTTOS(0, 0, 0, false),
     THREE_CORRECT_LOTTOS(3, 5000, 0, false),
     FOUR_CORRECT_LOTTOS(4, 50000, 0, false),
     FIVE_CORRECT_LOTTOS(5, 1500000, 0, false),
@@ -47,7 +48,7 @@ public enum WinningLottosStatus {
         return Arrays.stream(values())
                 .filter(winningLottos -> winningLottos.correctCount == correctCount && winningLottos.isSecondPrize == isSecondPrize)
                 .findFirst()
-                .orElse(null);
+                .orElse(NOT_WINNING_LOTTOS);
     }
 
     //테스트 용 메소드
