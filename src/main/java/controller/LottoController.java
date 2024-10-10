@@ -28,8 +28,9 @@ public class LottoController {
         Lottos autoLottos = makeLottos(new RandomLottosMakeStrategy(autoLottoCount));
         printAllLottos(passiveLottos, autoLottos);
 
-        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, inputLastWeekWinningLottoNumber());
-        printWinningLottosAndRateOfReturn(buyingCosts);
+        final WinningLottoCount winningLottoCount = new WinningLottoCount();
+        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, inputLastWeekWinningLottoNumber(), winningLottoCount);
+        printWinningLottosAndRateOfReturn(buyingCosts, winningLottoCount);
     }
 
     private int inputCosts() {
@@ -73,13 +74,14 @@ public class LottoController {
         return new WinningLotto(winningLotto, bonusNumber);
     }
 
-    private void printWinningLottosAndRateOfReturn(final int buyingCosts) {
+    private void printWinningLottosAndRateOfReturn(final int buyingCosts, final WinningLottoCount winningLottoCount) {
         OutputView.printTotalWinning();
         Arrays.stream(WinningLottosStatus.values())
-                .forEach(winningLottos ->
-                        OutputView.printWinningLottoResult(winningLottos.getCorrectCount(), winningLottos.getPrizeMoney(), winningLottos.getLottoCount(), winningLottos.isSecondPrize())
+                .filter(winningLottosStatus -> winningLottosStatus != WinningLottosStatus.NOT_WINNING_LOTTOS)
+                .forEach(winningLottosStatus ->
+                        OutputView.printWinningLottoResult(winningLottosStatus.getCorrectCount(), winningLottosStatus.getPrizeMoney(), winningLottoCount.getWinningLottoCountStatus().get(winningLottosStatus), winningLottosStatus.isSecondPrize())
                 );
-        OutputView.printRateOfReturn(lottoCalculator.calculateRateOfReturn(buyingCosts));
+        OutputView.printRateOfReturn(lottoCalculator.calculateRateOfReturn(buyingCosts, winningLottoCount));
     }
 
 }

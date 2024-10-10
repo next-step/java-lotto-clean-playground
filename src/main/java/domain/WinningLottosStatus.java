@@ -1,26 +1,26 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum WinningLottosStatus {
 
-    NOT_WINNING_LOTTOS(0, 0, 0, false),
-    THREE_CORRECT_LOTTOS(3, 5000, 0, false),
-    FOUR_CORRECT_LOTTOS(4, 50000, 0, false),
-    FIVE_CORRECT_LOTTOS(5, 1500000, 0, false),
-    FIVE_AND_BONUS_CORRECT_LOTTOS(5, 30000000, 0, true),
+    NOT_WINNING_LOTTOS(0, 0, false),
+    THREE_CORRECT_LOTTOS(3, 5000, false),
+    FOUR_CORRECT_LOTTOS(4, 50000, false),
+    FIVE_CORRECT_LOTTOS(5, 1500000, false),
+    FIVE_AND_BONUS_CORRECT_LOTTOS(5, 30000000, true),
 
-    SIX_CORRECT_LOTTOS(6, 2000000000, 0, false);
+    SIX_CORRECT_LOTTOS(6, 2000000000, false);
 
     private final int correctCount;
     private final int prizeMoney;
-    private int lottoCount;
     private final boolean isSecondPrize;
 
-    WinningLottosStatus(final int correctCount, final int prizeMoney, final int lottoCount, final boolean isSecondPrize) {
+    WinningLottosStatus(final int correctCount, final int prizeMoney, final boolean isSecondPrize) {
         this.correctCount = correctCount;
         this.prizeMoney = prizeMoney;
-        this.lottoCount = lottoCount;
         this.isSecondPrize = isSecondPrize;
     }
 
@@ -32,16 +32,9 @@ public enum WinningLottosStatus {
         return prizeMoney;
     }
 
-    public int getLottoCount() {
-        return lottoCount;
-    }
 
     public boolean isSecondPrize() {
         return isSecondPrize;
-    }
-
-    public void addWinnerLotto() {
-        this.lottoCount += 1;
     }
 
     public static WinningLottosStatus of(final int correctCount, final boolean isSecondPrize) {
@@ -51,10 +44,12 @@ public enum WinningLottosStatus {
                 .orElse(NOT_WINNING_LOTTOS);
     }
 
-    //테스트 용 메소드
-    public static void initialize() {
-        for (WinningLottosStatus winningLottosStatus : WinningLottosStatus.values()) {
-            winningLottosStatus.lottoCount = 0;
-        }
+    public static Map<WinningLottosStatus, Integer> createWinningLottoCountStatus() {
+        Map<WinningLottosStatus, Integer> winningLottoCountStatus = new HashMap<WinningLottosStatus, Integer>();
+        Arrays.stream(values())
+                .filter(winningLottosStatus -> winningLottosStatus != NOT_WINNING_LOTTOS)
+                .forEach(winningLottosStatus -> winningLottoCountStatus.put(winningLottosStatus, 0));
+        return winningLottoCountStatus;
     }
+
 }

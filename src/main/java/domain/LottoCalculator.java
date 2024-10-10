@@ -8,15 +8,15 @@ public class LottoCalculator {
         return (buyingCosts - passiveLottoCount * LOTTO_COST) / LOTTO_COST;
     }
 
-    public double calculateRateOfReturn(final int buyingCosts) {
-        return (double) calculateTotalPrize() / buyingCosts;
+    public double calculateRateOfReturn(final int buyingCosts, final WinningLottoCount winningLottoCount) {
+        return (double) calculateTotalPrize(winningLottoCount) / buyingCosts;
     }
 
-    private long calculateTotalPrize() {
+    private long calculateTotalPrize(final WinningLottoCount winningLottoCount) {
         // int의 범위를 넘어가는 상금 가능성 존재 -> long으로 변경
         long totalPrize = 0;
-        for (WinningLottosStatus winningLottos : WinningLottosStatus.values()) {
-            totalPrize += (long) winningLottos.getPrizeMoney() * winningLottos.getLottoCount();
+        for (WinningLottosStatus winningLottos : winningLottoCount.getWinningLottoCountStatus().keySet()) {
+            totalPrize += (long) winningLottos.getPrizeMoney() * winningLottoCount.getWinningLottoCountStatus().get(winningLottos);
         }
         return totalPrize;
     }

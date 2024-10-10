@@ -14,11 +14,6 @@ import java.util.stream.Stream;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class UpdateWinningLottosTest {
 
-    @BeforeEach
-    public void initializeWinningLotto() {
-        WinningLottosStatus.initialize();
-    }
-
     @DisplayName("로또 당첨 시 당첨 로또목록을 업데이트 한다.")
     @ParameterizedTest
     @MethodSource("generateData")
@@ -31,12 +26,13 @@ public class UpdateWinningLottosTest {
         final WinningLotto lastWeekWinningLotto = new WinningLotto(winnerLottoNumber, 44);
 
         UpdateWinningLottos updateWinningLottos = new UpdateWinningLottos(new CorrectLottoNumbersCheck());
+        WinningLottoCount winningLottoCount = new WinningLottoCount();
 
         //when
-        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, lastWeekWinningLotto);
+        updateWinningLottos.updateWinningLottos(passiveLottos, autoLottos, lastWeekWinningLotto, winningLottoCount);
 
         //then
-        Assertions.assertThat(WinningLottosStatus.of(correctCount, isSecondPrize).getLottoCount()).isEqualTo(expected);
+        Assertions.assertThat(winningLottoCount.getWinningLottoCountStatus().get(WinningLottosStatus.of(correctCount, isSecondPrize))).isEqualTo(expected);
     }
 
     static Stream<Arguments> generateData() {

@@ -1,3 +1,4 @@
+import domain.WinningLottoCount;
 import domain.WinningLottosStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,12 +18,13 @@ public class WinningLottosTest {
         //given
         WinningLottosStatus winningLottos = WinningLottosStatus.FOUR_CORRECT_LOTTOS;
         final int expected = 1;
+        WinningLottoCount winningLottoCount = new WinningLottoCount();
 
         //when
-        winningLottos.addWinnerLotto();
+        winningLottoCount.updateWinningLottoCountStatus(winningLottos);
 
         //then
-        Assertions.assertThat(WinningLottosStatus.FOUR_CORRECT_LOTTOS.getLottoCount()).isEqualTo(expected);
+        Assertions.assertThat(winningLottoCount.getWinningLottoCountStatus().get(winningLottos)).isEqualTo(expected);
     }
 
     @DisplayName("일치 개수에 따른 로또 모음을 가져올 수 있다.")

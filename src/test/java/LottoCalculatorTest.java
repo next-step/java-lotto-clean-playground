@@ -1,4 +1,6 @@
 import domain.LottoCalculator;
+import domain.WinningLotto;
+import domain.WinningLottoCount;
 import domain.WinningLottosStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -31,12 +33,13 @@ public class LottoCalculatorTest {
     public void calculateRateOfReturn() {
         //given
         final int buyingCosts = 5000;
-        WinningLottosStatus.THREE_CORRECT_LOTTOS.addWinnerLotto();
+        final WinningLottoCount winningLottoCount = new WinningLottoCount();
+        winningLottoCount.updateWinningLottoCountStatus(WinningLottosStatus.THREE_CORRECT_LOTTOS);
         LottoCalculator lottoCalculator = new LottoCalculator();
         final double expected = (double) WinningLottosStatus.THREE_CORRECT_LOTTOS.getPrizeMoney() / buyingCosts;
 
         //when
-        final double result = lottoCalculator.calculateRateOfReturn(buyingCosts);
+        final double result = lottoCalculator.calculateRateOfReturn(buyingCosts, winningLottoCount);
 
         //then
         Assertions.assertThat(result).isEqualTo(expected);
