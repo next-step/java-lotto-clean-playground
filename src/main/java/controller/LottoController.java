@@ -20,6 +20,8 @@ public class LottoController {
         this.totalInvestment = InputView.inputToBuyLotto();
         this.numberOfManualLottos = InputView.inputToBuyManualLotto();
         this.numberOfAutoLottos = totalInvestment / 1000 - numberOfManualLottos;
+
+        Runtime.getRuntime().addShutdownHook(new Thread(InputView::closeScanner));
     }
 
     public void howManyOfLottos() {
@@ -45,4 +47,6 @@ public class LottoController {
 
         OutputView.printLottoWinningStatistics(lottoDTO); // 당첨 통계 출력
     }
+
+
 }
