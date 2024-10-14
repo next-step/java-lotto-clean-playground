@@ -1,7 +1,6 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -85,5 +84,10 @@ public class InputView {
                 throw new IllegalArgumentException("번호는 1부터 45 사이여야 합니다.");
             }
         }
+    }
+
+    public static void closeScanner() {
+        scanner.close(); // 스캐너 닫기
+        System.out.println("Scanner has been closed.");
     }
 }
