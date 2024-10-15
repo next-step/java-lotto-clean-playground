@@ -1,14 +1,11 @@
 package controller;
 
-import model.LottoNumber;
-import model.LottoResult;
-import model.LottoTicket;
-import model.LottoTickets;
-import service.LottoCalculator;
-import service.LottoTicketsGenerator;
-import service.WinningLottoCheckMachine;
+import model.*;
 import view.InputView;
 import view.ResultView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LottoController {
 
@@ -20,28 +17,55 @@ public class LottoController {
         this.resultView = resultView;
     }
 
-    public void RunLottoApplication(){
+    public void runLottoApplication(){
 
         int lottoPurchaseAmount = inputView.inputPurchaseAmount();
         int manualLottoTicketCount = inputView.inputManualLottoTicketCount();
-        int totalLottoTicketCount = LottoCalculator.calculateTotalLottoTicketCount(lottoPurchaseAmount);
-        int automaticLottoTicketCount = LottoCalculator.calculateAutomaticLottoTicketCount(totalLottoTicketCount,manualLottoTicketCount);
+        int totalLottoTicketCount = LottoTicket.calculateTotalLottoTicketCount(lottoPurchaseAmount);
+        int automaticLottoTicketCount = LottoTicket.calculateAutomaticLottoTicketCount(totalLottoTicketCount,manualLottoTicketCount);
 
-        LottoTickets manualLottoTickets = inputView.inputManualTicketNumbers(manualLottoTicketCount);
-
-        resultView.printLottoTicketsCountSentence(manualLottoTicketCount,automaticLottoTicketCount);
-
-        LottoTickets lottoTickets = LottoTicketsGenerator.generateTickets(manualLottoTickets,totalLottoTicketCount);
-
+        LottoTickets lottoTickets = generateLottoTickets(manualLottoTicketCount,automaticLottoTicketCount);
         resultView.printLottoTicketsInformation(lottoTickets);
 
         LottoTicket winningNumbersWhenLastWeek = inputView.inputLastWeekWinningNumbers();
         LottoNumber bonusBallNumber = inputView.inputBonusBallNumber();
 
-        WinningLottoCheckMachine lottoCheckMachine = new WinningLottoCheckMachine(winningNumbersWhenLastWeek,bonusBallNumber);
-        LottoResult result = lottoCheckMachine.operateLottoCheckMachine(lottoTickets,lottoPurchaseAmount);
+        LottoResult lottoResult = checkLottoResults(lottoTickets,winningNumbersWhenLastWeek, bonusBallNumber);
+        printLottoResults(lottoResult, lottoPurchaseAmount);
 
-        resultView.printLottoWinningStatistics(result);
+    }
+
+    private LottoTickets generateLottoTickets(int manualLottoTicketCount, int automaticLottoTicketCount) {
+
+        LottoTickets manualLottoTickets = inputView.inputManualTicketNumbers(manualLottoTicketCount);
+        LottoTickets automaticLottoTickets = LottoTickets.generateAutomaticTickets(automaticLottoTicketCount);
+
+        resultView.printLottoTicketsCountSentence(manualLottoTicketCount,automaticLottoTicketCount);
+
+        LottoTickets lottoTickets = new LottoTickets();
+        lottoTickets.generateLottoTickets(manualLottoTickets,automaticLottoTickets);
+
+        return lottoTickets;
+    }
+
+    private LottoResult checkLottoResults(LottoTickets lottoTickets, LottoTicket winningNumbersWhenLastWeek, LottoNumber bonusBallNumber) {
+
+        Map<LottoRank, Integer> initialWinningResult = new HashMap<>();
+        LottoResult lottoResult = new LottoResult(initialWinningResult);
+
+        lottoResult.operateLottoCheckMachine(lottoTickets, winningNumbersWhenLastWeek, bonusBallNumber);
+
+        return lottoResult;
+    }
+
+    private void printLottoResults(LottoResult lottoResult, int lottoPurchaseAmount) {
+
+        resultView.printLottoWinningStatistics(lottoResult);
+
+        int totalPrize = lottoResult.calculateTotalPrize(lottoResult.getWinningResult());
+        double earningRate = lottoResult.calculateEarningRate(totalPrize,lottoPurchaseAmount);
+
+        resultView.printEarningRate(earningRate);
 
     }
 
