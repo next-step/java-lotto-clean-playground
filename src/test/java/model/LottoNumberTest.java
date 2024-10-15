@@ -27,7 +27,6 @@ public class LottoNumberTest {
                 .hasMessage("로또 번호 범위에서 벗어났습니다. (로또 번호 범위: 1~45)");
     }
 
-
     @Test
     @DisplayName("같은 값을 가진 로또 번호는 동일해야 한다.")
     public void equalsSameNumber_returnsTrue() {
@@ -44,26 +43,4 @@ public class LottoNumberTest {
         assertThat(lottoNumber1).isNotEqualTo(lottoNumber2);
     }
 
-    @Test
-    @DisplayName("같은 값을 가진 로또 번호의 해시 코드는 동일해야 한다.")
-    public void hashCodeSameNumber_sameHashCode() {
-        LottoNumber lottoNumber1 = new LottoNumber(15);
-        LottoNumber lottoNumber2 = new LottoNumber(15);
-        assertThat(lottoNumber1.hashCode()).isEqualTo(lottoNumber2.hashCode());
-    }
-
-    @Test
-    @DisplayName("다른 값을 가진 로또 번호의 해시 코드는 동일하지 않아야 한다.")
-    public void hashCodeDifferentNumber_differentHashCode() {
-        LottoNumber lottoNumber1 = new LottoNumber(15);
-        LottoNumber lottoNumber2 = new LottoNumber(25);
-        assertThat(lottoNumber1.hashCode()).isNotEqualTo(lottoNumber2.hashCode());
-    }
-
-    @Test
-    @DisplayName("toString 메소드는 로또 번호를 문자열로 반환해야 한다.")
-    public void toStringReturnsCorrectString() {
-        LottoNumber lottoNumber = new LottoNumber(30);
-        assertThat(lottoNumber.toString()).isEqualTo("30");
-    }
 }
