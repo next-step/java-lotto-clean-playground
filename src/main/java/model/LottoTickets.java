@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class LottoTickets {
 
@@ -10,13 +11,6 @@ public class LottoTickets {
 
     public LottoTickets() {
         this.tickets = new ArrayList<>();
-    }
-
-    public void addTicket(LottoTicket lottoTicket){
-        if (lottoTicket == null) {
-            throw new IllegalArgumentException("로또 티켓은 비어있을 수 없습니다.");
-        }
-        tickets.add(lottoTicket);
     }
 
     public List<LottoTicket> getTickets(){
@@ -27,12 +21,45 @@ public class LottoTickets {
         return tickets.size();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (LottoTicket ticket : tickets) {
-            sb.append("[").append(ticket).append("]\n");
+    public void addTicket(LottoTicket lottoTicket){
+        if (lottoTicket == null) {
+            throw new IllegalArgumentException("로또 티켓은 비어있을 수 없습니다.");
         }
-        return sb.toString();
+
+        tickets.add(lottoTicket);
     }
+
+    public static LottoTickets generateAutomaticTickets(int automaticLottoTicketCount) {
+        LottoTickets automaticLottoTickets = new LottoTickets();
+
+        while(automaticLottoTickets.ticketsCount() < automaticLottoTicketCount){
+            automaticLottoTickets.addTicket(LottoTicket.generateAutomaticNumbers());
+        }
+
+        return automaticLottoTickets;
+    }
+
+    public void generateLottoTickets(LottoTickets manualLottoTickets, LottoTickets automaticLottoTickets) {
+
+        mergeAnotherTicketsToLottoTickets(manualLottoTickets);
+        mergeAnotherTicketsToLottoTickets(automaticLottoTickets);
+
+    }
+
+    private void mergeAnotherTicketsToLottoTickets(LottoTickets anotherTickets){
+        tickets.addAll(anotherTickets.getTickets());
+    }
+
+    public void checkWinningTickets(Map<LottoRank, Integer> winningResult,
+                                    LottoTicket winningNumbers, LottoNumber bonusNumber){
+
+        for (LottoTicket ticket : tickets) {
+
+            LottoRank rank = ticket.checkWinningTicketConditionAndReturnRank(winningNumbers,bonusNumber);
+
+            winningResult.put(rank,winningResult.get(rank)+1);
+        }
+
+    }
+
 }
