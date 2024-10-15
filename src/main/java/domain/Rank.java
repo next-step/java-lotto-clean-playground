@@ -25,7 +25,7 @@ public enum Rank {
         return this.matchCount == matchCount && this.matchBonus == matchBonus;
     }
 
-    public Rank findRank(int count, boolean bonus){
+    public static Rank findRank(int count, boolean bonus){
         return Arrays.stream(Rank.values())
                 .filter(rank -> rank.matches(count, bonus))
                 .findFirst()

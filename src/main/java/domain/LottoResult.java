@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import static domain.Rank.FIFTH;
 import static domain.Rank.NONE;
 
 public class LottoResult {
@@ -20,7 +21,7 @@ public class LottoResult {
 
     // 순위 찾아서 해당 순위 count 증가시키는 함수
     public void matchCountUp(int count, boolean bonus) {
-        Rank foundRank = NONE.findRank(count,bonus);
+        Rank foundRank = Rank.findRank(count,bonus);
         countMap.put(foundRank, countMap.get(foundRank) + 1);
     }
 
