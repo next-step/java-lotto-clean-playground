@@ -4,9 +4,10 @@ import view.ResultView;
 
 public class Main {
     public static void main(String[] args) {
-        LottoController lottoController = new LottoController(
-                new InputView(),new ResultView());
 
-        lottoController.RunLottoApplication();
+        LottoController lottoController = new LottoController(new InputView(),new ResultView());
+
+        lottoController.runLottoApplication();
+
     }
 }
