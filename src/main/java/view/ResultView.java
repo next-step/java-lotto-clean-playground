@@ -1,10 +1,9 @@
 package view;
 
-import model.LottoRank;
-import model.LottoResult;
-import model.LottoTickets;
+import model.*;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ResultView {
 
@@ -13,13 +12,26 @@ public class ResultView {
     }
 
     public void printLottoTicketsInformation(LottoTickets lottoTickets) {
-        System.out.println(lottoTickets);
+
+        StringBuilder sb = new StringBuilder();
+
+        for (LottoTicket ticket : lottoTickets.getTickets()) {
+
+            String result = ticket.getNumbers()
+                    .stream()
+                    .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
+                    .collect(Collectors.joining(","));
+
+            sb.append("[").append(result).append("]\n");
+        }
+
+        System.out.println(sb);
+
     }
 
     public void printLottoWinningStatistics(LottoResult lottoResult){
 
         Map<LottoRank,Integer> resultMap = lottoResult.getWinningResult();
-        double earningRate = lottoResult.getEarningRate();
 
         System.out.println("당첨 통계\n---------");
 
@@ -33,7 +45,6 @@ public class ResultView {
             System.out.printf(" (%d원) - %d개\n", rank.getPrize(),resultMap.get(rank));
         }
 
-        printEarningRate(earningRate);
     }
 
     private static void printPhraseIfNumberMatchesBonusBall(LottoRank rank) {
@@ -42,7 +53,7 @@ public class ResultView {
         }
     }
 
-    private static void printEarningRate(double earningRate) {
+    public void printEarningRate(double earningRate) {
         System.out.printf("총 수익률은 %.2f입니다.\n", earningRate);
     }
 }
