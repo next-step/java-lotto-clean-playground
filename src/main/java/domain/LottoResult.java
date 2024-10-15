@@ -18,10 +18,6 @@ public class LottoResult {
         }
     }
 
-    public Map<Rank, Integer> getCounMap() {
-        return countMap;
-    }
-
     // 순위 찾아서 해당 순위 count 증가시키는 함수
     public void matchCountUp(int count, boolean bonus) {
         Rank foundRank = NONE.findRank(count,bonus);
@@ -36,5 +32,9 @@ public class LottoResult {
         double profitability = (double) sum / inputMoney;
 
         return profitability;
+    }
+
+    public Map<Rank, Integer> getCounMap() {
+        return countMap;
     }
 }

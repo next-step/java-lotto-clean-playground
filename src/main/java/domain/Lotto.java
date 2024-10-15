@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,16 +16,6 @@ public class Lotto {
     public Lotto(List<Integer> lotto) {
         this.lotto = new ArrayList<>(lotto);
         validate();
-    }
-
-    public List<Integer> getLotto() {
-        return lotto;
-    }
-
-    public int matchingNumbers(List<Integer> winningNumbers) {
-        return (int) lotto.stream()
-                .filter(winningNumbers::contains)
-                .count();
     }
 
     private void validate(){
@@ -52,5 +43,15 @@ public class Lotto {
         if (lottoNumber < MIN_NUMBER || lottoNumber > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 ~ 45 사이의 자연수여야 합니다.");
         }
+    }
+
+    public int matchingNumbers(List<Integer> winningNumbers) {
+        return (int) lotto.stream()
+                .filter(winningNumbers::contains)
+                .count();
+    }
+
+    public List<Integer> getLotto() {
+        return Collections.unmodifiableList(lotto);
     }
 }
