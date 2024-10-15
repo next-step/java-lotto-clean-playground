@@ -2,6 +2,7 @@ package domain;
 
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import static domain.Rank.NONE;
 
 public class LottoResult {
 
-    private final Map<Rank, Integer> countMap = new HashMap<>();
+    private final Map<Rank, Integer> countMap = new EnumMap<>(Rank.class);
 
     public LottoResult() {
         for (Rank rank : Rank.values()) {
