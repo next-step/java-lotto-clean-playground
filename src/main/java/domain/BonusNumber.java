@@ -9,10 +9,16 @@ import static utils.LottoNumberGenerator.MIN_NUMBER;
 public class BonusNumber {
     private final int bonusNumber;
 
-    public BonusNumber(int bonusNumber) {
+    private BonusNumber(int bonusNumber) {
         this.bonusNumber = bonusNumber;
         checkRange();
     }
+
+    public static BonusNumber inputBonusNumber(int bonusNumber){
+        return new BonusNumber(bonusNumber);
+    }
+
+
 
     public boolean match(Lotto lotto) {
         return lotto.getLotto().contains(bonusNumber);

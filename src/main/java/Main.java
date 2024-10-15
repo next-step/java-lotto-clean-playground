@@ -30,7 +30,7 @@ public class Main {
 
         // 보너스 번호 입력
         final int inputBonus = InputView.inputBonus();
-        final BonusNumber bonusNumber = new BonusNumber(inputBonus);
+        final BonusNumber bonusNumber = BonusNumber.inputBonusNumber(inputBonus);
 
         // 결과 출력
         final LottoResult lottoResult = new LottoResult();
