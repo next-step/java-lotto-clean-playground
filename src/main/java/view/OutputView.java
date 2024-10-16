@@ -1,9 +1,9 @@
 package view;
 
-import dto.LottoDTO;
-
 import java.util.List;
+import java.util.Map;
 
+import domain.FindWinningLotto;
 
 public class OutputView {
 
@@ -18,14 +18,19 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printLottoWinningStatistics(LottoDTO lottoDTO) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- " + lottoDTO.correct3 + "개");
-        System.out.println("4개 일치 (50000원)- " + lottoDTO.correct4 + "개");
-        System.out.println("5개 일치 (1500000원)- " + lottoDTO.correct5 + "개");
-        System.out.println("5개 일치, 보너스 볼 일치(30000000원)- " + lottoDTO.correct5WithBonus + "개");
-        System.out.println("6개 일치 (2000000000원)- " + lottoDTO.correct6 + "개");
-        System.out.printf("총 수익률은 %.2f입니다.", lottoDTO.income);
+    public static void printLottoWinningStatistics(Map<FindWinningLotto.LottoRank, Integer> winningStatistics, double incomeRate) {
+        System.out.println("당첨 통계:");
+
+        for (FindWinningLotto.LottoRank rank : FindWinningLotto.LottoRank.values()) {
+            int count = winningStatistics.getOrDefault(rank, 0);
+
+            String matchDescription = rank == FindWinningLotto.LottoRank.FIVE_WITH_BONUS ? "5개 일치, 보너스 볼 일치" : rank.getMatchCount() + "개 일치";
+
+            if (rank != FindWinningLotto.LottoRank.NONE) {
+                System.out.printf("%s (%d원)- %d개%n", matchDescription, rank.getPrize(), count);
+            }
+        }
+
+        System.out.printf("총 수익률은 %.2f입니다.%n", incomeRate);
     }
 }
