@@ -14,27 +14,27 @@ public class Lotto {
     private final List<Integer> lotto;
 
     public Lotto(List<Integer> lotto) {
+        validate(lotto);
         this.lotto = new ArrayList<>(lotto);
-        validate();
     }
 
-    private void validate(){
-        checkSize();
-        checkDuplicates();
-        for(Integer lottoNumber : lotto){
+    private void validate(List<Integer> checkLotto){
+        checkSize(checkLotto);
+        checkDuplicates(checkLotto);
+        for(Integer lottoNumber :checkLotto){
             checkRange(lottoNumber);
         }
     }
 
-    private void checkSize() {
-        if (lotto.size() != LOTTO_SIZE) {
+    private void checkSize(List<Integer> checkLotto) {
+        if (checkLotto.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
 
-    private void checkDuplicates() {
-        Set<Integer> lottoSet = new HashSet<>(lotto);
-        if(lottoSet.size() != lotto.size()){
+    private void checkDuplicates(List<Integer> checkLotto) {
+        Set<Integer> lottoSet = new HashSet<>(checkLotto);
+        if(lottoSet.size() != checkLotto.size()){
             throw new IllegalArgumentException("로또 번호는 중복이 없어야 합니다.");
         }
     }
