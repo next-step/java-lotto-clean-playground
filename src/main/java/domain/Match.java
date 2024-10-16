@@ -23,8 +23,6 @@ public enum Match {
         return count;
     }
 
-//    public abstract String print();
-
     public static Match from(int c, boolean bonus) {
         if (c == THREE.count) {
             return THREE;
