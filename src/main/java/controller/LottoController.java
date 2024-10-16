@@ -1,8 +1,9 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
+
 import domain.FindWinningLotto;
-import dto.LottoDTO;
 import view.InputView;
 import view.OutputView;
 
@@ -41,12 +42,15 @@ public class LottoController {
     }
 
     public void findWinningLotto() {
-        FindWinningLotto findWinningLotto = new FindWinningLotto(); // 당첨 로또 찾기
+        FindWinningLotto findWinningLotto = new FindWinningLotto();
 
-        LottoDTO lottoDTO = findWinningLotto.countCollectNumber(manualLottoInputs, lastWeekWinningNumbers, bonusWinningNumber, totalInvestment);
+        Map<FindWinningLotto.LottoRank, Integer> winningResult = findWinningLotto.calculateWinningResult(manualLottoInputs, lastWeekWinningNumbers, bonusWinningNumber);
 
-        OutputView.printLottoWinningStatistics(lottoDTO); // 당첨 통계 출력
+        double totalPrizeMoney = winningResult.entrySet().stream()
+                .mapToDouble(entry -> entry.getKey().getPrize() * entry.getValue())
+                .sum();
+        double incomeRate = totalPrizeMoney / totalInvestment;
+
+        OutputView.printLottoWinningStatistics(winningResult, incomeRate);
     }
-
-
 }
