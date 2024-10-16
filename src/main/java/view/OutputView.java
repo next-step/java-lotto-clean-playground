@@ -4,6 +4,7 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.Match;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +43,17 @@ public class OutputView {
         System.out.println("당첨 통계\n" +
                 "---------");
 
-        for (Match m: Match.values()) {
-            String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
-            System.out.println(printFormat + statistic.get(m));
-        }
+        Arrays.stream(Match.values())
+                .filter(m -> m != Match.NONE)
+                .forEach(m -> {
+                    String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
+                    System.out.println(printFormat + statistic.get(m));
+                });
+
+//        for (Match m: Match.values()) {
+//            String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
+//            System.out.println(printFormat + statistic.get(m));
+//        }
     }
 
     public void printEarnRate(double rate) {

@@ -63,6 +63,7 @@ public class LottoStatisticData {
 
     public double calculateRate(int amount) {
         int totalEarnAmount = 0;
+
         for (Match m: matchStatistic.keySet()) {
             totalEarnAmount += matchStatistic.get(m) * m.getPrice();
         }
