@@ -30,7 +30,6 @@ public class InputView {
         return count;
     }
 
-//    flag: 한번만 출력하기 위해서
     public List<LottoNumber> readManualLottoNumbers() {
         return numbersToLottoNumbers();
     }
