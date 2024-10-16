@@ -43,7 +43,8 @@ public class OutputView {
                 "---------");
 
         for (Match m: Match.values()) {
-            System.out.println(m.print() + statistic.get(m));
+            String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
+            System.out.println(printFormat + statistic.get(m));
         }
     }
 

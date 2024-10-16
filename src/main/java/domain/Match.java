@@ -1,40 +1,14 @@
 package domain;
 
 public enum Match {
-    THREE(3, 5000) {
-        @Override
-        public String print() {
-            return getCount() + "개 일치 (" + getPrice() + "원)- ";
-        }
-
-    },
-    FOUR(4, 50000) {
-        @Override
-        public String print() {
-            return getCount() + "개 일치 (" + getPrice() + "원)- ";
-        }
-    },
-    FIVE(5,1500000) {
-        @Override
-        public String print() {
-            return getCount() + "개 일치 (" + getPrice() + "원)- ";
-        }
-    },
-    FIVEWITHBONUS(5,30000000) {
-        @Override
-        public String print() {
-            return getCount() + "개 일치, 보너스 볼 일치(" + getPrice() + "원) - ";
-        }
-    },
-    SIX(6, 2000000000) {
-        @Override
-        public String print() {
-            return getCount() + "개 일치 (" + getPrice() + "원)- ";
-        }
-    };
-
+    THREE(3, 5000),
+    FOUR(4, 50000),
+    FIVE(5,1500000),
+    FIVEWITHBONUS(5,30000000),
+    SIX(6, 2000000000);
     private final int price;
     private final int count;
+
 
     Match(int count, int price) {
         this.count = count;
@@ -49,7 +23,7 @@ public enum Match {
         return count;
     }
 
-    public abstract String print();
+//    public abstract String print();
 
     public static Match from(int c, boolean bonus) {
         if (c == THREE.count) {
@@ -65,13 +39,5 @@ public enum Match {
         }
 
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return "Match{" +
-                "price=" + price +
-                ", count=" + count +
-                '}';
     }
 }
