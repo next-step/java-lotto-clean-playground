@@ -7,7 +7,6 @@ import java.util.Set;
 public class Lotto {
     public static final int SIZE = 6;
     private static final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
-//    private LottoNumbers lottoNumbers;
     private final List<LottoNumber> numbers;
 
 

@@ -29,34 +29,12 @@ public class OutputView {
     }
 
     public void printLottosNumbers(List<Lotto> lottos) {
-        lottos.stream()
-                .map(Lotto::getLottoNumbers)
-                .forEach(
-                        list -> {
-                            System.out.print("[");
-                            list.forEach(
-                                    l ->
-                                        System.out.print(l.getValue() + ", ")
-                            );
-
-                            System.out.print("]\n");
-                        });
-
-
         List<List<LottoNumber>> flatLottosNumbers = lottos.stream()
                 .map(Lotto::getLottoNumbers)
                 .toList();
 
-        for (List<LottoNumber> flatLottosNumber : flatLottosNumbers) {
-            System.out.print("[");
-            for (int j = 0; j < Lotto.SIZE; j++) {
-                System.out.print(flatLottosNumber.get(j).getValue());
-
-                if (j != Lotto.SIZE - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.print("]\n");
+        for (List<LottoNumber> lottosNumber : flatLottosNumbers) {
+            System.out.println(lottosNumber);
         }
     }
 
