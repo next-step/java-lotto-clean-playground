@@ -63,86 +63,14 @@ public class LottoStatisticDataTest {
         );
 
         List<Lotto> puchasedLottos = List.of(
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(3),
-                                    new LottoNumber(4),
-                                    new LottoNumber(5),
-                                    new LottoNumber(6)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(3),
-                                    new LottoNumber(4),
-                                    new LottoNumber(5),
-                                    new LottoNumber(7)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(3),
-                                    new LottoNumber(4),
-                                    new LottoNumber(5),
-                                    new LottoNumber(45)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(3),
-                                    new LottoNumber(4),
-                                    new LottoNumber(44),
-                                    new LottoNumber(45)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(3),
-                                    new LottoNumber(43),
-                                    new LottoNumber(44),
-                                    new LottoNumber(45)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(2),
-                                    new LottoNumber(42),
-                                    new LottoNumber(43),
-                                    new LottoNumber(44),
-                                    new LottoNumber(45)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(1),
-                                    new LottoNumber(41),
-                                    new LottoNumber(42),
-                                    new LottoNumber(43),
-                                    new LottoNumber(44),
-                                    new LottoNumber(45)
-                            )
-                ),
-                new Lotto(
-                            List.of(
-                                    new LottoNumber(40),
-                                    new LottoNumber(41),
-                                    new LottoNumber(42),
-                                    new LottoNumber(43),
-                                    new LottoNumber(44),
-                                    new LottoNumber(45)
-                            )
-                )
+                Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+                Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
+                Lotto.from(List.of(1, 2, 3, 4, 5, 45)),
+                Lotto.from(List.of(1, 2, 3, 4, 44, 45)),
+                Lotto.from(List.of(1, 2, 3, 43, 44, 45)),
+                Lotto.from(List.of(1, 2, 42, 43, 44, 45)),
+                Lotto.from(List.of(1, 41, 42, 43, 44, 45)),
+                Lotto.from(List.of(40, 41, 42, 43, 44, 45))
         );
 
         LottoNumber bonusNumber = new LottoNumber(7);

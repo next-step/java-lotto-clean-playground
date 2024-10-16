@@ -44,4 +44,13 @@ public class Lotto {
     public List<LottoNumber> getLottoNumbers() {
         return numbers;
     }
+
+    public static Lotto from(List<Integer> numbers) {
+        return new Lotto(
+                numbers.stream()
+                        .map(LottoNumber::new)
+                        .toList()
+        );
+    }
+
 }

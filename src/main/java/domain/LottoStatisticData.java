@@ -51,9 +51,7 @@ public class LottoStatisticData {
     private void updateMatchStatistic(int cnt, boolean bonusFlag, Map<Match, Integer> matchCounts) {
         Match match = Match.from(cnt, bonusFlag);
 
-        if (match != null) {
-            matchCounts.put(match, matchCounts.get(match) + 1);
-        }
+        matchCounts.put(match, matchCounts.get(match) + 1);
     }
 
     private Map<Match, Integer> initializeMatchMap() {
@@ -64,11 +62,12 @@ public class LottoStatisticData {
     public double calculateRate(int amount) {
         int totalEarnAmount = 0;
 
+
         for (Match m: matchStatistic.keySet()) {
             totalEarnAmount += matchStatistic.get(m) * m.getPrice();
         }
 
-        return Math.floor((double) totalEarnAmount / amount * 100)/100.0;
+        return Math.floor((double) totalEarnAmount / (amount * 1000) * 100) / 100.00;
     }
 
     public Map<Match, Integer> getMatchStatistic() {
