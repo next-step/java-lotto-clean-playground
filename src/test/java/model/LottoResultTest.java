@@ -28,26 +28,14 @@ public class LottoResultTest {
     }
 
     @Test
-    @DisplayName("총 상금을 계산하면 각 등수의 상금 * 당첨 개수의 합이 되어야 한다.")
-    public void testCalculateTotalPrize() {
-        winningResult.put(LottoRank.FIRST, 1);
-        winningResult.put(LottoRank.SECOND, 2);
-
-        int totalPrize = lottoResult.calculateTotalPrize(winningResult);
-
-        int expectedPrize = LottoRank.FIRST.getPrize() * 1 + LottoRank.SECOND.getPrize() * 2;
-        assertThat(totalPrize).isEqualTo(expectedPrize);
-    }
-
-    @Test
     @DisplayName("총 상금과 구매 금액을 기준으로 수익률을 계산한다.")
     public void testCalculateEarningRate() {
-        int totalPrize = 5000000;
-        int purchaseAmount = 100000;
+        int purchaseAmount = 10000;
+        winningResult.put(LottoRank.FOURTH, 1);
 
-        double earningRate = lottoResult.calculateEarningRate(totalPrize, purchaseAmount);
+        double earningRate = lottoResult.calculateEarningRate(purchaseAmount);
 
-        assertThat(earningRate).isEqualTo(50.0);
+        assertThat(earningRate).isEqualTo(5.0);
     }
 
     @Test
