@@ -26,24 +26,24 @@ public class App {
         }
 
         // 수동과 자동 구매 개수를 출력한다
-        Output.ManualAndAutoNumOutput(manual, auto);
+        Output.manualAndAutoNumOutput(manual, auto);
 
         // 자동 로또 번호를 생성 및 출력한다
         for (int i = 0; i < auto; i++) {
-            List<String> autoLotto = Input.AutoLottoInput();
+            List<String> autoLotto = Input.autoLottoInput();
             Collections.sort(autoLotto);
             LottoList.add(autoLotto);
-            Output.LottoNumOutput(autoLotto);
+            Output.lottoNumOutput(autoLotto);
         }
 
         // 지난 주 당첨 번호를 입력한다
-        List<String> LastWeekLotto = Input.LastWeekLottoNum();
+        List<String> LastWeekLotto = Input.lastWeekLottoNum();
 
         // 보너스 볼을 입력한다
-        String BonusBall = Input.BonusBall();
+        String BonusBall = Input.bonusBall();
 
         // 당첨 통계를 출력한다
-        Output.ResultOfLotto(LottoList, LastWeekLotto, BonusBall, total*1000);
+        Output.resultOfLotto(LottoList, LastWeekLotto, BonusBall, total*1000);
         Input.closeScanner();
     }
 }
