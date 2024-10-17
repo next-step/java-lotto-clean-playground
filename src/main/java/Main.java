@@ -7,7 +7,9 @@ public class Main {
 
         LottoController lottoController = new LottoController(new InputView(),new ResultView());
 
-        lottoController.runLottoApplication();
+        lottoController.purchaseLottoTickets();
+        lottoController.inputWinningNumbers();
+        lottoController.printResults();
 
     }
 }
