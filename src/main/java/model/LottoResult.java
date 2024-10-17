@@ -21,19 +21,11 @@ public class LottoResult {
         return Collections.unmodifiableMap(winningResult);
     }
 
-    public int calculateTotalPrize(Map<LottoRank, Integer> result) {
+    public double calculateEarningRate(int purchaseAmount) {
 
-        int  totalPrize = 0;
-
-        for (Map.Entry<LottoRank,Integer> entry : result.entrySet()) {
-            totalPrize += entry.getKey().getPrize() * entry.getValue();
-        }
-
-        return totalPrize;
-    }
-
-    public double calculateEarningRate(int totalPrize, int purchaseAmount) {
+        int totalPrize = calculateTotalPrize();
         return (double) totalPrize / purchaseAmount;
+
     }
 
     public void operateLottoCheckMachine(LottoTickets lottoTickets,
@@ -41,5 +33,16 @@ public class LottoResult {
 
         lottoTickets.checkWinningTickets(winningResult,winningNumbers,bonusNumber);
 
+    }
+
+    private int calculateTotalPrize() {
+
+        int  totalPrize = 0;
+
+        for (Map.Entry<LottoRank,Integer> entry : winningResult.entrySet()) {
+            totalPrize += entry.getKey().calculatePrizeForCount(entry.getValue());
+        }
+
+        return totalPrize;
     }
 }
