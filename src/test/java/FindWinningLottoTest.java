@@ -96,4 +96,30 @@ public class FindWinningLottoTest {
         assertEquals(0, result.get(FindWinningLotto.LottoRank.THREE));
         assertEquals(1, result.get(FindWinningLotto.LottoRank.NONE));
     }
+
+    @Test
+    public void testCalculateWinningResult_Three() {
+        // Given
+        List<List<Integer>> manualLottoInputs = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(11, 12, 13, 14, 15, 16)
+        );
+        List<Integer> lastWeekWinningNumbers = List.of(1, 2, 3, 42, 43, 44);
+        int bonusWinningNumber = 45;
+
+        FindWinningLotto findWinningLotto = new FindWinningLotto();
+
+        // When
+        Map<FindWinningLotto.LottoRank, Integer> result = findWinningLotto.calculateWinningResult(manualLottoInputs, lastWeekWinningNumbers, bonusWinningNumber);
+
+        // Then
+        assertEquals(0, result.get(FindWinningLotto.LottoRank.SIX));
+        assertEquals(0, result.get(FindWinningLotto.LottoRank.FIVE_WITH_BONUS));
+        assertEquals(0, result.get(FindWinningLotto.LottoRank.FIVE));
+        assertEquals(0, result.get(FindWinningLotto.LottoRank.FOUR));
+        assertEquals(1, result.get(FindWinningLotto.LottoRank.THREE));
+        assertEquals(1, result.get(FindWinningLotto.LottoRank.NONE));
+    }
+
+
 }
