@@ -30,6 +30,10 @@ public enum LottoRank {
 
     }
 
+    public int calculatePrizeForCount(int count){
+        return this.prize * count;
+    }
+
     public int getMatchCount() {
         return matchCount;
     }
