@@ -22,10 +22,18 @@ public enum LottoRank {
     public static LottoRank valueOf(long matchCount, boolean isMatchBonusBall) {
 
         if (matchCount == 6) return FIRST;
+
         if (matchCount == 5 && isMatchBonusBall) return SECOND;
+
         if (matchCount == 5) return THIRD;
+        if (matchCount == 4 && isMatchBonusBall) return THIRD;
+
         if (matchCount == 4) return FOURTH;
+        if (matchCount == 3 && isMatchBonusBall) return FOURTH;
+
         if (matchCount == 3) return FIFTH;
+        if (matchCount == 2 && isMatchBonusBall) return FIFTH;
+
         return NONE;
 
     }
