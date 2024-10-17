@@ -26,13 +26,13 @@ public class InputView {
         List<List<Integer>> manualLottoInputs = new ArrayList<>();
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
 
-        for(int i = 0; i < numberOfManualLottos; i++) {
-            String input = scanner.nextLine(); //8, 21, 23, 41, 42, 43
+        for (int i = 0; i < numberOfManualLottos; i++) {
+            String input = scanner.nextLine();
             List<Integer> lottoNumbers = new ArrayList<>();
             for (String number : input.split(", ")) {
-                lottoNumbers.add(Integer.parseInt(number.trim())); // Trim spaces and parse to Integer
+                lottoNumbers.add(Integer.parseInt(number.trim()));
             }
-            manualLottoInputs.add(lottoNumbers); // Add the list of integers to the result
+            manualLottoInputs.add(lottoNumbers);
         }
         return manualLottoInputs;
     }
