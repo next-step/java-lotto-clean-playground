@@ -78,6 +78,7 @@ public class LottoTicket {
 
         List<LottoNumber> selectedLottoNumbers = lottoNumberPool.subList(0, LOTTO_SIZE)
                 .stream()
+                .sorted()
                 .map(LottoNumber::new)
                 .toList();
 
@@ -90,17 +91,8 @@ public class LottoTicket {
         int matchCount = this.countMatchingNumbers(winningNumbers);
         boolean isMatchBonusBall = this.contains(bonusNumber);
 
-        if(doesMatchWithBonusNumberExcept2ndRank(isMatchBonusBall,matchCount)) {
-            matchCount++;
-        }
+        return LottoRank.valueOf(matchCount, isMatchBonusBall);
 
-        LottoRank rank = LottoRank.valueOf(matchCount,isMatchBonusBall);
-
-        return rank;
-    }
-
-    private static boolean doesMatchWithBonusNumberExcept2ndRank(boolean isMatchBonusBall, int matchCount) {
-        return isMatchBonusBall && matchCount != MATCHCOUNT_WITH_BONUSBALL_OF_2ND_RANK;
     }
 
 }
