@@ -1,9 +1,7 @@
 package domain;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int SIZE = 6;
@@ -16,8 +14,9 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validateNumber(numbers);
-        Collections.sort(numbers);
-        this.numbers = numbers;
+        List<LottoNumber> modifiedNumbers = new ArrayList<>(numbers);
+        Collections.sort(modifiedNumbers);
+        this.numbers = modifiedNumbers;
     }
 
     private void validateNumber(List<LottoNumber> numbers) {

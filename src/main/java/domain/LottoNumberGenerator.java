@@ -18,7 +18,6 @@ public class LottoNumberGenerator {
         Collections.shuffle(capableNumber);
         return capableNumber.subList(0, Lotto.SIZE)
                         .stream()
-                        .sorted()
                         .map(LottoNumber::new)
                         .toList();
     }
