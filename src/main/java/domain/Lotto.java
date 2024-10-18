@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    public static final int SIZE = 6;
+    private static final int SIZE = 6;
     private static final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
     private final List<LottoNumber> numbers;
 
@@ -39,7 +39,7 @@ public class Lotto {
     }
 
     public static Lotto creatAutoLotto() {
-        return new Lotto(lottoNumberGenerator.generateLottoNumbers());
+        return new Lotto(lottoNumberGenerator.generateLottoNumbers(Lotto.SIZE));
     }
 
     public List<LottoNumber> getLottoNumbers() {

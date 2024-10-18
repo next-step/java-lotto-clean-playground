@@ -14,9 +14,9 @@ public class LottoNumberGenerator {
             40, 41, 42, 43, 44, 45
     ));
 
-    public List<LottoNumber> generateLottoNumbers() {
+    public List<LottoNumber> generateLottoNumbers(int size) {
         Collections.shuffle(capableNumber);
-        return capableNumber.subList(0, Lotto.SIZE)
+        return capableNumber.subList(0, size)
                         .stream()
                         .map(LottoNumber::new)
                         .toList();
