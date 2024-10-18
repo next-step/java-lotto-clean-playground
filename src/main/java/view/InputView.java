@@ -3,10 +3,8 @@ package view;
 import domain.LottoNumber;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class InputView {
     private final Scanner sc  = new Scanner(System.in);
