@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Lotto {
     private static final int SIZE = 6;
