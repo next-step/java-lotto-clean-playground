@@ -33,9 +33,9 @@ public class LottoTest {
     @ParameterizedTest
     @MethodSource("methodSourceTestArguments")
     void 로또_숫자_6개가_아니면_예외발생(List<LottoNumber> value) {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(value);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+            new Lotto(value)
+        );
     }
 
     private static Stream<Arguments> methodSourceTestArguments() {
@@ -70,8 +70,8 @@ public class LottoTest {
         value.add(new LottoNumber(5));
         value.add(new LottoNumber(6));
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(value);
-        });
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+            new Lotto(value)
+        );
     }
 }
