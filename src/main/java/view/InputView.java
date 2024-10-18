@@ -57,13 +57,9 @@ public class InputView {
     private List<LottoNumber> numbersToLottoNumbers() {
         String[] numbers = sc.nextLine().replaceAll(" ", "").split(",");
 
-        List<LottoNumber> lottoNumbers = Arrays
+        return Arrays
                 .stream(numbers)
                 .map(LottoNumber::from)
-                .collect(Collectors.toList());
-
-        Collections.sort(lottoNumbers);
-
-        return lottoNumbers;
+                .toList();
     }
 }
