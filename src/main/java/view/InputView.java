@@ -18,13 +18,17 @@ public class InputView {
         return   Integer.parseInt(sc.nextLine());
     }
 
-    public int readManualCount() {
+    public int readManualCount(int purchasedLottoCount) {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
 
         int count =  Integer.parseInt(sc.nextLine());
 
         if (count < 0) {
             throw  new IllegalArgumentException("수동 구매 로또 갯수는 0 이상이여야 합니다.");
+        }
+
+        if (purchasedLottoCount < count) {
+            throw new IllegalArgumentException("내신 금액보다 많은 로또를 구매하려고 합니다.");
         }
 
         return count;

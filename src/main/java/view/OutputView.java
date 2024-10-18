@@ -49,11 +49,6 @@ public class OutputView {
                     String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
                     System.out.println(printFormat + statistic.get(m));
                 });
-
-//        for (Match m: Match.values()) {
-//            String printFormat = m.getCount() + "개 일치 (" + m.getPrice() + "원) - ";
-//            System.out.println(printFormat + statistic.get(m));
-//        }
     }
 
     public void printEarnRate(double rate) {

@@ -21,44 +21,27 @@ public class LottoGameController {
             LottoShop lottoShop = new LottoShop();
 
             int amount = inputView.readPurchaseAmount();
-            lottoShop.countLottoByAmount(amount);
 
             int lottoCount = lottoShop.calculateLottoCount(amount);
-
-            int manualCount = inputView.readManualCount();
-
-            if (lottoCount < manualCount) {
-                throw new IllegalArgumentException("내신 금액보다 많은 로또를 구매하려고 합니다.");
-            }
-
+            int manualCount = inputView.readManualCount(lottoCount);
             int automaticCount = lottoCount - manualCount;
 
             List<Lotto> lottos = purchaseLottos(automaticCount, manualCount);
 
-            outputView.printPurchasedCount(automaticCount, manualCount);
-            outputView.printLottosNumbers(lottos);
+            printPurchasedLottosInfo(automaticCount, manualCount, lottos);
 
             List<LottoNumber> winnerNumbers = inputView.readWinnerNumbers();
             LottoNumber bonusNumber = inputView.readBonusNumber();
 
-
             LottoStatisticData lottoStatisticData = new LottoStatisticData(winnerNumbers, bonusNumber, lottos);
 
-            outputView.printStatistic(lottoStatisticData.getMatchStatistic());
-
-            double earnRate = lottoStatisticData.calculateRate(amount);
-            outputView.printEarnRate(earnRate);
-
-
-
-
+            printStatisticResult(lottoStatisticData, amount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private List<Lotto> purchaseLottos(int autoCount, int manualCount) {
-
         if (manualCount > 0) {
             inputView.printReadManualLottoMessage();
         }
@@ -78,5 +61,16 @@ public class LottoGameController {
             addAll(manualLottos);
             addAll(autoLottos);
         }};
+    }
+
+    private void printStatisticResult(LottoStatisticData lottoStatisticData, int amount) {
+        outputView.printStatistic(lottoStatisticData.getMatchStatistic());
+        double earnRate = lottoStatisticData.calculateRate(amount);
+        outputView.printEarnRate(earnRate);
+    }
+
+    private void printPurchasedLottosInfo(int automaticCount, int manualCount, List<Lotto> lottos) {
+        outputView.printPurchasedCount(automaticCount, manualCount);
+        outputView.printLottosNumbers(lottos);
     }
 }
