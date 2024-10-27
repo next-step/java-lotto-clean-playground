@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.LottoFactory;
+import domain.ManualLottoNumbers;
 
 
 import java.util.ArrayList;
@@ -38,7 +39,8 @@ public class InputView {
 
             manualNumbers.add(numbers);
         }
-        return LottoFactory.createManualLottos(manualNumbers);
+        ManualLottoNumbers manualLottoNumbers = new ManualLottoNumbers(manualNumbers);
+        return LottoFactory.createHandLottos(manualLottoNumbers);
     }
 
     public static List<Integer> lottoWinningNumber() { //로또 당첨 번호 입력 메서드

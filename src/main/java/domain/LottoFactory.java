@@ -7,8 +7,8 @@ import java.util.stream.IntStream;
 public class LottoFactory {
 
     //수동 로또 생성 메서드
-    public static List<Lotto> createManualLottos(List<List<Integer>> manualNumbers) {
-        return manualNumbers.stream()
+    public static List<Lotto> createHandLottos(ManualLottoNumbers manualLottoNumbers) {
+        return manualLottoNumbers.getManualNumbers().stream()
                 .map(Lotto::new)
                 .collect(Collectors.toList());
     }
