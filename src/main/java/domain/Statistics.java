@@ -19,17 +19,8 @@ public class Statistics {
 
     //(일반 번호)맞은 개수 업데이트하는 메서드
     public void matchCountUpdate(int matchCount, boolean isBonusMatch) {
-        if (matchCount == 6) {
-            countUp(Prize.SIX_MATCHES);
-        } else if (matchCount == 5 && isBonusMatch) {
-            countUp(Prize.FIVE_MATCHES_BONUS);
-        } else if (matchCount == 5) {
-            countUp(Prize.FIVE_MATCHES);
-        } else if (matchCount == 4) {
-            countUp(Prize.FOUR_MATCHES);
-        } else if (matchCount == 3) {
-            countUp(Prize.THREE_MATCHES);
-        }
+        Prize prize = Prize.fromMatchCount(matchCount, isBonusMatch);
+        countUp(prize);
     }
 
     private void countUp(Prize prize) {

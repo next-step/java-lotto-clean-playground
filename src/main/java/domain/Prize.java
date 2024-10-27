@@ -16,6 +16,21 @@ public enum Prize {
         this.prizeAmount = prizeAmount;
     }
 
+    public static Prize fromMatchCount(int matchCount, boolean isBonusMatch) {
+        if (matchCount == 6) {
+            return SIX_MATCHES;
+        } else if (matchCount == 5 && isBonusMatch) {
+            return FIVE_MATCHES_BONUS;
+        } else if (matchCount == 5) {
+            return FIVE_MATCHES;
+        } else if (matchCount == 4) {
+            return FOUR_MATCHES;
+        } else if (matchCount == 3) {
+            return THREE_MATCHES;
+        }
+        throw new IllegalArgumentException("Invalid match count: " + matchCount);
+    }
+
     public int getMatchingCount() {
         return matchingCount;
     }
