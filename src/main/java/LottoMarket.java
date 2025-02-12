@@ -18,7 +18,7 @@ public class LottoMarket {
         }
     }
 
-    private void randomLotto(){
+    public void randomLotto(){
         List<Integer> numbers = new Random().ints(1, 46)
                 .distinct()
                 .limit(6)

@@ -8,4 +8,8 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    @Override
+    public String toString(){
+        return numbers.toString();
+    }
 }
