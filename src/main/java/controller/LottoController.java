@@ -34,7 +34,10 @@ public class LottoController {
 
         lottoOutputView.printRequestLastWeekWinLottoNumbers();
         String lastWeekWinLottoNumbers = UserInputView.readStringInput();
-        PlayLottoGameResponse playLottoGameResponse = lottoService.playLottoGame(userLottoGroup, WinLotto.createWinLotto(lastWeekWinLottoNumbers));
+        lottoOutputView.printRequestBonusLottoNumber();
+        int bonusNumber = UserInputView.readIntInput();
+
+        PlayLottoGameResponse playLottoGameResponse = lottoService.playLottoGame(userLottoGroup, WinLotto.of(lastWeekWinLottoNumbers, bonusNumber));
         lottoOutputView.printLottoResult(playLottoGameResponse.lottoRankResultDTOS());
         CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(getLottoCountResponse.lottoCount(), playLottoGameResponse.lottoRankResultDTOS());
         lottoOutputView.printEarningsRate(calculateEarningRateResponse.earningRate());

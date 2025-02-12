@@ -22,12 +22,16 @@ public class LottoOutputView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
+    public void printRequestBonusLottoNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
     public void printLottoResult(List<LottoRankResultDTO> lottoResults) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         lottoResults.stream()
                 .filter(result -> result.matchedCount() >= 3)
-                .sorted(Comparator.comparing(LottoRankResultDTO::matchedCount))
+                .sorted(Comparator.comparing(LottoRankResultDTO::prize))
                 .forEach(result ->
                         System.out.printf("%d개 일치 (%d원)- %d개\n", result.matchedCount(), result.prize(), result.resultCount())
                 );

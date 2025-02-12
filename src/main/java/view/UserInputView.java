@@ -16,4 +16,8 @@ public class UserInputView {
     public static long readLongInput() {
         return Long.parseLong(scanner.nextLine());
     }
+
+    public static int readIntInput() {
+        return Integer.parseInt(scanner.nextLine());
+    }
 }
