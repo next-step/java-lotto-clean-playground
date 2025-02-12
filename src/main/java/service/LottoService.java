@@ -1,10 +1,15 @@
 package service;
 
-import domain.LottoGroup;
-import domain.LottoStore;
-import dto.PurchaseLottosResponse;
+import domain.*;
+import dto.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoService {
+
+    public static final long LOTTO_PRICE = 1000L;
 
     private final LottoStore lottoStore;
 
@@ -12,10 +17,43 @@ public class LottoService {
         this.lottoStore = lottoStore;
     }
 
-    public PurchaseLottosResponse purchaseLottos(long amount){
-        long lottoCount = lottoStore.getLottoCount(amount);
+    public GetLottoCountResponse getLottoCount(long amount) {
+        return GetLottoCountResponse.from(lottoStore.getLottoCount(amount));
+    }
+
+    public PurchaseLottosResponse purchaseLottos(long lottoCount) {
         LottoGroup lottoGroup = lottoStore.buyLottos(lottoCount);
 
-        return new PurchaseLottosResponse(lottoCount, lottoGroup);
+        return PurchaseLottosResponse.from(lottoGroup);
+    }
+
+    public PlayLottoGameResponse playLottoGame(LottoGroup userLottoGroup, WinLotto winLotto) {
+        List<Lotto> lottos = userLottoGroup.getLottos();
+        Map<LottoRank, Long> lottoRankResult = calculateLottoResults(winLotto, lottos);
+
+        return PlayLottoGameResponse.from(lottoRankResult);
+    }
+
+    private Map<LottoRank, Long> calculateLottoResults(WinLotto winLotto, List<Lotto> lottos) {
+        return lottos.stream()
+                .map(winLotto::calculateRank)
+                .collect(Collectors.groupingBy(
+                        rank -> rank, Collectors.counting()
+                ));
+    }
+
+    public CalculateEarningRateResponse calculateEarningsRate(long lottoCount, List<LottoRankResultDTO> results) {
+        return CalculateEarningRateResponse.from(
+                 (double) calculatePrizeMoney(results) / calculatePurchaseMoney(lottoCount));
+    }
+
+    private long calculatePurchaseMoney(long lottoCount) {
+        return lottoCount * LOTTO_PRICE;
+    }
+
+    private long calculatePrizeMoney(List<LottoRankResultDTO> results) {
+        return results.stream()
+                .mapToLong(result -> result.prize() * result.resultCount())
+                .sum();
     }
 }

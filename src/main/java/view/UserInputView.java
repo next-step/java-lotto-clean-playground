@@ -6,7 +6,14 @@ public class UserInputView {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    private UserInputView() {
+    }
+
+    public static String readStringInput() {
+        return scanner.nextLine();
+    }
+
     public static long readLongInput() {
-        return scanner.nextLong();
+        return Long.parseLong(scanner.nextLine());
     }
 }

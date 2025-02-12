@@ -5,7 +5,7 @@ import java.util.stream.LongStream;
 
 public class LottoStore {
 
-    public static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1_000;
 
     private final NumbersGenerator numbersGenerator;
 
@@ -18,11 +18,11 @@ public class LottoStore {
     }
 
     public LottoGroup buyLottos(long lottoCount){
-        List<Lotto> lottoList = LongStream.range(0,  lottoCount)
+        List<Lotto> lottos = LongStream.range(0,  lottoCount)
                 .mapToObj(i -> createLotto())
                 .toList();
 
-        return new LottoGroup(lottoList);
+        return new LottoGroup(lottos);
     }
 
     private Lotto createLotto(){
