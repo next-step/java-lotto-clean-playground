@@ -22,4 +22,15 @@ public enum Rank {
                 .orElse(UNRANK);
     }
 
+    public static int getReward(int matchCount) {
+        return Arrays.stream(values())
+                .filter(rank -> rank.match == matchCount) // matchCount와 일치하는 Rank 찾기
+                .map(Rank::getReward) // 해당 Rank의 reward 값 가져오기
+                .findFirst() // 첫 번째 일치하는 값 선택
+                .orElse(0); // 없으면 0 반환 (UNRANK)
+    }
+
+    public int getReward() {
+        return reward;
+    }
 }
