@@ -1,12 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class View {
+public class InputView {
     private static final Scanner in = new Scanner(System.in);
 
     public void inputLottoAmount(){
+        System.out.println("구입금액을 입력해 주세요.");
         int amount;
         try{
             amount = in.nextInt();
@@ -18,8 +18,8 @@ public class View {
         }
     }
 
-    public void intputWinningNums(){
-        in.nextLine();
+    public List<Integer> intputWinningNums(){
+        return validateWiningNumber(in.nextLine());
     }
 
     private List<Integer> validateWiningNumber(String winningNums){
