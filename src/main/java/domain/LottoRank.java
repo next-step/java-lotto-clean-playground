@@ -43,4 +43,8 @@ public enum LottoRank {
     public long getPrize() {
         return prize;
     }
+
+    public boolean isBonusNumber() {
+        return bonusMask == 2;
+    }
 }

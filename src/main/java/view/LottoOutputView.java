@@ -40,12 +40,19 @@ public class LottoOutputView {
         lottoResults.stream()
                 .filter(result -> result.matchedCount() >= 3)
                 .sorted(Comparator.comparing(LottoRankResultDTO::prize))
-                .forEach(result ->
-                        System.out.printf("%d개 일치 (%d원)- %d개\n", result.matchedCount(), result.prize(), result.resultCount())
+                .forEach(this::printLottoRankResult
                 );
     }
 
+    private void printLottoRankResult(LottoRankResultDTO result) {
+        System.out.printf("%d개 일치", result.matchedCount());
+        if (result.isBonusNumber()) {
+            System.out.print(", 보너스 볼 일치");
+        }
+        System.out.printf(" (%d원)- %d개\n", result.prize(), result.resultCount());
+    }
+
     public void printEarningsRate(double earningsRate) {
-        System.out.printf("총 수익률은 %.2f입니다.\n",  Math.floor(earningsRate * 100) / 100);
+        System.out.printf("총 수익률은 %.2f입니다.\n", Math.floor(earningsRate * 100) / 100);
     }
 }
