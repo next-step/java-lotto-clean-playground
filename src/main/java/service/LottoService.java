@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class LottoService {
+import static constant.LottoConstant.LOTTO_PRICE;
 
-    public static final long LOTTO_PRICE = 1000L;
+public class LottoService {
 
     private final LottoStore lottoStore;
 
@@ -42,19 +42,26 @@ public class LottoService {
                 ));
     }
 
-    // 추출해서 domain으로 변경
-    public CalculateEarningRateResponse calculateEarningsRate(long lottoCount, List<LottoRankResultDTO> results) {
+    public CalculateEarningRateResponse calculateEarningsRate(List<LottoRankResultDTO> results) {
+        long count = calculateLottoCount(results);
+
         return CalculateEarningRateResponse.from(
-                 (double) calculatePrizeMoney(results) / calculatePurchaseMoney(lottoCount));
+                 (double) calculatePrizeMoney(results) / calculatePurchaseMoney(count));
     }
 
-    private long calculatePurchaseMoney(long lottoCount) {
-        return lottoCount * LOTTO_PRICE;
+    private long calculateLottoCount(List<LottoRankResultDTO> results) {
+        return results.stream()
+                .mapToLong(LottoRankResultDTO::resultCount)
+                .sum();
     }
 
     private long calculatePrizeMoney(List<LottoRankResultDTO> results) {
         return results.stream()
                 .mapToLong(result -> result.prize() * result.resultCount())
                 .sum();
-    } 
+    }
+
+    private long calculatePurchaseMoney(long count) {
+        return count * LOTTO_PRICE;
+    }
 }

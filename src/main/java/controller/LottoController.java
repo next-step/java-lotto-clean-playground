@@ -32,7 +32,7 @@ public class LottoController {
         Lotto lastWeekWinLotto = requestLastWeekWinLotto();
         LottoNumber bonusNumber = requestBonusNumber();
         List<LottoRankResultDTO> lottoRankResultDTOS = playLottoGame(purchaseLottoGroup, lastWeekWinLotto, bonusNumber);
-        printEarningsRate(buyLottoCount, lottoRankResultDTOS); // buyLottoCount 제거 EarningRate에서 구매 개수가 0일 때 처리
+        printEarningsRate(lottoRankResultDTOS);
     }
 
     private Amount requestAmount() {
@@ -99,8 +99,8 @@ public class LottoController {
         return new LottoNumber(UserInputView.readIntInput());
     }
 
-    private void printEarningsRate(long buyLottoCount, List<LottoRankResultDTO> lottoRankResultDTOS) {
-        CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(buyLottoCount, lottoRankResultDTOS);
+    private void printEarningsRate(List<LottoRankResultDTO> lottoRankResultDTOS) {
+        CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(lottoRankResultDTOS);
         lottoOutputView.printEarningsRate(calculateEarningRateResponse.earningRate());
     }
 }
