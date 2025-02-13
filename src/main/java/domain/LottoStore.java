@@ -17,8 +17,8 @@ public class LottoStore {
         return amount / LOTTO_PRICE;
     }
 
-    public LottoGroup buyLottos(List<List<Integer>> lottosNumbers, long automaticLottoCount){
-        LottoGroup passivityLottoGroup = buyPassivityLottos(lottosNumbers);
+    public LottoGroup buyLottos(List<Lotto> passivityLottos, long automaticLottoCount){
+        LottoGroup passivityLottoGroup = buyPassivityLottos(passivityLottos);
         LottoGroup automaticLottoGroup = buyAutomaticLottos(automaticLottoCount);
 
         return LottoGroup.combineLottoGroup(passivityLottoGroup, automaticLottoGroup);
@@ -32,11 +32,7 @@ public class LottoStore {
         return new LottoGroup(lottos);
     }
 
-    private LottoGroup buyPassivityLottos(List<List<Integer>> lottosNumbers){
-        List<Lotto> lottos = lottosNumbers.stream()
-                .map(Lotto::new)
-                .toList();
-
+    private LottoGroup buyPassivityLottos(List<Lotto> lottos){
         return new LottoGroup(lottos);
     }
 

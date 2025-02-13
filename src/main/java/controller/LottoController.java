@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Lotto;
 import domain.LottoGroup;
 import domain.WinLotto;
 import dto.CalculateEarningRateResponse;
@@ -34,11 +35,11 @@ public class LottoController {
             throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d",passivityBuyCount - getLottoCountResponse.lottoCount() ));
         }
         lottoOutputView.printRequestPassivityLottoNumbers();
-        List<List<Integer>> passivityLottosNumbers = LongStream.range(0, passivityBuyCount)
-                .mapToObj(i -> Parser.parseIntegerList(UserInputView.readStringInput()))
+        List<Lotto> passivityLottos = LongStream.range(0, passivityBuyCount)
+                .mapToObj(i -> Parser.parseLotto(UserInputView.readStringInput()))
                 .toList();
 
-        PurchaseLottosResponse purchaseLottosResponse = lottoService.purchaseLottos(passivityLottosNumbers, getLottoCountResponse.lottoCount() - passivityBuyCount);
+        PurchaseLottosResponse purchaseLottosResponse = lottoService.purchaseLottos(passivityLottos, getLottoCountResponse.lottoCount() - passivityBuyCount);
         LottoGroup userLottoGroup = purchaseLottosResponse.lottoGroup();
         List<List<Integer>> allLottoNumbers = userLottoGroup.getAllLottoNumbers();
         lottoOutputView.printBuyLottos(passivityBuyCount, getLottoCountResponse.lottoCount() - passivityBuyCount, allLottoNumbers);
@@ -48,8 +49,8 @@ public class LottoController {
         lottoOutputView.printRequestBonusLottoNumber();
         int bonusNumber = UserInputView.readIntInput();
 
-        List<Integer> lastWeekWinNumbers = Parser.parseIntegerList(lastWeekWinLottoNumbers);
-        PlayLottoGameResponse playLottoGameResponse = lottoService.playLottoGame(userLottoGroup, WinLotto.of(lastWeekWinNumbers, bonusNumber));
+        Lotto lastWeekWinLotto = Parser.parseLotto(lastWeekWinLottoNumbers);
+        PlayLottoGameResponse playLottoGameResponse = lottoService.playLottoGame(userLottoGroup, WinLotto.of(lastWeekWinLotto, bonusNumber));
         lottoOutputView.printLottoResult(playLottoGameResponse.lottoRankResultDTOS());
         CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(getLottoCountResponse.lottoCount(), playLottoGameResponse.lottoRankResultDTOS());
         lottoOutputView.printEarningsRate(calculateEarningRateResponse.earningRate());

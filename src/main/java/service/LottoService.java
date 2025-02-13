@@ -21,8 +21,8 @@ public class LottoService {
         return GetLottoCountResponse.from(lottoStore.getLottoCount(amount));
     }
 
-    public PurchaseLottosResponse purchaseLottos(List<List<Integer>> lottosNumbers, long automaticCount) {
-        LottoGroup lottoGroup = lottoStore.buyLottos(lottosNumbers, automaticCount);
+    public PurchaseLottosResponse purchaseLottos(List<Lotto> passivityLottos, long automaticCount) {
+        LottoGroup lottoGroup = lottoStore.buyLottos(passivityLottos, automaticCount);
 
         return PurchaseLottosResponse.from(lottoGroup);
     }

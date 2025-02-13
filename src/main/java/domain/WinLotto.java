@@ -12,15 +12,15 @@ public class WinLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public static WinLotto of(List<Integer> lottoNumbers, int bonusNumberInt){
+    public static WinLotto of(Lotto lotto, int bonusNumberInt){
         LottoNumber bonusNumber = new LottoNumber(bonusNumberInt);
-        validateDuplicateBonusNumber(lottoNumbers, bonusNumber);
+        validateDuplicateBonusNumber(lotto, bonusNumber);
 
-        return new WinLotto(new Lotto(lottoNumbers), bonusNumber);
+        return new WinLotto(lotto, bonusNumber);
     }
 
-    private static void validateDuplicateBonusNumber(List<Integer> LottoNumbers, LottoNumber bonusLottoNumber) {
-        if(LottoNumbers.contains(bonusLottoNumber.getNumber())){
+    private static void validateDuplicateBonusNumber(Lotto lotto, LottoNumber bonusLottoNumber) {
+        if(lotto.getNumbers().contains(bonusLottoNumber.getNumber())){
             throw new IllegalArgumentException("지난주 당첨 번호와 다른 번호를 입력해주세요.");
         }
     }
