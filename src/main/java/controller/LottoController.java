@@ -23,7 +23,7 @@ public class LottoController {
         this.lottoService = lottoService;
     }
 
-    public void start(){
+    public void start() {
         Amount amount = requestAmount();
         long buyLottoCount = getLottoCount(amount.getValue());
         long passivityBuyCount = requestPassivityBuyCount(buyLottoCount);
@@ -54,11 +54,11 @@ public class LottoController {
     }
 
     private void validateAvailableBuyCount(long buyLottoCount, long passivityBuyCount) {
-        if(passivityBuyCount < 0){
+        if (passivityBuyCount < 0) {
             throw new IllegalArgumentException("0 이상의 값을 입력해주세요.");
         }
-        if(buyLottoCount - passivityBuyCount < 0){
-            throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d", passivityBuyCount - buyLottoCount ));
+        if (buyLottoCount - passivityBuyCount < 0) {
+            throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d", passivityBuyCount - buyLottoCount));
         }
     }
 

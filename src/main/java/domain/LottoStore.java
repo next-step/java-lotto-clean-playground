@@ -13,30 +13,30 @@ public class LottoStore {
         this.numbersGenerator = numbersGenerator;
     }
 
-    public long getLottoCount(long amount){
+    public long getLottoCount(long amount) {
         return amount / LOTTO_PRICE;
     }
 
-    public LottoGroup buyLottos(List<Lotto> passivityLottos, long automaticLottoCount){
+    public LottoGroup buyLottos(List<Lotto> passivityLottos, long automaticLottoCount) {
         LottoGroup passivityLottoGroup = buyPassivityLottos(passivityLottos);
         LottoGroup automaticLottoGroup = buyAutomaticLottos(automaticLottoCount);
 
         return LottoGroup.combineLottoGroup(passivityLottoGroup, automaticLottoGroup);
     }
 
-    private LottoGroup buyAutomaticLottos(long lottoCount){
-        List<Lotto> lottos = LongStream.range(0,  lottoCount)
+    private LottoGroup buyAutomaticLottos(long lottoCount) {
+        List<Lotto> lottos = LongStream.range(0, lottoCount)
                 .mapToObj(i -> createLotto())
                 .toList();
 
         return new LottoGroup(lottos);
     }
 
-    private LottoGroup buyPassivityLottos(List<Lotto> lottos){
+    private LottoGroup buyPassivityLottos(List<Lotto> lottos) {
         return new LottoGroup(lottos);
     }
 
-    private Lotto createLotto(){
+    private Lotto createLotto() {
         return new Lotto(numbersGenerator.getNumbers());
     }
 }

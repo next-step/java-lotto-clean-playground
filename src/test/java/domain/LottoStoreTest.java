@@ -27,7 +27,7 @@ class LottoStoreTest {
 
     @Test
     @DisplayName("OK : 수동 로또들과 자동 로또 개수를 입력 받아서 로또를 반환한다.")
-    void buyLottosSize(){
+    void buyLottosSize() {
         List<Lotto> lottos = List.of(testLottoOneToSix, testLottoSevenToTwelve, testLottoFortyToFortyFive);
         long automaticCount = 10L;
         LottoGroup lottoGroup = lottoStore.buyLottos(lottos, automaticCount);
@@ -37,14 +37,14 @@ class LottoStoreTest {
 
     @Test
     @DisplayName("OK : 자동 로또 값이 올바르게 반환된다.")
-    void buyLottosValue(){
+    void buyLottosValue() {
         List<Lotto> lottos = new ArrayList<>();
         long automaticCount = 1L;
         LottoGroup lottoGroup = lottoStore.buyLottos(lottos, automaticCount);
         assertThat(lottoGroup.getLottos().get(0).getNumbers()).isEqualTo(testNumbersOneToSix);
     }
 
-    private static Stream<Arguments> provideAmountAndCount(){
+    private static Stream<Arguments> provideAmountAndCount() {
         return Stream.of(
                 Arguments.of(0L, 0),
                 Arguments.of(500L, 0),

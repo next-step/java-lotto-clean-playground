@@ -24,13 +24,13 @@ public enum LottoRank {
     public static LottoRank of(int matchedCount, boolean isBonusNumber) {
         return Stream.of(values())
                 .filter(rank -> rank.matchedCount == matchedCount &&
-                        ((toBonusMask(isBonusNumber) & rank.bonusMask) != 0) )
+                        ((toBonusMask(isBonusNumber) & rank.bonusMask) != 0))
                 .findAny()
                 .orElse(NO_PLACE);
     }
 
     private static int toBonusMask(boolean isBonusNumber) {
-        if(isBonusNumber) {
+        if (isBonusNumber) {
             return 2;
         }
         return 1;

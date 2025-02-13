@@ -22,13 +22,13 @@ public class Lotto {
 
     private void validateNumbersSize(List<Integer> numbers) {
         Set<Integer> numberSet = new HashSet<>(numbers);
-        if(numberSet.size() != LOTTO_NUMBERS_SIZE){
+        if (numberSet.size() != LOTTO_NUMBERS_SIZE) {
             throw new IllegalArgumentException("로또 번호 6자리를 입력해주세요.");
         }
     }
 
     private void validateDuplicateNumbers(List<Integer> numbers) {
-        if(numbers.size() != LOTTO_NUMBERS_SIZE) {
+        if (numbers.size() != LOTTO_NUMBERS_SIZE) {
             throw new IllegalArgumentException("중복되지 않은 로또 번호들을 입력해주세요.");
         }
     }

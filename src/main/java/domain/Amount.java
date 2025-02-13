@@ -12,7 +12,7 @@ public class Amount {
     }
 
     private void validateAmount(long value) {
-        if(value < LottoConstant.LOTTO_PRICE){
+        if (value < LottoConstant.LOTTO_PRICE) {
             throw new IllegalArgumentException(String.format("%d원 이상을 입력해주세요.", LottoConstant.LOTTO_PRICE));
         }
     }

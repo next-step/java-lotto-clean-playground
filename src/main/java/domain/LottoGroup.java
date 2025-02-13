@@ -15,13 +15,13 @@ public class LottoGroup {
         return lottos;
     }
 
-    public List<List<Integer>> getAllLottoNumbersList(){
+    public List<List<Integer>> getAllLottoNumbersList() {
         return lottos.stream()
                 .map(Lotto::getNumbers)
                 .toList();
     }
 
-    public static LottoGroup combineLottoGroup(LottoGroup firstGroup, LottoGroup secondGroup){
+    public static LottoGroup combineLottoGroup(LottoGroup firstGroup, LottoGroup secondGroup) {
         List<Lotto> combinedLotto = Stream.of(firstGroup, secondGroup)
                 .flatMap(group -> group.getLottos().stream())
                 .toList();

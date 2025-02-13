@@ -13,7 +13,7 @@ class AmountTest {
 
     @Test
     @DisplayName("OK : 정상적으로 금액을 입력 받는다.")
-    void amount(){
+    void amount() {
         Amount amount = new Amount(1000L);
         assertThat(amount.getValue()).isEqualTo(1000L);
     }
@@ -21,7 +21,7 @@ class AmountTest {
     @ParameterizedTest
     @ValueSource(longs = {LOTTO_PRICE - 1L, -1000})
     @DisplayName("ERROR : 로또 금액보다 낮은 금액이면 에러가 발생한다.")
-    void AmountLowerThanLottoPrice(long price){
+    void AmountLowerThanLottoPrice(long price) {
         assertThrows(IllegalArgumentException.class, () -> new Amount(price));
     }
 }

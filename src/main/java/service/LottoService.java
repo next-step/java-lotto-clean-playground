@@ -46,7 +46,7 @@ public class LottoService {
         long count = calculateLottoCount(results);
 
         return CalculateEarningRateResponse.from(
-                 (double) calculatePrizeMoney(results) / calculatePurchaseMoney(count));
+                (double) calculatePrizeMoney(results) / calculatePurchaseMoney(count));
     }
 
     private long calculateLottoCount(List<LottoRankResultDTO> results) {

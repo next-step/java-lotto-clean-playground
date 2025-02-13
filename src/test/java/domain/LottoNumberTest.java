@@ -20,7 +20,7 @@ class LottoNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 46})
     @DisplayName("ERROR : 로또 번호 범위에 벗어나면 에러가 발생한다.")
-    void newLottoNumberOutOfRange(int number){
+    void newLottoNumberOutOfRange(int number) {
         assertThrows(IllegalArgumentException.class, () -> new LottoNumber(number));
     }
 }
