@@ -4,7 +4,7 @@ import constant.LottoConstant;
 
 public class Amount {
 
-    private long value;
+    private final long value;
 
     public Amount(long value) {
         validateAmount(value);
@@ -13,7 +13,7 @@ public class Amount {
 
     private void validateAmount(long value) {
         if(value < LottoConstant.LOTTO_PRICE){
-            throw new IllegalArgumentException("천원 이상을 입력해주세요.");
+            throw new IllegalArgumentException(String.format("%d원 이상을 입력해주세요.", LottoConstant.LOTTO_PRICE));
         }
     }
 

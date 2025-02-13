@@ -73,7 +73,7 @@ public class LottoController {
     private LottoGroup purchaseLottos(List<Lotto> passivityLottos, long buyLottoCount) {
         PurchaseLottosResponse purchaseLottosResponse = lottoService.purchaseLottos(passivityLottos, buyLottoCount - passivityLottos.size());
         LottoGroup userLottoGroup = purchaseLottosResponse.lottoGroup();
-        List<List<Integer>> allLottoNumbers = userLottoGroup.getAllLottoNumbers();
+        List<List<Integer>> allLottoNumbers = userLottoGroup.getAllLottoNumbersList();
         lottoOutputView.printBuyLottos(passivityLottos.size(), buyLottoCount - passivityLottos.size(), allLottoNumbers);
 
         return userLottoGroup;
