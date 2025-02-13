@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoStoreTest {
 
-    private final LottoStore lottoStore = new LottoStore(new FixNumbersGenerator());
+    private final LottoStore lottoStore = new LottoStore(new FixNumbersGenerator(testNumbersOneToSix));
 
     @ParameterizedTest
     @MethodSource("provideAmountAndCount")

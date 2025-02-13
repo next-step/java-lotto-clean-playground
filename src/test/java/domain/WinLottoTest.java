@@ -21,7 +21,7 @@ class WinLottoTest {
     @Test
     @DisplayName("OK : 당첨 번호를 생성한다.")
     void newWinLotto() {
-        WinLotto winLotto = WinLotto.of(lotto, new LottoNumber(7));
+        WinLotto.of(lotto, new LottoNumber(7));
     }
 
     @Test

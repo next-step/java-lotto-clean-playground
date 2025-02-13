@@ -4,12 +4,16 @@ import domain.NumbersGenerator;
 
 import java.util.List;
 
-import static fixture.LottoFixture.testNumbersOneToSix;
-
 public class FixNumbersGenerator implements NumbersGenerator {
+
+    private List<Integer> numbers;
+
+    public FixNumbersGenerator(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
 
     @Override
     public List<Integer> getNumbers() {
-        return testNumbersOneToSix;
+        return numbers;
     }
 }
