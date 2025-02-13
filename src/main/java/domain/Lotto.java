@@ -1,35 +1,34 @@
 package domain;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static constant.LottoConstant.LOTTO_NUMBERS_SIZE;
 
 public class Lotto {
 
-    public static final int LOTTO_NUMBERS_SIZE = 6;
-
-    private final Set<LottoNumber> numbers;
+    private final List<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
         validateNumbersSize(numbers);
-        this.numbers = convertToLottoNumberSet(numbers);
-        validateDuplicateNumbers();
-    }
-
-    private Set<LottoNumber> convertToLottoNumberSet(List<Integer> numbers) {
-        return numbers.stream()
+        validateDuplicateNumbers(numbers);
+        this.numbers = numbers.stream()
+                .sorted(Comparator.naturalOrder())
                 .map(LottoNumber::new)
-                .collect(Collectors.toSet());
+                .toList();
     }
 
     private void validateNumbersSize(List<Integer> numbers) {
-        if(numbers.size() != LOTTO_NUMBERS_SIZE){
+        Set<Integer> numberSet = new HashSet<>(numbers);
+        if(numberSet.size() != LOTTO_NUMBERS_SIZE){
             throw new IllegalArgumentException("로또 번호 6자리를 입력해주세요.");
         }
     }
 
-    private void validateDuplicateNumbers() {
-        if(this.numbers.size() != LOTTO_NUMBERS_SIZE) {
+    private void validateDuplicateNumbers(List<Integer> numbers) {
+        if(numbers.size() != LOTTO_NUMBERS_SIZE) {
             throw new IllegalArgumentException("중복되지 않은 로또 번호들을 입력해주세요.");
         }
     }

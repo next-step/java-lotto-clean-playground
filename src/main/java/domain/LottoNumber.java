@@ -1,9 +1,9 @@
 package domain;
 
-public class LottoNumber {
+import static constant.LottoConstant.MAX_LOTTO_NUMBER;
+import static constant.LottoConstant.MIN_LOTTO_NUMBER;
 
-    public static final int MIN_LOTTO_NUMBER = 1;
-    public static final int MAX_LOTTO_NUMBER = 45;
+public class LottoNumber {
 
     private final Integer number;
 

@@ -21,8 +21,8 @@ public class LottoService {
         return GetLottoCountResponse.from(lottoStore.getLottoCount(amount));
     }
 
-    public PurchaseLottosResponse purchaseLottos(long lottoCount) {
-        LottoGroup lottoGroup = lottoStore.buyLottos(lottoCount);
+    public PurchaseLottosResponse purchaseLottos(List<List<Integer>> lottosNumbers, long automaticCount) {
+        LottoGroup lottoGroup = lottoStore.buyLottos(lottosNumbers, automaticCount);
 
         return PurchaseLottosResponse.from(lottoGroup);
     }
@@ -42,6 +42,7 @@ public class LottoService {
                 ));
     }
 
+    // 추출해서 domain으로 변경
     public CalculateEarningRateResponse calculateEarningsRate(long lottoCount, List<LottoRankResultDTO> results) {
         return CalculateEarningRateResponse.from(
                  (double) calculatePrizeMoney(results) / calculatePurchaseMoney(lottoCount));
@@ -55,5 +56,5 @@ public class LottoService {
         return results.stream()
                 .mapToLong(result -> result.prize() * result.resultCount())
                 .sum();
-    }
+    } 
 }

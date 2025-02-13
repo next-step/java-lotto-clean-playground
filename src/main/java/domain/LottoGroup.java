@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LottoGroup {
 
@@ -18,5 +19,13 @@ public class LottoGroup {
         return lottos.stream()
                 .map(Lotto::getNumbers)
                 .toList();
+    }
+
+    public static LottoGroup combineLottoGroup(LottoGroup firstGroup, LottoGroup secondGroup){
+        List<Lotto> combineLottoNumbers = Stream.of(firstGroup, secondGroup)
+                .flatMap(group -> group.getLottos().stream())
+                .toList();
+
+        return new LottoGroup(combineLottoNumbers);
     }
 }

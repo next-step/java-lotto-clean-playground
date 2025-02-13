@@ -3,9 +3,9 @@ package domain;
 import java.util.List;
 import java.util.stream.LongStream;
 
-public class LottoStore {
+import static constant.LottoConstant.LOTTO_PRICE;
 
-    public static final int LOTTO_PRICE = 1_000;
+public class LottoStore {
 
     private final NumbersGenerator numbersGenerator;
 
@@ -17,9 +17,24 @@ public class LottoStore {
         return amount / LOTTO_PRICE;
     }
 
-    public LottoGroup buyLottos(long lottoCount){
+    public LottoGroup buyLottos(List<List<Integer>> lottosNumbers, long automaticLottoCount){
+        LottoGroup passivityLottoGroup = buyPassivityLottos(lottosNumbers);
+        LottoGroup automaticLottoGroup = buyAutomaticLottos(automaticLottoCount);
+
+        return LottoGroup.combineLottoGroup(passivityLottoGroup, automaticLottoGroup);
+    }
+
+    private LottoGroup buyAutomaticLottos(long lottoCount){
         List<Lotto> lottos = LongStream.range(0,  lottoCount)
                 .mapToObj(i -> createLotto())
+                .toList();
+
+        return new LottoGroup(lottos);
+    }
+
+    private LottoGroup buyPassivityLottos(List<List<Integer>> lottosNumbers){
+        List<Lotto> lottos = lottosNumbers.stream()
+                .map(Lotto::new)
                 .toList();
 
         return new LottoGroup(lottos);

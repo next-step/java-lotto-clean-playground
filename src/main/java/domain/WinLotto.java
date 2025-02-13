@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class WinLotto {
@@ -13,24 +12,17 @@ public class WinLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public static WinLotto of(String numberString, int bonusNumberInt){
-        List<Integer> LottoNumbers = parseIntegerList(numberString);
+    public static WinLotto of(List<Integer> lottoNumbers, int bonusNumberInt){
         LottoNumber bonusNumber = new LottoNumber(bonusNumberInt);
-        validateDuplicateBonusNumber(LottoNumbers, bonusNumber);
+        validateDuplicateBonusNumber(lottoNumbers, bonusNumber);
 
-        return new WinLotto(new Lotto(LottoNumbers), bonusNumber);
+        return new WinLotto(new Lotto(lottoNumbers), bonusNumber);
     }
 
     private static void validateDuplicateBonusNumber(List<Integer> LottoNumbers, LottoNumber bonusLottoNumber) {
         if(LottoNumbers.contains(bonusLottoNumber.getNumber())){
             throw new IllegalArgumentException("지난주 당첨 번호와 다른 번호를 입력해주세요.");
         }
-    }
-
-    private static List<Integer> parseIntegerList(String numberString) {
-        return Arrays.stream(numberString.split("\\s*,\\s*"))
-                .map(Integer::parseInt)
-                .toList();
     }
 
     public LottoRank calculateRank(Lotto comparedLotto){

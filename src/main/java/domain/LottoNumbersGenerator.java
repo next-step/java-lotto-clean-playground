@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class LottoNumbersGenerator implements NumbersGenerator {
+import static constant.LottoConstant.MAX_LOTTO_NUMBER;
+import static constant.LottoConstant.MIN_LOTTO_NUMBER;
 
-    public static final int MIN_LOTTO_NUMBER = 1;
-    public static final int MAX_LOTTO_NUMBER = 45;
+public class LottoNumbersGenerator implements NumbersGenerator {
 
     private final List<Integer> numberPool;
 
