@@ -6,7 +6,7 @@ import java.util.List;
 
 public class FixNumbersGenerator implements NumbersGenerator {
 
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public FixNumbersGenerator(List<Integer> numbers) {
         this.numbers = numbers;
