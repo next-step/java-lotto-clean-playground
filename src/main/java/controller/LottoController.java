@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoGroup;
-import domain.LottoNumber;
-import domain.WinLotto;
+import domain.*;
 import dto.CalculateEarningRateResponse;
 import dto.LottoRankResultDTO;
 import dto.PlayLottoGameResponse;
@@ -27,21 +24,21 @@ public class LottoController {
     }
 
     public void start(){
-        long amount = requestAmount();
-        long buyLottoCount = getLottoCount(amount);
+        Amount amount = requestAmount();
+        long buyLottoCount = getLottoCount(amount.getValue());
         long passivityBuyCount = requestPassivityBuyCount(buyLottoCount);
         List<Lotto> passivityLottos = requestPassivityLottoNumbers(passivityBuyCount);
         LottoGroup purchaseLottoGroup = purchaseLottos(passivityLottos, buyLottoCount);
         Lotto lastWeekWinLotto = requestLastWeekWinLotto();
         LottoNumber bonusNumber = requestBonusNumber();
         List<LottoRankResultDTO> lottoRankResultDTOS = playLottoGame(purchaseLottoGroup, lastWeekWinLotto, bonusNumber);
-        printEarningsRate(buyLottoCount, lottoRankResultDTOS);
+        printEarningsRate(buyLottoCount, lottoRankResultDTOS); // buyLottoCount 제거 EarningRate에서 구매 개수가 0일 때 처리
     }
 
-    private long requestAmount() {
+    private Amount requestAmount() {
         lottoOutputView.printRequestAmount();
 
-        return UserInputView.readLongInput();
+        return new Amount(UserInputView.readLongInput());
     }
 
     private long getLottoCount(long amount) {
@@ -57,6 +54,9 @@ public class LottoController {
     }
 
     private void validateAvailableBuyCount(long buyLottoCount, long passivityBuyCount) {
+        if(passivityBuyCount < 0){
+            throw new IllegalArgumentException("0 이상의 값을 입력해주세요.");
+        }
         if(buyLottoCount - passivityBuyCount < 0){
             throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d", passivityBuyCount - buyLottoCount ));
         }
