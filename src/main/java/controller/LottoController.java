@@ -2,9 +2,10 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoGroup;
+import domain.LottoNumber;
 import domain.WinLotto;
 import dto.CalculateEarningRateResponse;
-import dto.GetLottoCountResponse;
+import dto.LottoRankResultDTO;
 import dto.PlayLottoGameResponse;
 import dto.PurchaseLottosResponse;
 import service.LottoService;
@@ -26,33 +27,80 @@ public class LottoController {
     }
 
     public void start(){
+        long amount = requestAmount();
+        long buyLottoCount = getLottoCount(amount);
+        long passivityBuyCount = requestPassivityBuyCount(buyLottoCount);
+        List<Lotto> passivityLottos = requestPassivityLottoNumbers(passivityBuyCount);
+        LottoGroup purchaseLottoGroup = purchaseLottos(passivityLottos, buyLottoCount);
+        Lotto lastWeekWinLotto = requestLastWeekWinLotto();
+        LottoNumber bonusNumber = requestBonusNumber();
+        List<LottoRankResultDTO> lottoRankResultDTOS = playLottoGame(purchaseLottoGroup, lastWeekWinLotto, bonusNumber);
+        printEarningsRate(buyLottoCount, lottoRankResultDTOS);
+    }
+
+    private long requestAmount() {
         lottoOutputView.printRequestAmount();
-        long amount = UserInputView.readLongInput();
-        GetLottoCountResponse getLottoCountResponse = lottoService.getLottoCount(amount);
+
+        return UserInputView.readLongInput();
+    }
+
+    private long getLottoCount(long amount) {
+        return lottoService.getLottoCount(amount).lottoCount();
+    }
+
+    private long requestPassivityBuyCount(long buyLottoCount) {
         lottoOutputView.printRequestPassivityLottoCount();
         long passivityBuyCount = UserInputView.readLongInput();
-        if(getLottoCountResponse.lottoCount() - passivityBuyCount < 0){
-            throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d",passivityBuyCount - getLottoCountResponse.lottoCount() ));
+        validateAvailableBuyCount(buyLottoCount, passivityBuyCount);
+
+        return passivityBuyCount;
+    }
+
+    private void validateAvailableBuyCount(long buyLottoCount, long passivityBuyCount) {
+        if(buyLottoCount - passivityBuyCount < 0){
+            throw new IllegalArgumentException(String.format("구매 가능한 로또 수를 초과하였습니다. 초과 개수 : %d", passivityBuyCount - buyLottoCount ));
         }
+    }
+
+    private List<Lotto> requestPassivityLottoNumbers(long passivityBuyCount) {
         lottoOutputView.printRequestPassivityLottoNumbers();
-        List<Lotto> passivityLottos = LongStream.range(0, passivityBuyCount)
+
+        return LongStream.range(0, passivityBuyCount)
                 .mapToObj(i -> Parser.parseLotto(UserInputView.readStringInput()))
                 .toList();
+    }
 
-        PurchaseLottosResponse purchaseLottosResponse = lottoService.purchaseLottos(passivityLottos, getLottoCountResponse.lottoCount() - passivityBuyCount);
+    private LottoGroup purchaseLottos(List<Lotto> passivityLottos, long buyLottoCount) {
+        PurchaseLottosResponse purchaseLottosResponse = lottoService.purchaseLottos(passivityLottos, buyLottoCount - passivityLottos.size());
         LottoGroup userLottoGroup = purchaseLottosResponse.lottoGroup();
         List<List<Integer>> allLottoNumbers = userLottoGroup.getAllLottoNumbers();
-        lottoOutputView.printBuyLottos(passivityBuyCount, getLottoCountResponse.lottoCount() - passivityBuyCount, allLottoNumbers);
+        lottoOutputView.printBuyLottos(passivityLottos.size(), buyLottoCount - passivityLottos.size(), allLottoNumbers);
 
-        lottoOutputView.printRequestLastWeekWinLottoNumbers();
-        String lastWeekWinLottoNumbers = UserInputView.readStringInput();
-        lottoOutputView.printRequestBonusLottoNumber();
-        int bonusNumber = UserInputView.readIntInput();
+        return userLottoGroup;
+    }
 
-        Lotto lastWeekWinLotto = Parser.parseLotto(lastWeekWinLottoNumbers);
+    private List<LottoRankResultDTO> playLottoGame(LottoGroup userLottoGroup, Lotto lastWeekWinLotto, LottoNumber bonusNumber) {
         PlayLottoGameResponse playLottoGameResponse = lottoService.playLottoGame(userLottoGroup, WinLotto.of(lastWeekWinLotto, bonusNumber));
         lottoOutputView.printLottoResult(playLottoGameResponse.lottoRankResultDTOS());
-        CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(getLottoCountResponse.lottoCount(), playLottoGameResponse.lottoRankResultDTOS());
+
+        return playLottoGameResponse.lottoRankResultDTOS();
+    }
+
+    private Lotto requestLastWeekWinLotto() {
+        lottoOutputView.printRequestLastWeekWinLottoNumbers();
+        String lastWeekWinLottoNumbers = UserInputView.readStringInput();
+
+        return Parser.parseLotto(lastWeekWinLottoNumbers);
+    }
+
+    private LottoNumber requestBonusNumber() {
+        lottoOutputView.printRequestBonusLottoNumber();
+
+        return new LottoNumber(UserInputView.readIntInput());
+    }
+
+    private void printEarningsRate(long buyLottoCount, List<LottoRankResultDTO> lottoRankResultDTOS) {
+        CalculateEarningRateResponse calculateEarningRateResponse = lottoService.calculateEarningsRate(buyLottoCount, lottoRankResultDTOS);
         lottoOutputView.printEarningsRate(calculateEarningRateResponse.earningRate());
     }
 }

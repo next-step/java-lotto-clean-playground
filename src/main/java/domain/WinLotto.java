@@ -12,8 +12,7 @@ public class WinLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public static WinLotto of(Lotto lotto, int bonusNumberInt){
-        LottoNumber bonusNumber = new LottoNumber(bonusNumberInt);
+    public static WinLotto of(Lotto lotto, LottoNumber bonusNumber){
         validateDuplicateBonusNumber(lotto, bonusNumber);
 
         return new WinLotto(lotto, bonusNumber);

@@ -20,7 +20,7 @@ public class LottoOutputView {
     }
 
     public void printBuyLottos(long passivityCount, long automaticCount, List<List<Integer>> lottosNumbers) {
-        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.", passivityCount, automaticCount);
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", passivityCount, automaticCount);
         for (List<Integer> lottoNumbers : lottosNumbers) {
             System.out.println(lottoNumbers);
         }
