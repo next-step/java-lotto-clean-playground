@@ -31,6 +31,6 @@ public class Statics {
                 .mapToLong(entry -> Rank.getReward(entry.getKey()) * entry.getValue())
                 .sum();
 
-        return ((double) totalEarnings / lottoAmount) * 100;
+        return ((double) totalEarnings / lottoAmount);
     }
 }
