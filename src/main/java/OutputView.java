@@ -14,11 +14,11 @@ public class OutputView {
         winingLottos.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey()) // 높은 순위부터 출력
                 .forEach(entry ->
-                        System.out.printf("%d개 일치 (%d)- %d개", entry.getKey(), Rank.getReward(entry.getKey()), entry.getValue())
+                        System.out.printf("%d개 일치 (%d)- %d개\n", entry.getKey(), Rank.getReward(entry.getKey()), entry.getValue())
                 );
     }
 
     public void printProfitRate(double profitRate){
-        System.out.printf("총 수익률은 %.2f 입니다.", profitRate);
+        System.out.printf("총 수익률은 %.2f 입니다\n.", profitRate);
     }
 }
