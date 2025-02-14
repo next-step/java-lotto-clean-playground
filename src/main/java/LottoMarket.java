@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class LottoMarket {
-    private final List<Integer> winingNumbers;
+    private List<Integer> winingNumbers;
     private List<Lotto> lottos;
 
-    public LottoMarket(List<Integer> winingNumbers) {
+    public void lottoMarketSet(List<Integer> winingNumbers) {
         validate(winingNumbers);
         this.winingNumbers = winingNumbers;
     }
@@ -32,4 +32,9 @@ public class LottoMarket {
     public List<Lotto> getLottos(){
         return lottos;
     }
+
+    public List<Integer> getWiningNumbers() {
+        return winingNumbers;
+    }
+
 }

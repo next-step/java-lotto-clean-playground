@@ -17,4 +17,8 @@ public class OutputView {
                         System.out.printf("%d개 일치 (%d)- %d개", entry.getKey(), Rank.getReward(entry.getKey()), entry.getValue())
                 );
     }
+
+    public void printProfitRate(int profitRate){
+        System.out.printf("총 수익률은 %d 입니다.", profitRate);
+    }
 }

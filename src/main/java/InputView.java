@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class InputView {
     private static final Scanner in = new Scanner(System.in);
 
-    public void inputLottoAmount(){
+    public int inputLottoAmount(){
         System.out.println("구입금액을 입력해 주세요.");
         int amount;
         try{
@@ -16,6 +16,7 @@ public class InputView {
         catch (NumberFormatException e){
             throw new RuntimeException("");
         }
+        return amount;
     }
 
     public List<Integer> intputWinningNums(){
