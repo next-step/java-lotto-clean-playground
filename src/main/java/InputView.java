@@ -9,7 +9,7 @@ public class InputView {
         System.out.println("구입금액을 입력해 주세요.");
         int amount;
         try{
-            amount = in.nextInt();
+            amount = Integer.parseInt(in.nextLine());
             if(amount < 1000) throw new RuntimeException("");
             if(amount % 1000 != 0) throw new RuntimeException("");
         }

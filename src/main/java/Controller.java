@@ -2,32 +2,36 @@ import java.util.List;
 import java.util.Map;
 
 public class Controller {
-    private final LottoMarket market;
     private final Statics statics;
     private final InputView inputView;
     private final OutputView outputView;
 
-    public Controller(LottoMarket market, Statics statics, InputView inputView, OutputView outputView){
-        this.market = market;
+    public Controller(Statics statics, InputView inputView, OutputView outputView) {
         this.statics = statics;
         this.inputView = inputView;
         this.outputView = outputView;
     }
 
-    public void startLotto(){
+    public void startLotto() {
         int lottoAmount = inputView.inputLottoAmount();
-        List<Integer> winingNumbers = inputView.intputWinningNums();
-        market.lottoMarketSet(winingNumbers);
+        LottoMarket market = new LottoMarket(generateWinningNumbers()); // 당첨 번호를 생성자에서 설정
 
-        for(int i=0; i<lottoAmount/1000; ++i){
+        for (int i = 0; i < lottoAmount / 1000; ++i) {
             market.randomLotto();
         }
 
         outputView.printLottos(market.getLottos());
-        Map<Integer, Long> winingLottos = statics.calcWiningLottos(market.getLottos(), winingNumbers);
-        int profitRate = (int) statics.calcProfitRate(winingLottos, lottoAmount);
+
+        Map<Integer, Long> winingLottos = statics.calcWiningLottos(market.getLottos(), market.getWiningNumbers());
+
+        outputView.printWinningStatistics(winingLottos);
+
+        double profitRate = statics.calcProfitRate(winingLottos, lottoAmount);
 
         outputView.printProfitRate(profitRate);
     }
 
+    private List<Integer> generateWinningNumbers() {
+        return inputView.intputWinningNums();
+    }
 }

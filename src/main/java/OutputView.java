@@ -6,7 +6,7 @@ public class OutputView {
 
     public void printLottos(List<Lotto> lottos){
         System.out.println("개를 구매했습니다.");
-        System.out.println(lottos);
+        lottos.forEach(System.out::println);
     }
 
     public void printWinningStatistics(Map<Integer, Long> winingLottos){
@@ -18,7 +18,7 @@ public class OutputView {
                 );
     }
 
-    public void printProfitRate(int profitRate){
-        System.out.printf("총 수익률은 %d 입니다.", profitRate);
+    public void printProfitRate(double profitRate){
+        System.out.printf("총 수익률은 %.2f 입니다.", profitRate);
     }
 }
