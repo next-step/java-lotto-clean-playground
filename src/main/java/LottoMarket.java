@@ -28,4 +28,8 @@ public class LottoMarket {
         Lotto lotto = new Lotto(numbers);
         lottos.add(lotto);
     }
+
+    public List<Lotto> getLottos(){
+        return lottos;
+    }
 }
