@@ -8,7 +8,6 @@ public class Statics {
     public Map<Rank, Long> calcWinningLottos(List<Lotto> lottos, List<Integer> winingNumbers, int bonusBall) {
         Map<Rank, Long> winingLottos = new HashMap<>();
 
-        // 초기화: 모든 Rank 값에 대해 0으로 설정
         for (Rank rank : Rank.values()) {
             winingLottos.put(rank, 0L);
         }
@@ -18,10 +17,10 @@ public class Statics {
                     int matchCount = (int) lotto.getNumbers().stream()
                             .filter(winingNumbers::contains)
                             .count();
-                    boolean hasBonus = lotto.getNumbers().contains(bonusBall); // 보너스 볼 포함 여부
+                    boolean hasBonus = lotto.getNumbers().contains(bonusBall);
                     return Rank.getRank(matchCount, hasBonus);
                 })
-                .filter(rank -> rank != Rank.UNRANK) // 꽝 제외
+                .filter(rank -> rank != Rank.UNRANK)
                 .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
 
         winingLottos.putAll(result);
