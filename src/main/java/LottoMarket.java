@@ -35,7 +35,7 @@ public class LottoMarket {
     }
 
     public void manualLotto(List<Integer> manualLottoNums){
-        validate(manualLottoNums); // 유효성 검사 후 추가
+        validate(manualLottoNums);
         manualLottos.add(new Lotto(manualLottoNums));
     }
 
