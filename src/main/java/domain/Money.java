@@ -7,14 +7,14 @@ public class Money{
         if(money < 0){
             throw new IllegalArgumentException("금액은 양수여야 합니다.");
         }
-        this.setMoney(money);
+        this.money = money;
     }
 
     public int getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void addMoney(int amount) {
+        this.money += amount;
     }
 }
