@@ -29,10 +29,9 @@ public class Statics {
         return winingLottos;
     }
 
-
     public double calcProfitRate(Map<Rank, Long> winingLottos, int lottoAmount) {
         long totalEarnings = winingLottos.entrySet().stream()
-                .mapToLong(entry -> entry.getKey().getReward() * entry.getValue()) // Rank에서 직접 getReward 호출
+                .mapToLong(entry -> entry.getKey().getReward() * entry.getValue())
                 .sum();
 
         return ((double) totalEarnings / lottoAmount);
