@@ -7,34 +7,34 @@ import java.util.List;
 
 //당첨 번호를 관리하는 일급 컬렉션
 public class WinningNumbers {
-    private final List<Integer> winningNumbers;
+    private final List<Long> winningNumbers;
 
     public WinningNumbers(String input) throws IllegalArgumentException {
         this.winningNumbers = parseNumbers(input);
         this.validateNumbers(this.winningNumbers);
     }
 
-    public List<Integer> getWinningNumbers() {
+    public List<Long> getWinningNumbers() {
         return winningNumbers;
     }
 
-    private List<Integer> parseNumbers(String input){
-        //parseInt에서 발생하는 NumberFormatException을 IllegalArgumentException으로 감싸겠습니다.
+    private List<Long> parseNumbers(String input){
+        //parselong에서 발생하는 NumberFormatException을 IllegalArgumentException으로 감싸겠습니다.
         try{
             return Arrays.stream(input.split(","))
                     .map(String::trim)
-                    .map(Integer::parseInt)
+                    .map(Long::parseLong)
                     .collect(Collectors.toList());
         }catch(NumberFormatException e){
             throw new IllegalArgumentException("입력 형식이 올바르지 않습니다. 입력된 값 : " + input);
         }
     }
 
-    private void validateNumbers(List<Integer> numbers){
+    private void validateNumbers(List<Long> numbers){
         if (numbers.size() != 6){
             throw new IllegalArgumentException("당첨 번호는 6개여야 합니다.");
         }
-        for(Integer number : numbers){
+        for(Long number : numbers){
             if(number < 1 || number > 45){
                 throw new IllegalArgumentException("당첨 번호는 1부터 45 사이의 숫자여야 합니다.");
             }

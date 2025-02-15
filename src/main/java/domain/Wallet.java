@@ -25,7 +25,7 @@ public class Wallet {
     public void buyAutomatedLotto(){
         //살 수 있는 로또 개수 구하기
         //개수만큼 생성하기
-        for(int i=0; i<this.calculateMaximumNumberOfLottos(); i++){
+        for(long i=0; i<this.calculateMaximumNumberOfLottos(); i++){
             lottoCollection.add(new Lotto());
         }
     }
@@ -33,49 +33,49 @@ public class Wallet {
     //step2 : 로또 당첨 확인
     //TODO : 이 메서드 덩어리는 보기 싫을 뿐 아니라 이미 검사한 로또에 대한 중복 검사를 포함합니다. 더 나은 방법을 찾아야합니다!!
     //TODO : count라는 이름과 맞지 않게, 수익률 총합에 대한 로직이 포함되어 있습니다.
-    private static int countNumberOfMatches(WinningNumbers winningNumbers, Lotto lotto, int result, int numberOfMatches) {
+    private static long countNumberOfMatches(WinningNumbers winningNumbers, Lotto lotto, long result, long numberOfMatches) {
         if(lotto.matchCount(winningNumbers) == numberOfMatches) {
             result++;
         }
         return result;
     }
-    public int countThirdPlace(WinningNumbers winningNumbers){
-        int result = 0;
+    public long countThirdPlace(WinningNumbers winningNumbers){
+        long result = 0;
         for(Lotto lotto: lottoCollection){
             result = countNumberOfMatches(winningNumbers, lotto, result, 3);
         }
         this.income.addMoney(result * 5000);
         return result;
     }
-    public int countForthPlace(WinningNumbers winningNumbers){
-        int result = 0;
+    public long countForthPlace(WinningNumbers winningNumbers){
+        long result = 0;
         for(Lotto lotto: lottoCollection){
             result = countNumberOfMatches(winningNumbers, lotto, result, 4);
         }
         this.income.addMoney(result * 50000);
         return result;
     }
-    public int countFifthPlace(WinningNumbers winningNumbers){
-        int result = 0;
+    public long countFifthPlace(WinningNumbers winningNumbers){
+        long result = 0;
         for(Lotto lotto: lottoCollection){
             result = countNumberOfMatches(winningNumbers, lotto, result, 5);
         }
         this.income.addMoney(result * 1500000);
         return result;
     }
-    public int countSixthPlace(WinningNumbers winningNumbers){
-        int result = 0;
+    public long countSixthPlace(WinningNumbers winningNumbers){
+        long result = 0;
         for(Lotto lotto: lottoCollection){
             result = countNumberOfMatches(winningNumbers, lotto, result, 6);
         }
-        this.income.addMoney(result * 2000000000);
+        this.income.addMoney(result * 2000000000L);
         return result;
     }
 
 
 
 
-    private int calculateMaximumNumberOfLottos(){
+    private long calculateMaximumNumberOfLottos(){
         return this.money.getMoney() / 1000;
     }
 
