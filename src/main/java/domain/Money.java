@@ -17,4 +17,8 @@ public class Money{
     public void addMoney(long amount) {
         this.money += amount;
     }
+
+    public void useMoney(long amount) {
+        this.money -= amount;
+    }
 }

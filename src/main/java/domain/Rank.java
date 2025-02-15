@@ -27,13 +27,13 @@ public enum Rank {
         if(matchCount == Rank.SECOND.matchCount && hasBonus) {
             return SECOND;
         }
-        if(matchCount == Rank.THIRD.matchCount && hasBonus) {
+        if(matchCount == Rank.THIRD.matchCount) {
             return THIRD;
         }
-        if(matchCount == Rank.FOURTH.matchCount && hasBonus) {
+        if(matchCount == Rank.FOURTH.matchCount) {
             return FOURTH;
         }
-        if(matchCount == Rank.FIFTH.matchCount && hasBonus) {
+        if(matchCount == Rank.FIFTH.matchCount) {
             return FIFTH;
         }
         return NONE;

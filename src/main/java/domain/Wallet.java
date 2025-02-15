@@ -1,8 +1,10 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wallet {
+    final long PRICE_OF_LOTTO = 1000L;
     private final Money money;
     private final LottoStats lottoStats;
     private final ArrayList<Lotto> lottoCollection = new ArrayList<>();
@@ -24,12 +26,22 @@ public class Wallet {
     }
 
     //step1 : 로또 자동 구매
-    public void buyAutomatedLotto(){
+    public long buyAutomatedLotto(){
         //살 수 있는 로또 개수 구하기
         //개수만큼 생성하기
         for(long i=0; i<this.calculateMaximumNumberOfLottos(); i++){
             lottoCollection.add(new Lotto());
         }
+        return this.calculateMaximumNumberOfLottos();
+    }
+
+    //step4 : 로또 수동 구매
+    public void buyManualLotto(List<Integer> lottoNumbers){
+        if(this.money.getMoney() < PRICE_OF_LOTTO){
+            throw new IllegalArgumentException("금액이 부족하여 로또를 구매할 수 없습니다.");
+        }
+        lottoCollection.add(new Lotto(lottoNumbers));
+        this.money.useMoney(PRICE_OF_LOTTO);
     }
 
     //step2 : 로또 당첨 확인
@@ -59,7 +71,7 @@ public class Wallet {
     }
 
     private long calculateMaximumNumberOfLottos(){
-        return this.money.getMoney() / 1000;
+        return this.money.getMoney() / PRICE_OF_LOTTO;
     }
 
 }

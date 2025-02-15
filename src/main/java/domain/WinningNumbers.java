@@ -1,7 +1,6 @@
 package domain;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
+
 import java.util.List;
 
 
@@ -11,7 +10,7 @@ public class WinningNumbers {
     private final int bonusNumber;
 
     public WinningNumbers(String input,int bonusNumber) throws IllegalArgumentException {
-        this.winningNumbers = parseNumbers(input);
+        this.winningNumbers = Utils.parseNumbers(input);
         this.validateNumbers(this.winningNumbers);
         this.bonusNumber = bonusNumber;
     }
@@ -24,17 +23,7 @@ public class WinningNumbers {
         return bonusNumber;
     }
 
-    private List<Integer> parseNumbers(String input){
-        //parseInt에서 발생하는 NumberFormatException을 IllegalArgumentException으로 감싸겠습니다.
-        try{
-            return Arrays.stream(input.split(","))
-                    .map(String::trim)
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-        }catch(NumberFormatException e){
-            throw new IllegalArgumentException("입력 형식이 올바르지 않습니다. 입력된 값 : " + input);
-        }
-    }
+
 
     private void validateNumbers(List<Integer> numbers){
         if (numbers.size() != 6){

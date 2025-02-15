@@ -1,6 +1,8 @@
 package view;
 
 import domain.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -18,4 +20,16 @@ public class InputView {
         int bonusNumber = scanner.nextInt();
         return new WinningNumbers(input, bonusNumber);
     }
+
+    public static long inputAmountOfManualLottosFromUser(){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return scanner.nextLong();
+    }
+
+    public static List<Integer> inputLottoNumberFromUser(){
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        String input = scanner.next();
+        return Utils.parseNumbers(input);
+    }
+
 }

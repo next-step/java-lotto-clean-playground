@@ -1,11 +1,10 @@
 package view;
 
-import domain.Lotto;
-import  domain.Wallet;
+import domain.*;
 
 public class ResultView {
-    public static void printResultOfPurchase(Wallet wallet){
-        System.out.println(wallet.getLottoCollection().size() + "개를 구매했습니다.");
+    public static void printResultOfPurchase(Wallet wallet, long numberOfManualLottos, long numberOfAutomatedLottos) {
+        System.out.println("수동으로 "+numberOfManualLottos+"장, 자동으로 "+numberOfAutomatedLottos+"개를 구매했습니다.");
         for(Lotto lotto : wallet.getLottoCollection()){
             System.out.println(lotto);
         }
