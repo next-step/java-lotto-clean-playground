@@ -4,15 +4,17 @@ public class LottoMarket {
     private List<Integer> winningNumbers;
     private final List<Lotto> lottos;
     private final List<Lotto> manualLottos;
+    private int bonusNumber;
 
     public LottoMarket() {
         this.lottos = new ArrayList<>();
         this.manualLottos = new ArrayList<>();
     }
 
-    public void setWinningNumbers(List<Integer> winningNumbers){
+    public void setWinningNumbers(List<Integer> winningNumbers, int bonusNumber){
         validate(winningNumbers);
         this.winningNumbers = winningNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
     private void validate(List<Integer> numbers) {

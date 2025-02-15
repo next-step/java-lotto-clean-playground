@@ -35,10 +35,13 @@ public class Controller {
 
         // 당첨 번호 입력 및 설정
         List<Integer> winningNumbers = inputView.intputWinningNums();
-        market.setWinningNumbers(winningNumbers);
+        int bonusNumber = inputView.bonusNumber();
+        market.setWinningNumbers(winningNumbers, bonusNumber);
 
 
-        Map<Integer, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers());
+
+
+        Map<Rank, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers(), bonusNumber);
         outputView.printWinningStatistics(winningLottos);
 
 

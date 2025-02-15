@@ -42,6 +42,19 @@ public class InputView {
         return validateLottoNumber(in.nextLine());
     }
 
+    public int bonusNumber(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber;
+        try{
+            bonusNumber = Integer.parseInt(in.nextLine());
+            if(bonusNumber < 0 || bonusNumber > 45) throw new RuntimeException("");
+        }
+        catch (NumberFormatException e){
+            throw new RuntimeException("");
+        }
+        return bonusNumber;
+    }
+
     private List<Integer> validateLottoNumber(String winningNums){
         List<Integer> winingNumbers;
         try{

@@ -1,6 +1,6 @@
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class OutputView {
 
@@ -9,13 +9,19 @@ public class OutputView {
         lotto.forEach(System.out::println);
     }
 
-    public void printWinningStatistics(Map<Integer, Long> winingLottos){
-        System.out.println("당첨통계\n---------");
+    public void printWinningStatistics(Map<Rank, Long> winingLottos){
+        System.out.println("당첨 통계\n---------");
         winingLottos.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .forEach(entry ->
-                        System.out.printf("%d개 일치 (%d)- %d개\n", entry.getKey(), Rank.getReward(entry.getKey()), entry.getValue())
-                );
+                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal))) // Rank 순서대로 정렬
+                .forEach(entry -> {
+                    Rank rank = entry.getKey();
+                    System.out.printf("%d개 일치%s (%d원) - %d개\n",
+                            rank.getMatch(),
+                            rank.hasBonus() ? " + 보너스 볼" : "", // 보너스 볼 여부 표시
+                            rank.getReward(),
+                            entry.getValue()
+                    );
+                });
     }
 
     public void printProfitRate(double profitRate){
