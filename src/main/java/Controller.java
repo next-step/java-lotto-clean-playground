@@ -37,11 +37,11 @@ public class Controller {
         List<Integer> winningNumbers = inputView.intputWinningNums();
         market.setWinningNumbers(winningNumbers);
 
-        // 당첨 결과 계산 및 출력
+
         Map<Integer, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers());
         outputView.printWinningStatistics(winningLottos);
 
-        // 수익률 계산 및 출력
+
         double profitRate = statics.calcProfitRate(winningLottos, lottoAmount);
         outputView.printProfitRate(profitRate);
     }
