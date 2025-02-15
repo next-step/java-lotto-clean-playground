@@ -35,7 +35,7 @@ public class Controller {
 
         // 당첨 번호 입력 및 설정
         List<Integer> winningNumbers = inputView.intputWinningNums();
-        int bonusNumber = inputView.bonusNumber();
+        int bonusNumber = inputView.inputBonusNumber();
         market.setWinningNumbers(winningNumbers, bonusNumber);
 
 

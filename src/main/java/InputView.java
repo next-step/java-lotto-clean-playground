@@ -42,7 +42,7 @@ public class InputView {
         return validateLottoNumber(in.nextLine());
     }
 
-    public int bonusNumber(){
+    public int inputBonusNumber(){
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusNumber;
         try{
