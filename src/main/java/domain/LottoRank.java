@@ -11,9 +11,9 @@ public enum LottoRank {
     FIFTH_PLACE(3, 5_000L, BonusMask.ANY),
     NO_PLACE(0, 0L, BonusMask.ANY);
 
-    private final int matchedCount;
-    private final long prize;
-    private final int bonusMask;
+    private final Integer matchedCount;
+    private final Long prize;
+    private final Integer bonusMask;
 
     LottoRank(int matchedCount, long prize, int bonusMask) {
         this.matchedCount = matchedCount;

@@ -4,7 +4,7 @@ import constant.LottoConstant;
 
 public class Amount {
 
-    private final long value;
+    private final Long value;
 
     public Amount(long value) {
         validateAmount(value);
