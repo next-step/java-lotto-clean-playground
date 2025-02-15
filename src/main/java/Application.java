@@ -8,6 +8,7 @@ public class Application {
         wallet.buyAutomatedLotto();
         ResultView.printResultOfPurchase(wallet);
         WinningNumbers winningNumbers =  InputView.inputWinningNumberFromUser();
-        ResultView.printResultOfWinning(wallet, winningNumbers);
+        wallet.runRankChecks(winningNumbers);
+        ResultView.printResultOfWinning(wallet);
     }
 }

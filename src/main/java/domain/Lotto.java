@@ -6,33 +6,37 @@ import java.util.List;
 
 //Lotto를 관리하는 일급 컬렉션
 public class Lotto {
-    private final List<Long> numbers;
+    private final List<Integer> numbers;
 
     //automated constructor
     public Lotto() {
-        List<Long> cardinateNumbers = new ArrayList<>();
-        for(long i=1; i<=45; i++){
+        List<Integer> cardinateNumbers = new ArrayList<>();
+        for(int i=1; i<=45; i++){
             cardinateNumbers.add(i);
         }
         Collections.shuffle(cardinateNumbers);
         this.numbers = cardinateNumbers.subList(0,6);
-        this.numbers.sort(Long::compareTo);
+        this.numbers.sort(Integer::compareTo);
     }
 
     //로또 번호는 불변하므로 setter를 제공하지 않습니다.
-    public List<Long> getNumbers(){
+    public List<Integer> getNumbers(){
         return numbers;
     }
 
-    public long matchCount(WinningNumbers winningNumbers){
-        long matchCount = 0;
-        for(Long number : numbers){
+    public int matchCount(WinningNumbers winningNumbers){
+        int matchCount = 0;
+        for(int number : numbers){
             matchCount = countMatches(winningNumbers, number, matchCount);
         }
         return matchCount;
     }
 
-    private static long countMatches(WinningNumbers winningNumbers, Long number, long matchCount) {
+    public boolean checkHasBonus(int bonusNumber){
+        return numbers.contains(bonusNumber);
+    }
+
+    private static int countMatches(WinningNumbers winningNumbers, int number, int matchCount) {
         if(winningNumbers.getWinningNumbers().contains(number)){
             matchCount++;
         }
