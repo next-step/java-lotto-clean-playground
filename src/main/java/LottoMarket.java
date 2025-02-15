@@ -51,7 +51,6 @@ public class LottoMarket {
         return Collections.unmodifiableList(winningNumbers);
     }
 
-    // 자동 + 수동 로또 리스트를 반환하는 메서드 추가
     public List<Lotto> getAllLottos() {
         List<Lotto> allLottos = new ArrayList<>(manualLottos);
         allLottos.addAll(lottos);
