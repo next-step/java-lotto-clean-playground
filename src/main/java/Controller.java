@@ -2,11 +2,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Controller {
+    private final LottoMarket market;
     private final Statics statics;
     private final InputView inputView;
     private final OutputView outputView;
 
-    public Controller(Statics statics, InputView inputView, OutputView outputView) {
+    public Controller(LottoMarket market, Statics statics, InputView inputView, OutputView outputView) {
+        this.market = market;
         this.statics = statics;
         this.inputView = inputView;
         this.outputView = outputView;
@@ -14,24 +16,33 @@ public class Controller {
 
     public void startLotto() {
         int lottoAmount = inputView.inputLottoAmount();
-        LottoMarket market = new LottoMarket(generateWinningNumbers()); // 당첨 번호를 생성자에서 설정
+        int purchasableLotto = lottoAmount / 1000;  // 구매 가능한 로또 개수
+        int manualAmount = inputView.manualLottoAmount(purchasableLotto); // 수동 로또 개수 입력받기
 
-        for (int i = 0; i < lottoAmount / 1000; ++i) {
+        outputView.printInputManualLottoMessage();
+        for (int i = 0; i < manualAmount; ++i) {
+            market.manualLotto(inputView.inputManualLottoNums());
+        }
+
+        // 자동 로또는 전체 개수에서 수동 개수를 뺀 만큼 생성
+        int autoLottoCount = purchasableLotto - manualAmount;
+        for (int i = 0; i < autoLottoCount; ++i) {
             market.randomLotto();
         }
 
-        outputView.printLottos(market.getLottos());
+        // 자동 + 수동 로또 출력
+        outputView.printLottos(market.getAllLottos(), manualAmount, autoLottoCount);
 
-        Map<Integer, Long> winingLottos = statics.calcWiningLottos(market.getLottos(), market.getWiningNumbers());
+        // 당첨 번호 입력 및 설정
+        List<Integer> winningNumbers = inputView.intputWinningNums();
+        market.setWinningNumbers(winningNumbers);
 
-        outputView.printWinningStatistics(winingLottos);
+        // 당첨 결과 계산 및 출력
+        Map<Integer, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers());
+        outputView.printWinningStatistics(winningLottos);
 
-        double profitRate = statics.calcProfitRate(winingLottos, lottoAmount);
-
+        // 수익률 계산 및 출력
+        double profitRate = statics.calcProfitRate(winningLottos, lottoAmount);
         outputView.printProfitRate(profitRate);
-    }
-
-    private List<Integer> generateWinningNumbers() {
-        return inputView.intputWinningNums();
     }
 }

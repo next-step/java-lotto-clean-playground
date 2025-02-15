@@ -9,7 +9,7 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
-        return numbers; // 당첨 번호 비교를 위해 추가
+        return numbers;
     }
 
     @Override

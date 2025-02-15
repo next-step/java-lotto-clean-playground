@@ -1,20 +1,25 @@
 import java.util.*;
 
 public class LottoMarket {
-    private final List<Integer> winingNumbers;
+    private List<Integer> winningNumbers;
     private final List<Lotto> lottos;
+    private final List<Lotto> manualLottos;
 
-    public LottoMarket(List<Integer> winingNumbers) {
-        validate(winingNumbers);
-        this.winingNumbers = new ArrayList<>(winingNumbers); // 불변성 유지
-        this.lottos = new ArrayList<>(); // 리스트 초기화
+    public LottoMarket() {
+        this.lottos = new ArrayList<>();
+        this.manualLottos = new ArrayList<>();
     }
 
-    private void validate(List<Integer> winingNumbers) {
-        if (winingNumbers.size() != 6) {
+    public void setWinningNumbers(List<Integer> winningNumbers){
+        validate(winningNumbers);
+        this.winningNumbers = winningNumbers;
+    }
+
+    private void validate(List<Integer> numbers) {
+        if (numbers.size() != 6) {
             throw new RuntimeException("로또 번호는 6개여야 합니다.");
         }
-        if (winingNumbers.stream().anyMatch(n -> n < 1 || n > 45)) {
+        if (numbers.stream().anyMatch(n -> n < 1 || n > 45)) {
             throw new RuntimeException("로또 번호는 1이상 45이하여야 합니다.");
         }
     }
@@ -26,16 +31,30 @@ public class LottoMarket {
                 .sorted()
                 .boxed()
                 .toList();
-        Lotto lotto = new Lotto(numbers);
-        lottos.add(lotto);
+        lottos.add(new Lotto(numbers));
+    }
+
+    public void manualLotto(List<Integer> manualLottoNums){
+        validate(manualLottoNums); // 유효성 검사 후 추가
+        manualLottos.add(new Lotto(manualLottoNums));
     }
 
     public List<Lotto> getLottos() {
         return Collections.unmodifiableList(lottos);
     }
 
-    public List<Integer> getWiningNumbers() {
-        return Collections.unmodifiableList(winingNumbers);
+    public List<Lotto> getManualLottos() {
+        return Collections.unmodifiableList(manualLottos);
     }
 
+    public List<Integer> getWinningNumbers() {
+        return Collections.unmodifiableList(winningNumbers);
+    }
+
+    // 자동 + 수동 로또 리스트를 반환하는 메서드 추가
+    public List<Lotto> getAllLottos() {
+        List<Lotto> allLottos = new ArrayList<>(manualLottos);
+        allLottos.addAll(lottos);
+        return Collections.unmodifiableList(allLottos);
+    }
 }

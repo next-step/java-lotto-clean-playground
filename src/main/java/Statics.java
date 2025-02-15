@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Statics {
 
-    public Map<Integer, Long> calcWiningLottos(List<Lotto> lottos, List<Integer> winingNumbers) {
+    public Map<Integer, Long> calcWinningLottos(List<Lotto> lottos, List<Integer> winingNumbers) {
 
         Map<Integer, Long> winingLottos = new HashMap<>();
         for (int i = 3; i <= 6; ++i) {
@@ -19,7 +19,6 @@ public class Statics {
                 )).entrySet().stream()
                 .filter(entry -> entry.getKey() >= 3)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
 
         winingLottos.putAll(result);
 

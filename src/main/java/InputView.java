@@ -19,12 +19,30 @@ public class InputView {
         return amount;
     }
 
-    public List<Integer> intputWinningNums(){
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return validateWiningNumber(in.nextLine());
+    public int manualLottoAmount(int lottoAmount){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int amount;
+        try{
+            amount = Integer.parseInt(in.nextLine());
+            if(amount > lottoAmount) throw new RuntimeException("");
+            if(amount <= 0) throw new RuntimeException("");
+        }
+        catch (NumberFormatException e){
+            throw new RuntimeException("");
+        }
+        return amount;
     }
 
-    private List<Integer> validateWiningNumber(String winningNums){
+    public List<Integer> inputManualLottoNums(){
+        return validateLottoNumber(in.nextLine());
+    }
+
+    public List<Integer> intputWinningNums(){
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        return validateLottoNumber(in.nextLine());
+    }
+
+    private List<Integer> validateLottoNumber(String winningNums){
         List<Integer> winingNumbers;
         try{
             winingNumbers = Arrays.stream(winningNums.split(","))
