@@ -56,15 +56,16 @@ public class InputView {
     }
 
     private List<Integer> validateLottoNumber(String winningNums){
-        List<Integer> winingNumbers;
+        List<Integer> winningNumbers;
         try{
-            winingNumbers = Arrays.stream(winningNums.split(","))
+            winningNumbers = Arrays.stream(winningNums.split(","))
+                    .map(String::strip) // 각 숫자에 대해 앞뒤 공백 제거
                     .map(Integer::parseInt)
                     .toList();
         }
         catch (NumberFormatException e){
             throw new RuntimeException("");
         }
-        return winingNumbers;
+        return winningNumbers;
     }
 }

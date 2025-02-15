@@ -9,10 +9,11 @@ public class OutputView {
         lotto.forEach(System.out::println);
     }
 
-    public void printWinningStatistics(Map<Rank, Long> winingLottos){
+    public void printWinningStatistics(Map<Rank, Long> winingLottos) {
         System.out.println("당첨 통계\n---------");
         winingLottos.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal))) // Rank 순서대로 정렬
+                .filter(entry -> entry.getKey() != Rank.UNRANK) // 0개 일치는 출력하지 않음
+                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal).reversed())) // Rank 정의 순서의 역순 정렬
                 .forEach(entry -> {
                     Rank rank = entry.getKey();
                     System.out.printf("%d개 일치%s (%d원) - %d개\n",
@@ -24,8 +25,9 @@ public class OutputView {
                 });
     }
 
+
     public void printProfitRate(double profitRate){
-        System.out.printf("총 수익률은 %.2f 입니다\n.", profitRate);
+        System.out.printf("총 수익률은 %.2f 입니다.\n", profitRate);
     }
 
     public void printInputManualLottoMessage(){
