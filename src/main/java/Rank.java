@@ -25,14 +25,6 @@ public enum Rank {
                 .orElse(UNRANK);
     }
 
-    public static int getReward(int matchCount) {
-        return Arrays.stream(values())
-                .filter(rank -> rank.match == matchCount)
-                .map(Rank::getReward)
-                .findFirst()
-                .orElse(0);
-    }
-
     public int getReward() {
         return reward;
     }
