@@ -33,9 +33,12 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getNumbers() {
+    public boolean containNumber(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
+    public List<LottoNumber> getNumbers() {
         return numbers.stream()
-                .map(LottoNumber::getNumber)
                 .toList();
     }
 }

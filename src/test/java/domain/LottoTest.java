@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static fixture.LottoFixture.testLottoNumbersOneToSix;
 import static fixture.LottoFixture.testNumbersOneToSix;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,7 +16,7 @@ class LottoTest {
     @DisplayName("OK : 로또를 생성한다.")
     void newLotto() {
         Lotto lotto = new Lotto(testNumbersOneToSix);
-        assertThat(lotto.getNumbers()).isEqualTo(testNumbersOneToSix);
+        assertThat(lotto.getNumbers()).isEqualTo(testLottoNumbersOneToSix);
     }
 
     @Test

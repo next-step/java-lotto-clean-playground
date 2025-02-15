@@ -15,7 +15,7 @@ public class LottoGroup {
         return lottos;
     }
 
-    public List<List<Integer>> getAllLottoNumbersList() {
+    public List<List<LottoNumber>> getAllLottoNumbersList() {
         return lottos.stream()
                 .map(Lotto::getNumbers)
                 .toList();

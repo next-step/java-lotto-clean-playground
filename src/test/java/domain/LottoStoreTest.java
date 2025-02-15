@@ -41,7 +41,7 @@ class LottoStoreTest {
         List<Lotto> lottos = new ArrayList<>();
         long automaticCount = 1L;
         LottoGroup lottoGroup = lottoStore.buyLottos(lottos, automaticCount);
-        assertThat(lottoGroup.getLottos().get(0).getNumbers()).isEqualTo(testNumbersOneToSix);
+        assertThat(lottoGroup.getLottos().get(0).getNumbers()).isEqualTo(testLottoNumbersOneToSix);
     }
 
     private static Stream<Arguments> provideAmountAndCount() {

@@ -16,7 +16,7 @@ class LottoGroupTest {
     @DisplayName("OK : 로또들의 번호 목록들을 조회한다.")
     void getAllLottoNumbersList() {
         LottoGroup lottoGroup = new LottoGroup(lottos);
-        List<List<Integer>> expectResult = List.of(testNumbersOneToSix, testNumbersSevenToTwelve, testNumbersFortyToFortyFive);
+        List<List<LottoNumber>> expectResult = List.of(testLottoNumbersOneToSix, testLottoNumbersSevenToTwelve, testLottoNumbersFortyToFortyFive);
 
         assertThat(lottoGroup.getAllLottoNumbersList()).isEqualTo(expectResult);
     }
