@@ -4,7 +4,6 @@ public class LottoMarket {
     private List<Integer> winningNumbers;
     private final List<Lotto> lottos;
     private final List<Lotto> manualLottos;
-    private int bonusNumber;
 
     public LottoMarket() {
         this.lottos = new ArrayList<>();
@@ -14,7 +13,6 @@ public class LottoMarket {
     public void setWinningNumbers(List<Integer> winningNumbers, int bonusNumber){
         validate(winningNumbers);
         this.winningNumbers = winningNumbers;
-        this.bonusNumber = bonusNumber;
     }
 
     private void validate(List<Integer> numbers) {
@@ -39,14 +37,6 @@ public class LottoMarket {
     public void manualLotto(List<Integer> manualLottoNums){
         validate(manualLottoNums); // 유효성 검사 후 추가
         manualLottos.add(new Lotto(manualLottoNums));
-    }
-
-    public List<Lotto> getLottos() {
-        return Collections.unmodifiableList(lottos);
-    }
-
-    public List<Lotto> getManualLottos() {
-        return Collections.unmodifiableList(manualLottos);
     }
 
     public List<Integer> getWinningNumbers() {
