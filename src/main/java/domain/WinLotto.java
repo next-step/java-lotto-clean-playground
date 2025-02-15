@@ -18,7 +18,7 @@ public class WinLotto {
 
     private static void validateDuplicateBonusNumber(Lotto lotto, LottoNumber bonusLottoNumber) {
         if(lotto.containNumber(bonusLottoNumber)){
-            throw new IllegalArgumentException("지난주 당첨 번호와 다른 번호를 입력해주세요.");
+            throw new IllegalArgumentException("당첨 번호와 보너스 번호를 다르게 입력해주세요.");
         }
     }
 
