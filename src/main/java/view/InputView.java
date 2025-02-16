@@ -20,6 +20,12 @@ public class InputView {
         return splitNumbers(scanner.nextLine());
     }
 
+    public static int inputBonusNumber() {
+        System.out.println();
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     private static List<Integer> splitNumbers(String numbers) {
         return Arrays.stream(numbers.split(", "))
             .map(Integer::parseInt)

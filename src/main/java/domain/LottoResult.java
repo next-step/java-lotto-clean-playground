@@ -18,16 +18,25 @@ public class LottoResult {
 
     private Map<LottoRateEnum, Integer> calculateMatchCounts(Lottos lottos, WinningNumbers winningNumbers) {
         return lottos.getLottos().stream()
-            .map(lotto -> calculateRank(lotto.getLottoNumbers(), winningNumbers.getWinningNumbers()))
+            .map(lotto -> calculateRank(lotto.getLottoNumbers(), winningNumbers))
             .filter(Objects::nonNull)
             .collect(Collectors.groupingBy(rank -> rank, Collectors.summingInt(rank -> 1)));
     }
 
-    private LottoRateEnum calculateRank(LottoNumbers lottoNumbers, LottoNumbers winningNumbers) {
-        int matchCount = (int)lottoNumbers.getLottoNumbers().stream()
-            .filter(num -> winningNumbers.getLottoNumbers().contains(num))
+    private LottoRateEnum calculateRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
+        int matchCount = countMatchingNumbers(lottoNumbers, winningNumbers);
+        boolean isBonusMatched = isBonusNumberMatched(lottoNumbers, winningNumbers);
+        return LottoRateEnum.getLottoRate(matchCount, isBonusMatched);
+    }
+
+    private int countMatchingNumbers(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
+        return (int) lottoNumbers.getLottoNumbers().stream()
+            .filter(winningNumbers.getWinningNumbers().getLottoNumbers()::contains)
             .count();
-        return LottoRateEnum.getLottoRate(matchCount);
+    }
+
+    private boolean isBonusNumberMatched(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
+        return lottoNumbers.getLottoNumbers().contains(winningNumbers.getBonusNumber());
     }
 
     private double calculateRateOfReturn(Map<LottoRateEnum, Integer> matchCounts, long purchaseMoney) {

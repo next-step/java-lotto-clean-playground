@@ -1,7 +1,6 @@
 import java.util.List;
 
 import domain.LottoMachine;
-import domain.LottoNumbers;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.WinningNumbers;
@@ -16,7 +15,9 @@ public class Application {
         Lottos lottos = LottoMachine.buyLotto(money);
         ResultView.outputLotto(lottos);
 
-        WinningNumbers winningNumbers = new WinningNumbers(InputView.inputWinningNumbers());
+        List<Integer> winningNumberList = InputView.inputWinningNumbers();
+        int bonusNumber = InputView.inputBonusNumber();
+        WinningNumbers winningNumbers = new WinningNumbers(winningNumberList, bonusNumber);
         LottoResult lottoResult = new LottoResult(lottos, winningNumbers, money);
         ResultView.outputWinningStatistics(lottoResult);
     }

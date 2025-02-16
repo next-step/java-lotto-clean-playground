@@ -24,7 +24,7 @@ public class ResultView {
     private static void printWinningResults(Map<LottoRateEnum, Integer> lottoRate) {
         for (LottoRateEnum lottoRateEnum : LottoRateEnum.values()) {
             int count = lottoRate.getOrDefault(lottoRateEnum, 0);
-            System.out.printf("%d개 일치 (%d원)- %d개%n", lottoRateEnum.matchCount, lottoRateEnum.price, count);
+            System.out.println(lottoRateEnum.getFormattedRank(count));
         }
     }
 
