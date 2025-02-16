@@ -43,6 +43,14 @@ public class LottoMarket {
         return Collections.unmodifiableList(winningNumbers);
     }
 
+    public List<Lotto> getManualLottos() {
+        return Collections.unmodifiableList(manualLottos);
+    }
+
+    public List<Lotto> getLottos() {
+        return Collections.unmodifiableList(lottos);
+    }
+
     public List<Lotto> getAllLottos() {
         List<Lotto> allLottos = new ArrayList<>(manualLottos);
         allLottos.addAll(lottos);

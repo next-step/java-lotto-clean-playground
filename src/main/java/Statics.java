@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class Statics {
 
@@ -12,7 +13,7 @@ public class Statics {
             winningLottos.put(rank, 0L);
         }
 
-        Map<Rank, Long> result = lottos.stream()
+        Map<Rank, Long> result = lottos.stream().filter(Objects::nonNull)
                 .map(lotto -> {
                     int matchCount = (int) lotto.getNumbers().stream()
                             .filter(winningNumbers::contains)

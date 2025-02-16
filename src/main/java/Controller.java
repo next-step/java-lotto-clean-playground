@@ -14,7 +14,7 @@ public class Controller {
         this.outputView = outputView;
     }
 
-    public void startLotto() {
+    public void setLotto() {
         int lottoAmount = inputView.inputLottoAmount();
         int purchasableLotto = lottoAmount / 1000;
         int manualAmount = inputView.manualLottoAmount(purchasableLotto);
@@ -29,6 +29,10 @@ public class Controller {
             market.randomLotto();
         }
 
+        startLotto(manualAmount, autoLottoCount, lottoAmount);
+    }
+
+    public void startLotto(int manualAmount, int autoLottoCount, int lottoAmount){
         outputView.printLottos(market.getAllLottos(), manualAmount, autoLottoCount);
 
         List<Integer> winningNumbers = inputView.intputWinningNums();
