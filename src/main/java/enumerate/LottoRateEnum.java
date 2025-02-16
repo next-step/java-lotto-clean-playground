@@ -1,6 +1,7 @@
 package enumerate;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum LottoRateEnum {
     THREE_MATCHED(3, 5_000L, Format.DEFAULT),
@@ -19,14 +20,13 @@ public enum LottoRateEnum {
         this.format = format;
     }
 
-    public static LottoRateEnum getLottoRate(int matchCount, boolean isBonusMatched) {
+    public static Optional<LottoRateEnum> getLottoRate(int matchCount, boolean isBonusMatched) {
         if (isBonusMatched && matchCount == FIVE_MATCHED.matchCount) {
-            return FIVE_MATCHED_WITH_BONUS;
+            return Optional.of(FIVE_MATCHED_WITH_BONUS);
         }
         return Arrays.stream(values())
             .filter(rate -> rate.matchCount == matchCount)
-            .findFirst()
-            .orElse(null);
+            .findFirst();
     }
 
     public String getFormattedRank(int count) {

@@ -2,6 +2,7 @@ package domain;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import enumerate.LottoRateEnum;
@@ -19,11 +20,12 @@ public class LottoResult {
     private Map<LottoRateEnum, Integer> calculateMatchCounts(Lottos lottos, WinningNumbers winningNumbers) {
         return lottos.getLottos().stream()
             .map(lotto -> calculateRank(lotto.getLottoNumbers(), winningNumbers))
-            .filter(Objects::nonNull)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .collect(Collectors.groupingBy(rank -> rank, Collectors.summingInt(rank -> 1)));
     }
 
-    private LottoRateEnum calculateRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
+    private Optional<LottoRateEnum> calculateRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
         int matchCount = countMatchingNumbers(lottoNumbers, winningNumbers);
         boolean isBonusMatched = isBonusNumberMatched(lottoNumbers, winningNumbers);
         return LottoRateEnum.getLottoRate(matchCount, isBonusMatched);

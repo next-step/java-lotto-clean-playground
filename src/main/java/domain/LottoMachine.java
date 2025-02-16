@@ -31,8 +31,8 @@ public class LottoMachine {
         if (money < LOTTO_PRICE) {
             throw new LottoNotEnoughMoneyException("로또 구매 금액은 최소 " + LOTTO_PRICE + "원 이상이어야 합니다.");
         }
-        if (money > LOTTO_PRICE * manualCount) {
-            throw new LottoNotEnoughMoneyException("수동으로 구매할 로또");
+        if (money < LOTTO_PRICE * manualCount) {
+            throw new LottoNotEnoughMoneyException("수동으로 구매할 로또 개수보다 적은 금액을 입력하셨습니다.");
         }
     }
 
