@@ -14,29 +14,29 @@ public class LottoMachine {
     private static final List<Integer> NUMBER_POOL = generateNumberPool();
 
     private static List<Integer> generateNumberPool() {
-        return IntStream.rangeClosed(Lotto.MIN_NUMBER, Lotto.MAX_NUMBER)
+        return IntStream.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
             .boxed()
             .collect(Collectors.toList());
     }
 
-    public List<Lotto> buyLotto(int money) {
+    public Lottos buyLotto(int money) {
         validateMoney(money);
         int lottoCount = money / LOTTO_PRICE;
         return generateLottos(lottoCount);
     }
 
     private void validateMoney(int money) {
-        if (money < LOTTO_PRICE)
-            throw new LottoNotEnoughMoneyException(String.format("로또를 구매하려면 최소 %d원이 필요합니다.", LOTTO_PRICE));
+        if (money < LOTTO_PRICE) {
+            throw new LottoNotEnoughMoneyException("로또 구매 금액은 최소 " + LOTTO_PRICE + "원 이상이어야 합니다.");
+        }
     }
 
-
-    private List<Lotto> generateLottos(int count) {
+    private Lottos generateLottos(int count) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(generateLotto());
         }
-        return lottos;
+        return new Lottos(lottos);
     }
 
     private Lotto generateLotto() {
@@ -51,6 +51,6 @@ public class LottoMachine {
     }
 
     private List<Integer> selectLottoNumbers(List<Integer> numbers) {
-        return numbers.subList(0, Lotto.NUMBER_COUNT);
+        return numbers.subList(0, LottoNumbers.NUMBER_COUNT);
     }
 }
