@@ -10,7 +10,7 @@ public class LottoMarket {
         this.manualLottos = new ArrayList<>();
     }
 
-    public void setWinningNumbers(List<Integer> winningNumbers, int bonusNumber){
+    public void setWinningNumbers(List<Integer> winningNumbers){
         validate(winningNumbers);
         this.winningNumbers = winningNumbers;
     }

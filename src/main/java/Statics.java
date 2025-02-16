@@ -5,17 +5,17 @@ import java.util.stream.Collectors;
 
 public class Statics {
 
-    public Map<Rank, Long> calcWinningLottos(List<Lotto> lottos, List<Integer> winingNumbers, int bonusBall) {
-        Map<Rank, Long> winingLottos = new HashMap<>();
+    public Map<Rank, Long> calcWinningLottos(List<Lotto> lottos, List<Integer> winningNumbers, int bonusBall) {
+        Map<Rank, Long> winningLottos = new HashMap<>();
 
         for (Rank rank : Rank.values()) {
-            winingLottos.put(rank, 0L);
+            winningLottos.put(rank, 0L);
         }
 
         Map<Rank, Long> result = lottos.stream()
                 .map(lotto -> {
                     int matchCount = (int) lotto.getNumbers().stream()
-                            .filter(winingNumbers::contains)
+                            .filter(winningNumbers::contains)
                             .count();
                     boolean hasBonus = lotto.getNumbers().contains(bonusBall);
                     return Rank.getRank(matchCount, hasBonus);
@@ -23,13 +23,13 @@ public class Statics {
                 .filter(rank -> rank != Rank.UNRANK)
                 .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
 
-        winingLottos.putAll(result);
+        winningLottos.putAll(result);
 
-        return winingLottos;
+        return winningLottos;
     }
 
-    public double calcProfitRate(Map<Rank, Long> winingLottos, int lottoAmount) {
-        long totalEarnings = winingLottos.entrySet().stream()
+    public double calcProfitRate(Map<Rank, Long> winningLottos, int lottoAmount) {
+        long totalEarnings = winningLottos.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getReward() * entry.getValue())
                 .sum();
 

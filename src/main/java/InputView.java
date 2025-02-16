@@ -10,11 +10,11 @@ public class InputView {
         int amount;
         try{
             amount = Integer.parseInt(in.nextLine());
-            if(amount < 1000) throw new RuntimeException("");
-            if(amount % 1000 != 0) throw new RuntimeException("");
+            if(amount < 1000) throw new RuntimeException("1000원 이상 구매하여야 합니다.");
+            if(amount % 1000 != 0) throw new RuntimeException("1000원 단위로 구매하여야 합니다.");
         }
         catch (NumberFormatException e){
-            throw new RuntimeException("");
+            throw new RuntimeException("잘못된 값을 입력하였습니다.");
         }
         return amount;
     }
@@ -24,11 +24,11 @@ public class InputView {
         int amount;
         try{
             amount = Integer.parseInt(in.nextLine());
-            if(amount > lottoAmount) throw new RuntimeException("");
-            if(amount <= 0) throw new RuntimeException("");
+            if(amount > lottoAmount) throw new RuntimeException("총 구매할 로또 수 이하로 구매하여야 합니다.");
+            if(amount <= 0) throw new RuntimeException("1개 이상 구매하여야 합니다.");
         }
         catch (NumberFormatException e){
-            throw new RuntimeException("");
+            throw new RuntimeException("잘못된 값을 입력하였습니다.");
         }
         return amount;
     }
@@ -42,29 +42,29 @@ public class InputView {
         return validateLottoNumber(in.nextLine());
     }
 
-    public int inputBonusNumber(){
+    public int inputBonusBall(){
         System.out.println("보너스 볼을 입력해 주세요.");
-        int bonusNumber;
+        int bonusBall;
         try{
-            bonusNumber = Integer.parseInt(in.nextLine());
-            if(bonusNumber < 0 || bonusNumber > 45) throw new RuntimeException("");
+            bonusBall = Integer.parseInt(in.nextLine());
+            if(bonusBall < 0 || bonusBall > 45) throw new RuntimeException("로또 번호는 1이상 45이하여야 합니다.");
         }
         catch (NumberFormatException e){
-            throw new RuntimeException("");
+            throw new RuntimeException("잘못된 값을 입력하였습니다.");
         }
-        return bonusNumber;
+        return bonusBall;
     }
 
     private List<Integer> validateLottoNumber(String winningNums){
         List<Integer> winningNumbers;
         try{
             winningNumbers = Arrays.stream(winningNums.split(","))
-                    .map(String::strip) // 각 숫자에 대해 앞뒤 공백 제거
+                    .map(String::strip)
                     .map(Integer::parseInt)
                     .toList();
         }
         catch (NumberFormatException e){
-            throw new RuntimeException("");
+            throw new RuntimeException("잘못된 로또 번호 입니다.");
         }
         return winningNumbers;
     }

@@ -9,16 +9,16 @@ public class OutputView {
         lotto.forEach(System.out::println);
     }
 
-    public void printWinningStatistics(Map<Rank, Long> winingLottos) {
+    public void printWinningStatistics(Map<Rank, Long> winningLottos) {
         System.out.println("당첨 통계\n---------");
-        winingLottos.entrySet().stream()
-                .filter(entry -> entry.getKey() != Rank.UNRANK) // 0개 일치는 출력하지 않음
-                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal).reversed())) // Rank 정의 순서의 역순 정렬
+        winningLottos.entrySet().stream()
+                .filter(entry -> entry.getKey() != Rank.UNRANK)
+                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal).reversed()))
                 .forEach(entry -> {
                     Rank rank = entry.getKey();
                     System.out.printf("%d개 일치%s (%d원) - %d개\n",
                             rank.getMatch(),
-                            rank.hasBonus() ? " + 보너스 볼" : "", // 보너스 볼 여부 표시
+                            rank.hasBonus() ? " + 보너스 볼" : "",
                             rank.getReward(),
                             entry.getValue()
                     );

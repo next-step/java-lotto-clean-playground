@@ -16,34 +16,27 @@ public class Controller {
 
     public void startLotto() {
         int lottoAmount = inputView.inputLottoAmount();
-        int purchasableLotto = lottoAmount / 1000;  // 구매 가능한 로또 개수
-        int manualAmount = inputView.manualLottoAmount(purchasableLotto); // 수동 로또 개수 입력받기
+        int purchasableLotto = lottoAmount / 1000;
+        int manualAmount = inputView.manualLottoAmount(purchasableLotto);
 
         outputView.printInputManualLottoMessage();
         for (int i = 0; i < manualAmount; ++i) {
             market.manualLotto(inputView.inputManualLottoNums());
         }
 
-        // 자동 로또는 전체 개수에서 수동 개수를 뺀 만큼 생성
         int autoLottoCount = purchasableLotto - manualAmount;
         for (int i = 0; i < autoLottoCount; ++i) {
             market.randomLotto();
         }
 
-        // 자동 + 수동 로또 출력
         outputView.printLottos(market.getAllLottos(), manualAmount, autoLottoCount);
 
-        // 당첨 번호 입력 및 설정
         List<Integer> winningNumbers = inputView.intputWinningNums();
-        int bonusNumber = inputView.inputBonusNumber();
-        market.setWinningNumbers(winningNumbers, bonusNumber);
+        int bonusBall = inputView.inputBonusBall();
+        market.setWinningNumbers(winningNumbers);
 
-
-
-
-        Map<Rank, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers(), bonusNumber);
+        Map<Rank, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers(), bonusBall);
         outputView.printWinningStatistics(winningLottos);
-
 
         double profitRate = statics.calcProfitRate(winningLottos, lottoAmount);
         outputView.printProfitRate(profitRate);
