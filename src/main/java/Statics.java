@@ -7,26 +7,27 @@ import java.util.Objects;
 public class Statics {
 
     public Map<Rank, Long> calcWinningLottos(List<Lotto> lottos, List<Integer> winningNumbers, int bonusBall) {
-        Map<Rank, Long> winningLottos = new HashMap<>();
+        Map<Rank, Long> winningLottos = initWinningLottos();
+        Map<Rank, Long> result = countWinningRanks(lottos, winningNumbers, bonusBall);
+        winningLottos.putAll(result);
+        return winningLottos;
+    }
 
-        for (Rank rank : Rank.values()) {
-            winningLottos.put(rank, 0L);
-        }
+    private Map<Rank, Long> initWinningLottos() {
+        Map<Rank, Long> map = new HashMap<>();
+        for (Rank rank : Rank.values()) map.put(rank, 0L);
+        return map;
+    }
 
-        Map<Rank, Long> result = lottos.stream().filter(Objects::nonNull)
-                .map(lotto -> {
-                    int matchCount = (int) lotto.getNumbers().stream()
-                            .filter(winningNumbers::contains)
-                            .count();
-                    boolean hasBonus = lotto.getNumbers().contains(bonusBall);
-                    return Rank.getRank(matchCount, hasBonus);
-                })
+    private Map<Rank, Long> countWinningRanks(List<Lotto> lottos, List<Integer> winningNumbers, int bonusBall) {
+        return lottos.stream().filter(Objects::nonNull)
+                .map(lotto -> Rank.getRank(countMatchingNumbers(lotto, winningNumbers), lotto.getNumbers().contains(bonusBall)))
                 .filter(rank -> rank != Rank.UNRANK)
                 .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
+    }
 
-        winningLottos.putAll(result);
-
-        return winningLottos;
+    private int countMatchingNumbers(Lotto lotto, List<Integer> winningNumbers) {
+        return (int) lotto.getNumbers().stream().filter(winningNumbers::contains).count();
     }
 
     public double calcProfitRate(Map<Rank, Long> winningLottos, int lottoAmount) {

@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,18 +12,24 @@ public class OutputView {
 
     public void printWinningStatistics(Map<Rank, Long> winningLottos) {
         System.out.println("당첨 통계\n---------");
+        sortWinningLottos(winningLottos).forEach(this::printRankInfo);
+    }
+
+    private EnumMap<Rank, Long> sortWinningLottos(Map<Rank, Long> winningLottos) {
+        EnumMap<Rank, Long> sortedMap = new EnumMap<>(Rank.class);
         winningLottos.entrySet().stream()
                 .filter(entry -> entry.getKey() != Rank.UNRANK)
-                .sorted(Map.Entry.comparingByKey(Comparator.comparingInt(Rank::ordinal).reversed()))
-                .forEach(entry -> {
-                    Rank rank = entry.getKey();
-                    System.out.printf("%d개 일치%s (%d원) - %d개\n",
-                            rank.getMatch(),
-                            rank.hasBonus() ? " + 보너스 볼" : "",
-                            rank.getReward(),
-                            entry.getValue()
-                    );
-                });
+                .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+        return sortedMap;
+    }
+
+    private void printRankInfo(Rank rank, Long count) {
+        System.out.printf("%d개 일치%s (%d원) - %d개\n",
+                rank.getMatch(),
+                rank.hasBonus() ? " + 보너스 볼" : "",
+                rank.getReward(),
+                count
+        );
     }
 
     public void printProfitRate(double profitRate){

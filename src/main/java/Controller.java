@@ -23,7 +23,7 @@ public class Controller {
         startLotto(manualAmount, autoLottoCount, lottoAmount);
     }
 
-    public int setLotto(int manualAmount, int purchasableLotto) {
+    private int setLotto(int manualAmount, int purchasableLotto) {
         outputView.printInputManualLottoMessage();
         for (int i = 0; i < manualAmount; ++i) {
             market.manualLotto(inputView.inputManualLottoNums());
@@ -37,7 +37,7 @@ public class Controller {
         return autoLottoCount;
     }
 
-    public void startLotto(int manualAmount, int autoLottoCount, int lottoAmount){
+    private void startLotto(int manualAmount, int autoLottoCount, int lottoAmount){
         outputView.printLottos(market.getAllLottos(), manualAmount, autoLottoCount);
 
         List<Integer> winningNumbers = inputView.intputWinningNums();
