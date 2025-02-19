@@ -14,11 +14,16 @@ public class Controller {
         this.outputView = outputView;
     }
 
-    public void setLotto() {
+    public void run(){
         int lottoAmount = inputView.inputLottoAmount();
         int purchasableLotto = lottoAmount / 1000;
         int manualAmount = inputView.manualLottoAmount(purchasableLotto);
 
+        int autoLottoCount = setLotto(manualAmount, purchasableLotto);
+        startLotto(manualAmount, autoLottoCount, lottoAmount);
+    }
+
+    public int setLotto(int manualAmount, int purchasableLotto) {
         outputView.printInputManualLottoMessage();
         for (int i = 0; i < manualAmount; ++i) {
             market.manualLotto(inputView.inputManualLottoNums());
@@ -29,7 +34,7 @@ public class Controller {
             market.randomLotto();
         }
 
-        startLotto(manualAmount, autoLottoCount, lottoAmount);
+        return autoLottoCount;
     }
 
     public void startLotto(int manualAmount, int autoLottoCount, int lottoAmount){

@@ -33,7 +33,7 @@ class ControllerTest {
         when(inputView.intputWinningNums()).thenReturn(Arrays.asList(1, 2, 3, 4, 5, 6));
         when(inputView.inputBonusBall()).thenReturn(7);
 
-        controller.setLotto();
+        controller.run();
 
         verify(outputView).printLottos(market.getAllLottos(), 1, 2);
     }

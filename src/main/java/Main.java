@@ -6,6 +6,6 @@ public class Main {
         OutputView outputView = new OutputView();
 
         Controller controller = new Controller(market, statics, inputView, outputView);
-        controller.setLotto();
+        controller.run();
     }
 }
