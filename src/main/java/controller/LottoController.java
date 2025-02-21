@@ -1,8 +1,8 @@
 package controller;
 
-import domain.Lotto;
+import model.Lotto;
 import dto.LottoDto;
-import service.LottoService;
+import model.LottoPurchase;
 import view.*;
 import java.util.*;
 
@@ -10,43 +10,20 @@ public class LottoController {
 
     private final LottoInputView lottoInputView = new LottoInputView();
     private final LottoOutputView lottoOutputView = new LottoOutputView();
-    private final LottoService lottoService = new LottoService();
+    private final LottoPurchase lottoPurchase = new LottoPurchase();
 
     public void run() {
-        int purchaseAmount = getPurchaseAmount();
-        int lottoAmount = lottoService.calculateLottoAmount(purchaseAmount);
+        int purchaseAmount = lottoInputView.getPurchaseAmount();
         lottoInputView.printEmptyLine();
 
-        lottoOutputView.printLottoAmount(lottoAmount);
+        List<Lotto> lottos = lottoPurchase.purchaseRandomLottos(purchaseAmount);
+        lottoOutputView.printLottoAmount(lottos.size());
 
-        List<Lotto> lottoList = createLottoList(lottoAmount);
-
-        printLottoList(lottoList);
+        printLottoList(lottos);
     }
 
-    private int getPurchaseAmount() {
-        int purchaseAmount = lottoInputView.getPurchaseAmount();
-        lottoService.validatePurchaseAmount(purchaseAmount);
-
-        return purchaseAmount;
-    }
-
-    private List<Lotto> createLottoList(int lottoAmount) {
-        List<Lotto> lottoList = new ArrayList<>();
-
-        for (int i = 0; i < lottoAmount; i++) {
-            lottoList.add(getLotto());
-        }
-
-        return Collections.unmodifiableList(lottoList);
-    }
-
-    private Lotto getLotto() {
-        return Lotto.getRandomLotto();
-    }
-
-    private void printLottoList(List<Lotto> lottoList) {
-        for (Lotto lotto : lottoList) {
+    private void printLottoList(List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
             lottoOutputView.printLotto(LottoDto.from(lotto));
         }
     }
