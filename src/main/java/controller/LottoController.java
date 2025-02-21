@@ -14,17 +14,21 @@ public class LottoController {
 
     public void run() {
         int purchaseAmount = getPurchaseAmount();
-
-        lottoService.validatePurchaseAmount(purchaseAmount);
         int lottoAmount = lottoService.calculateGetLottoAmount(purchaseAmount);
         lottoInputView.printEmptyLine();
 
-        List<Lotto> lottoList = createLottoList(lottoAmount);
         lottoOutputView.printLottoAmount(lottoAmount);
 
-        for (Lotto lotto : lottoList) {
-            lottoOutputView.printLotto(LottoDto.from(lotto));
-        }
+        List<Lotto> lottoList = createLottoList(lottoAmount);
+
+        printLottoList(lottoList);
+    }
+
+    private int getPurchaseAmount() {
+        int purchaseAmount = lottoInputView.getPurchaseAmount();
+        lottoService.validatePurchaseAmount(purchaseAmount);
+
+        return purchaseAmount;
     }
 
     private List<Lotto> createLottoList(int lottoAmount) {
@@ -34,15 +38,17 @@ public class LottoController {
             lottoList.add(getLotto());
         }
 
-        return lottoList;
-    }
-
-    private int getPurchaseAmount() {
-        return lottoInputView.getPurchaseAmount();
+        return Collections.unmodifiableList(lottoList);
     }
 
     private Lotto getLotto() {
         return Lotto.getRandomLotto();
+    }
+
+    private void printLottoList(List<Lotto> lottoList) {
+        for (Lotto lotto : lottoList) {
+            lottoOutputView.printLotto(LottoDto.from(lotto));
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package domain;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Random;
 
 public class LottoNumber {
 
@@ -24,6 +25,19 @@ public class LottoNumber {
         return value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumber that = (LottoNumber) o;
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
+
     private static int getRandomNumber() {
         return RANDOM.nextInt(MINIMUM_LOTTO_NUMBER, MAXIMUM_LOTTO_NUMBER + 1);
     }
@@ -36,19 +50,6 @@ public class LottoNumber {
         if (value > MAXIMUM_LOTTO_NUMBER) {
             throw new IllegalArgumentException(String.format("입력된 값이 %d보다 큽니다.: %d", MAXIMUM_LOTTO_NUMBER, value));
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LottoNumber that = (LottoNumber) o;
-        return value == that.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(value);
     }
 
 }

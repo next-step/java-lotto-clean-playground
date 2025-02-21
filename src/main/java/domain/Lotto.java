@@ -4,30 +4,18 @@ import java.util.*;
 
 public class Lotto {
 
-    private final static int LOTTO_SIZE = 6;
+    private final LottoNumbers lottoNumbers;
 
-    private final List<LottoNumber> lottoNumbers = new ArrayList<>();
-
-    public List<LottoNumber> getLottoNumbers() {
-        return List.copyOf(lottoNumbers);
+    private Lotto(LottoNumbers lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
     public static Lotto getRandomLotto() {
-        Lotto lotto = new Lotto();
-
-        while (lotto.lottoNumbers.size() < LOTTO_SIZE) {
-            lotto.putIfAbsent(LottoNumber.getRandomLottoNumber());
-        }
-
-        Collections.sort(lotto.lottoNumbers, Comparator.comparing(LottoNumber::getValue));
-
-        return lotto;
+        return new Lotto(LottoNumbers.getRandomLottoNumbers());
     }
 
-    private void putIfAbsent(LottoNumber lottoNumber) {
-        if (!lottoNumbers.contains(lottoNumber)) {
-            lottoNumbers.add(lottoNumber);
-        }
+    public Set<LottoNumber> getLottoNumbers() {
+        return lottoNumbers.getCopy();
     }
 
 }
