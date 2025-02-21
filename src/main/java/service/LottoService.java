@@ -4,7 +4,7 @@ public class LottoService {
 
     private final static int LOTTO_PRICE = 1_000;
 
-    public int calculateGetLottoAmount(int purchaseAmount) {
+    public int calculateLottoAmount(int purchaseAmount) {
         return purchaseAmount / LOTTO_PRICE;
     }
 
