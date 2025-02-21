@@ -7,11 +7,6 @@ public class LottoDto {
 
     private List<Integer> lottoNumbers;
 
-    @Override
-    public String toString() {
-        return lottoNumbers.toString();
-    }
-
     public static LottoDto from(Lotto lotto) {
         LottoDto lottoDto = new LottoDto();
 
@@ -20,6 +15,11 @@ public class LottoDto {
                 .toList();
 
         return lottoDto;
+    }
+
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 
 }
