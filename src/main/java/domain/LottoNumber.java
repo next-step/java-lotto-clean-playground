@@ -2,7 +2,7 @@ package domain;
 
 import exception.LottoNumberOutOfRangeException;
 
-public class LottoNumber implements Comparable<LottoNumber>{
+public class LottoNumber implements Comparable<LottoNumber> {
 
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
@@ -22,10 +22,14 @@ public class LottoNumber implements Comparable<LottoNumber>{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        LottoNumber that = (LottoNumber) obj;
-        return number == that.number;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        LottoNumber other = (LottoNumber)obj;
+        return number == other.number;
     }
 
     @Override

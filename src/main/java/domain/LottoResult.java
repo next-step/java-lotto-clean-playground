@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -12,38 +11,38 @@ public class LottoResult {
     private final Map<LottoRateEnum, Integer> matchCounts;
     private final double rateOfReturn;
 
-    public LottoResult(Lottos lottos, WinningNumbers winningNumbers, long purchaseMoney) {
-        this.matchCounts = calculateMatchCounts(lottos, winningNumbers);
-        this.rateOfReturn = calculateRateOfReturn(matchCounts, purchaseMoney);
+    public LottoResult(Lottos lottos, LottoDrawResult lottoDrawResult, Money money) {
+        this.matchCounts = calculateMatchCounts(lottos, lottoDrawResult);
+        this.rateOfReturn = calculateRateOfReturn(matchCounts, money);
     }
 
-    private Map<LottoRateEnum, Integer> calculateMatchCounts(Lottos lottos, WinningNumbers winningNumbers) {
+    private Map<LottoRateEnum, Integer> calculateMatchCounts(Lottos lottos, LottoDrawResult lottoDrawResult) {
         return lottos.getLottos().stream()
-            .map(lotto -> calculateRank(lotto.getLottoNumbers(), winningNumbers))
+            .map(lotto -> calculateRank(lotto.getLottoNumbers(), lottoDrawResult))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .collect(Collectors.groupingBy(rank -> rank, Collectors.summingInt(rank -> 1)));
     }
 
-    private Optional<LottoRateEnum> calculateRank(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
-        int matchCount = countMatchingNumbers(lottoNumbers, winningNumbers);
-        boolean isBonusMatched = isBonusNumberMatched(lottoNumbers, winningNumbers);
+    private Optional<LottoRateEnum> calculateRank(LottoNumbers lottoNumbers, LottoDrawResult lottoDrawResult) {
+        int matchCount = countMatchingNumbers(lottoNumbers, lottoDrawResult);
+        boolean isBonusMatched = isBonusNumberMatched(lottoNumbers, lottoDrawResult);
         return LottoRateEnum.getLottoRate(matchCount, isBonusMatched);
     }
 
-    private int countMatchingNumbers(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
-        return (int) lottoNumbers.getLottoNumbers().stream()
-            .filter(winningNumbers.getWinningNumbers().getLottoNumbers()::contains)
+    private int countMatchingNumbers(LottoNumbers lottoNumbers, LottoDrawResult lottoDrawResult) {
+        return (int)lottoNumbers.getLottoNumbers().stream()
+            .filter(lottoDrawResult.getWinningNumbers().getLottoNumbers()::contains)
             .count();
     }
 
-    private boolean isBonusNumberMatched(LottoNumbers lottoNumbers, WinningNumbers winningNumbers) {
-        return lottoNumbers.getLottoNumbers().contains(winningNumbers.getBonusNumber());
+    private boolean isBonusNumberMatched(LottoNumbers lottoNumbers, LottoDrawResult lottoDrawResult) {
+        return lottoNumbers.getLottoNumbers().contains(lottoDrawResult.getBonusNumber());
     }
 
-    private double calculateRateOfReturn(Map<LottoRateEnum, Integer> matchCounts, long purchaseMoney) {
+    private double calculateRateOfReturn(Map<LottoRateEnum, Integer> matchCounts, Money money) {
         long totalPrize = calculateTotalPrize(matchCounts);
-        return (double)totalPrize / purchaseMoney;
+        return (double)totalPrize / money.getAmount();
     }
 
     private long calculateTotalPrize(Map<LottoRateEnum, Integer> matchCounts) {
