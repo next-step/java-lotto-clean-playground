@@ -36,4 +36,5 @@ public enum Rank {
     public boolean hasBonus() {
         return bonus;
     }
+
 }

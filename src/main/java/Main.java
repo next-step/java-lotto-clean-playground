@@ -8,4 +8,5 @@ public class Main {
         Controller controller = new Controller(market, statics, inputView, outputView);
         controller.run();
     }
+
 }

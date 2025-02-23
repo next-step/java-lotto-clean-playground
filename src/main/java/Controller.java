@@ -40,14 +40,18 @@ public class Controller {
     private void startLotto(int manualAmount, int autoLottoCount, int lottoAmount){
         outputView.printLottos(market.getAllLottos(), manualAmount, autoLottoCount);
 
-        List<Integer> winningNumbers = inputView.intputWinningNums();
-        int bonusBall = inputView.inputBonusBall();
-        market.setWinningNumbers(winningNumbers);
-
-        Map<Rank, Long> winningLottos = statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers(), bonusBall);
+        var winningLottos = setWinningLottoNumber();
         outputView.printWinningStatistics(winningLottos);
 
         double profitRate = statics.calcProfitRate(winningLottos, lottoAmount);
         outputView.printProfitRate(profitRate);
+    }
+
+    private Map<Rank, Long> setWinningLottoNumber(){
+        List<Integer> winningNumbers = inputView.intputWinningNums();
+        int bonusBall = inputView.inputBonusBall();
+        market.setWinningNumbers(winningNumbers);
+
+        return statics.calcWinningLottos(market.getAllLottos(), market.getWinningNumbers(), bonusBall);
     }
 }

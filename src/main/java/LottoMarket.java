@@ -10,18 +10,9 @@ public class LottoMarket {
         this.manualLottos = new ArrayList<>();
     }
 
-    public void setWinningNumbers(List<Integer> winningNumbers){
-        validate(winningNumbers);
+    public void setWinningNumbers(List<Integer> winningNumbers) {
+        Lotto.validate(winningNumbers);
         this.winningNumbers = winningNumbers;
-    }
-
-    private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new RuntimeException("로또 번호는 6개여야 합니다.");
-        }
-        if (numbers.stream().anyMatch(n -> n < 1 || n > 45)) {
-            throw new RuntimeException("로또 번호는 1이상 45이하여야 합니다.");
-        }
     }
 
     public void randomLotto() {
@@ -34,8 +25,8 @@ public class LottoMarket {
         lottos.add(new Lotto(numbers));
     }
 
-    public void manualLotto(List<Integer> manualLottoNums){
-        validate(manualLottoNums);
+    public void manualLotto(List<Integer> manualLottoNums) {
+        Lotto.validate(manualLottoNums);
         manualLottos.add(new Lotto(manualLottoNums));
     }
 
@@ -56,4 +47,5 @@ public class LottoMarket {
         allLottos.addAll(lottos);
         return Collections.unmodifiableList(allLottos);
     }
+
 }
