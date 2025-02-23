@@ -34,7 +34,7 @@ public class LottoController {
             lottoList.add(getLotto());
         }
 
-        return lottoList;
+        return List.copyOf(lottoList);
     }
 
     private int getPurchaseAmount() {

@@ -3,9 +3,7 @@ package dto;
 import domain.*;
 import java.util.List;
 
-public class LottoDto {
-
-    private List<Integer> lottoNumbers;
+public record LottoDto(List<Integer> lottoNumbers) {
 
     @Override
     public String toString() {
@@ -13,13 +11,10 @@ public class LottoDto {
     }
 
     public static LottoDto from(Lotto lotto) {
-        LottoDto lottoDto = new LottoDto();
-
-        lottoDto.lottoNumbers = lotto.getLottoNumbers().stream()
-                .map(LottoNumber::getValue)
-                .toList();
-
-        return lottoDto;
+        return new LottoDto(
+                lotto.getLottoNumbers().stream()
+                        .map(LottoNumber::getValue)
+                        .toList()
+        );
     }
-
 }
