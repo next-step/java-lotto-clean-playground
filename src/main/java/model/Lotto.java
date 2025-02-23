@@ -6,8 +6,11 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> lottoNumbers;
     private static final int LOTTO_NUMBERS_SIZE = 6;
+    private static final int LOTTO_MINIMUM_NUMBER = 1;
+    private static final int LOTTO_MAXIMUM_NUMBER = 45;
+
+    private final List<Integer> lottoNumbers;
 
     public Lotto() {
         this.lottoNumbers = generateTempLottoNumbers();
@@ -23,15 +26,21 @@ public class Lotto {
                 .toList();
     }
 
-    private static List<Integer> getTempLottoNumbers() {
+    private List<Integer> getTempLottoNumbers() {
         List<Integer> tempLottoNumbers = new ArrayList<>();
-        for(int i = 1; i <= 45; i++) {
-            tempLottoNumbers.add(i);
+        for (int number = LOTTO_MINIMUM_NUMBER; number <= LOTTO_MAXIMUM_NUMBER; number++) {
+            tempLottoNumbers.add(number);
         }
         return tempLottoNumbers;
     }
 
-    public List<Integer> getSortedLottoNumbers() {
+    @Override
+    public String toString() {
+        List<Integer> sortedLottoNumbers = getSortedLottoNumbers();
+        return sortedLottoNumbers.toString();
+    }
+
+    private List<Integer> getSortedLottoNumbers() {
         return lottoNumbers.stream()
                 .sorted()
                 .toList();

@@ -4,14 +4,13 @@ import java.util.Scanner;
 
 public class InputView {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public static int purchaseAmountTitle() {
+    public String purchaseAmountTitle() {
         System.out.println("구입금액을 입력해 주세요.\n");
-        return scanner.nextInt();
-    }
-
-    public static void closeScanner() {
+        String input = scanner.nextLine();
         scanner.close();
+
+        return input;
     }
 }
