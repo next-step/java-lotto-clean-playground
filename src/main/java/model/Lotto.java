@@ -12,8 +12,7 @@ public class Lotto {
     public static final int LOTTO_CREATE_SIZE = 6;
     public static final int LOTTO_PRICE = 1000;
     public static final List<Integer> LOTTO_NUMBER_POOL =
-            IntStream
-                    .rangeClosed(LOTTO_MIN_NUMBER,LOTTO_MAX_NUMBER)
+            IntStream.rangeClosed(LOTTO_MIN_NUMBER,LOTTO_MAX_NUMBER)
                     .boxed()
                     .collect(Collectors.toList());
 
@@ -35,17 +34,7 @@ public class Lotto {
         return numbers;
     }
 
-    public static List<Lotto> generateLottoTickets(int ticketCount){
-        List<Lotto> tickets = new ArrayList<>();
-
-        for (int i = 0; i < ticketCount; i++){
-            tickets.add(new Lotto());
-        }
-
-        return tickets;
-    }
-
-    public List<Integer> getNumbers() {
+    public List<Integer> getSortedNumbers() {
         List<Integer> sortedNumbers = new ArrayList<>(numbers);
         Collections.sort(sortedNumbers);
 
