@@ -1,34 +1,28 @@
 package controller;
 
 import model.Lotto;
+import model.LottoGenerator;
+import model.LottoTicketMachine;
 import view.InputView;
 import view.ResultView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LottoController {
 
-    public void run() {
-        int purchaseAmount = InputView.getPurchaseAmount();
+    private final InputView inputView;
+    private final ResultView resultView;
 
-        int ticketCount = Lotto.getTicketCount(purchaseAmount);
-
-        List<Lotto> tickets = Lotto.generateLottoTickets(ticketCount);
-
-        ResultView.printOrderTickets(ticketCount);
-        ResultView.printTickets(ticketCount, formatTickets(tickets));
+    public LottoController(InputView inputView, ResultView resultView) {
+        this.inputView = inputView;
+        this.resultView = resultView;
     }
 
-    public List<String> formatTickets(List<Lotto> tickets) {
-        List<String> formattedTickets = tickets.stream()
-                .map(lotto -> lotto.getNumbers()
-                        .stream()
-                        .sorted()
-                        .map(String::valueOf)
-                        .collect(Collectors.joining(",","[","]")))
-                .toList();
-
-        return formattedTickets;
+    public void run(){
+        int purchaseAmount = inputView.getPurchaseAmount();
+        LottoTicketMachine lottoTicketMachine = new LottoTicketMachine(purchaseAmount, new LottoGenerator());
+        List<Lotto> lottery = lottoTicketMachine.generateLottery();
+        resultView.printTicketCount(lottoTicketMachine.getTicketCount());
+        resultView.printLottery(lottery);
     }
 }

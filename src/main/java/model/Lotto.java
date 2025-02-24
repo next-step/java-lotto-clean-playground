@@ -1,54 +1,41 @@
 package model;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.List;
 
 public class Lotto {
 
-    // 로또 번호 관련 상수 선언
-    public static final int LOTTO_MIN_NUMBER = 1;
-    public static final int LOTTO_MAX_NUMBER = 45;
-    public static final int LOTTO_CREATE_SIZE = 6;
-    public static final int LOTTO_PRICE = 1000;
-    public static final List<Integer> LOTTO_NUMBER_POOL =
-            IntStream
-            .rangeClosed(LOTTO_MIN_NUMBER,LOTTO_MAX_NUMBER)
-            .boxed()
-            .collect(Collectors.toList());
+    private static final int LOTTO_NUMBER_SIZE = 6;
+    private static final int LOTTO_NUMBER_MAX = 45;
+    private static final int LOTTO_NUMBER_MIN = 1;
 
-    private List<Integer> numbers = new ArrayList<>();
+    private final List<Integer> numbers;
 
-    public static int getTicketCount(int purchaseAmount){
-        return purchaseAmount / LOTTO_PRICE;
+    public Lotto(List<Integer> numbers) {
+        if (numbers == null || numbers.isEmpty()) {
+            throw new IllegalArgumentException("로또 번호 목록이 비어 있거나 null 입니다.");
+        }
+        validateNumbers(numbers);
+        this.numbers = numbers; // numbers를 초기화
     }
 
-    public Lotto(){
-        this.numbers = createLottoNumbers();
-    }
-
-    private List<Integer> createLottoNumbers(){
-        List<Integer> shuffledNumbers = new ArrayList<>(LOTTO_NUMBER_POOL);
-        Collections.shuffle(shuffledNumbers);
-        numbers = shuffledNumbers.subList(0, LOTTO_CREATE_SIZE);
-
-        return numbers;
-    }
-
-    public static List<Lotto> generateLottoTickets(int ticketCount){
-        List<Lotto> tickets = new ArrayList<>();
-
-        for (int i = 0; i < ticketCount; i++){
-            tickets.add(new Lotto());
+    private void validateNumbers(List<Integer> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_SIZE) {
+            throw new IllegalArgumentException("Number size must be equal to " + LOTTO_NUMBER_SIZE);
         }
 
-        return tickets;
+        for (int number : numbers) {
+            validateNumber(number);
+        }
     }
 
-    public List<Integer> getNumbers() {
-        List<Integer> sortedNumbers = new ArrayList<>(numbers);
-        Collections.sort(sortedNumbers);
+    private void validateNumber(int number) {
+        if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
+            throw new IllegalArgumentException("Number must be between " + LOTTO_NUMBER_MIN + " and " + LOTTO_NUMBER_MAX);
+        }
+    }
 
-        return sortedNumbers;
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }
