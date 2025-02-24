@@ -1,6 +1,7 @@
 package controller;
 
 import model.Lotto;
+import model.LottoTickets;
 import view.InputView;
 import view.ResultView;
 
@@ -10,25 +11,42 @@ import java.util.stream.Collectors;
 public class LottoController {
 
     public void run() {
-        int purchaseAmount = InputView.getPurchaseAmount();
+        try {
+            int purchaseAmount = InputView.getPurchaseAmount();
 
-        int ticketCount = Lotto.getTicketCount(purchaseAmount);
+            validatePurchaseAmount(purchaseAmount);
 
-        List<Lotto> tickets = Lotto.generateLottoTickets(ticketCount);
+            int ticketCount = Lotto.getTicketCount(purchaseAmount);
 
-        ResultView.printOrderTickets(ticketCount);
-        ResultView.printTickets(ticketCount, formatTickets(tickets));
+            LottoTickets lottoTickets = new LottoTickets(ticketCount);
+
+            ResultView.printOrderTickets(ticketCount);
+            ResultView.printPurchasedLottoTickets(formatTickets(lottoTickets.getTickets()));
+        }catch (IllegalArgumentException e){
+            ResultView.printErrorMessage(e.getMessage());
+        }
     }
 
-    public List<String> formatTickets(List<Lotto> tickets) {
-        List<String> formattedTickets = tickets.stream()
-                .map(lotto -> lotto.getNumbers()
-                        .stream()
-                        .sorted()
-                        .map(String::valueOf)
-                        .collect(Collectors.joining(",","[","]")))
+    private List<String> formatTickets(List<Lotto> tickets) {
+        return tickets.stream()
+                .map(this::convertLottoToString)
                 .toList();
-
-        return formattedTickets;
     }
+
+    private String convertLottoToString(Lotto lotto) {
+        return lotto.getSortedNumbers().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",", "[", "]"));
+    }
+
+    private void validatePurchaseAmount(int purchaseAmount) {
+        if (purchaseAmount < Lotto.LOTTO_PRICE) {
+            throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
+        }
+
+        if (purchaseAmount % Lotto.LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("구매 금액은 1000원 단위여야 합니다.");
+        }
+    }
+
 }
