@@ -8,9 +8,13 @@ public class ResultView {
         System.out.println(ticketCount + "개를 구매했습니다.");
     }
 
-    public static void printTickets(int ticketCount ,List<String> formattedTickets){
+    public static void printPurchasedLottoTickets(List<String> formattedTickets){
         for (String ticket : formattedTickets) {
             System.out.println(ticket);
         }
+    }
+
+    public static void printErrorMessage(String message) {
+        System.out.println(message);
     }
 }
