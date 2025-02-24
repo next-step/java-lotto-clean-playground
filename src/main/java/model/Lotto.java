@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -15,7 +16,7 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호 목록이 비어 있거나 null 입니다.");
         }
         validateNumbers(numbers);
-        this.numbers = numbers; // numbers를 초기화
+        this.numbers = Collections.unmodifiableList(numbers);
     }
 
     private void validateNumbers(List<Integer> numbers) {

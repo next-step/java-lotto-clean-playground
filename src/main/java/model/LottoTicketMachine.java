@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoTicketMachine {
 
-    private static final int LOTTO_TICKET_PRICE = 1000;
+    private static final int LOTTO_TICKET_PRICE = 1_000;
     private final int ticketCount;
     private final LottoGenerator lottoGenerator;
     private final List<Lotto> lottery = new ArrayList<>();
@@ -20,7 +21,7 @@ public class LottoTicketMachine {
             lottery.add(lottoGenerator.generateLottoNumbers());
         }
 
-        return lottery;
+        return Collections.unmodifiableList(lottery);
     }
 
     public int getTicketCount() {

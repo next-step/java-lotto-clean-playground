@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class InputView {
 
-    public int getPurchaseAmount() {
+    public int getPurchaseAmount(){
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("구입금액을 입력해 주세요.");
             int purchaseAmount = scanner.nextInt();
-            validatePositive(purchaseAmount);
+            validatePurchaseAmount(purchaseAmount);
 
             return purchaseAmount;
         } catch (InputMismatchException e) {
@@ -19,9 +19,20 @@ public class InputView {
         }
     }
 
-    private void validatePositive(int number) {
-        if (number < 0) {
+    private void validatePurchaseAmount(int number){
+        validatePositive(number);
+        validateMinimumPrice(number);
+    }
+
+    private void validatePositive(int number){
+        if (number < 0){
             throw new IllegalArgumentException("양수가 아닌 음수가 입력되어 예외가 발생되었습니다.");
+        }
+    }
+
+    private void validateMinimumPrice(int number){
+        if (number < 1000){
+            throw new IllegalArgumentException("로또의 최소 구입금액은 1000원 입니다.");
         }
     }
 }
