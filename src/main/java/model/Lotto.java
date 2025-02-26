@@ -34,8 +34,7 @@ public class Lotto {
         return tempLottoNumbers;
     }
 
-    @Override
-    public String toString() {
+    public String toStringLottoTickets() {
         List<Integer> sortedLottoNumbers = getSortedLottoNumbers();
         return sortedLottoNumbers.toString();
     }

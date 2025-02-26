@@ -19,10 +19,10 @@ public class LottoController {
 
         int lottoCount = purchaseAmount / TICKET_PRICE;
 
-        List<Lotto> lottoTickets = generateLottoTickets(lottoCount);
-        List<String> lottoTicketList = getLottoTicketStrings(lottoTickets);
+        List<Lotto> lottoTicketList = generateLottoTickets(lottoCount);
+        List<String> lottoTickets = getLottoTicketStrings(lottoTicketList);
 
-        resultView.printLottoResult(lottoTicketList);
+        resultView.printLottoResult(lottoTickets);
     }
 
     private int parsePurchaseAmount(String input) {
@@ -52,8 +52,7 @@ public class LottoController {
 
     private List<String> getLottoTicketStrings(List<Lotto> lottoTickets) {
         return lottoTickets.stream()
-                .map(Lotto::toString)
+                .map(Lotto::toStringLottoTickets)
                 .toList();
     }
 }
-
