@@ -60,8 +60,14 @@ public class LottoOutputView implements LottoView {
 
     private void printProfitRate(LottoStatisticsService statistics, Amount purchaseAmount) {
         double profitRate = statistics.calculateProfitRate(purchaseAmount);
+        String message = "이득이라는";
+
+        if (profitRate < 1) {
+            message = "손해라는";
+        }
+
         System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s 의미임)%n",
-                profitRate, profitRate < 1 ? "손해라는" : "이득이라는");
+                profitRate, message);
     }
 
 }
