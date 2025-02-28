@@ -1,6 +1,6 @@
 package domain;
 
-import java.util.*;
+import java.util.List;
 
 public class Lotto {
     private final List<LottoNumber> lottoNumbers;
@@ -10,7 +10,6 @@ public class Lotto {
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return List.copyOf(lottoNumbers);
+        return lottoNumbers;
     }
-
 }

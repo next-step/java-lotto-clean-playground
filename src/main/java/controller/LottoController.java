@@ -1,10 +1,8 @@
 package controller;
 
 import domain.*;
-import dto.LottoDto;
-import service.LottoService;
+import service.*;
 import view.*;
-import java.util.*;
 
 public class LottoController {
 
@@ -13,22 +11,25 @@ public class LottoController {
     private final LottoService lottoService = new LottoService();
 
     public void run() {
-        int purchaseAmount = getPurchaseAmount();
-
+        Amount purchaseAmount = getPurchaseAmount();
         lottoService.validatePurchaseAmount(purchaseAmount);
-        int lottoAmount = lottoService.calculateGetLottoAmount(purchaseAmount);
-        lottoInputView.printEmptyLine();
 
-        List<Lotto> lottoList = lottoService.createLottoList(lottoAmount);
-        lottoOutputView.printLottoAmount(lottoAmount);
+        LottoCount lottoCount = lottoService.calculateLottoAmount(purchaseAmount);
+        lottoOutputView.printLottoAmount(lottoCount);
 
-        for (Lotto lotto : lottoList) {
-            lottoOutputView.printLotto(LottoDto.from(lotto));
-        }
+        Lottos lottos = lottoService.createLottos(lottoCount);
+        lottoOutputView.printLottos(lottos);
+
+        WinningLottoNumbers winningNumbers = getWinningNumbers();
+        LottoStatistics statistics = lottoService.calculateStatistics(lottos, winningNumbers);
+        lottoOutputView.printStatistics(statistics, purchaseAmount);
     }
 
-    private int getPurchaseAmount() {
-        return lottoInputView.getPurchaseAmount();
+    private Amount getPurchaseAmount() {
+        return new Amount(lottoInputView.getPurchaseAmount());
     }
 
+    private WinningLottoNumbers getWinningNumbers() {
+        return lottoInputView.getWinningNumbers();
+    }
 }
