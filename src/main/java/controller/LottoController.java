@@ -30,6 +30,6 @@ public class LottoController {
     }
 
     private WinningLottoNumbers getWinningNumbers() {
-        return lottoInputView.getWinningNumbers();
+        return lottoInputView.inputWinningLottoNumbers();
     }
 }

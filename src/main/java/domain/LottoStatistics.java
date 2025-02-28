@@ -12,16 +12,26 @@ public class LottoStatistics {
 
     private Map<WinningRank, Integer> calculateStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
         return lottos.getLottos().stream()
-                .map(lotto -> countMatchingNumbers(lotto, winningNumbers))
-                .map(WinningRank::valueOf)
+                .map(lotto -> determineRank(lotto, winningNumbers))
                 .flatMap(Optional::stream)
                 .collect(Collectors.groupingBy(rank -> rank, Collectors.summingInt(count -> 1)));
+    }
+
+    private Optional<WinningRank> determineRank(Lotto lotto, WinningLottoNumbers winningNumbers) {
+        int matchCount = countMatchingNumbers(lotto, winningNumbers);
+        boolean bonusMatch = isBonusMatched(lotto, winningNumbers);
+        return WinningRank.valueOf(matchCount, bonusMatch);
     }
 
     private int countMatchingNumbers(Lotto lotto, WinningLottoNumbers winningNumbers) {
         return (int) lotto.getLottoNumbers().stream()
                 .filter(winningNumbers.getNumbers()::contains)
                 .count();
+    }
+
+    private boolean isBonusMatched(Lotto lotto, WinningLottoNumbers winningNumbers) {
+        LottoNumber bonusLottoNumber = LottoNumber.of(winningNumbers.getBonusBall().getBonusBall());
+        return lotto.getLottoNumbers().contains(bonusLottoNumber);
     }
 
     public Map<WinningRank, Integer> getStatistics() {

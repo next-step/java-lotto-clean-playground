@@ -22,6 +22,10 @@ public class LottoNumber {
         return value;
     }
 
+    public static LottoNumber of(int value) {
+        return new LottoNumber(value);
+    }
+
     private static int getRandomNumber() {
         return RANDOM.nextInt(MAXIMUM_LOTTO_NUMBER - MINIMUM_LOTTO_NUMBER + 1) + MINIMUM_LOTTO_NUMBER;
     }
@@ -30,10 +34,6 @@ public class LottoNumber {
         if (value < MINIMUM_LOTTO_NUMBER || value > MAXIMUM_LOTTO_NUMBER) {
             throw new IllegalArgumentException(String.format("로또 번호는 %d부터 %d 사이여야 합니다: %d", MINIMUM_LOTTO_NUMBER, MAXIMUM_LOTTO_NUMBER, value));
         }
-    }
-
-    public static LottoNumber of(int value) {
-        return new LottoNumber(value);
     }
 
     @Override

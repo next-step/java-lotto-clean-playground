@@ -14,9 +14,19 @@ public class LottoInputView implements LottoView {
         return amount;
     }
 
-    public WinningLottoNumbers getWinningNumbers() {
+    public WinningLottoNumbers inputWinningLottoNumbers() {
+        return new WinningLottoNumbers(inputWinningNumbers(), inputBonusBall());
+    }
+
+    private List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return new WinningLottoNumbers(readWinningNumbers());
+        return readWinningNumbers();
+    }
+
+    private int inputBonusBall() {
+        printEmptyLine();
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextInt();
     }
 
     private List<Integer> readWinningNumbers() {
