@@ -6,8 +6,8 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> numbers) {
-        this.lottoNumbers = new ArrayList<>(numbers);
-    };
+        this.lottoNumbers = List.copyOf(numbers);
+    }
 
     public List<LottoNumber> getLottoNumbers() {
         return List.copyOf(lottoNumbers);

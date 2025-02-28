@@ -25,7 +25,7 @@ public class LottoService {
     public List<Lotto> createLottoList(int lottoAmount) {
         return IntStream.range(0, lottoAmount)
                 .mapToObj(i -> LottoMachine.getRandomLotto())
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }
