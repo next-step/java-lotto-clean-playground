@@ -16,12 +16,20 @@ public class LottoResultDto {
         this.bonusBallEqual = lottoResult.isBonusBallResult();
     }
 
-    @Override
-    public String toString() {
-        if (bonusBallEqual) {
-            return String.format("%d개 일치, 보너스 볼 일치 (%d원)- %d개", equalCount, prizeAmount, lottoAmount);
-        }
-
-        return String.format("%d개 일치 (%d원)- %d개", equalCount, prizeAmount, lottoAmount);
+    public int getEqualCount() {
+        return equalCount;
     }
+
+    public int getPrizeAmount() {
+        return prizeAmount;
+    }
+
+    public int getLottoAmount() {
+        return lottoAmount;
+    }
+
+    public boolean isBonusBallEqual() {
+        return bonusBallEqual;
+    }
+
 }

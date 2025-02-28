@@ -1,12 +1,11 @@
-import config.LottoConfiguration;
+import controller.LottoController;
 
 public class LottoApplication {
 
-    private static final LottoConfiguration lottoConfiguration = new LottoConfiguration();
-
     public static void main(String[] args) {
         try {
-            lottoConfiguration.lottoController().run();
+            LottoController lottoController = LottoController.getInstance();
+            lottoController.run();
         } catch (Exception e) {
             e.printStackTrace();
         }

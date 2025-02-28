@@ -1,7 +1,5 @@
 package model;
 
-import util.RandomLottoNumbersGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,32 +7,32 @@ import static model.LottoConstraints.LOTTO_PRICE;
 
 public class Lottos {
 
-    private final List<LottoNumbers> lottoNumbersList;
+    private final List<LottoNumbers> lottoNumbersCollection;
 
-    private Lottos(List<LottoNumbers> lottoNumbersList) {
-        this.lottoNumbersList = new ArrayList<>(lottoNumbersList);
+    private Lottos(List<LottoNumbers> lottoNumbersCollection) {
+        this.lottoNumbersCollection = new ArrayList<>(lottoNumbersCollection);
     }
 
-    public static Lottos purchase(int purchaseAmount, List<LottoNumbers> manualLottoNumbersList) {
-        validatePurchase(purchaseAmount, manualLottoNumbersList.size());
+    public static Lottos purchase(int purchaseAmount, List<LottoNumbers> manualLottoNumbersCollection) {
+        validatePurchase(purchaseAmount, manualLottoNumbersCollection.size());
 
         List<LottoNumbers> lottos = new ArrayList<>();
-        for (LottoNumbers manualLottoNumbers : manualLottoNumbersList) {
+        for (LottoNumbers manualLottoNumbers : manualLottoNumbersCollection) {
             lottos.add(manualLottoNumbers.getCopy());
         }
-        for (int i = 0; i < calculateRandomLottoAmount(purchaseAmount, manualLottoNumbersList.size()); i++) {
+        for (int i = 0; i < calculateRandomLottoAmount(purchaseAmount, manualLottoNumbersCollection.size()); i++) {
             lottos.add(RandomLottoNumbersGenerator.getRandomLottoNumbers());
         }
 
         return new Lottos(lottos);
     }
 
-    public int size() {
-        return lottoNumbersList.size();
+    public int getLottoAmount() {
+        return lottoNumbersCollection.size();
     }
 
-    public List<LottoNumbers> getLottoNumbersList() {
-        return List.copyOf(lottoNumbersList);
+    public List<LottoNumbers> getLottoNumbersCollection() {
+        return List.copyOf(lottoNumbersCollection);
     }
 
     private static void validatePurchase(int purchaseAmount, int manualLottoAmount) {

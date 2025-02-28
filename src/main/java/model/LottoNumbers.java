@@ -1,7 +1,5 @@
 package model;
 
-import util.Counter;
-
 import java.util.Comparator;
 import java.util.Set;
 import java.util.SortedSet;
@@ -26,22 +24,17 @@ public class LottoNumbers {
     }
 
     public int getEqualNumbersCount(LottoNumbers otherLottoNumbers) {
-        Counter counter = new Counter();
+        LottoNumberMatcher lottoNumberMatcher = new LottoNumberMatcher();
 
         for (LottoNumber lottoNumber : this.lottoNumbers) {
-            counter.increaseIfTrue(() -> otherLottoNumbers.contains(lottoNumber));
+            lottoNumberMatcher.increaseIfMatch(() -> otherLottoNumbers.contains(lottoNumber));
         }
 
-        return counter.getCount();
+        return lottoNumberMatcher.getNumberEqualCount();
     }
 
     public boolean hasEqualNumberWithBonusBall(LottoNumber bonusBall) {
         return this.lottoNumbers.contains(bonusBall);
-    }
-
-    @Override
-    public String toString() {
-        return lottoNumbers.toString();
     }
 
     private boolean contains(LottoNumber lottoNumber) {
@@ -56,6 +49,11 @@ public class LottoNumbers {
 
     private boolean isIllegalSize(int size) {
         return size != LOTTO_SIZE;
+    }
+
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 
 }

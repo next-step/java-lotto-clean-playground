@@ -1,13 +1,23 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import dto.LottoNumbersDto;
+
+import java.util.*;
 
 public class LottoInputView implements LottoView {
 
+    private static final String INPUT_SEPARATOR = ", ";
+
     private final Scanner scanner = new Scanner(System.in);
+
+    private static final LottoInputView lottoInputView = new LottoInputView();
+
+    private LottoInputView() {
+    }
+
+    public static LottoInputView getInstance() {
+        return lottoInputView;
+    }
 
     public int getPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -27,27 +37,26 @@ public class LottoInputView implements LottoView {
         return manualLottoAmountInput;
     }
 
-    public List<String> getManualLottoNumbers(int manualLottoAmount) {
-        if (isNotPositive(manualLottoAmount)) {
-            return List.of();
-        }
+    public List<LottoNumbersDto> getManualLottoNumbers(int manualLottoAmount) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요");
-        List<String> manualLottoNumbers = new ArrayList<>();
-        for (int i = 0; i < manualLottoAmount; i++) {
-            manualLottoNumbers.add(scanner.nextLine());
-        }
-        printEmptyLine();
 
-        return Collections.unmodifiableList(manualLottoNumbers);
+        List<LottoNumbersDto> lottoNumbersDtos = new ArrayList<>();
+        for (int i = 0; i < manualLottoAmount; i++) {
+            List<String> manualLottoNumbersInput = scanNextLineAsList();
+            lottoNumbersDtos.add(new LottoNumbersDto(manualLottoNumbersInput));
+        }
+
+        return Collections.unmodifiableList(lottoNumbersDtos);
     }
 
-    public String getWinningLottoString() {
+    public LottoNumbersDto getWinningLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String winningLottoString = scanner.nextLine();
+        List<String> winningLottoNumbersInput = scanNextLineAsList();
+        LottoNumbersDto winningLottoNumbersDto = new LottoNumbersDto(winningLottoNumbersInput);
 
         printEmptyLine();
 
-        return winningLottoString;
+        return winningLottoNumbersDto;
     }
 
     public int getBonusBall() {
@@ -59,8 +68,8 @@ public class LottoInputView implements LottoView {
         return bonusBallInput;
     }
 
-    private boolean isNotPositive(int number) {
-        return number < 1;
+    private List<String> scanNextLineAsList() {
+        return Arrays.asList(scanner.nextLine().split(INPUT_SEPARATOR));
     }
 
 }

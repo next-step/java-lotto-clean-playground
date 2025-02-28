@@ -9,18 +9,12 @@ public class LottosDto {
 
     private final List<String> lottoStrings;
 
-    private LottosDto(List<String> lottoStrings) {
-        this.lottoStrings = lottoStrings;
-    }
+    public LottosDto(Lottos lottos) {
+        List<LottoNumbers> lottoNumbersCollection = lottos.getLottoNumbersCollection();
 
-    public static LottosDto from(Lottos lottos) {
-        List<LottoNumbers> lottoNumbersList = lottos.getLottoNumbersList();
-
-        List<String> lottoStrings = lottoNumbersList.stream()
+        this.lottoStrings = lottoNumbersCollection.stream()
                 .map(LottoNumbers::toString)
                 .toList();
-
-        return new LottosDto(lottoStrings);
     }
 
     public List<String> getValues() {

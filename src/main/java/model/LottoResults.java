@@ -12,7 +12,7 @@ public class LottoResults {
     public LottoResults(Lottos lottos, LottoNumbers winningLottoNumbers, LottoNumber bonusBall) {
         Map<LottoRank, LottoResult> lottoResultMap = initializeLottoResultMap();
 
-        for (LottoNumbers lotto : lottos.getLottoNumbersList()) {
+        for (LottoNumbers lotto : lottos.getLottoNumbersCollection()) {
             LottoRank lottoRank = calculateLottoPrize(lotto, winningLottoNumbers, bonusBall);
             updateLottoResult(lottoResultMap, lottoRank);
         }
@@ -75,4 +75,5 @@ public class LottoResults {
 
         return sum;
     }
+
 }

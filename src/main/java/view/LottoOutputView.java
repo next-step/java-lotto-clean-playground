@@ -5,6 +5,15 @@ import dto.LottosDto;
 
 public class LottoOutputView implements LottoView {
 
+    private static final LottoOutputView lottoOutputView = new LottoOutputView();
+
+    private LottoOutputView() {
+    }
+
+    public static LottoOutputView getInstance() {
+        return lottoOutputView;
+    }
+
     public void printLottoAmount(int manualLottoAmount, int randomLottoAmount) {
         System.out.println("수동으로 " + manualLottoAmount + "장, 자동으로 " + randomLottoAmount + "개를 구매했습니다.");
     }
@@ -23,7 +32,17 @@ public class LottoOutputView implements LottoView {
     }
 
     public void printLottoResult(LottoResultDto lottoResultDto) {
-        System.out.println(lottoResultDto);
+        boolean bonusBallEqual = lottoResultDto.isBonusBallEqual();
+        int equalCount = lottoResultDto.getEqualCount();
+        int prizeAmount = lottoResultDto.getPrizeAmount();
+        int lottoAmount = lottoResultDto.getLottoAmount();
+
+        if (bonusBallEqual) {
+            System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n", equalCount, prizeAmount, lottoAmount);
+            return;
+        }
+
+        System.out.printf("%d개 일치 (%d원)- %d개\n", equalCount, prizeAmount, lottoAmount);
     }
 
     public void printTotalProfitRate(double totalProfitRate) {

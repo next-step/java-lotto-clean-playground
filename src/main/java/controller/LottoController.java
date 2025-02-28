@@ -1,9 +1,9 @@
 package controller;
 
+import dto.LottoNumbersDto;
 import dto.LottoResultDto;
 import dto.LottosDto;
 import model.*;
-import util.InputConverter;
 import view.LottoInputView;
 import view.LottoOutputView;
 
@@ -12,21 +12,20 @@ import java.util.List;
 
 public class LottoController {
 
-    private static final String TOTAL_PROFIT_FORMAT_FORM = "0.00";
-    private static final DecimalFormat TOTAL_PROFIT_RATE_FORMATTER = new DecimalFormat(TOTAL_PROFIT_FORMAT_FORM);
+    private static final DecimalFormat TOTAL_PROFIT_RATE_FORMATTER = new DecimalFormat("0.00");
 
     private final LottoInputView lottoInputView;
     private final LottoOutputView lottoOutputView;
-    private final InputConverter inputConverter;
 
-    public LottoController(
-            LottoInputView lottoInputView,
-            LottoOutputView lottoOutputView,
-            InputConverter inputConverter
-    ) {
-        this.lottoInputView = lottoInputView;
-        this.lottoOutputView = lottoOutputView;
-        this.inputConverter = inputConverter;
+    private static final LottoController lottoController = new LottoController();
+
+    private LottoController() {
+        this.lottoInputView = LottoInputView.getInstance();
+        this.lottoOutputView = LottoOutputView.getInstance();
+    }
+
+    public static LottoController getInstance() {
+        return lottoController;
     }
 
     public void run() {
@@ -43,21 +42,47 @@ public class LottoController {
 
     private Lottos purchaseLottos(int purchaseAmount) {
         int manualLottoAmount = lottoInputView.getManualLottoAmount();
+        List<LottoNumbers> manualLottoNumbersCollection = getManualLottoNumbers(manualLottoAmount);
+        Lottos lottos = Lottos.purchase(purchaseAmount, manualLottoNumbersCollection);
 
-        List<String> manualLottoNumbersInput = lottoInputView.getManualLottoNumbers(manualLottoAmount);
-        List<LottoNumbers> manualLottoNumbersList = inputConverter.getLottoNumbersListFromInputs(manualLottoNumbersInput);
-        Lottos lottos = Lottos.purchase(purchaseAmount, manualLottoNumbersList);
-
-        lottoOutputView.printLottoAmount(manualLottoAmount, lottos.size() - manualLottoAmount);
-        lottoOutputView.printLottos(LottosDto.from(lottos));
+        int randomLottoAmount = lottos.getLottoAmount() - manualLottoAmount;
+        lottoOutputView.printLottoAmount(manualLottoAmount, randomLottoAmount);
+        lottoOutputView.printLottos(new LottosDto(lottos));
 
         return lottos;
     }
 
-    private LottoNumbers getWinningLottoNumbers() {
-        String winningLottoInput = lottoInputView.getWinningLottoString();
+    private List<LottoNumbers> getManualLottoNumbers(int manualLottoAmount) {
+        validateManualLottoAmount(manualLottoAmount);
+        if (isZero(manualLottoAmount)) {
+            return List.of();
+        }
 
-        return inputConverter.getLottoNumbersFromInput(winningLottoInput);
+        List<LottoNumbersDto> manualLottoNumbersDtos = lottoInputView.getManualLottoNumbers(manualLottoAmount);
+
+        return manualLottoNumbersDtos.stream()
+                .map(LottoNumbersDto::toLottoNumbers)
+                .toList();
+    }
+
+    private void validateManualLottoAmount(int manualLottoAmount) {
+        if (isNegative(manualLottoAmount)) {
+            throw new IllegalArgumentException("수동으로 구매할 로또의 수는 음수일 수 없습니다: " + manualLottoAmount);
+        }
+    }
+
+    private boolean isNegative(int number) {
+        return number < 0;
+    }
+
+    private boolean isZero(int number) {
+        return number == 0;
+    }
+
+    private LottoNumbers getWinningLottoNumbers() {
+        LottoNumbersDto winningLottoNumbersDto = lottoInputView.getWinningLottoNumbers();
+
+        return winningLottoNumbersDto.toLottoNumbers();
     }
 
     private LottoNumber getBonusBall() {
