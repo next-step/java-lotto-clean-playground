@@ -24,4 +24,5 @@ public class LottoResultDto {
 
         return String.format("%d개 일치 (%d원)- %d개", equalCount, prizeAmount, lottoAmount);
     }
+
 }

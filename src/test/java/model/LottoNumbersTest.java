@@ -83,4 +83,5 @@ class LottoNumbersTest {
                 .map(LottoNumber::new)
                 .collect(Collectors.toUnmodifiableSet());
     }
+
 }

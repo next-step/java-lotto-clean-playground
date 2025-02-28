@@ -75,4 +75,5 @@ public class LottoResults {
 
         return sum;
     }
+
 }
