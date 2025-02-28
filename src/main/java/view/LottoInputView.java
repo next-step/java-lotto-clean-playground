@@ -44,7 +44,7 @@ public class LottoInputView implements LottoView {
         return readLottoNumbers();
     }
 
-    private BonusBall inputBonusBall() {
+    public BonusBall inputBonusBall() {
         printEmptyLine();
         System.out.println("보너스 볼을 입력해 주세요.");
         return BonusBall.of(readInt());
@@ -63,7 +63,7 @@ public class LottoInputView implements LottoView {
                 .toList();
     }
 
-    private List<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
+    public List<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .map(LottoNumber::of)
                 .toList();
