@@ -13,6 +13,10 @@ public class BonusBall {
         this.bonusBall = bonusBall;
     }
 
+    public static BonusBall of(int bonusBall) {
+        return new BonusBall(bonusBall);
+    }
+
     public int getBonusBall() {
         return bonusBall;
     }

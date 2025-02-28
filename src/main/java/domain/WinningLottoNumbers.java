@@ -6,12 +6,9 @@ public class WinningLottoNumbers {
     private final List<LottoNumber> numbers;
     private final BonusBall bonusBall;
 
-    public WinningLottoNumbers(List<Integer> numbers, int bonusBall) {
-        validateBonusBallNotDuplicate(numbers, bonusBall);
-        this.numbers = numbers.stream()
-                .map(LottoNumber::of)
-                .toList();
-        this.bonusBall = new BonusBall(bonusBall);
+    public WinningLottoNumbers(List<LottoNumber> numbers, BonusBall bonusBall) {
+        this.numbers = List.copyOf(numbers);
+        this.bonusBall = bonusBall;
     }
 
     private void validateBonusBallNotDuplicate(List<Integer> numbers, int bonusBall) {

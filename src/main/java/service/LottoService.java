@@ -26,7 +26,7 @@ public class LottoService {
                 .toList());
     }
 
-    public LottoStatistics calculateStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
-        return new LottoStatistics(lottos, winningNumbers);
+    public LottoStatisticsService calculateStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
+        return new LottoStatisticsService(lottos, winningNumbers);
     }
 }

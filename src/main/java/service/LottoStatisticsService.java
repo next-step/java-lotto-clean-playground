@@ -1,12 +1,14 @@
-package domain;
+package service;
+
+import domain.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class LottoStatistics {
+public class LottoStatisticsService {
     private final Map<WinningRank, Integer> statistics;
 
-    public LottoStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
+    public LottoStatisticsService(Lottos lottos, WinningLottoNumbers winningNumbers) {
         this.statistics = calculateStatistics(lottos, winningNumbers);
     }
 

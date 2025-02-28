@@ -1,6 +1,7 @@
 package view;
 
 import domain.*;
+import service.LottoStatisticsService;
 
 public class LottoOutputView implements LottoView {
 
@@ -9,12 +10,18 @@ public class LottoOutputView implements LottoView {
         System.out.println(lottoCount.getCount() + "개를 구매했습니다.");
     }
 
+    public void printLottoPurchaseResult(LottoCount manualCount, LottoCount totalCount, Lottos lottos) {
+        printEmptyLine();
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount.getCount(), totalCount.getCount() - manualCount.getCount());
+        printLottos(lottos);
+    }
+
     public void printLottos(Lottos lottos) {
         lottos.getLottos().forEach(lotto -> System.out.println(lotto.getLottoNumbers()));
         printEmptyLine();
     }
 
-    public void printStatistics(LottoStatistics statistics, Amount purchaseAmount) {
+    public void printStatistics(LottoStatisticsService statistics, Amount purchaseAmount) {
         printStatisticsHeader();
         printWinningRanks(statistics);
         printProfitRate(statistics, purchaseAmount);
@@ -26,7 +33,7 @@ public class LottoOutputView implements LottoView {
         System.out.println("---------");
     }
 
-    private void printWinningRanks(LottoStatistics statistics) {
+    private void printWinningRanks(LottoStatisticsService statistics) {
         WinningRank[] orderedRanks = {
                 WinningRank.THREE_MATCH,
                 WinningRank.FOUR_MATCH,
@@ -40,7 +47,7 @@ public class LottoOutputView implements LottoView {
         }
     }
 
-    private void printWinningRank(WinningRank rank, LottoStatistics statistics) {
+    private void printWinningRank(WinningRank rank, LottoStatisticsService statistics) {
         int count = statistics.getStatistics().getOrDefault(rank, 0);
 
         if (rank == WinningRank.FIVE_MATCH_WITH_BONUS) {
@@ -51,7 +58,7 @@ public class LottoOutputView implements LottoView {
         System.out.printf("%d개 일치 (%d원) - %d개%n", rank.getMatchCount(), rank.getPrice(), count);
     }
 
-    private void printProfitRate(LottoStatistics statistics, Amount purchaseAmount) {
+    private void printProfitRate(LottoStatisticsService statistics, Amount purchaseAmount) {
         double profitRate = statistics.calculateProfitRate(purchaseAmount);
         System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s 의미임)%n",
                 profitRate, profitRate < 1 ? "손해라는" : "이득이라는");

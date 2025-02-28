@@ -1,7 +1,6 @@
 package domain;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 public enum WinningRank {
     THREE_MATCH(3, 5_000),
