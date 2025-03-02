@@ -10,17 +10,12 @@ public class Lotto {
     public static final int LOTTO_MIN_NUMBER = 1;
     public static final int LOTTO_MAX_NUMBER = 45;
     public static final int LOTTO_CREATE_SIZE = 6;
-    public static final int LOTTO_PRICE = 1000;
     public static final List<Integer> LOTTO_NUMBER_POOL =
             IntStream.rangeClosed(LOTTO_MIN_NUMBER,LOTTO_MAX_NUMBER)
                     .boxed()
                     .collect(Collectors.toList());
 
-    private List<Integer> numbers = new ArrayList<>();
-
-    public static int getTicketCount(int purchaseAmount){
-        return purchaseAmount / LOTTO_PRICE;
-    }
+    private List<Integer> numbers;
 
     public Lotto(){
         this.numbers = createLottoNumbers();

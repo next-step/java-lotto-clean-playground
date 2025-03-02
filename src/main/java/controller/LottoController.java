@@ -2,6 +2,7 @@ package controller;
 
 import model.Lotto;
 import model.LottoTickets;
+import view.ErrorView;
 import view.InputView;
 import view.ResultView;
 
@@ -16,14 +17,16 @@ public class LottoController {
 
             validatePurchaseAmount(purchaseAmount);
 
-            int ticketCount = Lotto.getTicketCount(purchaseAmount);
+            int ticketCount = LottoTickets.getTicketCount(purchaseAmount);
 
             LottoTickets lottoTickets = new LottoTickets(ticketCount);
 
             ResultView.printOrderTickets(ticketCount);
+
             ResultView.printPurchasedLottoTickets(formatTickets(lottoTickets.getTickets()));
-        }catch (IllegalArgumentException e){
-            ResultView.printErrorMessage(e.getMessage());
+
+        } catch (IllegalArgumentException e) {
+            ErrorView.printErrorMessage(e.getMessage());
         }
     }
 
@@ -40,13 +43,12 @@ public class LottoController {
     }
 
     private void validatePurchaseAmount(int purchaseAmount) {
-        if (purchaseAmount < Lotto.LOTTO_PRICE) {
+        if (purchaseAmount < LottoTickets.LOTTO_PRICE) {
             throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
         }
 
-        if (purchaseAmount % Lotto.LOTTO_PRICE != 0) {
+        if (purchaseAmount % LottoTickets.LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("구매 금액은 1000원 단위여야 합니다.");
         }
     }
-
 }
