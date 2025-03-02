@@ -1,10 +1,11 @@
 package controller;
 
-import model.Lotto;
+import model.*;
+import service.LottoService;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LottoController {
@@ -12,17 +13,31 @@ public class LottoController {
     private static final int TICKET_PRICE = 1000;
     private final InputView inputView = new InputView();
     private final ResultView resultView = new ResultView();
+    private final LottoService lottoService = new LottoService();
 
     public void lottoRun() {
-        int purchaseAmount = parsePurchaseAmount(inputView.purchaseAmountTitle());
-        validatePurchaseAmount(purchaseAmount);
+        int purchaseAmount = getPurchaseAmount();
+        int manualCount = inputView.inputManualCount();
+        List<String> manualLottoList = getManualLottoList(manualCount);
 
-        int lottoCount = purchaseAmount / TICKET_PRICE;
+        List<Lotto> lottoList = lottoService.generateLottos(purchaseAmount, manualLottoList);
+        resultView.displayPurchasedLottoTickets(getLottoTicketStrings(lottoList), manualCount);
 
-        List<Lotto> lottoTicketList = generateLottoTickets(lottoCount);
-        List<String> lottoTickets = getLottoTicketStrings(lottoTicketList);
+        LottoResult lottoResult = new LottoResult(getWinningNumbers(), inputView.inputBonus());
+        List<LottoRank> lottoRanks = lottoService.calculateRank(lottoResult, lottoList);
+        printResults(lottoRanks);
+    }
 
-        resultView.printLottoResult(lottoTickets);
+    private void printResults(List<LottoRank> lottoRanks) {
+        List<String> lottoRankStrings = lottoService.convertLottoRanksToStrings(lottoRanks);
+        resultView.printLottoStatistics(lottoRankStrings);
+        resultView.printEarningsRate(lottoService.calculateEarningsRate(lottoRanks));
+    }
+
+    private int getPurchaseAmount() {
+        int amount = parsePurchaseAmount(inputView.inputPurchaseAmount());
+        validatePurchaseAmount(amount);
+        return amount;
     }
 
     private int parsePurchaseAmount(String input) {
@@ -42,17 +57,25 @@ public class LottoController {
         }
     }
 
-    private List<Lotto> generateLottoTickets(int lottoCount) {
-        List<Lotto> lottoTickets = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottoTickets.add(new Lotto());
-        }
-        return lottoTickets;
+    private List<String> getManualLottoList(int manualCount) {
+        return inputView.inputManualCountList(manualCount);
     }
 
     private List<String> getLottoTicketStrings(List<Lotto> lottoTickets) {
         return lottoTickets.stream()
                 .map(Lotto::toStringLottoTickets)
+                .toList();
+    }
+
+    private List<Integer> getWinningNumbers() {
+        String winningLottoNumbers = inputView.inputWinningNumbers();
+        return convertWinningNumbers(winningLottoNumbers);
+    }
+
+    private List<Integer> convertWinningNumbers(String winningLottoNumbers) {
+        return Arrays.stream(winningLottoNumbers.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
                 .toList();
     }
 }

@@ -1,37 +1,28 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-
     private static final int LOTTO_NUMBERS_SIZE = 6;
-    private static final int LOTTO_MINIMUM_NUMBER = 1;
-    private static final int LOTTO_MAXIMUM_NUMBER = 45;
+    private final List<LottoNumber> lottoNumbers;
 
-    private final List<Integer> lottoNumbers;
-
-    public Lotto() {
-        this.lottoNumbers = generateTempLottoNumbers();
-    }
-
-    private List<Integer> generateTempLottoNumbers() {
-        List<Integer> tempLottoNumbers = getTempLottoNumbers();
-
-        Collections.shuffle(tempLottoNumbers);
-
-        return tempLottoNumbers.stream()
-                .limit(LOTTO_NUMBERS_SIZE)
+    public Lotto(List<Integer> lottoNumbers) {
+        validateSize(lottoNumbers);
+        this.lottoNumbers = lottoNumbers.stream()
+                .map(LottoNumber::new)
                 .toList();
     }
 
-    private List<Integer> getTempLottoNumbers() {
-        List<Integer> tempLottoNumbers = new ArrayList<>();
-        for (int number = LOTTO_MINIMUM_NUMBER; number <= LOTTO_MAXIMUM_NUMBER; number++) {
-            tempLottoNumbers.add(number);
+    private void validateSize(List<Integer> lottoNumbers) {
+        if (lottoNumbers.size() != LOTTO_NUMBERS_SIZE) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
-        return tempLottoNumbers;
+    }
+
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers.stream()
+                .map(LottoNumber::getNumber)
+                .toList();
     }
 
     public String toStringLottoTickets() {
@@ -41,6 +32,7 @@ public class Lotto {
 
     private List<Integer> getSortedLottoNumbers() {
         return lottoNumbers.stream()
+                .map(LottoNumber::getNumber)
                 .sorted()
                 .toList();
     }
