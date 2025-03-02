@@ -3,7 +3,7 @@ package view;
 import domain.*;
 import java.util.*;
 
-public class LottoInputView implements LottoView {
+public class LottoInputView {
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -15,7 +15,7 @@ public class LottoInputView implements LottoView {
     }
 
     public int getManualLottoCount(LottoCount totalLottoCount) {
-        printEmptyLine();
+        System.out.println();
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         int count = readInt();
         validateManualLottoCount(count, totalLottoCount.getCount());
@@ -24,7 +24,7 @@ public class LottoInputView implements LottoView {
     }
 
     public List<Lotto> getManualLottos(LottoCount manualLottoCount) {
-        printEmptyLine();
+        System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         List<Lotto> manualLottos = new ArrayList<>();
 
@@ -36,18 +36,20 @@ public class LottoInputView implements LottoView {
     }
 
     public WinningLottoNumbers inputWinningLottoNumbers() {
-        return new WinningLottoNumbers(convertToLottoNumbers(inputWinningNumbers()), inputBonusBall());
+        Lotto winningLotto = new Lotto(convertToLottoNumbers(inputWinningNumbers()));
+        BonusBall bonusBall = inputBonusBall(winningLotto);
+        return new WinningLottoNumbers(winningLotto, bonusBall.getBonusBall().getValue());
     }
 
-    private List<Integer> inputWinningNumbers() {
+    private List<Integer> inputWinningNumbers() { // 🔥 수정: 반환 타입을 List<Integer>로 변경
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return readLottoNumbers();
     }
 
-    public BonusBall inputBonusBall() {
-        printEmptyLine();
+    public BonusBall inputBonusBall(Lotto winningLotto) {
+        System.out.println();
         System.out.println("보너스 볼을 입력해 주세요.");
-        return BonusBall.of(readInt());
+        return BonusBall.of(readInt(), winningLotto);
     }
 
     private List<Integer> readLottoNumbers() {

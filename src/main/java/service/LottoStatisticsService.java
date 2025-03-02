@@ -2,47 +2,22 @@ package service;
 
 import domain.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class LottoStatisticsService {
-    private final Map<WinningRank, Integer> statistics;
 
-    public LottoStatisticsService(Lottos lottos, WinningLottoNumbers winningNumbers) {
-        this.statistics = calculateStatistics(lottos, winningNumbers);
-    }
-
-    private Map<WinningRank, Integer> calculateStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
-        return lottos.getLottos().stream()
+    public LottoStatistics calculateStatistics(Lottos lottos, WinningLottoNumbers winningNumbers) {
+        Map<WinningRank, Integer> statistics = lottos.getLottos().stream()
                 .map(lotto -> determineRank(lotto, winningNumbers))
                 .flatMap(Optional::stream)
                 .collect(Collectors.groupingBy(rank -> rank, Collectors.summingInt(count -> 1)));
+
+        return new LottoStatistics(statistics);
     }
 
     private Optional<WinningRank> determineRank(Lotto lotto, WinningLottoNumbers winningNumbers) {
-        int matchCount = countMatchingNumbers(lotto, winningNumbers);
-        boolean bonusMatch = isBonusMatched(lotto, winningNumbers);
+        int matchCount = Lotto.countMatchingNumbers(lotto, winningNumbers.getWinningLotto());
+        boolean bonusMatch = winningNumbers.isBonusMatched(lotto);
         return WinningRank.valueOf(matchCount, bonusMatch);
-    }
-
-    private int countMatchingNumbers(Lotto lotto, WinningLottoNumbers winningNumbers) {
-        return (int) lotto.getLottoNumbers().stream()
-                .filter(winningNumbers.getNumbers()::contains)
-                .count();
-    }
-
-    private boolean isBonusMatched(Lotto lotto, WinningLottoNumbers winningNumbers) {
-        LottoNumber bonusLottoNumber = LottoNumber.of(winningNumbers.getBonusBall().getBonusBall());
-        return lotto.getLottoNumbers().contains(bonusLottoNumber);
-    }
-
-    public Map<WinningRank, Integer> getStatistics() {
-        return statistics;
-    }
-
-    public double calculateProfitRate(Amount purchaseAmount) {
-        int resultPrice = statistics.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
-        return (double) resultPrice / purchaseAmount.getAmount();
     }
 }

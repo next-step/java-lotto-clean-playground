@@ -3,6 +3,8 @@ package view;
 import domain.*;
 import org.junit.jupiter.api.*;
 import java.io.*;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoInputViewTest {
@@ -64,9 +66,14 @@ class LottoInputViewTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         lottoInputView = new LottoInputView();
 
-        BonusBall bonusBall = lottoInputView.inputBonusBall();
+        Lotto winningLotto = new Lotto(List.of(
+                LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3),
+                LottoNumber.of(4), LottoNumber.of(5), LottoNumber.of(6)
+        ));
 
-        assertEquals(7, bonusBall.getBonusBall());
+        BonusBall bonusBall = lottoInputView.inputBonusBall(winningLotto);
+
+        assertEquals(LottoNumber.of(7), bonusBall.getBonusBall());
     }
 
 }

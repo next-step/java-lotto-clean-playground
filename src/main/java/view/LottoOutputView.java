@@ -1,73 +1,66 @@
 package view;
 
 import domain.*;
-import service.LottoStatisticsService;
 
-public class LottoOutputView implements LottoView {
+import java.util.List;
+
+public class LottoOutputView {
 
     public void printLottoAmount(LottoCount lottoCount) {
-        printEmptyLine();
+        System.out.println();
         System.out.println(lottoCount.getCount() + "개를 구매했습니다.");
     }
 
     public void printLottoPurchaseResult(LottoCount manualCount, LottoCount totalCount, Lottos lottos) {
-        printEmptyLine();
-        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount.getCount(), totalCount.getCount() - manualCount.getCount());
+        System.out.println();
+        System.out.println("수동으로 " + manualCount.getCount() + "장, 자동으로 " + (totalCount.getCount() - manualCount.getCount()) + "개를 구매했습니다.");
         printLottos(lottos);
     }
 
     public void printLottos(Lottos lottos) {
         lottos.getLottos().forEach(lotto -> System.out.println(lotto.getLottoNumbers()));
-        printEmptyLine();
+        System.out.println();
     }
 
-    public void printStatistics(LottoStatisticsService statistics, Amount purchaseAmount) {
+    public void printStatistics(LottoStatistics statistics, LottoPurchaseAmount purchaseLottoPurchaseAmount) {
         printStatisticsHeader();
         printWinningRanks(statistics);
-        printProfitRate(statistics, purchaseAmount);
+        printProfitRate(statistics, purchaseLottoPurchaseAmount);
     }
 
     private void printStatisticsHeader() {
-        printEmptyLine();
+        System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
     }
 
-    private void printWinningRanks(LottoStatisticsService statistics) {
-        WinningRank[] orderedRanks = {
-                WinningRank.THREE_MATCH,
-                WinningRank.FOUR_MATCH,
-                WinningRank.FIVE_MATCH,
-                WinningRank.FIVE_MATCH_WITH_BONUS,
-                WinningRank.SIX_MATCH
-        };
+    private void printWinningRanks(LottoStatistics statistics) {
+        List<WinningRank> orderedRanks = WinningRank.getOrderedRanks();
 
         for (WinningRank rank : orderedRanks) {
             printWinningRank(rank, statistics);
         }
     }
 
-    private void printWinningRank(WinningRank rank, LottoStatisticsService statistics) {
+    private void printWinningRank(WinningRank rank, LottoStatistics statistics) {
         int count = statistics.getStatistics().getOrDefault(rank, 0);
 
         if (rank == WinningRank.FIVE_MATCH_WITH_BONUS) {
-            System.out.printf("5개 일치, 보너스 볼 일치 (%d원) - %d개%n", rank.getPrice(), count);
+            System.out.println("5개 일치, 보너스 볼 일치 (" + rank.getPrice() + "원) - " + count + "개");
             return;
         }
 
-        System.out.printf("%d개 일치 (%d원) - %d개%n", rank.getMatchCount(), rank.getPrice(), count);
+        System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrice() + "원) - " + count + "개");
     }
 
-    private void printProfitRate(LottoStatisticsService statistics, Amount purchaseAmount) {
-        double profitRate = statistics.calculateProfitRate(purchaseAmount);
+    private void printProfitRate(LottoStatistics statistics, LottoPurchaseAmount purchaseLottoPurchaseAmount) {
+        double profitRate = statistics.calculateProfitRate(purchaseLottoPurchaseAmount);
         String message = "이득이라는";
 
         if (profitRate < 1) {
             message = "손해라는";
         }
 
-        System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s 의미임)%n",
-                profitRate, message);
+        System.out.println("총 수익률은 " + String.format("%.2f", profitRate) + "입니다. (기준이 1이기 때문에 결과적으로 " + message + " 의미임)");
     }
-
 }

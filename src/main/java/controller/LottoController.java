@@ -10,26 +10,25 @@ public class LottoController {
 
     private final LottoInputView lottoInputView = new LottoInputView();
     private final LottoOutputView lottoOutputView = new LottoOutputView();
-    private final LottoService lottoService = new LottoService();
+    private final LottoStatisticsService lottoStatisticsService = new LottoStatisticsService();
 
     public void run() {
-        Amount purchaseAmount = getPurchaseAmount();
-        lottoService.validatePurchaseAmount(purchaseAmount);
+        LottoPurchaseAmount purchaseLottoPurchaseAmount = getPurchaseAmount();
 
-        LottoCount totalLottoCount = lottoService.calculateLottoAmount(purchaseAmount);
+        LottoCount totalLottoCount = new LottoCount(purchaseLottoPurchaseAmount.calculateLottoCount());
         LottoCount manualLottoCount = getManualLottoCount(totalLottoCount);
         List<Lotto> manualLottos = getManualLottos(manualLottoCount);
 
-        Lottos allLottos = createLottos(manualLottos, totalLottoCount, manualLottoCount);
+        Lottos allLottos = createLottos(manualLottoCount, totalLottoCount, manualLottos);
         lottoOutputView.printLottoPurchaseResult(manualLottoCount, totalLottoCount, allLottos);
 
         WinningLottoNumbers winningNumbers = getWinningNumbers();
-        LottoStatisticsService statistics = lottoService.calculateStatistics(allLottos, winningNumbers);
-        lottoOutputView.printStatistics(statistics, purchaseAmount);
+        LottoStatistics lottostatistics = lottoStatisticsService.calculateStatistics(allLottos, winningNumbers);
+        lottoOutputView.printStatistics(lottostatistics, purchaseLottoPurchaseAmount);
     }
 
-    private Amount getPurchaseAmount() {
-        return new Amount(lottoInputView.getPurchaseAmount());
+    private LottoPurchaseAmount getPurchaseAmount() {
+        return new LottoPurchaseAmount(lottoInputView.getPurchaseAmount());
     }
 
     private LottoCount getManualLottoCount(LottoCount totalLottoCount) {
@@ -40,8 +39,8 @@ public class LottoController {
         return lottoInputView.getManualLottos(manualLottoCount);
     }
 
-    private Lottos createLottos(List<Lotto> manualLottos, LottoCount totalLottoCount, LottoCount manualLottoCount) {
-        Lottos autoLottos = lottoService.createLottos(new LottoCount(totalLottoCount.getCount() - manualLottoCount.getCount()));
+    private Lottos createLottos(LottoCount manualLottoCount, LottoCount totalLottoCount, List<Lotto> manualLottos) {
+        Lottos autoLottos = LottoMachine.createLottos(new LottoCount(totalLottoCount.getCount() - manualLottoCount.getCount()));
         return new Lottos(manualLottos, autoLottos.getLottos());
     }
 
