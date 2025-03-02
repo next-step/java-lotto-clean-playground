@@ -1,7 +1,5 @@
 package view;
 
-import model.LottoRank;
-
 import java.util.List;
 
 public class ResultView {
