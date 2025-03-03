@@ -19,7 +19,7 @@ class LottoResultTest {
 
     @Test
     @DisplayName("로또 당첨 순위를 올바르게 계산하는 지 검증한다.")
-    void should_return_correct_ranks() {
+    void should_Return_Correct_Ranks() {
 
         List<Lotto> lottos = List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
@@ -44,7 +44,7 @@ class LottoResultTest {
 
     @Test
     @DisplayName("로또 번호가 3개 미만 일치하면 당첨자가 없다고 반환하는 지 검증한다.")
-    void should_return_no_winner_if_under_three_matches() {
+    void should_Return_No_Winner_If_Under_Three_Matches() {
 
         List<Lotto> lottos = List.of(
                 new Lotto(List.of(10, 11, 12, 13, 14, 15)),
@@ -59,7 +59,7 @@ class LottoResultTest {
 
     @Test
     @DisplayName("보너스 번호가 당첨 번호에 포함되면 예외를 던지는 지 검증한다.")
-    void should_throw_exception_if_bonus_in_winning() {
+    void should_Throw_Exception_If_Bonus_In_Winning() {
         List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
         int bonusNumber = 3;
 
