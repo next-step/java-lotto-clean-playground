@@ -4,7 +4,6 @@ import model.*;
 import service.LottoService;
 import view.InputView;
 import view.ResultView;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class LottoController {
         return amount;
     }
 
-    private int parsePurchaseAmount(String input) {
+    public int parsePurchaseAmount(String input) {
         try {
             return Integer.parseInt(String.valueOf(input));
         } catch (NumberFormatException e) {
@@ -48,7 +47,7 @@ public class LottoController {
         }
     }
 
-    private void validatePurchaseAmount(int purchaseAmount) {
+    public void validatePurchaseAmount(int purchaseAmount) {
         if (purchaseAmount <= 0) {
             throw new IllegalArgumentException("구매 금액은 양수여야 합니다.");
         }
