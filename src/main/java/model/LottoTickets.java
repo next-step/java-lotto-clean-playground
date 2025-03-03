@@ -6,25 +6,26 @@ import java.util.List;
 public class LottoTickets {
 
     private final List<Lotto> tickets;
-    public static final int LOTTO_PRICE = 1000;
 
-    public LottoTickets(int ticketCount) {
-        this.tickets = generateLottoTickets(ticketCount);
+    public LottoTickets(List<List<Integer>> manualNumbers, int autoTicketCount) {
+        this.tickets = new ArrayList<>();
+        addManualTickets(manualNumbers);
+        addAutoTickets(autoTicketCount);
     }
 
-    private List<Lotto> generateLottoTickets(int ticketCount) {
-        List<Lotto> tickets = new ArrayList<>();
-        for (int i = 0; i < ticketCount; i++) {
+    private void addManualTickets(List<List<Integer>> manualNumbers) {
+        for (List<Integer> numbers : manualNumbers) {
+            tickets.add(new Lotto(numbers));
+        }
+    }
+
+    private void addAutoTickets(int autoTicketCount) {
+        for (int i = 0; i < autoTicketCount; i++) {
             tickets.add(new Lotto());
         }
-        return tickets;
     }
 
     public List<Lotto> getTickets() {
         return new ArrayList<>(tickets);
-    }
-
-    public static int getTicketCount(int purchaseAmount){
-        return purchaseAmount / LOTTO_PRICE;
     }
 }
