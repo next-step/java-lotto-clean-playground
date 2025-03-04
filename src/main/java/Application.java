@@ -1,4 +1,5 @@
 import controller.LottoController;
+import utils.ExceptionHandler;
 
 public class Application {
 
@@ -6,7 +7,7 @@ public class Application {
         try {
             new LottoController().run();
         } catch (Exception e) {
-            e.printStackTrace();
+            ExceptionHandler.handleException(e);
         }
     }
 

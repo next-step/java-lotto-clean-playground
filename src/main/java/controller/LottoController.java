@@ -1,34 +1,50 @@
 package controller;
 
 import domain.*;
-import dto.LottoDto;
-import service.LottoService;
+import service.*;
 import view.*;
-import java.util.*;
+
+import java.util.List;
 
 public class LottoController {
 
     private final LottoInputView lottoInputView = new LottoInputView();
     private final LottoOutputView lottoOutputView = new LottoOutputView();
-    private final LottoService lottoService = new LottoService();
+    private final LottoStatisticsService lottoStatisticsService = new LottoStatisticsService();
 
     public void run() {
-        int purchaseAmount = getPurchaseAmount();
+        LottoPurchaseAmount purchaseLottoPurchaseAmount = getPurchaseAmount();
 
-        lottoService.validatePurchaseAmount(purchaseAmount);
-        int lottoAmount = lottoService.calculateGetLottoAmount(purchaseAmount);
-        lottoInputView.printEmptyLine();
+        LottoCount totalLottoCount = new LottoCount(purchaseLottoPurchaseAmount.calculateLottoCount());
+        LottoCount manualLottoCount = getManualLottoCount(totalLottoCount);
+        List<Lotto> manualLottos = getManualLottos(manualLottoCount);
 
-        List<Lotto> lottoList = lottoService.createLottoList(lottoAmount);
-        lottoOutputView.printLottoAmount(lottoAmount);
+        Lottos allLottos = createLottos(manualLottoCount, totalLottoCount, manualLottos);
+        lottoOutputView.printLottoPurchaseResult(manualLottoCount, totalLottoCount, allLottos);
 
-        for (Lotto lotto : lottoList) {
-            lottoOutputView.printLotto(LottoDto.from(lotto));
-        }
+        WinningLottoNumbers winningNumbers = getWinningNumbers();
+        LottoStatistics lottostatistics = lottoStatisticsService.calculateStatistics(allLottos, winningNumbers);
+        lottoOutputView.printStatistics(lottostatistics, purchaseLottoPurchaseAmount);
     }
 
-    private int getPurchaseAmount() {
-        return lottoInputView.getPurchaseAmount();
+    private LottoPurchaseAmount getPurchaseAmount() {
+        return new LottoPurchaseAmount(lottoInputView.getPurchaseAmount());
     }
 
+    private LottoCount getManualLottoCount(LottoCount totalLottoCount) {
+        return new LottoCount(lottoInputView.getManualLottoCount(totalLottoCount));
+    }
+
+    private List<Lotto> getManualLottos(LottoCount manualLottoCount) {
+        return lottoInputView.getManualLottos(manualLottoCount);
+    }
+
+    private Lottos createLottos(LottoCount manualLottoCount, LottoCount totalLottoCount, List<Lotto> manualLottos) {
+        Lottos autoLottos = LottoMachine.createLottos(new LottoCount(totalLottoCount.getCount() - manualLottoCount.getCount()));
+        return new Lottos(manualLottos, autoLottos.getLottos());
+    }
+
+    private WinningLottoNumbers getWinningNumbers() {
+        return lottoInputView.inputWinningLottoNumbers();
+    }
 }
