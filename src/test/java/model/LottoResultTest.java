@@ -21,7 +21,7 @@ class LottoResultTest {
     @Test
     @DisplayName("increaseLottoAmount() 호출시마다 lottoAmount를 1 증가시킨다")
     void increaseLottoAmount() {
-        LottoResult lottoResult = LottoResultFixture.THREE_EQUALS_RESULT.getInstance();
+        LottoResult lottoResult = LottoResultFixture.THREE_EQUALS_RESULT.getValue();
 
         for (int expectedLottoAmount = 0; expectedLottoAmount < TEST_REPEAT_COUNT; expectedLottoAmount++) {
             int actualLottoAmount = lottoResult.getLottoAmount();
@@ -49,7 +49,7 @@ class LottoResultTest {
     @Test
     @DisplayName("해당 로또 결과에 대한 equalCount를 반환한다")
     void getEqualsCountAboutLottoResult() {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getInstance();
+        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
 
         int actualEqualCount = lottoResultAboutSixEquals.getEqualCount();
         int expectedEqualCount = LottoRank.SIX_EQUALS.equalCount;
@@ -60,7 +60,7 @@ class LottoResultTest {
     @Test
     @DisplayName("해당 로또 결과에 대한 prizeAmount를 반환한다")
     void getPrizeAmountAboutLottoResult() {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getInstance();
+        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
 
         int actualPrizeAmount = lottoResultAboutSixEquals.getPrizeAmount();
         int expectedPrizeAmount = LottoRank.SIX_EQUALS.prizeAmount;
@@ -71,8 +71,8 @@ class LottoResultTest {
     @Test
     @DisplayName("해당 로또 결과가 보너스볼 관련 결과인지를 반환한다")
     void getBonusBallResult() {
-        LottoResult bonusBallResult = LottoResultFixture.FIVE_EQUALS_WITH_BONUS_BALL_RESULT.getInstance();
-        LottoResult notBonusBallResult = LottoResultFixture.SIX_EQUALS_RESULT.getInstance();
+        LottoResult bonusBallResult = LottoResultFixture.FIVE_EQUALS_WITH_BONUS_BALL_RESULT.getValue();
+        LottoResult notBonusBallResult = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
 
         assertThat(bonusBallResult.isBonusBallResult()).isTrue();
         assertThat(notBonusBallResult.isBonusBallResult()).isFalse();
@@ -82,7 +82,7 @@ class LottoResultTest {
     @DisplayName("해당 로또 결과의 총 상금을 반환한다")
     @ValueSource(ints = {1, 10, 100, 1000})
     void getTotalPrizeAmount(int lottoAmount) {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getInstance();
+        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
 
         for (int i = 0; i < lottoAmount; i++) {
             lottoResultAboutSixEquals.increaseLottoAmount();

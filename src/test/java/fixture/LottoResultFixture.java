@@ -14,19 +14,19 @@ public enum LottoResultFixture {
     FIVE_EQUALS_WITH_BONUS_BALL_RESULT(LottoRank.FIVE_WITH_BONUS_EQUALS),
     SIX_EQUALS_RESULT(LottoRank.SIX_EQUALS);
 
-    private LottoRank lottoRank;
+    private final LottoRank lottoRank;
 
     LottoResultFixture(LottoRank lottoRank) {
         this.lottoRank = lottoRank;
     }
 
-    public LottoResult getInstance() {
+    public LottoResult getValue() {
         return new LottoResult(lottoRank);
     }
 
     public static List<LottoResult> getEveryInstance() {
         return Arrays.stream(values())
-                .map(LottoResultFixture::getInstance)
+                .map(LottoResultFixture::getValue)
                 .toList();
     }
 
