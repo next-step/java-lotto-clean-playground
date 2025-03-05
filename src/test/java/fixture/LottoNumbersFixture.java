@@ -5,6 +5,7 @@ import model.LottoNumbers;
 import model.LottoRank;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ public enum LottoNumbersFixture {
     FIVE_EQUALS_LOTTO(getLottoNumbersFromIntegers(1, 2, 3, 4, 5, 45), LottoRank.FIVE_EQUALS),
     SIX_EQUALS_LOTTO(getLottoNumbersFromIntegers(1, 2, 3, 4, 5, 6), LottoRank.SIX_EQUALS);
 
+    public static final LottoNumber NOT_EQUALS_BONUS_BALL = new LottoNumber(33);
+
     private final LottoNumbers lottoNumbers;
     private final LottoRank expectedRank;
 
@@ -24,7 +27,13 @@ public enum LottoNumbersFixture {
         this.expectedRank = expectedRank;
     }
 
-    public LottoNumbers getInstance() {
+    public static List<LottoNumbersFixture> getFixturesExcludeWinningLotto() {
+        return Arrays.stream(values())
+                .filter(lottoNumbersFixture -> lottoNumbersFixture != WINNING_LOTTO)
+                .toList();
+    }
+
+    public LottoNumbers getValue() {
         return lottoNumbers;
     }
 

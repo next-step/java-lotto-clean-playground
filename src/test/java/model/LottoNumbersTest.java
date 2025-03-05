@@ -1,6 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -8,11 +9,20 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoNumbersTest {
 
     private static final String STRING_SEPARATOR = " ";
+
+    @Test
+    @DisplayName("LottoNumber 6개를 통해 인스턴스를 생성한다")
+    void createBySixLottoNumbers() {
+        Set<LottoNumber> lottoNumberCollection = createLottoNumberCollection(1, 2, 3, 4, 5, 6);
+
+        assertThatCode(() -> new LottoNumbers(lottoNumberCollection)).doesNotThrowAnyException();
+    }
 
     @ParameterizedTest
     @DisplayName("LottoNumber의 개수가 6개 미만이면 예외가 발생한다")
@@ -49,6 +59,13 @@ class LottoNumbersTest {
 
         return Arrays.stream(splitedNumbersString)
                 .map(Integer::parseInt)
+                .map(LottoNumber::new)
+                .collect(Collectors.toUnmodifiableSet());
+    }
+
+    private Set<LottoNumber> createLottoNumberCollection(int... numbers) {
+        return Arrays.stream(numbers)
+                .boxed()
                 .map(LottoNumber::new)
                 .collect(Collectors.toUnmodifiableSet());
     }

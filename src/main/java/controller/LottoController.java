@@ -94,7 +94,7 @@ public class LottoController {
     private void printLottoResults(LottoResults lottoResults) {
         lottoOutputView.printLottoResultHeader();
 
-        for (LottoResult lottoResult : lottoResults.getLottoResultList()) {
+        for (LottoResult lottoResult : lottoResults.getLottoResultCollection()) {
             lottoOutputView.printLottoResult(new LottoResultDto(lottoResult));
         }
     }

@@ -2,6 +2,7 @@ package model;
 
 import fixture.LottoResultFixture;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -49,49 +50,129 @@ class LottoResultTest {
     @Test
     @DisplayName("해당 로또 결과에 대한 equalCount를 반환한다")
     void getEqualsCountAboutLottoResult() {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
+        LottoResultFixture[] lottoResultFixtures = LottoResultFixture.values();
 
-        int actualEqualCount = lottoResultAboutSixEquals.getEqualCount();
-        int expectedEqualCount = LottoRank.SIX_EQUALS.equalCount;
+        for (LottoResultFixture lottoResultFixture : lottoResultFixtures) {
+            LottoResult actualLottoResult = lottoResultFixture.getValue();
+            LottoRank expectedLottoRank = lottoResultFixture.getLottoRank();
 
-        assertThat(actualEqualCount).isEqualTo(expectedEqualCount);
+            int actualEqualCount = actualLottoResult.getEqualCount();
+            int expectedEqualCount = expectedLottoRank.equalCount;
+
+            assertThat(actualEqualCount).isEqualTo(expectedEqualCount);
+        }
     }
 
     @Test
     @DisplayName("해당 로또 결과에 대한 prizeAmount를 반환한다")
     void getPrizeAmountAboutLottoResult() {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
+        LottoResultFixture[] lottoResultFixtures = LottoResultFixture.values();
 
-        int actualPrizeAmount = lottoResultAboutSixEquals.getPrizeAmount();
-        int expectedPrizeAmount = LottoRank.SIX_EQUALS.prizeAmount;
+        for (LottoResultFixture lottoResultFixture : lottoResultFixtures) {
+            LottoResult actualLottoResult = lottoResultFixture.getValue();
+            LottoRank expectedLottoRank = lottoResultFixture.getLottoRank();
 
-        assertThat(actualPrizeAmount).isEqualTo(expectedPrizeAmount);
+            int actualPrizeAmount = actualLottoResult.getPrizeAmount();
+            int expectedPrizeAmount = expectedLottoRank.prizeAmount;
+
+            assertThat(actualPrizeAmount).isEqualTo(expectedPrizeAmount);
+        }
     }
 
     @Test
     @DisplayName("해당 로또 결과가 보너스볼 관련 결과인지를 반환한다")
     void getBonusBallResult() {
-        LottoResult bonusBallResult = LottoResultFixture.FIVE_EQUALS_WITH_BONUS_BALL_RESULT.getValue();
+        LottoResult bonusBallResult = LottoResultFixture.FIVE_WITH_BONUS_BALL_EQUALS_RESULT.getValue();
         LottoResult notBonusBallResult = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
 
         assertThat(bonusBallResult.isBonusBallResult()).isTrue();
         assertThat(notBonusBallResult.isBonusBallResult()).isFalse();
     }
 
-    @ParameterizedTest
+    @Nested
     @DisplayName("해당 로또 결과의 총 상금을 반환한다")
-    @ValueSource(ints = {1, 10, 100, 1000})
-    void getTotalPrizeAmount(int lottoAmount) {
-        LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
+    class getTotalPrizeAmount {
 
-        for (int i = 0; i < lottoAmount; i++) {
-            lottoResultAboutSixEquals.increaseLottoAmount();
+        @ParameterizedTest
+        @DisplayName("3개 일치 로또의 총 상금을 반환한다")
+        @ValueSource(ints = {1, 10, 100, 1000})
+        void getTotalPrizeAmountOfThreeEqualsLotto(int lottoAmount) {
+            LottoResult lottoResultAboutSixEquals = LottoResultFixture.THREE_EQUALS_RESULT.getValue();
+
+            for (int i = 0; i < lottoAmount; i++) {
+                lottoResultAboutSixEquals.increaseLottoAmount();
+            }
+
+            int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
+            int expectedTotalPrizeAmount = LottoRank.THREE_EQUALS.prizeAmount * lottoAmount;
+
+            assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
         }
 
-        int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
-        int expectedTotalPrizeAmount = LottoRank.SIX_EQUALS.prizeAmount * lottoAmount;
+        @ParameterizedTest
+        @DisplayName("4개 일치 로또의 총 상금을 반환한다")
+        @ValueSource(ints = {1, 10, 100, 1000})
+        void getTotalPrizeAmountOfFourEqualsLotto(int lottoAmount) {
+            LottoResult lottoResultAboutSixEquals = LottoResultFixture.FOUR_EQUALS_RESULT.getValue();
 
-        assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
+            for (int i = 0; i < lottoAmount; i++) {
+                lottoResultAboutSixEquals.increaseLottoAmount();
+            }
+
+            int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
+            int expectedTotalPrizeAmount = LottoRank.FOUR_EQUALS.prizeAmount * lottoAmount;
+
+            assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
+        }
+
+        @ParameterizedTest
+        @DisplayName("5개 일치 로또의 총 상금을 반환한다")
+        @ValueSource(ints = {1, 10, 100, 1000})
+        void getTotalPrizeAmountOfFiveEqualsLotto(int lottoAmount) {
+            LottoResult lottoResultAboutSixEquals = LottoResultFixture.FIVE_EQUALS_RESULT.getValue();
+
+            for (int i = 0; i < lottoAmount; i++) {
+                lottoResultAboutSixEquals.increaseLottoAmount();
+            }
+
+            int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
+            int expectedTotalPrizeAmount = LottoRank.FIVE_EQUALS.prizeAmount * lottoAmount;
+
+            assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
+        }
+
+        @ParameterizedTest
+        @DisplayName("5개와 보너스 볼 일치 로또의 총 상금을 반환한다")
+        @ValueSource(ints = {1, 10, 100, 1000})
+        void getTotalPrizeAmountOfFiveEqualsWithBonusBallLotto(int lottoAmount) {
+            LottoResult lottoResultAboutSixEquals = LottoResultFixture.FIVE_WITH_BONUS_BALL_EQUALS_RESULT.getValue();
+
+            for (int i = 0; i < lottoAmount; i++) {
+                lottoResultAboutSixEquals.increaseLottoAmount();
+            }
+
+            int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
+            int expectedTotalPrizeAmount = LottoRank.FIVE_WITH_BONUS_EQUALS.prizeAmount * lottoAmount;
+
+            assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
+        }
+
+        @ParameterizedTest
+        @DisplayName("6개 일치 로또의 총 상금을 반환한다")
+        @ValueSource(ints = {1, 10, 100, 1000})
+        void getTotalPrizeAmountOfSixEqualsLotto(int lottoAmount) {
+            LottoResult lottoResultAboutSixEquals = LottoResultFixture.SIX_EQUALS_RESULT.getValue();
+
+            for (int i = 0; i < lottoAmount; i++) {
+                lottoResultAboutSixEquals.increaseLottoAmount();
+            }
+
+            int actualTotalPrizeAmount = lottoResultAboutSixEquals.getTotalPrizeAmount();
+            int expectedTotalPrizeAmount = LottoRank.SIX_EQUALS.prizeAmount * lottoAmount;
+
+            assertThat(actualTotalPrizeAmount).isEqualTo(expectedTotalPrizeAmount);
+        }
+
     }
 
     private List<LottoRank> getSortedLottoRanks() {

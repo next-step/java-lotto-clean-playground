@@ -26,7 +26,7 @@ public class LottoResults {
         return getTotalLottoPrize() / (double) purchaseAmount;
     }
 
-    public List<LottoResult> getLottoResultList() {
+    public List<LottoResult> getLottoResultCollection() {
         return List.copyOf(lottoResults);
     }
 
