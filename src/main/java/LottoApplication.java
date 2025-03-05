@@ -4,7 +4,8 @@ public class LottoApplication {
 
     public static void main(String[] args) {
         try {
-            new LottoController().run();
+            LottoController lottoController = LottoController.getInstance();
+            lottoController.run();
         } catch (Exception e) {
             e.printStackTrace();
         }

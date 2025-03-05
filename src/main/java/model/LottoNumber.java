@@ -1,28 +1,29 @@
 package model;
 
 import java.util.Objects;
-import java.util.Random;
 
-public class LottoNumber {
+import static model.LottoConstraints.MAXIMUM_LOTTO_NUMBER;
+import static model.LottoConstraints.MINIMUM_LOTTO_NUMBER;
 
-    private final static int MINIMUM_LOTTO_NUMBER = 1;
-    private final static int MAXIMUM_LOTTO_NUMBER = 45;
+public record LottoNumber(int value) {
 
-    private final static Random RANDOM = new Random();
-
-    private final int value;
-
-    private LottoNumber(int value) {
+    public LottoNumber {
         validateLottoNumber(value);
-        this.value = value;
     }
 
-    public static LottoNumber getRandomLottoNumber() {
-        return new LottoNumber(getRandomNumber());
+    private static void validateLottoNumber(int value) {
+        if (value < MINIMUM_LOTTO_NUMBER) {
+            throw new IllegalArgumentException(String.format("입력된 값이 %d보다 작습니다: %d", MINIMUM_LOTTO_NUMBER, value));
+        }
+
+        if (value > MAXIMUM_LOTTO_NUMBER) {
+            throw new IllegalArgumentException(String.format("입력된 값이 %d보다 큽니다.: %d", MAXIMUM_LOTTO_NUMBER, value));
+        }
     }
 
-    public int getValue() {
-        return value;
+    @Override
+    public String toString() {
+        return Integer.toString(value);
     }
 
     @Override
@@ -36,20 +37,6 @@ public class LottoNumber {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
-    }
-
-    private static int getRandomNumber() {
-        return RANDOM.nextInt(MINIMUM_LOTTO_NUMBER, MAXIMUM_LOTTO_NUMBER + 1);
-    }
-
-    private static void validateLottoNumber(int value) {
-        if (value < MINIMUM_LOTTO_NUMBER) {
-            throw new IllegalArgumentException(String.format("입력된 값이 %d보다 작습니다: %d", MINIMUM_LOTTO_NUMBER, value));
-        }
-
-        if (value > MAXIMUM_LOTTO_NUMBER) {
-            throw new IllegalArgumentException(String.format("입력된 값이 %d보다 큽니다.: %d", MAXIMUM_LOTTO_NUMBER, value));
-        }
     }
 
 }
