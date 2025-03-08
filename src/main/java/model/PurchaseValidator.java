@@ -24,5 +24,4 @@ public class PurchaseValidator {
             throw new IllegalArgumentException("구매 금액은 1000원 단위로 입력되어야 합니다.");
         }
     }
-
 }
