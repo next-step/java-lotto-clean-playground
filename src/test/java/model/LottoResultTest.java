@@ -100,6 +100,7 @@ class LottoResultTest {
     @Test
     @DisplayName("보너스 번호가 당첨 번호에 포함되면 예외를 던지는 지 검증한다.")
     void should_Throw_Exception_If_Bonus_In_Winning() {
+        
         List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
         int bonusNumber = 3;
 
