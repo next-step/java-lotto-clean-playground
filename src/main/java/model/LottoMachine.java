@@ -41,13 +41,13 @@ public class LottoMachine {
         for (int i = 0; i < count; i++) {
             autoLottos.add(new Lotto(generateLottoNumbers()));
         }
-        return autoLottos;
+        return List.copyOf(autoLottos);
     }
 
     private List<Lotto> mergeLottos(List<Lotto> manualLottos, List<Lotto> autoLottos) {
         List<Lotto> allLottos = new ArrayList<>();
         allLottos.addAll(manualLottos);
         allLottos.addAll(autoLottos);
-        return allLottos;
+        return List.copyOf(allLottos);
     }
 }
