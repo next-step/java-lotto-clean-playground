@@ -39,12 +39,12 @@ class LottoRankTest {
     @DisplayName("각 LottoRank에 맞는 결과를 반환하는 지 검증한다.")
     void should_Return_Correct_Rank_String() {
 
-        assertThat(LottoRank.THREE_MATCHES.rankToString()).isEqualTo("3개 일치");
-        assertThat(LottoRank.FOUR_MATCHES.rankToString()).isEqualTo("4개 일치");
-        assertThat(LottoRank.FIVE_MATCHES.rankToString()).isEqualTo("5개 일치");
-        assertThat(LottoRank.FIVE_MATCHES_BONUS.rankToString()).isEqualTo("5개 일치 (보너스 볼 일치)");
-        assertThat(LottoRank.SIX_MATCHES.rankToString()).isEqualTo("6개 일치");
-        assertThat(LottoRank.NO_WINNER.rankToString()).isEqualTo("0개 일치");
+        assertThat(LottoRank.THREE_MATCHES.getMatchCount()).isEqualTo(3);
+        assertThat(LottoRank.FOUR_MATCHES.getMatchCount()).isEqualTo(4);
+        assertThat(LottoRank.FIVE_MATCHES.getMatchCount()).isEqualTo(5);
+        assertThat(LottoRank.FIVE_MATCHES_BONUS.getMatchCount()).isEqualTo(5);
+        assertThat(LottoRank.SIX_MATCHES.getMatchCount()).isEqualTo(6);
+        assertThat(LottoRank.NO_WINNER.getMatchCount()).isEqualTo(0);
     }
 
     @Test

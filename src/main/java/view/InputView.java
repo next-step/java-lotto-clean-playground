@@ -16,7 +16,7 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public List<String> inputManualCountList(int count) {
+    public List<String> inputManualLottoNumbers(int count) {
         List<String> manualNumbers = new ArrayList<>();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 

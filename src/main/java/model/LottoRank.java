@@ -20,10 +20,6 @@ public enum LottoRank {
         this.price = price;
     }
 
-    private boolean isMatchBonus(int matchCount, boolean matchBonus) {
-        return this.matchCount == matchCount && this.matchBonus == matchBonus;
-    }
-
     public static LottoRank getLottoRank(int matchCount, boolean matchBonus) {
         return Arrays.stream(LottoRank.values())
                 .filter(lottoRank -> lottoRank.isMatchBonus(matchCount, matchBonus))
@@ -35,10 +31,11 @@ public enum LottoRank {
         return price;
     }
 
-    public String rankToString() {
-        if (this == FIVE_MATCHES_BONUS) {
-            return this.matchCount + "개 일치 (보너스 볼 일치)";
-        }
-        return this.matchCount + "개 일치";
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    private boolean isMatchBonus(int matchCount, boolean matchBonus) {
+        return this.matchCount == matchCount && this.matchBonus == matchBonus;
     }
 }

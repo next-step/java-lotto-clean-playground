@@ -12,16 +12,22 @@ public class LottoResult {
         this.bonusNumber = bonusNumber;
     }
 
-    private void validateBonusNumber(List<Integer> winningNumbers, int bonusNumber) {
-        if (winningNumbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException("보너스 번호는 당첨 번호 목록에 포함될 수 없습니다.");
-        }
-    }
-
     public List<LottoRank> calculateRank(List<Lotto> lottos) {
         return lottos.stream()
                 .map(this::getLottoRank)
                 .toList();
+    }
+
+    public double calculateEarningsRate(List<LottoRank> lottoRanks) {
+        int totalEarnings = calculateTotalEarnings(lottoRanks);
+        int totalSpent = lottoRanks.size() * LottoConstants.LOTTO_TICKET_PRICE.getValue();
+        return (double) totalEarnings / totalSpent;
+    }
+
+    private void validateBonusNumber(List<Integer> winningNumbers, int bonusNumber) {
+        if (winningNumbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호 목록에 포함될 수 없습니다.");
+        }
     }
 
     private LottoRank getLottoRank(Lotto lotto) {
@@ -32,5 +38,11 @@ public class LottoResult {
         boolean matchBonus = lotto.getLottoNumbers().contains(bonusNumber);
 
         return LottoRank.getLottoRank((int) matchCount, matchBonus);
+    }
+    
+    private int calculateTotalEarnings(List<LottoRank> lottoRanks) {
+        return lottoRanks.stream()
+                .mapToInt(LottoRank::getPrice)
+                .sum();
     }
 }

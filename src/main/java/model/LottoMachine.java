@@ -6,10 +6,19 @@ import java.util.List;
 
 public class LottoMachine {
 
-    private static final int LOTTO_PRICE = 1000;
-    private static final int LOTTO_MINIMUM_NUMBER = 1;
-    private static final int LOTTO_MAXIMUM_NUMBER = 45;
-    private static final int LOTTO_NUMBERS_SIZE = 6;
+    private static final int LOTTO_MINIMUM_NUMBER = LottoConstants.LOTTO_MINIMUM_NUMBER.getValue();
+    private static final int LOTTO_MAXIMUM_NUMBER = LottoConstants.LOTTO_MAXIMUM_NUMBER.getValue();
+
+    public List<Lotto> purchaseTickets(int money, List<Lotto> manualNumbers) {
+        int totalTickets = money / LottoConstants.LOTTO_TICKET_PRICE.getValue();
+        int manualCount = manualNumbers.size();
+        int autoCount = totalTickets - manualCount;
+
+        List<Lotto> manualLottos = addManualLottos(manualNumbers);
+        List<Lotto> autoLottos = generateAutoLottos(autoCount);
+
+        return List.copyOf(mergeLottos(manualLottos, autoLottos));
+    }
 
     private List<Integer> generateLottoNumbers() {
         List<Integer> numbers = new ArrayList<>();
@@ -19,19 +28,8 @@ public class LottoMachine {
         Collections.shuffle(numbers);
 
         return numbers.stream()
-                .limit(LOTTO_NUMBERS_SIZE)
+                .limit(LottoConstants.LOTTO_NUMBERS_PER_TICKET.getValue())
                 .toList();
-    }
-
-    public List<Lotto> purchaseTickets(int money, List<Lotto> manualNumbers) {
-        int totalTickets = money / LOTTO_PRICE;
-        int manualCount = manualNumbers.size();
-        int autoCount = totalTickets - manualCount;
-
-        List<Lotto> manualLottos = addManualLottos(manualNumbers);
-        List<Lotto> autoLottos = generateAutoLottos(autoCount);
-
-        return List.copyOf(mergeLottos(manualLottos, autoLottos));
     }
 
     private List<Lotto> addManualLottos(List<Lotto> manualNumbers) {

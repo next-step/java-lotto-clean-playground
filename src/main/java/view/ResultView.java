@@ -21,7 +21,13 @@ public class ResultView {
         }
     }
 
-    public void printEarningsRate(String earningsRate) {
-        System.out.println(earningsRate);
+    public void printEarningsRate(double earningsRate) {
+        String result = "손해";
+        if (earningsRate > 1) {
+            result = "이익";
+        }
+
+        System.out.println("총 수익률은 " + String.format("%.2f", earningsRate) +
+                "입니다.(기준이 1이기 때문에 결과적으로 " + result + "라는 의미임)");
     }
 }
