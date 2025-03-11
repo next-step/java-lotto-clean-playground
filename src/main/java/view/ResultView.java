@@ -1,6 +1,7 @@
 package view;
 
 import dto.LottoResultDto;
+
 import java.util.List;
 
 public class ResultView {
@@ -16,7 +17,8 @@ public class ResultView {
     public void printLottoStatistics(List<LottoResultDto> lottoResultDto) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (LottoResultDto result : lottoResultDto) {;
+        for (LottoResultDto result : lottoResultDto) {
+
             if (result.isBonusMatch()) {
                 System.out.printf("%d개 일치, 보너스 볼 일치 (%d원) - %d개%n",
                         result.getMatchCount(), result.getPrice(), result.getCount());

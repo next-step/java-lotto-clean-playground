@@ -40,7 +40,6 @@ public class LottoController {
             if (rank == LottoRank.NO_WINNER) continue;
             long count = getRankCount(lottoRanks, rank);
             lottoResultDtos.add(new LottoResultDto(rank, count));
-
         }
         return lottoResultDtos;
     }

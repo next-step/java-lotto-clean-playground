@@ -3,6 +3,7 @@ package dto;
 import model.LottoRank;
 
 public class LottoResultDto {
+
     private final int matchCount;
     private final boolean bonusMatch;
     private final int price;
