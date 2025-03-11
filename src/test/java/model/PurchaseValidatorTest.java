@@ -38,5 +38,4 @@ class PurchaseValidatorTest {
         assertThatCode(() -> validateLottoInputName("3000"))
                 .doesNotThrowAnyException();
     }
-
 }
