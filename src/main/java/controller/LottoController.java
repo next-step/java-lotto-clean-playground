@@ -1,5 +1,6 @@
 package controller;
 
+import dto.LottoResultDto;
 import model.*;
 import view.InputView;
 import view.ResultView;
@@ -28,21 +29,20 @@ public class LottoController {
     }
 
     private void printResults(List<LottoRank> lottoRanks, LottoResult lottoResult) {
-        List<String> lottoRankStrings = convertLottoRanksToStrings(lottoRanks);
-        resultView.printLottoStatistics(lottoRankStrings);
+        List<LottoResultDto> lottoResultDtos = convertToLottoResult(lottoRanks);
+        resultView.printLottoStatistics(lottoResultDtos);
         resultView.printEarningsRate(lottoResult.calculateEarningsRate(lottoRanks));
     }
 
-    private List<String> convertLottoRanksToStrings(List<LottoRank> lottoRanks) {
-        List<String> lottoRankStrings = new ArrayList<>();
-        for (LottoRank rank : LottoRank.values()) {
+    private List<LottoResultDto> convertToLottoResult(List<LottoRank> lottoRanks) {
+        List<LottoResultDto> lottoResultDtos = new ArrayList<>();
+        for(LottoRank rank : LottoRank.values()) {
             if (rank == LottoRank.NO_WINNER) continue;
-
             long count = getRankCount(lottoRanks, rank);
-            String rankString = generateRankString(rank, count);
-            lottoRankStrings.add(rankString);
+            lottoResultDtos.add(new LottoResultDto(rank, count));
+
         }
-        return lottoRankStrings;
+        return lottoResultDtos;
     }
 
     private List<String> formatLottoTickets(List<Lotto> lottoTickets) {
@@ -87,12 +87,5 @@ public class LottoController {
         return lottoRanks.stream()
                 .filter(lottoRank -> lottoRank == rank)
                 .count();
-    }
-
-    private String generateRankString(LottoRank rank, long count) {
-        if (rank == LottoRank.FIVE_MATCHES_BONUS) {
-            return rank.getMatchCount() + "개, 보너스 볼 일치 (" + rank.getPrice() + "원) - " + count + "개";
-        }
-        return rank.getMatchCount() + "개 일치 (" + rank.getPrice() + "원) - " + count + "개";
     }
 }
