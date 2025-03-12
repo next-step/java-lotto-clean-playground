@@ -1,58 +1,90 @@
 package controller;
 
-import model.Lotto;
+import dto.LottoResultDto;
+import model.*;
 import view.InputView;
 import view.ResultView;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import static model.PurchaseValidator.validateLottoInputName;
 
 public class LottoController {
 
-    private static final int TICKET_PRICE = 1000;
     private final InputView inputView = new InputView();
     private final ResultView resultView = new ResultView();
+    private final LottoMachine lottoMachine = new LottoMachine();
 
     public void lottoRun() {
-        int purchaseAmount = parsePurchaseAmount(inputView.purchaseAmountTitle());
-        validatePurchaseAmount(purchaseAmount);
+        int purchaseAmount = validateLottoInputName(inputView.inputPurchaseAmount());
+        int manualCount = inputView.inputManualCount();
+        List<String> manualLottos = inputView.inputManualLottoNumbers(manualCount);
 
-        int lottoCount = purchaseAmount / TICKET_PRICE;
+        List<Lotto> lottos = lottoMachine.purchaseTickets(purchaseAmount, convertToLottos(manualLottos));
+        resultView.displayPurchasedLottoTickets(formatLottoTickets(lottos), manualCount);
 
-        List<Lotto> lottoTicketList = generateLottoTickets(lottoCount);
-        List<String> lottoTickets = getLottoTicketStrings(lottoTicketList);
-
-        resultView.printLottoResult(lottoTickets);
+        LottoResult lottoResult = createLottoResult();
+        List<LottoRank> lottoRanks = lottoResult.calculateRank(lottos);
+        printResults(lottoRanks, lottoResult);
     }
 
-    private int parsePurchaseAmount(String input) {
-        try {
-            return Integer.parseInt(String.valueOf(input));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("구매 금액은 숫자여야 합니다.");
-        }
+    private void printResults(List<LottoRank> lottoRanks, LottoResult lottoResult) {
+        List<LottoResultDto> lottoResultDtos = convertToLottoResult(lottoRanks);
+        resultView.printLottoStatistics(lottoResultDtos);
+        resultView.printEarningsRate(lottoResult.calculateEarningsRate(lottoRanks));
     }
 
-    private void validatePurchaseAmount(int purchaseAmount) {
-        if (purchaseAmount <= 0) {
-            throw new IllegalArgumentException("구매 금액은 양수여야 합니다.");
+    private List<LottoResultDto> convertToLottoResult(List<LottoRank> lottoRanks) {
+        List<LottoResultDto> lottoResultDtos = new ArrayList<>();
+        for(LottoRank rank : LottoRank.values()) {
+            if (rank == LottoRank.NO_WINNER) continue;
+            long count = getRankCount(lottoRanks, rank);
+            lottoResultDtos.add(new LottoResultDto(rank, count));
         }
-        if (purchaseAmount % TICKET_PRICE != 0) {
-            throw new IllegalArgumentException("구매 금액은 1000원 단위로 입력되어야 합니다.");
-        }
+        return lottoResultDtos;
     }
 
-    private List<Lotto> generateLottoTickets(int lottoCount) {
-        List<Lotto> lottoTickets = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottoTickets.add(new Lotto());
-        }
-        return lottoTickets;
-    }
-
-    private List<String> getLottoTicketStrings(List<Lotto> lottoTickets) {
+    private List<String> formatLottoTickets(List<Lotto> lottoTickets) {
         return lottoTickets.stream()
                 .map(Lotto::toStringLottoTickets)
                 .toList();
+    }
+
+    private List<Integer> getWinningNumbers() {
+        String winningLottoNumbers = inputView.inputWinningNumbers();
+        return convertWinningNumbers(winningLottoNumbers);
+    }
+
+    private List<Integer> convertWinningNumbers(String winningLottoNumbers) {
+        return Arrays.stream(winningLottoNumbers.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
+    }
+
+    private LottoResult createLottoResult() {
+        List<Integer> winningNumbers = getWinningNumbers();
+        int bonusNumber = inputView.inputBonus();
+        return new LottoResult(winningNumbers, bonusNumber);
+    }
+
+    private List<Lotto> convertToLottos(List<String> manualLottos) {
+        return manualLottos.stream()
+                .map(this::convertToSingleLotto)
+                .toList();
+    }
+
+    private Lotto convertToSingleLotto(String lottoNumbersString) {
+        List<Integer> lottoNumbers = Arrays.stream(lottoNumbersString.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
+        return new Lotto(lottoNumbers);
+    }
+
+    private long getRankCount(List<LottoRank> lottoRanks, LottoRank rank) {
+        return lottoRanks.stream()
+                .filter(lottoRank -> lottoRank == rank)
+                .count();
     }
 }
