@@ -1,4 +1,5 @@
 package view;
+
 import model.Lotto;
 import model.LottoResult;
 import model.LottoTickets;

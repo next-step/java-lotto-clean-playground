@@ -7,6 +7,7 @@ import view.ResultView;
 
 import java.util.List;
 
+
 public class LottoController {
 
     public void run() {
