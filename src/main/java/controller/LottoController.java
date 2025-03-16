@@ -1,54 +1,70 @@
 package controller;
 
-import model.Lotto;
-import model.LottoTickets;
+import model.*;
 import view.ErrorView;
 import view.InputView;
 import view.ResultView;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+
 
 public class LottoController {
 
     public void run() {
         try {
-            int purchaseAmount = InputView.getPurchaseAmount();
-
-            validatePurchaseAmount(purchaseAmount);
-
-            int ticketCount = LottoTickets.getTicketCount(purchaseAmount);
-
-            LottoTickets lottoTickets = new LottoTickets(ticketCount);
-
-            ResultView.printOrderTickets(ticketCount);
-
-            ResultView.printPurchasedLottoTickets(formatTickets(lottoTickets.getTickets()));
-
+            LottoPurchaseInfo lottoPurchaseInfo = getPurchaseAmount();
+            int manualCount = getManualCount(lottoPurchaseInfo);
+            LottoTickets lottoTickets = generateLottoTickets(lottoPurchaseInfo, manualCount);
+            ResultView.printOrderTickets(manualCount, lottoPurchaseInfo.getTicketCount() - manualCount);
+            ResultView.printPurchasedLottoTickets(lottoTickets.getFormattedTicketNumbers());
+            processWinningResults(lottoTickets, lottoPurchaseInfo);
+            InputView.closeScanner();
         } catch (IllegalArgumentException e) {
             ErrorView.printErrorMessage(e.getMessage());
         }
     }
 
-    private List<String> formatTickets(List<Lotto> tickets) {
-        return tickets.stream()
-                .map(this::convertLottoToString)
-                .toList();
+    private LottoPurchaseInfo getPurchaseAmount() {
+        return new LottoPurchaseInfo(InputView.getPurchaseAmount());
     }
 
-    private String convertLottoToString(Lotto lotto) {
-        return lotto.getSortedNumbers().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(",", "[", "]"));
+    private int getManualCount(LottoPurchaseInfo lottoPurchaseInfo) {
+        int manualCount = InputView.getManualTicketCount();
+        validateManualCount(manualCount, lottoPurchaseInfo);
+        return manualCount;
     }
 
-    private void validatePurchaseAmount(int purchaseAmount) {
-        if (purchaseAmount < LottoTickets.LOTTO_PRICE) {
-            throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
-        }
+    private LottoTickets generateLottoTickets(LottoPurchaseInfo lottoPurchaseInfo, int manualCount) {
+        List<List<Integer>> manualNumbers = InputView.getManualNumbers(manualCount);
+        int autoCount = lottoPurchaseInfo.getTicketCount() - manualCount;
+        LottoTickets manualTickets = new LottoTickets(manualNumbers);
+        LottoTickets autoTickets = new LottoTickets(autoCount);
+        return LottoTickets.merge(manualTickets, autoTickets);
+    }
 
-        if (purchaseAmount % LottoTickets.LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("구매 금액은 1000원 단위여야 합니다.");
+    public void validateManualCount(int manualCount, LottoPurchaseInfo lottoPurchaseInfo) {
+        if (manualCount > lottoPurchaseInfo.getTicketCount()) {
+            throw new IllegalArgumentException("수동 구매 개수가 구매 가능한 개수를 초과할 수 없습니다.");
         }
+    }
+
+    private void processWinningResults(LottoTickets lottoTickets, LottoPurchaseInfo lottoPurchaseInfo) {
+        LottoResult lottoResult = createLottoResult(lottoTickets, getWinningNumbers());
+
+        Map<String, Integer> formattedWinningDetails = lottoResult.getFormattedWinningDetails();
+        double profitRate = lottoResult.calculateProfitRate(lottoPurchaseInfo.getAmount());
+
+        ResultView.printWinningStatistics(formattedWinningDetails, profitRate);
+    }
+
+    private WinningNumbers getWinningNumbers() {
+        List<Integer> winningNumbers = InputView.getWinningNumbers();
+        int bonusNumber = InputView.getBonusNumber();
+        return new WinningNumbers(winningNumbers, bonusNumber);
+    }
+
+    private LottoResult createLottoResult(LottoTickets lottoTickets, WinningNumbers winningNumbers) {
+        return new LottoResult(lottoTickets.getTickets(), winningNumbers);
     }
 }

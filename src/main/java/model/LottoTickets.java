@@ -4,27 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoTickets {
-
     private final List<Lotto> tickets;
-    public static final int LOTTO_PRICE = 1000;
 
-    public LottoTickets(int ticketCount) {
-        this.tickets = generateLottoTickets(ticketCount);
+    private LottoTickets(List<Lotto> tickets, boolean unused) {
+        this.tickets = List.copyOf(tickets);
     }
 
-    private List<Lotto> generateLottoTickets(int ticketCount) {
-        List<Lotto> tickets = new ArrayList<>();
-        for (int i = 0; i < ticketCount; i++) {
-            tickets.add(new Lotto());
+    public LottoTickets(List<List<Integer>> manualNumbers) {
+        List<Lotto> manualTickets = new ArrayList<>();
+        addManualTickets(manualTickets, manualNumbers);
+        this.tickets = List.copyOf(manualTickets);
+    }
+
+    public LottoTickets(int autoTicketCount) {
+        List<Lotto> autoTickets = new ArrayList<>();
+        addAutoTickets(autoTickets, autoTicketCount);
+        this.tickets = List.copyOf(autoTickets);
+    }
+
+    public static LottoTickets merge(LottoTickets manualTickets, LottoTickets autoTickets) {
+        List<Lotto> mergedTickets = new ArrayList<>(manualTickets.tickets);
+        mergedTickets.addAll(autoTickets.tickets);
+        return new LottoTickets(mergedTickets, true);
+    }
+
+    private static void addManualTickets(List<Lotto> tickets, List<List<Integer>> manualNumbers) {
+        for (List<Integer> numbers : manualNumbers) {
+            tickets.add(new Lotto(numbers));
         }
-        return tickets;
+    }
+
+    private static void addAutoTickets(List<Lotto> tickets, int autoTicketCount) {
+        for (int i = 0; i < autoTicketCount; i++) {
+            tickets.add(new Lotto(new LottoNumbers()));
+        }
     }
 
     public List<Lotto> getTickets() {
-        return new ArrayList<>(tickets);
+        return tickets;
     }
 
-    public static int getTicketCount(int purchaseAmount){
-        return purchaseAmount / LOTTO_PRICE;
+    public List<List<Integer>> getFormattedTicketNumbers() {
+        List<List<Integer>> ticketNumbers = new ArrayList<>();
+        for (Lotto ticket : tickets) {
+            ticketNumbers.add(ticket.getNumbers());
+        }
+        return ticketNumbers;
     }
 }
