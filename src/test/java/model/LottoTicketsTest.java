@@ -11,49 +11,57 @@ import static org.junit.jupiter.api.Assertions.*;
 class LottoTicketsTest {
 
     @Test
-    @DisplayName("수동으로 2장의 로또 티켓을 생성할 수 있다.")
-    void createManualLottoTickets() {
+    @DisplayName("수동 로또 티켓이 정상적으로 생성되어야 한다.")
+    void createManualTickets() {
         List<List<Integer>> manualNumbers = Arrays.asList(
                 Arrays.asList(1, 2, 3, 4, 5, 6),
                 Arrays.asList(7, 8, 9, 10, 11, 12)
         );
 
-        LottoTickets lottoTickets = new LottoTickets(manualNumbers, 0);
-        List<Lotto> tickets = lottoTickets.getTickets();
+        LottoTickets manualTickets = new LottoTickets(manualNumbers);
 
-        assertEquals(2, tickets.size(), "수동 로또 티켓 개수가 2장이 아닙니다.");
-        for (int i = 0; i < manualNumbers.size(); i++) {
-            assertEquals(manualNumbers.get(i), tickets.get(i).getSortedNumbers(), "수동 입력 로또 번호가 다릅니다.");
-        }
+        assertEquals(2, manualTickets.getTickets().size(), "수동 로또 티켓 개수가 일치하지 않습니다.");
+        assertEquals(manualNumbers, manualTickets.getFormattedTicketNumbers(), "수동 로또 번호가 일치하지 않습니다.");
     }
 
     @Test
-    @DisplayName("자동으로 3장의 로또 티켓을 생성할 수 있다.")
-    void createAutoLottoTickets() {
+    @DisplayName("자동 로또 티켓이 정상적으로 생성되어야 한다.")
+    void createAutoTickets() {
         int autoTicketCount = 3;
 
-        LottoTickets lottoTickets = new LottoTickets(List.of(), autoTicketCount);
-        List<Lotto> tickets = lottoTickets.getTickets();
+        LottoTickets autoTickets = new LottoTickets(autoTicketCount);
 
-        assertEquals(3, tickets.size(), "자동 로또 티켓 개수가 3장이 아닙니다.");
-        for (Lotto ticket : tickets) {
-            assertNotNull(ticket, "자동 생성된 로또 티켓이 null입니다.");
-            assertEquals(6, ticket.getSortedNumbers().size(), "자동 생성된 로또 번호 개수가 6개가 아닙니다.");
-        }
-    }
-
-    @Test
-    @DisplayName("총 5장의 로또 티켓을 생성할 수 있다 (수동 2장 + 자동 3장).")
-    void createFiveLottoTickets() {
-        List<List<Integer>> manualNumbers = Arrays.asList(
-                Arrays.asList(1, 2, 3, 4, 5, 6),
-                Arrays.asList(7, 8, 9, 10, 11, 12)
+        assertEquals(autoTicketCount, autoTickets.getTickets().size(), "자동 로또 티켓 개수가 일치하지 않습니다.");
+        autoTickets.getTickets().forEach(ticket ->
+                assertEquals(6, ticket.getNumbers().size(), "자동 생성된 로또 번호 개수가 6개가 아닙니다.")
         );
-        int autoTicketCount = 3;
+    }
 
-        LottoTickets lottoTickets = new LottoTickets(manualNumbers, autoTicketCount);
-        List<Lotto> tickets = lottoTickets.getTickets();
+    @Test
+    @DisplayName("수동 + 자동 로또 티켓이 정상적으로 합쳐져야 한다.")
+    void mergeTickets() {
+        List<List<Integer>> manualNumbers = Arrays.asList(
+                Arrays.asList(1, 2, 3, 4, 5, 6)
+        );
+        LottoTickets manualTickets = new LottoTickets(manualNumbers);
+        LottoTickets autoTickets = new LottoTickets(2);
 
-        assertEquals(5, tickets.size(), "총 로또 티켓 개수가 5장이 아닙니다.");
+        LottoTickets mergedTickets = LottoTickets.merge(manualTickets, autoTickets);
+
+        assertEquals(3, mergedTickets.getTickets().size(), "병합된 티켓 개수가 맞지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("LottoTickets는 불변 객체여야 한다.")
+    void ticketsShouldBeImmutable() {
+        List<List<Integer>> manualNumbers = Arrays.asList(
+                Arrays.asList(1, 2, 3, 4, 5, 6)
+        );
+        LottoTickets lottoTickets = new LottoTickets(manualNumbers);
+
+        manualNumbers.get(0).set(0, 99);
+
+        assertNotEquals(99, lottoTickets.getTickets().get(0).getNumbers().get(0),
+                "LottoTickets 내부 데이터가 변경되었습니다. 불변성이 깨졌습니다.");
     }
 }

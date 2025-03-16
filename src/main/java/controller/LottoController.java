@@ -6,65 +6,56 @@ import view.InputView;
 import view.ResultView;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class LottoController {
 
     public void run() {
         try {
-            Money money = getPurchaseAmount();
-            int manualCount = getManualCount(money);
-            LottoTickets lottoTickets = generateLottoTickets(money, manualCount);
-
-            ResultView.printOrderTickets(manualCount, money.getTicketCount() - manualCount);
-            ResultView.printPurchasedLottoTickets(lottoTickets);
-
-            processWinningResults(lottoTickets, money);
-
+            LottoPurchaseInfo lottoPurchaseInfo = getPurchaseAmount();
+            int manualCount = getManualCount(lottoPurchaseInfo);
+            LottoTickets lottoTickets = generateLottoTickets(lottoPurchaseInfo, manualCount);
+            ResultView.printOrderTickets(manualCount, lottoPurchaseInfo.getTicketCount() - manualCount);
+            ResultView.printPurchasedLottoTickets(lottoTickets.getFormattedTicketNumbers());
+            processWinningResults(lottoTickets, lottoPurchaseInfo);
             InputView.closeScanner();
-
         } catch (IllegalArgumentException e) {
             ErrorView.printErrorMessage(e.getMessage());
         }
     }
 
-    private Money getPurchaseAmount() {
-        Money money = new Money(InputView.getPurchaseAmount());
-        validatePurchaseAmount(money);
-        return money;
+    private LottoPurchaseInfo getPurchaseAmount() {
+        return new LottoPurchaseInfo(InputView.getPurchaseAmount());
     }
 
-    private int getManualCount(Money money) {
+    private int getManualCount(LottoPurchaseInfo lottoPurchaseInfo) {
         int manualCount = InputView.getManualTicketCount();
-        validateManualCount(manualCount, money);
+        validateManualCount(manualCount, lottoPurchaseInfo);
         return manualCount;
     }
 
-    private LottoTickets generateLottoTickets(Money money, int manualCount) {
+    private LottoTickets generateLottoTickets(LottoPurchaseInfo lottoPurchaseInfo, int manualCount) {
         List<List<Integer>> manualNumbers = InputView.getManualNumbers(manualCount);
-        int autoCount = money.getTicketCount() - manualCount;
-        return new LottoTickets(manualNumbers, autoCount);
+        int autoCount = lottoPurchaseInfo.getTicketCount() - manualCount;
+        LottoTickets manualTickets = new LottoTickets(manualNumbers);
+        LottoTickets autoTickets = new LottoTickets(autoCount);
+        return LottoTickets.merge(manualTickets, autoTickets);
     }
 
-    public void validateManualCount(int manualCount, Money money) {
-        if (manualCount > money.getTicketCount()) {
+    public void validateManualCount(int manualCount, LottoPurchaseInfo lottoPurchaseInfo) {
+        if (manualCount > lottoPurchaseInfo.getTicketCount()) {
             throw new IllegalArgumentException("수동 구매 개수가 구매 가능한 개수를 초과할 수 없습니다.");
         }
     }
 
-    public void validatePurchaseAmount(Money money) {
-        int purchaseAmount = money.getAmount();
+    private void processWinningResults(LottoTickets lottoTickets, LottoPurchaseInfo lottoPurchaseInfo) {
+        LottoResult lottoResult = createLottoResult(lottoTickets, getWinningNumbers());
 
-        if (purchaseAmount < 1000) {
-            throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
-        }
-        if (purchaseAmount % 1000 != 0) {
-            throw new IllegalArgumentException("구매 금액은 1000원 단위여야 합니다.");
-        }
-    }
+        Map<String, Integer> formattedWinningDetails = lottoResult.getFormattedWinningDetails();
+        double profitRate = lottoResult.calculateProfitRate(lottoPurchaseInfo.getAmount());
 
-    private void processWinningResults(LottoTickets lottoTickets, Money money) {
-        ResultView.printWinningStatistics(createLottoResult(lottoTickets, getWinningNumbers()), money.getAmount());
+        ResultView.printWinningStatistics(formattedWinningDetails, profitRate);
     }
 
     private WinningNumbers getWinningNumbers() {

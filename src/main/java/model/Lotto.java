@@ -2,19 +2,21 @@ package model;
 
 import java.util.*;
 
+//로또 한 장
 public class Lotto {
-
     private final LottoNumbers lottoNumbers;
 
-    public Lotto() {
-        this.lottoNumbers = new LottoNumbers();
-    }
-
+    //수동 로또
     public Lotto(List<Integer> numbers) {
         this.lottoNumbers = new LottoNumbers(numbers);
     }
 
-    public List<Integer> getSortedNumbers() {
-        return lottoNumbers.getSortedNumbers();
+    //자동 로또
+    public Lotto(LottoNumbers lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
+    }
+
+    public List<Integer> getNumbers() {
+        return lottoNumbers.getNumbers();
     }
 }

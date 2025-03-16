@@ -1,9 +1,6 @@
 package view;
 
-import model.Lotto;
-import model.LottoResult;
-import model.LottoTickets;
-import model.Rank;
+import java.util.List;
 import java.util.Map;
 
 public class ResultView {
@@ -12,54 +9,42 @@ public class ResultView {
         System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount, autoCount);
     }
 
-    public static void printPurchasedLottoTickets(LottoTickets lottoTickets) {
-        for (Lotto ticket : lottoTickets.getTickets()) {
-            System.out.println(ticket.getSortedNumbers());
+    public static void printPurchasedLottoTickets(List<List<Integer>> lottoTickets) {
+        for (List<Integer> ticket : lottoTickets) {
+            System.out.println(ticket);
         }
     }
 
-
-    public static void printWinningStatistics(LottoResult lottoResult, int totalCost) {
+    public static void printWinningStatistics(Map<String, Integer> winningDetails, double profitRate) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
-        printWinningDetails(lottoResult);
-        printProfitRate(lottoResult, totalCost);
+        printWinningDetails(winningDetails);
+        printProfitRate(profitRate);
     }
 
-    private static void printWinningDetails(LottoResult lottoResult) {
-        Map<Rank, Integer> matchCountMap = lottoResult.getMatchCountMap();
-        Rank[] orderedRanks = {Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST};
-
-        for (Rank rank : orderedRanks) {
-            String bonusText = getBonusText(rank);
-            System.out.printf("%d개 일치%s (%d원)- %d개%n",
-                    rank.getMatchCount(),
-                    bonusText,
-                    rank.getPrizeMoney(),
-                    matchCountMap.getOrDefault(rank, 0));
+    private static void printWinningDetails(Map<String, Integer> winningDetails) {
+        for (Map.Entry<String, Integer> entry : winningDetails.entrySet()) {
+            printRankDetails(entry.getKey(), entry.getValue());
         }
     }
 
-    private static void printProfitRate(LottoResult lottoResult, int totalCost) {
-        double profitRate = lottoResult.calculateProfitRate(totalCost);
+    private static void printRankDetails(String rankDescription, int count) {
+        System.out.printf("%s- %d개%n", rankDescription, count);
+    }
+
+    private static void printProfitRate(double profitRate) {
         String profitResult = getProfitResult(profitRate);
 
-        System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s)\n",
+        System.out.printf("총 수익률은 %.2f입니다. (기준이 1이기 때문에 결과적으로 %s)%n",
                 profitRate, profitResult);
-    }
-
-    private static String getBonusText(Rank rank) {
-        if (rank == Rank.SECOND) {
-            return ", 보너스 볼 일치";
-        }
-        return "";
     }
 
     private static String getProfitResult(double profitRate) {
         if (profitRate >= 1) {
-            return "이득";
+            return "이득이라는 의미임";
+        } else {
+            return "손해라는 의미임";
         }
-        return "손해";
     }
 }

@@ -10,20 +10,16 @@ public class LottoNumbers {
     private static final int LOTTO_MIN_NUMBER = 1;
     private static final int LOTTO_MAX_NUMBER = 45;
     private static final int LOTTO_CREATE_SIZE = 6;
-    private static final List<Integer> LOTTO_NUMBER_POOL =
-            IntStream.rangeClosed(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER)
-                    .boxed()
-                    .collect(Collectors.toList());
 
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public LottoNumbers() {
-        this.numbers = createLottoNumbers();
+        this.numbers = sortedNumbers(generateAutoLottoNumbers());
     }
 
     public LottoNumbers(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = List.copyOf(numbers);
+        this.numbers = sortedNumbers(numbers);
     }
 
     private void validate(List<Integer> numbers) {
@@ -38,16 +34,20 @@ public class LottoNumbers {
         }
     }
 
-    private List<Integer> createLottoNumbers() {
-        List<Integer> shuffledNumbers = new ArrayList<>(LOTTO_NUMBER_POOL);
+    private List<Integer> generateAutoLottoNumbers() {
+        List<Integer> shuffledNumbers = IntStream.rangeClosed(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER)
+                .boxed()
+                .collect(Collectors.toList());
         Collections.shuffle(shuffledNumbers);
 
-        return shuffledNumbers.subList(0, LOTTO_CREATE_SIZE);
+        return shuffledNumbers.subList(0,LOTTO_CREATE_SIZE);
     }
 
-    public List<Integer> getSortedNumbers() {
-        return numbers.stream()
-                .sorted()
-                .collect(Collectors.toList());
+    private List<Integer> sortedNumbers(List<Integer> numbers) {
+        return List.copyOf(numbers.stream().sorted().toList());
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 }
