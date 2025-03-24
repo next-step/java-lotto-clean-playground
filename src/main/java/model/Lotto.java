@@ -58,6 +58,7 @@ public class Lotto {
         return numbers.size();
     }
 
+
     public TreeSet<Integer> getNumbers() {
         return new TreeSet<>(numbers);
     }

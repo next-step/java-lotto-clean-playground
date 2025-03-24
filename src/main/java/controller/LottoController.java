@@ -17,6 +17,7 @@ public class LottoController {
     }
 
     public void run() {
+
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
