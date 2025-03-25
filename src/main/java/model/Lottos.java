@@ -12,9 +12,9 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public static Lottos createLottos(int amount, NumbersGenerator numbersGenerator) {
+    public static Lottos createLottos(PurchaseAmount amount, NumbersGenerator numbersGenerator) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount.getAmount(); i++) {
             lottoList.add(new Lotto(numbersGenerator));
         }
         return new Lottos(lottoList);

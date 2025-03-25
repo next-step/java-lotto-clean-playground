@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoNumberGenerator implements NumbersGenerator {
+public class LottoNumbersGenerator implements NumbersGenerator {
 
     private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_PICK_NUMBER = 6;
+    private static final int LOTTO_NUMBER_COUNT = 6;
 
     @Override
     public List<Integer> generate() {
         List<Integer> numbers = createBaseNumbers();
         Collections.shuffle(numbers);
         return numbers.stream()
-                .limit(LOTTO_PICK_NUMBER)
+                .limit(LOTTO_NUMBER_COUNT)
                 .sorted()
                 .toList();
     }

@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class LottoTest {
 
-    private Lotto lotto = new Lotto(new LottoNumberGenerator());
+    private Lotto lotto = new Lotto(new LottoNumbersGenerator());
 
     @Test
     void 발급한_로또_번호는_6개의_숫자로_이루어진다() {

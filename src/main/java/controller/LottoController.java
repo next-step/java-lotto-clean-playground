@@ -1,28 +1,33 @@
 package controller;
 
-import model.Lottos;
-import model.NumbersGenerator;
-import view.InputView;
+import model.*;
+import view.InputHandler;
 import view.OutputView;
 
 public class LottoController {
 
-    private final int LOTTO_PRICE = 1000;
     private final NumbersGenerator numbersGenerator;
+    private final InputHandler inputHandler;
 
     public LottoController(NumbersGenerator numbersGenerator) {
         this.numbersGenerator = numbersGenerator;
+        this.inputHandler = new InputHandler();
     }
 
     public void run() {
-        Lottos lottos = purchaseLottos();
+        PurchaseAmount purchaseAmount = inputHandler.getPurchaseAmount();
+        Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
+
+        WinningNumbers winningNumbers = inputHandler.getWinningNumbers();
+
+        getResults(lottos, winningNumbers, purchaseAmount);
     }
 
-    private Lottos purchaseLottos() {
-        OutputView.printPurchaseMessage();
-        int amount = InputView.getInt() / LOTTO_PRICE;
-        return Lottos.createLottos(amount, numbersGenerator);
+    private static void getResults(Lottos lottos, WinningNumbers winningNumbers, PurchaseAmount purchaseAmount) {
+        DrawResults drawResults = new DrawResults();
+        drawResults.calculateResults(lottos, winningNumbers);
+        OutputView.printDrawResults(drawResults);
+        OutputView.printProfit(drawResults.calculateProfit(purchaseAmount));
     }
-
 }
