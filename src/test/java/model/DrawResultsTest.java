@@ -18,7 +18,6 @@ class DrawResultsTest {
         int purchasePrice = 5000;
         purchaseAmount = PurchaseAmount.create(purchasePrice);
         lottos = Lottos.createLottos(purchaseAmount, new SixNumbersGenerator());
-
     }
 
     @Test
