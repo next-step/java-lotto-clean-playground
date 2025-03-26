@@ -1,7 +1,7 @@
 package view;
 
+import model.Lotto;
 import model.PurchaseAmount;
-import model.WinningNumbers;
 import utils.Utils;
 
 import java.util.List;
@@ -18,11 +18,11 @@ public class InputHandler {
         }
     }
 
-    public WinningNumbers getWinningNumbers() {
+    public Lotto getWinningNumbers() {
         OutputView.printLastWeekLottoInputMessage();
         String lastWeekLottoString = InputView.getString();
         try {
-            return WinningNumbers.create(getLottoNumbers(lastWeekLottoString));
+            return Lotto.create(getLottoNumbers(lastWeekLottoString));
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getWinningNumbers();

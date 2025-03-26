@@ -53,18 +53,10 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "자리 입니다!");
         }
     }
-
-    public Ranking calculateRanking(WinningNumbers winningNumbers) {
-        int matchingCount = (int) numbers.stream()
-                .filter(number -> winningNumbers.getLottos().contains(number))
-                .count();
-        return Ranking.getRanking(matchingCount);
-    }
-
+    
     public int size() {
         return numbers.size();
     }
-
 
     public TreeSet<Integer> getNumbers() {
         return new TreeSet<>(numbers);

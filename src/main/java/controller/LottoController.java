@@ -29,7 +29,6 @@ public class LottoController {
         getResults(lottos, winningNumbers, purchaseAmount);
     }
 
-
     private static void getResults(Lottos lottos, Lotto winningNumbers, PurchaseAmount purchaseAmount) {
         DrawResults drawResults = new DrawResults();
         drawResults.calculateResults(lottos, winningNumbers);
