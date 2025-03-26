@@ -19,12 +19,12 @@ public class LottoController {
         Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
 
-        WinningNumbers winningNumbers = inputHandler.getWinningNumbers();
+        Lotto winningNumbers = inputHandler.getWinningNumbers();
 
         getResults(lottos, winningNumbers, purchaseAmount);
     }
 
-    private static void getResults(Lottos lottos, WinningNumbers winningNumbers, PurchaseAmount purchaseAmount) {
+    private static void getResults(Lottos lottos, Lotto winningNumbers, PurchaseAmount purchaseAmount) {
         DrawResults drawResults = new DrawResults();
         drawResults.calculateResults(lottos, winningNumbers);
         OutputView.printDrawResults(drawResults);

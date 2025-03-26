@@ -15,7 +15,7 @@ public class DrawResults {
         }
     }
 
-    public void calculateResults(Lottos lottos, WinningNumbers winningNumbers) {
+    public void calculateResults(Lottos lottos, Lotto winningNumbers) {
         for (Lotto lotto : lottos.getLottos()) {
             Ranking ranking = lotto.calculateRanking(winningNumbers);
             results.put(ranking, results.get(ranking) + 1);
