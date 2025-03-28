@@ -12,7 +12,7 @@ public class PurchaseAmount {
     public static PurchaseAmount create(int purchasePrice) {
         int result = purchasePrice / LOTTO_PRICE;
         if (result < 1) {
-            throw new IllegalArgumentException("복권 구매의 최소 금액은 1000원 입니다!");
+            throw new IllegalArgumentException("복권 구매의 최소 금액은" + LOTTO_PRICE + "원 입니다!");
         }
         return new PurchaseAmount(result);
     }

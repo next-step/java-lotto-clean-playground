@@ -30,8 +30,8 @@ public class DrawResults {
         return (double) getTotalPrize() / (purchaseAmount.getAmount() * LOTTO_PRICE);
     }
     
-    private int getTotalPrize() {
-        int sum = 0;
+    private long getTotalPrize() {
+        long sum = 0;
         for (Ranking rank : Ranking.values()) {
             sum += results.get(rank) * rank.getPrize();
         }

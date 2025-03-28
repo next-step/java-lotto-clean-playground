@@ -11,9 +11,9 @@ public enum Ranking {
     FIRST(6, 2_000_000_000);    // 1등
 
     private final int matchingNumbers;
-    private final int prize;
+    private final long prize;
 
-    Ranking(int matchingNumbers, int prize) {
+    Ranking(int matchingNumbers, long prize) {
         this.matchingNumbers = matchingNumbers;
         this.prize = prize;
     }
@@ -33,7 +33,7 @@ public enum Ranking {
         return matchingNumbers;
     }
 
-    public int getPrize() {
+    public long getPrize() {
         return prize;
     }
 }
