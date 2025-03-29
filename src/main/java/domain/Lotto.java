@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
-    public Lotto(LottoNumberGenerator lottoNumberGenerator) {
-        this.numbers = lottoNumberGenerator.generate();
+    public Lotto(LottoNumberGenerator generator) {
+        this.numbers = generator.generate();
     }
 
-    public Integer calculateMatchCount(List<Integer> winningNumbers) {
+    public Integer calculateMatchCount(List<LottoNumber> winningNumbers) {
         return Math.toIntExact(numbers.stream()
                 .filter(winningNumbers::contains)
                 .count());
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return Collections.unmodifiableList(numbers);
     }
 }

@@ -6,18 +6,40 @@ import java.util.List;
 
 public class LottoList {
 
-    private final List<Lotto> lottoList;
-    private final RandomLottoNumberGenerator generator;
+    private static final int PRICE_PER_LOTTO = 1000;
 
-    public LottoList(Integer lottoCount, RandomLottoNumberGenerator generator) {
+    private final List<Lotto> lottoList;
+    private final int lottoCount; //추가 구매가 허용되는 상황이라면 non-final
+    private LottoStatistics statistics;
+
+    public LottoList(Integer purchaseAmount, LottoNumberGenerator generator) {
         this.lottoList = new ArrayList<>();
-        this.generator = generator; // 이미 생성된 RandomLottoNumberGenerator를 사용
+        this.lottoCount = purchaseAmount / PRICE_PER_LOTTO;
         for (int i = 0; i < lottoCount; i++) {
             this.lottoList.add(new Lotto(generator));
         }
     }
 
+    public LottoStatistics calculateStatistics(List<LottoNumber> winningNumbers) {
+        if(statistics == null) {
+            statistics = new LottoStatistics();
+            statistics.calculate(this, winningNumbers);
+        }
+        return statistics;
+    }
+
+    public int calculatePrize(List<LottoNumber> winningNumbers) {
+        LottoStatistics statistics = calculateStatistics(winningNumbers); // 캐시된 통계 사용
+        PrizeCalculator prizeCalculator = new PrizeCalculator();
+        prizeCalculator.calculate(statistics.getMatchCountMap());
+        return prizeCalculator.getTotalPrize();
+    }
+
     public List<Lotto> getLottoList() {
         return Collections.unmodifiableList(lottoList);
+    }
+
+    public int getLottoCount() {
+        return lottoCount;
     }
 }
