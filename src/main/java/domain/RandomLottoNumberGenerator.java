@@ -6,19 +6,22 @@ import java.util.List;
 
 public class RandomLottoNumberGenerator implements LottoNumberGenerator{
 
-    private final List<Integer> lottoNumbersRange;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+
+    private final List<LottoNumber> lottoNumbersRange;
 
     public RandomLottoNumberGenerator() {
         this.lottoNumbersRange = new ArrayList<>();
-        for (int i = 1; i < 46; i++) {
-            this.lottoNumbersRange.add(i);
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
+            this.lottoNumbersRange.add(new LottoNumber(i));
         }
     }
 
     @Override
-    public List<Integer> generate() {
+    public List<LottoNumber> generate() {
         Collections.shuffle(lottoNumbersRange);
-        List<Integer> lottoNumber = new ArrayList<>(lottoNumbersRange.subList(0, 6));
+        List<LottoNumber> lottoNumber = new ArrayList<>(lottoNumbersRange.subList(0, 6));
         Collections.sort(lottoNumber);
         return lottoNumber;
     }
