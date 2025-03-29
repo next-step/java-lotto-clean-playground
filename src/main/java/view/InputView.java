@@ -14,7 +14,7 @@ public class InputView {
     }
 
     public static String readWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        System.out.printf("%n지난 주 당첨 번호를 입력해 주세요.%n");
         return scanner.nextLine();
     }
 }
