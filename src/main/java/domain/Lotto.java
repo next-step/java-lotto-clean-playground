@@ -12,8 +12,7 @@ public class Lotto {
     }
 
     public Integer calculateMatchCount(List<Integer> winningNumbers) {
-        Integer matchCount;
-        return matchCount = Math.toIntExact(numbers.stream()
+        return Math.toIntExact(numbers.stream()
                 .filter(winningNumbers::contains)
                 .count());
     }

@@ -1,12 +1,13 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoList {
 
     private final List<Lotto> lottoList;
-    RandomLottoNumberGenerator generator = new RandomLottoNumberGenerator();
+    private final RandomLottoNumberGenerator generator;
 
     public LottoList(Integer lottoCount, RandomLottoNumberGenerator generator) {
         this.lottoList = new ArrayList<>();
@@ -17,6 +18,6 @@ public class LottoList {
     }
 
     public List<Lotto> getLottoList() {
-        return lottoList;
+        return Collections.unmodifiableList(lottoList);
     }
 }
