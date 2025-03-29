@@ -12,11 +12,21 @@ public class LottoList {
     private final int lottoCount; //추가 구매가 허용되는 상황이라면 non-final
     private LottoStatistics statistics;
 
-    public LottoList(Integer purchaseAmount, LottoNumberGenerator generator) {
+    public LottoList(long purchaseAmount, LottoNumberGenerator generator) {
+        validateAmount(purchaseAmount);
         this.lottoList = new ArrayList<>();
-        this.lottoCount = purchaseAmount / PRICE_PER_LOTTO;
+        this.lottoCount = (int) purchaseAmount / PRICE_PER_LOTTO;
         for (int i = 0; i < lottoCount; i++) {
             this.lottoList.add(new Lotto(generator));
+        }
+    }
+
+    private void validateAmount(long purchaseAmount) {
+        if (purchaseAmount < PRICE_PER_LOTTO) {
+            throw new IllegalArgumentException("로또 최소 구매 금액은 1000원입니다.");
+        }
+        if (purchaseAmount % PRICE_PER_LOTTO != 0) {
+            throw new IllegalArgumentException("로또 금액은 1000원 단위여야 합니다.");
         }
     }
 

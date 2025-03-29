@@ -2,10 +2,10 @@ package domain;
 
 public class ProfitCalculator {
 
-    private final Integer purchaseAmount;
-    private int totalPrize;
+    private final long purchaseAmount;
+    private final int totalPrize;
 
-    public ProfitCalculator(Integer purchaseAmount, int totalPrize) {
+    public ProfitCalculator(long purchaseAmount, int totalPrize) {
         this.purchaseAmount = purchaseAmount;
         this.totalPrize = totalPrize;
     }

@@ -1,16 +1,24 @@
 package view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputView {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static Integer readPurchaseAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        int amount = scanner.nextInt();
-        scanner.nextLine();
-        return amount;
+    public static long readPurchaseAmount() {
+        while (true) {
+            System.out.println("구입금액을 입력해 주세요.");
+            String input = scanner.nextLine().trim();
+
+            if (!input.matches("\\d+")) {
+                System.out.println("유효한 정수를 입력하세요.");
+                continue;
+            }
+
+            return Long.parseLong(input);
+        }
     }
 
     public static String readWinningNumbers() {
