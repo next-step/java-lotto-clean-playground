@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+
 import java.util.TreeSet;
 
 public class Lotto {
@@ -53,7 +54,7 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "자리 입니다!");
         }
     }
-    
+
     public int size() {
         return numbers.size();
     }
