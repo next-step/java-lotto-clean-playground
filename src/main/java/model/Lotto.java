@@ -1,8 +1,6 @@
 package model;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class Lotto {
@@ -10,7 +8,7 @@ public class Lotto {
     private static final int LOTTO_MIN_NUMBER = 1;
     private static final int LOTTO_MAX_NUMBER = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
-    private final Set<Integer> numbers;
+    private final TreeSet<Integer> numbers;
 
     private Lotto(TreeSet<Integer> numbers) {
         this.numbers = numbers;
@@ -60,7 +58,7 @@ public class Lotto {
         return numbers.size();
     }
 
-    public Set<Integer> getNumbers() {
-        return Collections.unmodifiableSet(numbers);
+    public TreeSet<Integer> getNumbers() {
+        return new TreeSet<>(numbers);
     }
 }

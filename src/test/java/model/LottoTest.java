@@ -27,9 +27,9 @@ class LottoTest {
     }
 
     @Test
-    void getLotto를_통해_얻은_객체를_변경하면_예외가_발생해야_한다() {
-        assertThatThrownBy(() -> lotto.getNumbers().add(1))
-                .isInstanceOf(UnsupportedOperationException.class);
+    void getLotto를_통해_얻은_객체를_외부에서_변경해도_원상태는_유지되어야_한다() {
+        lotto.getNumbers().add(10);
+        assertThat(lotto.getNumbers().size()).isEqualTo(6);
     }
 
     @Test
