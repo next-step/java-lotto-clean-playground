@@ -11,6 +11,7 @@ public class Lotto {
     private final TreeSet<Integer> numbers;
 
     private Lotto(TreeSet<Integer> numbers) {
+        validateLottoNumbers(numbers);
         this.numbers = numbers;
     }
 
@@ -19,7 +20,6 @@ public class Lotto {
         for (Integer number : numbers) {
             addLottoNumbers(number, lottoNumbers);
         }
-        validateLottoNumbers(lottoNumbers);
         return new Lotto(lottoNumbers);
     }
 
