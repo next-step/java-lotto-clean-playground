@@ -11,15 +11,12 @@ import java.util.List;
 public class LottoController {
 
     private final NumbersGenerator numbersGenerator;
-    private final InputHandler inputHandler;
 
     public LottoController(NumbersGenerator numbersGenerator) {
         this.numbersGenerator = numbersGenerator;
-        this.inputHandler = new InputHandler();
     }
 
     public void run() {
-
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
