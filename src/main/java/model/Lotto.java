@@ -2,21 +2,33 @@ package model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Lotto {
 
     private static final int LOTTO_MIN_NUMBER = 1;
     private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_PICK_NUMBER = 6;
-    private final List<Integer> numbers;
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private final Set<Integer> numbers;
 
-    private Lotto(List<Integer> numbers) {
+    private Lotto(TreeSet<Integer> numbers) {
         this.numbers = numbers;
     }
 
     public static Lotto create(List<Integer> numbers) {
-        validateLottoNumbers(numbers);
-        return new Lotto(numbers);
+        TreeSet<Integer> lottoNumbers = new TreeSet<>();
+        for (Integer number : numbers) {
+            addLottoNumbers(number, lottoNumbers);
+        }
+        validateLottoNumbers(lottoNumbers);
+        return new Lotto(lottoNumbers);
+    }
+
+    private static void addLottoNumbers(Integer number, TreeSet<Integer> lottoNumbers) {
+        if(!lottoNumbers.add(number)) {
+            throw new IllegalArgumentException("로또 번호는 중복이 없어야 합니다!");
+        }
     }
 
     public Ranking calculateRanking(Lotto winningNumbers) {
@@ -26,29 +38,21 @@ public class Lotto {
         return Ranking.getRanking(matchingCount);
     }
 
-
-    private static void validateLottoNumbers(List<Integer> numbers) {
-        validateLottoSize(numbers);
-        validateDuplicatedLotto(numbers);
-        validateLottoBound(numbers);
+    private static void validateLottoNumbers(TreeSet<Integer> lottoNumbers) {
+        validateLottoSize(lottoNumbers);
+        validateLottoBound(lottoNumbers);
     }
 
-    private static void validateLottoBound(List<Integer> numbers) {
-        boolean result = numbers.stream().anyMatch(number -> number > LOTTO_MAX_NUMBER || number < LOTTO_MIN_NUMBER);
-        if (result) {
-            throw new IllegalArgumentException("로또 번호는 1이상 45이하의 정수입니다!");
+    private static void validateLottoBound(TreeSet<Integer> lottoNumbers) {
+        boolean hasOutOfBoundNumber = lottoNumbers.stream().anyMatch(number -> number > LOTTO_MAX_NUMBER || number < LOTTO_MIN_NUMBER);
+        if (hasOutOfBoundNumber) {
+            throw new IllegalArgumentException("로또 번호는 " + LOTTO_MIN_NUMBER + "이상 " + LOTTO_MAX_NUMBER + "이하의 정수입니다!");
         }
     }
 
-    private static void validateDuplicatedLotto(List<Integer> numbers) {
-        if (numbers.stream().distinct().count() != LOTTO_PICK_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 중복이 없어야 합니다!");
-        }
-    }
-
-    private static void validateLottoSize(List<Integer> numbers) {
-        if (numbers.size() != LOTTO_PICK_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 6자리 입니다!");
+    private static void validateLottoSize(TreeSet<Integer> lottoNumbers) {
+        if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "자리 입니다!");
         }
     }
 
@@ -56,7 +60,7 @@ public class Lotto {
         return numbers.size();
     }
 
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(numbers);
+    public Set<Integer> getNumbers() {
+        return Collections.unmodifiableSet(numbers);
     }
 }

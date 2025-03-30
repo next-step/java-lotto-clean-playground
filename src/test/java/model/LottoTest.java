@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -17,7 +18,7 @@ class LottoTest {
 
     @Test
     void 발급한_로또_번호들은_서로_달라야_한다() {
-        List<Integer> numbers = lotto.getNumbers();
+        Set<Integer> numbers = lotto.getNumbers();
         long count = numbers.stream()
                 .distinct()
                 .count();
