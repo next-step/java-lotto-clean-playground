@@ -29,11 +29,12 @@ public class Lotto {
         }
     }
 
-    public Ranking calculateRanking(Lotto winningNumbers) {
+    public Ranking calculateRanking(Lotto winningNumbers, BonusBall bonusBall) {
         int matchingCount = (int) numbers.stream()
-                .filter(number -> winningNumbers.getNumbers().contains(number))
+                .filter(winningNumbers::contains)
                 .count();
-        return Ranking.getRanking(matchingCount);
+        boolean hasMatchedBonusBall = numbers.contains(bonusBall.getBonusNumber());
+        return Ranking.getRanking(matchingCount, hasMatchedBonusBall);
     }
 
     private static void validateLottoNumbers(TreeSet<Integer> lottoNumbers) {
@@ -52,6 +53,10 @@ public class Lotto {
         if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "자리 입니다!");
         }
+    }
+
+    public boolean contains(Integer number) {
+        return numbers.contains(number);
     }
 
     public int size() {

@@ -45,7 +45,7 @@ public class OutputView {
     }
 
     private static String getResultInfoMessage(DrawResults drawResults, Ranking ranking) {
-        return ranking.getMatchingNumbers() + "개 일치 (" + ranking.getPrize() + "원) - " + drawResults.getResults().get(ranking) + "개";
+        return ranking.getResultMessage() + drawResults.getResults().get(ranking) + "개";
     }
 
     public static void printProfit(double profit) {
@@ -54,5 +54,9 @@ public class OutputView {
 
     public static void printErrorMessage(String errorMessage) {
         System.out.println(errorMessage);
+    }
+
+    public static void printBonusBallInputMessage() {
+        System.out.println("보너스 볼을 입력해 주세요.");
     }
 }

@@ -20,15 +20,14 @@ public class LottoController {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
-
         Lotto winningNumbers = getWinningNumbers();
-
-        getResults(lottos, winningNumbers, purchaseAmount);
+        BonusBall bonusBall = getBonusBall(winningNumbers);
+        getResults(lottos, winningNumbers, purchaseAmount, bonusBall);
     }
 
-    private static void getResults(Lottos lottos, Lotto winningNumbers, PurchaseAmount purchaseAmount) {
+    private static void getResults(Lottos lottos, Lotto winningNumbers, PurchaseAmount purchaseAmount, BonusBall bonusBall) {
         DrawResults drawResults = new DrawResults();
-        drawResults.calculateResults(lottos, winningNumbers);
+        drawResults.calculateResults(lottos, winningNumbers, bonusBall);
         OutputView.printDrawResults(drawResults);
         OutputView.printProfit(drawResults.calculateProfit(purchaseAmount));
     }
@@ -57,5 +56,15 @@ public class LottoController {
     private static List<Integer> getLottoNumbers(String lastWeekLottoString) {
         InputValidator.validateLottoNumbersInputPattern(lastWeekLottoString);
         return Utils.parseCommaSeparatedInts(lastWeekLottoString);
+    }
+
+    private static BonusBall getBonusBall(Lotto winningNumbers) {
+        OutputView.printBonusBallInputMessage();
+        try {
+            return BonusBall.of(InputView.getInt(), winningNumbers);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+            return getBonusBall(winningNumbers);
+        }
     }
 }
