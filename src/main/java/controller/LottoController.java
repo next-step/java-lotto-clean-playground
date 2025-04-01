@@ -18,7 +18,7 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
-        Lottos lottos = Lottos.createLottos(purchaseAmount, numbersGenerator);
+        Lottos lottos = Lottos.of(purchaseAmount, numbersGenerator);
         OutputView.printLottos(lottos);
         Lotto winningNumbers = getWinningNumbers();
         BonusBall bonusBall = getBonusBall(winningNumbers);
@@ -46,7 +46,7 @@ public class LottoController {
         OutputView.printLastWeekLottoInputMessage();
         String lastWeekLottoString = InputView.getString();
         try {
-            return Lotto.create(getLottoNumbers(lastWeekLottoString));
+            return Lotto.from(getLottoNumbers(lastWeekLottoString));
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getWinningNumbers();

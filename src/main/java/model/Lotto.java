@@ -15,7 +15,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public static Lotto create(List<Integer> numbers) {
+    public static Lotto from(List<Integer> numbers) {
         TreeSet<Integer> lottoNumbers = new TreeSet<>();
         for (Integer number : numbers) {
             addLottoNumbers(number, lottoNumbers);

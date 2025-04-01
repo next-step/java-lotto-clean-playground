@@ -7,9 +7,9 @@ import java.util.List;
 
 class BonusBallTest {
 
-    @Testa
+    @Test
     public void 보너스볼은_당첨번호와_중복이되면_예외가_발생해야_한다() {
-        Lotto winningNumbers = Lotto.create(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningNumbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
         int bonusBallNumber = 1;
 
         Assertions.assertThatThrownBy(() -> BonusBall.of(bonusBallNumber, winningNumbers))
