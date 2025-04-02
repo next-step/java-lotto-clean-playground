@@ -15,19 +15,24 @@ public class DrawResults {
         }
     }
 
-    public void calculateResults(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
+    public void calculateResults(Lottos manualLottos, Lottos autoLottos, Lotto winningNumbers, BonusBall bonusBall) {
+        putRankingResult(manualLottos, winningNumbers, bonusBall);
+        putRankingResult(autoLottos, winningNumbers, bonusBall);
+    }
+
+    private void putRankingResult(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
         for (Lotto lotto : lottos.getLottos()) {
             Ranking ranking = lotto.calculateRanking(winningNumbers, bonusBall);
             results.put(ranking, results.get(ranking) + 1);
         }
     }
 
-    public double calculateProfit(PurchaseAmount purchaseAmount) {
-        if (purchaseAmount == null) {
+    public double calculateProfit(int totalAmount) {
+        if (totalAmount < 0) {
             throw new IllegalArgumentException("로또를 최소 1개 이상 구매해야 합니다!");
         }
 
-        return (double) getTotalPrize() / (purchaseAmount.getAmount() * LOTTO_PRICE);
+        return (double) getTotalPrize() / (totalAmount * LOTTO_PRICE);
     }
     
     private long getTotalPrize() {

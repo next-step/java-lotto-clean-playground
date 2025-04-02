@@ -12,12 +12,16 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public static Lottos of(PurchaseAmount amount, NumbersGenerator numbersGenerator) {
+    public static Lottos auto(int autoPurchaseAmount, NumbersGenerator numbersGenerator) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < amount.getAmount(); i++) {
+        for (int i = 0; i < autoPurchaseAmount; i++) {
             lottoList.add(Lotto.from(numbersGenerator.generate()));
         }
         return new Lottos(lottoList);
+    }
+
+    public static Lottos manual(List<Lotto> manualLottos) {
+        return new Lottos(manualLottos);
     }
 
     public int size() {

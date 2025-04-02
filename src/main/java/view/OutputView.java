@@ -1,9 +1,6 @@
 package view;
 
-import model.DrawResults;
-import model.Lotto;
-import model.Lottos;
-import model.Ranking;
+import model.*;
 
 public class OutputView {
 
@@ -11,17 +8,21 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public static void printLottos(Lottos lottos) {
-        printPurchaseAmount(lottos.size());
-        for (Lotto lotto : lottos.getLottos()) {
+    public static void printLottos(Lottos manualLottos, Lottos autoLottos) {
+        printPurchaseAmount(manualLottos.size(), autoLottos.size());
+        for (Lotto lotto : manualLottos.getLottos()) {
+            System.out.println(lotto.getNumbers());
+        }
+
+        for (Lotto lotto : autoLottos.getLottos()) {
             System.out.println(lotto.getNumbers());
         }
         System.out.println();
     }
 
-    public static void printPurchaseAmount(int amount) {
+    public static void printPurchaseAmount(int manualAmount, int autoAmount) {
         System.out.println();
-        System.out.println(amount + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualAmount + "장, 자동으로 " + autoAmount + "개를 구매했습니다.");
     }
 
     public static void printLastWeekLottoInputMessage() {
@@ -57,6 +58,16 @@ public class OutputView {
     }
 
     public static void printBonusBallInputMessage() {
+        System.out.println();
         System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
+    public static void printManualPurchaseAmountInputMessage() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public static void printManualLottosInputMessage() {
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }
