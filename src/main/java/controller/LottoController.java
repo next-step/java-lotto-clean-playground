@@ -39,7 +39,7 @@ public class LottoController {
 
     private static PurchasePrice getPurchasePrice() {
         OutputView.printPurchaseMessage();
-        int purchasePrice = InputView.getInt();
+        long purchasePrice = InputView.getLong();
         try {
             return PurchasePrice.from(purchasePrice);
         } catch (IllegalArgumentException e) {

@@ -12,8 +12,8 @@ public class PurchaseAmount {
         this.manualPurchaseAmount = manualPurchaseAmount;
     }
 
-    public static PurchaseAmount of(int purchasePrice, int manualPurchaseAmount) {
-        int purchaseAmount = purchasePrice / LOTTO_PRICE;
+    public static PurchaseAmount of(long purchasePrice, int manualPurchaseAmount) {
+        int purchaseAmount = (int) (purchasePrice / LOTTO_PRICE);
         int autoPurchaseAmount = calculateAutoPurchaseAmount(manualPurchaseAmount, purchaseAmount);
         return new PurchaseAmount(autoPurchaseAmount, manualPurchaseAmount);
     }
