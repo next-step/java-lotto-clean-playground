@@ -10,11 +10,11 @@ public class LottoResult {
 
     private LottoResult(List<Lotto> lottoList, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         for (Lotto lotto : lottoList) {
-            registerLottoResult(lotto, winningNumbers, bonusNumber);
+            recordLottoResult(lotto, winningNumbers, bonusNumber);
         }
     }
 
-    private void registerLottoResult(Lotto lotto, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    private void recordLottoResult(Lotto lotto, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         Prize prize = calculatePrize(lotto, winningNumbers, bonusNumber);
 
         if (prize != Prize.NONE) {

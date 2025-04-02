@@ -44,8 +44,4 @@ public class LottoPurchase {
     public int getLottoCount() {
         return lottoList.size();
     }
-
-    public static int getPricePerLotto() {
-        return PRICE_PER_LOTTO;
-    }
 }
