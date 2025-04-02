@@ -1,43 +1,71 @@
 package controller;
 
 import domain.*;
+import factory.LottoGeneratorFactory;
 import view.InputView;
 import view.OutputView;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoController {
 
-    private final LottoNumberGenerator generator;
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final LottoGeneratorFactory generatorFactory;
 
-    public LottoController(LottoNumberGenerator generator) {
-        this.generator = generator;
+    public LottoController(InputView inputView, OutputView outputView,LottoGeneratorFactory generatorFactory) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.generatorFactory = generatorFactory;
     }
 
     public void run() {
-        final long purchaseAmount = InputView.readPurchaseAmount();
-        final LottoList lottoList = new LottoList(purchaseAmount, generator);
+        long purchaseAmount = inputView.readPurchaseAmount();
+        int manualCount = inputView.readManualLottoCount();
 
-        OutputView.printPurchaseResult(lottoList.getLottoCount(), lottoList);
+        List<Lotto> manualLottoList = inputView.readManualLottoNumbers(manualCount)
+                .stream()
+                .map(this::parseAndValidate)
+                .collect(Collectors.toList());
+        LottoPurchase lottoList = new LottoPurchase(purchaseAmount, manualLottoList, generatorFactory);
+        outputView.printPurchaseResult(lottoList.getLottoCount(), lottoList);
 
-        WinningLottoNumbers winningLottoNumbers = new WinningLottoNumbers(InputView.readWinningNumbers());
-        List<LottoNumber> winningNumbers = winningLottoNumbers.getNumbers();
+        WinningLotto winningLotto = getWinningLotto();
 
-        printWinningStatistics(lottoList, winningNumbers);
-        printProfitRate(purchaseAmount,lottoList.calculatePrize(winningNumbers));
+        LottoResult lottoResult = LottoResult.from(lottoList.getLottoList(), winningLotto);
+        outputView.printWinningStatisticsMessage();
+        outputView.printWinningStatistics(lottoResult);
+        printProfitRate(purchaseAmount, lottoResult.calculateTotalPrize());
     }
 
-    // 당첨 통계 계산 및 출력
-    private void printWinningStatistics(LottoList lottoList, List<LottoNumber> winningNumbers) {
-        OutputView.printWinningStatisticsMessage();
-        PrizeCalculator PrizeCalculator = new PrizeCalculator();
-        OutputView.printWinningStatistics(lottoList.calculateStatistics(winningNumbers), PrizeCalculator);
+    private WinningLotto getWinningLotto() {
+        String winningNumbersInput = inputView.readWinningNumbers();
+
+        List<LottoNumber> winningNumbers = Arrays.stream(winningNumbersInput.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
+
+        LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
+        return new WinningLotto(new Lotto(winningNumbers), bonusNumber);
     }
 
-    // 수익률 출력
-    private void printProfitRate(long purchaseAmount, int totalPrize) {
-        ProfitCalculator profitCalculator = new ProfitCalculator(purchaseAmount, totalPrize);
+    private Lotto parseAndValidate(String numbers) {
+        List<Integer> parsedNumbers = Arrays.stream(numbers.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
+
+        return new Lotto(parsedNumbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
+    }
+
+
+    private void printProfitRate(long purchaseAmount, long totalPrize) {
+        Profit profitCalculator = new Profit(purchaseAmount, totalPrize);
         double profitRate = profitCalculator.getProfitRate();
-        OutputView.printProfitRate(profitRate);
+        outputView.printProfitRate(profitRate);
     }
 }
