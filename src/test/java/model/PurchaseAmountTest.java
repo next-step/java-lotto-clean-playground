@@ -24,6 +24,17 @@ class PurchaseAmountTest {
     }
 
     @Test
+    public void 수동로또의_구매_매수가_음수이면_예외가_발생해야_한다() {
+        int purchasePrice = 14000;
+        int manualPurchaseAmount = -1;
+        assertThatThrownBy(() -> PurchaseAmount.of(purchasePrice, manualPurchaseAmount))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("수동 복권 구매 매수은 음수이면 안됩니다!");
+    }
+
+
+
+    @Test
     void 구매액이_로또_1장_가격보다_작으면_예외가_발생해야_한다() {
         int purchasePrice = 900;
         int manualPurchaseAmount = 0;

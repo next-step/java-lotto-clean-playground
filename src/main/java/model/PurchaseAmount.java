@@ -7,12 +7,13 @@ public class PurchaseAmount {
     private final int manualPurchaseAmount;
 
     private PurchaseAmount(int autoPurchaseAmount, int manualPurchaseAmount) {
+        validatePositive(manualPurchaseAmount);
         this.autoPurchaseAmount = autoPurchaseAmount;
         this.manualPurchaseAmount = manualPurchaseAmount;
     }
 
     public static PurchaseAmount of(int purchasePrice, int manualPurchaseAmount) {
-        int purchaseAmount = calculateTotalPurchaseAmount(purchasePrice);
+        int purchaseAmount = purchasePrice / LOTTO_PRICE;
         int autoPurchaseAmount = calculateAutoPurchaseAmount(manualPurchaseAmount, purchaseAmount);
         return new PurchaseAmount(autoPurchaseAmount, manualPurchaseAmount);
     }
@@ -25,12 +26,10 @@ public class PurchaseAmount {
         return autoPurchaseAmount;
     }
 
-    private static int calculateTotalPurchaseAmount(int purchasePrice) {
-        int purchaseAmount = purchasePrice / LOTTO_PRICE;
-        if (purchaseAmount < 1) {
-            throw new IllegalArgumentException("복권 구매의 최소 금액은 " + LOTTO_PRICE + "원 입니다!");
+    private static void validatePositive(int purchaseAmount) {
+        if (purchaseAmount < 0) {
+            throw new IllegalArgumentException("수동 복권 구매 매수은 음수이면 안됩니다!");
         }
-        return purchaseAmount;
     }
 
     public int getAutoPurchaseAmount() {

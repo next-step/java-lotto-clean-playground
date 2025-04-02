@@ -18,7 +18,8 @@ public class LottoController {
     }
 
     public void run() {
-        PurchaseAmount purchaseAmount = getPurchaseAmount();
+        PurchasePrice purchasePrice = getPurchasePrice();
+        PurchaseAmount purchaseAmount = getPurchaseAmount(purchasePrice);
 
         Lottos manualLottos = getManualLottos(purchaseAmount);
         Lottos autoLottos = Lottos.auto(purchaseAmount.getAutoPurchaseAmount(), numbersGenerator);
@@ -26,7 +27,6 @@ public class LottoController {
 
         Lotto winningNumbers = getWinningNumbers();
         BonusBall bonusBall = getBonusBall(winningNumbers);
-
         calculateResults(manualLottos, autoLottos, winningNumbers, bonusBall);
     }
 
@@ -37,16 +37,25 @@ public class LottoController {
         OutputView.printProfit(drawResults.calculateProfit(manualLottos.size() + autoLottos.size()));
     }
 
-    private static PurchaseAmount getPurchaseAmount() {
+    private static PurchasePrice getPurchasePrice() {
         OutputView.printPurchaseMessage();
         int purchasePrice = InputView.getInt();
+        try {
+            return PurchasePrice.from(purchasePrice);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+            return getPurchasePrice();
+        }
+    }
+
+    private static PurchaseAmount getPurchaseAmount(PurchasePrice purchasePrice) {
         OutputView.printManualPurchaseAmountInputMessage();
         int manualPurchaseAmount = InputView.getInt();
         try {
-            return PurchaseAmount.of(purchasePrice, manualPurchaseAmount);
+            return PurchaseAmount.of(purchasePrice.getPurchasePrice(), manualPurchaseAmount);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
-            return getPurchaseAmount();
+            return getPurchaseAmount(purchasePrice);
         }
     }
 
@@ -63,14 +72,14 @@ public class LottoController {
 
     private static BonusBall getBonusBall(Lotto winningNumbers) {
         OutputView.printBonusBallInputMessage();
+        int bonusNumber = InputView.getInt();
         try {
-            return BonusBall.of(InputView.getInt(), winningNumbers);
+            return BonusBall.of(bonusNumber, winningNumbers);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getBonusBall(winningNumbers);
         }
     }
-
 
     private static Lottos getManualLottos(PurchaseAmount purchaseAmount) {
         if (purchaseAmount.getManualPurchaseAmount() == 0) {
