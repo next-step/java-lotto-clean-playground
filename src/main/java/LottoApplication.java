@@ -1,13 +1,17 @@
 import controller.LottoController;
-import domain.LottoNumberGenerator;
-import domain.RandomLottoNumberGenerator;
+import factory.LottoGeneratorFactory;
+import view.InputView;
+import view.OutputView;
 
 public class LottoApplication {
 
-    private static final LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-
     public static void main(String[] args) {
-        LottoController lottoController = new LottoController(generator);
-        lottoController.run();
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        LottoGeneratorFactory generatorFactory = new LottoGeneratorFactory();
+
+        LottoController controller = new LottoController(inputView, outputView, generatorFactory);
+
+        controller.run();
     }
 }
