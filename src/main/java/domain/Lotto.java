@@ -33,12 +33,6 @@ public record Lotto(List<LottoNumber> numbers) {
         }
     }
 
-    public Integer calculateMatchCount(List<LottoNumber> winningNumbers) {
-        return Math.toIntExact(numbers.stream()
-                .filter(winningNumbers::contains)
-                .count());
-    }
-
     @Override
     public List<LottoNumber> numbers() {
         return Collections.unmodifiableList(numbers);

@@ -15,17 +15,25 @@ public class LottoResult {
     }
 
     private void recordLottoResult(Lotto lotto, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
-        Prize prize = calculatePrize(lotto, winningNumbers, bonusNumber);
+        int matchCount = calculateMatchCount(lotto, winningNumbers);
+        boolean isBonusMatched = lotto.numbers().contains(bonusNumber);
+
+        Prize prize = Prize.of(matchCount, isBonusMatched);
 
         if (prize != Prize.NONE) {
             matchCountMap.put(prize, matchCountMap.getOrDefault(prize, 0) + 1);
         }
+
+        if (matchCount >= 3) {
+            Prize basePrize = Prize.of(matchCount, false);
+            matchCountMap.put(basePrize, matchCountMap.getOrDefault(basePrize, 0) + 1);
+        }
     }
 
-    private Prize calculatePrize(Lotto lotto, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
-        int matchCount = lotto.calculateMatchCount(winningNumbers);
-        boolean isBonusMatched = lotto.numbers().contains(bonusNumber);
-        return Prize.of(matchCount, isBonusMatched);
+    public int calculateMatchCount(Lotto lotto, List<LottoNumber> winningNumbers) {
+        return (int) lotto.numbers().stream()
+                .filter(winningNumbers::contains)
+                .count();
     }
 
     public static LottoResult from(List<Lotto> lottoList, WinningLotto winningLotto) {

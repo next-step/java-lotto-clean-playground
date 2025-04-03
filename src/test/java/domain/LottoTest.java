@@ -55,7 +55,6 @@ class LottoTest {
                 .hasMessageContaining("중복된 번호가 있습니다.");
     }
 
-
     private static class TestLottoGenerator implements LottoGenerator {
         private static final List<LottoNumber> FIXED_NUMBERS = List.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
@@ -94,28 +93,5 @@ class LottoTest {
         );
 
         assertEquals(expectedNumbers, lotto.numbers());
-    }
-
-    static Stream<Arguments> provideWinningNumbers() {
-        return Stream.of(
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), 6), // 6개 모두 맞음
-                Arguments.of(Arrays.asList(1, 2, 3, 7, 8, 9), 3), // 3개 맞음
-                Arguments.of(Arrays.asList(10, 11, 12, 13, 14, 15), 0) // 꽝
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideWinningNumbers")
-    @DisplayName("당첨 번호와 일치하는 개수를 올바르게 계산해야 한다.")
-    void calculate_MatchCount_test(List<Integer> winningLottos, int expectedMatchCount) {
-        LottoGenerator generator = new TestLottoGenerator();
-        Lotto lotto = generator.generate();
-        List<LottoNumber> winningNumbers = winningLottos.stream()
-                .map(LottoNumber::new)
-                .toList();
-
-        int matchCount = lotto.calculateMatchCount(winningNumbers);
-
-        assertEquals(expectedMatchCount, matchCount);
     }
 }

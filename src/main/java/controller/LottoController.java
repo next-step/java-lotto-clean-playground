@@ -40,6 +40,15 @@ public class LottoController {
         printProfitRate(purchaseAmount, lottoResult.calculateTotalPrize());
     }
 
+    private Lotto parseAndValidate(String numbers) {
+        List<Integer> parsedNumbers = Arrays.stream(numbers.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
+
+        return new Lotto(parsedNumbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
+    }
+
     private WinningLotto getWinningLotto() {
         String winningNumbersInput = inputView.readWinningNumbers();
 
@@ -52,16 +61,6 @@ public class LottoController {
         LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
         return new WinningLotto(new Lotto(winningNumbers), bonusNumber);
     }
-
-    private Lotto parseAndValidate(String numbers) {
-        List<Integer> parsedNumbers = Arrays.stream(numbers.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .toList();
-
-        return new Lotto(parsedNumbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
-    }
-
 
     private void printProfitRate(long purchaseAmount, long totalPrize) {
         Profit profitCalculator = new Profit(purchaseAmount, totalPrize);
