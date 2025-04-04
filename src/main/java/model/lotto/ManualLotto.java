@@ -1,40 +1,36 @@
-package model;
+package model.lotto;
+
 
 import java.util.List;
 import java.util.TreeSet;
 
-public class Lotto {
+import static utils.LottoConstants.*;
+import static utils.LottoConstants.LOTTO_NUMBER_COUNT;
 
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
-    private final TreeSet<Integer> numbers;
+public class ManualLotto extends Lotto {
 
-    private Lotto(TreeSet<Integer> numbers) {
-        validateLottoNumbers(numbers);
-        this.numbers = numbers;
+    public ManualLotto(TreeSet<Integer> numbers) {
+        super(numbers);
     }
 
-    public static Lotto from(List<Integer> numbers) {
+    public static ManualLotto of(List<Integer> numbers) {
+        TreeSet<Integer> lottoNumbers = convertLottoNumbersToTreeSet(numbers);
+        validateLottoNumbers(lottoNumbers);
+        return new ManualLotto(lottoNumbers);
+    }
+
+    private static TreeSet<Integer> convertLottoNumbersToTreeSet(List<Integer> numbers) {
         TreeSet<Integer> lottoNumbers = new TreeSet<>();
         for (Integer number : numbers) {
             addLottoNumbers(number, lottoNumbers);
         }
-        return new Lotto(lottoNumbers);
+        return lottoNumbers;
     }
 
     private static void addLottoNumbers(Integer number, TreeSet<Integer> lottoNumbers) {
         if(!lottoNumbers.add(number)) {
             throw new IllegalArgumentException("로또 번호는 중복이 없어야 합니다!");
         }
-    }
-
-    public Ranking calculateRanking(Lotto winningNumbers, BonusBall bonusBall) {
-        int matchingCount = (int) numbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
-        boolean hasMatchedBonusBall = numbers.contains(bonusBall.getBonusNumber());
-        return Ranking.getRanking(matchingCount, hasMatchedBonusBall);
     }
 
     private static void validateLottoNumbers(TreeSet<Integer> lottoNumbers) {
@@ -53,17 +49,5 @@ public class Lotto {
         if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "자리 입니다!");
         }
-    }
-
-    public boolean contains(Integer number) {
-        return numbers.contains(number);
-    }
-
-    public int size() {
-        return numbers.size();
-    }
-
-    public TreeSet<Integer> getNumbers() {
-        return new TreeSet<>(numbers);
     }
 }

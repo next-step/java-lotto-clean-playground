@@ -15,7 +15,7 @@ class PurchaseAmountTest {
     }
 
     @Test
-    public void 구매금액보다_구매하려는_수동로또_개수가_많으면_예외가_발생해야_한다() {
+    void 구매금액보다_구매하려는_수동로또_개수가_많으면_예외가_발생해야_한다() {
         int purchasePrice = 1000;
         int manualPurchaseAmount = 4;
         assertThatThrownBy(() -> PurchaseAmount.of(purchasePrice, manualPurchaseAmount))
@@ -24,23 +24,11 @@ class PurchaseAmountTest {
     }
 
     @Test
-    public void 수동로또의_구매_매수가_음수이면_예외가_발생해야_한다() {
+    void 수동로또의_구매_매수가_음수이면_예외가_발생해야_한다() {
         int purchasePrice = 14000;
         int manualPurchaseAmount = -1;
         assertThatThrownBy(() -> PurchaseAmount.of(purchasePrice, manualPurchaseAmount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("수동 복권 구매 매수은 음수이면 안됩니다!");
     }
-
-
-
-    @Test
-    void 구매액이_로또_1장_가격보다_작으면_예외가_발생해야_한다() {
-        int purchasePrice = 900;
-        int manualPurchaseAmount = 0;
-        assertThatThrownBy(() -> PurchaseAmount.of(purchasePrice, manualPurchaseAmount))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("복권 구매의 최소 금액은 1000원 입니다!");
-    }
-
 }

@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import model.lotto.Lotto;
+import model.lotto.ManualLotto;
 import utils.Utils;
 import view.InputValidator;
 import view.InputView;
@@ -21,20 +23,20 @@ public class LottoController {
         PurchasePrice purchasePrice = getPurchasePrice();
         PurchaseAmount purchaseAmount = getPurchaseAmount(purchasePrice);
 
-        Lottos manualLottos = getManualLottos(purchaseAmount);
-        Lottos autoLottos = Lottos.auto(purchaseAmount.getAutoPurchaseAmount(), numbersGenerator);
-        OutputView.printLottos(manualLottos, autoLottos);
+        List<ManualLotto> inputManualLottos = getManualLottos(purchaseAmount);
+        Lottos lottos = Lottos.of(inputManualLottos, purchaseAmount.getAutoPurchaseAmount(), numbersGenerator);
+        OutputView.printLottos(lottos, purchaseAmount);
 
         Lotto winningNumbers = getWinningNumbers();
         BonusBall bonusBall = getBonusBall(winningNumbers);
-        calculateResults(manualLottos, autoLottos, winningNumbers, bonusBall);
+        calculateResults(lottos, winningNumbers, bonusBall);
     }
 
-    private static void calculateResults(Lottos manualLottos, Lottos autoLottos, Lotto winningNumbers, BonusBall bonusBall) {
+    private static void calculateResults(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
         DrawResults drawResults = new DrawResults();
-        drawResults.calculateResults(manualLottos, autoLottos, winningNumbers, bonusBall);
+        drawResults.calculateResults(lottos, winningNumbers, bonusBall);
         OutputView.printDrawResults(drawResults);
-        OutputView.printProfit(drawResults.calculateProfit(manualLottos.size() + autoLottos.size()));
+        OutputView.printProfit(drawResults.calculateProfit(lottos.size()));
     }
 
     private static PurchasePrice getPurchasePrice() {
@@ -63,7 +65,7 @@ public class LottoController {
         OutputView.printLastWeekLottoInputMessage();
         String lastWeekLottoString = InputView.getString();
         try {
-            return Lotto.from(parseLottoNumbers(lastWeekLottoString));
+            return ManualLotto.of(parseLottoNumbers(lastWeekLottoString));
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getWinningNumbers();
@@ -81,24 +83,24 @@ public class LottoController {
         }
     }
 
-    private static Lottos getManualLottos(PurchaseAmount purchaseAmount) {
+    private static List<ManualLotto> getManualLottos(PurchaseAmount purchaseAmount) {
         if (purchaseAmount.getManualPurchaseAmount() == 0) {
-            return Lottos.manual(List.of());
+            return List.of();
         }
         OutputView.printManualLottosInputMessage();
         try {
-            return Lottos.manual(getManualLottoList(purchaseAmount));
+            return getManualLottoList(purchaseAmount);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getManualLottos(purchaseAmount);
         }
     }
 
-    private static List<Lotto> getManualLottoList(PurchaseAmount purchaseAmount) {
-        List<Lotto> manualLottoList = new ArrayList<>();
+    private static List<ManualLotto> getManualLottoList(PurchaseAmount purchaseAmount) {
+        List<ManualLotto> manualLottoList = new ArrayList<>();
         for (int i = 0; i < purchaseAmount.getManualPurchaseAmount(); i++) {
             List<Integer> manualLottoNumbers = parseLottoNumbers(InputView.getString());
-            manualLottoList.add(Lotto.from(manualLottoNumbers));
+            manualLottoList.add(ManualLotto.of(manualLottoNumbers));
         }
         return manualLottoList;
     }

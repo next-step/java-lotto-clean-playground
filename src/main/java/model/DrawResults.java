@@ -1,12 +1,16 @@
 package model;
 
+
+import model.lotto.Lotto;
+
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
+import static utils.LottoConstants.LOTTO_PRICE;
+
 public class DrawResults {
 
-    private static final int LOTTO_PRICE = 1000;
     private final Map<Ranking, Integer> results = new EnumMap<>(Ranking.class);
 
     public DrawResults() {
@@ -15,9 +19,11 @@ public class DrawResults {
         }
     }
 
-    public void calculateResults(Lottos manualLottos, Lottos autoLottos, Lotto winningNumbers, BonusBall bonusBall) {
-        putRankingResult(manualLottos, winningNumbers, bonusBall);
-        putRankingResult(autoLottos, winningNumbers, bonusBall);
+    public void calculateResults(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
+        for (Lotto lotto : lottos.getLottos()) {
+            Ranking ranking = lotto.calculateRanking(winningNumbers, bonusBall);
+            results.put(ranking, results.get(ranking) + 1);
+        }
     }
 
     private void putRankingResult(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {

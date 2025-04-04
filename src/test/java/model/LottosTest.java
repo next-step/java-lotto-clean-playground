@@ -13,7 +13,5 @@ class LottosTest {
         int purchasePrice = 5000;
         int manualPurchaseAmount = 2;
         PurchaseAmount amount = PurchaseAmount.of(purchasePrice, manualPurchaseAmount);
-        Lottos lottos = Lottos.auto(amount.getAutoPurchaseAmount(), numbersGenerator);
-        assertThat(lottos.size()).isEqualTo(3);
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import model.lotto.Lotto;
+
 public class BonusBall {
 
     private final int bonusNumber;

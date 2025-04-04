@@ -1,6 +1,7 @@
 package view;
 
 import model.*;
+import model.lotto.Lotto;
 
 public class OutputView {
 
@@ -8,13 +9,10 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public static void printLottos(Lottos manualLottos, Lottos autoLottos) {
-        printPurchaseAmount(manualLottos.size(), autoLottos.size());
-        for (Lotto lotto : manualLottos.getLottos()) {
-            System.out.println(lotto.getNumbers());
-        }
+    public static void printLottos(Lottos lottos, PurchaseAmount purchaseAmount) {
+        printPurchaseAmount(purchaseAmount.getManualPurchaseAmount(), purchaseAmount.getAutoPurchaseAmount());
 
-        for (Lotto lotto : autoLottos.getLottos()) {
+        for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getNumbers());
         }
         System.out.println();

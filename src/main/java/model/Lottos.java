@@ -1,5 +1,9 @@
 package model;
 
+import model.lotto.AutoLotto;
+import model.lotto.Lotto;
+import model.lotto.ManualLotto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,16 +16,12 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public static Lottos auto(int autoPurchaseAmount, NumbersGenerator numbersGenerator) {
-        List<Lotto> lottoList = new ArrayList<>();
+    public static Lottos of(List<ManualLotto> manualLottos, int autoPurchaseAmount, NumbersGenerator numbersGenerator) {
+        List<Lotto> lottoList = new ArrayList<>(manualLottos);
         for (int i = 0; i < autoPurchaseAmount; i++) {
-            lottoList.add(Lotto.from(numbersGenerator.generate()));
+            lottoList.add(AutoLotto.of(numbersGenerator.generate()));
         }
         return new Lottos(lottoList);
-    }
-
-    public static Lottos manual(List<Lotto> manualLottos) {
-        return new Lottos(manualLottos);
     }
 
     public int size() {

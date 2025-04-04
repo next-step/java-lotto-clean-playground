@@ -3,11 +3,11 @@ package model;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static utils.LottoConstants.*;
+import static utils.LottoConstants.LOTTO_MIN_NUMBER;
+
 public class LottoNumbersGenerator implements NumbersGenerator {
 
-    private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_NUMBER_COUNT = 6;
     private final ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
 
     @Override
