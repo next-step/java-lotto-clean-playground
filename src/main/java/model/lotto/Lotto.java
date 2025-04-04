@@ -1,27 +1,27 @@
 package model.lotto;
 
-import model.BonusBall;
+import model.LottoNumber;
 import model.Ranking;
 
 import java.util.TreeSet;
 
-public class Lotto {
+public abstract class Lotto {
 
-    private final TreeSet<Integer> numbers;
+    private final TreeSet<LottoNumber> numbers;
 
-    protected Lotto(TreeSet<Integer> numbers) {
+    protected Lotto(TreeSet<LottoNumber> numbers) {
         this.numbers = numbers;
     }
 
-    public Ranking calculateRanking(Lotto winningNumbers, BonusBall bonusBall) {
+    public Ranking calculateRanking(Lotto winningNumbers, LottoNumber bonusBall) {
         int matchingCount = (int) numbers.stream()
                 .filter(winningNumbers::contains)
                 .count();
-        boolean hasMatchedBonusBall = numbers.contains(bonusBall.getBonusNumber());
+        boolean hasMatchedBonusBall = numbers.contains(bonusBall);
         return Ranking.getRanking(matchingCount, hasMatchedBonusBall);
     }
 
-    public boolean contains(Integer number) {
+    public boolean contains(LottoNumber number) {
         return numbers.contains(number);
     }
 
@@ -29,7 +29,7 @@ public class Lotto {
         return numbers.size();
     }
 
-    public TreeSet<Integer> getNumbers() {
+    public TreeSet<LottoNumber> getNumbers() {
         return new TreeSet<>(numbers);
     }
 }

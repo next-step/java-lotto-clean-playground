@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static utils.LottoConstants.*;
-import static utils.LottoConstants.LOTTO_MIN_NUMBER;
 
 public class LottoNumbersGenerator implements NumbersGenerator {
 

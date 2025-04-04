@@ -52,11 +52,11 @@ public class OutputView {
     }
 
     public static void printErrorMessage(String errorMessage) {
-        System.out.println(errorMessage);
+        System.out.println(errorMessage + " 처음부터 다시 입력해 주세요");
+        System.out.println();
     }
 
     public static void printBonusBallInputMessage() {
-        System.out.println();
         System.out.println("보너스 볼을 입력해 주세요.");
     }
 
@@ -65,7 +65,6 @@ public class OutputView {
     }
 
     public static void printManualLottosInputMessage() {
-        System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }

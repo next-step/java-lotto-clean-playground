@@ -28,11 +28,11 @@ public class LottoController {
         OutputView.printLottos(lottos, purchaseAmount);
 
         Lotto winningNumbers = getWinningNumbers();
-        BonusBall bonusBall = getBonusBall(winningNumbers);
+        LottoNumber bonusBall = getBonusBall(winningNumbers);
         calculateResults(lottos, winningNumbers, bonusBall);
     }
 
-    private static void calculateResults(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
+    private static void calculateResults(Lottos lottos, Lotto winningNumbers, LottoNumber bonusBall) {
         DrawResults drawResults = new DrawResults();
         drawResults.calculateResults(lottos, winningNumbers, bonusBall);
         OutputView.printDrawResults(drawResults);
@@ -72,11 +72,11 @@ public class LottoController {
         }
     }
 
-    private static BonusBall getBonusBall(Lotto winningNumbers) {
+    private static LottoNumber getBonusBall(Lotto winningNumbers) {
         OutputView.printBonusBallInputMessage();
         int bonusNumber = InputView.getInt();
         try {
-            return BonusBall.of(bonusNumber, winningNumbers);
+            return LottoNumber.bonusNumber(bonusNumber, winningNumbers);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getBonusBall(winningNumbers);

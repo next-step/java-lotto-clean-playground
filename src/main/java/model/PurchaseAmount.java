@@ -15,7 +15,7 @@ public class PurchaseAmount {
     public static PurchaseAmount of(long purchasePrice, int manualPurchaseAmount) {
         long purchaseAmount = purchasePrice / LOTTO_PRICE;
         if (purchaseAmount > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("로또 구매 메수는 정수 자료형보다 많이 구매할 수 없습니다!");
+            throw new IllegalArgumentException("로또 구매 매수는 정수 자료형보다 많이 구매할 수 없습니다!");
         }
         int autoPurchaseAmount = calculateAutoPurchaseAmount(manualPurchaseAmount, (int) purchaseAmount);
         return new PurchaseAmount(autoPurchaseAmount, manualPurchaseAmount);

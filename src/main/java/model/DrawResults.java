@@ -19,14 +19,14 @@ public class DrawResults {
         }
     }
 
-    public void calculateResults(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
+    public void calculateResults(Lottos lottos, Lotto winningNumbers, LottoNumber bonusBall) {
         for (Lotto lotto : lottos.getLottos()) {
             Ranking ranking = lotto.calculateRanking(winningNumbers, bonusBall);
             results.put(ranking, results.get(ranking) + 1);
         }
     }
 
-    private void putRankingResult(Lottos lottos, Lotto winningNumbers, BonusBall bonusBall) {
+    private void putRankingResult(Lottos lottos, Lotto winningNumbers, LottoNumber bonusBall) {
         for (Lotto lotto : lottos.getLottos()) {
             Ranking ranking = lotto.calculateRanking(winningNumbers, bonusBall);
             results.put(ranking, results.get(ranking) + 1);
