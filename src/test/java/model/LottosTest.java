@@ -2,8 +2,6 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
-
 class LottosTest {
 
     private final NumbersGenerator numbersGenerator = new LottoNumbersGenerator();

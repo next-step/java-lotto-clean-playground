@@ -1,7 +1,7 @@
 package model.lotto;
 
+import model.LottoNumber;
 import model.LottoNumbersGenerator;
-import model.NumbersGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ class AutoLottoTest {
 
     @Test
     void 자동_발급한_로또_번호들은_서로_달라야_한다() {
-        Set<Integer> numbers = autoLotto.getNumbers();
+        Set<LottoNumber> numbers = autoLotto.getNumbers();
         long count = numbers.stream()
                 .distinct()
                 .count();
