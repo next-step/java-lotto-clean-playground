@@ -26,13 +26,6 @@ public class DrawResults {
         }
     }
 
-    private void putRankingResult(Lottos lottos, Lotto winningNumbers, LottoNumber bonusBall) {
-        for (Lotto lotto : lottos.getLottos()) {
-            Ranking ranking = lotto.calculateRanking(winningNumbers, bonusBall);
-            results.put(ranking, results.get(ranking) + 1);
-        }
-    }
-
     public double calculateProfit(int totalAmount) {
         if (totalAmount < 0) {
             throw new IllegalArgumentException("로또를 최소 1개 이상 구매해야 합니다!");

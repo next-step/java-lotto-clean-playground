@@ -1,8 +1,9 @@
 package model;
 
+import static utils.LottoConstants.LOTTO_PRICE;
+
 public class PurchasePrice {
 
-    private static final int LOTTO_PRICE = 1000;
     private final long purchasePrice;
 
     private PurchasePrice(long purchasePrice) {
