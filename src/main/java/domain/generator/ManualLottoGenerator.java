@@ -3,26 +3,31 @@ package domain.generator;
 import domain.Lotto;
 import domain.LottoNumber;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ManualLottoGenerator implements LottoGenerator {
 
-    private final List<LottoNumber> manualLottoNumbers;
+    private final List<String> manualInputs;
 
-    public ManualLottoGenerator(List<Integer> inputManualNumbers) {
-        this.manualLottoNumbers = inputManualNumbers.stream()
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Lotto generate() {
-        return new Lotto(manualLottoNumbers);
+    public ManualLottoGenerator(List<String> manualInputs) {
+        this.manualInputs = manualInputs;
     }
 
     @Override
     public List<Lotto> generateLottos(int count) {
-        throw new UnsupportedOperationException("수동 로또는 입력을 통해 생성됩니다.");
+        return manualInputs.stream()
+                .map(this::parse)
+                .map(Lotto::new)
+                .collect(Collectors.toList());
+    }
+
+    private List<LottoNumber> parse(String numbers) {
+        return Arrays.stream(numbers.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
     }
 }

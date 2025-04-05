@@ -19,8 +19,7 @@ public class AutoLottoGenerator implements LottoGenerator {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Lotto generate() {
+    public Lotto generateLotto() {
         Collections.shuffle(lottoNumbersRange);
         List<LottoNumber> autoLottoNumber = new ArrayList<>(lottoNumbersRange.subList(0, 6));
         Collections.sort(autoLottoNumber);
@@ -31,7 +30,7 @@ public class AutoLottoGenerator implements LottoGenerator {
     public List<Lotto> generateLottos(int count) {
         List<Lotto> autoLottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            autoLottos.add(generate());
+            autoLottos.add(generateLotto());
         }
         return autoLottos;
     }

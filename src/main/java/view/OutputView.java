@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printPurchaseResult(Integer lottoCount, LottoPurchase lottoList) {
+    public void printPurchaseResult(Integer lottoCount, LottoList lottoList) {
         System.out.printf("%n%d개를 구매했습니다.%n", lottoCount);
 
         for (Lotto lotto : lottoList.getLottoList()) {
