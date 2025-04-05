@@ -10,24 +10,20 @@ public class LottoList {
 
     private static final int PRICE_PER_LOTTO = 1000;
 
-    private final List<Lotto> lottoList;
+    private final List<Lotto> userList;
 
-    public LottoList(List<Lotto> lottos) {
-        this.lottoList = new ArrayList<>(lottos);
+    public LottoList(List<Lotto> lottoList) {
+        this.userList = new ArrayList<>(lottoList);
     }
 
     public static LottoList create(long purchaseAmount, int manualLottoCount, LottoGenerator manualGenerator, LottoGenerator autoGenerator) {
         validateAmount(purchaseAmount);
 
         int totalLottoCount = (int) purchaseAmount / PRICE_PER_LOTTO;
-        int autoLottoCount = totalLottoCount - manualLottoCount; //자동
+        int autoLottoCount = totalLottoCount - manualLottoCount;
 
-        if (autoLottoCount < 0) {
-            throw new IllegalArgumentException("수동 로또 개수가 구매 가능한 로또 개수를 초과했습니다.");
-        }
-
-        List<Lotto> manualLottoList = manualGenerator.generateLottos(manualLottoCount);
-        List<Lotto> autoLottoList = autoGenerator.generateLottos(autoLottoCount);
+        List<Lotto> manualLottoList = manualGenerator.generateLottoList(manualLottoCount);
+        List<Lotto> autoLottoList = autoGenerator.generateLottoList(autoLottoCount);
 
         List<Lotto> allLottoList = new ArrayList<>();
         allLottoList.addAll(manualLottoList);
@@ -46,10 +42,10 @@ public class LottoList {
     }
 
     public List<Lotto> getLottoList() {
-        return Collections.unmodifiableList(lottoList);
+        return Collections.unmodifiableList(userList);
     }
 
     public int getLottoCount() {
-        return lottoList.size();
+        return userList.size();
     }
 }

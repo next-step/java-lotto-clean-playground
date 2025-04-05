@@ -27,11 +27,11 @@ public class AutoLottoGenerator implements LottoGenerator {
     }
 
     @Override
-    public List<Lotto> generateLottos(int count) {
-        List<Lotto> autoLottos = new ArrayList<>();
+    public List<Lotto> generateLottoList(int count) {
+        List<Lotto> autoLottoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            autoLottos.add(generateLotto());
+            autoLottoList.add(generateLotto());
         }
-        return autoLottos;
+        return autoLottoList;
     }
 }

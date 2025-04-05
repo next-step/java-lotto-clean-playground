@@ -67,7 +67,7 @@ class LottoTest {
         }
 
         @Override
-        public List<Lotto> generateLottos(int count) {
+        public List<Lotto> generateLottoList(int count) {
             return Collections.nCopies(count, generate());
         }
     }

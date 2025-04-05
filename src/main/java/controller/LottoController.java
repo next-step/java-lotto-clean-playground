@@ -24,10 +24,14 @@ public class LottoController {
     public void run() {
         long purchaseAmount = inputView.readPurchaseAmount();
         final int manualLottoCount = inputView.readManualLottoCount();
+        if (purchaseAmount/1000 < manualLottoCount) {
+            throw new IllegalArgumentException("수동 로또 개수가 구매 가능한 로또 개수를 초과했습니다.");
+        }
 
         List<String> manualLottoInputs = inputView.readManualLottoNumbers(manualLottoCount);
         LottoGenerator manualGenerator = new ManualLottoGenerator(manualLottoInputs);
         LottoGenerator autoGenerator = new AutoLottoGenerator();
+
         LottoList lottoList = LottoList.create(purchaseAmount, manualLottoCount,manualGenerator, autoGenerator);
         outputView.printPurchaseResult(lottoList.getLottoCount(), lottoList);
 

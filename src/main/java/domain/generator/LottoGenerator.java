@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface LottoGenerator {
 
-    List<Lotto> generateLottos(int count);
+    List<Lotto> generateLottoList(int count);
 }

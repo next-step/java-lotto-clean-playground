@@ -16,18 +16,16 @@ public class LottoResult {
 
     private void recordLottoResult(Lotto lotto, List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         int matchCount = calculateMatchCount(lotto, winningNumbers);
-        boolean isBonusMatched = lotto.numbers().contains(bonusNumber);
+        if (matchCount < 3) return;
 
+        boolean isBonusMatched = lotto.numbers().contains(bonusNumber);
         Prize prize = Prize.of(matchCount, isBonusMatched);
 
-        if (prize != Prize.NONE) {
-            matchCountMap.put(prize, matchCountMap.getOrDefault(prize, 0) + 1);
+        if (prize == Prize.NONE) {
+            prize = Prize.of(matchCount, false);
         }
 
-        if (matchCount >= 3) {
-            Prize basePrize = Prize.of(matchCount, false);
-            matchCountMap.put(basePrize, matchCountMap.getOrDefault(basePrize, 0) + 1);
-        }
+        matchCountMap.put(prize, matchCountMap.getOrDefault(prize, 0) + 1);
     }
 
     public int calculateMatchCount(Lotto lotto, List<LottoNumber> winningNumbers) {
@@ -37,7 +35,7 @@ public class LottoResult {
     }
 
     public static LottoResult from(List<Lotto> lottoList, WinningLotto winningLotto) {
-        return new LottoResult(lottoList, winningLotto.getNumbers(), winningLotto.getBonusNumber());
+        return new LottoResult(lottoList, winningLotto.getWinningNumbers(), winningLotto.getBonusNumber());
     }
 
     public long calculateTotalPrize() {

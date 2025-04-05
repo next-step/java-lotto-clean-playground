@@ -16,7 +16,7 @@ public class ManualLottoGenerator implements LottoGenerator {
     }
 
     @Override
-    public List<Lotto> generateLottos(int count) {
+    public List<Lotto> generateLottoList(int count) {
         return manualInputs.stream()
                 .map(this::parse)
                 .map(Lotto::new)
