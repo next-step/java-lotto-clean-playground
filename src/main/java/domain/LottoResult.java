@@ -60,7 +60,7 @@ public class LottoResult {
         return totalPrize;
     }
 
-    Map<LottoRank, Integer> initResultByRank() {
+    private Map<LottoRank, Integer> initResultByRank() {
         Map<LottoRank, Integer> resultByRank = new EnumMap<>(LottoRank.class);
         for (LottoRank lottoRank : LottoRank.values()) {
             resultByRank.put(lottoRank, 0);
