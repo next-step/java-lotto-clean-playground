@@ -65,12 +65,12 @@ class LottoPurchaseTest {
         lottos.add(lotto1);
         lottos.add(lotto2);
         lottos.add(lotto3);
-        LottoPurchase lottoPurchase = LottoPurchase.createLottoPurchase(Money.from(5000), LottoCount.from(3) ,lottos);
+        LottoPurchase lottoPurchase = LottoPurchase.createLottoPurchase(Money.from(5000), LottoCount.from(3), lottos);
 
         //when
         List<Lotto> getLottos = lottoPurchase.getLottos();
 
         //then
-        assertThat(getLottos).containsExactly(lotto1,lotto2,lotto3);
+        assertThat(getLottos).containsExactly(lotto1, lotto2, lotto3);
     }
 }

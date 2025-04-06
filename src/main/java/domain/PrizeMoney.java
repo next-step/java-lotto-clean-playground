@@ -26,5 +26,4 @@ public class PrizeMoney {
             throw new IllegalArgumentException("상금은 0보다 작을 수 없습니다");
         }
     }
-
 }
