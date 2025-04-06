@@ -29,7 +29,7 @@ class WinningLottoTest {
 
         WinningLotto winningLotto = new WinningLotto(lotto, bonus);
 
-        assertThat(winningLotto.getNumbers()).containsExactlyElementsOf(lotto.numbers());
+        assertThat(winningLotto.getWinningNumbers()).containsExactlyElementsOf(lotto.numbers());
         assertThat(winningLotto.getBonusNumber()).isEqualTo(bonus);
     }
 
@@ -69,6 +69,6 @@ class WinningLottoTest {
         WinningLotto winningLotto = new WinningLotto(lotto, bonus);
 
         List<LottoNumber> expectedLottoNumbers = expectedSortedNumbers.stream().map(LottoNumber::new).toList();
-        assertThat(winningLotto.getNumbers()).isEqualTo(expectedLottoNumbers);
+        assertThat(winningLotto.getWinningNumbers()).isEqualTo(expectedLottoNumbers);
     }
 }

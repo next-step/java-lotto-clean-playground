@@ -7,8 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -62,13 +62,12 @@ class LottoTest {
         );
 
         @Override
-        public Lotto generate() {
-            return new Lotto(FIXED_NUMBERS);
-        }
-
-        @Override
         public List<Lotto> generateLottoList(int count) {
-            return Collections.nCopies(count, generate());
+            List<Lotto> lottoList = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                lottoList.add(new Lotto(FIXED_NUMBERS));
+            }
+            return lottoList;
         }
     }
 
@@ -76,7 +75,7 @@ class LottoTest {
     @DisplayName("Lotto 객체 생성 시, 크기 6인 리스트가 생성되어야 한다.")
     void lotto_creation_test() {
         LottoGenerator generator = new TestLottoGenerator();
-        Lotto lotto = generator.generate();
+        Lotto lotto = generator.generateLottoList(1).get(0);;
 
         assertNotNull(lotto.numbers());
         assertEquals(6, lotto.numbers().size());
@@ -85,7 +84,7 @@ class LottoTest {
     @Test
     @DisplayName("Lotto 객체의 번호가 정상적으로 생성되어야 한다.")
     void lotto_number_creation_test() {
-        Lotto lotto = new TestLottoGenerator().generate();
+        Lotto lotto = new TestLottoGenerator().generateLottoList(1).get(0);;
 
         List<LottoNumber> expectedNumbers = List.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
