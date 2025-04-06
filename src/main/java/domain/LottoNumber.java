@@ -10,20 +10,19 @@ public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
 
     private LottoNumber(int number) {
-        validate(number);
         this.number = number;
     }
 
     public static LottoNumber from(int number) {
+        validate(number);
         return new LottoNumber(number);
     }
-
 
     public int getNumber() {
         return number;
     }
 
-    private void validate(int number) {
+    private static void validate(int number) {
         if (number < MIN || number > MAX) {
             throw new IllegalArgumentException("로또 번호는 " + MIN + " 이상 " + MAX + " 이하의 숫자여야 합니다.");
         }
