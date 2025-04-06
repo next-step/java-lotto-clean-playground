@@ -1,6 +1,5 @@
 package domain;
 
-
 import enums.LottoRank;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

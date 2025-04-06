@@ -10,7 +10,6 @@ public class LottoMachine {
 
     private final NumberGenerator numberGenerator;
 
-
     public LottoMachine(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }

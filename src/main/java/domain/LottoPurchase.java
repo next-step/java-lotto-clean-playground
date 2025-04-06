@@ -9,7 +9,6 @@ public class LottoPurchase {
     private final LottoCount manualCount;
     private final List<Lotto> lottos;
 
-
     private LottoPurchase(Money money, LottoCount manualCount, List<Lotto> lottos) {
         this.money = money;
         this.manualCount = manualCount;

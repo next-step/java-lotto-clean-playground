@@ -7,8 +7,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import static domain.Money.PRICE_PER_TICKET;
-
 public class LottoResult {
 
     private final Map<LottoRank, Integer> resultByRank;

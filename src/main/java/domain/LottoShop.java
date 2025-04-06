@@ -1,10 +1,7 @@
 package domain;
 
-import enums.LottoRank;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LottoShop {
 

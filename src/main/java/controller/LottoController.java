@@ -23,7 +23,6 @@ public class LottoController {
         LottoPurchase lottoPurchase = PurchaseLottos();
         LottoWinningNumbers lottoWinningNumbers = inputWinningNumbersAndBonus();
         LottoResult lottoResult = LottoResult.createLottoResult(lottoWinningNumbers, lottoPurchase);
-
         printResultByRank(lottoResult.getResultByRank());
         printProfitRate(lottoResult.getProfitRate());
     }
@@ -47,7 +46,6 @@ public class LottoController {
         Money money = Money.from(lottoView.inputPurchaseAmount());
         LottoCount manualLottoCount = LottoCount.from(lottoView.inputManualLottoCount());
         List<Lotto> manualLottos = inputManualLottos(manualLottoCount);
-
 
         LottoPurchase lottoPurchase = lottoShop.purchaseLottos(money, manualLottoCount, manualLottos);
         lottoView.printPurchaseInfo(lottoPurchase);

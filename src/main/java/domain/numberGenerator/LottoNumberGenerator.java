@@ -19,7 +19,6 @@ public class LottoNumberGenerator implements NumberGenerator {
         for (int i = 0; i < 6; i++) {
             numbers.add(this.numbers.get(i));
         }
-
         return numbers;
     }
 }
