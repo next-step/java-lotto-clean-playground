@@ -16,5 +16,4 @@ public class Main {
         LottoController lottoController = new LottoController(lottoShop, new LottoView());
         lottoController.run();
     }
-
 }

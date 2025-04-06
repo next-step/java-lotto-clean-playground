@@ -53,5 +53,4 @@ class PrizeMoneyTest {
         assertThatThrownBy(() -> new PrizeMoney(-1))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
 }

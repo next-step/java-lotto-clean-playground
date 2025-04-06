@@ -48,5 +48,4 @@ class MoneyTest {
         //then
         assertThat(amount).isEqualTo(5000);
     }
-
 }

@@ -36,5 +36,5 @@ public class Lotto {
         if (lotto.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 숫자는 6개여야 합니다");
         }
-    }
+    } 
 }
