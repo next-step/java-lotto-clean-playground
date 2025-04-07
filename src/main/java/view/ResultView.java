@@ -4,12 +4,14 @@ import domain.Lotto;
 import domain.Lottos;
 import domain.Statistics;
 import domain.WinningRank;
+import java.text.DecimalFormat;
 import java.util.Map;
 
 public class ResultView {
 
   public void printLottos(Lottos lottos) {
-    System.out.println("\n" + lottos.getLottos().size() + "개를 구매했습니다.");
+    System.out.println(
+        "\n수동으로 " + lottos.getManualTicketCount() + "장, 자동으로 " + lottos.getAutoTicketCount() + "개를 구매했습니다.");
     for (Lotto lotto : lottos.getLottos()) {
       System.out.println(lotto.getNumbers());
     }
@@ -27,6 +29,7 @@ public class ResultView {
     printRankResult(WinningRank.THREE, matchCounts);
     printRankResult(WinningRank.FOUR, matchCounts);
     printRankResult(WinningRank.FIVE, matchCounts);
+    printRankResult(WinningRank.FIVE_WITH_BONUS, matchCounts);
     printRankResult(WinningRank.SIX, matchCounts);
   }
 
@@ -38,6 +41,9 @@ public class ResultView {
 
   private void printProfitRate(Statistics statistics, Map<WinningRank, Integer> matchCounts) {
     double profitRate = statistics.calculateProfitRate(matchCounts);
-    System.out.printf("총 수익률은 %.2f입니다.%n", profitRate);
+    DecimalFormat df = new DecimalFormat("#.##");
+    df.setRoundingMode(java.math.RoundingMode.FLOOR);
+    String formattedProfitRate = df.format(profitRate);
+    System.out.println("총 수익률은 " + formattedProfitRate + "입니다.");
   }
 }

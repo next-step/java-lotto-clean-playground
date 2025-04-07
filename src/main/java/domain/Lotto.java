@@ -1,55 +1,64 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
-  private final List<Integer> numbers;
+  private static final int LOTTO_SIZE = 6;
 
-  private Lotto(List<Integer> numbers) {
+  public final List<LottoNumber> numbers;
+
+  private Lotto(List<LottoNumber> numbers) {
+    validate(numbers);
     this.numbers = new ArrayList<>(numbers);
   }
 
-  public static Lotto createAuto(NumbersGenerator numbersGenerator) {
-    List<Integer> generatedNumbers = numbersGenerator.generate();
+  public static Lotto createAuto(LottoNumberGenerator lottoNumberGenerator) {
+    List<LottoNumber> generatedNumbers = lottoNumberGenerator.generate(LOTTO_SIZE);
     validate(generatedNumbers);
     return new Lotto(generatedNumbers);
   }
 
-  public static Lotto createManual(List<Integer> manualNumbers) {
+  public static Lotto createManual(List<LottoNumber> manualNumbers) {
     validate(manualNumbers);
     return new Lotto(manualNumbers);
   }
 
-  private static void validate(List<Integer> numbers) {
+  private static void validate(List<LottoNumber> numbers) {
     validateSize(numbers);
     validateDuplicates(numbers);
-    validateRange(numbers);
   }
 
-  private static void validateSize(List<Integer> numbers) {
-    if (numbers.size() != LottoConfig.LOTTO_SIZE) {
-      throw new IllegalArgumentException("당첨 번호는 6개여야 합니다.");
+  private static void validateSize(List<LottoNumber> numbers) {
+    if (numbers.size() != LOTTO_SIZE) {
+      throw new IllegalArgumentException("로또 번호는 " + LOTTO_SIZE + "개여야 합니다.");
     }
   }
 
-  private static void validateDuplicates(List<Integer> numbers) {
-    Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-    if (uniqueNumbers.size() != LottoConfig.LOTTO_SIZE) {
-      throw new IllegalArgumentException("당첨 번호는 중복될 수 없습니다.");
+  private static void validateDuplicates(List<LottoNumber> numbers) {
+    boolean hasDuplicate = numbers.stream()
+        .anyMatch(number -> numbers.stream()
+            .anyMatch(otherNumber -> number.isSameAs(otherNumber) && number != otherNumber));
+
+    if (hasDuplicate) {
+      throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
     }
   }
 
-  private static void validateRange(List<Integer> numbers) {
-    if (numbers.stream().anyMatch(n -> n < LottoConfig.MIN_NUMBER || n > LottoConfig.MAX_NUMBER)) {
-      throw new IllegalArgumentException("당첨 번호는 1~45 사이여야 합니다.");
-    }
+  public boolean contains(LottoNumber number) {
+    return numbers.stream().anyMatch(n -> n.isSameAs(number));
   }
 
-  public List<Integer> getNumbers() {
+  public List<LottoNumber> getNumbers() {
     return new ArrayList<>(numbers);
+  }
+
+  @Override
+  public String toString() {
+    return numbers.stream()
+        .map(LottoNumber::toString)
+        .collect(Collectors.joining(", "));
   }
 }

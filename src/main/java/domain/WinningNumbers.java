@@ -1,21 +1,24 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinningNumbers {
-  private final Lotto lotto;
 
-  public WinningNumbers(List<Integer> numbers) {
-    this.lotto = Lotto.createManual(numbers);
+  private final List<LottoNumber> winningNumbers;
+
+  public WinningNumbers(List<LottoNumber> numbers) {
+    this.winningNumbers = new ArrayList<>(numbers);
   }
 
-  public int countMatches(List<Integer> lottoNumbers) {
-    return (int) lottoNumbers.stream()
-        .filter(this.lotto.getNumbers()::contains)
+  public int countMatches(Lotto lotto) {
+    return (int) winningNumbers.stream()
+        .filter(lotto::contains)
         .count();
   }
 
-  public List<Integer> getNumbers() {
-    return lotto.getNumbers();
+  public boolean contains(LottoNumber number) {
+    return winningNumbers.stream()
+        .anyMatch(n -> n.isSameAs(number));
   }
 }
