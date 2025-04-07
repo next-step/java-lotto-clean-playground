@@ -42,4 +42,10 @@ public class LottoResult {
 
         return resultByRank;
     }
+
+    private static void validate(Lottos lottos) {
+        if (lottos.getLottos().size() <= 0) {
+            throw new IllegalArgumentException("로또 번호를 넘겨야합니다");
+        }
+    }
 }
