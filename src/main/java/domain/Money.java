@@ -1,8 +1,8 @@
 package domain;
 
-public class Money {
+import static domain.LottoShop.PRICE_PER_TICKET;
 
-    public static final int PRICE_PER_TICKET = 1000;
+public class Money {
 
     private final int amount;
 
