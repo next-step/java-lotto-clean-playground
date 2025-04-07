@@ -1,5 +1,7 @@
 package domain;
 
+import enums.LottoType;
+
 import java.util.List;
 
 public class LottoWinningNumbers {
@@ -8,7 +10,7 @@ public class LottoWinningNumbers {
     private final LottoNumber bonusNumber;
 
     private LottoWinningNumbers(List<Integer> numbers, int bonusNumber) {
-        winningNumbers = Lotto.from(numbers);
+        winningNumbers = Lotto.from(numbers, LottoType.WINNING);
         this.bonusNumber = LottoNumber.from(bonusNumber);
         validate();
     }
@@ -25,6 +27,10 @@ public class LottoWinningNumbers {
 
     public boolean bonusMatch(Lotto lotto) {
         return lotto.getLottoNumbers().contains(bonusNumber);
+    }
+
+    public Lotto getWinningNumbers() {
+        return winningNumbers;
     }
 
     private void validate() {

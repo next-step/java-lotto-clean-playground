@@ -5,6 +5,7 @@ import domain.LottoCount;
 import domain.LottoNumber;
 import domain.LottoPurchase;
 import enums.LottoRank;
+import enums.LottoType;
 import utils.LottoNumberFormatter;
 
 import java.util.*;
@@ -36,9 +37,16 @@ public class LottoView {
     }
 
     public void printLotto(Lotto lotto) {
+        printLottoType(lotto);
         Set<LottoNumber> lottoNumbers = lotto.getLottoNumbers();
         System.out.println(lottoNumbers);
 
+    }
+
+    public void printLottoType(Lotto lotto) {
+        if (lotto.getType() == LottoType.MANUAL) {
+            System.out.print("[수동] ");
+        }
     }
 
     public void printLottoCount(Integer lottoCount) {

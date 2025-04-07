@@ -1,6 +1,7 @@
 package domain;
 
 import domain.numberGenerator.NumberGenerator;
+import enums.LottoType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +27,6 @@ public class LottoMachine {
     private Lotto createSingleLotto() {
         List<Integer> numbers = numberGenerator.generateNumbers();
         Collections.sort(numbers);
-        return Lotto.from(numbers);
+        return Lotto.from(numbers, LottoType.AUTO);
     }
 }
