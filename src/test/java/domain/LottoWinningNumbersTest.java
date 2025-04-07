@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class LottoWinningNumbersTest {
         lottoWinningNumbers = LottoWinningNumbers.from(numbers1, 7);
 
         List<Integer> numbers2 = new ArrayList<>(List.of(1, 2, 3, 8, 9, 10));
-        Lotto lotto = Lotto.from(numbers2);
+        Lotto lotto = Lotto.from(numbers2, LottoType.MANUAL);
 
         //then
         assertThat(lottoWinningNumbers.matchCount(lotto)).isEqualTo(3);
@@ -34,7 +35,7 @@ class LottoWinningNumbersTest {
         lottoWinningNumbers = LottoWinningNumbers.from(numbers1, 7);
 
         List<Integer> numbers2 = new ArrayList<>(List.of(1, 2, 3, 4, 5, 7));
-        Lotto lotto = Lotto.from(numbers2);
+        Lotto lotto = Lotto.from(numbers2, LottoType.MANUAL);
 
         //then
         assertThat(lottoWinningNumbers.bonusMatch(lotto)).isTrue();

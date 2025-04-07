@@ -37,4 +37,17 @@ class LottoMachineTest {
         //then
         assertThat(lottos.size()).isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("자동_로또를_반환한다")
+    void 자동_로또를_반환한다() {
+
+        //given
+        List<Lotto> lottos = lottoMachine.generateLottos(LottoCount.from(3));
+
+        //then
+        for (Lotto lotto : lottos) {
+            assertThat(lotto.getType()).isEqualTo(LottoType.AUTO);
+        }
+    }
 }
