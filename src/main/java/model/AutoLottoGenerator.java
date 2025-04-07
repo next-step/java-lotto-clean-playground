@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static model.LottoConstants.*;
 
-public class RandomLottoGenerator implements LottoGenerator {
+public class AutoLottoGenerator {
+
+    private static final int LOTTO_MIN=1;
+    private static final int LOTTO_MAX=45;
+    private static final int NUMBER_COUNT=6;
 
     private static final List<Integer> ALL_NUMBERS;
 
@@ -18,7 +21,6 @@ public class RandomLottoGenerator implements LottoGenerator {
         ALL_NUMBERS = Collections.unmodifiableList(numbers);
     }
 
-    @Override
     public List<Lotto> generate(int count) {
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {
@@ -31,9 +33,9 @@ public class RandomLottoGenerator implements LottoGenerator {
         List<Integer> copy = new ArrayList<>(ALL_NUMBERS);
         Collections.shuffle(copy);
         List<LottoNumber> selected = copy.subList(0, NUMBER_COUNT).stream()
-                .map(LottoNumber::new)
-                .sorted((a, b) -> Integer.compare(a.getNumber(), b.getNumber()))
+                .map(LottoNumber::valueOf)
+                .sorted()
                 .toList();
-        return new Lotto(selected);
-    }
+
+        return new Lotto(selected, LottoType.AUTO);    }
 }

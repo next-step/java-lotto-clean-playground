@@ -1,7 +1,5 @@
 package model;
 
-import static model.LottoConstants.NUMBER_COUNT;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -9,11 +7,15 @@ import java.util.Set;
 
 public class Lotto {
 
-    private final List<LottoNumber> numbers;
+    private static final int NUMBER_COUNT = 6;
 
-    public Lotto(List<LottoNumber> numbers) {
+    private final List<LottoNumber> numbers;
+    private final LottoType type;
+
+    public Lotto(List<LottoNumber> numbers, LottoType type) {
         validate(numbers);
         this.numbers = numbers;
+        this.type = type;
     }
 
     private void validate(List<LottoNumber> numbers) {
@@ -27,13 +29,17 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
-
     public long countMatch(Lotto winningLotto) {
         return numbers.stream()
                 .filter(winningLotto.getNumbers()::contains)
                 .count();
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(numbers);
+    }
+
+    public LottoType getType() {
+        return type;
     }
 }

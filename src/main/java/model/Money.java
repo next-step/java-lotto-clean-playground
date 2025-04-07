@@ -1,8 +1,8 @@
 package model;
 
-import static model.LottoConstants.*;
-
 public class Money {
+
+    private static final int UNIT = 1000;
 
     private final long amount;
 
@@ -12,13 +12,13 @@ public class Money {
     }
 
     private void validate(long amount) {
-        if (amount < PRICE_PER_LOTTO) {
-            throw new IllegalArgumentException(PRICE_PER_LOTTO + "원 이상이어야 합니다.");
+        if (amount < UNIT) {
+            throw new IllegalArgumentException(UNIT + "원 이상이어야 합니다.");
         }
     }
 
-    public int divideByThousand() {
-        return (int) (amount / PRICE_PER_LOTTO);
+    public int divideByUnit() {
+        return (int) (amount / UNIT);
     }
 
     public double calculateRate(long prize) {

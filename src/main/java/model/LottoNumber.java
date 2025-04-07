@@ -1,27 +1,43 @@
 package model;
 
-import static model.LottoConstants.LOTTO_MAX;
-import static model.LottoConstants.LOTTO_MIN;
-
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-public class LottoNumber {
+public class LottoNumber implements Comparable<LottoNumber> {
 
+    private static final int LOTTO_MIN = 1;
+    private static final int LOTTO_MAX = 45;
+    private static final Map<Integer, LottoNumber> CACHE;
     private final int number;
 
-    public LottoNumber(int number) {
-        validate(number);
+    static {
+        Map<Integer, LottoNumber> temp = new HashMap<>();
+        for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
+            temp.put(i, new LottoNumber(i));
+        }
+        CACHE = Collections.unmodifiableMap(temp);
+    }
+
+    private LottoNumber(int number) {
         this.number = number;
     }
 
-    private void validate(int number) {
+    public static LottoNumber valueOf(int number) {
+        validate(number);
+        return CACHE.get(number);
+    }
+
+    private static void validate(int number) {
         if (number < LOTTO_MIN || number > LOTTO_MAX) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
         }
     }
 
-    public int getNumber() {
-        return number;
+    @Override
+    public int compareTo(LottoNumber other) {
+        return Integer.compare(this.number, other.number);
     }
 
     @Override
@@ -44,5 +60,9 @@ public class LottoNumber {
     @Override
     public String toString() {
         return String.valueOf(number);
+    }
+
+    public int getNumber() {
+        return number;
     }
 }
