@@ -22,6 +22,16 @@ public class LottoShop {
         allLottos.addAll(manualLottos);
         allLottos.addAll(autoLottos);
 
-        return LottoPurchase.createLottoPurchase(money, manualCount, allLottos);
+        return new Lottos(allLottos);
+    }
+
+    private static void validate(Money money, LottoCount manualCount, List<Lotto> manualLottos) {
+        if (money.getPurchasedLottoCount() < manualCount.getLottoCount()) {
+            throw new IllegalArgumentException("금액이 수동 로또 개수보다 부족합니다.");
+        }
+
+        if (manualCount.getLottoCount() != manualLottos.size()) {
+            throw new IllegalArgumentException("수동 로또 개수 만큼 입력해주세요.");
+        }
     }
 }
