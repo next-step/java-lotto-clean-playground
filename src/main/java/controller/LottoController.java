@@ -3,6 +3,7 @@ package controller;
 import domain.*;
 import enums.LottoRank;
 import domain.LottoShop;
+import enums.LottoType;
 import view.LottoView;
 
 import java.util.ArrayList;
@@ -20,14 +21,15 @@ public class LottoController {
     }
 
     public void run() {
-        LottoPurchase lottoPurchase = PurchaseLottos();
+        Lottos lottos = PurchaseLottos();
         LottoWinningNumbers lottoWinningNumbers = inputWinningNumbersAndBonus();
-        LottoResult lottoResult = LottoResult.createLottoResult(lottoWinningNumbers, lottoPurchase);
+        LottoResult lottoResult = LottoResult.createLottoResult(lottoWinningNumbers, lottos);
         printResultByRank(lottoResult.getResultByRank());
-        printProfitRate(lottoResult.getProfitRate());
+        printProfitRate(lottoResult.getResultByRank(), lottos.getLottoCount());
     }
 
-    private void printProfitRate(Double profitRate) {
+    private void printProfitRate(Map<LottoRank, Integer> resultByRank, LottoCount lottoCount) {
+        double profitRate = ProfitCalculator.calculateProfitRate(resultByRank, lottoCount);
         lottoView.printProfitRate(profitRate);
     }
 
@@ -42,22 +44,22 @@ public class LottoController {
 
     }
 
-    private LottoPurchase PurchaseLottos() {
+    private Lottos PurchaseLottos() {
         Money money = Money.from(lottoView.inputPurchaseAmount());
         LottoCount manualLottoCount = LottoCount.from(lottoView.inputManualLottoCount());
         List<Lotto> manualLottos = inputManualLottos(manualLottoCount);
 
-        LottoPurchase lottoPurchase = lottoShop.purchaseLottos(money, manualLottoCount, manualLottos);
-        lottoView.printPurchaseInfo(lottoPurchase);
+        Lottos lottos = lottoShop.purchaseLottos(money, manualLottoCount, manualLottos);
+        lottoView.printPurchaseInfo(lottos);
 
-        return lottoPurchase;
+        return lottos;
     }
 
     private List<Lotto> inputManualLottos(LottoCount manualLottoCount) {
         List<Lotto> manualLottos = new ArrayList<>();
         List<List<Integer>> inputLottos = lottoView.inputManualLottos(manualLottoCount);
         for (List<Integer> inputLotto : inputLottos) {
-            manualLottos.add(Lotto.from(inputLotto));
+            manualLottos.add(Lotto.from(inputLotto, LottoType.MANUAL));
         }
         return manualLottos;
     }
