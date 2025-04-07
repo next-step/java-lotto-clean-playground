@@ -10,54 +10,28 @@ import java.util.Map;
 public class LottoResult {
 
     private final Map<LottoRank, Integer> resultByRank;
-    private final LottoWinningNumbers winningNumbers;
-    private final LottoPurchase lottoPurchase;
-    private final Double profitRate;
 
-    private LottoResult(LottoWinningNumbers winningNumbers, LottoPurchase lottoPurchase) {
-        this.winningNumbers = winningNumbers;
-        this.lottoPurchase = lottoPurchase;
-        resultByRank = calculateMatchCount();
-        profitRate = calculateProfitRate();
+    private LottoResult(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        resultByRank = calculateMatchCount(winningNumbers, lottos);
     }
 
-    public static LottoResult createLottoResult(LottoWinningNumbers winningNumbers, LottoPurchase lottoPurchase) {
-        return new LottoResult(winningNumbers, lottoPurchase);
+    public static LottoResult createLottoResult(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        validate(lottos);
+        return new LottoResult(winningNumbers, lottos);
     }
 
     public Map<LottoRank, Integer> getResultByRank() {
         return Collections.unmodifiableMap(resultByRank);
     }
 
-    public Double getProfitRate() {
-        return profitRate;
-    }
-
-    Double calculateProfitRate() {
-        PrizeMoney totalPrize = calculatePrize();
-        return totalPrize.getAmount() / (lottoPurchase.getMoney().getAmount());
-    }
-
-    Map<LottoRank, Integer> calculateMatchCount() {
+    Map<LottoRank, Integer> calculateMatchCount(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        List<Lotto> lottoList = lottos.getLottos();
         Map<LottoRank, Integer> resultByRank = initResultByRank();
-
-        List<Lotto> lottos = lottoPurchase.getLottos();
-        for (Lotto lotto : lottos) {
-            LottoRank lottoRank = LottoRank.from(winningNumbers.matchCount(lotto), winningNumbers.bonusMatch(lotto));
+        for (Lotto lotto : lottoList) {
+            LottoRank lottoRank = LottoRank.determineRank(winningNumbers.matchCount(lotto), winningNumbers.bonusMatch(lotto));
             resultByRank.put(lottoRank, resultByRank.get(lottoRank) + 1);
         }
         return resultByRank;
-    }
-
-    PrizeMoney calculatePrize() {
-        PrizeMoney totalPrize = new PrizeMoney(0.0);
-
-        for (Map.Entry<LottoRank, Integer> matchCount : resultByRank.entrySet()) {
-            PrizeMoney prizePerRank = new PrizeMoney(matchCount.getKey().getPrize());
-            PrizeMoney prizeTotal = prizePerRank.multiply(matchCount.getValue());
-            totalPrize = totalPrize.plus(prizeTotal);
-        }
-        return totalPrize;
     }
 
     private Map<LottoRank, Integer> initResultByRank() {
