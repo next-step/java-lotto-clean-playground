@@ -18,7 +18,7 @@ public enum LottoRank {
         this.prize = prize;
     }
 
-    public static LottoRank from(int matchCount, boolean bonusMatch) {
+    public static LottoRank determineRank(int matchCount, boolean bonusMatch) {
         if (matchCount == 5 && bonusMatch) {
             return MATCH_5_BONUS;
         }
