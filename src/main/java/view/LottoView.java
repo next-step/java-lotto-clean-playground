@@ -1,9 +1,6 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoCount;
-import domain.LottoNumber;
-import domain.LottoPurchase;
+import domain.*;
 import enums.LottoRank;
 import enums.LottoType;
 import utils.LottoNumberFormatter;
@@ -94,11 +91,11 @@ public class LottoView {
         return LottoNumberFormatter.parse(numbersString);
     }
 
-    public void printPurchaseInfo(LottoPurchase lottoPurchase) {
-        int autoLottoCount = lottoPurchase.getAutoCount().getLottoCount();
-        int manualLottoCount = lottoPurchase.getManualCount().getLottoCount();
+    public void printPurchaseInfo(Lottos lottos) {
+        int autoLottoCount = lottos.getAutoCount().getLottoCount();
+        int manualLottoCount = lottos.getManualCount().getLottoCount();
         System.out.println("수동으로 " + manualLottoCount + ", 자동으로 " + autoLottoCount + "를 구매했습니다.");
-        printLottosView(lottoPurchase.getLottos());
+        printLottosView(lottos.getLottos());
     }
 
     public int inputBonusNumberView() {
