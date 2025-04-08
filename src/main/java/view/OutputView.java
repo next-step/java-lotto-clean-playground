@@ -1,9 +1,7 @@
 package view;
 
-import model.DrawResults;
-import model.Lotto;
-import model.Lottos;
-import model.Ranking;
+import model.*;
+import model.lotto.Lotto;
 
 public class OutputView {
 
@@ -11,17 +9,18 @@ public class OutputView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public static void printLottos(Lottos lottos) {
-        printPurchaseAmount(lottos.size());
+    public static void printLottos(Lottos lottos, PurchaseAmount purchaseAmount) {
+        printPurchaseAmount(purchaseAmount.getManualPurchaseAmount(), purchaseAmount.getAutoPurchaseAmount());
+
         for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getNumbers());
         }
         System.out.println();
     }
 
-    public static void printPurchaseAmount(int amount) {
+    public static void printPurchaseAmount(int manualAmount, int autoAmount) {
         System.out.println();
-        System.out.println(amount + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualAmount + "장, 자동으로 " + autoAmount + "개를 구매했습니다.");
     }
 
     public static void printLastWeekLottoInputMessage() {
@@ -45,7 +44,7 @@ public class OutputView {
     }
 
     private static String getResultInfoMessage(DrawResults drawResults, Ranking ranking) {
-        return ranking.getMatchingNumbers() + "개 일치 (" + ranking.getPrize() + "원) - " + drawResults.getResults().get(ranking) + "개";
+        return ranking.getResultMessage() + drawResults.getResults().get(ranking) + "개";
     }
 
     public static void printProfit(double profit) {
@@ -53,6 +52,19 @@ public class OutputView {
     }
 
     public static void printErrorMessage(String errorMessage) {
-        System.out.println(errorMessage);
+        System.out.println(errorMessage + " 처음부터 다시 입력해 주세요");
+        System.out.println();
+    }
+
+    public static void printBonusBallInputMessage() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
+    public static void printManualPurchaseAmountInputMessage() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public static void printManualLottosInputMessage() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }

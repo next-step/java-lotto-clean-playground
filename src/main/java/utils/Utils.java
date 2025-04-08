@@ -1,5 +1,7 @@
 package utils;
 
+import model.LottoNumber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,5 +23,11 @@ public class Utils {
             result.add(Integer.parseInt(string.trim()));
         }
         return result;
+    }
+
+    public static List<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumber::from)
+                .toList();
     }
 }
