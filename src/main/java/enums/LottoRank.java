@@ -1,19 +1,20 @@
 package enums;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public enum LottoRank {
-    NO_MATCH(0,0),
-    MATCH_3(3, 5_000),
-    MATCH_4(4, 50_000),
-    MATCH_5(5, 1_500_000),
-    MATCH_5_BONUS(5, 30_000_000),
-    MATCH_6(6, 2_000_000_000);
+    NO_MATCH(0,BigDecimal.valueOf(0)),
+    MATCH_3(3, BigDecimal.valueOf(5_000)),
+    MATCH_4(4, BigDecimal.valueOf(50_000)),
+    MATCH_5(5, BigDecimal.valueOf(1_500_000)),
+    MATCH_5_BONUS(5,BigDecimal.valueOf( 30_000_000)),
+    MATCH_6(6, BigDecimal.valueOf(2_000_000_000));
 
     private final int matchCount;
-    private final int prize;
+    private final BigDecimal prize;
 
-    LottoRank(int matchCount, int prize) {
+    LottoRank(int matchCount, BigDecimal prize) {
         this.matchCount = matchCount;
         this.prize = prize;
     }
@@ -33,7 +34,7 @@ public enum LottoRank {
         return matchCount;
     }
 
-    public int getPrize() {
+    public BigDecimal getPrize() {
         return prize;
     }
 }
