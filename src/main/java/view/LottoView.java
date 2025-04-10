@@ -5,6 +5,7 @@ import enums.LottoRank;
 import enums.LottoType;
 import utils.LottoNumberFormatter;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class LottoView {
@@ -71,7 +72,7 @@ public class LottoView {
         }
     }
 
-    public void printProfitRate(Double profitRate) {
+    public void printProfitRate(BigDecimal profitRate) {
         System.out.println("총 수익률은 " + profitRate + "입니다.");
     }
 

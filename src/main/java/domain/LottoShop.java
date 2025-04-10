@@ -1,11 +1,12 @@
 package domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoShop {
 
-    public static final int PRICE_PER_TICKET = 1000;
+    public static final BigDecimal PRICE_PER_TICKET = BigDecimal.valueOf(1000);
 
     private final LottoMachine lottoMachine;
 

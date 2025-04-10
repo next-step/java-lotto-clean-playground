@@ -3,6 +3,8 @@ package domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.*;
 
 class MoneyTest {
@@ -43,9 +45,9 @@ class MoneyTest {
         Money money = Money.from(5000);
 
         //when
-        int amount = money.getAmount();
+        BigDecimal amount = money.getAmount();
 
         //then
-        assertThat(amount).isEqualTo(5000);
+        assertThat(amount).isEqualTo(BigDecimal.valueOf(5000));
     }
 }

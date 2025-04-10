@@ -6,6 +6,7 @@ import domain.LottoShop;
 import enums.LottoType;
 import view.LottoView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class LottoController {
     }
 
     private void printProfitRate(Map<LottoRank, Integer> resultByRank, LottoCount lottoCount) {
-        double profitRate = ProfitCalculator.calculateProfitRate(resultByRank, lottoCount);
+        BigDecimal profitRate = ProfitCalculator.calculateProfitRate(resultByRank, lottoCount);
         lottoView.printProfitRate(profitRate);
     }
 

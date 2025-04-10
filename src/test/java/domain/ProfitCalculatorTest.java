@@ -4,6 +4,7 @@ import enums.LottoRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -23,9 +24,9 @@ class ProfitCalculatorTest {
         resultByRank.put(LottoRank.MATCH_3, 1);
 
         //when
-        double profitRate = ProfitCalculator.calculateProfitRate(resultByRank, LottoCount.from(5));
+        BigDecimal profitRate = ProfitCalculator.calculateProfitRate(resultByRank, LottoCount.from(5));
 
         //then
-        assertThat(profitRate).isEqualTo(406311);
+        assertThat(profitRate).isEqualTo(BigDecimal.valueOf(406311));
     }
 }
