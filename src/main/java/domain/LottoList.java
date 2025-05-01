@@ -1,5 +1,7 @@
 package domain;
 
+import domain.generator.LottoGenerator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,20 +10,29 @@ public class LottoList {
 
     private static final int PRICE_PER_LOTTO = 1000;
 
-    private final List<Lotto> lottoList;
-    private final int lottoCount; //추가 구매가 허용되는 상황이라면 non-final
-    private LottoStatistics statistics;
+    private final List<Lotto> userList;
 
-    public LottoList(long purchaseAmount, LottoNumberGenerator generator) {
-        validateAmount(purchaseAmount);
-        this.lottoList = new ArrayList<>();
-        this.lottoCount = (int) purchaseAmount / PRICE_PER_LOTTO;
-        for (int i = 0; i < lottoCount; i++) {
-            this.lottoList.add(new Lotto(generator));
-        }
+    public LottoList(List<Lotto> lottoList) {
+        this.userList = new ArrayList<>(lottoList);
     }
 
-    private void validateAmount(long purchaseAmount) {
+    public static LottoList create(long purchaseAmount, int manualLottoCount, LottoGenerator manualGenerator, LottoGenerator autoGenerator) {
+        validateAmount(purchaseAmount);
+
+        int totalLottoCount = (int) purchaseAmount / PRICE_PER_LOTTO;
+        int autoLottoCount = totalLottoCount - manualLottoCount;
+
+        List<Lotto> manualLottoList = manualGenerator.generateLottoList(manualLottoCount);
+        List<Lotto> autoLottoList = autoGenerator.generateLottoList(autoLottoCount);
+
+        List<Lotto> allLottoList = new ArrayList<>();
+        allLottoList.addAll(manualLottoList);
+        allLottoList.addAll(autoLottoList);
+
+        return new LottoList(allLottoList);
+    }
+
+    private static void validateAmount(long purchaseAmount) {
         if (purchaseAmount < PRICE_PER_LOTTO) {
             throw new IllegalArgumentException("로또 최소 구매 금액은 1000원입니다.");
         }
@@ -30,26 +41,11 @@ public class LottoList {
         }
     }
 
-    public LottoStatistics calculateStatistics(List<LottoNumber> winningNumbers) {
-        if(statistics == null) {
-            statistics = new LottoStatistics();
-            statistics.calculate(this, winningNumbers);
-        }
-        return statistics;
-    }
-
-    public int calculatePrize(List<LottoNumber> winningNumbers) {
-        LottoStatistics statistics = calculateStatistics(winningNumbers); // 캐시된 통계 사용
-        PrizeCalculator prizeCalculator = new PrizeCalculator();
-        prizeCalculator.calculate(statistics.getMatchCountMap());
-        return prizeCalculator.getTotalPrize();
-    }
-
     public List<Lotto> getLottoList() {
-        return Collections.unmodifiableList(lottoList);
+        return Collections.unmodifiableList(userList);
     }
 
     public int getLottoCount() {
-        return lottoCount;
+        return userList.size();
     }
 }

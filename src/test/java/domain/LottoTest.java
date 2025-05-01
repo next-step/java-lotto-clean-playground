@@ -1,74 +1,96 @@
 package domain;
 
+import domain.generator.LottoGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoTest {
-    private static class TestLottoNumberGenerator implements LottoNumberGenerator {
+
+    static Stream<Arguments> provideInvalidLottoNumbers_Size() {
+        return Stream.of(
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5))
+        );
+    }
+
+    static Stream<Arguments> provideInvalidLottoNumbers_Duplicates() {
+        return Stream.of(
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 5))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidLottoNumbers_Size")
+    @DisplayName("숫자가 6개가 아닐 경우 예외가 발생한다.")
+    void validate_LottoNumber_Size_ThrowException(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+
+        assertThatThrownBy(() -> new Lotto(lottoNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("로또 번호는 6개여야 합니다.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidLottoNumbers_Duplicates")
+    @DisplayName("중복된 숫자가 있을 경우 예외가 발생한다.")
+    void validate_LottoNumber_Duplicates_ThrowException(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+
+        assertThatThrownBy(() -> new Lotto(lottoNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("중복된 번호가 있습니다.");
+    }
+
+    private static class TestLottoGenerator implements LottoGenerator {
+        private static final List<LottoNumber> FIXED_NUMBERS = List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        );
+
         @Override
-        public List<LottoNumber> generate() {
-            return Arrays.asList(
-                    new LottoNumber(1),
-                    new LottoNumber(2),
-                    new LottoNumber(3),
-                    new LottoNumber(4),
-                    new LottoNumber(5),
-                    new LottoNumber(6)
-            );
+        public List<Lotto> generateLottoList(int count) {
+            List<Lotto> lottoList = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                lottoList.add(new Lotto(FIXED_NUMBERS));
+            }
+            return lottoList;
         }
     }
 
     @Test
     @DisplayName("Lotto 객체 생성 시, 크기 6인 리스트가 생성되어야 한다.")
     void lotto_creation_test() {
-        LottoNumberGenerator generator = new TestLottoNumberGenerator();
-        Lotto lotto = new Lotto(generator);
+        LottoGenerator generator = new TestLottoGenerator();
+        Lotto lotto = generator.generateLottoList(1).get(0);;
 
-        assertNotNull(lotto.getNumbers());
-        assertEquals(6, lotto.getNumbers().size());
+        assertNotNull(lotto.numbers());
+        assertEquals(6, lotto.numbers().size());
     }
 
     @Test
     @DisplayName("Lotto 객체의 번호가 정상적으로 생성되어야 한다.")
     void lotto_number_creation_test() {
-        LottoNumberGenerator generator = new TestLottoNumberGenerator();
-        Lotto lotto = new Lotto(generator);
+        Lotto lotto = new TestLottoGenerator().generateLottoList(1).get(0);;
 
-        List<LottoNumber> expectedNumbers = Arrays.asList(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
+        List<LottoNumber> expectedNumbers = List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
         );
 
-        assertEquals(expectedNumbers, lotto.getNumbers());
+        assertEquals(expectedNumbers, lotto.numbers());
     }
-
-    @Test
-    @DisplayName("당첨 번호와 일치하는 개수를 올바르게 계산하여야 한다.")
-    void test() {
-        LottoNumberGenerator generator = new TestLottoNumberGenerator();
-        Lotto lotto = new Lotto(generator);
-
-        List<LottoNumber> winningNumbers = Arrays.asList(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(7),
-                new LottoNumber(8),
-                new LottoNumber(9)
-        );
-
-        int matchCount = lotto.calculateMatchCount(winningNumbers);
-
-        assertEquals(3, matchCount);
-    }
-
 }
