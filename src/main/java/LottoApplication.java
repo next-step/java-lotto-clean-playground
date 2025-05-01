@@ -1,7 +1,4 @@
 import controller.LottoController;
-import domain.generator.AutoLottoGenerator;
-import domain.generator.LottoGenerator;
-import domain.generator.ManualLottoGenerator;
 import view.InputView;
 import view.OutputView;
 
