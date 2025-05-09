@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class LottoTest {
     void 로또에_숫자가_정확히_들어가야한다() {
         //given
         ArrayList<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
-        Lotto lotto = Lotto.from(numbers);
+        Lotto lotto = Lotto.from(numbers, LottoType.AUTO);
 
         //when
         List<Integer> lottoNumbers = lotto.getLottoNumbers().stream()
@@ -34,7 +35,18 @@ class LottoTest {
         ArrayList<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
 
         //then
-        assertThatThrownBy(() -> Lotto.from(numbers))
+        assertThatThrownBy(() -> Lotto.from(numbers, LottoType.AUTO))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("로또에는_중복된_숫자가_들어갈_수_없다")
+    void 로또에는_중복된_숫자가_들어갈_수_없다() {
+        //given
+        ArrayList<Integer> numbers = new ArrayList<>(List.of(1, 1, 3, 4, 5, 6));
+
+        //then
+        assertThatThrownBy(() -> Lotto.from(numbers, LottoType.AUTO))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

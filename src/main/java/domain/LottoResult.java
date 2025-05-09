@@ -2,58 +2,50 @@ package domain;
 
 import enums.LottoRank;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import static domain.Money.PRICE_PER_TICKET;
-
 public class LottoResult {
 
     private final Map<LottoRank, Integer> resultByRank;
-    private final LottoWinningNumbers winningNumbers;
-    private final List<Lotto> lottos;
 
-    public LottoResult(LottoWinningNumbers winningNumbers, List<Lotto> lottos) {
-        resultByRank = new EnumMap<>(LottoRank.class);
-        for (LottoRank lottoRank : LottoRank.values()) {
-            resultByRank.put(lottoRank, 0);
-        }
-        this.winningNumbers = winningNumbers;
-        this.lottos = lottos;
-
-        calculateMatchCount();
+    private LottoResult(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        resultByRank = calculateMatchCount(winningNumbers, lottos);
     }
 
-    public Double calculateProfitRate() {
-        PrizeMoney totalPrize = calculatePrize();
-        return totalPrize.getAmount() / (lottos.size() * PRICE_PER_TICKET);
+    public static LottoResult createLottoResult(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        validate(lottos);
+        return new LottoResult(winningNumbers, lottos);
     }
 
     public Map<LottoRank, Integer> getResultByRank() {
+        return Collections.unmodifiableMap(resultByRank);
+    }
+
+    Map<LottoRank, Integer> calculateMatchCount(LottoWinningNumbers winningNumbers, Lottos lottos) {
+        List<Lotto> lottoList = lottos.getLottos();
+        Map<LottoRank, Integer> resultByRank = initResultByRank();
+        for (Lotto lotto : lottoList) {
+            LottoRank lottoRank = LottoRank.determineRank(winningNumbers.matchCount(lotto), winningNumbers.bonusMatch(lotto));
+            resultByRank.put(lottoRank, resultByRank.get(lottoRank) + 1);
+        }
         return resultByRank;
     }
 
-    private void calculateMatchCount() {
-        for (Lotto lotto : lottos) {
-            calculateSingleLottoMatchCount(lotto);
+    private Map<LottoRank, Integer> initResultByRank() {
+        Map<LottoRank, Integer> resultByRank = new EnumMap<>(LottoRank.class);
+        for (LottoRank lottoRank : LottoRank.values()) {
+            resultByRank.put(lottoRank, 0);
         }
+
+        return resultByRank;
     }
 
-    private void calculateSingleLottoMatchCount(Lotto lotto) {
-        LottoRank lottoRank = LottoRank.from(winningNumbers.matchCount(lotto));
-        resultByRank.put(lottoRank, resultByRank.get(lottoRank) + 1);
-    }
-
-    private PrizeMoney calculatePrize() {
-
-        PrizeMoney totalPrize = new PrizeMoney(0.0);
-
-        for (Map.Entry<LottoRank, Integer> matchCount : resultByRank.entrySet()) {
-            PrizeMoney prizePerRank = new PrizeMoney(matchCount.getKey().getPrize());
-            PrizeMoney prizeTotal = prizePerRank.multiply(matchCount.getValue());
-            totalPrize = totalPrize.plus(prizeTotal);
+    private static void validate(Lottos lottos) {
+        if (lottos.getLottos().size() <= 0) {
+            throw new IllegalArgumentException("로또 번호를 넘겨야합니다");
         }
-        return totalPrize;
     }
 }

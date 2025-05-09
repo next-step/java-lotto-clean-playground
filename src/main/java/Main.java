@@ -14,14 +14,6 @@ public class Main {
         LottoShop lottoShop = new LottoShop(lottoMachine);
 
         LottoController lottoController = new LottoController(lottoShop, new LottoView());
-
-        lottoController.inputMoney();
-        lottoController.printLottoCount();
-        lottoController.createLottos();
-        lottoController.printLottos();
-        lottoController.inputWinningNumbers();
-        lottoController.printResultByRank();
-        lottoController.printProfitRate();
+        lottoController.run();
     }
-
 }

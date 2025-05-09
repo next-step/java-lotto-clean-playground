@@ -1,47 +1,38 @@
 package domain;
 
-import enums.LottoRank;
-
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LottoShop {
 
+    public static final BigDecimal PRICE_PER_TICKET = BigDecimal.valueOf(1000);
+
     private final LottoMachine lottoMachine;
-    private LottoWinningNumbers winningNumbers;
-    private LottoResult lottoResult;
 
     public LottoShop(LottoMachine lottoMachine) {
         this.lottoMachine = lottoMachine;
     }
 
-    public void inputWinningNumbers(List<Integer> inputNumbers) {
-        this.winningNumbers = new LottoWinningNumbers(inputNumbers);
+    public Lottos purchaseLottos(Money money, LottoCount manualCount, List<Lotto> manualLottos) {
+        validate(money, manualCount, manualLottos);
+
+        LottoCount autoLottoCount = LottoCount.from(money.getPurchasedLottoCount() - manualCount.getLottoCount());
+        List<Lotto> autoLottos = lottoMachine.generateLottos(autoLottoCount);
+        List<Lotto> allLottos = new ArrayList<>();
+        allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos);
+
+        return new Lottos(allLottos);
     }
 
-    public void inputMoney(Money money) {
-        lottoMachine.inputMoney(money);
-    }
+    private static void validate(Money money, LottoCount manualCount, List<Lotto> manualLottos) {
+        if (money.getPurchasedLottoCount() < manualCount.getLottoCount()) {
+            throw new IllegalArgumentException("금액이 수동 로또 개수보다 부족합니다.");
+        }
 
-    public void generateLottos() {
-        lottoMachine.generateLottos();
-    }
-
-    public List<Lotto> getPurchasedLottos() {
-        return lottoMachine.getLottos();
-    }
-
-    public Map<LottoRank, Integer> getResultByRank() {
-        List<Lotto> lottos = lottoMachine.getLottos();
-        lottoResult = new LottoResult(winningNumbers, lottos);
-        return lottoResult.getResultByRank();
-    }
-
-    public Double getProfitRate() {
-        return lottoResult.calculateProfitRate();
-    }
-
-    public int getLottoCount() {
-        return lottoMachine.getLottoCount();
+        if (manualCount.getLottoCount() != manualLottos.size()) {
+            throw new IllegalArgumentException("수동 로또 개수 만큼 입력해주세요.");
+        }
     }
 }

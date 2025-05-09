@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,32 +32,22 @@ class LottoMachineTest {
     void 값에_맞는_로또수를_생성해야한다() {
 
         //given
-        lottoMachine.inputMoney(new Money(5000));
-
-        //when
-        int lottoCount = lottoMachine.getLottoCount();
-        lottoMachine.generateLottos();
+        List<Lotto> lottos = lottoMachine.generateLottos(LottoCount.from(3));
 
         //then
-        assertThat(lottoMachine.getLottos().size()).isEqualTo(5);
+        assertThat(lottos.size()).isEqualTo(3);
     }
 
     @Test
-    @DisplayName("천원_이상_입력하지않으면_예외를_던진다")
-    void 천원_이상_입력하지않으면_예외를_던진다() {
+    @DisplayName("자동_로또를_반환한다")
+    void 자동_로또를_반환한다() {
+
+        //given
+        List<Lotto> lottos = lottoMachine.generateLottos(LottoCount.from(3));
 
         //then
-        assertThatThrownBy(() -> lottoMachine.inputMoney(new Money(1)))
-                .isInstanceOf(IllegalArgumentException.class);
+        for (Lotto lotto : lottos) {
+            assertThat(lotto.getType()).isEqualTo(LottoType.AUTO);
+        }
     }
-
-    @Test
-    @DisplayName("천원_단위로_입력하지않으면_예외를_던진다")
-    void 천원_단위로_입력하지않으면_예외를_던진다() {
-
-        //then
-        assertThatThrownBy(() -> lottoMachine.inputMoney(new Money(2001)))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
 }
