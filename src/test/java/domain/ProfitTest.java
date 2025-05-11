@@ -14,7 +14,7 @@ class ProfitTest {
     @DisplayName("수익률이 1.5이면 손해가 아니다")
     void profitIsNotLossIfRateOverOne() {
         LottoStatistics statistics = stubStatistics(Map.of(
-                Rank.FIVE, 1
+                Rank.THIRD, 1
         ));
         int purchaseAmount = 1_000_000;
 
@@ -28,7 +28,7 @@ class ProfitTest {
     @DisplayName("수익률이 0.5이면 손해이다")
     void profitIsLossIfRateBelowOne() {
         LottoStatistics statistics = stubStatistics(Map.of(
-                Rank.THREE, 1
+                Rank.FIFTH, 1
         ));
         int purchaseAmount = 10_000;
 
@@ -42,7 +42,7 @@ class ProfitTest {
     @DisplayName("수익률이 정확히 1이면 손해가 아니다")
     void profitIsNotLossIfRateEqualsOne() {
         LottoStatistics statistics = stubStatistics(Map.of(
-                Rank.THREE, 2
+                Rank.FIFTH, 2
         ));
         int purchaseAmount = 10_000;
 
@@ -80,7 +80,11 @@ class ProfitTest {
         private final Map<Rank, Integer> countMap;
 
         public LottoStatisticsStub(Map<Rank, Integer> countMap) {
-            super(new Lottos(List.of()), new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))));
+            super(
+                    new Lottos(List.of()),
+                    new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))),
+                    new BonusNumber(7, new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))))
+            );
             this.countMap = countMap;
         }
 

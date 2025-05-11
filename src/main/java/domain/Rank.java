@@ -1,13 +1,12 @@
 package domain;
 
-import java.util.Arrays;
-
 public enum Rank {
-    NONE(0, 0),
-    THREE(3, 5_000),
-    FOUR(4, 50_000),
-    FIVE(5, 1_500_000),
-    SIX(6, 2_000_000_000);
+    MISS(0, 0),
+    FIFTH(3, 5_000),
+    FOURTH(4, 50_000),
+    THIRD(5, 1_500_000),
+    SECOND(5, 30_000_000),
+    FIRST(6, 2_000_000_000);
 
     private final int matchCount;
     private final int prize;
@@ -15,6 +14,15 @@ public enum Rank {
     Rank(int matchCount, int prize) {
         this.matchCount = matchCount;
         this.prize = prize;
+    }
+
+    public static Rank valueOf(int matchCount, boolean bonusMatch) {
+        if (matchCount == 6) return FIRST;
+        if (matchCount == 5 && bonusMatch) return SECOND;
+        if (matchCount == 5) return THIRD;
+        if (matchCount == 4) return FOURTH;
+        if (matchCount == 3) return FIFTH;
+        return MISS;
     }
 
     public int getMatchCount() {
@@ -25,14 +33,8 @@ public enum Rank {
         return prize;
     }
 
-    public static Rank matchCountOf(int count) {
-        return Arrays.stream(values())
-                .filter(rank -> rank.matchCount == count)
-                .findFirst()
-                .orElse(NONE);
-    }
-
     public boolean isWinning() {
-        return this != NONE;
+        return this != MISS;
     }
 }
+

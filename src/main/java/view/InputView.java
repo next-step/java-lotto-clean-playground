@@ -12,4 +12,8 @@ public class InputView {
     public String readLastWeekWinningNumbers() {
         return scanner.nextLine();
     }
+
+    public String readBonusNumber() {
+        return scanner.nextLine();
+    }
 }

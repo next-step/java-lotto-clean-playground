@@ -20,8 +20,8 @@ class ResultMapperTest {
     @DisplayName("LottoStatistics를 MatchResultDto 리스트로 매핑한다")
     void mapLottoStatisticsToWinningResultDto() {
         LottoStatistics statistics = stubStatistics(Map.of(
-                Rank.THREE, 2,
-                Rank.FIVE, 1
+                Rank.FIFTH, 2,
+                Rank.THIRD, 1
         ));
 
         WinningResultDto winningResult = ResultMapper.toWinningResultDto(statistics);
@@ -32,6 +32,7 @@ class ResultMapperTest {
                         tuple(3, 5_000, 2),
                         tuple(4, 50_000, 0),
                         tuple(5, 1_500_000, 1),
+                        tuple(5, 30_000_000, 0),
                         tuple(6, 2_000_000_000, 0)
                 );
     }
@@ -53,7 +54,10 @@ class ResultMapperTest {
     }
 
     private LottoStatistics stubStatistics(Map<Rank, Integer> winningCounts) {
-        return new LottoStatistics(new Lottos(List.of()), new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)))) {
+        WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        BonusNumber dummyBonus = new BonusNumber(7, winningNumbers);
+
+        return new LottoStatistics(new Lottos(List.of()), winningNumbers, dummyBonus) {
             @Override
             public int countOf(Rank rank) {
                 return winningCounts.getOrDefault(rank, 0);
@@ -80,10 +84,12 @@ class ResultMapperTest {
         public boolean isLoss() {
             return overriddenIsLoss;
         }
+    }
 
-        private static LottoStatistics dummyStatistics() {
-            return new LottoStatistics(new Lottos(List.of()), new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))));
-        }
+    private static LottoStatistics dummyStatistics() {
+        WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        BonusNumber dummyBonus = new BonusNumber(7, winningNumbers);
+        return new LottoStatistics(new Lottos(List.of()), winningNumbers, dummyBonus);
     }
 
     private static List<WinningNumber> toWinningNumbers(List<Integer> numbers) {

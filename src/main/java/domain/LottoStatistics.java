@@ -8,24 +8,27 @@ public class LottoStatistics {
 
     private final Map<Rank, Integer> statistics = new EnumMap<>(Rank.class);
 
-    public LottoStatistics(Lottos lottos, WinningNumbers winningNumbers) {
-        calculate(lottos.getLottos(), winningNumbers);
+    public LottoStatistics(Lottos lottos, WinningNumbers winningNumbers, BonusNumber bonusNumber) {
+        calculate(lottos.getLottos(), winningNumbers, bonusNumber);
     }
 
     public int countOf(Rank rank) {
         return statistics.getOrDefault(rank, 0);
     }
 
-    private void calculate(List<Lotto> lottos, WinningNumbers winningNumbers) {
+    private void calculate(List<Lotto> lottos, WinningNumbers winningNumbers, BonusNumber bonusNumber) {
         for (Lotto lotto : lottos) {
-            Rank rank = matchRank(winningNumbers, lotto);
+            Rank rank = matchRank(winningNumbers, bonusNumber, lotto);
             saveRank(rank);
         }
     }
 
-    private Rank matchRank(WinningNumbers winningNumbers, Lotto lotto) {
-        long matchCount = winningNumbers.countMatch(lotto.getNumbers());
-        return Rank.matchCountOf((int) matchCount);
+    private Rank matchRank(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto lotto) {
+        int matchCount = winningNumbers.countMatch(lotto.getNumbers());
+
+        boolean bonusMatch = lotto.getNumbers().containsValue(bonusNumber.value());
+
+        return Rank.valueOf(matchCount, bonusMatch);
     }
 
     private void saveRank(Rank rank) {

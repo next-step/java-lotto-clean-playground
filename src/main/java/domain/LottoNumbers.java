@@ -20,6 +20,11 @@ public class LottoNumbers {
         return numbers;
     }
 
+    public boolean containsValue(int value) {
+        return numbers.stream()
+                .anyMatch(number -> number.value() == value);
+    }
+
     private void validate(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);

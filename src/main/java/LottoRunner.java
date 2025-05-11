@@ -26,11 +26,14 @@ public class LottoRunner {
         printPurchasedLottos(purchasedLottos);
 
         WinningNumbers winningNumbers = requestWinningNumbers();
-        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningNumbers);
+        BonusNumber bonusNumber = requestBonusNumber(winningNumbers);
+
+        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningNumbers, bonusNumber);
         Profit profit = new Profit(statistics, purchaseAmount);
 
         printResult(statistics, profit);
     }
+
 
     private int requestPurchaseAmount() {
         outputView.printLottoPurchasePrompt();
@@ -55,6 +58,13 @@ public class LottoRunner {
         String winningInput = inputView.readLastWeekWinningNumbers();
         System.out.println();
         return WinningNumbersParser.parse(winningInput);
+    }
+
+    private BonusNumber requestBonusNumber(WinningNumbers winningNumbers) {
+        outputView.printBonusNumberPrompt();
+        String input = inputView.readBonusNumber();
+        System.out.println();
+        return BonusNumberParser.parse(input, winningNumbers);
     }
 
     private void printResult(LottoStatistics statistics, Profit profit) {

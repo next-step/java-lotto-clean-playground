@@ -12,16 +12,16 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ResultFormatterTest {
 
     private final ResultFormatter formatter = new ResultFormatter();
 
     @Test
-    @DisplayName("매칭 결과를 포맷된 문자열로 반환한다")
-    void formatSingleMatchResult() {
-        MatchResultDto match = new MatchResultDto(3, 5000, 2);
+    @DisplayName("보너스 없이 매칭 결과를 포맷된 문자열로 반환한다")
+    void formatMatchResultWithoutBonus() {
+        MatchResultDto match = new MatchResultDto(3, false, 5_000, 2);
 
         PrintableMatchDto result = formatter.formatMatchResult(match);
 
@@ -29,11 +29,22 @@ class ResultFormatterTest {
     }
 
     @Test
+    @DisplayName("보너스 포함된 매칭 결과를 포맷된 문자열로 반환한다")
+    void formatMatchResultWithBonus() {
+        MatchResultDto match = new MatchResultDto(5, true, 30_000_000, 1);
+
+        PrintableMatchDto result = formatter.formatMatchResult(match);
+
+        assertThat(result.messageLine()).isEqualTo("5개 일치, 보너스 볼 일치(30000000원)- 1개");
+    }
+
+    @Test
     @DisplayName("여러 매칭 결과를 포맷된 문자열 리스트로 반환한다")
     void formatMultipleMatchResults() {
         List<MatchResultDto> matches = List.of(
-                new MatchResultDto(3, 5000, 1),
-                new MatchResultDto(4, 50000, 2)
+                new MatchResultDto(3, false, 5_000, 1),
+                new MatchResultDto(4, false, 50_000, 2),
+                new MatchResultDto(5, true, 30_000_000, 1)
         );
 
         List<PrintableMatchDto> result = formatter.formatMatchResults(matches);
@@ -41,6 +52,7 @@ class ResultFormatterTest {
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(result.get(0).messageLine()).isEqualTo("3개 일치 (5000원)- 1개");
         softly.assertThat(result.get(1).messageLine()).isEqualTo("4개 일치 (50000원)- 2개");
+        softly.assertThat(result.get(2).messageLine()).isEqualTo("5개 일치, 보너스 볼 일치(30000000원)- 1개");
         softly.assertAll();
     }
 

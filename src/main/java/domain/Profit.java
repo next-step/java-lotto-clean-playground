@@ -37,7 +37,7 @@ public class Profit {
     }
 
     private List<Rank> winningRanks() {
-        return List.of(Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX);
+        return List.of(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST);
     }
 
     private long calculatePrizePerRank(LottoStatistics statistics, Rank rank) {

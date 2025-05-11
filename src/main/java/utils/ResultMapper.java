@@ -1,8 +1,8 @@
 package utils;
 
+import domain.LottoStatistics;
 import domain.Profit;
 import domain.Rank;
-import domain.LottoStatistics;
 import dto.MatchResultDto;
 import dto.ProfitDto;
 import dto.WinningResultDto;
@@ -17,6 +17,7 @@ public class ResultMapper {
                 .filter(Rank::isWinning)
                 .map(rank -> new MatchResultDto(
                         rank.getMatchCount(),
+                        rank == Rank.SECOND,
                         rank.getPrize(),
                         statistics.countOf(rank)
                 ))
