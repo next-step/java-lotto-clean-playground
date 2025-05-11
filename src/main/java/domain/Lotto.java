@@ -1,16 +1,13 @@
 package domain;
 
-import java.util.List;
-
 public class Lotto {
+    private final LottoNumbers numbers;
 
-    private final List<Integer> numbers;
-
-    public Lotto(List<Integer> numbers) {
+    public Lotto(LottoNumbers numbers) {
         this.numbers = numbers;
     }
 
-    public List<Integer> getNumbers() {
+    public LottoNumbers getNumbers() {
         return numbers;
     }
 }

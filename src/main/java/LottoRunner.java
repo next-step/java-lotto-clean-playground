@@ -1,8 +1,8 @@
-import domain.LottoGenerator;
-import domain.Lottos;
-import dto.LottoNumbers;
-import utils.LottoNumbersParser;
-import utils.LottoPurchaseAmountParser;
+import domain.*;
+import dto.LottoNumbersDto;
+import dto.ProfitDto;
+import dto.WinningResultDto;
+import utils.*;
 import view.InputView;
 import view.OutputView;
 
@@ -21,15 +21,50 @@ public class LottoRunner {
     }
 
     public void run() {
+        int purchaseAmount = requestPurchaseAmount();
+        Lottos purchasedLottos = generateLottos(purchaseAmount);
+        printPurchasedLottos(purchasedLottos);
+
+        WinningNumbers winningNumbers = requestWinningNumbers();
+        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningNumbers);
+        Profit profit = new Profit(statistics, purchaseAmount);
+
+        printResult(statistics, profit);
+    }
+
+    private int requestPurchaseAmount() {
         outputView.printLottoPurchasePrompt();
-        String purchaseAmountInput = inputView.readLottoPurchaseAmount();
-        int purchaseAmount = LottoPurchaseAmountParser.parse(purchaseAmountInput);
+        String amountInput = inputView.readLottoPurchaseAmount();
+        return LottoPurchaseAmountParser.parse(amountInput);
+    }
+
+    private Lottos generateLottos(int purchaseAmount) {
+        return lottoGenerator.generate(purchaseAmount);
+    }
+
+    private void printPurchasedLottos(Lottos lottos) {
         System.out.println();
-
-        Lottos lottos = lottoGenerator.generate(purchaseAmount);
         outputView.printLottoPurchaseResultHeader(lottos.count());
+        List<LottoNumbersDto> lottoNumberDtos = LottoNumbersParser.parse(lottos);
+        outputView.printLottoNumbers(lottoNumberDtos);
+        System.out.println();
+    }
 
-        List<LottoNumbers> parsed = LottoNumbersParser.parse(lottos);
-        outputView.printLottoNumbers(parsed);
+    private WinningNumbers requestWinningNumbers() {
+        outputView.printLastWeekWinningNumbersPrompt();
+        String winningInput = inputView.readLastWeekWinningNumbers();
+        System.out.println();
+        return WinningNumbersParser.parse(winningInput);
+    }
+
+    private void printResult(LottoStatistics statistics, Profit profit) {
+        ResultFormatter formatter = new ResultFormatter();
+
+        WinningResultDto winningResultDto = ResultMapper.toWinningResultDto(statistics);
+        ProfitDto profitDto = ResultMapper.toProfitDto(profit);
+
+        outputView.printWinningStatistics(formatter.formatMatchResults(winningResultDto.matches()));
+        outputView.printProfit(formatter.formatProfitResult(profitDto));
     }
 }
+

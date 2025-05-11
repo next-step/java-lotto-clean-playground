@@ -16,9 +16,19 @@ public class LottoGenerator {
 
     public Lottos generate(int amount) {
         int count = ticketGenerator.generate(amount);
+
         List<Lotto> tickets = IntStream.range(0, count)
-                .mapToObj(i -> new Lotto(numberGenerator.generate()))
+                .mapToObj(i -> toLotto(numberGenerator.generate()))
                 .collect(Collectors.toList());
+
         return new Lottos(tickets);
+    }
+
+    private Lotto toLotto(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
+
+        return new Lotto(new LottoNumbers(lottoNumbers));
     }
 }

@@ -8,4 +8,8 @@ public class InputView {
     public String readLottoPurchaseAmount() {
         return scanner.nextLine();
     }
+
+    public String readLastWeekWinningNumbers() {
+        return scanner.nextLine();
+    }
 }

@@ -13,8 +13,8 @@ public class LottoNumberGenerator implements NumberGenerator {
     @Override
     public List<Integer> generate() {
         List<Integer> numbers = new ArrayList<>();
-        for (int i = START_NUMBER; i <= END_NUMBER; i++) {
-            numbers.add(i);
+        for (int number = START_NUMBER; number <= END_NUMBER; number++) {
+            numbers.add(number);
         }
 
         Collections.shuffle(numbers);
