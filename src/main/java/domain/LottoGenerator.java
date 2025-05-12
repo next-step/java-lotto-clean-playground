@@ -11,7 +11,7 @@ public class LottoGenerator {
         this.lottoNumbersGenerator = lottoNumbersGenerator;
     }
 
-    public List<Lotto> generate(int purchasePrice){
+    public Lottos generate(int purchasePrice) {
         final int lottoCount = purchasePrice / LOTTO_PRICE;
         final List<Lotto> lottos = new ArrayList<>(lottoCount);
 
@@ -19,6 +19,6 @@ public class LottoGenerator {
             lottos.add(new Lotto(lottoNumbersGenerator.generate()));
         }
 
-        return lottos;
+        return new Lottos(lottos);
     }
 }
