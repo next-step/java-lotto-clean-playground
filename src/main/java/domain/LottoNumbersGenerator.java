@@ -1,26 +1,23 @@
 package domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LottoNumbersGenerator {
-    private static final Random random = new Random();
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
-    Set<Integer> lottoNumbers = new HashSet<>();
 
     public List<Integer> generate() {
-        while (lottoNumbers.size() < LOTTO_NUMBER_COUNT) {
-            lottoNumbers.add(generateNumber());
+        List<Integer> candidateNumbers = new ArrayList<>();
+        for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
+            candidateNumbers.add(i);
         }
-        return lottoNumbers.stream().sorted().collect(Collectors.toList());
-    }
 
-    private int generateNumber() {
-        return random.nextInt(MAX_LOTTO_NUMBER) + MIN_LOTTO_NUMBER;
+        Collections.shuffle(candidateNumbers);
+        List<Integer> selectedNumbers = candidateNumbers.subList(0, LOTTO_NUMBER_COUNT);
+        Collections.sort(selectedNumbers);
+        return new ArrayList<>(selectedNumbers);
     }
 }
