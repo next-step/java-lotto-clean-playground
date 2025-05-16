@@ -17,12 +17,12 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
-
     public static Lotto create(final LottoNumberGenerator generator) {
         return new Lotto(generator.generate());
+    }
+
+    public List<Integer> getNumbers() {
+        return Collections.unmodifiableList(numbers);
     }
 
     private void validate(final List<Integer> numbers) {
