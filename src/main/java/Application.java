@@ -1,6 +1,10 @@
-import domain.LottoGenerator;
-import domain.LottoNumberGenerator;
-import domain.LottoTicketGenerator;
+import controller.LottoRunner;
+import service.DefaultLottoGenerator;
+import service.InputHandlerImpl;
+import service.LottoGenerator;
+import service.LottoNumberGenerator;
+import service.LottoTicketGenerator;
+import service.OutputPresenterImpl;
 import view.InputView;
 import view.OutputView;
 
@@ -11,9 +15,12 @@ public class Application {
 
         LottoNumberGenerator numberGenerator = new LottoNumberGenerator();
         LottoTicketGenerator ticketGenerator = new LottoTicketGenerator();
-        LottoGenerator lottoGenerator = new LottoGenerator(numberGenerator, ticketGenerator);
+        LottoGenerator lottoGenerator = new DefaultLottoGenerator(numberGenerator, ticketGenerator);
 
-        LottoRunner runner = new LottoRunner(inputView, outputView, lottoGenerator);
+        InputHandlerImpl inputHandler = new InputHandlerImpl(inputView, outputView);
+        OutputPresenterImpl outputPresenter = new OutputPresenterImpl(outputView);
+
+        LottoRunner runner = new LottoRunner(inputHandler, outputPresenter, lottoGenerator);
         runner.run();
     }
 }

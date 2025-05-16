@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lottos {
@@ -16,5 +17,11 @@ public class Lottos {
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public static Lottos merge(Lottos manual, Lottos auto) {
+        List<Lotto> combined = new ArrayList<>(manual.getLottos());
+        combined.addAll(auto.getLottos());
+        return new Lottos(combined);
     }
 }

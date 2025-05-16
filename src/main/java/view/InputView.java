@@ -9,6 +9,14 @@ public class InputView {
         return scanner.nextLine();
     }
 
+    public String readManualLottoCount() {
+        return scanner.nextLine();
+    }
+
+    public String readManualLottoNumbersLine() {
+        return scanner.nextLine();
+    }
+
     public String readLastWeekWinningNumbers() {
         return scanner.nextLine();
     }

@@ -1,22 +1,22 @@
 package utils;
 
-import domain.Lottos;
 import domain.Lotto;
 import domain.LottoNumber;
+import domain.Lottos;
 import dto.LottoNumbersDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LottoNumbersParser {
+public class LottoNumbersOutputConverter {
 
-    public static List<LottoNumbersDto> parse(Lottos lottos) {
+    public static List<LottoNumbersDto> convert(Lottos lottos) {
         return lottos.getLottos().stream()
-                .map(LottoNumbersParser::toDto)
+                .map(LottoNumbersOutputConverter::convert)
                 .collect(Collectors.toList());
     }
 
-    private static LottoNumbersDto toDto(Lotto lotto) {
+    private static LottoNumbersDto convert(Lotto lotto) {
         List<Integer> values = lotto.getNumbers().getNumbers().stream()
                 .map(LottoNumber::value)
                 .collect(Collectors.toList());
