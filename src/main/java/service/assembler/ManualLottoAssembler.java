@@ -1,7 +1,8 @@
-package utils;
+package service.assembler;
 
 import domain.Lotto;
 import domain.LottoNumbers;
+import utils.parser.LottoNumbersInputParser;
 import view.InputView;
 import view.OutputView;
 

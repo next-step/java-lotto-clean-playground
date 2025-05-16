@@ -1,4 +1,6 @@
-package service;
+package service.generator;
+
+import service.NumberGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;

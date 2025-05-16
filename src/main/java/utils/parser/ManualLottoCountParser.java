@@ -1,4 +1,4 @@
-package utils;
+package utils.parser;
 
 import domain.Lotto;
 
@@ -8,23 +8,31 @@ public class ManualLottoCountParser {
 
     public static int parse(String input, int purchaseAmount) {
         int manualCount = parseManualCount(input);
-        validateNotExceedPurchaseAmount(manualCount, purchaseAmount);
+        validatePurchaseAmount(manualCount, purchaseAmount);
         return manualCount;
     }
 
     private static int parseManualCount(String input) {
+        int count = tryParseInt(input);
+        validateNonNegative(count);
+        return count;
+    }
+
+    private static int tryParseInt(String input) {
         try {
-            int count = Integer.parseInt(input);
-            if (count < 0) {
-                throw new IllegalArgumentException(ERROR_INVALID_NUMBER);
-            }
-            return count;
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ERROR_INVALID_NUMBER);
         }
     }
 
-    private static void validateNotExceedPurchaseAmount(int manualCount, int purchaseAmount) {
+    private static void validateNonNegative(int count) {
+        if (count < 0) {
+            throw new IllegalArgumentException(ERROR_INVALID_NUMBER);
+        }
+    }
+
+    private static void validatePurchaseAmount(int manualCount, int purchaseAmount) {
         int maxCount = purchaseAmount / Lotto.PRICE;
         if (manualCount > maxCount) {
             throw new IllegalArgumentException(ERROR_EXCEED_PURCHASE_AMOUNT);

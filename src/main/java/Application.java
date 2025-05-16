@@ -1,10 +1,14 @@
-import controller.LottoRunner;
-import service.DefaultLottoGenerator;
-import service.InputHandlerImpl;
+import controller.LottoController;
+import service.generator.LottoGeneratorImpl;
+import service.InputHandler;
+import service.io.InputHandlerImpl;
 import service.LottoGenerator;
-import service.LottoNumberGenerator;
-import service.LottoTicketGenerator;
-import service.OutputPresenterImpl;
+import service.generator.LottoNumberGenerator;
+import service.purchase.LottoPurchaseServiceImpl;
+import service.generator.LottoTicketGenerator;
+import service.OutputPresenter;
+import service.io.OutputPresenterImpl;
+import service.assembler.ResultViewModelAssembler;
 import view.InputView;
 import view.OutputView;
 
@@ -13,14 +17,18 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        LottoNumberGenerator numberGenerator = new LottoNumberGenerator();
-        LottoTicketGenerator ticketGenerator = new LottoTicketGenerator();
-        LottoGenerator lottoGenerator = new DefaultLottoGenerator(numberGenerator, ticketGenerator);
+        LottoGenerator lottoGenerator = new LottoGeneratorImpl(
+                new LottoNumberGenerator(),
+                new LottoTicketGenerator()
+        );
 
-        InputHandlerImpl inputHandler = new InputHandlerImpl(inputView, outputView);
-        OutputPresenterImpl outputPresenter = new OutputPresenterImpl(outputView);
+        LottoPurchaseServiceImpl purchaseService = new LottoPurchaseServiceImpl(lottoGenerator);
+        ResultViewModelAssembler assembler = new ResultViewModelAssembler();
 
-        LottoRunner runner = new LottoRunner(inputHandler, outputPresenter, lottoGenerator);
-        runner.run();
+        InputHandler inputHandler = new InputHandlerImpl(inputView, outputView);
+        OutputPresenter outputPresenter = new OutputPresenterImpl(outputView, assembler);
+
+        LottoController controller = new LottoController(inputHandler, outputPresenter, purchaseService);
+        controller.run();
     }
 }

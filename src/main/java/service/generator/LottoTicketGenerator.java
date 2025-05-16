@@ -1,6 +1,7 @@
-package service;
+package service.generator;
 
 import domain.Lotto;
+import service.TicketGenerator;
 
 public class LottoTicketGenerator implements TicketGenerator {
 
@@ -16,4 +17,3 @@ public class LottoTicketGenerator implements TicketGenerator {
         }
     }
 }
-

@@ -1,18 +1,27 @@
-package service;
+package service.io;
 
-import domain.*;
-import dto.*;
-import utils.*;
+import domain.Lottos;
+import domain.LottoStatistics;
+import domain.Profit;
+import dto.LottoNumbersDto;
+import dto.LottoPurchaseSummaryDto;
+import dto.PrintableMatchDto;
+import dto.PrintableProfitDto;
+import service.OutputPresenter;
+import service.assembler.ResultViewModelAssembler;
 import view.OutputView;
+import utils.converter.LottoNumbersOutputConverter;
 
 import java.util.List;
 
 public class OutputPresenterImpl implements OutputPresenter {
 
     private final OutputView outputView;
+    private final ResultViewModelAssembler assembler;
 
-    public OutputPresenterImpl(OutputView outputView) {
+    public OutputPresenterImpl(OutputView outputView, ResultViewModelAssembler assembler) {
         this.outputView = outputView;
+        this.assembler = assembler;
     }
 
     @Override
@@ -22,6 +31,7 @@ public class OutputPresenterImpl implements OutputPresenter {
 
         System.out.println();
         outputView.printLottoPurchaseResultHeader(summaryDto.manualCount(), summaryDto.autoCount());
+
         List<LottoNumbersDto> dtoList = LottoNumbersOutputConverter.convert(lottos);
         outputView.printLottoNumbers(dtoList);
         System.out.println();
@@ -29,11 +39,10 @@ public class OutputPresenterImpl implements OutputPresenter {
 
     @Override
     public void showStatistics(LottoStatistics statistics, Profit profit) {
-        ResultFormatter formatter = new ResultFormatter();
-        WinningResultDto resultDto = ResultMapper.toWinningResultDto(statistics);
-        ProfitDto profitDto = ResultMapper.toProfitDto(profit);
+        List<PrintableMatchDto> matchDtos = assembler.toPrintableMatchDtos(statistics);
+        PrintableProfitDto profitDto = assembler.toPrintableProfitDto(profit);
 
-        outputView.printWinningStatistics(formatter.formatMatchResults(resultDto.matches()));
-        outputView.printProfit(formatter.formatProfitResult(profitDto));
+        outputView.printWinningStatistics(matchDtos);
+        outputView.printProfit(profitDto);
     }
 }

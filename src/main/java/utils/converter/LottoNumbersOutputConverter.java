@@ -1,4 +1,4 @@
-package utils;
+package utils.converter;
 
 import domain.Lotto;
 import domain.LottoNumber;

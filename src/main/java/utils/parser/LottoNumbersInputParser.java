@@ -1,4 +1,4 @@
-package utils;
+package utils.parser;
 
 import domain.LottoNumber;
 import domain.LottoNumbers;

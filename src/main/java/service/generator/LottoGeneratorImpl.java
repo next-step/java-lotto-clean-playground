@@ -1,20 +1,23 @@
-package service;
+package service.generator;
 
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoNumbers;
 import domain.Lottos;
+import service.LottoGenerator;
+import service.NumberGenerator;
+import service.TicketGenerator;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DefaultLottoGenerator implements LottoGenerator {
+public class LottoGeneratorImpl implements LottoGenerator {
 
     private final NumberGenerator numberGenerator;
     private final TicketGenerator ticketGenerator;
 
-    public DefaultLottoGenerator(NumberGenerator numberGenerator, TicketGenerator ticketGenerator) {
+    public LottoGeneratorImpl(NumberGenerator numberGenerator, TicketGenerator ticketGenerator) {
         this.numberGenerator = numberGenerator;
         this.ticketGenerator = ticketGenerator;
     }

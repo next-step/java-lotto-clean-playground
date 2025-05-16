@@ -4,6 +4,7 @@ import domain.LottoNumber;
 import domain.Lottos;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import service.generator.LottoGeneratorImpl;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ class LottoGeneratorTest {
     void generateCorrectNumberOfLottos() {
         NumberGenerator fixedNumberGenerator = () -> List.of(1, 2, 3, 4, 5, 6);
         TicketGenerator fixedTicketGenerator = amount -> 3;
-        LottoGenerator generator = new DefaultLottoGenerator(fixedNumberGenerator, fixedTicketGenerator);
+        LottoGenerator generator = new LottoGeneratorImpl(fixedNumberGenerator, fixedTicketGenerator);
 
         Lottos lottos = generator.generate(3000);
 
@@ -28,7 +29,7 @@ class LottoGeneratorTest {
     void generateLottosWithFixedNumbers() {
         NumberGenerator fixedNumberGenerator = () -> List.of(1, 2, 3, 4, 5, 6);
         TicketGenerator fixedTicketGenerator = amount -> 3;
-        LottoGenerator generator = new DefaultLottoGenerator(fixedNumberGenerator, fixedTicketGenerator);
+        LottoGenerator generator = new LottoGeneratorImpl(fixedNumberGenerator, fixedTicketGenerator);
 
         Lottos lottos = generator.generate(3000);
 

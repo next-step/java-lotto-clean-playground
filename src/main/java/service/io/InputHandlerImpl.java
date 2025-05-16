@@ -1,7 +1,15 @@
-package service;
+package service.io;
 
-import domain.*;
-import utils.*;
+import domain.BonusNumber;
+import domain.Lotto;
+import domain.Lottos;
+import domain.WinningNumbers;
+import service.InputHandler;
+import service.assembler.ManualLottoAssembler;
+import utils.parser.BonusNumberParser;
+import utils.parser.LottoPurchaseAmountParser;
+import utils.parser.ManualLottoCountParser;
+import utils.parser.WinningNumbersParser;
 import view.InputView;
 import view.OutputView;
 

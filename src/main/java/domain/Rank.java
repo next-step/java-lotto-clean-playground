@@ -37,4 +37,3 @@ public enum Rank {
         return this != MISS;
     }
 }
-

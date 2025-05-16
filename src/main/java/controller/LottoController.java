@@ -1,30 +1,29 @@
 package controller;
 
 import domain.BonusNumber;
-import service.LottoGenerator;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.Profit;
 import domain.WinningNumbers;
-import dto.LottoPurchaseRequest;
+import dto.LottoPurchaseDto;
 import service.InputHandler;
-import service.LottoPurchaseService;
+import service.purchase.LottoPurchaseServiceImpl;
 import service.OutputPresenter;
 
-public class LottoRunner {
+public class LottoController {
 
     private final InputHandler inputHandler;
     private final OutputPresenter outputPresenter;
-    private final LottoPurchaseService purchaseService;
+    private final LottoPurchaseServiceImpl purchaseService;
 
-    public LottoRunner(InputHandler inputHandler, OutputPresenter outputPresenter, LottoGenerator lottoGenerator) {
+    public LottoController(InputHandler inputHandler, OutputPresenter outputPresenter, LottoPurchaseServiceImpl purchaseService) {
         this.inputHandler = inputHandler;
         this.outputPresenter = outputPresenter;
-        this.purchaseService = new LottoPurchaseService(lottoGenerator);
+        this.purchaseService = purchaseService;
     }
 
     public void run() {
-        LottoPurchaseRequest request = createPurchaseRequest();
+        LottoPurchaseDto request = createPurchaseRequest();
         Lottos purchasedLottos = purchaseService.purchase(request);
 
         outputPresenter.showPurchasedLottos(request.manualCount(), purchasedLottos);
@@ -37,10 +36,10 @@ public class LottoRunner {
         outputPresenter.showStatistics(statistics, profit);
     }
 
-    private LottoPurchaseRequest createPurchaseRequest() {
+    private LottoPurchaseDto createPurchaseRequest() {
         int purchaseAmount = inputHandler.readPurchaseAmount();
         int manualCount = inputHandler.readManualLottoCount(purchaseAmount);
         Lottos manualLottos = inputHandler.readManualLottos(manualCount);
-        return new LottoPurchaseRequest(purchaseAmount, manualCount, manualLottos);
+        return new LottoPurchaseDto(purchaseAmount, manualCount, manualLottos);
     }
 }
