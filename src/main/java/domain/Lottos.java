@@ -1,0 +1,30 @@
+package domain;
+
+import java.util.ArrayList;
+import java.util.List;
+import strategy.LottoNumberGenerator;
+
+public class Lottos {
+
+    private final List<Lotto> lottos;
+
+    public Lottos(List<Lotto> lottos) {
+        this.lottos = List.copyOf(lottos);
+    }
+
+    public List<Lotto> getValues() {
+        return lottos;
+    }
+
+    public int size() {
+        return lottos.size();
+    }
+
+    public static Lottos generate(int count, LottoNumberGenerator generator) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            lottoList.add(Lotto.create(generator));
+        }
+        return new Lottos(lottoList);
+    }
+}

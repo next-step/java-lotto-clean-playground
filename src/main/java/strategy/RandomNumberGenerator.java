@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomGenerator implements LottoNumberGenerator {
+public class RandomNumberGenerator implements LottoNumberGenerator {
 
     @Override
     public List<Integer> generate() {
@@ -17,6 +17,8 @@ public class RandomGenerator implements LottoNumberGenerator {
             numbers.add(i);
         }
         Collections.shuffle(numbers);
-        return numbers.subList(0, LOTTO_NUMBER_COUNT);
+        return numbers.subList(0, LOTTO_NUMBER_COUNT)
+                .stream().sorted()
+                .toList();
     }
 }

@@ -21,7 +21,7 @@ public class Lotto {
         return Collections.unmodifiableList(numbers);
     }
 
-    public Lotto generate(LottoNumberGenerator generator) {
+    public static Lotto create(LottoNumberGenerator generator) {
         return new Lotto(generator.generate());
     }
 
