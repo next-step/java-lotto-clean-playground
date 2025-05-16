@@ -8,7 +8,7 @@ public class Lottos {
 
     private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> lottos) {
+    public Lottos(final List<Lotto> lottos) {
         this.lottos = List.copyOf(lottos);
     }
 
@@ -20,7 +20,7 @@ public class Lottos {
         return lottos.size();
     }
 
-    public static Lottos generate(int count, LottoNumberGenerator generator) {
+    public static Lottos generate(final int count, final LottoNumberGenerator generator) {
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottoList.add(Lotto.create(generator));
