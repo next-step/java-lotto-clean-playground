@@ -3,6 +3,7 @@ import domain.LottoGenerator;
 import domain.LottoNumber;
 import domain.LottoNumbers;
 import domain.LottoNumbersGenerator;
+import domain.LottoResult;
 import domain.Lottos;
 import domain.WinningLotto;
 import java.util.ArrayList;
@@ -25,7 +26,9 @@ public class LottoApplication {
         outputView.printPurchasedLottos(totalLottos);
 
         final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
-        outputView.printLottoResult(totalLottos, winningLotto, lottoPurchasePrice);
+        LottoResult lottoResult = new LottoResult(totalLottos,winningLotto,lottoPurchasePrice);
+        lottoResult.calculateRank();
+        outputView.printLottoResult(lottoResult);
     }
 
     private static int getManualLottoCount(OutputView outputView, InputView inputView) {

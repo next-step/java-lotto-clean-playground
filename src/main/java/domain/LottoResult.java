@@ -4,10 +4,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoResult {
-    final Map<LottoRank, Integer> lottoResultMap = new EnumMap<>(LottoRank.class);
-    final Lottos lottos;
-    final WinningLotto winningLotto;
-    final int purchasePrice;
+    private final Map<LottoRank, Integer> lottoResultMap = new EnumMap<>(LottoRank.class);
+    private final Lottos lottos;
+    private final WinningLotto winningLotto;
+    private final int purchasePrice;
 
     public LottoResult(Lottos lottos, WinningLotto winningLotto, int purchasePrice) {
         this.lottos = lottos;
@@ -21,8 +21,8 @@ public class LottoResult {
     public void calculateRank() {
         for (Lotto lotto : lottos.getLottos()) {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
-            boolean isMatched = winningLotto.isMatchBonusNumber(lotto);
-            LottoRank.of(matchCount,isMatched).ifPresent(rank ->
+            boolean isBonusNumberMatched = winningLotto.isMatchBonusNumber(lotto);
+            LottoRank.of(matchCount,isBonusNumberMatched).ifPresent(rank ->
                     lottoResultMap.put(rank, lottoResultMap.get(rank) + 1)
             );
         }
