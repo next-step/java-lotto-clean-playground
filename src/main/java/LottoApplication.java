@@ -12,20 +12,51 @@ import view.OutputView;
 
 public class LottoApplication {
     public static void main(String[] args) {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
-        LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator();
-        LottoGenerator lottoGenerator = new LottoGenerator(lottoNumbersGenerator);
+        final InputView inputView = new InputView();
+        final OutputView outputView = new OutputView();
+        final LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator();
+        final LottoGenerator lottoGenerator = new LottoGenerator(lottoNumbersGenerator);
 
-        outputView.printPurchasePrice();
-        final int lottoPurchasePrice = inputView.getLottoPurchasePrice();
+        final int lottoPurchasePrice = getLottoPurchasePrice(outputView, inputView);
+        final int manualLottoCount = getManualLottoCount(outputView, inputView);
+        final Lottos manualLottos = generateManualLottos(outputView, inputView, manualLottoCount);
+        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice,manualLottoCount);
+        final Lottos totalLottos = mergeManualLottosAndAutoLottos(manualLottos, autoLottos);
+        outputView.printPurchasedLottos(totalLottos);
 
-        outputView.printManualLottoCount();
-        int manualLottoCount = inputView.getManualLottoCount();
+        final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
+        outputView.printLottoResult(totalLottos, winningLotto, lottoPurchasePrice);
+    }
 
-        outputView.printManualLottos();
+    private static int getManualLottoCount(OutputView outputView, InputView inputView) {
+        outputView.printManualLottoCountMessage();
+        return inputView.getManualLottoCount();
+    }
+
+    private static int getLottoPurchasePrice(OutputView outputView, InputView inputView) {
+        outputView.printPurchasePriceMessage();
+        return inputView.getLottoPurchasePrice();
+    }
+
+    private static WinningLotto generateWinningLotto(OutputView outputView, InputView inputView) {
+        outputView.printWinningLottoMessage();
+        Lotto lotto = inputView.getWinningLottoNumbers();
+        outputView.printBonusNumberMessage();
+        LottoNumber bonusNumber = new LottoNumber(inputView.getBonusNumber());
+        return new WinningLotto(lotto,bonusNumber);
+    }
+
+    private static Lottos mergeManualLottosAndAutoLottos(Lottos manualLottos, Lottos autoLottos) {
+        List<Lotto> allLottoList = new ArrayList<>();
+        allLottoList.addAll(manualLottos.getLottos());
+        allLottoList.addAll(autoLottos.getLottos());
+        return new Lottos(allLottoList);
+    }
+
+    private static Lottos generateManualLottos(OutputView outputView, InputView inputView, int manualLottoCount) {
+        outputView.printManualLottosMessage();
         List<List<Integer>> manualLottoNumbers = inputView.getManualLottos(manualLottoCount);
-        Lottos manualLottos = new Lottos(
+        return new Lottos(
                 manualLottoNumbers.stream()
                         .map(numbers -> numbers.stream()
                                 .map(LottoNumber::new)
@@ -34,21 +65,5 @@ public class LottoApplication {
                         .map(Lotto::new)
                         .toList()
         );
-
-        Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice,manualLottoCount);
-
-        List<Lotto> allLottoList = new ArrayList<>();
-        allLottoList.addAll(manualLottos.getLottos());
-        allLottoList.addAll(autoLottos.getLottos());
-        Lottos totalLottos = new Lottos(allLottoList);
-        outputView.printPurchasedLottos(totalLottos);
-
-        outputView.printWinningLotto();
-        Lotto lotto = inputView.getWinningLottoNumbers();
-        outputView.printBonusNumber();
-        LottoNumber bonusNumber = new LottoNumber(inputView.getBonusNumber());
-        WinningLotto winningLotto = new WinningLotto(lotto,bonusNumber);
-
-        outputView.printLottoResult(totalLottos, winningLotto, lottoPurchasePrice);
     }
 }
