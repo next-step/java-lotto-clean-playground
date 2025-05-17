@@ -60,7 +60,8 @@ public class OutputView {
     private void calculateRank(Lottos lottos, WinningLotto winningLotto, Map<LottoRank, Integer> lottoResultMap) {
         for (Lotto lotto : lottos.getLottos()) {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
-            LottoRank.of(matchCount).ifPresent(rank ->
+            boolean isMatched = winningLotto.isMatchBonusNumber(lotto);
+            LottoRank.of(matchCount,isMatched).ifPresent(rank ->
                     lottoResultMap.put(rank, lottoResultMap.get(rank) + 1)
             );
         }
