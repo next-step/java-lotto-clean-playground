@@ -12,4 +12,9 @@ public class WinningLotto{
     public Lotto getLotto() {
         return lotto;
     }
+
+    public boolean isMatchBonusNumber(Lotto lotto) {
+        return lotto.getNumbers().getLottoNumbers().stream()
+                .anyMatch(n -> n.equals(bonusNumber));
+    }
 }
