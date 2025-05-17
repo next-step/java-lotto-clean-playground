@@ -1,7 +1,7 @@
 package domain.generator;
 
-import java.util.List;
+import domain.Numbers;
 
 public interface NumberGenerator {
-    List<Integer> generate();
+    Numbers generate();
 }

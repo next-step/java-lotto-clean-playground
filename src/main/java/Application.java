@@ -1,4 +1,5 @@
 import domain.Lotto;
+import domain.Numbers;
 import domain.WinningLotto;
 import domain.generator.NumberGenerator;
 import domain.generator.RandomNumberGenerator;
@@ -19,6 +20,7 @@ public class Application {
             resultView.printLottoNumbers(lotto);
         }
 
-        WinningLotto winningLotto = new WinningLotto(inputView.readWinningNumbers());
+        Numbers winningNumbers = new Numbers(inputView.readWinningNumbers());
+        WinningLotto winningLotto = new WinningLotto(winningNumbers);
     }
 }
