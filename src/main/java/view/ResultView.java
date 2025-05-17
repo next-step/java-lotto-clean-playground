@@ -1,6 +1,5 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoResult;
 import domain.Lottos;
@@ -16,7 +15,8 @@ public class ResultView {
     private static final String DIVIDER_LINE = "---------";
     private static final String RESULT_FORMAT = "%d개 일치%s(%d원)- %d개%n";
     private static final String BONUS_MATCH = ", 보너스 볼 일치";
-    private static final String PROFIT_RATE = "총 수익률은 %.2f입니다.%n";
+    private static final String PROFIT_RATE = "총 수익률은 %.2f입니다.%s%n";
+    private static final String PROFIT_STANDARD = "(기준이 1이기 때문에 결과적으로 손해라는 의미임)";
 
     public void printLottoCount(int manualCount, int autoCount) {
         System.out.printf(PURCHASED_COUNT, manualCount, autoCount);
@@ -43,7 +43,12 @@ public class ResultView {
                 .sorted(Comparator.comparingInt(LottoRank::getPrize))
                 .forEach(rank -> printRankResult(rank, result));
 
-        System.out.printf(PROFIT_RATE, result.calculateProfitRate());
+        double profitRate = result.calculateProfitRate();
+        if (profitRate < 1) {
+            System.out.printf(PROFIT_RATE, profitRate, "");
+            return;
+        }
+        System.out.printf(PROFIT_RATE, profitRate, PROFIT_STANDARD);
     }
 
     private void printRankResult(LottoRank rank, LottoResult result) {
