@@ -54,6 +54,9 @@ public class LottoApplication {
     }
 
     private static Lottos generateManualLottos(OutputView outputView, InputView inputView, int manualLottoCount) {
+        if (manualLottoCount == 0) {
+            return new Lottos(List.of());
+        }
         outputView.printManualLottosInputMessage();
         List<List<Integer>> manualLottoNumbers = inputView.getManualLottos(manualLottoCount);
         return new Lottos(
