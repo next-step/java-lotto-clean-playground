@@ -2,8 +2,9 @@ package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static support.LottoTestHelper.lotto;
+import static support.LottoTestHelper.numbers;
 
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import strategy.FixNumberGenerator;
@@ -25,13 +26,7 @@ class LottosTest {
         assertThat(lottos.getValues())
                 .hasSize(count)
                 .allSatisfy(lotto -> assertThat(lotto.getNumbers())
-                        .containsExactly(new LottoNumber(1),
-                                new LottoNumber(2),
-                                new LottoNumber(3),
-                                new LottoNumber(4),
-                                new LottoNumber(5),
-                                new LottoNumber(6))
-                );
+                        .containsExactlyElementsOf(numbers(1, 2, 3, 4, 5, 6)));
     }
 
     @Test
@@ -40,19 +35,10 @@ class LottosTest {
         // given
         int count = 1;
         LottoNumberGenerator generator = new FixNumberGenerator();
-
         Lottos lottos = Lottos.generate(count, generator);
-        List<Lotto> values = lottos.getValues();
 
         // when & then
-        assertThatThrownBy(() -> values.add(new Lotto(List.of(
-                new LottoNumber(7),
-                new LottoNumber(8),
-                new LottoNumber(9),
-                new LottoNumber(10),
-                new LottoNumber(11),
-                new LottoNumber(12))
-        )))
+        assertThatThrownBy(() -> lottos.getValues().add(lotto(7, 8, 9, 10, 11, 12)))
                 .isInstanceOf(UnsupportedOperationException.class);
     }
 }

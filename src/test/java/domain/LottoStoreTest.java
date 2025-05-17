@@ -1,6 +1,7 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static support.LottoTestHelper.numbers;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,12 +25,6 @@ class LottoStoreTest {
         assertThat(lottos.getValues())
                 .hasSize(3)
                 .allSatisfy(lotto -> assertThat(lotto.getNumbers())
-                        .containsExactly(new LottoNumber(1),
-                                new LottoNumber(2),
-                                new LottoNumber(3),
-                                new LottoNumber(4),
-                                new LottoNumber(5),
-                                new LottoNumber(6))
-                );
+                        .containsExactlyElementsOf(numbers(1, 2, 3, 4, 5, 6)));
     }
 }

@@ -9,6 +9,10 @@ public record LottoNumber(int number) {
         validateLottoRange(number);
     }
 
+    public static LottoNumber of(int number) {
+        return new LottoNumber(number);
+    }
+
     private void validateLottoRange(int number) {
         if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 ~ 45 사이여야 합니다.");
