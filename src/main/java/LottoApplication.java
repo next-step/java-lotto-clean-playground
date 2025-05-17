@@ -1,5 +1,7 @@
+import domain.Lotto;
 import domain.LottoGenerator;
 import domain.LottoNumbersGenerator;
+import domain.Lottos;
 import view.InputView;
 import view.OutputView;
 
@@ -13,6 +15,12 @@ public class LottoApplication {
         outputView.printPurchasePrice();
         final int lottoPurchasePrice = inputView.getLottoPurchasePrice();
 
-        outputView.printPurchasedLottos(lottoGenerator.generate(lottoPurchasePrice));
+        Lottos lottos = lottoGenerator.generate(lottoPurchasePrice);
+        outputView.printPurchasedLottos(lottos);
+
+        outputView.printWinningLotto();
+        Lotto winningLotto = inputView.getWinningLottoNumbers();
+
+        outputView.printLottoResult(lottos, winningLotto, lottoPurchasePrice);
     }
 }

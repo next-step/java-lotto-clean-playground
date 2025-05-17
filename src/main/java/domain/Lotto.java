@@ -3,7 +3,6 @@ package domain;
 import exception.InvalidLottoNumberCountException;
 import exception.LottoNumberDuplicationException;
 import java.util.HashSet;
-import java.util.List;
 
 public class Lotto {
     private static final int LOTTO_NUMBER_COUNT = 6;
@@ -23,8 +22,15 @@ public class Lotto {
             throw new InvalidLottoNumberCountException("로또 숫자 개수가 6개가 아닙니다.");
         }
 
-        if (new HashSet<>(lottoNumbers.getLottoNumbers().stream().map(LottoNumber::getNumber).toList()).size() != LOTTO_NUMBER_COUNT) {
+        if (new HashSet<>(lottoNumbers.getLottoNumbers().stream().map(LottoNumber::getNumber).toList()).size()
+                != LOTTO_NUMBER_COUNT) {
             throw new LottoNumberDuplicationException("로또의 숫자가 중복됩니다.");
         }
+    }
+
+    public int getMatchCount(Lotto purchaseLotto, Lotto winningLotto) {
+        return (int) purchaseLotto.getNumbers().getLottoNumbers().stream()
+                .filter(number -> winningLotto.getNumbers().getLottoNumbers().contains(number))
+                .count();
     }
 }

@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import exception.InvalidLottoNumberCountException;
 import exception.LottoNumberDuplicationException;
 import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class LottoTest {
     @Test
@@ -51,5 +55,34 @@ public class LottoTest {
                                 new LottoNumber(5), new LottoNumber(6), new LottoNumber(7)))))
                         .isInstanceOf(InvalidLottoNumberCountException.class));
 
+    }
+
+    private static Stream<Arguments> provideLottosForMatchCount() {
+        return Stream.of(
+                Arguments.of(List.of(1, 2, 40, 41, 42, 43), 2),
+                Arguments.of(List.of(1, 2, 3, 40, 41, 42), 3),
+                Arguments.of(List.of(1, 2, 3, 4, 40, 41), 4),
+                Arguments.of(List.of(1, 2, 3, 4, 5, 40), 5),
+                Arguments.of(List.of(1, 2, 3, 4, 5, 6), 6)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideLottosForMatchCount")
+    @DisplayName("로또 일치 개수 파라미터 테스트")
+    void lottoMatchCountParameterizedTest(List<Integer> purchaseNumbers, int expectedMatchCount) {
+        // Given
+        Lotto winningLotto = new Lotto(new LottoNumbers(
+                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                        new LottoNumber(4), new LottoNumber(5), new LottoNumber(6))));
+
+        Lotto purchaseLotto = new Lotto(new LottoNumbers(
+                purchaseNumbers.stream().map(LottoNumber::new).toList()));
+
+        // When
+        int matchCount = purchaseLotto.getMatchCount(purchaseLotto, winningLotto);
+
+        // Then
+        assertThat(matchCount).isEqualTo(expectedMatchCount);
     }
 }

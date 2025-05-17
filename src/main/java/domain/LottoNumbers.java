@@ -9,11 +9,11 @@ public class LottoNumbers {
         this.lottoNumbers = lottoNumbers;
     }
 
-    public int size(){
+    public int size() {
         return lottoNumbers.size();
     }
 
-    public List<LottoNumber> getLottoNumbers(){
+    public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
 }
