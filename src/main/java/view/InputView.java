@@ -16,10 +16,14 @@ public class InputView {
         return purchasePrice;
     }
 
-    public Lotto getWinningLottoNumbers() {
+    public LottoNumbers getWinningLottoNumbers() {
         String input = scanner.nextLine();
-        return new Lotto(new LottoNumbers(Arrays.stream(input.split(","))
+        return new LottoNumbers(Arrays.stream(input.split(","))
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
-                .collect(Collectors.toList())));
+                .collect(Collectors.toList()));
+    }
+
+    public int getBonusNumber() {
+        return scanner.nextInt();
     }
 }
