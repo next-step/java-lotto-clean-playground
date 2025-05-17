@@ -4,6 +4,7 @@ import domain.LottoNumber;
 import java.util.List;
 
 public class FixNumberGenerator implements LottoNumberGenerator {
+
     @Override
     public List<LottoNumber> generate() {
         return List.of(new LottoNumber(1),

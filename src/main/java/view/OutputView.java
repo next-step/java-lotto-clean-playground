@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import java.util.List;
 
 public class OutputView {
@@ -15,7 +16,11 @@ public class OutputView {
 
     public static void printLottos(List<Lotto> lottos) {
         for (Lotto lotto : lottos) {
-            System.out.println(lotto.getNumbers());
+            System.out.println(
+                    lotto.getNumbers().stream()
+                            .map(LottoNumber::number)
+                            .toList()
+            );
         }
     }
 }

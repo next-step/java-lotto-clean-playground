@@ -21,6 +21,7 @@ public class RandomNumberGenerator implements LottoNumberGenerator {
         return numbers.subList(0, LOTTO_NUMBER_COUNT)
                 .stream()
                 .map(LottoNumber::new)
+                .sorted()
                 .toList();
     }
 }
