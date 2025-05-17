@@ -6,6 +6,11 @@ import java.util.*;
 public class LottoManager {
     //전체적인 로또를 구매하는 과정을 관리
     private static final int PRICE_PER_LOTTO = 1000;
+    private final LottoGenerator generator;
+
+    public LottoManager(LottoGenerator generator) {
+        this.generator = generator;
+    }
 
     public LottoHistory purchaseLottos(int money) {
         validateMoney(money);
@@ -21,7 +26,6 @@ public class LottoManager {
     }
 
     private List<Lotto> generateLottos(int lottoCount) {
-        LottoGenerator generator = new AutoLottoGenerator();
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(generator.generate());

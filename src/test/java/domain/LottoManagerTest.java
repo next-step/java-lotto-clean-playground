@@ -13,7 +13,8 @@ class LottoManagerTest {
     @DisplayName("로또 구매 테스트")
     void purchaseLottoNumbers() {
         int money = 1500;
-        LottoManager lottoManager = new LottoManager();
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager lottoManager = new LottoManager(generator);
         LottoHistory history = lottoManager.purchaseLottos(money);
         assertEquals(6, history.getLottos().get(0).getNumbers().size());
     }
@@ -21,7 +22,8 @@ class LottoManagerTest {
     @Test
     @DisplayName("1000원 미만 입력 시 예외가 발생한다")
     void purchaseLottoslessThanMinimumthrowsException() {
-        LottoManager manager = new LottoManager();
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager manager = new LottoManager(generator);
 
         assertThatThrownBy(() -> {
             manager.purchaseLottos(500);
