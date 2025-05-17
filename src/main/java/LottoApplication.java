@@ -29,19 +29,19 @@ public class LottoApplication {
     }
 
     private static int getManualLottoCount(OutputView outputView, InputView inputView) {
-        outputView.printManualLottoCountMessage();
+        outputView.printManualLottoCountInputMessage();
         return inputView.getManualLottoCount();
     }
 
     private static int getLottoPurchasePrice(OutputView outputView, InputView inputView) {
-        outputView.printPurchasePriceMessage();
+        outputView.printPurchasePriceInputMessage();
         return inputView.getLottoPurchasePrice();
     }
 
     private static WinningLotto generateWinningLotto(OutputView outputView, InputView inputView) {
-        outputView.printWinningLottoMessage();
+        outputView.printWinningLottoInputMessage();
         Lotto lotto = inputView.getWinningLottoNumbers();
-        outputView.printBonusNumberMessage();
+        outputView.printBonusNumberInputMessage();
         LottoNumber bonusNumber = new LottoNumber(inputView.getBonusNumber());
         return new WinningLotto(lotto,bonusNumber);
     }
@@ -54,7 +54,7 @@ public class LottoApplication {
     }
 
     private static Lottos generateManualLottos(OutputView outputView, InputView inputView, int manualLottoCount) {
-        outputView.printManualLottosMessage();
+        outputView.printManualLottosInputMessage();
         List<List<Integer>> manualLottoNumbers = inputView.getManualLottos(manualLottoCount);
         return new Lottos(
                 manualLottoNumbers.stream()
