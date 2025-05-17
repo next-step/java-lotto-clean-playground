@@ -2,33 +2,33 @@ package domain;
 
 public class WinningLotto {
     private static final String ERROR_DUPLICATE_BONUS = "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
-    private final Numbers numbers;
-    private final Number bonusNumber;
+    private final Lotto winningLotto;
+    private final LottoNumber bonusNumber;
 
-    public WinningLotto(Numbers numbers, Number bonusNumber) {
-        validateBonusNumber(numbers, bonusNumber);
-        this.numbers = numbers;
+    public WinningLotto(Lotto winningLotto, LottoNumber bonusNumber) {
+        validateBonusNumber(winningLotto, bonusNumber);
+        this.winningLotto = winningLotto;
         this.bonusNumber = bonusNumber;
     }
 
-    private void validateBonusNumber(Numbers numbers, Number bonusNumber) {
-        if (numbers.getNumbers().contains(bonusNumber)) {
+    private void validateBonusNumber(Lotto winningLotto, LottoNumber bonusNumber) {
+        if (winningLotto.getNumbers().contains(bonusNumber)) {
             throw new IllegalArgumentException(ERROR_DUPLICATE_BONUS);
         }
     }
 
-    public int countMatch(Numbers other) {
+    public int countMatch(Lotto other) {
         return (int) other.getNumbers().stream()
-                .filter(numbers.getNumbers()::contains)
+                .filter(winningLotto.getNumbers()::contains)
                 .count();
     }
 
-    public boolean matchBonus(Numbers other) {
+    public boolean matchBonus(Lotto other) {
         return other.getNumbers().stream()
                 .anyMatch(num -> num.equals(bonusNumber));
     }
 
-    public Numbers getNumbers() {
-        return numbers;
+    public Lotto getWinningLotto() {
+        return winningLotto;
     }
 }

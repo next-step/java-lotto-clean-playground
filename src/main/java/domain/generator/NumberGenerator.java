@@ -1,7 +1,8 @@
 package domain.generator;
 
-import domain.Numbers;
+import domain.LottoNumber;
+import java.util.List;
 
 public interface NumberGenerator {
-    Numbers generate();
+    List<LottoNumber> generate();
 }

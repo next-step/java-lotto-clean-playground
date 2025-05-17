@@ -5,8 +5,7 @@ import static domain.constant.LottoConstants.LOTTO_PRICE;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.Number;
-import domain.Numbers;
+import domain.LottoNumber;
 import domain.WinningLotto;
 import domain.generator.NumberGenerator;
 import java.util.ArrayList;
@@ -53,12 +52,9 @@ public class LottoController {
 
     private void setUpManualLottos(List<List<Integer>> manualNumbersList, List<Lotto> lottos) {
         for (List<Integer> manualNumbers : manualNumbersList) {
-            Lotto manualLotto = new Lotto(() -> {
-                List<Number> numberList = manualNumbers.stream()
-                        .map(Number::new)
-                        .toList();
-                return new Numbers(numberList);
-            });
+            Lotto manualLotto = new Lotto(() -> manualNumbers.stream()
+                    .map(LottoNumber::new)
+                    .toList());
             lottos.add(manualLotto);
         }
     }
@@ -71,12 +67,12 @@ public class LottoController {
     }
 
     private WinningLotto setUpWinningLotto() {
-        List<Number> numbers = inputView.readWinningNumbers().stream()
-                .map(Number::new)
+        List<LottoNumber> numbers = inputView.readWinningNumbers().stream()
+                .map(LottoNumber::new)
                 .toList();
-        Numbers winningNumbers = new Numbers(numbers);
-        Number bonusNumber = new Number(inputView.readBonusNumber());
+        Lotto winningLotto = new Lotto(numbers);
+        LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
 
-        return new WinningLotto(winningNumbers, bonusNumber);
+        return new WinningLotto(winningLotto, bonusNumber);
     }
 }

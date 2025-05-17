@@ -1,10 +1,10 @@
 package view;
 
+import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.Number;
-import domain.Numbers;
+import domain.LottoNumber;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -23,14 +23,13 @@ public class ResultView {
     }
 
     public void printLottos(Lottos lottos) {
-        lottos.getLottos().forEach(lotto -> {
-            Numbers numbers = lotto.getNumbers();
-            List<Integer> numbersList = numbers.getNumbers().stream()
-                    .map(Number::getNumber)
+        for (Lotto lotto : lottos.getLottos()) {
+            List<Integer> numbersList = lotto.getNumbers().stream()
+                    .map(LottoNumber::getNumber)
                     .sorted()
                     .toList();
             System.out.println(numbersList);
-        });
+        }
     }
 
     public void printResult(LottoResult result) {
