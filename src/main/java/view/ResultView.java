@@ -12,6 +12,7 @@ public class ResultView {
     private static final String RESULT_TITLE = "당첨 통계";
     private static final String DIVIDER_LINE = "---------";
     private static final String RESULT_FORMAT = "%d개 일치 (%d원)- %d개%n";
+    private static final String PROFIT_RATE = "총 수익률은 %.2f입니다.%n";
 
     public void printLottoCount(int count) {
         System.out.printf(PURCHASED_COUNT, count);
@@ -35,5 +36,7 @@ public class ResultView {
             int count = result.getResult().getOrDefault(rank, 0);
             System.out.printf(RESULT_FORMAT, rank.getMatchCount(), rank.getPrize(), count);
         }
+
+        System.out.printf(PROFIT_RATE, result.calculateProfitRate());
     }
 }
