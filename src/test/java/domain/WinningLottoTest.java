@@ -12,12 +12,12 @@ public class WinningLottoTest {
     void isMatchBonusNumberTest() {
         // Given
         WinningLotto winningLotto = new WinningLotto(new Lotto(new LottoNumbers(
-                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                        new LottoNumber(5), new LottoNumber(6)))), new LottoNumber(7));
+                List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3), LottoNumber.of(4),
+                        LottoNumber.of(5), LottoNumber.of(6)))), LottoNumber.of(7));
 
         Lotto lotto1 = new Lotto(new LottoNumbers(
-                List.of(new LottoNumber(11), new LottoNumber(12), new LottoNumber(13), new LottoNumber(14),
-                        new LottoNumber(15), new LottoNumber(7))));
+                List.of(LottoNumber.of(11), LottoNumber.of(12), LottoNumber.of(13), LottoNumber.of(14),
+                        LottoNumber.of(15), LottoNumber.of(7))));
 
         // When
         boolean isMatched = winningLotto.isMatchBonusNumber(lotto1);

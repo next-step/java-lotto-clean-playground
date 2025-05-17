@@ -16,7 +16,7 @@ public class LottoNumbersGeneratorTest {
         List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
         LottoNumbersGenerator mockLottoNumbersGenerator = mock(LottoNumbersGenerator.class);
         when(mockLottoNumbersGenerator.generate()).thenReturn(new LottoNumbers(expected.stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::of)
                 .toList()));
 
         // When

@@ -20,7 +20,7 @@ public class InputView {
     public Lotto getWinningLottoNumbers() {
         String input = scanner.nextLine();
         return new Lotto(new LottoNumbers(Arrays.stream(input.split(","))
-                .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
+                .map(s -> LottoNumber.of(Integer.parseInt(s.trim())))
                 .toList()));
     }
 

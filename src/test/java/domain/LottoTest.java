@@ -20,8 +20,8 @@ public class LottoTest {
     void lottoTest() {
         // Given
         Lotto lotto = new Lotto(new LottoNumbers(
-                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                        new LottoNumber(5), new LottoNumber(6))));
+                List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3), LottoNumber.of(4),
+                        LottoNumber.of(5), LottoNumber.of(6))));
         List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
 
         // When & Then
@@ -37,8 +37,8 @@ public class LottoTest {
     @DisplayName("로또 생성 예외 테스트: 중복")
     void lottoDuplicationExceptionTest() {
         assertThatThrownBy(() -> new Lotto(new LottoNumbers(
-                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                        new LottoNumber(5), new LottoNumber(1)))))
+                List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3), LottoNumber.of(4),
+                        LottoNumber.of(5), LottoNumber.of(1)))))
                 .isInstanceOf(LottoNumberDuplicationException.class);
     }
 
@@ -47,12 +47,12 @@ public class LottoTest {
     void lottoNumberCountExceptionTest() {
         assertAll(
                 () -> assertThatThrownBy(() -> new Lotto(new LottoNumbers(
-                        List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                                new LottoNumber(5)))))
+                        List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3), LottoNumber.of(4),
+                                LottoNumber.of(5)))))
                         .isInstanceOf(InvalidLottoNumberCountException.class),
                 () -> assertThatThrownBy(() -> new Lotto(new LottoNumbers(
-                        List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                                new LottoNumber(5), new LottoNumber(6), new LottoNumber(7)))))
+                        List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3), LottoNumber.of(4),
+                                LottoNumber.of(5), LottoNumber.of(6), LottoNumber.of(7)))))
                         .isInstanceOf(InvalidLottoNumberCountException.class));
 
     }
@@ -73,11 +73,11 @@ public class LottoTest {
     void lottoMatchCountParameterizedTest(List<Integer> purchaseNumbers, int expectedMatchCount) {
         // Given
         Lotto winningLotto = new Lotto(new LottoNumbers(
-                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                        new LottoNumber(4), new LottoNumber(5), new LottoNumber(6))));
+                List.of(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3),
+                        LottoNumber.of(4), LottoNumber.of(5), LottoNumber.of(6))));
 
         Lotto purchaseLotto = new Lotto(new LottoNumbers(
-                purchaseNumbers.stream().map(LottoNumber::new).toList()));
+                purchaseNumbers.stream().map(LottoNumber::of).toList()));
 
         // When
         int matchCount = purchaseLotto.getMatchCount(purchaseLotto, winningLotto);

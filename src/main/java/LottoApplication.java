@@ -47,7 +47,7 @@ public class LottoApplication {
         outputView.printWinningLottoInputMessage();
         Lotto lotto = inputView.getWinningLottoNumbers();
         outputView.printBonusNumberInputMessage();
-        LottoNumber bonusNumber = new LottoNumber(inputView.getBonusNumber());
+        LottoNumber bonusNumber = LottoNumber.of(inputView.getBonusNumber());
         return new WinningLotto(lotto,bonusNumber);
     }
 
@@ -67,7 +67,7 @@ public class LottoApplication {
         return new Lottos(
                 manualLottoNumbers.stream()
                         .map(numbers -> numbers.stream()
-                                .map(LottoNumber::new)
+                                .map(LottoNumber::of)
                                 .toList())
                         .map(LottoNumbers::new)
                         .map(Lotto::new)

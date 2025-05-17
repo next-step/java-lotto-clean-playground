@@ -12,7 +12,7 @@ public class LottoNumbersGenerator {
     public LottoNumbers generate() {
         List<LottoNumber> candidateNumbers = new ArrayList<>();
         for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
-            candidateNumbers.add(new LottoNumber(i));
+            candidateNumbers.add(LottoNumber.of(i));
         }
 
         Collections.shuffle(candidateNumbers);

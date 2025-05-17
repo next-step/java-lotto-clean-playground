@@ -1,15 +1,25 @@
 package domain;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final Map<Integer, LottoNumber> CACHE = new ConcurrentHashMap<>();
 
-    public LottoNumber(int number) {
-        validate(number);
+    private LottoNumber(int number) {
         this.number = number;
     }
 
-    private void validate(int number) {
-        if (number < 1 || number > 45) {
+    public static LottoNumber of(int number) {
+        validate(number);
+        return CACHE.computeIfAbsent(number, LottoNumber::new);
+    }
+
+    private static void validate(int number) {
+        if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("유효한 로또 숫자가 아닙니다.");
         }
     }
