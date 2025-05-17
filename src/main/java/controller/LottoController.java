@@ -14,6 +14,7 @@ import view.InputView;
 import view.ResultView;
 
 public class LottoController {
+    private static final String ERROR_INSUFFICIENT_AMOUNT = "금액이 부족합니다.";
     private final InputView inputView;
     private final ResultView resultView;
     private final NumberGenerator numberGenerator;
@@ -36,7 +37,7 @@ public class LottoController {
         int count = amount / LOTTO_PRICE;
         int manualCount = inputView.readManualLottoCount();
         if (manualCount > count) {
-            throw new IllegalArgumentException("금액이 부족합니다.");
+            throw new IllegalArgumentException(ERROR_INSUFFICIENT_AMOUNT);
         }
         int autoCount = count - manualCount;
 

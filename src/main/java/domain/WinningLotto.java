@@ -1,7 +1,7 @@
 package domain;
 
 public class WinningLotto {
-    private static final String ERROR_DUPLICATE_BONUS = "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
+    public static final String ERROR_DUPLICATE_BONUS = "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
     private final Lotto winningLotto;
     private final LottoNumber bonusNumber;
 
@@ -26,9 +26,5 @@ public class WinningLotto {
     public boolean matchBonus(Lotto other) {
         return other.getNumbers().stream()
                 .anyMatch(num -> num.equals(bonusNumber));
-    }
-
-    public Lotto getWinningLotto() {
-        return winningLotto;
     }
 }
