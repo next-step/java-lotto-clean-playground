@@ -25,7 +25,7 @@ class LottoManagerTest {
 
         assertThatThrownBy(() -> {
             manager.purchaseLottos(500);
-        }).isInstanceOf(IllegalCallerException.class)
+        }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입 금액의 최소단위는 1000원입니다.");
     }
 
