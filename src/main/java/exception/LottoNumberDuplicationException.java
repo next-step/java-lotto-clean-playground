@@ -1,6 +1,6 @@
 package exception;
 
-public class LottoNumberDuplicationException extends RuntimeException {
+public class LottoNumberDuplicationException extends IllegalArgumentException {
     public LottoNumberDuplicationException(String message) {
         super(message);
     }
