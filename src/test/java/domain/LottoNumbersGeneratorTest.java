@@ -23,7 +23,7 @@ public class LottoNumbersGeneratorTest {
         Lotto lotto = new Lotto(mockLottoNumbersGenerator.generate());
 
         // Then
-        assertThat(lotto.getNumbers().getLottoNumbers().stream().map(LottoNumber::getNumber).toList()).isEqualTo(
+        assertThat(lotto.getNumbers().lottoNumbers().stream().map(LottoNumber::getNumber).toList()).isEqualTo(
                 expected);
     }
 }

@@ -19,7 +19,7 @@ public class LottoResult {
     }
 
     public void calculateRank() {
-        for (Lotto lotto : lottos.getLottos()) {
+        for (Lotto lotto : lottos.lottos()) {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
             boolean isBonusNumberMatched = winningLotto.isMatchBonusNumber(lotto);
             LottoRank.of(matchCount, isBonusNumberMatched).ifPresent(rank ->

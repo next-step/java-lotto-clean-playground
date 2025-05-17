@@ -36,7 +36,7 @@ public class LottoTest {
 
         // When & Then
         assertThat(lotto.getNumbers()
-                .getLottoNumbers()
+                .lottoNumbers()
                 .stream()
                 .map(LottoNumber::getNumber)
                 .toList())

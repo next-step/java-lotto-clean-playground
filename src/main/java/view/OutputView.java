@@ -13,8 +13,8 @@ public class OutputView {
 
     public void printPurchasedLottos(Lottos lottos) {
         System.out.println("\n" + lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos.getLottos()) {
-            System.out.println(lotto.getNumbers().getLottoNumbers().stream()
+        for (Lotto lotto : lottos.lottos()) {
+            System.out.println(lotto.getNumbers().lottoNumbers().stream()
                     .map(LottoNumber::getNumber)
                     .toList()
             );

@@ -22,15 +22,15 @@ public class Lotto {
             throw new InvalidLottoNumberCountException("로또 숫자 개수가 6개가 아닙니다.");
         }
 
-        if (new HashSet<>(lottoNumbers.getLottoNumbers().stream().map(LottoNumber::getNumber).toList()).size()
+        if (new HashSet<>(lottoNumbers.lottoNumbers().stream().map(LottoNumber::getNumber).toList()).size()
                 != LOTTO_NUMBER_COUNT) {
             throw new LottoNumberDuplicationException("로또의 숫자가 중복됩니다.");
         }
     }
 
     public int getMatchCount(Lotto purchaseLotto, Lotto winningLotto) {
-        return (int) purchaseLotto.getNumbers().getLottoNumbers().stream()
-                .filter(number -> winningLotto.getNumbers().getLottoNumbers().contains(number))
+        return (int) purchaseLotto.getNumbers().lottoNumbers().stream()
+                .filter(number -> winningLotto.getNumbers().lottoNumbers().contains(number))
                 .count();
     }
 }

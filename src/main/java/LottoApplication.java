@@ -54,8 +54,8 @@ public class LottoApplication {
 
     private static Lottos mergeManualLottosAndAutoLottos(Lottos manualLottos, Lottos autoLottos) {
         List<Lotto> allLottoList = new ArrayList<>();
-        allLottoList.addAll(manualLottos.getLottos());
-        allLottoList.addAll(autoLottos.getLottos());
+        allLottoList.addAll(manualLottos.lottos());
+        allLottoList.addAll(autoLottos.lottos());
         return new Lottos(allLottoList);
     }
 

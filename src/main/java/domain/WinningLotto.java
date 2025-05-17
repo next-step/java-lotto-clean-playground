@@ -13,7 +13,7 @@ public class WinningLotto {
     }
 
     private void validate(Lotto lotto, LottoNumber bonusNumber) {
-        if (lotto.getNumbers().getLottoNumbers().stream()
+        if (lotto.getNumbers().lottoNumbers().stream()
                 .anyMatch(n -> n.equals(bonusNumber))) {
             throw new BonusNumberDuplicationException("보너스볼 번호가 메인 번호와 중복됩니다.");
         }
@@ -24,7 +24,7 @@ public class WinningLotto {
     }
 
     public boolean isMatchBonusNumber(Lotto lotto) {
-        return lotto.getNumbers().getLottoNumbers().stream()
+        return lotto.getNumbers().lottoNumbers().stream()
                 .anyMatch(n -> n.equals(bonusNumber));
     }
 }
