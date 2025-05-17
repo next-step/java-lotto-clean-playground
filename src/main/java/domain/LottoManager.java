@@ -15,9 +15,6 @@ public class LottoManager {
     }
 
     private void validateMoney(int money) {
-        if (money < 0) {
-            throw new IllegalArgumentException("구입 금액은 0보다 커야 합니다.");
-        }
         if (money < PRICE_PER_LOTTO) {
             throw new IllegalArgumentException("구입 금액의 최소단위는 1000원입니다.");
         }
