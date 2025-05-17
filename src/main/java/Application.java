@@ -1,6 +1,4 @@
-import domain.Lotto;
-import domain.Numbers;
-import domain.WinningLotto;
+import controller.LottoController;
 import domain.generator.NumberGenerator;
 import domain.generator.RandomNumberGenerator;
 import view.InputView;
@@ -12,15 +10,7 @@ public class Application {
         ResultView resultView = new ResultView();
         NumberGenerator numberGenerator = new RandomNumberGenerator();
 
-        int amount = inputView.readAmount();
-        int count = amount / 1000;
-        resultView.printLottoCount(count);
-        for (int i = 0; i < count; i++) {
-            Lotto lotto = new Lotto(numberGenerator);
-            resultView.printLottoNumbers(lotto);
-        }
-
-        Numbers winningNumbers = new Numbers(inputView.readWinningNumbers());
-        WinningLotto winningLotto = new WinningLotto(winningNumbers);
+        LottoController controller = new LottoController(inputView, resultView, numberGenerator);
+        controller.run();
     }
 }
