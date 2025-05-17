@@ -13,7 +13,8 @@ public class LottoResult {
     public LottoResult(Lottos lottos, WinningLotto winningLotto) {
         for (Lotto lotto : lottos.getLottos()) {
             int matchCount = winningLotto.countMatch(lotto.getNumbers());
-            LottoRank rank = LottoRank.findRank(matchCount);
+            boolean bonusMatch = false;
+            LottoRank rank = LottoRank.findRank(matchCount, bonusMatch);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }
         totalCost = lottos.getLottos().size() * LOTTO_PRICE;

@@ -5,6 +5,7 @@ import static domain.constant.LottoConstants.LOTTO_PRICE;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
+import domain.Number;
 import domain.Numbers;
 import domain.WinningLotto;
 import domain.generator.NumberGenerator;
@@ -47,7 +48,12 @@ public class LottoController {
     }
 
     private WinningLotto setUpWinningLotto() {
-        Numbers winningNumbers = new Numbers(inputView.readWinningNumbers());
-        return new WinningLotto(winningNumbers);
+        List<Number> numbers = inputView.readWinningNumbers().stream()
+                .map(Number::new)
+                .toList();
+        Numbers winningNumbers = new Numbers(numbers);
+        Number bonusNumber = new Number(inputView.readBonusNumber());
+
+        return new WinningLotto(winningNumbers, bonusNumber);
     }
 }

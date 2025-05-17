@@ -3,8 +3,10 @@ package view;
 import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoResult;
+import domain.Number;
 import domain.Numbers;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class ResultView {
@@ -20,8 +22,10 @@ public class ResultView {
 
     public void printLottoNumbers(Lotto lotto) {
         Numbers numbers = lotto.getNumbers();
-        List<Integer> numbersList = numbers.getNumbers();
-        Collections.sort(numbersList);
+        List<Integer> numbersList = numbers.getNumbers().stream()
+                .map(Number::getNumber)
+                .sorted()
+                .toList();
         System.out.println(numbersList);
     }
 
@@ -29,13 +33,14 @@ public class ResultView {
         System.out.println();
         System.out.println(RESULT_TITLE);
         System.out.println(DIVIDER_LINE);
-        for (LottoRank rank : LottoRank.values()) {
-            if (rank == LottoRank.MISS) {
-                continue;
-            }
-            int count = result.getResult().getOrDefault(rank, 0);
-            System.out.printf(RESULT_FORMAT, rank.getMatchCount(), rank.getPrize(), count);
-        }
+
+        Arrays.stream(LottoRank.values())
+                .filter(rank -> rank != LottoRank.MISS)
+                .sorted(Comparator.comparingInt(LottoRank::getMatchCount))
+                .forEach(rank -> {
+                    int count = result.getResult().getOrDefault(rank, 0);
+                    System.out.printf(RESULT_FORMAT, rank.getMatchCount(), rank.getPrize(), count);
+                });
 
         System.out.printf(PROFIT_RATE, result.calculateProfitRate());
     }

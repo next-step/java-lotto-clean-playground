@@ -4,6 +4,7 @@ import static domain.constant.LottoConstants.LOTTO_MAX_NUMBER;
 import static domain.constant.LottoConstants.LOTTO_MIN_NUMBER;
 import static domain.constant.LottoConstants.LOTTO_NUMBER_COUNT;
 
+import domain.Number;
 import domain.Numbers;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,11 +14,15 @@ public class RandomNumberGenerator implements NumberGenerator {
 
     @Override
     public Numbers generate() {
-        List<Integer> numbers = new ArrayList<>();
+        List<Integer> candidates = new ArrayList<>();
         for (int i = LOTTO_MIN_NUMBER; i <= LOTTO_MAX_NUMBER; i++) {
-            numbers.add(i);
+            candidates.add(i);
         }
-        Collections.shuffle(numbers);
-        return new Numbers(numbers.subList(0, LOTTO_NUMBER_COUNT));
+        Collections.shuffle(candidates);
+
+        List<Integer> numbers = candidates.subList(0, LOTTO_NUMBER_COUNT);
+        return new Numbers(numbers.stream()
+                .map(Number::new)
+                .toList());
     }
 }
