@@ -12,8 +12,9 @@ public class LottoResult {
 
     public LottoResult(Lottos lottos, WinningLotto winningLotto) {
         for (Lotto lotto : lottos.getLottos()) {
-            int matchCount = winningLotto.countMatch(lotto.getNumbers());
-            boolean bonusMatch = false;
+            Numbers numbers = lotto.getNumbers();
+            int matchCount = winningLotto.countMatch(numbers);
+            boolean bonusMatch = winningLotto.matchBonus(numbers);
             LottoRank rank = LottoRank.findRank(matchCount, bonusMatch);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }

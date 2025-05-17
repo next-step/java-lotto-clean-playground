@@ -23,6 +23,11 @@ public class WinningLotto {
                 .count();
     }
 
+    public boolean matchBonus(Numbers other) {
+        return other.getNumbers().stream()
+                .anyMatch(num -> num.equals(bonusNumber));
+    }
+
     public Numbers getNumbers() {
         return numbers;
     }
