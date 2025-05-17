@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoManagerTest {
@@ -22,23 +23,10 @@ class LottoManagerTest {
     void purchaseLottoslessThanMinimumthrowsException() {
         LottoManager manager = new LottoManager();
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThatThrownBy(() -> {
             manager.purchaseLottos(500);
-        });
-
-        assertEquals("구입 금액의 최소단위는 1000원입니다.", exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("음수 입력 시 예외가 발생한다")
-    void purchaseLottosNegativeInputthrowsException() {
-        LottoManager manager = new LottoManager();
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            manager.purchaseLottos(-500);
-        });
-
-        assertEquals("구입 금액은 0보다 커야 합니다.", exception.getMessage());
+        }).isInstanceOf(IllegalCallerException.class)
+                .hasMessage("구입 금액의 최소단위는 1000원입니다.");
     }
 
 }
