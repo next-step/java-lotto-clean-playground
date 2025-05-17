@@ -45,10 +45,10 @@ public class ResultView {
 
         double profitRate = result.calculateProfitRate();
         if (profitRate < 1) {
-            System.out.printf(PROFIT_RATE, profitRate, "");
+            System.out.printf(PROFIT_RATE, profitRate, PROFIT_STANDARD);
             return;
         }
-        System.out.printf(PROFIT_RATE, profitRate, PROFIT_STANDARD);
+        System.out.printf(PROFIT_RATE, profitRate, "");
     }
 
     private void printRankResult(LottoRank rank, LottoResult result) {
