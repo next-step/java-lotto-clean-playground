@@ -24,7 +24,14 @@ class LottosTest {
         // then
         assertThat(lottos.getValues())
                 .hasSize(count)
-                .allSatisfy(lotto -> assertThat(lotto.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6));
+                .allSatisfy(lotto -> assertThat(lotto.getNumbers())
+                        .containsExactly(new LottoNumber(1),
+                                new LottoNumber(2),
+                                new LottoNumber(3),
+                                new LottoNumber(4),
+                                new LottoNumber(5),
+                                new LottoNumber(6))
+                );
     }
 
     @Test
@@ -38,7 +45,14 @@ class LottosTest {
         List<Lotto> values = lottos.getValues();
 
         // when & then
-        assertThatThrownBy(() -> values.add(new Lotto(List.of(7, 8, 9, 10, 11, 12))))
+        assertThatThrownBy(() -> values.add(new Lotto(List.of(
+                new LottoNumber(7),
+                new LottoNumber(8),
+                new LottoNumber(9),
+                new LottoNumber(10),
+                new LottoNumber(11),
+                new LottoNumber(12))
+        )))
                 .isInstanceOf(UnsupportedOperationException.class);
     }
 }

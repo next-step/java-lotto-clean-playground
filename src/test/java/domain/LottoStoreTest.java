@@ -23,6 +23,13 @@ class LottoStoreTest {
         // then
         assertThat(lottos.getValues())
                 .hasSize(3)
-                .allSatisfy(lotto -> assertThat(lotto.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6));
+                .allSatisfy(lotto -> assertThat(lotto.getNumbers())
+                        .containsExactly(new LottoNumber(1),
+                                new LottoNumber(2),
+                                new LottoNumber(3),
+                                new LottoNumber(4),
+                                new LottoNumber(5),
+                                new LottoNumber(6))
+                );
     }
 }

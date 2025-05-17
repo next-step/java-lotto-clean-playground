@@ -1,10 +1,17 @@
 package strategy;
 
+import domain.LottoNumber;
 import java.util.List;
 
 public class FixNumberGenerator implements LottoNumberGenerator {
     @Override
-    public List<Integer> generate() {
-        return List.of(1, 2, 3, 4, 5, 6);
+    public List<LottoNumber> generate() {
+        return List.of(new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6)
+        );
     }
 }
