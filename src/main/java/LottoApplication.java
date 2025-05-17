@@ -6,6 +6,7 @@ import domain.LottoNumbersGenerator;
 import domain.LottoPurchasePrice;
 import domain.LottoResult;
 import domain.Lottos;
+import domain.ManualLottoCount;
 import domain.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,9 @@ public class LottoApplication {
         final LottoGenerator lottoGenerator = new LottoGenerator(lottoNumbersGenerator);
 
         final LottoPurchasePrice lottoPurchasePrice = getLottoPurchasePrice(outputView, inputView);
-        final int manualLottoCount = getManualLottoCount(outputView, inputView);
-        final Lottos manualLottos = generateManualLottos(outputView, inputView, manualLottoCount);
-        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice.getPurchasePrice(),manualLottoCount);
+        final ManualLottoCount manualLottoCount = getManualLottoCount(outputView, inputView);
+        final Lottos manualLottos = generateManualLottos(outputView, inputView, manualLottoCount.getCount());
+        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice.getPurchasePrice(),manualLottoCount.getCount());
         final Lottos totalLottos = mergeManualLottosAndAutoLottos(manualLottos, autoLottos);
         outputView.printPurchasedLottos(totalLottos);
 
@@ -32,9 +33,9 @@ public class LottoApplication {
         outputView.printLottoResult(lottoResult);
     }
 
-    private static int getManualLottoCount(OutputView outputView, InputView inputView) {
+    private static ManualLottoCount getManualLottoCount(OutputView outputView, InputView inputView) {
         outputView.printManualLottoCountInputMessage();
-        return inputView.getManualLottoCount();
+        return new ManualLottoCount(inputView.getManualLottoCount());
     }
 
     private static LottoPurchasePrice getLottoPurchasePrice(OutputView outputView, InputView inputView) {
