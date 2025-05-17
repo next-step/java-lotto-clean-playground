@@ -22,10 +22,10 @@ public class LottoApplication {
         outputView.printPurchasedLottos(lottos);
 
         outputView.printWinningLotto();
-        LottoNumbers lottoNumbers = inputView.getWinningLottoNumbers();
+        Lotto lotto = inputView.getWinningLottoNumbers();
         outputView.printBonusNumber();
         LottoNumber bonusNumber = new LottoNumber(inputView.getBonusNumber());
-        WinningLotto winningLotto = new WinningLotto(lottoNumbers,bonusNumber);
+        WinningLotto winningLotto = new WinningLotto(lotto,bonusNumber);
 
         outputView.printLottoResult(lottos, winningLotto, lottoPurchasePrice);
     }

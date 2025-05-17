@@ -4,6 +4,7 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoRank;
 import domain.Lottos;
+import domain.WinningLotto;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class OutputView {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 
-    public void printLottoResult(Lottos lottos, Lotto winningLotto, int lottoPurchasePrice) {
+    public void printLottoResult(Lottos lottos, WinningLotto winningLotto, int lottoPurchasePrice) {
         Map<LottoRank, Integer> lottoResultMap = new EnumMap<>(LottoRank.class);
         initLottoResultMap(lottoResultMap);
         calculateRank(lottos, winningLotto, lottoResultMap);
@@ -56,9 +57,9 @@ public class OutputView {
         return (double) totalReturn / lottoPurchasePrice;
     }
 
-    private void calculateRank(Lottos lottos, Lotto winningLotto, Map<LottoRank, Integer> lottoResultMap) {
+    private void calculateRank(Lottos lottos, WinningLotto winningLotto, Map<LottoRank, Integer> lottoResultMap) {
         for (Lotto lotto : lottos.getLottos()) {
-            int matchCount = lotto.getMatchCount(lotto, winningLotto);
+            int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
             LottoRank.of(matchCount).ifPresent(rank ->
                     lottoResultMap.put(rank, lottoResultMap.get(rank) + 1)
             );

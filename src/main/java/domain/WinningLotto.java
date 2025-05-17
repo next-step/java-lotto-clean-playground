@@ -1,10 +1,15 @@
 package domain;
 
-public class WinningLotto extends Lotto {
+public class WinningLotto{
+    private final Lotto lotto;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
-        super(lottoNumbers);
+    public WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
+        this.lotto = lotto;
         this.bonusNumber = bonusNumber;
+    }
+
+    public Lotto getLotto() {
+        return lotto;
     }
 }
