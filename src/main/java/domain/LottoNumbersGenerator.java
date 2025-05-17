@@ -9,15 +9,15 @@ public class LottoNumbersGenerator {
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
 
-    public List<Integer> generate() {
-        List<Integer> candidateNumbers = new ArrayList<>();
+    public LottoNumbers generate() {
+        List<LottoNumber> candidateNumbers = new ArrayList<>();
         for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
-            candidateNumbers.add(i);
+            candidateNumbers.add(new LottoNumber(i));
         }
 
         Collections.shuffle(candidateNumbers);
-        List<Integer> selectedNumbers = candidateNumbers.subList(0, LOTTO_NUMBER_COUNT);
+        List<LottoNumber> selectedNumbers = candidateNumbers.subList(0, LOTTO_NUMBER_COUNT);
         Collections.sort(selectedNumbers);
-        return new ArrayList<>(selectedNumbers);
+        return new LottoNumbers(new ArrayList<LottoNumber>());
     }
 }

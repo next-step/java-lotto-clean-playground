@@ -15,12 +15,14 @@ public class LottoNumbersGeneratorTest {
         // Given
         List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
         LottoNumbersGenerator mockLottoNumbersGenerator = mock(LottoNumbersGenerator.class);
-        when(mockLottoNumbersGenerator.generate()).thenReturn(expected);
+        when(mockLottoNumbersGenerator.generate()).thenReturn(new LottoNumbers(expected.stream()
+                .map(LottoNumber::new)
+                .toList()));
 
         // When
         Lotto lotto = new Lotto(mockLottoNumbersGenerator.generate());
 
         // Then
-        assertThat(lotto.getNumbers()).isEqualTo(expected);
+        assertThat(lotto.getNumbers().getLottoNumbers().stream().map(LottoNumber::getNumber).toList()).isEqualTo(expected);
     }
 }

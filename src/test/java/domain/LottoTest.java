@@ -15,27 +15,41 @@ public class LottoTest {
     @DisplayName("로또 생성 테스트")
     void lottoTest() {
         // Given
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto lotto = new Lotto(new LottoNumbers(
+                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+                        new LottoNumber(5), new LottoNumber(6))));
         List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
 
         // When & Then
-        assertThat(lotto.getNumbers()).isEqualTo(expected);
+        assertThat(lotto.getNumbers()
+                .getLottoNumbers()
+                .stream()
+                .map(LottoNumber::getNumber)
+                .toList())
+                .isEqualTo(expected);
     }
 
     @Test
     @DisplayName("로또 생성 예외 테스트: 중복")
     void lottoDuplicationExceptionTest() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 1, 2, 3, 4, 5))).isInstanceOf(
-                LottoNumberDuplicationException.class);
+        assertThatThrownBy(() -> new Lotto(new LottoNumbers(
+                List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+                        new LottoNumber(5), new LottoNumber(1)))))
+                .isInstanceOf(LottoNumberDuplicationException.class);
     }
 
     @Test
     @DisplayName("로또 생성 예외 테스트: 로또 숫자 개수")
     void lottoNumberCountExceptionTest() {
-        assertAll(() -> assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5))).isInstanceOf(
-                        InvalidLottoNumberCountException.class),
-                () -> assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7))).isInstanceOf(
-                        InvalidLottoNumberCountException.class));
+        assertAll(
+                () -> assertThatThrownBy(() -> new Lotto(new LottoNumbers(
+                        List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+                                new LottoNumber(5)))))
+                        .isInstanceOf(InvalidLottoNumberCountException.class),
+                () -> assertThatThrownBy(() -> new Lotto(new LottoNumbers(
+                        List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+                                new LottoNumber(5), new LottoNumber(6), new LottoNumber(7)))))
+                        .isInstanceOf(InvalidLottoNumberCountException.class));
 
     }
 }
