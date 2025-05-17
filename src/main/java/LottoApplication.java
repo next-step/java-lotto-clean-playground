@@ -23,12 +23,13 @@ public class LottoApplication {
         final LottoPurchasePrice lottoPurchasePrice = getLottoPurchasePrice(outputView, inputView);
         final ManualLottoCount manualLottoCount = getManualLottoCount(outputView, inputView);
         final Lottos manualLottos = generateManualLottos(outputView, inputView, manualLottoCount.getCount());
-        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice.getPurchasePrice(),manualLottoCount.getCount());
+        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice.getPurchasePrice(),
+                manualLottoCount.getCount());
         final Lottos totalLottos = mergeManualLottosAndAutoLottos(manualLottos, autoLottos);
         outputView.printPurchasedLottos(totalLottos);
 
         final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
-        LottoResult lottoResult = new LottoResult(totalLottos,winningLotto,lottoPurchasePrice.getPurchasePrice());
+        LottoResult lottoResult = new LottoResult(totalLottos, winningLotto, lottoPurchasePrice.getPurchasePrice());
         lottoResult.calculateRank();
         outputView.printLottoResult(lottoResult);
     }
@@ -48,7 +49,7 @@ public class LottoApplication {
         Lotto lotto = inputView.getWinningLottoNumbers();
         outputView.printBonusNumberInputMessage();
         LottoNumber bonusNumber = LottoNumber.of(inputView.getBonusNumber());
-        return new WinningLotto(lotto,bonusNumber);
+        return new WinningLotto(lotto, bonusNumber);
     }
 
     private static Lottos mergeManualLottosAndAutoLottos(Lottos manualLottos, Lottos autoLottos) {

@@ -15,6 +15,16 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class LottoTest {
+    private static Stream<Arguments> provideLottosForMatchCount() {
+        return Stream.of(
+                Arguments.of(List.of(1, 2, 40, 41, 42, 43), 2),
+                Arguments.of(List.of(1, 2, 3, 40, 41, 42), 3),
+                Arguments.of(List.of(1, 2, 3, 4, 40, 41), 4),
+                Arguments.of(List.of(1, 2, 3, 4, 5, 40), 5),
+                Arguments.of(List.of(1, 2, 3, 4, 5, 6), 6)
+        );
+    }
+
     @Test
     @DisplayName("로또 생성 테스트")
     void lottoTest() {
@@ -55,16 +65,6 @@ public class LottoTest {
                                 LottoNumber.of(5), LottoNumber.of(6), LottoNumber.of(7)))))
                         .isInstanceOf(InvalidLottoNumberCountException.class));
 
-    }
-
-    private static Stream<Arguments> provideLottosForMatchCount() {
-        return Stream.of(
-                Arguments.of(List.of(1, 2, 40, 41, 42, 43), 2),
-                Arguments.of(List.of(1, 2, 3, 40, 41, 42), 3),
-                Arguments.of(List.of(1, 2, 3, 4, 40, 41), 4),
-                Arguments.of(List.of(1, 2, 3, 4, 5, 40), 5),
-                Arguments.of(List.of(1, 2, 3, 4, 5, 6), 6)
-        );
     }
 
     @ParameterizedTest

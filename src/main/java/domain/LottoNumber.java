@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LottoNumber implements Comparable<LottoNumber> {
-    private final int number;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final Map<Integer, LottoNumber> CACHE = new ConcurrentHashMap<>();
+    private final int number;
 
     private LottoNumber(int number) {
         this.number = number;

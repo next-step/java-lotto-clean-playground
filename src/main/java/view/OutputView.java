@@ -25,7 +25,7 @@ public class OutputView {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
     }
 
-    public void printBonusNumberInputMessage(){
+    public void printBonusNumberInputMessage() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
     }
 

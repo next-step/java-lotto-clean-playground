@@ -22,7 +22,7 @@ public class LottoResult {
         for (Lotto lotto : lottos.getLottos()) {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
             boolean isBonusNumberMatched = winningLotto.isMatchBonusNumber(lotto);
-            LottoRank.of(matchCount,isBonusNumberMatched).ifPresent(rank ->
+            LottoRank.of(matchCount, isBonusNumberMatched).ifPresent(rank ->
                     lottoResultMap.put(rank, lottoResultMap.get(rank) + 1)
             );
         }

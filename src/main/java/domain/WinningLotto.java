@@ -2,7 +2,7 @@ package domain;
 
 import exception.BonusNumberDuplicationException;
 
-public class WinningLotto{
+public class WinningLotto {
     private final Lotto lotto;
     private final LottoNumber bonusNumber;
 
@@ -13,8 +13,8 @@ public class WinningLotto{
     }
 
     private void validate(Lotto lotto, LottoNumber bonusNumber) {
-        if(lotto.getNumbers().getLottoNumbers().stream()
-                .anyMatch(n -> n.equals(bonusNumber))){
+        if (lotto.getNumbers().getLottoNumbers().stream()
+                .anyMatch(n -> n.equals(bonusNumber))) {
             throw new BonusNumberDuplicationException("보너스볼 번호가 메인 번호와 중복됩니다.");
         }
     }
