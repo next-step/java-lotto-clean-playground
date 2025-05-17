@@ -36,6 +36,9 @@ public class LottoController {
         int amount = inputView.readAmount();
         int count = amount / LOTTO_PRICE;
         int manualCount = inputView.readManualLottoCount();
+        if (manualCount > count) {
+            throw new IllegalArgumentException("금액이 부족합니다.");
+        }
         int autoCount = count - manualCount;
 
         List<Lotto> lottoList = new ArrayList<>();
@@ -43,7 +46,6 @@ public class LottoController {
         setUpManualLottos(manualNumbersList, lottoList);
         setUpAutoLottos(autoCount, lottoList);
         Lottos lottos = new Lottos(lottoList);
-
         resultView.printLottoCount(manualCount, autoCount);
         resultView.printLottos(lottos);
         return lottos;
