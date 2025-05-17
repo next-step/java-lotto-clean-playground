@@ -7,6 +7,12 @@ public class WinningLotto {
         this.numbers = numbers;
     }
 
+    public int countMatch(Numbers other) {
+        return (int) other.getNumbers().stream()
+                .filter(numbers.getNumbers()::contains)
+                .count();
+    }
+
     public Numbers getNumbers() {
         return numbers;
     }

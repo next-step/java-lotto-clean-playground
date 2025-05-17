@@ -3,6 +3,7 @@ package controller;
 import static domain.constant.LottoConstants.LOTTO_PRICE;
 
 import domain.Lotto;
+import domain.LottoResult;
 import domain.Lottos;
 import domain.Numbers;
 import domain.WinningLotto;
@@ -26,6 +27,8 @@ public class LottoController {
     public void run() {
         Lottos lottos = setUpLottos();
         WinningLotto winningLotto = setUpWinningLotto();
+        LottoResult lottoResult = new LottoResult(lottos, winningLotto);
+        resultView.printResult(lottoResult);
     }
 
     private Lottos setUpLottos() {
