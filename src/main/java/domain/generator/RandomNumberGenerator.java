@@ -1,13 +1,12 @@
 package domain.generator;
 
+import static domain.constant.LottoConstants.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class RandomNumberGenerator implements NumberGenerator {
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_MAX_NUMBER = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
 
     @Override
     public List<Integer> generate() {

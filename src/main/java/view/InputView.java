@@ -5,22 +5,27 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
+    private static final String INPUT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
+    private static final String INPUT_WINNING_NUMBERS = "지난 주 당첨 번호를 입력해 주세요.";
+    private static final String ERROR_NOT_NUMBER = "숫자를 입력해 주세요.";
+    public static final String DELIMITER = ",";
     private final Scanner scanner = new Scanner(System.in);
 
     public int readAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println(INPUT_PURCHASE_AMOUNT);
         String input = scanner.nextLine();
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해 주세요.");
+            throw new IllegalArgumentException(ERROR_NOT_NUMBER);
         }
     }
 
     public List<Integer> readWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        System.out.println();
+        System.out.println(INPUT_WINNING_NUMBERS);
         String input = scanner.nextLine();
-        List<String> stringList = Arrays.asList(input.split(","));
+        List<String> stringList = Arrays.asList(input.split(DELIMITER));
         try {
             return stringList.stream()
                     .map(String::trim)
@@ -28,7 +33,7 @@ public class InputView {
                     .boxed()
                     .toList();
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해 주세요.");
+            throw new IllegalArgumentException(ERROR_NOT_NUMBER);
         }
     }
 }

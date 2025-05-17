@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ResultView {
+    private static final String PURCHASED_COUNT = "%d개를 구매했습니다.%n";
     public void printLottoCount(int count) {
-        System.out.println();
-        System.out.println(count + "개를 구매했습니다.");
+        System.out.printf(PURCHASED_COUNT, count);
     }
 
     public void printLottoNumbers(Lotto lotto) {
