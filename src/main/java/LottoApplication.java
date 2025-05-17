@@ -3,6 +3,7 @@ import domain.LottoGenerator;
 import domain.LottoNumber;
 import domain.LottoNumbers;
 import domain.LottoNumbersGenerator;
+import domain.LottoPurchasePrice;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.WinningLotto;
@@ -18,15 +19,15 @@ public class LottoApplication {
         final LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator();
         final LottoGenerator lottoGenerator = new LottoGenerator(lottoNumbersGenerator);
 
-        final int lottoPurchasePrice = getLottoPurchasePrice(outputView, inputView);
+        final LottoPurchasePrice lottoPurchasePrice = getLottoPurchasePrice(outputView, inputView);
         final int manualLottoCount = getManualLottoCount(outputView, inputView);
         final Lottos manualLottos = generateManualLottos(outputView, inputView, manualLottoCount);
-        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice,manualLottoCount);
+        final Lottos autoLottos = lottoGenerator.generate(lottoPurchasePrice.getPurchasePrice(),manualLottoCount);
         final Lottos totalLottos = mergeManualLottosAndAutoLottos(manualLottos, autoLottos);
         outputView.printPurchasedLottos(totalLottos);
 
         final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
-        LottoResult lottoResult = new LottoResult(totalLottos,winningLotto,lottoPurchasePrice);
+        LottoResult lottoResult = new LottoResult(totalLottos,winningLotto,lottoPurchasePrice.getPurchasePrice());
         lottoResult.calculateRank();
         outputView.printLottoResult(lottoResult);
     }
@@ -36,9 +37,9 @@ public class LottoApplication {
         return inputView.getManualLottoCount();
     }
 
-    private static int getLottoPurchasePrice(OutputView outputView, InputView inputView) {
+    private static LottoPurchasePrice getLottoPurchasePrice(OutputView outputView, InputView inputView) {
         outputView.printPurchasePriceInputMessage();
-        return inputView.getLottoPurchasePrice();
+        return new LottoPurchasePrice(inputView.getLottoPurchasePrice());
     }
 
     private static WinningLotto generateWinningLotto(OutputView outputView, InputView inputView) {
