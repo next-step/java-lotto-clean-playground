@@ -24,13 +24,9 @@ public class LottoWinningChecker {
         List<LottoNumber> lottoNumbers = lotto.getNumbers();
         List<LottoNumber> winningNumbersList = winningNumbers.getWinningNumbers();
 
-        int matchCount = 0;
-        for (LottoNumber number : lottoNumbers) {
-            if (winningNumbersList.contains(number)) {
-                matchCount++;
-            }
-        }
-        return matchCount;
+        return (int) lottoNumbers.stream()
+                .filter(winningNumbersList::contains)
+                .count();
     }
 
     private void updatePrizeCount(int matchCount) {
