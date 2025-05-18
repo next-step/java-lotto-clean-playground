@@ -7,16 +7,16 @@ import domain.Profit;
 import domain.WinningLotto;
 import dto.LottoPurchaseDto;
 import service.InputHandler;
-import service.purchase.LottoPurchaseServiceImpl;
+import service.LottoPurchaseService;
 import service.OutputPresenter;
 
 public class LottoController {
 
     private final InputHandler inputHandler;
     private final OutputPresenter outputPresenter;
-    private final LottoPurchaseServiceImpl purchaseService;
+    private final LottoPurchaseService purchaseService;
 
-    public LottoController(InputHandler inputHandler, OutputPresenter outputPresenter, LottoPurchaseServiceImpl purchaseService) {
+    public LottoController(InputHandler inputHandler, OutputPresenter outputPresenter, LottoPurchaseService purchaseService) {
         this.inputHandler = inputHandler;
         this.outputPresenter = outputPresenter;
         this.purchaseService = purchaseService;
