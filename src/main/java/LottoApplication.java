@@ -29,6 +29,7 @@ public class LottoApplication {
         allLottos.addAll(manualLottos);
         allLottos.addAll(autoLottos);
 
+        // 수동 + 자동 로또 번호를 화면에 출력
         output.printPurchaseMessage(manualCount, autoCount);
         output.printLottos(allLottos);
 

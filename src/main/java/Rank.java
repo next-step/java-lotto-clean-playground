@@ -44,6 +44,7 @@ public enum Rank {
         if(matchCount == 3) {
             return FIFTH;
         }
-        return NONE;
+
+        throw new IllegalArgumentException("Invalid match count: " + matchCount);
     }
 }

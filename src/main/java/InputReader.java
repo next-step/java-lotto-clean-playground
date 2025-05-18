@@ -14,6 +14,7 @@ public class InputReader {
         sc.nextLine();
         return amount;
     }
+
     public int readManualLottoCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
         int count = sc.nextInt();
@@ -45,9 +46,15 @@ public class InputReader {
     }
 
     public LottoNumber readBonusBall() {
-        System.out.println("\n보너스 볼을 입력해 주세요.");
-        int bonusBall = sc.nextInt();
-        sc.nextLine();
-        return new LottoNumber(bonusBall);
+        while (true) {
+            try {
+                int bonusBall = Integer.parseInt(sc.nextLine().trim());
+                return new LottoNumber(bonusBall);
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

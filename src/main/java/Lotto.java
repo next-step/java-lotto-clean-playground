@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -7,7 +9,13 @@ public class Lotto {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("로또 당첨 번호의 개수는 6개 입니다.");
         }
-        this.numbers = numbers;
+
+        if (numbers == null){
+            throw new IllegalArgumentException("로또 번호 리스트가 null일 수 없습니다.");
+        }
+
+        // 생성자에서 리스트를 그대로 할당하면 외부에서 변경할 수 있기 때문에 복사
+        this.numbers = Collections.unmodifiableList(new ArrayList<>(numbers));
     }
 
     public Rank match(WinningNumbers winningNumbers) {
