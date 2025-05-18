@@ -1,8 +1,9 @@
 package domain;
 
+import domain.generator.AutoLottoGenerator;
+import domain.generator.LottoGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import view.InputView;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;

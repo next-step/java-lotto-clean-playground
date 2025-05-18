@@ -1,5 +1,7 @@
 package domain;
 
+import domain.generator.LottoGenerator;
+
 import java.util.*;
 
 
