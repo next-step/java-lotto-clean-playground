@@ -1,4 +1,7 @@
-package domain;
+package domain.generator;
+
+import domain.Lotto;
+import domain.LottoNumber;
 
 import java.util.*;
 
