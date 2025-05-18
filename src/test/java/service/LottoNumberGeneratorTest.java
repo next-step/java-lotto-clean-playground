@@ -5,7 +5,8 @@ import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 
 class LottoNumberGeneratorTest {
 
