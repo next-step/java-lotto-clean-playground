@@ -10,23 +10,23 @@ public class AutoLottoGenerator implements LottoGenerator {
 
     @Override
     public Lotto generate() {
-        List<Integer> numbers = generateShuffledNumbers();
-        List<Integer> picked = pickNumbers(numbers);
+        List<LottoNumber> numbers = generateShuffledNumbers();
+        List<LottoNumber> picked = pickNumbers(numbers);
         return new Lotto(picked);
     }
 
-    private List<Integer> generateShuffledNumbers() {
-        List<Integer> numbers = new ArrayList<>();
+    private List<LottoNumber> generateShuffledNumbers() {
+        List<LottoNumber> numbers = new ArrayList<>();
         for (int i = LOTTO_MIN; i <= LOTTO_MAX; i++) {
-            numbers.add(i);
+            numbers.add(new LottoNumber(i));
         }
         Collections.shuffle(numbers);
         return numbers;
     }
 
-    private List<Integer> pickNumbers(List<Integer> numbers) {
-        List<Integer> selected = new ArrayList<>(numbers.subList(0, PICK_COUNT));
-        Collections.sort(selected);
+    private List<LottoNumber> pickNumbers(List<LottoNumber> numbers) {
+        List<LottoNumber> selected = new ArrayList<>(numbers.subList(0, PICK_COUNT));
+        selected.sort(Comparator.comparingInt(LottoNumber::getNumber));
         return selected;
     }
 
