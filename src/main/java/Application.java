@@ -1,6 +1,9 @@
 import domain.LottoStore;
 import domain.Lottos;
+import domain.ProfitRateCalculator;
 import domain.PurchaseAmount;
+import domain.WinningLotto;
+import domain.WinningStatistics;
 import strategy.LottoNumberGenerator;
 import strategy.RandomNumberGenerator;
 import view.InputView;
@@ -17,5 +20,14 @@ public class Application {
 
         OutputView.printPurchaseCount(lottos.size());
         OutputView.printLottos(lottos.getValues());
+
+        String winningLottoNumber = InputView.inputWinningNumberForLastWeek();
+        WinningLotto winningLotto = new WinningLotto(winningLottoNumber);
+
+        WinningStatistics winningStatistics = new WinningStatistics(winningLotto, lottos);
+        double profitRate = ProfitRateCalculator.calculateProfitRate(winningStatistics, amount);
+
+        OutputView.printWinningStatistics(winningStatistics);
+        OutputView.printProfitRate(profitRate);
     }
 }
