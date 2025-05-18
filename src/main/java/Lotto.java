@@ -10,11 +10,24 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public Rank match(WinningNumbers winningNumbers) {
+        int matchCount = countMatch(winningNumbers);
+        boolean bonusMatch = hasBonusMatch(winningNumbers);
+
+        return Rank.valueOf(matchCount, bonusMatch);
+    }
+
     public int countMatch(WinningNumbers winningNumbers) {
         return (int) numbers.stream()
                 .filter(winningNumbers::contains)
                 .count();
     }
+
+    private boolean hasBonusMatch(WinningNumbers winningNumbers) {
+        return numbers.stream()
+                .anyMatch(winningNumbers::isBonusBall);
+    }
+
 
     public List<LottoNumber> getNumbers() {
         return numbers;

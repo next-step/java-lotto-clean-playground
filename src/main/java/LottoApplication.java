@@ -17,12 +17,13 @@ public class LottoApplication {
         output.printLottos(purchased);
 
         List<LottoNumber> winningNumbers = input.readWinningNumbers();
+        LottoNumber bonusBall = input.readBonusBall();
 
-        WinningNumbers win = new WinningNumbers(winningNumbers);
+        WinningNumbers win = new WinningNumbers(winningNumbers, bonusBall);
 
         for (Lotto lotto : purchased) {
-            int match = lotto.countMatch(win);
-            result.record(match);
+            Rank rank = lotto.match(win);
+            result.record(rank);
         }
 
         output.printResultHeader();

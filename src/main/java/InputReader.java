@@ -22,5 +22,12 @@ public class InputReader {
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());
     }
+
+    public LottoNumber readBonusBall() {
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        int bonusBall = sc.nextInt();
+        sc.nextLine();
+        return new LottoNumber(bonusBall);
+    }
 }
 

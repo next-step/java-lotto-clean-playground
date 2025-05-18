@@ -26,8 +26,14 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public void printResultLine(int matchCount, int reward, int count) {
-        System.out.printf("%d개 일치 (%d원)- %d개%n", matchCount, reward, count);
+    public void printResultLine(Rank rank, int count) {
+        if (rank == Rank.SECOND) {
+            System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개%n",
+                    rank.getMatchCount(), rank.getPrize(), count);
+        } else {
+            System.out.printf("%d개 일치 (%d원)- %d개%n",
+                    rank.getMatchCount(), rank.getPrize(), count);
+        }
     }
 
     public void printEarningRate(double rate) {
