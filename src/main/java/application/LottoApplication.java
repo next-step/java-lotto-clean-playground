@@ -24,7 +24,8 @@ public class LottoApplication {
 
         List<LottoNumber> winningNumbers = view.readWinningNumbers();
 
-        LottoStatistics statistics = new LottoStatistics(generatedLottos, winningNumbers, purchaseAmount);
+        LottoNumber bonusNumber = view.readBonusNumber();
+        LottoStatistics statistics = new LottoStatistics(generatedLottos, winningNumbers, bonusNumber, purchaseAmount);
         view.printStatistics(statistics);
     }
 }

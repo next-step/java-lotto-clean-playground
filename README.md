@@ -49,12 +49,20 @@ this.numbers = numbers;
 
 1단계에서 LottoGenerator 에서 1-45 범위에 있는지 검증해주는 로직을 구현해두지 않았지만, 만약 구현했다면 그 검증을 값 객체(LottoNumber) 내부로 위임했을 것입니다.
 
-#### 당첨 번호를 입력받는 LottoView
+---
+### 당첨 번호를 입력받는 LottoView
 이미 Lotto, LottoNumber 에서 검증을 하고 있지만 사용자 입력에 대한 예외 처리를 해주었습니다.
 
+---
 ### 알게 된 것
 LottoNumber 라는 값 객체를 만들어줬는데, 객체 비교에 쓰이는 equals()는 기본적으로 주솟값을 비교하기 때문에 오버라이딩 해줘야 합니다.
 Hash 기반 컬렉션에선 hashCode()를 먼저 비교한 뒤 equals()를 비교하기 때문에 haseCode()도 오버라이딩 해줘야 합니다.
+
+---
+## 3단계
+- Enum 사용하기
+
+
 ### 개인적 목표
 1. mvc 패턴 구현할 때, controller 에 비즈니스 로직을 넣지 말기
 2. 생성자에서도 null 체크, 유효성 검사하기
