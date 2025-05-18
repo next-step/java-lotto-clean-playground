@@ -1,4 +1,4 @@
-package service.assembler;
+package service;
 
 import domain.LottoStatistics;
 import domain.Profit;

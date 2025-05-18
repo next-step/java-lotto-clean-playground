@@ -1,12 +1,8 @@
 import controller.LottoController;
-import service.InputHandler;
 import service.LottoGenerator;
-import service.OutputPresenter;
-import service.assembler.ResultViewModelAssembler;
-import service.generator.LottoNumberGenerator;
-import service.io.InputHandlerImpl;
-import service.io.OutputPresenterImpl;
+import service.LottoNumberGenerator;
 import service.LottoPurchaseService;
+import service.ResultViewModelAssembler;
 import view.InputView;
 import view.OutputView;
 
@@ -16,14 +12,10 @@ public class Application {
         OutputView outputView = new OutputView();
 
         LottoGenerator lottoGenerator = new LottoGenerator(new LottoNumberGenerator());
-
         LottoPurchaseService purchaseService = new LottoPurchaseService(lottoGenerator);
         ResultViewModelAssembler assembler = new ResultViewModelAssembler();
 
-        InputHandler inputHandler = new InputHandlerImpl(inputView, outputView);
-        OutputPresenter outputPresenter = new OutputPresenterImpl(outputView, assembler);
-
-        LottoController controller = new LottoController(inputHandler, outputPresenter, purchaseService);
+        LottoController controller = new LottoController(inputView, outputView, purchaseService, assembler);
         controller.run();
     }
 }

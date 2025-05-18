@@ -2,7 +2,6 @@ package service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import service.generator.LottoNumberGenerator;
 
 import java.util.List;
 

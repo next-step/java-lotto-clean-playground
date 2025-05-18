@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -13,8 +15,12 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public String readManualLottoNumbersLine() {
-        return scanner.nextLine();
+    public List<String> readManualLottoNumbers(int count) {
+        List<String> lines = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            lines.add(scanner.nextLine());
+        }
+        return lines;
     }
 
     public String readLastWeekWinningNumbers() {
