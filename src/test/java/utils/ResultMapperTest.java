@@ -55,10 +55,10 @@ class ResultMapperTest {
     }
 
     private LottoStatistics stubStatistics(Map<Rank, Integer> winningCounts) {
-        WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        BonusNumber dummyBonus = new BonusNumber(7, winningNumbers);
+        WinningLotto winningLotto = new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        BonusNumber dummyBonus = new BonusNumber(7, winningLotto);
 
-        return new LottoStatistics(new Lottos(List.of()), winningNumbers, dummyBonus) {
+        return new LottoStatistics(new Lottos(List.of()), winningLotto, dummyBonus) {
             @Override
             public int countOf(Rank rank) {
                 return winningCounts.getOrDefault(rank, 0);
@@ -88,14 +88,14 @@ class ResultMapperTest {
     }
 
     private static LottoStatistics dummyStatistics() {
-        WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        BonusNumber dummyBonus = new BonusNumber(7, winningNumbers);
-        return new LottoStatistics(new Lottos(List.of()), winningNumbers, dummyBonus);
+        WinningLotto winningLotto = new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
+        BonusNumber dummyBonus = new BonusNumber(7, winningLotto);
+        return new LottoStatistics(new Lottos(List.of()), winningLotto, dummyBonus);
     }
 
-    private static List<WinningNumber> toWinningNumbers(List<Integer> numbers) {
+    private static List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .map(WinningNumber::new)
+                .map(LottoNumber::new)
                 .toList();
     }
 }

@@ -1,28 +1,28 @@
 package utils.parser;
 
-import domain.WinningNumber;
-import domain.WinningNumbers;
+import domain.LottoNumber;
+import domain.WinningLotto;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WinningNumbersParser {
+public class WinningLottoParser {
 
     private static final String DELIMITER = ",";
     private static final int REQUIRED_SIZE = 6;
     private static final String ERROR_INVALID_FORMAT = "[ERROR] 당첨 번호는 쉼표(,)로 구분된 숫자 6개여야 합니다.";
 
-    public static WinningNumbers parse(String input) {
+    public static WinningLotto parse(String input) {
         List<Integer> parsed = splitToIntegers(input);
         validateSize(parsed);
-        return toWinningNumbers(parsed);
+        return toWinningLotto(parsed);
     }
 
     private static List<Integer> splitToIntegers(String input) {
         return Arrays.stream(input.split(DELIMITER))
                 .map(String::trim)
-                .map(WinningNumbersParser::parseNumber)
+                .map(WinningLottoParser::parseNumber)
                 .collect(Collectors.toList());
     }
 
@@ -40,10 +40,10 @@ public class WinningNumbersParser {
         }
     }
 
-    private static WinningNumbers toWinningNumbers(List<Integer> rawNumbers) {
-        List<WinningNumber> converted = rawNumbers.stream()
-                .map(WinningNumber::new)
+    private static WinningLotto toWinningLotto(List<Integer> rawNumbers) {
+        List<LottoNumber> converted = rawNumbers.stream()
+                .map(LottoNumber::new)
                 .collect(Collectors.toList());
-        return new WinningNumbers(converted);
+        return new WinningLotto(converted);
     }
 }

@@ -4,7 +4,7 @@ import domain.BonusNumber;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.Profit;
-import domain.WinningNumbers;
+import domain.WinningLotto;
 import dto.LottoPurchaseDto;
 import service.InputHandler;
 import service.purchase.LottoPurchaseServiceImpl;
@@ -28,10 +28,10 @@ public class LottoController {
 
         outputPresenter.showPurchasedLottos(request.manualCount(), purchasedLottos);
 
-        WinningNumbers winningNumbers = inputHandler.readWinningNumbers();
-        BonusNumber bonusNumber = inputHandler.readBonusNumber(winningNumbers);
+        WinningLotto winningLotto = inputHandler.readWinningNumbers();
+        BonusNumber bonusNumber = inputHandler.readBonusNumber(winningLotto);
 
-        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningNumbers, bonusNumber);
+        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningLotto, bonusNumber);
         Profit profit = new Profit(statistics, request.purchaseAmount());
         outputPresenter.showStatistics(statistics, profit);
     }

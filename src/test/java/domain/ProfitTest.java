@@ -82,8 +82,8 @@ class ProfitTest {
         public LottoStatisticsStub(Map<Rank, Integer> countMap) {
             super(
                     new Lottos(List.of()),
-                    new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))),
-                    new BonusNumber(7, new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6))))
+                    new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6))),
+                    new BonusNumber(7, new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6))))
             );
             this.countMap = countMap;
         }
@@ -94,9 +94,9 @@ class ProfitTest {
         }
     }
 
-    private static List<WinningNumber> toWinningNumbers(List<Integer> numbers) {
+    private static List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
-                .map(WinningNumber::new)
+                .map(LottoNumber::new)
                 .toList();
     }
 }

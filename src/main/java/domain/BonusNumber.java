@@ -8,9 +8,9 @@ public class BonusNumber {
 
     private final int value;
 
-    public BonusNumber(int value, WinningNumbers winningNumbers) {
+    public BonusNumber(int value, WinningLotto winningLotto) {
         validateRange(value);
-        validateDuplicate(value, winningNumbers);
+        validateDuplicate(value, winningLotto);
         this.value = value;
     }
 
@@ -24,9 +24,9 @@ public class BonusNumber {
         }
     }
 
-    private void validateDuplicate(int value, WinningNumbers winningNumbers) {
-        boolean isDuplicate = winningNumbers.getNumbers().stream()
-                .anyMatch(winningNumber -> winningNumber.value() == value);
+    private void validateDuplicate(int value, WinningLotto winningLotto) {
+        boolean isDuplicate = winningLotto.getNumbers().stream()
+                .anyMatch(lottoNumber -> lottoNumber.value() == value);
 
         if (isDuplicate) {
             throw new IllegalArgumentException(ERROR_DUPLICATE);

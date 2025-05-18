@@ -3,13 +3,13 @@ package service.io;
 import domain.BonusNumber;
 import domain.Lotto;
 import domain.Lottos;
-import domain.WinningNumbers;
+import domain.WinningLotto;
 import service.InputHandler;
 import service.assembler.ManualLottoAssembler;
 import utils.parser.BonusNumberParser;
 import utils.parser.LottoPurchaseAmountParser;
 import utils.parser.ManualLottoCountParser;
-import utils.parser.WinningNumbersParser;
+import utils.parser.WinningLottoParser;
 import view.InputView;
 import view.OutputView;
 
@@ -44,14 +44,14 @@ public class InputHandlerImpl implements InputHandler {
     }
 
     @Override
-    public WinningNumbers readWinningNumbers() {
+    public WinningLotto readWinningNumbers() {
         outputView.printLastWeekWinningNumbersPrompt();
-        return WinningNumbersParser.parse(inputView.readLastWeekWinningNumbers());
+        return WinningLottoParser.parse(inputView.readLastWeekWinningNumbers());
     }
 
     @Override
-    public BonusNumber readBonusNumber(WinningNumbers winningNumbers) {
+    public BonusNumber readBonusNumber(WinningLotto winningLotto) {
         outputView.printBonusNumberPrompt();
-        return BonusNumberParser.parse(inputView.readBonusNumber(), winningNumbers);
+        return BonusNumberParser.parse(inputView.readBonusNumber(), winningLotto);
     }
 }

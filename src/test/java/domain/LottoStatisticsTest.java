@@ -84,20 +84,14 @@ class LottoStatisticsTest {
     private LottoStatistics statisticsOf(List<Integer> lottoNums, List<Integer> winningNums, int bonus) {
         Lotto lotto = new Lotto(toLottoNumbers(lottoNums));
         Lottos lottos = new Lottos(List.of(lotto));
-        WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(winningNums));
-        BonusNumber bonusNumber = new BonusNumber(bonus, winningNumbers);
-        return new LottoStatistics(lottos, winningNumbers, bonusNumber);
+        WinningLotto winningLotto = new WinningLotto(toLottoNumbers(winningNums));
+        BonusNumber bonusNumber = new BonusNumber(bonus, winningLotto);
+        return new LottoStatistics(lottos, winningLotto, bonusNumber);
     }
 
     private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .map(LottoNumber::new)
-                .toList();
-    }
-
-    private List<WinningNumber> toWinningNumbers(List<Integer> numbers) {
-        return numbers.stream()
-                .map(WinningNumber::new)
                 .toList();
     }
 }

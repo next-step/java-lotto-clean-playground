@@ -8,23 +8,23 @@ public class LottoStatistics {
 
     private final Map<Rank, Integer> statistics = new EnumMap<>(Rank.class);
 
-    public LottoStatistics(Lottos lottos, WinningNumbers winningNumbers, BonusNumber bonusNumber) {
-        calculate(lottos.getLottos(), winningNumbers, bonusNumber);
+    public LottoStatistics(Lottos lottos, WinningLotto winningLotto, BonusNumber bonusNumber) {
+        calculate(lottos.getLottos(), winningLotto, bonusNumber);
     }
 
     public int countOf(Rank rank) {
         return statistics.getOrDefault(rank, 0);
     }
 
-    private void calculate(List<Lotto> lottos, WinningNumbers winningNumbers, BonusNumber bonusNumber) {
+    private void calculate(List<Lotto> lottos, WinningLotto winningLotto, BonusNumber bonusNumber) {
         for (Lotto lotto : lottos) {
-            Rank rank = matchRank(winningNumbers, bonusNumber, lotto);
+            Rank rank = matchRank(winningLotto, bonusNumber, lotto);
             saveRank(rank);
         }
     }
 
-    private Rank matchRank(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto lotto) {
-        int matchCount = winningNumbers.countMatch(lotto);
+    private Rank matchRank(WinningLotto winningLotto, BonusNumber bonusNumber, Lotto lotto) {
+        int matchCount = winningLotto.countMatch(lotto);
 
         boolean bonusMatch = lotto.getNumbers().stream()
                 .anyMatch(number -> number.value() == bonusNumber.value());
