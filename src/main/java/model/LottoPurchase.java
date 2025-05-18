@@ -1,4 +1,4 @@
-package domain;
+package model;
 
 public class LottoPurchase {
     private static final int LOTTO_PRICE = 1000;
