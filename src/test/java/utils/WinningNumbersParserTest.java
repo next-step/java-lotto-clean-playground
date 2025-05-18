@@ -1,7 +1,7 @@
 package utils;
 
+import domain.Lotto;
 import domain.LottoNumber;
-import domain.LottoNumbers;
 import domain.WinningNumbers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class WinningNumbersParserTest {
     void parseValidInput() {
         WinningNumbers result = WinningNumbersParser.parse("1, 2, 3, 4, 5, 6");
 
-        assertThat(result.countMatch(toLottoNumbers(List.of(1, 2, 3, 10, 11, 12))))
+        assertThat(result.countMatch(toLotto(List.of(1, 2, 3, 10, 11, 12))))
                 .isEqualTo(3);
     }
 
@@ -51,14 +51,14 @@ class WinningNumbersParserTest {
     void parseWithWhitespace() {
         WinningNumbers result = WinningNumbersParser.parse(" 1 , 2 , 3 , 4 , 5 , 6 ");
 
-        assertThat(result.countMatch(toLottoNumbers(List.of(1, 2, 3, 7, 8, 9))))
+        assertThat(result.countMatch(toLotto(List.of(1, 2, 3, 7, 8, 9))))
                 .isEqualTo(3);
     }
 
-    private LottoNumbers toLottoNumbers(List<Integer> numbers) {
+    private Lotto toLotto(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = numbers.stream()
                 .map(LottoNumber::new)
                 .toList();
-        return new LottoNumbers(lottoNumbers);
+        return new Lotto(lottoNumbers);
     }
 }

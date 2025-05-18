@@ -17,7 +17,7 @@ public class LottoNumbersOutputConverter {
     }
 
     private static LottoNumbersDto convert(Lotto lotto) {
-        List<Integer> values = lotto.getNumbers().getNumbers().stream()
+        List<Integer> values = lotto.getNumbers().stream()
                 .map(LottoNumber::value)
                 .collect(Collectors.toList());
 

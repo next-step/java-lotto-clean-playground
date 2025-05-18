@@ -2,7 +2,6 @@ package service.generator;
 
 import domain.Lotto;
 import domain.LottoNumber;
-import domain.LottoNumbers;
 import domain.Lottos;
 import service.LottoGenerator;
 import service.NumberGenerator;
@@ -41,6 +40,7 @@ public class LottoGeneratorImpl implements LottoGenerator {
         List<LottoNumber> lottoNumbers = numbers.stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
-        return new Lotto(new LottoNumbers(lottoNumbers));
+
+        return new Lotto(lottoNumbers);
     }
 }

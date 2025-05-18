@@ -20,7 +20,7 @@ public class WinningNumbers {
         return numbers;
     }
 
-    public int countMatch(LottoNumbers lotto) {
+    public int countMatch(Lotto lotto) {
         Set<Integer> winningValues = new HashSet<>();
         for (WinningNumber number : numbers) {
             winningValues.add(number.value());

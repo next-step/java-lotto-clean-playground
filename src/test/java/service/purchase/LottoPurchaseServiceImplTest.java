@@ -2,7 +2,6 @@ package service.purchase;
 
 import domain.Lotto;
 import domain.LottoNumber;
-import domain.LottoNumbers;
 import domain.Lottos;
 import dto.LottoPurchaseDto;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +32,7 @@ class LottoPurchaseServiceImplTest {
         // when
         Lottos result = service.purchase(dto);
 
-        //then
+        // then
         assertThat(result.count()).isEqualTo(5);
     }
 
@@ -48,11 +47,10 @@ class LottoPurchaseServiceImplTest {
             public Lottos generateByCount(int count) {
                 List<Lotto> tickets = new ArrayList<>();
                 for (int i = 0; i < count; i++) {
-                    LottoNumbers numbers = new LottoNumbers(List.of(
+                    tickets.add(new Lotto(List.of(
                             new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
                             new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-                    ));
-                    tickets.add(new Lotto(numbers));
+                    )));
                 }
                 return new Lottos(tickets);
             }
@@ -61,14 +59,14 @@ class LottoPurchaseServiceImplTest {
 
     private List<Lotto> createManualLottos() {
         return List.of(
-                new Lotto(new LottoNumbers(List.of(
+                new Lotto(List.of(
                         new LottoNumber(1), new LottoNumber(3), new LottoNumber(5),
                         new LottoNumber(7), new LottoNumber(9), new LottoNumber(11)
-                ))),
-                new Lotto(new LottoNumbers(List.of(
+                )),
+                new Lotto(List.of(
                         new LottoNumber(2), new LottoNumber(4), new LottoNumber(6),
                         new LottoNumber(8), new LottoNumber(10), new LottoNumber(12)
-                )))
+                ))
         );
     }
 }

@@ -82,8 +82,8 @@ class LottoStatisticsTest {
     }
 
     private LottoStatistics statisticsOf(List<Integer> lottoNums, List<Integer> winningNums, int bonus) {
-        LottoNumbers lotto = new LottoNumbers(toLottoNumbers(lottoNums));
-        Lottos lottos = new Lottos(List.of(new Lotto(lotto)));
+        Lotto lotto = new Lotto(toLottoNumbers(lottoNums));
+        Lottos lottos = new Lottos(List.of(lotto));
         WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(winningNums));
         BonusNumber bonusNumber = new BonusNumber(bonus, winningNumbers);
         return new LottoStatistics(lottos, winningNumbers, bonusNumber);

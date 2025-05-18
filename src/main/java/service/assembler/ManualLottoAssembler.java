@@ -1,7 +1,7 @@
 package service.assembler;
 
 import domain.Lotto;
-import domain.LottoNumbers;
+import domain.LottoNumber;
 import utils.parser.LottoNumbersInputParser;
 import view.InputView;
 import view.OutputView;
@@ -17,7 +17,7 @@ public class ManualLottoAssembler {
 
         for (int i = 0; i < manualCount; i++) {
             String input = inputView.readManualLottoNumbersLine();
-            LottoNumbers numbers = LottoNumbersInputParser.parse(input);
+            List<LottoNumber> numbers = LottoNumbersInputParser.parse(input);
             lottos.add(new Lotto(numbers));
         }
 

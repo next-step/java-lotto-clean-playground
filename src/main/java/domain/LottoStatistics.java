@@ -24,9 +24,10 @@ public class LottoStatistics {
     }
 
     private Rank matchRank(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto lotto) {
-        int matchCount = winningNumbers.countMatch(lotto.getNumbers());
+        int matchCount = winningNumbers.countMatch(lotto);
 
-        boolean bonusMatch = lotto.getNumbers().containsValue(bonusNumber.value());
+        boolean bonusMatch = lotto.getNumbers().stream()
+                .anyMatch(number -> number.value() == bonusNumber.value());
 
         return Rank.valueOf(matchCount, bonusMatch);
     }

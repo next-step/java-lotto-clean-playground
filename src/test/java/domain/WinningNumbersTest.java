@@ -55,10 +55,10 @@ class WinningNumbersTest {
     }
 
     @Test
-    @DisplayName("다른 번호와 몇 개가 일치하는지 반환한다")
+    @DisplayName("다른 로또와 몇 개가 일치하는지 반환한다")
     void countMatchingNumbers() {
         WinningNumbers winningNumbers = new WinningNumbers(toWinningNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        LottoNumbers other = new LottoNumbers(toLottoNumbers(List.of(3, 4, 5, 7, 8, 9)));
+        Lotto other = new Lotto(toLottoNumbers(List.of(3, 4, 5, 7, 8, 9)));
 
         int matchCount = winningNumbers.countMatch(other);
 

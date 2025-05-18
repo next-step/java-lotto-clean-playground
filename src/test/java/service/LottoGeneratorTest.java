@@ -34,7 +34,7 @@ class LottoGeneratorTest {
         Lottos lottos = generator.generate(3000);
 
         lottos.getLottos().forEach(lotto ->
-                assertThat(lotto.getNumbers().getNumbers())
+                assertThat(lotto.getNumbers())
                         .map(LottoNumber::value)
                         .containsExactly(1, 2, 3, 4, 5, 6)
         );
