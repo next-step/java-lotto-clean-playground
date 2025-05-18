@@ -16,10 +16,9 @@ public class InputView {
     }
 
     public List<String> readManualLottoNumbers(int manualCount) {
-        List<String> manualNumbers = new ArrayList<>();
+        List<String> manualNumbers = new ArrayList<>(manualCount);
         for (int i = 0; i < manualCount; i++) {
-            String input = scanner.nextLine();
-            manualNumbers.add(input);
+            manualNumbers.add(scanner.nextLine());
         }
         return manualNumbers;
     }

@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Profit {
     private static final String ERROR_ZERO_PURCHASE = "[ERROR] 구입 금액은 0보다 커야 합니다.";
-
     private static final List<Rank> WINNING_RANKS = List.of(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST);
 
     private final long totalPrize;

@@ -2,7 +2,6 @@ import controller.LottoController;
 import service.LottoGenerator;
 import service.LottoNumberGenerator;
 import service.LottoPurchaseService;
-import service.ResultViewModelAssembler;
 import view.InputView;
 import view.OutputView;
 
@@ -13,9 +12,8 @@ public class Application {
 
         LottoGenerator lottoGenerator = new LottoGenerator(new LottoNumberGenerator());
         LottoPurchaseService purchaseService = new LottoPurchaseService(lottoGenerator);
-        ResultViewModelAssembler assembler = new ResultViewModelAssembler();
 
-        LottoController controller = new LottoController(inputView, outputView, purchaseService, assembler);
+        LottoController controller = new LottoController(inputView, outputView, purchaseService);
         controller.run();
     }
 }

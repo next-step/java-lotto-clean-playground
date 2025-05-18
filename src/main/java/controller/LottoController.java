@@ -8,10 +8,8 @@ import domain.Profit;
 import domain.WinningLotto;
 import dto.LottoPurchaseDto;
 import service.LottoPurchaseService;
-import service.ResultViewModelAssembler;
 import utils.BonusNumberParser;
 import utils.LottoNumbersInputParser;
-import utils.LottoNumbersOutputConverter;
 import utils.LottoPurchaseAmountParser;
 import utils.ManualLottoCountParser;
 import utils.WinningLottoParser;
@@ -26,14 +24,11 @@ public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
     private final LottoPurchaseService purchaseService;
-    private final ResultViewModelAssembler assembler;
 
-    public LottoController(InputView inputView, OutputView outputView,
-                           LottoPurchaseService purchaseService, ResultViewModelAssembler assembler) {
+    public LottoController(InputView inputView, OutputView outputView, LottoPurchaseService purchaseService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.purchaseService = purchaseService;
-        this.assembler = assembler;
     }
 
     public void run() {
@@ -41,8 +36,7 @@ public class LottoController {
         Lottos purchasedLottos = purchaseService.purchase(request);
 
         outputView.printLottoPurchaseResultHeader(request.manualCount(), purchasedLottos.count() - request.manualCount());
-        outputView.printLottoNumbers(LottoNumbersOutputConverter.convert(purchasedLottos));
-        System.out.println();
+        outputView.printLottoNumbers(purchasedLottos);
 
         outputView.printLastWeekWinningNumbersPrompt();
         WinningLotto winningLotto = WinningLottoParser.parse(inputView.readLastWeekWinningNumbers());
@@ -53,12 +47,12 @@ public class LottoController {
         LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningLotto, bonusNumber);
         Profit profit = new Profit(statistics, request.purchaseAmount());
 
-        outputView.printWinningStatistics(assembler.toPrintableMatchDtos(statistics));
-        outputView.printProfit(assembler.toPrintableProfitDto(profit));
+        outputView.printWinningStatistics(statistics.getRankStatistics());
+        outputView.printProfit(outputView.toProfitMessage(profit));
     }
 
     private LottoPurchaseDto createPurchaseRequest() {
-        outputView.printLottoPurchasePrompt();
+        outputView.printLottoPurchaseAmountPrompt();
         int purchaseAmount = LottoPurchaseAmountParser.parse(inputView.readLottoPurchaseAmount());
 
         outputView.printManualLottoCountPrompt();
@@ -78,5 +72,4 @@ public class LottoController {
 
         return new LottoPurchaseDto(purchaseAmount, manualCount, manualLottos, autoCount);
     }
-
 }
