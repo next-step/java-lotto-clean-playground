@@ -1,0 +1,36 @@
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class OutputView {
+
+    public void printPurchaseMessage(int ticketCount) {
+        System.out.println("\n" + ticketCount + "개를 구매했습니다.");
+    }
+
+    public void printLottos(List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
+            List<Integer> numbers = lotto.getNumbers().stream()
+                    .map(LottoNumber::getValue)
+                    .collect(Collectors.toList());
+            System.out.println(numbers);
+        }
+    }
+
+    public void printInputWinningNumbersPrompt() {
+        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
+    }
+
+    public void printResultHeader() {
+        System.out.println();
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+    }
+
+    public void printResultLine(int matchCount, int reward, int count) {
+        System.out.printf("%d개 일치 (%d원)- %d개%n", matchCount, reward, count);
+    }
+
+    public void printEarningRate(double rate) {
+        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)%n", rate);
+    }
+}

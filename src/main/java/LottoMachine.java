@@ -1,28 +1,29 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoMachine {
 
-    public List<List<Integer>> generateLottos(int amount) {
-        int count = amount / 1000;
-        List<List<Integer>> lottoTickets = new ArrayList<>();
-
+    public List<Lotto> generateLottos(int count) {
+        List<Lotto> lottoTickets = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            lottoTickets.add(generateSingleLotto());
+            lottoTickets.add(new Lotto(generateSingleLotto()));
         }
-
         return lottoTickets;
     }
 
-    private List<Integer> generateSingleLotto() {
+    private List<LottoNumber> generateSingleLotto() {
         List<Integer> numbers = new ArrayList<>();
         for (int i = 1; i <= 45; i++) {
             numbers.add(i);
         }
         Collections.shuffle(numbers);
-        List<Integer> lotto = numbers.subList(0, 6);
-        Collections.sort(lotto);
-        return new ArrayList<>(lotto);
+        List<Integer> selected = numbers.subList(0, 6);
+        Collections.sort(selected);
+
+        return selected.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
     }
 }
