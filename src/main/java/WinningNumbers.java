@@ -23,4 +23,5 @@ public class WinningNumbers {
     public boolean isBonusBall(LottoNumber number) {
         return bonusBall.equals(number);
     }
+
 }

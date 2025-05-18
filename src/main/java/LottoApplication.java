@@ -10,18 +10,34 @@ public class LottoApplication {
         LottoResult result = new LottoResult();
 
         int ticketCount = input.readPurchaseAmount() / 1000;
+        int manualCount =input.readManualLottoCount();
+        int autoCount = ticketCount - manualCount;
 
-        output.printPurchaseMessage(ticketCount);
+        if (autoCount < 0){
+            System.out.println("구입 금액보다 수동 구매 로또 수가 더 많습니다.");
+            return;
+        }
 
-        List<Lotto> purchased = machine.generateLottos(ticketCount);
-        output.printLottos(purchased);
+        List<Lotto> manualLottos = new ArrayList<>();
+        if (manualCount > 0) {
+            manualLottos = input.readManualLottos(manualCount);
+        }
+
+        List<Lotto> autoLottos = machine.generateLottos(autoCount);
+
+        List<Lotto> allLottos = new ArrayList<>();
+        allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos);
+
+        output.printPurchaseMessage(manualCount, autoCount);
+        output.printLottos(allLottos);
 
         List<LottoNumber> winningNumbers = input.readWinningNumbers();
         LottoNumber bonusBall = input.readBonusBall();
 
         WinningNumbers win = new WinningNumbers(winningNumbers, bonusBall);
 
-        for (Lotto lotto : purchased) {
+        for (Lotto lotto : allLottos) {
             Rank rank = lotto.match(win);
             result.record(rank);
         }

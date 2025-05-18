@@ -3,8 +3,8 @@ import java.util.stream.Collectors;
 
 public class OutputView {
 
-    public void printPurchaseMessage(int ticketCount) {
-        System.out.println("\n" + ticketCount + "개를 구매했습니다.");
+    public void printPurchaseMessage(int manualCount, int autoCount) {
+        System.out.println("\n수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
     }
 
     public void printLottos(List<Lotto> lottos) {
