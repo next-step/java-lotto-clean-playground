@@ -9,16 +9,17 @@ import domain.WinningLotto;
 import dto.LottoPurchaseDto;
 import service.LottoPurchaseService;
 import service.ResultViewModelAssembler;
-import utils.converter.LottoNumbersOutputConverter;
-import utils.parser.BonusNumberParser;
-import utils.parser.LottoNumbersInputParser;
-import utils.parser.LottoPurchaseAmountParser;
-import utils.parser.ManualLottoCountParser;
-import utils.parser.WinningLottoParser;
+import utils.BonusNumberParser;
+import utils.LottoNumbersInputParser;
+import utils.LottoNumbersOutputConverter;
+import utils.LottoPurchaseAmountParser;
+import utils.ManualLottoCountParser;
+import utils.WinningLottoParser;
 import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoController {
 
@@ -63,15 +64,19 @@ public class LottoController {
         outputView.printManualLottoCountPrompt();
         int manualCount = ManualLottoCountParser.parse(inputView.readManualLottoCount(), purchaseAmount);
 
+        int autoCount = (purchaseAmount / Lotto.PRICE) - manualCount;
+
         outputView.printManualPurchaseLottoNumbersPrompt();
         List<String> inputs = inputView.readManualLottoNumbers(manualCount);
 
         List<Lotto> manualTickets = inputs.stream()
                 .map(LottoNumbersInputParser::parse)
                 .map(Lotto::new)
-                .toList();
+                .collect(Collectors.toList());
 
-        return new LottoPurchaseDto(purchaseAmount, manualCount, new Lottos(manualTickets));
+        Lottos manualLottos = new Lottos(manualTickets);
+
+        return new LottoPurchaseDto(purchaseAmount, manualCount, manualLottos, autoCount);
     }
 
 }

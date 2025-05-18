@@ -14,8 +14,11 @@ public class LottoPurchaseService {
 
     public Lottos purchase(LottoPurchaseDto request) {
         int totalCount = request.purchaseAmount() / Lotto.PRICE;
-        int autoCount = totalCount - request.manualCount();
-        Lottos autoLottos = lottoGenerator.generate(autoCount);
-        return Lottos.merge(request.manualLottos(), autoLottos);
+        int manualCount = request.manualCount();
+        int autoCount = totalCount - manualCount;
+
+        Lottos generatedLottos = lottoGenerator.generate(request.manualLottos().getLottos(), autoCount);
+
+        return generatedLottos;
     }
 }

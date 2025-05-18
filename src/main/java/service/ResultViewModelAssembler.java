@@ -6,8 +6,8 @@ import dto.PrintableMatchDto;
 import dto.PrintableProfitDto;
 import dto.WinningResultDto;
 import dto.ProfitDto;
-import utils.formatter.ResultFormatter;
-import utils.mapper.ResultMapper;
+import utils.ResultFormatter;
+import utils.ResultMapper;
 
 import java.util.List;
 

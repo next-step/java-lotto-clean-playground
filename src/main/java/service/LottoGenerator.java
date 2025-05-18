@@ -10,18 +10,19 @@ import java.util.stream.IntStream;
 
 public class LottoGenerator {
 
-    private final NumberGenerator numberGenerator;
+    private final LottoNumberGenerator numberGenerator;
 
-    public LottoGenerator(NumberGenerator numberGenerator) {
+    public LottoGenerator(LottoNumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }
 
-    public Lottos generate(int count) {
-        return generateByCount(count);
+    public Lottos generate(List<Lotto> manualLottos, int autoCount) {
+        Lottos autoLottos = generateAutoLottos(autoCount);
+        return Lottos.merge(new Lottos(manualLottos), autoLottos);
     }
 
-    private Lottos generateByCount(int count) {
-        List<Lotto> tickets = IntStream.range(0, count)
+    private Lottos generateAutoLottos(int autoCount) {
+        List<Lotto> tickets = IntStream.range(0, autoCount)
                 .mapToObj(i -> toLotto(numberGenerator.generate()))
                 .collect(Collectors.toList());
 

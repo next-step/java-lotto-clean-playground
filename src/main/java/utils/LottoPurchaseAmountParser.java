@@ -1,4 +1,4 @@
-package utils.parser;
+package utils;
 
 public class LottoPurchaseAmountParser {
 

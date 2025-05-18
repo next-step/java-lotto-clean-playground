@@ -15,12 +15,13 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public List<String> readManualLottoNumbers(int count) {
-        List<String> lines = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lines.add(scanner.nextLine());
+    public List<String> readManualLottoNumbers(int manualCount) {
+        List<String> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            String input = scanner.nextLine();
+            manualNumbers.add(input);
         }
-        return lines;
+        return manualNumbers;
     }
 
     public String readLastWeekWinningNumbers() {

@@ -1,4 +1,4 @@
-package utils.mapper;
+package utils;
 
 import domain.LottoStatistics;
 import domain.Profit;

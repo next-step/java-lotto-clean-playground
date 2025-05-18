@@ -9,66 +9,71 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoPurchaseServiceTest {
 
-    private LottoPurchaseService purchaseService;
+    private LottoGenerator lottoGenerator;
+    private LottoPurchaseService lottoPurchaseService;
 
     @BeforeEach
     void setUp() {
-        purchaseService = new LottoPurchaseService(new FixedLottoGenerator());
+        LottoNumberGenerator numberGenerator = new LottoNumberGenerator();
+        lottoGenerator = new LottoGenerator(numberGenerator);
+        lottoPurchaseService = new LottoPurchaseService(lottoGenerator);
     }
 
     @Test
-    @DisplayName("구입 금액이 5,000원이고 수동 로또가 2장일 때, 자동 로또 3장이 생성되어 총 5장이 반환된다")
-    void purchaseLottos_correctly() {
+    @DisplayName("수동 로또 2개와 자동 로또 3개가 포함된 총 5개의 로또가 정확히 생성되어야 한다")
+    void purchase_withManualAndAutoLottos_shouldReturnCorrectLottos() {
         // given
-        int purchaseAmount = 5000;
+        List<Lotto> manualLottos = List.of(
+                new Lotto(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6))),
+                new Lotto(List.of(new LottoNumber(7), new LottoNumber(8), new LottoNumber(9), new LottoNumber(10), new LottoNumber(11), new LottoNumber(12)))
+        );
+        int purchaseAmount = 10000;
         int manualCount = 2;
-        Lottos manualLottos = createManualLottos();
-        LottoPurchaseDto request = new LottoPurchaseDto(purchaseAmount, manualCount, manualLottos);
+        int autoCount = (purchaseAmount / Lotto.PRICE) - manualCount;
 
         // when
-        Lottos result = purchaseService.purchase(request);
+        Lottos result = lottoPurchaseService.purchase(new LottoPurchaseDto(purchaseAmount, manualCount, new Lottos(manualLottos), autoCount));
 
         // then
-        assertThat(result.count()).isEqualTo(5);
-        assertThat(result.getLottos().subList(0, 2)).isEqualTo(manualLottos.getLottos());
+        assertThat(result.count()).isEqualTo(manualLottos.size() + autoCount);
     }
 
-    private Lottos createManualLottos() {
-        return new Lottos(List.of(
-                fixedLotto(List.of(1, 2, 3, 4, 5, 6)),
-                fixedLotto(List.of(7, 8, 9, 10, 11, 12))
-        ));
+    @Test
+    @DisplayName("수동 로또가 없고 자동 로또만 생성되어야 하며, 총 5개의 자동 로또가 생성되어야 한다")
+    void purchase_withNoManualLottos_shouldReturnOnlyAutoLottos() {
+        // given
+        List<Lotto> manualLottos = List.of();
+        int purchaseAmount = 5000;
+        int manualCount = 0;
+        int autoCount = purchaseAmount / Lotto.PRICE;
+
+        // when
+        Lottos result = lottoPurchaseService.purchase(new LottoPurchaseDto(purchaseAmount, manualCount, new Lottos(manualLottos), autoCount));
+
+        // then
+        assertThat(result.count()).isEqualTo(autoCount);
     }
 
-    private Lotto fixedLotto(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = numbers.stream()
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
-        return new Lotto(lottoNumbers);
-    }
+    @Test
+    @DisplayName("자동 로또 없이 수동 로또만 정확히 생성되어야 하며, 총 5개의 수동 로또가 생성되어야 한다")
+    void purchase_withOnlyManualLottos_shouldReturnOnlyManualLottos() {
+        // given
+        List<Lotto> manualLottos = List.of(
+                new Lotto(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)))
+        );
+        int purchaseAmount = 5000;
+        int manualCount = 5;
+        int autoCount = 0;
 
-    static class FixedLottoGenerator extends LottoGenerator {
-        public FixedLottoGenerator() {
-            super(null);
-        }
+        // when
+        Lottos result = lottoPurchaseService.purchase(new LottoPurchaseDto(purchaseAmount, manualCount, new Lottos(manualLottos), autoCount));
 
-        @Override
-        public Lottos generate(int count) {
-            List<Lotto> tickets = IntStream.range(0, count)
-                    .mapToObj(i -> new Lotto(
-                            IntStream.rangeClosed(10, 15)
-                                    .mapToObj(LottoNumber::new)
-                                    .collect(Collectors.toList())
-                    ))
-                    .collect(Collectors.toList());
-            return new Lottos(tickets);
-        }
+        // then
+        assertThat(result.count()).isEqualTo(manualLottos.size());
     }
 }

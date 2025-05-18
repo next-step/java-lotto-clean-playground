@@ -1,4 +1,4 @@
-package utils.formatter;
+package utils;
 
 import dto.MatchResultDto;
 import dto.PrintableMatchDto;
