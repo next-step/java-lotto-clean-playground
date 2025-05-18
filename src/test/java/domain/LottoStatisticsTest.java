@@ -85,7 +85,7 @@ class LottoStatisticsTest {
         Lotto lotto = new Lotto(toLottoNumbers(lottoNums));
         Lottos lottos = new Lottos(List.of(lotto));
         WinningLotto winningLotto = new WinningLotto(toLottoNumbers(winningNums));
-        BonusNumber bonusNumber = new BonusNumber(bonus, winningLotto);
+        LottoNumber bonusNumber = new LottoNumber(bonus);
         return new LottoStatistics(lottos, winningLotto, bonusNumber);
     }
 

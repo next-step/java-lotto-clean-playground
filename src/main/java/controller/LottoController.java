@@ -1,6 +1,6 @@
 package controller;
 
-import domain.BonusNumber;
+import domain.LottoNumber;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.Profit;
@@ -29,7 +29,7 @@ public class LottoController {
         outputPresenter.showPurchasedLottos(request.manualCount(), purchasedLottos);
 
         WinningLotto winningLotto = inputHandler.readWinningNumbers();
-        BonusNumber bonusNumber = inputHandler.readBonusNumber(winningLotto);
+        LottoNumber bonusNumber = inputHandler.readBonusNumber(winningLotto);
 
         LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningLotto, bonusNumber);
         Profit profit = new Profit(statistics, request.purchaseAmount());

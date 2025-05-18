@@ -1,15 +1,15 @@
 package service.io;
 
-import domain.BonusNumber;
 import domain.Lotto;
 import domain.Lottos;
+import domain.LottoNumber;
 import domain.WinningLotto;
 import service.InputHandler;
 import service.assembler.ManualLottoAssembler;
-import utils.parser.BonusNumberParser;
 import utils.parser.LottoPurchaseAmountParser;
 import utils.parser.ManualLottoCountParser;
 import utils.parser.WinningLottoParser;
+import utils.parser.BonusNumberParser;
 import view.InputView;
 import view.OutputView;
 
@@ -50,7 +50,7 @@ public class InputHandlerImpl implements InputHandler {
     }
 
     @Override
-    public BonusNumber readBonusNumber(WinningLotto winningLotto) {
+    public LottoNumber readBonusNumber(WinningLotto winningLotto) {
         outputView.printBonusNumberPrompt();
         return BonusNumberParser.parse(inputView.readBonusNumber(), winningLotto);
     }

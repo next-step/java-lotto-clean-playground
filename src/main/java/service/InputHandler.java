@@ -1,13 +1,13 @@
 package service;
 
-import domain.BonusNumber;
 import domain.Lottos;
 import domain.WinningLotto;
+import domain.LottoNumber;
 
 public interface InputHandler {
     int readPurchaseAmount();
     int readManualLottoCount(int purchaseAmount);
     Lottos readManualLottos(int count);
     WinningLotto readWinningNumbers();
-    BonusNumber readBonusNumber(WinningLotto winningLotto);
+    LottoNumber readBonusNumber(WinningLotto winningLotto);
 }

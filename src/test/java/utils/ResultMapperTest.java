@@ -1,6 +1,11 @@
 package utils;
 
-import domain.*;
+import domain.LottoNumber;
+import domain.LottoStatistics;
+import domain.Lottos;
+import domain.Profit;
+import domain.Rank;
+import domain.WinningLotto;
 import dto.MatchResultDto;
 import dto.ProfitDto;
 import dto.WinningResultDto;
@@ -13,7 +18,8 @@ import utils.mapper.ResultMapper;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 class ResultMapperTest {
 
@@ -56,7 +62,7 @@ class ResultMapperTest {
 
     private LottoStatistics stubStatistics(Map<Rank, Integer> winningCounts) {
         WinningLotto winningLotto = new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        BonusNumber dummyBonus = new BonusNumber(7, winningLotto);
+        LottoNumber dummyBonus = new LottoNumber(7);
 
         return new LottoStatistics(new Lottos(List.of()), winningLotto, dummyBonus) {
             @Override
@@ -89,7 +95,7 @@ class ResultMapperTest {
 
     private static LottoStatistics dummyStatistics() {
         WinningLotto winningLotto = new WinningLotto(toLottoNumbers(List.of(1, 2, 3, 4, 5, 6)));
-        BonusNumber dummyBonus = new BonusNumber(7, winningLotto);
+        LottoNumber dummyBonus = new LottoNumber(7);
         return new LottoStatistics(new Lottos(List.of()), winningLotto, dummyBonus);
     }
 

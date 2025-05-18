@@ -4,7 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+
 
 class LottoNumberTest {
 
@@ -30,7 +33,7 @@ class LottoNumberTest {
         void lessThanMinThrowsException() {
             assertThatThrownBy(() -> new LottoNumber(0))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[ERROR] 로또 번호는 1부터 45 사이여야 합니다.");
+                    .hasMessage("[ERROR] 번호는 1부터 45 사이여야 합니다.");
         }
 
         @Test
@@ -38,7 +41,7 @@ class LottoNumberTest {
         void greaterThanMaxThrowsException() {
             assertThatThrownBy(() -> new LottoNumber(46))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("[ERROR] 로또 번호는 1부터 45 사이여야 합니다.");
+                    .hasMessage("[ERROR] 번호는 1부터 45 사이여야 합니다.");
         }
     }
 }
