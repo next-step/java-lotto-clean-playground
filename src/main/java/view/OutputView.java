@@ -1,17 +1,10 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoHistory;
-import domain.LottoProfitCalculator;
-import domain.LottoWinningChecker;
+import domain.*;
 
 import java.util.*;
 
 public class OutputView {
-    private static final long FIRST_PRIZE_AMOUNT = 2_000_000_000L;
-    private static final long SECOND_PRIZE_AMOUNT = 1_500_000L;
-    private static final long THIRD_PRIZE_AMOUNT = 50_000L;
-    private static final long FOURTH_PRIZE_AMOUNT = 5_000L;
 
     public static void printLottoHistory(LottoHistory history) {
         System.out.println();
@@ -39,10 +32,10 @@ public class OutputView {
         int third = checker.getThirdPrize();
         int fourth = checker.getFourthPrize();
 
-        builder.append("3개 일치 (").append(FOURTH_PRIZE_AMOUNT).append("원)- ").append(fourth).append("개\n");
-        builder.append("4개 일치 (").append(THIRD_PRIZE_AMOUNT).append("원)- ").append(third).append("개\n");
-        builder.append("5개 일치 (").append(SECOND_PRIZE_AMOUNT).append("원)- ").append(second).append("개\n");
-        builder.append("6개 일치 (").append(FIRST_PRIZE_AMOUNT).append("원)- ").append(first).append("개\n");
+        builder.append("3개 일치 (").append(Prize.FOURTH.getPrizeAmount()).append("원)- ").append(fourth).append("개\n");
+        builder.append("4개 일치 (").append(Prize.THIRD.getPrizeAmount()).append("원)- ").append(third).append("개\n");
+        builder.append("5개 일치 (").append(Prize.SECOND.getPrizeAmount()).append("원)- ").append(second).append("개\n");
+        builder.append("6개 일치 (").append(Prize.FIRST.getPrizeAmount()).append("원)- ").append(first).append("개\n");
     }
 
     private static void appendProfitRate(StringBuilder builder, LottoWinningChecker checker, int totalTickets) {

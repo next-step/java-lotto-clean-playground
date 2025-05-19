@@ -1,18 +1,13 @@
 package domain;
 
 public class LottoProfitCalculator {
-
-    private static final long FOURTH_PRIZE_AMOUNT = 5_000L;
-    private static final long THIRD_PRIZE_AMOUNT = 50_000L;
-    private static final long SECOND_PRIZE_AMOUNT = 1_500_000L;
-    private static final long FIRST_PRIZE_AMOUNT = 2_000_000_000L;
     private static final int TICKET_PRICE = 1000;
 
     public static long calculateRevenue(LottoWinningChecker checker) {
-        return checker.getFourthPrize() * FOURTH_PRIZE_AMOUNT
-                + checker.getThirdPrize() * THIRD_PRIZE_AMOUNT
-                + checker.getSecondPrize() * SECOND_PRIZE_AMOUNT
-                + checker.getFirstPrize() * FIRST_PRIZE_AMOUNT;
+        return checker.getFourthPrize() * Prize.FOURTH.getPrizeAmount()
+                + checker.getThirdPrize() *  Prize.THIRD.getPrizeAmount()
+                + checker.getSecondPrize() * Prize.SECOND.getPrizeAmount()
+                + checker.getFirstPrize() * Prize.FIRST.getPrizeAmount();
     }
 
     public static int calculateTotalSpent(int totalTickets) {
