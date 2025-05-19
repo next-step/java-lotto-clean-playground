@@ -21,7 +21,7 @@ public class WinningLotto {
     private List<LottoNumber> convertToLottoNumbers(final String input) {
         List<Integer> numbers = parseToInt(input);
         return numbers.stream()
-                .map(LottoNumber::new)
+                .map(LottoNumber::of)
                 .toList();
     }
 

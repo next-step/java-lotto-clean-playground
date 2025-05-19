@@ -49,6 +49,6 @@ class WinningStatisticsTest {
         long totalPrize = statistics.getTotalPrize();
 
         // then
-        assertThat(totalPrize).isEqualTo(2_000_000_000L + 1_500_000L);
+        assertThat(totalPrize).isEqualTo(Rank.FIRST.getPrize() + Rank.SECOND.getPrize());
     }
 }
