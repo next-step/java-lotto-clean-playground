@@ -62,6 +62,12 @@ Hash 기반 컬렉션에선 hashCode()를 먼저 비교한 뒤 equals()를 비�
 ## 3단계
 - Enum 사용하기
 
+---
+### 4단계
+- 수동으로 추첨 번호 입력하기
+
+#### LottoApplication 내 main 함수를 읽기 쉽게
+몇장을 자동으로 사야하는지 계산을 LottoPurchase로 빼서, main 함수를 읽기 쉽게 해주었습니다.
 
 ### 개인적 목표
 1. mvc 패턴 구현할 때, controller 에 비즈니스 로직을 넣지 말기

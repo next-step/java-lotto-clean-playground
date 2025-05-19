@@ -34,13 +34,4 @@ public class LottoGenerator {
         return all;
     }
 
-
-    private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (int number : numbers) {
-            lottoNumbers.add(new LottoNumber(number));
-        }
-        return lottoNumbers;
-    }
-
 }
