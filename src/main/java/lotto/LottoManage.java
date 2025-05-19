@@ -1,8 +1,6 @@
 package lotto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoManage {
     private static final int LOTTO_START_NUMBER = 1;
@@ -28,5 +26,4 @@ public class LottoManage {
         Collections.sort(lottoNumbers);
         return lottoNumbers;
     }
-
 }
