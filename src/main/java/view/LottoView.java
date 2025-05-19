@@ -9,12 +9,20 @@ import model.LottoNumber;
 import java.util.stream.Collectors;
 import model.LottoStatistics;
 import model.Rank;
-import org.w3c.dom.ls.LSOutput;
+
 
 public class LottoView {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
     private static final String DELIMITER = ",";
     private static final int LOTTO_NUMBER_COUNT = 6;
+
+    public LottoView() {
+        this(new Scanner(System.in));
+    }
+
+    public LottoView(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public int readPurchaseAmount() {
         System.out.println("구입 금액을 입력해 주세요");

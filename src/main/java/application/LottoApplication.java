@@ -15,7 +15,6 @@ public class LottoApplication {
     public static void main(String[] args) {
         LottoView view = new LottoView();
         int purchaseAmount = view.readPurchaseAmount();
-
         int manualLottoCount = view.readManualLottoCount();
         List<Lotto> manualLottos = view.readManualLottos(manualLottoCount);
 
