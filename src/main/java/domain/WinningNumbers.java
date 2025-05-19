@@ -4,17 +4,19 @@ import java.util.*;
 
 public class WinningNumbers {
     //로또 당첨 숫자
-    private final List<LottoNumber> winningNumbers;
+    private final Lotto winningNumbers;
 
     public WinningNumbers(String input) {
-        this.winningNumbers = Arrays.stream(input.split(","))
+        List<LottoNumber> numbers = Arrays.stream(input.split(","))
                 .map(String::strip)
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
                 .toList();
+
+        this.winningNumbers = new Lotto(numbers);
     }
 
-    public List<LottoNumber> getWinningNumbers() {
+    public Lotto getWinningNumbers() {
         return winningNumbers;
     }
 }

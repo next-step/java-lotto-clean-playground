@@ -6,7 +6,7 @@ public class Lotto {
     private final List<LottoNumber> lotto;
 
     public Lotto(List<LottoNumber> list){
-        lotto = list;
+        this.lotto = List.copyOf(list);
     }
 
     @Override

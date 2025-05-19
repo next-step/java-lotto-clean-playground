@@ -22,7 +22,7 @@ public class LottoWinningChecker {
 
     private int countMatch(Lotto lotto, WinningNumbers winningNumbers) {
         List<LottoNumber> lottoNumbers = lotto.getNumbers();
-        List<LottoNumber> winningNumbersList = winningNumbers.getWinningNumbers();
+        List<LottoNumber> winningNumbersList = winningNumbers.getWinningNumbers().getNumbers();
 
         return (int) lottoNumbers.stream()
                 .filter(winningNumbersList::contains)
