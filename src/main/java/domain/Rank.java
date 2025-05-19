@@ -3,16 +3,16 @@ package domain;
 import java.util.Arrays;
 
 public enum Rank {
-    FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
+    FIRST(6, 2_000_000_000L),
+    SECOND(5, 1_500_000L),
+    THIRD(4, 50_000L),
+    FOURTH(3, 5_000L),
     NONE(0, 0);
 
     private final int matchCount;
-    private final int prize;
+    private final long prize;
 
-    Rank(final int matchCount, final int prize) {
+    Rank(final int matchCount, final long prize) {
         this.matchCount = matchCount;
         this.prize = prize;
     }
