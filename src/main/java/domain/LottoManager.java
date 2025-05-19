@@ -14,11 +14,11 @@ public class LottoManager {
         this.generator = generator;
     }
 
-    public LottoHistory purchaseLottos(int money) {
+    public Lottos purchaseLottos(int money) {
         validateMoney(money);
         int lottoCount = money / PRICE_PER_LOTTO;
         List<Lotto> lottos = generateLottos(lottoCount);
-        return new LottoHistory(lottos);
+        return new Lottos(lottos);
     }
 
     private void validateMoney(int money) {

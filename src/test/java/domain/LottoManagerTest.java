@@ -16,7 +16,7 @@ class LottoManagerTest {
         int money = 1500;
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager lottoManager = new LottoManager(generator);
-        LottoHistory history = lottoManager.purchaseLottos(money);
+        Lottos history = lottoManager.purchaseLottos(money);
         assertEquals(6, history.getLottos().get(0).getNumbers().size());
     }
 

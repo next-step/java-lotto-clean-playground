@@ -10,7 +10,7 @@ public class Application {
 
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
-        LottoHistory history = manager.purchaseLottos(money);
+        Lottos history = manager.purchaseLottos(money);
 
         OutputView.printLottoHistory(history);
 

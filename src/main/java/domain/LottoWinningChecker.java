@@ -13,7 +13,7 @@ public class LottoWinningChecker {
 
     }
 
-    public void checkLotto(LottoHistory history, WinningNumbers winningNumbers) {
+    public void checkLotto(Lottos history, WinningNumbers winningNumbers) {
         for (Lotto lotto : history.getLottos()) {
             int matchCount = countMatch(lotto, winningNumbers);
             updatePrizeCount(matchCount);
