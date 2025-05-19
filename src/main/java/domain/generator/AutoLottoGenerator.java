@@ -29,7 +29,7 @@ public class AutoLottoGenerator implements LottoGenerator {
 
     private List<LottoNumber> pickNumbers(List<LottoNumber> numbers) {
         List<LottoNumber> selected = new ArrayList<>(numbers.subList(0, PICK_COUNT));
-        selected.sort(Comparator.comparingInt(LottoNumber::getNumber));
+        selected.sort(Comparator.comparingInt(LottoNumber::number));
         return selected;
     }
 
