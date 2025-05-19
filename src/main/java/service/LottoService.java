@@ -20,18 +20,18 @@ public class LottoService {
         this.lottoGenerator = lottoGenerator;
     }
 
-    public LottoPurchaseDto createLottoPurchaseRequest(InputView inputView, OutputView outputView) {
-        int totalAmount = getTotalAmount(inputView, outputView);
-        int manualLottoCount = getManualLottoCount(inputView, outputView, totalAmount);
-        int autoLottoCount = calculateAutoLottoCount(totalAmount, manualLottoCount);
+    public LottoPurchaseDto preparePurchase(InputView inputView, OutputView outputView) {
+        int totalAmount = readPurchaseAmount(inputView, outputView);
+        int manualLottoCount = readManualCount(inputView, outputView, totalAmount);
+        int autoLottoCount = calculateAutoCount(totalAmount, manualLottoCount);
 
-        List<Lotto> manualLottos = getManualLottos(inputView, outputView, manualLottoCount);
+        List<Lotto> manualLottos = readManualLottos(inputView, outputView, manualLottoCount);
         Lottos manualLottosCollection = new Lottos(manualLottos);
 
         return new LottoPurchaseDto(totalAmount, manualLottoCount, manualLottosCollection, autoLottoCount);
     }
 
-    public Lottos generateLottosFromRequest(LottoPurchaseDto purchaseRequest) {
+    public Lottos generateLottos(LottoPurchaseDto purchaseRequest) {
         int totalLottoCount = purchaseRequest.totalAmount() / Lotto.PRICE;
         int manualLottoCount = purchaseRequest.manualLottoCount();
         int autoLottoCount = totalLottoCount - manualLottoCount;
@@ -39,21 +39,21 @@ public class LottoService {
         return lottoGenerator.generate(purchaseRequest.manualLottos().getLottos(), autoLottoCount);
     }
 
-    private int getTotalAmount(InputView inputView, OutputView outputView) {
+    private int readPurchaseAmount(InputView inputView, OutputView outputView) {
         outputView.printLottoPurchaseAmountPrompt();
         return LottoPurchaseAmountParser.parse(inputView.readLottoPurchaseAmount());
     }
 
-    private int getManualLottoCount(InputView inputView, OutputView outputView, int totalAmount) {
+    private int readManualCount(InputView inputView, OutputView outputView, int totalAmount) {
         outputView.printManualLottoCountPrompt();
         return ManualLottoCountParser.parse(inputView.readManualLottoCount(), totalAmount);
     }
 
-    private int calculateAutoLottoCount(int totalAmount, int manualLottoCount) {
+    private int calculateAutoCount(int totalAmount, int manualLottoCount) {
         return (totalAmount / Lotto.PRICE) - manualLottoCount;
     }
 
-    private List<Lotto> getManualLottos(InputView inputView, OutputView outputView, int manualLottoCount) {
+    private List<Lotto> readManualLottos(InputView inputView, OutputView outputView, int manualLottoCount) {
         outputView.printManualPurchaseLottoNumbersPrompt();
         List<String> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
 

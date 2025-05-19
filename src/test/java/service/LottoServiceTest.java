@@ -33,14 +33,14 @@ class LottoServiceTest {
 
     @Test
     @DisplayName("구매 금액 10000원, 수동 로또 2개를 입력받아 로또 구매 요청을 제대로 생성한다")
-    void createLottoPurchaseRequest_ShouldCreateLottoPurchaseDto() {
+    void createLottoPurchaseRequest_ShouldPreparePurchaseDto() {
         // Given
         int totalAmount = 10000;
         int manualLottoCount = 2;
         int autoLottoCount = 8;
 
         // When
-        LottoPurchaseDto purchaseRequest = lottoService.createLottoPurchaseRequest(inputView, outputView);
+        LottoPurchaseDto purchaseRequest = lottoService.preparePurchase(inputView, outputView);
 
         // Then
         assertEquals(totalAmount, purchaseRequest.totalAmount());
@@ -58,7 +58,7 @@ class LottoServiceTest {
         LottoPurchaseDto purchaseRequest = new LottoPurchaseDto(10000, 2, new Lottos(List.of(lotto1, lotto2)), 8);
 
         // When
-        Lottos generatedLottos = lottoService.generateLottosFromRequest(purchaseRequest);
+        Lottos generatedLottos = lottoService.generateLottos(purchaseRequest);
 
         // Then
         assertNotNull(generatedLottos);

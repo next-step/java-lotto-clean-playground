@@ -25,9 +25,9 @@ public class LottoController {
     }
 
     public void run() {
-        LottoPurchaseDto purchaseRequest = lottoService.createLottoPurchaseRequest(inputView, outputView);
+        LottoPurchaseDto purchaseRequest = lottoService.preparePurchase(inputView, outputView);
 
-        Lottos purchasedLottos = lottoService.generateLottosFromRequest(purchaseRequest);
+        Lottos purchasedLottos = lottoService.generateLottos(purchaseRequest);
 
         outputView.printLottoPurchaseResultHeader(purchaseRequest.manualLottoCount(), purchasedLottos.count() - purchaseRequest.manualLottoCount());
         outputView.printLottoNumbers(purchasedLottos);
