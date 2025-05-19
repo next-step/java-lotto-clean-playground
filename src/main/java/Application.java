@@ -19,7 +19,7 @@ public class Application {
         Lottos lottos = store.buy(purchaseAmount);
 
         OutputView.printPurchaseCount(lottos.size());
-        OutputView.printLottos(lottos.getValues());
+        OutputView.printLottos(lottos);
 
         String winningLottoNumber = InputView.inputWinningNumberForLastWeek();
         WinningLotto winningLotto = new WinningLotto(winningLottoNumber);
