@@ -10,6 +10,12 @@ import model.LottoStatistics;
 import view.LottoView;
 
 public class LottoController {
+    private final LottoView view;
+
+    public LottoController(LottoView view) {
+        this.view = view;
+    }
+
     public void run() {
         LottoView view = new LottoView();
         int purchaseAmount = view.readPurchaseAmount();

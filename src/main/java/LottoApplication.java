@@ -1,8 +1,10 @@
 import controller.LottoController;
+import view.LottoView;
 
 public class LottoApplication {
 
     public static void main(String[] args) {
-        new LottoController().run();
+        LottoView view = new LottoView();
+        new LottoController(view).run();
     }
 }
