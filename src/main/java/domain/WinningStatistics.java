@@ -32,11 +32,18 @@ public class WinningStatistics {
         return rankCounts.get(rank);
     }
 
-    public long getTotalPrize() {
-        long total = 0;
+    public Prize calculateTotalPrize() {
+        Prize total = Prize.from(0L);
         for (Rank rank : Rank.values()) {
-            total += rank.getPrize() * getCount(rank);
+            Prize prize = rank.getPrize().multiply(getCount(rank));
+            total = total.multiply(1).add(prize);
         }
         return total;
+    }
+
+    public Prize calculateProfitRate(final long purchaseAmount) {
+        Prize totalPrize = calculateTotalPrize();
+        Prize purchase = Prize.from(purchaseAmount);
+        return totalPrize.divideBy(purchase);
     }
 }

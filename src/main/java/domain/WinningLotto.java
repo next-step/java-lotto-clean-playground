@@ -18,6 +18,12 @@ public class WinningLotto {
         return winningNumbers;
     }
 
+    private void validateEmpty(final String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("당첨 번호를 입력해야 합니다.");
+        }
+    }
+
     private List<LottoNumber> convertToLottoNumbers(final String input) {
         List<Integer> numbers = parseToInt(input);
         return numbers.stream()
@@ -33,12 +39,6 @@ public class WinningLotto {
                     .toList();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("모든 번호는 숫자 형식이어야 합니다.");
-        }
-    }
-
-    private void validateEmpty(final String input) {
-        if (input == null || input.isBlank()) {
-            throw new IllegalArgumentException("당첨 번호를 입력해야 합니다.");
         }
     }
 }

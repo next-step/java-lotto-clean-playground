@@ -1,6 +1,6 @@
 import domain.LottoStore;
 import domain.Lottos;
-import domain.ProfitRateCalculator;
+import domain.Prize;
 import domain.PurchaseAmount;
 import domain.WinningLotto;
 import domain.WinningStatistics;
@@ -25,7 +25,7 @@ public class Application {
         WinningLotto winningLotto = new WinningLotto(winningLottoNumber);
 
         WinningStatistics winningStatistics = new WinningStatistics(winningLotto, lottos);
-        double profitRate = ProfitRateCalculator.calculateProfitRate(winningStatistics, amount);
+        Prize profitRate = winningStatistics.calculateProfitRate(purchaseAmount.amount());
 
         OutputView.printWinningStatistics(winningStatistics);
         OutputView.printProfitRate(profitRate);
