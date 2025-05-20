@@ -37,7 +37,7 @@ public class LottoWinningChecker {
         } else if(matchCount == 4) {
             thirdPrizeWinCount++;
         } else if(matchCount == 3) {
-            firstPrizeWinCount++;
+            fourthPrizeWinCount++;
         }
     }
 
