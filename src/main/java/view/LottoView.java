@@ -12,9 +12,9 @@ import model.Rank;
 
 
 public class LottoView {
-    private final Scanner scanner;
     private static final String DELIMITER = ",";
     private static final int LOTTO_NUMBER_COUNT = 6;
+    private final Scanner scanner;
 
     public LottoView() {
         this(new Scanner(System.in));
