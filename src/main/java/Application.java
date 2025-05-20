@@ -10,16 +10,14 @@ public class Application {
 
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
-        Lottos history = manager.purchaseLottos(money);
+        Lottos lottos = manager.purchaseLottos(money);
 
-        OutputView.printLottoHistory(history);
+        OutputView.printLottoHistory(lottos);
 
-        String input = InputView.readWinningNumber();
-        WinningNumbers winningNumbers = new WinningNumbers(input);
+        WinningNumbers winningNumbers = new WinningNumbers(InputView.readWinningNumber());
 
-        LottoWinningChecker checker = new LottoWinningChecker();
-        checker.checkLotto(history, winningNumbers);
+        LottoResult result = LottoWinningChecker.checkLotto(lottos, winningNumbers);
 
-        OutputView.printWinningResult(checker, history.size());
+        OutputView.printWinningResult(result, lottos.size());
     }
 }

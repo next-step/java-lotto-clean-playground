@@ -3,11 +3,11 @@ package domain;
 public class LottoProfitCalculator {
     private static final int TICKET_PRICE = 1000;
 
-    public static long calculateRevenue(LottoWinningChecker checker) {
-        return checker.getFourthPrizeWinCount() * Prize.FOURTH.getPrizeAmount()
-                + checker.getThirdPrizeWinCount() *  Prize.THIRD.getPrizeAmount()
-                + checker.getSecondPrizeWinCount() * Prize.SECOND.getPrizeAmount()
-                + checker.getFirstPrizeWinCount() * Prize.FIRST.getPrizeAmount();
+    public static long calculateRevenue(LottoResult result) {
+        return result.fourthPrizeCount() * Prize.FOURTH.getPrizeAmount()
+                + result.thirdPrizeCount()  * Prize.THIRD.getPrizeAmount()
+                + result.secondPrizeCount() * Prize.SECOND.getPrizeAmount()
+                + result.firstPrizeCount()  * Prize.FIRST.getPrizeAmount();
     }
 
     public static int calculateTotalSpent(int totalTickets) {
