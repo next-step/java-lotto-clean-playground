@@ -1,18 +1,16 @@
-package application;
+package controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.Lotto;
 import model.LottoGenerator;
 import model.LottoNumber;
 import model.LottoPurchase;
-import java.util.List;
 import model.LottoStatistics;
 import view.LottoView;
 
-public class LottoApplication {
-    private static final int LOTTO_PRICE = 1000;
-
-    public static void main(String[] args) {
+public class LottoController {
+    public void run(){
         LottoView view = new LottoView();
         int purchaseAmount = view.readPurchaseAmount();
         int manualLottoCount = view.readManualLottoCount();
