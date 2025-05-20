@@ -25,10 +25,10 @@ public class OutputView {
     }
 
     private static void appendWinningStatistics(StringBuilder builder, LottoWinningChecker checker) {
-        int first = checker.getFirstPrize();
-        int second = checker.getSecondPrize();
-        int third = checker.getThirdPrize();
-        int fourth = checker.getFourthPrize();
+        int first = checker.getFirstPrizeWinCount();
+        int second = checker.getSecondPrizeWinCount();
+        int third = checker.getThirdPrizeWinCount();
+        int fourth = checker.getFourthPrizeWinCount();
 
         builder.append("3개 일치 (").append(Prize.FOURTH.getPrizeAmount()).append("원)- ").append(fourth).append("개\n");
         builder.append("4개 일치 (").append(Prize.THIRD.getPrizeAmount()).append("원)- ").append(third).append("개\n");

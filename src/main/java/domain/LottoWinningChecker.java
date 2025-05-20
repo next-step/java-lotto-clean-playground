@@ -4,10 +4,10 @@ import java.util.List;
 
 public class LottoWinningChecker {
     //로또 당첨 됐는지 확인 로직
-    private int firstPrize = 0;
-    private int secondPrize = 0;
-    private int thirdPrize = 0;
-    private int fourthPrize = 0;
+    private int firstPrizeWinCount = 0;
+    private int secondPrizeWinCount = 0;
+    private int thirdPrizeWinCount = 0;
+    private int fourthPrizeWinCount = 0;
 
     public LottoWinningChecker() {
 
@@ -31,30 +31,30 @@ public class LottoWinningChecker {
 
     private void updatePrizeCount(int matchCount) {
         if(matchCount == 6) {
-            firstPrize++;
+            firstPrizeWinCount++;
         } else if(matchCount == 5) {
-            secondPrize++;
+            secondPrizeWinCount++;
         } else if(matchCount == 4) {
-            thirdPrize++;
+            thirdPrizeWinCount++;
         } else if(matchCount == 3) {
-            fourthPrize++;
+            firstPrizeWinCount++;
         }
     }
 
-    public int getFirstPrize() {
-        return firstPrize;
+    public int getFirstPrizeWinCount() {
+        return firstPrizeWinCount;
     }
 
-    public int getSecondPrize() {
-        return secondPrize;
+    public int getSecondPrizeWinCount() {
+        return secondPrizeWinCount;
     }
 
-    public int getThirdPrize() {
-        return thirdPrize;
+    public int getThirdPrizeWinCount() {
+        return thirdPrizeWinCount;
     }
 
-    public int getFourthPrize() {
-        return fourthPrize;
+    public int getFourthPrizeWinCount() {
+        return fourthPrizeWinCount;
     }
 }
 

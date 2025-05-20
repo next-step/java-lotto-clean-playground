@@ -4,10 +4,10 @@ public class LottoProfitCalculator {
     private static final int TICKET_PRICE = 1000;
 
     public static long calculateRevenue(LottoWinningChecker checker) {
-        return checker.getFourthPrize() * Prize.FOURTH.getPrizeAmount()
-                + checker.getThirdPrize() *  Prize.THIRD.getPrizeAmount()
-                + checker.getSecondPrize() * Prize.SECOND.getPrizeAmount()
-                + checker.getFirstPrize() * Prize.FIRST.getPrizeAmount();
+        return checker.getFourthPrizeWinCount() * Prize.FOURTH.getPrizeAmount()
+                + checker.getThirdPrizeWinCount() *  Prize.THIRD.getPrizeAmount()
+                + checker.getSecondPrizeWinCount() * Prize.SECOND.getPrizeAmount()
+                + checker.getFirstPrizeWinCount() * Prize.FIRST.getPrizeAmount();
     }
 
     public static int calculateTotalSpent(int totalTickets) {
