@@ -50,8 +50,8 @@ public class LottoTest {
     }
 
     @Test
-    @DisplayName("로또 번호가 포함되어 있는 경우 true를 반환한다")
-    void contains_returnsTrueWhenPresent() {
+    @DisplayName("로또 번호 포함 여부를 반환한다")
+    void contains_returnsCorrectly() {
         Lotto lotto = new Lotto(List.of(
                 new LottoNumber(1),
                 new LottoNumber(2),
@@ -62,20 +62,7 @@ public class LottoTest {
         ));
 
         assertThat(lotto.contains(new LottoNumber(3))).isTrue();
-    }
-
-    @Test
-    @DisplayName("로또 번호가 포함되어 있지 않은 경우 false를 반환한다")
-    void contains_returnsFalseWhenAbsent() {
-        Lotto lotto = new Lotto(List.of(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        ));
-
         assertThat(lotto.contains(new LottoNumber(10))).isFalse();
     }
+
 }
