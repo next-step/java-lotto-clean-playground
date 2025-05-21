@@ -29,8 +29,7 @@ public class LottoApplication {
         outputView.printPurchasedLottos(totalLottos);
 
         final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
-        LottoResult lottoResult = new LottoResult(totalLottos, winningLotto, lottoPurchasePrice.getPurchasePrice());
-        lottoResult.calculateRank();
+        LottoResult lottoResult = LottoResult.createResult(totalLottos,winningLotto,lottoPurchasePrice.getPurchasePrice());
         outputView.printLottoResult(lottoResult);
     }
 

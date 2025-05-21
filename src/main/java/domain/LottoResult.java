@@ -9,7 +9,7 @@ public class LottoResult {
     private final WinningLotto winningLotto;
     private final int purchasePrice;
 
-    public LottoResult(Lottos lottos, WinningLotto winningLotto, int purchasePrice) {
+    private LottoResult(Lottos lottos, WinningLotto winningLotto, int purchasePrice) {
         this.lottos = lottos;
         this.winningLotto = winningLotto;
         this.purchasePrice = purchasePrice;
@@ -18,7 +18,13 @@ public class LottoResult {
         }
     }
 
-    public void calculateRank() {
+    public static LottoResult createResult(Lottos totalLottos, WinningLotto winningLotto, int lottoPurchasePrice) {
+        LottoResult lottoResult = new LottoResult(totalLottos,winningLotto,lottoPurchasePrice);
+        lottoResult.calculateRank();
+        return lottoResult;
+    }
+
+    private void calculateRank() {
         for (Lotto lotto : lottos.lottos()) {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
             boolean isBonusNumberMatched = winningLotto.isMatchBonusNumber(lotto);
