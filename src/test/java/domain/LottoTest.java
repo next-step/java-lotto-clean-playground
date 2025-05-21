@@ -34,13 +34,14 @@ public class LottoTest {
                         LottoNumber.of(5), LottoNumber.of(6))));
         List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
 
-        // When & Then
-        assertThat(lotto.getNumbers()
-                .lottoNumbers()
-                .stream()
+        // When
+        List<Integer> actual = lotto.getNumbers()
+                .lottoNumbers().stream()
                 .map(LottoNumber::getNumber)
-                .toList())
-                .isEqualTo(expected);
+                .toList();
+
+        // Then
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test

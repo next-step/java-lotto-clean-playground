@@ -21,9 +21,13 @@ public class LottoNumbersGeneratorTest {
 
         // When
         Lotto lotto = new Lotto(mockLottoNumbersGenerator.generate());
+        LottoNumbers lottoNumbers = lotto.getNumbers();
+        List<LottoNumber> numberObjects = lottoNumbers.lottoNumbers();
+        List<Integer> actual = numberObjects.stream()
+                .map(LottoNumber::getNumber)
+                .toList();
 
         // Then
-        assertThat(lotto.getNumbers().lottoNumbers().stream().map(LottoNumber::getNumber).toList()).isEqualTo(
-                expected);
+        assertThat(actual).isEqualTo(expected);
     }
 }

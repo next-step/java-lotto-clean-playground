@@ -43,7 +43,7 @@ public class LottoResult {
     }
 
     public Map<LottoRank, Integer> getLottoResultMap() {
-        return lottoResultMap;
+        return Map.copyOf(lottoResultMap);
     }
 
     public double getROI() {

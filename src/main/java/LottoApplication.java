@@ -29,7 +29,8 @@ public class LottoApplication {
         outputView.printPurchasedLottos(totalLottos);
 
         final WinningLotto winningLotto = generateWinningLotto(outputView, inputView);
-        LottoResult lottoResult = LottoResult.createResult(totalLottos,winningLotto,lottoPurchasePrice.getPurchasePrice());
+        LottoResult lottoResult = LottoResult.createResult(totalLottos, winningLotto,
+                lottoPurchasePrice.getPurchasePrice());
         outputView.printLottoResult(lottoResult);
     }
 
@@ -45,7 +46,10 @@ public class LottoApplication {
 
     private static WinningLotto generateWinningLotto(OutputView outputView, InputView inputView) {
         outputView.printWinningLottoInputMessage();
-        Lotto lotto = inputView.getWinningLottoNumbers();
+        List<Integer> numbers = inputView.getWinningLottoNumbers();
+        Lotto lotto = new Lotto(new LottoNumbers(numbers.stream()
+                                                    .map(LottoNumber::of)
+                                                    .toList()));
         outputView.printBonusNumberInputMessage();
         LottoNumber bonusNumber = LottoNumber.of(inputView.getBonusNumber());
         return new WinningLotto(lotto, bonusNumber);

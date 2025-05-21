@@ -17,11 +17,13 @@ public class InputView {
         return purchasePrice;
     }
 
-    public Lotto getWinningLottoNumbers() {
+    public List<Integer> getWinningLottoNumbers() {
         String input = scanner.nextLine();
-        return new Lotto(new LottoNumbers(Arrays.stream(input.split(","))
-                .map(s -> LottoNumber.of(Integer.parseInt(s.trim())))
-                .toList()));
+        String[] items = input.split(",");
+        return Arrays.stream(items)
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList();
     }
 
     public int getBonusNumber() {
