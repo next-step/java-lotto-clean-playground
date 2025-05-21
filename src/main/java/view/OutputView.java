@@ -37,7 +37,7 @@ public class OutputView {
         double ROI = lottoResult.getROI();
         System.out.printf("총 수익률은 %.2f입니다.", ROI);
         if(ROI < 1){
-            System.out.printf("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+            System.out.print("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }
     }
 

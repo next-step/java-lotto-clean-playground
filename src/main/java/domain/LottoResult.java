@@ -23,7 +23,7 @@ public class LottoResult {
             int matchCount = lotto.getMatchCount(lotto, winningLotto.getLotto());
             boolean isBonusNumberMatched = winningLotto.isMatchBonusNumber(lotto);
             LottoRank.of(matchCount, isBonusNumberMatched).ifPresent(rank ->
-                    lottoResultMap.put(rank, lottoResultMap.get(rank) + 1)
+                    lottoResultMap.merge(rank, 1, Integer::sum)
             );
         }
     }
