@@ -45,7 +45,7 @@ public class LottoTest {
                 new LottoNumber(10)
         );
 
-        int matchingCount = lotto.countMatching(winningNumbers);
+        int matchingCount = lotto.countMatching((Lotto) winningNumbers);
         assertThat(matchingCount).isEqualTo(2);
     }
 

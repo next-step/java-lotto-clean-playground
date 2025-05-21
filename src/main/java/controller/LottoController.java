@@ -53,7 +53,7 @@ public class LottoController {
     private LottoStatistics createStatistics(LottoView view, List<Lotto> allLottos, int purchaseAmount) {
         List<LottoNumber> winningNumbers = view.readWinningNumbers();
         LottoNumber bonusNumber = view.readBonusNumber();
-        return new LottoStatistics(allLottos, winningNumbers, bonusNumber, purchaseAmount);
+        return new LottoStatistics(allLottos, (Lotto) winningNumbers, bonusNumber, purchaseAmount);
     }
 }
 

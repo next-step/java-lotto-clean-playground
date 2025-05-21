@@ -8,13 +8,16 @@ public class Lotto {
     private final List<LottoNumber> numbers;
 
     public Lotto(List<LottoNumber> numbers) {
+        if (numbers == null) {
+            throw new IllegalArgumentException("로또 번호 리스트는 null일 수 없습니다.");
+        }
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
         this.numbers = numbers;
     }
 
-    public int countMatching(List<LottoNumber> winningNumbers) {
+    public int countMatching(Lotto winningNumbers) {
         return (int) numbers.stream()
                 .filter(winningNumbers::contains)
                 .count();

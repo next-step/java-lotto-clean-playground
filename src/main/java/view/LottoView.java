@@ -75,12 +75,16 @@ public class LottoView {
     public void printStatistics(LottoStatistics statistics) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.printf("3개 일치 (5000원) - %d개%n", statistics.getCount(Rank.FIFTH));
-        System.out.printf("4개 일치 (50000원) - %d개%n", statistics.getCount(Rank.FOURTH));
-        System.out.printf("5개 일치 (1500000원) - %d개%n", statistics.getCount(Rank.THIRD));
-        System.out.printf("5개 일치, 보너스 볼 일치 (30000000원) - %d개%n", statistics.getCount(Rank.SECOND));
-        System.out.printf("6개 일치 (2000000000원) - %d개%n", statistics.getCount(Rank.FIRST));
+        printRankCount(statistics, Rank.FIFTH, "3개 일치 (5000원)");
+        printRankCount(statistics, Rank.FOURTH, "4개 일치 (50000원)");
+        printRankCount(statistics, Rank.THIRD, "5개 일치 (1500000원)");
+        printRankCount(statistics, Rank.SECOND, "5개 일치, 보너스 볼 일치 (30000000원)");
+        printRankCount(statistics, Rank.FIRST, "6개 일치 (2000000000원)");
         System.out.printf("총 수익률은 %.2f입니다.%n", statistics.getProfitRate());
+    }
+
+    private void printRankCount(LottoStatistics statistics, Rank rank, String label) {
+        System.out.printf("%s - %d개%n", label, statistics.getCount(rank));
     }
 
     public LottoNumber readBonusNumber() {

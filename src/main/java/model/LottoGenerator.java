@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoGenerator {
-    private static final int LOTTO_MIN = 1;
-    private static final int LOTTO_MAX = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
 
     public List<Lotto> generate(int count) {
@@ -27,7 +25,7 @@ public class LottoGenerator {
     }
 
     private List<Integer> createShuffledLottoNumbers() {
-        List<Integer> all = IntStream.rangeClosed(LOTTO_MIN, LOTTO_MAX).boxed()
+        List<Integer> all = IntStream.rangeClosed(LottoNumber.getMin(),LottoNumber.getMax()).boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(all);
         return all;

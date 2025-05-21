@@ -16,6 +16,14 @@ public class LottoNumber {
 
     }
 
+    public static int getMin() {
+        return LOTTO_MIN;
+    }
+
+    public static int getMax() {
+        return LOTTO_MAX;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(number);

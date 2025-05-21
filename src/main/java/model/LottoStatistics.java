@@ -9,7 +9,7 @@ public class LottoStatistics {
     private final Map<Rank, Long> result;
     private final double profitRate;
 
-    public LottoStatistics(List<Lotto> purchasedLottos, List<LottoNumber> winningNumbers, LottoNumber bonusNumber,
+    public LottoStatistics(List<Lotto> purchasedLottos, Lotto winningNumbers, LottoNumber bonusNumber,
                            int purchasedAmount) {
         this.result = purchasedLottos.stream()
                 .map(lotto -> {
