@@ -3,19 +3,19 @@ package domain;
 import java.util.*;
 
 public class Lotto {
-    private final List<Integer> lottoNumbers;
+    private final List<LottoNumber> lotto;
 
-    public Lotto(List<Integer> list){
-        lottoNumbers = list;
+    public Lotto(List<LottoNumber> list){
+        this.lotto = List.copyOf(list);
     }
 
     @Override
     public String toString() {
-        return lottoNumbers.toString();
+        return lotto.toString();
     }
 
-    public List<Integer> getNumbers() {
-        return lottoNumbers;
+    public List<LottoNumber> getNumbers() {
+        return lotto;
     }
 
 }

@@ -2,12 +2,12 @@ package domain;
 
 import java.util.List;
 
-public class LottoHistory {
+public class Lottos {
     //구매한 로또들의 내역
     //일급 컬렉션
     private final List<Lotto> lottos;
 
-    public LottoHistory(List<Lotto> lottos) {
+    public Lottos(List<Lotto> lottos) {
         this.lottos = List.copyOf(lottos);
     }
 

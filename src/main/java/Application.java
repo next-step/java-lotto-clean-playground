@@ -1,7 +1,6 @@
-import domain.AutoLottoGenerator;
-import domain.LottoGenerator;
-import domain.LottoHistory;
-import domain.LottoManager;
+import domain.*;
+import domain.generator.AutoLottoGenerator;
+import domain.generator.LottoGenerator;
 import view.InputView;
 import view.OutputView;
 
@@ -11,9 +10,14 @@ public class Application {
 
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
-        LottoHistory history = manager.purchaseLottos(money);
+        Lottos lottos = manager.purchaseLottos(money);
 
-        OutputView.printLottoHistory(history);
+        OutputView.printLottoHistory(lottos);
 
+        WinningNumbers winningNumbers = new WinningNumbers(InputView.readWinningNumber());
+
+        LottoResult result = LottoWinningChecker.checkLotto(lottos, winningNumbers);
+
+        OutputView.printWinningResult(result, lottos.size());
     }
 }
