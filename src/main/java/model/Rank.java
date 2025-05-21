@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, false, 2_000_000_000),
     SECOND(5, true, 30_000_000),
@@ -22,12 +24,15 @@ public enum Rank {
         return prize;
     }
 
-    public static Rank of(int matchCount, boolean matchBonus) {
-        if (matchCount == 6) return FIRST;
-        if (matchCount == 5 && matchBonus) return SECOND;
-        if (matchCount == 5) return THIRD;
-        if (matchCount == 4) return FOURTH;
-        if (matchCount == 3) return FIFTH;
-        return NONE;
+    public boolean isMatch(int count,boolean bonus) {
+        return this.matchCount ==count && this.needsBonus==bonus;
     }
+
+    public static Rank of(int count, boolean bonus) {
+        return Arrays.stream(values())
+                .filter(rank->rank.isMatch(count,bonus))
+                .findFirst()
+                .orElse(NONE);
+    }
+
 }

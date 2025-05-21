@@ -37,7 +37,7 @@ public class LottoStatisticsTest {
         int purchaseAmount = 6000;
 
         // when
-        LottoStatistics statistics = new LottoStatistics(purchased, winningNumbers(), bonus, purchaseAmount);
+        LottoStatistics statistics = new LottoStatistics(purchased, (Lotto) winningNumbers(), bonus, purchaseAmount);
 
         // then
         assertThat(statistics.getCount(Rank.FIRST)).isEqualTo(1);
@@ -59,7 +59,7 @@ public class LottoStatisticsTest {
         int purchaseAmount = 2000;
 
         // when
-        LottoStatistics statistics = new LottoStatistics(purchased, winningNumbers(), bonus, purchaseAmount);
+        LottoStatistics statistics = new LottoStatistics(purchased, (Lotto) winningNumbers(), bonus, purchaseAmount);
 
         // then
         long totalPrize = Rank.FIRST.getPrize() + Rank.SECOND.getPrize();
