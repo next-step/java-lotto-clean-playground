@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class InputLottoNumber {
@@ -23,6 +24,13 @@ public class InputLottoNumber {
 
     @Override
     public String toString() {
-        return numbers.toString();
+        return numbers.stream()
+                .map(n -> String.valueOf(n.getValue()))
+                .collect(Collectors.joining(", ", "[", "]"));
     }
+
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
 }

@@ -12,12 +12,15 @@ public class LottoStatus {
 
     public void print() {
         MatchResult.getAll().stream()
-                .filter(r -> r != MatchResult.NONE)
-                .forEach(r -> System.out.printf(
-                        "%d개 일치 (%d원)- %d개\n",
-                        r.getMatchCount(), r.getPrizeAmount().amount,
-                        stat.getOrDefault(r, 0)
-                ));
+                .map(matchResult -> String.format(
+                        "%d개 일치%s (%d원) - %d개",
+                        matchResult.getMatchCount(),
+                        matchResult.isBonusMatch() ? ", 보너스 볼 일치" : "",
+                        matchResult.getPrizeAmount().getAmount(),
+                        stat.getOrDefault(matchResult, 0)
+                ))
+                .forEach(System.out::println);
+
     }
 
     public Money getTotalPrizeAmount() {
