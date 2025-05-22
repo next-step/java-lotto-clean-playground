@@ -15,7 +15,7 @@ public class LottoResult {
             int matchCount = winningLotto.countMatch(lotto);
             boolean bonusMatch = winningLotto.matchBonus(lotto);
             LottoRank rank = LottoRank.findRank(matchCount, bonusMatch);
-            result.put(rank, result.getOrDefault(rank, 0) + 1);
+            result.merge(rank, 1, Integer::sum);
         }
         totalCost = lottos.getLottos().size() * LOTTO_PRICE;
         totalPrize = calculateTotalPrize();
