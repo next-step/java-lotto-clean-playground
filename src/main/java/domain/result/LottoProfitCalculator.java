@@ -1,10 +1,13 @@
-package domain;
+package domain.result;
+
+import domain.Prize;
 
 public class LottoProfitCalculator {
     private static final int TICKET_PRICE = 1000;
 
     public static long calculateRevenue(LottoResult result) {
-        return result.fourthPrizeCount() * Prize.FOURTH.getPrizeAmount()
+        return result.fourthPrizeCount() * Prize.FIFTH.getPrizeAmount()
+                + result.fourthPrizeCount() * Prize.FOURTH.getPrizeAmount()
                 + result.thirdPrizeCount()  * Prize.THIRD.getPrizeAmount()
                 + result.secondPrizeCount() * Prize.SECOND.getPrizeAmount()
                 + result.firstPrizeCount()  * Prize.FIRST.getPrizeAmount();

@@ -1,4 +1,7 @@
-package domain;
+package domain.util;
+
+import domain.Lotto;
+import domain.LottoNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +9,7 @@ import java.util.List;
 public class InputParser {
     private InputParser() {}
 
-    public static Lotto parseWinningNumbers(String input) {
+    public static Lotto parseLotto(String input) {
         List<LottoNumber> numbers = Arrays.stream(input.split(","))
                 .map(String::strip)
                 .map(Integer::parseInt)
