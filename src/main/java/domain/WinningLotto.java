@@ -12,19 +12,16 @@ public class WinningLotto {
     }
 
     private void validateBonusNumber(Lotto winningLotto, LottoNumber bonusNumber) {
-        if (winningLotto.getNumbers().contains(bonusNumber)) {
+        if (winningLotto.contains(bonusNumber)) {
             throw new IllegalArgumentException(ERROR_DUPLICATE_BONUS);
         }
     }
 
     public int countMatch(Lotto other) {
-        return (int) other.getNumbers().stream()
-                .filter(winningLotto.getNumbers()::contains)
-                .count();
+        return winningLotto.countMatch(other);
     }
 
     public boolean matchBonus(Lotto other) {
-        return other.getNumbers().stream()
-                .anyMatch(num -> num.equals(bonusNumber));
+        return other.contains(bonusNumber);
     }
 }
