@@ -3,17 +3,20 @@ package domain;
 import java.util.Arrays;
 
 public enum Prize {
-    FIRST(6, 2_000_000_000L),
-    SECOND(5, 1_500_000L),
-    THIRD(4, 50_000L),
-    FOURTH(3, 5_000L),
-    NONE  (0, 0L);
+    FIRST(6, false, 2_000_000_000L),
+    SECOND(5, true, 30_000_000L),
+    THIRD(5, false, 1_500_000L),
+    FOURTH(4, false, 50_000L),
+    FIFTH(3, false, 5_000L),
+    NONE(0, false, 0L);
 
     private final int matchCount;
+    private final boolean isBonus;
     private final long prizeAmount;
 
-    Prize(int matchCount, long prizeAmount) {
+    Prize(int matchCount,  boolean isBonus, long prizeAmount) {
         this.matchCount = matchCount;
+        this.isBonus = isBonus;
         this.prizeAmount = prizeAmount;
     }
 
@@ -25,11 +28,16 @@ public enum Prize {
         return prizeAmount;
     }
 
-    public static Prize fromMatchCount(int count) {
+    public static Prize fromMatchCount(int matchCount, boolean matchBonus) {
         return Arrays.stream(values())
-                .filter(p -> p.matchCount == count)
+                .filter(p -> p.matchCount == matchCount && p.isBonus == matchBonus)
                 .findFirst()
-                .orElse(NONE);
+                .orElseGet(() ->
+                        Arrays.stream(values())
+                                .filter(p -> p.matchCount == matchCount && !p.isBonus)
+                                .findFirst()
+                                .orElse(NONE)
+                );
     }
 
     public boolean isWinning() {
