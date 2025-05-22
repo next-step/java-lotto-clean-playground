@@ -21,7 +21,8 @@ public class Application {
         OutputView.printLottos(lottos);
 
         String winningLottoNumber = InputView.inputWinningNumberForLastWeek();
-        WinningLotto winningLotto = new WinningLotto(winningLottoNumber);
+        String bonusNumber = InputView.inputBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(winningLottoNumber, bonusNumber);
 
         WinningStatistics winningStatistics = new WinningStatistics(winningLotto, lottos);
         Money profitRate = winningStatistics.calculateProfitRate(purchaseAmountInput);

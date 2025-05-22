@@ -42,4 +42,8 @@ public class Lotto {
                 .filter(other.numbers::contains)
                 .count();
     }
+
+    public boolean contains(final LottoNumber number) {
+        return numbers.contains(number);
+    }
 }

@@ -37,12 +37,20 @@ public class OutputView {
         Arrays.stream(Rank.values())
                 .filter(rank -> rank != Rank.NONE)
                 .forEach(rank -> System.out.printf(
-                        "%d개 일치 (%,.0f원) - %d개%n",
+                        formatRankMessage(rank),
                         rank.getMatchCount(),
                         rank.getPrize().getAmount(),
                         statistics.getCount(rank)
                 ));
     }
+
+    private static String formatRankMessage(final Rank rank) {
+        if (rank == Rank.SECOND) {
+            return "%d개 일치, 보너스 볼 일치 (%,.0f원) - %d개%n";
+        }
+        return "%d개 일치 (%,.0f원) - %d개%n";
+    }
+
 
     public static void printProfitRate(final Money profitRate) {
         System.out.printf("총 수익률은 %.2f입니다.", profitRate.getAmount());

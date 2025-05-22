@@ -26,7 +26,8 @@ public class WinningStatistics {
     private void calculateRankCounts(final Lottos purchasedLottos) {
         for (Lotto lotto : purchasedLottos.getValues()) {
             int matchCount = lotto.countMatch(winningLotto.getWinningLotto());
-            Rank rank = Rank.from(matchCount);
+            boolean bonusMatch = lotto.contains(winningLotto.getBonusNumber());
+            Rank rank = Rank.from(matchCount, bonusMatch);
             rankCounts.put(rank, getCount(rank) + 1);
         }
     }
@@ -39,7 +40,7 @@ public class WinningStatistics {
         Money total = Money.zero();
         for (Rank rank : Rank.values()) {
             Money prize = rank.getPrize().multiply(getCount(rank));
-            total = total.multiply(1).add(prize);
+            total = total.add(prize);
         }
         return total;
     }
