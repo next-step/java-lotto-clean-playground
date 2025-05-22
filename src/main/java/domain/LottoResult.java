@@ -34,6 +34,10 @@ public class LottoResult {
         return (double) totalPrize / totalCost;
     }
 
+    public int getMatchCountByRank(LottoRank rank) {
+        return result.getOrDefault(rank, 0);
+    }
+
     public Map<LottoRank, Integer> getResult() {
         return new HashMap<>(result);
     }

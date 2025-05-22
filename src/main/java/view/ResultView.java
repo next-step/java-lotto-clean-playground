@@ -51,7 +51,7 @@ public class ResultView {
     }
 
     private void printRankResult(LottoRank rank, LottoResult result) {
-        int count = result.getResult().getOrDefault(rank, 0);
+        int count = result.getMatchCountByRank(rank);
         if (rank == LottoRank.SECOND) {
             System.out.printf(RESULT_FORMAT, rank.getMatchCount(), BONUS_MATCH, rank.getPrize(), count);
             return;
