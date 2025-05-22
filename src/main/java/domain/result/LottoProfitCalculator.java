@@ -6,7 +6,7 @@ public class LottoProfitCalculator {
     private static final int TICKET_PRICE = 1000;
 
     public static long calculateRevenue(LottoResult result) {
-        return result.fourthPrizeCount() * Prize.FIFTH.getPrizeAmount()
+        return result.fifthPrizeCount() * Prize.FIFTH.getPrizeAmount()
                 + result.fourthPrizeCount() * Prize.FOURTH.getPrizeAmount()
                 + result.thirdPrizeCount()  * Prize.THIRD.getPrizeAmount()
                 + result.secondPrizeCount() * Prize.SECOND.getPrizeAmount()
