@@ -14,9 +14,15 @@ public class Application {
 
         OutputView.printLottoHistory(lottos);
 
-        WinningNumbers winningNumbers = new WinningNumbers(InputView.readWinningNumber());
+        String input = InputView.readWinningNumber();
+        String bonus = InputView.readBonusNumber();
 
-        LottoResult result = LottoWinningChecker.checkLotto(lottos, winningNumbers);
+        Lotto winningNumbers = InputParser.parseWinningNumbers(input);
+        LottoNumber bonusNumber = InputParser.parseBonusNumber(bonus);
+
+        WinningNumbers finalWinningNumbers  = new WinningNumbers(winningNumbers,bonusNumber);
+
+        LottoResult result = LottoWinningChecker.checkLotto(lottos, finalWinningNumbers);
 
         OutputView.printWinningResult(result, lottos.size());
     }
