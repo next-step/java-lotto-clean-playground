@@ -12,7 +12,7 @@ class LottoPurchaseTest {
     @Test
     @DisplayName("구매 금액이 음수면 예외 발생")
     void negativePurchaseAmount() {
-        assertThatThrownBy(() -> new LottoPurchase(List.of(), -1000))
+        assertThatThrownBy(() -> new LottoPurchase(-1000))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("purchaseAmount은 0보다 큰 값이여야 합니다.");
     }
@@ -23,7 +23,7 @@ class LottoPurchaseTest {
         List<Lotto> manualLottos = List.of(createDummyLotto(), createDummyLotto()); // 2장 → 2000원
         int purchaseAmount = 1000;
 
-        assertThatThrownBy(() -> new LottoPurchase(manualLottos, purchaseAmount))
+        assertThatThrownBy(() -> new LottoPurchase( purchaseAmount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("입력한 수동 로또 구입 수가 구매 가능한 로또 수 보다 큽니다.");
     }
@@ -31,11 +31,11 @@ class LottoPurchaseTest {
     @Test
     @DisplayName("자동 로또 개수는 (총 구매 가능 장수 - 수동 장수)로 계산된다")
     void getAutoLottoCount() {
-        List<Lotto> manualLottos = List.of(createDummyLotto(), createDummyLotto()); // 2장
         int purchaseAmount = 5000; // 5장 구매 가능
-        LottoPurchase purchase = new LottoPurchase(manualLottos, purchaseAmount);
+        int manualCount=2;
+        LottoPurchase purchase = new LottoPurchase(purchaseAmount);
 
-        assertThat(purchase.getAutoLottoCount()).isEqualTo(3);
+        assertThat(purchase.getAutoCount(manualCount)).isEqualTo(3);
     }
 
     private static Lotto createDummyLotto() {

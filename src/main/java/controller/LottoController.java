@@ -20,7 +20,7 @@ public class LottoController {
         LottoView view = new LottoView();
         int purchaseAmount = view.readPurchaseAmount();
         List<Lotto> manualLottos = getManualLottos(view);
-        LottoPurchase purchase = new LottoPurchase(manualLottos, purchaseAmount);
+        LottoPurchase purchase = new LottoPurchase(purchaseAmount);
 
         List<Lotto> allLottos = getAllLottos(view, manualLottos, purchase);
         LottoStatistics statistics = createStatistics(view, allLottos, purchaseAmount);
@@ -34,8 +34,8 @@ public class LottoController {
     }
 
     private List<Lotto> getAllLottos(LottoView view, List<Lotto> manualLottos, LottoPurchase purchase) {
-        int manualCount = manualLottos.size();
-        int autoCount = purchase.getAutoLottoCount();
+        int manualCount = view.readManualLottoCount();
+        int autoCount = purchase.getAutoCount(manualCount);
 
         view.printLottoCount(manualCount, autoCount);
 
