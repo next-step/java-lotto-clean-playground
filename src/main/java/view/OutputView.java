@@ -1,14 +1,15 @@
 package view;
 
-import domain.Lottos;
+import domain.Lotto;
 import domain.Profit;
 import domain.Rank;
 
+import java.util.List;
 import java.util.Map;
 
 public interface OutputView {
     void printLottoPurchaseResultHeader(int manualCount, int autoCount);
-    void printLottoNumbers(Lottos lottos);
+    void printLottoNumbers(List<Lotto> lottos);
     void printWinningStatistics(Map<Rank, Integer> matchLines);
     void printProfit(String profitLine);
     void printLottoPurchaseAmountPrompt();

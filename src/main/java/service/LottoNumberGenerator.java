@@ -10,7 +10,7 @@ public class LottoNumberGenerator {
     private static final int END_NUMBER = 45;
     private static final int PICK_COUNT = 6;
 
-    public List<Integer> generate() {
+    public List<Integer> generateLottoNumbers() {
         List<Integer> numbers = new ArrayList<>();
         for (int number = START_NUMBER; number <= END_NUMBER; number++) {
             numbers.add(number);

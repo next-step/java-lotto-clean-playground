@@ -1,6 +1,8 @@
 package dto;
 
-import domain.Lottos;
+import domain.Lotto;
 
-public record LottoPurchaseDto(int totalAmount, int manualLottoCount, Lottos manualLottos, int autoLottoCount) {
+import java.util.List;
+
+public record LottoPurchaseDto(int totalAmount, int manualLottoCount, List<Lotto> manualLottos, int autoLottoCount) {
 }

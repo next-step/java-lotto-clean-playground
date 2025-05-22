@@ -4,9 +4,10 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RankTest {
 
@@ -29,16 +30,11 @@ class RankTest {
         assertThat(Rank.valueOf(count, false)).isEqualTo(Rank.MISS);
     }
 
-    @Test
+    @ParameterizedTest(name = "{0}는 isWinning()이 true를 반환한다")
+    @EnumSource(value = Rank.class, names = {"FIFTH", "FOURTH", "THIRD", "SECOND", "FIRST"})
     @DisplayName("당첨 Rank는 isWinning()이 true를 반환한다")
-    void isWinning_returnsTrueForWinningRanks() {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(Rank.FIFTH.isWinning()).isTrue();
-        softly.assertThat(Rank.FOURTH.isWinning()).isTrue();
-        softly.assertThat(Rank.THIRD.isWinning()).isTrue();
-        softly.assertThat(Rank.SECOND.isWinning()).isTrue();
-        softly.assertThat(Rank.FIRST.isWinning()).isTrue();
-        softly.assertAll();
+    void isWinning_returnsTrueForWinningRanks(Rank rank) {
+        assertThat(rank.isWinning()).isTrue();
     }
 
     @Test

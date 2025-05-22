@@ -6,54 +6,59 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 class WinningLottoTest {
 
     @Test
-    @DisplayName("1부터 6까지의 유효한 당첨 번호로 객체를 생성할 수 있다")
-    void createWinningLottoWithValidNumbers() {
-        List<LottoNumber> numbers = convert(List.of(1, 2, 3, 4, 5, 6));
-        WinningLotto winningLotto = new WinningLotto(numbers);
+    @DisplayName("정상적인 당첨 번호와 보너스 번호로 WinningLotto를 생성할 수 있다")
+    void createWinningLottoWithValidNumbersAndBonus() {
+        Lotto lotto = new Lotto(convert(List.of(1, 2, 3, 4, 5, 6)));
+        LottoNumber bonus = new LottoNumber(7);
 
-        assertThat(winningLotto.getNumbers()).containsExactlyElementsOf(numbers);
-    }
+        WinningLotto winningLotto = new WinningLotto(lotto, bonus);
 
-    @Test
-    @DisplayName("당첨 번호와 일치하는 번호의 개수를 정확히 계산할 수 있다")
-    void countMatchReturnsCorrectCount() {
-        List<LottoNumber> winningNumbers = convert(List.of(1, 2, 3, 4, 5, 6));
-        WinningLotto winningLotto = new WinningLotto(winningNumbers);
-
-        List<LottoNumber> userNumbers = convert(List.of(1, 2, 3, 7, 8, 9));
-        Lotto lotto = new Lotto(userNumbers);
-
-        int matchCount = winningLotto.countMatch(lotto);
-
-        assertThat(matchCount).isEqualTo(3);
-    }
-
-    @Test
-    @DisplayName("당첨 번호 개수가 6개가 아니면 예외가 발생한다")
-    void invalidSizeThrowsException() {
-        List<LottoNumber> invalidNumbers = convert(List.of(1, 2, 3));
-
-        assertThatThrownBy(() -> new WinningLotto(invalidNumbers))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 당첨 번호는 6개여야 합니다.");
+        assertThat(winningLotto.getNumbers()).containsExactlyElementsOf(lotto.getNumbers());
+        assertThat(winningLotto.getBonus()).isEqualTo(bonus);
     }
 
     @Test
     @DisplayName("당첨 번호에 중복이 있으면 예외가 발생한다")
     void duplicateNumbersThrowsException() {
         List<LottoNumber> duplicated = convert(List.of(1, 2, 3, 4, 5, 5));
+        LottoNumber bonus = new LottoNumber(7);
 
-        assertThatThrownBy(() -> new WinningLotto(duplicated))
+        assertThatThrownBy(() -> new WinningLotto(new Lotto(duplicated), bonus))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+                .hasMessage("[ERROR] 로또 번호는 중복될 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("당첨 번호가 6개가 아니면 예외가 발생한다")
+    void invalidSizeThrowsException() {
+        List<LottoNumber> invalid = convert(List.of(1, 2, 3));
+        LottoNumber bonus = new LottoNumber(7);
+
+        assertThatThrownBy(() -> new WinningLotto(new Lotto(invalid), bonus))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 로또 번호는 6개여야 합니다.");
+    }
+
+    @Test
+    @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다")
+    void bonusNumberDuplicatedThrowsException() {
+        Lotto lotto = new Lotto(convert(List.of(1, 2, 3, 4, 5, 6)));
+        LottoNumber bonus = new LottoNumber(6); // 중복
+
+        assertThatThrownBy(() -> new WinningLotto(lotto, bonus))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
 
     private List<LottoNumber> convert(List<Integer> raw) {
-        return raw.stream().map(LottoNumber::new).collect(toList());
+        return raw.stream()
+                .map(LottoNumber::new)
+                .collect(toList());
     }
 }

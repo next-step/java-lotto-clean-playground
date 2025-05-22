@@ -1,7 +1,6 @@
 package view;
 
 import domain.Lotto;
-import domain.Lottos;
 import domain.Profit;
 import domain.Rank;
 
@@ -34,7 +33,7 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printLottoNumbers(Lottos lottos) {
+    public void printLottoNumbers(List<Lotto> lottos) {
         List<String> numbers = convertLottoNumbersToStringList(lottos);
         numbers.forEach(System.out::println);
     }
@@ -83,8 +82,8 @@ public class ConsoleOutputView implements OutputView {
         return String.format(PROFIT_MESSAGE_FORMAT, profitRate, result);
     }
 
-    private List<String> convertLottoNumbersToStringList(Lottos lottos) {
-        return lottos.getLottos().stream()
+    private List<String> convertLottoNumbersToStringList(List<Lotto> lottos) {
+        return lottos.stream()
                 .map(this::convertLottoToString)
                 .collect(Collectors.toList());
     }

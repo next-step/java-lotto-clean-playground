@@ -15,7 +15,7 @@ class LottoNumberGeneratorTest {
     @RepeatedTest(10)
     @DisplayName("로또 번호는 6개이며 1부터 45 사이의 값이다")
     void generateLottoGetNumbersInValidRange() {
-        List<Integer> numbers = generator.generate();
+        List<Integer> numbers = generator.generateLottoNumbers();
 
         assertThat(numbers).hasSize(6);
         assertThat(numbers).doesNotHaveDuplicates();
@@ -27,7 +27,7 @@ class LottoNumberGeneratorTest {
     @RepeatedTest(10)
     @DisplayName("로또 번호는 오름차순으로 정렬되어 있다")
     void generateSortedGetNumbers() {
-        List<Integer> numbers = generator.generate();
+        List<Integer> numbers = generator.generateLottoNumbers();
 
         List<Integer> sorted = numbers.stream().sorted().toList();
         assertThat(numbers).containsExactlyElementsOf(sorted);

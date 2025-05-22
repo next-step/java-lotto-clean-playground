@@ -1,10 +1,11 @@
 package domain;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class LottoNumberTest {
@@ -12,23 +13,18 @@ class LottoNumberTest {
     @Test
     @DisplayName("1부터 45 사이 값으로 생성할 수 있다")
     void createWithValidValue() {
-        assertThatCode(() -> new LottoNumber(1)).doesNotThrowAnyException();
-        assertThatCode(() -> new LottoNumber(45)).doesNotThrowAnyException();
-        assertThat(new LottoNumber(10).value()).isEqualTo(10);
+        LottoNumber number1 = new LottoNumber(1);
+        LottoNumber number45 = new LottoNumber(45);
+
+        assertThat(number1.value()).isEqualTo(1);
+        assertThat(number45.value()).isEqualTo(45);
     }
 
-    @Test
-    @DisplayName("1 미만 값은 예외가 발생한다")
-    void lessThanMinThrowsException() {
-        assertThatThrownBy(() -> new LottoNumber(0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 번호는 1부터 45 사이여야 합니다.");
-    }
-
-    @Test
-    @DisplayName("45 초과 값은 예외가 발생한다")
-    void greaterThanMaxThrowsException() {
-        assertThatThrownBy(() -> new LottoNumber(46))
+    @ParameterizedTest
+    @ValueSource(ints = {0, 46})
+    @DisplayName("1 미만 또는 45 초과 값은 예외가 발생한다")
+    void outOfRangeThrowsException(int invalidValue) {
+        assertThatThrownBy(() -> new LottoNumber(invalidValue))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 번호는 1부터 45 사이여야 합니다.");
     }

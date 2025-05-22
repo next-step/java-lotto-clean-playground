@@ -2,11 +2,11 @@ package view;
 
 import java.util.List;
 
-public class FakeInputView implements InputView {
+public class StubInputView implements InputView {
 
     private final List<String> manualLottoNumbers;
 
-    public FakeInputView(List<String> manualLottoNumbers) {
+    public StubInputView(List<String> manualLottoNumbers) {
         this.manualLottoNumbers = manualLottoNumbers;
     }
 

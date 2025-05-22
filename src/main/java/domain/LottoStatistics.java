@@ -6,10 +6,16 @@ import java.util.Map;
 
 public class LottoStatistics {
 
-    private final Map<Rank, Integer> statistics = new EnumMap<>(Rank.class);
+    private final Map<Rank, Integer> statistics;
 
-    public LottoStatistics(Lottos lottos, WinningLotto winningLotto, LottoNumber bonusNumber) {
-        calculate(lottos.getLottos(), winningLotto, bonusNumber);
+    public LottoStatistics(List<Lotto> lottos, WinningLotto winningLotto) {
+        this.statistics = new EnumMap<>(Rank.class);
+        calculate(lottos, winningLotto);
+    }
+
+    public LottoStatistics(Map<Rank, Integer> statistics) {
+        this.statistics = new EnumMap<>(Rank.class);
+        this.statistics.putAll(statistics);
     }
 
     public Map<Rank, Integer> getRankStatistics() {
@@ -23,18 +29,11 @@ public class LottoStatistics {
         return statistics.getOrDefault(rank, 0);
     }
 
-    private void calculate(List<Lotto> lottos, WinningLotto winningLotto, LottoNumber bonusNumber) {
+    private void calculate(List<Lotto> lottos, WinningLotto winningLotto) {
         for (Lotto lotto : lottos) {
-            Rank rank = matchRank(winningLotto, bonusNumber, lotto);
+            Rank rank = winningLotto.calculateRank(lotto);
             saveRank(rank);
         }
-    }
-
-    private Rank matchRank(WinningLotto winningLotto, LottoNumber bonusNumber, Lotto lotto) {
-        int matchCount = winningLotto.countMatch(lotto);
-        boolean bonusMatch = lotto.containsValue(bonusNumber.value());
-
-        return Rank.valueOf(matchCount, bonusMatch);
     }
 
     private void saveRank(Rank rank) {

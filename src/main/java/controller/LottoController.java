@@ -1,16 +1,16 @@
 package controller;
 
-import domain.LottoNumber;
+import domain.Lotto;
 import domain.LottoStatistics;
-import domain.Lottos;
 import domain.Profit;
 import domain.WinningLotto;
 import dto.LottoPurchaseDto;
 import service.LottoService;
-import utils.BonusNumberParser;
 import utils.WinningLottoParser;
 import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class LottoController {
 
@@ -27,19 +27,23 @@ public class LottoController {
     public void run() {
         LottoPurchaseDto purchaseRequest = lottoService.preparePurchase(inputView, outputView);
 
-        Lottos purchasedLottos = lottoService.generateLottos(purchaseRequest);
+        List<Lotto> purchasedLottos = lottoService.generateLottos(purchaseRequest);
 
-        outputView.printLottoPurchaseResultHeader(purchaseRequest.manualLottoCount(), purchasedLottos.count() - purchaseRequest.manualLottoCount());
+        outputView.printLottoPurchaseResultHeader(
+                purchaseRequest.manualLottoCount(),
+                purchasedLottos.size() - purchaseRequest.manualLottoCount()
+        );
         outputView.printLottoNumbers(purchasedLottos);
 
         outputView.printLastWeekWinningNumbersPrompt();
-        WinningLotto winningLotto = WinningLottoParser.parse(inputView.readLastWeekWinningNumbers());
+        String winningNumbersInput = inputView.readLastWeekWinningNumbers();
 
         outputView.printBonusNumberPrompt();
-        LottoNumber bonusNumber = BonusNumberParser.parse(inputView.readBonusNumber(), winningLotto);
+        String bonusNumberInput = inputView.readBonusNumber();
 
-        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningLotto, bonusNumber);
+        WinningLotto winningLotto = WinningLottoParser.parse(winningNumbersInput, bonusNumberInput);
 
+        LottoStatistics statistics = new LottoStatistics(purchasedLottos, winningLotto);
         Profit profit = new Profit(statistics, purchaseRequest.totalAmount());
 
         outputView.printWinningStatistics(statistics.getRankStatistics());

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public enum Rank {
     MISS(0, 0),
     FIFTH(3, 5_000),
@@ -10,6 +12,8 @@ public enum Rank {
 
     private final int matchCount;
     private final int prize;
+
+    public static final List<Rank> WINNING_RANKS = List.of(FIFTH, FOURTH, THIRD, SECOND, FIRST);
 
     Rank(int matchCount, int prize) {
         this.matchCount = matchCount;

@@ -1,7 +1,6 @@
 package service;
 
 import domain.Lotto;
-import domain.Lottos;
 import dto.LottoPurchaseDto;
 import utils.LottoNumbersInputParser;
 import utils.LottoPurchaseAmountParser;
@@ -26,17 +25,16 @@ public class LottoService {
         int autoLottoCount = calculateAutoCount(totalAmount, manualLottoCount);
 
         List<Lotto> manualLottos = readManualLottos(inputView, outputView, manualLottoCount);
-        Lottos manualLottosCollection = new Lottos(manualLottos);
 
-        return new LottoPurchaseDto(totalAmount, manualLottoCount, manualLottosCollection, autoLottoCount);
+        return new LottoPurchaseDto(totalAmount, manualLottoCount, manualLottos, autoLottoCount);
     }
 
-    public Lottos generateLottos(LottoPurchaseDto purchaseRequest) {
+    public List<Lotto> generateLottos(LottoPurchaseDto purchaseRequest) {
         int totalLottoCount = purchaseRequest.totalAmount() / Lotto.PRICE;
         int manualLottoCount = purchaseRequest.manualLottoCount();
         int autoLottoCount = totalLottoCount - manualLottoCount;
 
-        return lottoGenerator.generate(purchaseRequest.manualLottos().getLottos(), autoLottoCount);
+        return lottoGenerator.generate(purchaseRequest.manualLottos(), autoLottoCount);
     }
 
     private int readPurchaseAmount(InputView inputView, OutputView outputView) {

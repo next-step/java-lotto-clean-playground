@@ -1,47 +1,38 @@
 package domain;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class WinningLotto {
-    private static final int REQUIRED_SIZE = 6;
-    private static final String ERROR_INVALID_SIZE = "[ERROR] 당첨 번호는 6개여야 합니다.";
-    private static final String ERROR_DUPLICATED = "[ERROR] 당첨 번호는 중복될 수 없습니다.";
+    private static final String ERROR_DUPLICATED_WITH_BONUS = "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.";
 
-    private final List<LottoNumber> numbers;
+    private final Lotto lotto;
+    private final LottoNumber bonus;
 
-    public WinningLotto(List<LottoNumber> numbers) {
-        validate(numbers);
-        this.numbers = numbers;
+    public WinningLotto(Lotto lotto, LottoNumber bonus) {
+        validateBonusNotDuplicated(lotto.getNumbers(), bonus);
+        this.lotto = lotto;
+        this.bonus = bonus;
+    }
+
+    public Rank calculateRank(Lotto target) {
+        int matchCount = (int) target.getNumbers().stream()
+                .filter(lotto.getNumbers()::contains)
+                .count();
+        boolean bonusMatch = target.getNumbers().contains(bonus);
+        return Rank.valueOf(matchCount, bonusMatch);
     }
 
     public List<LottoNumber> getNumbers() {
-        return numbers;
+        return lotto.getNumbers();
     }
 
-    public int countMatch(Lotto lotto) {
-        Set<Integer> winningValues = new HashSet<>();
-        for (LottoNumber number : numbers) {
-            winningValues.add(number.value());
-        }
-
-        long count = lotto.getNumbers().stream()
-                .map(LottoNumber::value)
-                .filter(winningValues::contains)
-                .count();
-
-        return (int) count;
+    public LottoNumber getBonus() {
+        return bonus;
     }
 
-    private void validate(List<LottoNumber> numbers) {
-        if (numbers.size() != REQUIRED_SIZE) {
-            throw new IllegalArgumentException(ERROR_INVALID_SIZE);
-        }
-
-        Set<LottoNumber> unique = new HashSet<>(numbers);
-        if (unique.size() != REQUIRED_SIZE) {
-            throw new IllegalArgumentException(ERROR_DUPLICATED);
+    private void validateBonusNotDuplicated(List<LottoNumber> winningNumbers, LottoNumber bonus) {
+        if (winningNumbers.contains(bonus)) {
+            throw new IllegalArgumentException(ERROR_DUPLICATED_WITH_BONUS);
         }
     }
 }

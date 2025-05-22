@@ -2,8 +2,8 @@ package service;
 
 import domain.Lotto;
 import domain.LottoNumber;
-import domain.Lottos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -16,17 +16,17 @@ public class LottoGenerator {
         this.numberGenerator = numberGenerator;
     }
 
-    public Lottos generate(List<Lotto> manualLottos, int autoCount) {
-        Lottos autoLottos = generateAutoLottos(autoCount);
-        return Lottos.merge(new Lottos(manualLottos), autoLottos);
+    public List<Lotto> generate(List<Lotto> manualLottos, int autoCount) {
+        List<Lotto> autoLottos = generateAutoLottos(autoCount);
+        List<Lotto> combined = new ArrayList<>(manualLottos);
+        combined.addAll(autoLottos);
+        return combined;
     }
 
-    private Lottos generateAutoLottos(int autoCount) {
-        List<Lotto> tickets = IntStream.range(0, autoCount)
-                .mapToObj(i -> toLotto(numberGenerator.generate()))
+    private List<Lotto> generateAutoLottos(int autoCount) {
+        return IntStream.range(0, autoCount)
+                .mapToObj(i -> toLotto(numberGenerator.generateLottoNumbers()))
                 .collect(Collectors.toList());
-
-        return new Lottos(tickets);
     }
 
     private Lotto toLotto(List<Integer> numbers) {
