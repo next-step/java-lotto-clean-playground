@@ -1,9 +1,8 @@
-package domain;
+package domain.result;
 
+import domain.*;
 import domain.generator.FixedLottoGenerator;
 import domain.generator.LottoGenerator;
-import domain.result.LottoResult;
-import domain.result.LottoWinningChecker;
 import domain.util.InputParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
