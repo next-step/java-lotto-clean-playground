@@ -1,6 +1,6 @@
 package strategy;
 
-import domain.LottoNumber;
+import domain.lotto.LottoNumber;
 import java.util.List;
 
 public class FixNumberGenerator implements LottoNumberGenerator {

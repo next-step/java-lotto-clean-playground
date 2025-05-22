@@ -1,5 +1,8 @@
-package domain;
+package domain.rank;
 
+import domain.lotto.Lotto;
+import domain.lotto.Lottos;
+import domain.money.Money;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -32,18 +35,18 @@ public class WinningStatistics {
         return rankCounts.get(rank);
     }
 
-    public Prize calculateTotalPrize() {
-        Prize total = Prize.from(0L);
+    public Money calculateTotalPrize() {
+        Money total = Money.zero();
         for (Rank rank : Rank.values()) {
-            Prize prize = rank.getPrize().multiply(getCount(rank));
+            Money prize = rank.getPrize().multiply(getCount(rank));
             total = total.multiply(1).add(prize);
         }
         return total;
     }
 
-    public Prize calculateProfitRate(final long purchaseAmount) {
-        Prize totalPrize = calculateTotalPrize();
-        Prize purchase = Prize.from(purchaseAmount);
+    public Money calculateProfitRate(final String purchaseAmount) {
+        Money totalPrize = calculateTotalPrize();
+        Money purchase = new Money(purchaseAmount);
         return totalPrize.divideBy(purchase);
     }
 }

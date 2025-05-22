@@ -1,7 +1,7 @@
 package support;
 
-import domain.Lotto;
-import domain.LottoNumber;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
 import java.util.Arrays;
 import java.util.List;
 

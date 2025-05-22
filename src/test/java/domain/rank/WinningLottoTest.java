@@ -1,8 +1,9 @@
-package domain;
+package domain.rank;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.lotto.LottoNumber;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -93,6 +94,6 @@ class WinningLottoTest {
         // given & when & then
         assertThatThrownBy(() -> new WinningLotto(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 1 ~ 45 사이여야 합니다.");
+                .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
 }

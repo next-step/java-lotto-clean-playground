@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -15,7 +15,7 @@ class LottoNumberTest {
         // given & when & then
         assertThatThrownBy(() -> LottoNumber.of(number))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 1 ~ 45 사이여야 합니다.");
+                .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
 
     @ParameterizedTest
@@ -25,6 +25,6 @@ class LottoNumberTest {
         // given & when & then
         assertThatThrownBy(() -> LottoNumber.of(number))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 1 ~ 45 사이여야 합니다.");
+                .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
 }

@@ -1,11 +1,11 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoNumber;
-import domain.Lottos;
-import domain.Prize;
-import domain.Rank;
-import domain.WinningStatistics;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import domain.money.Money;
+import domain.rank.Rank;
+import domain.rank.WinningStatistics;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
@@ -44,11 +44,16 @@ public class OutputView {
                 ));
     }
 
-    public static void printProfitRate(final Prize profitRate) {
+    public static void printProfitRate(final Money profitRate) {
         System.out.printf("총 수익률은 %.2f입니다.", profitRate.getAmount());
-        if (profitRate.getAmount().compareTo(BigDecimal.ONE) < 0) {
+        validateStandardProfitRate(profitRate);
+        System.out.println();
+    }
+
+    private static void validateStandardProfitRate(final Money profitRate) {
+        boolean isStandardProfitRate = profitRate.getAmount().compareTo(BigDecimal.ONE) < 0;
+        if (isStandardProfitRate) {
             System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }
-        System.out.println();
     }
 }

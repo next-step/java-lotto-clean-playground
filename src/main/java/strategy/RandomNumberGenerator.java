@@ -1,10 +1,10 @@
 package strategy;
 
-import static domain.LottoConstant.LOTTO_NUMBER_COUNT;
-import static domain.LottoConstant.MAX_LOTTO_NUMBER;
-import static domain.LottoConstant.MIN_LOTTO_NUMBER;
+import static domain.lotto.LottoConstant.LOTTO_NUMBER_COUNT;
+import static domain.lotto.LottoConstant.MAX_LOTTO_NUMBER;
+import static domain.lotto.LottoConstant.MIN_LOTTO_NUMBER;
 
-import domain.LottoNumber;
+import domain.lotto.LottoNumber;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

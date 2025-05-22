@@ -1,8 +1,10 @@
-package domain;
+package domain.rank;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.LottoTestHelper.lotto;
 
+import domain.lotto.Lottos;
+import domain.money.Money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -47,11 +49,12 @@ class WinningStatisticsTest {
         WinningStatistics statistics = new WinningStatistics(winningLotto, purchasedLottos);
 
         // when
-        Prize totalPrize = statistics.calculateTotalPrize();
+        Money totalPrize = statistics.calculateTotalPrize();
+        BigDecimal expected = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).getAmount();
 
         // then
-        BigDecimal expected = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).getAmount();
-        assertThat(totalPrize.getAmount()).isEqualTo(expected);
+        assertThat(totalPrize.getAmount())
+                .isEqualTo(expected);
     }
 
     @Test
@@ -64,16 +67,19 @@ class WinningStatisticsTest {
                 lotto(1, 2, 3, 4, 5, 7)
         ));
         WinningStatistics statistics = new WinningStatistics(winningLotto, purchasedLottos);
-        long purchaseAmount = 3000L;
+        String purchaseAmount = "3000";
 
         // when
-        Prize profitRate = statistics.calculateProfitRate(purchaseAmount);
+        Money profitRate = statistics.calculateProfitRate(purchaseAmount);
 
-        // then
         BigDecimal totalPrizeAmount = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).getAmount();
         BigDecimal expectedProfitRate = totalPrizeAmount.divide(
-                BigDecimal.valueOf(purchaseAmount),
-                2, RoundingMode.HALF_UP);
-        assertThat(profitRate.getAmount()).isEqualTo(expectedProfitRate);
+                BigDecimal.valueOf(Long.parseLong(purchaseAmount)),
+                2,
+                RoundingMode.HALF_UP);
+
+        // then
+        assertThat(profitRate.getAmount())
+                .isEqualTo(expectedProfitRate);
     }
 }
