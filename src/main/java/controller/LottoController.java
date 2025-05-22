@@ -41,19 +41,19 @@ public class LottoController {
         }
         int autoCount = count - manualCount;
 
-        List<Lotto> lottoList = new ArrayList<>();
-        List<List<Integer>> manualNumbersList = inputView.readManualNumbers(manualCount);
-        setUpManualLottos(manualNumbersList, lottoList);
-        setUpAutoLottos(autoCount, lottoList);
-        Lottos lottos = new Lottos(lottoList);
+        List<Lotto> lottos = new ArrayList<>();
+        List<List<Integer>> manualNumbers = inputView.readManualNumbers(manualCount);
+        setUpManualLottos(manualNumbers, lottos);
+        setUpAutoLottos(autoCount, lottos);
+        Lottos totalLottos = new Lottos(lottos);
         resultView.printLottoCount(manualCount, autoCount);
-        resultView.printLottos(lottos);
-        return lottos;
+        resultView.printLottos(totalLottos);
+        return totalLottos;
     }
 
-    private void setUpManualLottos(List<List<Integer>> manualNumbersList, List<Lotto> lottos) {
-        for (List<Integer> manualNumbers : manualNumbersList) {
-            Lotto manualLotto = new Lotto(() -> manualNumbers.stream()
+    private void setUpManualLottos(List<List<Integer>> manualNumbers, List<Lotto> lottos) {
+        for (List<Integer> numbers : manualNumbers) {
+            Lotto manualLotto = new Lotto(() -> numbers.stream()
                     .map(LottoNumber::new)
                     .toList());
             lottos.add(manualLotto);
