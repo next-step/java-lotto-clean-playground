@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public class WinningLotto {
     public static final String ERROR_DUPLICATE_BONUS = "보너스 번호는 당첨 번호와 중복될 수 없습니다.";
     private final Lotto winningLotto;
@@ -9,6 +11,14 @@ public class WinningLotto {
         validateBonusNumber(winningLotto, bonusNumber);
         this.winningLotto = winningLotto;
         this.bonusNumber = bonusNumber;
+    }
+
+    public static WinningLotto create(List<Integer> winningNumbers, int bonusNumber) {
+        List<LottoNumber> numbers = winningNumbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+        Lotto lotto = new Lotto(numbers);
+        return new WinningLotto(lotto, new LottoNumber(bonusNumber));
     }
 
     private void validateBonusNumber(Lotto winningLotto, LottoNumber bonusNumber) {

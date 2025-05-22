@@ -2,13 +2,10 @@ package controller;
 
 import static domain.constant.LottoConstants.LOTTO_PRICE;
 
-import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
-import domain.LottoNumber;
 import domain.WinningLotto;
 import domain.generator.NumberGenerator;
-import java.util.ArrayList;
 import java.util.List;
 import view.InputView;
 import view.ResultView;
@@ -41,39 +38,18 @@ public class LottoController {
         }
         int autoCount = count - manualCount;
 
-        List<Lotto> lottos = new ArrayList<>();
         List<List<Integer>> manualNumbers = inputView.readManualNumbers(manualCount);
-        setUpManualLottos(manualNumbers, lottos);
-        setUpAutoLottos(autoCount, lottos);
-        Lottos totalLottos = new Lottos(lottos);
+        Lottos lottos = Lottos.create(manualNumbers, autoCount, numberGenerator);
+
         resultView.printLottoCount(manualCount, autoCount);
-        resultView.printLottos(totalLottos);
-        return totalLottos;
-    }
-
-    private void setUpManualLottos(List<List<Integer>> manualNumbers, List<Lotto> lottos) {
-        for (List<Integer> numbers : manualNumbers) {
-            Lotto manualLotto = new Lotto(() -> numbers.stream()
-                    .map(LottoNumber::new)
-                    .toList());
-            lottos.add(manualLotto);
-        }
-    }
-
-    private void setUpAutoLottos(int autoCount, List<Lotto> lottos) {
-        for (int i = 0; i < autoCount; i++) {
-            Lotto autoLotto = new Lotto(numberGenerator);
-            lottos.add(autoLotto);
-        }
+        resultView.printLottos(lottos);
+        return lottos;
     }
 
     private WinningLotto setUpWinningLotto() {
-        List<LottoNumber> numbers = inputView.readWinningNumbers().stream()
-                .map(LottoNumber::new)
-                .toList();
-        Lotto winningLotto = new Lotto(numbers);
-        LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
-
-        return new WinningLotto(winningLotto, bonusNumber);
+        return WinningLotto.create(
+                inputView.readWinningNumbers(),
+                inputView.readBonusNumber()
+        );
     }
 }
