@@ -27,7 +27,7 @@ public class WinningStatistics {
         for (Lotto lotto : purchasedLottos.getValues()) {
             int matchCount = lotto.countMatch(winningLotto.getWinningLotto());
             boolean bonusMatch = lotto.contains(winningLotto.getBonusNumber());
-            Rank rank = Rank.from(matchCount, bonusMatch);
+            Rank rank = Rank.of(matchCount, bonusMatch);
             rankCounts.put(rank, getCount(rank) + 1);
         }
     }
