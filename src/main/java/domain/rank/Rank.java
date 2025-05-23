@@ -4,11 +4,11 @@ import domain.money.Money;
 
 public enum Rank {
 
-    FIRST(6, false, new Money("2000000000")),
-    SECOND(5, true, new Money("30000000")),
-    THIRD(5, false, new Money("1500000")),
-    FOURTH(4, false, new Money("50000")),
-    FIFTH(3, false, new Money("5000")),
+    FIRST(6, false, Money.from("2000000000")),
+    SECOND(5, true, Money.from("30000000")),
+    THIRD(5, false, Money.from("1500000")),
+    FOURTH(4, false, Money.from("50000")),
+    FIFTH(3, false, Money.from("5000")),
     NONE(0, false, Money.zero());
 
     private final int matchCount;

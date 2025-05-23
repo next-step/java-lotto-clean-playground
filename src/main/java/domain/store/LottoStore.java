@@ -7,7 +7,7 @@ import strategy.LottoNumberGenerator;
 
 public class LottoStore {
 
-    public static final Money LOTTO_PRICE = new Money("1000");
+    public static final Money LOTTO_PRICE = Money.from("1000");
 
     private final LottoNumberGenerator generator;
 
@@ -24,16 +24,16 @@ public class LottoStore {
 
     private void validateUnit(final Money purchaseAmount) {
         boolean isInvalidUnit =
-                purchaseAmount.getAmount().remainder(LOTTO_PRICE.getAmount()).compareTo(BigDecimal.ZERO) != 0;
+                purchaseAmount.amount().remainder(LOTTO_PRICE.amount()).compareTo(BigDecimal.ZERO) != 0;
         if (isInvalidUnit) {
-            throw new IllegalArgumentException("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.getAmount()));
+            throw new IllegalArgumentException("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
         }
     }
 
     private void validateMinimum(final Money purchaseAmount) {
-        boolean isBelowMinimum = purchaseAmount.getAmount().compareTo(LOTTO_PRICE.getAmount()) < 0;
+        boolean isBelowMinimum = purchaseAmount.amount().compareTo(LOTTO_PRICE.amount()) < 0;
         if (isBelowMinimum) {
-            throw new IllegalArgumentException("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.getAmount()));
+            throw new IllegalArgumentException("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
         }
     }
 
@@ -42,6 +42,6 @@ public class LottoStore {
     }
 
     private int calculateLottoCount(final Money purchaseAmount) {
-        return purchaseAmount.divideBy(LOTTO_PRICE).getAmount().intValueExact();
+        return purchaseAmount.divideBy(LOTTO_PRICE).amount().intValueExact();
     }
 }

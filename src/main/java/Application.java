@@ -11,7 +11,7 @@ import view.OutputView;
 public class Application {
     public static void main(String[] args) {
         String purchaseAmountInput = InputView.inputPurchaseAmount();
-        Money money = new Money(purchaseAmountInput);
+        Money money = Money.from(purchaseAmountInput);
 
         LottoNumberGenerator generator = new RandomNumberGenerator();
         LottoStore store = new LottoStore(generator);

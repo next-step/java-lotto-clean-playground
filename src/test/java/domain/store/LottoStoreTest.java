@@ -20,7 +20,7 @@ class LottoStoreTest {
         // given
         LottoNumberGenerator generator = new FixNumberGenerator();
         LottoStore store = new LottoStore(generator);
-        Money purchaseAmount = new Money("3000");
+        Money purchaseAmount = Money.from("3000");
 
         // when
         Lottos lottos = store.buy(purchaseAmount);
@@ -37,12 +37,12 @@ class LottoStoreTest {
     void shouldThrowException_whenBelowMinimumAmount() {
         // given
         LottoStore store = new LottoStore(new FixNumberGenerator());
-        Money invalidAmount = new Money("999");
+        Money invalidAmount = Money.from("999");
 
         // when & then
         assertThatThrownBy(() -> store.buy(invalidAmount))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.getAmount()));
+                .hasMessage("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
     }
 
     @DisplayName("구입 금액이 로또 판매 금액 단위가 아니면 예외가 발생한다.")
@@ -50,12 +50,12 @@ class LottoStoreTest {
     void shouldThrowException_whenInvalidUnit() {
         // given
         LottoStore store = new LottoStore(new FixNumberGenerator());
-        Money invalidAmount = new Money("1100");
+        Money invalidAmount = Money.from("1100");
 
         // when & then
         assertThatThrownBy(() -> store.buy(invalidAmount))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.getAmount()));
+                .hasMessage("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
     }
 
 }

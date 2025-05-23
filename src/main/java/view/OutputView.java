@@ -39,7 +39,7 @@ public class OutputView {
                 .forEach(rank -> System.out.printf(
                         formatRankMessage(rank),
                         rank.getMatchCount(),
-                        rank.getPrize().getAmount(),
+                        rank.getPrize().amount(),
                         statistics.getCount(rank)
                 ));
     }
@@ -53,13 +53,13 @@ public class OutputView {
 
 
     public static void printProfitRate(final Money profitRate) {
-        System.out.printf("총 수익률은 %.2f입니다.", profitRate.getAmount());
+        System.out.printf("총 수익률은 %.2f입니다.", profitRate.amount());
         validateStandardProfitRate(profitRate);
         System.out.println();
     }
 
     private static void validateStandardProfitRate(final Money profitRate) {
-        boolean isStandardProfitRate = profitRate.getAmount().compareTo(BigDecimal.ONE) < 0;
+        boolean isStandardProfitRate = profitRate.amount().compareTo(BigDecimal.ONE) < 0;
         if (isStandardProfitRate) {
             System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }

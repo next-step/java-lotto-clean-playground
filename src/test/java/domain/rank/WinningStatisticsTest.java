@@ -51,10 +51,10 @@ class WinningStatisticsTest {
 
         // when
         Money totalPrize = statistics.calculateTotalPrize();
-        BigDecimal expected = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).getAmount();
+        BigDecimal expected = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).amount();
 
         // then
-        assertThat(totalPrize.getAmount())
+        assertThat(totalPrize.amount())
                 .isEqualTo(expected);
     }
 
@@ -73,14 +73,14 @@ class WinningStatisticsTest {
         // when
         Money profitRate = statistics.calculateProfitRate(purchaseAmount);
 
-        BigDecimal totalPrizeAmount = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).getAmount();
+        BigDecimal totalPrizeAmount = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).amount();
         BigDecimal expectedProfitRate = totalPrizeAmount.divide(
                 BigDecimal.valueOf(Long.parseLong(purchaseAmount)),
                 2,
                 RoundingMode.HALF_UP);
 
         // then
-        assertThat(profitRate.getAmount())
+        assertThat(profitRate.amount())
                 .isEqualTo(expectedProfitRate);
     }
 }
