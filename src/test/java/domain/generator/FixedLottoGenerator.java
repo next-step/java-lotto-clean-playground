@@ -3,10 +3,11 @@ package domain.generator;
 import domain.Lotto;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FixedLottoGenerator implements LottoGenerator {
     private final List<Lotto> fixedLottos;
-    private int index = 0;
+    private final AtomicInteger index = new AtomicInteger(0);
 
     public FixedLottoGenerator(List<Lotto> predefinedLottos) {
         this.fixedLottos = predefinedLottos;
@@ -14,6 +15,7 @@ public class FixedLottoGenerator implements LottoGenerator {
 
     @Override
     public Lotto generate() {
-        return fixedLottos.get(index++);
+        int currentIndex = index.getAndIncrement();
+        return fixedLottos.get(currentIndex);
     }
 }
