@@ -28,12 +28,12 @@ public class WinningStatistics {
             int matchCount = lotto.countMatch(winningLotto.getWinningLotto());
             boolean bonusMatch = lotto.contains(winningLotto.getBonusNumber());
             Rank rank = Rank.of(matchCount, bonusMatch);
-            rankCounts.put(rank, getCount(rank) + 1);
+            updateRankCount(rank);
         }
     }
 
-    public int getCount(final Rank rank) {
-        return rankCounts.get(rank);
+    private void updateRankCount(final Rank rank) {
+        rankCounts.put(rank, getCount(rank) + 1);
     }
 
     public Money calculateTotalPrize() {
@@ -45,9 +45,12 @@ public class WinningStatistics {
         return total;
     }
 
-    public Money calculateProfitRate(final String purchaseAmount) {
+    public int getCount(final Rank rank) {
+        return rankCounts.getOrDefault(rank, 0);
+    }
+
+    public Money calculateProfitRate(final Money purchaseAmount) {
         Money totalPrize = calculateTotalPrize();
-        Money purchase = Money.from(purchaseAmount);
-        return totalPrize.divide(purchase);
+        return totalPrize.divide(purchaseAmount);
     }
 }

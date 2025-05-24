@@ -45,7 +45,7 @@ public record Money(
         }
         return new Money(this.amount.divide(divisor.amount, DIVIDE_SCALE, RoundingMode.HALF_UP));
     }
-    
+
     private boolean isZero(final Money divisor) {
         return divisor.amount.compareTo(BigDecimal.ZERO) <= 0;
     }

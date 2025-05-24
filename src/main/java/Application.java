@@ -26,7 +26,7 @@ public class Application {
         WinningLotto winningLotto = WinningLottoParser.of(winningLottoNumber, bonusNumber);
 
         WinningStatistics winningStatistics = new WinningStatistics(winningLotto, lottos);
-        Money profitRate = winningStatistics.calculateProfitRate(purchaseAmountInput);
+        Money profitRate = winningStatistics.calculateProfitRate(money);
 
         OutputView.printWinningStatistics(winningStatistics);
         OutputView.printProfitRate(profitRate);

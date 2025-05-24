@@ -71,7 +71,7 @@ class WinningStatisticsTest {
         String purchaseAmount = "3000";
 
         // when
-        Money profitRate = statistics.calculateProfitRate(purchaseAmount);
+        Money profitRate = statistics.calculateProfitRate(Money.from(purchaseAmount));
 
         BigDecimal totalPrizeAmount = Rank.FIRST.getPrize().add(Rank.SECOND.getPrize()).amount();
         BigDecimal expectedProfitRate = totalPrizeAmount.divide(
