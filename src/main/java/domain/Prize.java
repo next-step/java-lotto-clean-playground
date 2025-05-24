@@ -30,11 +30,11 @@ public enum Prize {
 
     public static Prize fromMatchCount(int matchCount, boolean matchBonus) {
         return Arrays.stream(values())
-                .filter(p -> p.matchCount == matchCount && p.isBonus == matchBonus)
+                .filter(prize -> prize.matchCount == matchCount && prize.isBonus == matchBonus)
                 .findFirst()
                 .orElseGet(() ->
                         Arrays.stream(values())
-                                .filter(p -> p.matchCount == matchCount && !p.isBonus)
+                                .filter(prize -> prize.matchCount == matchCount && !prize.isBonus)
                                 .findFirst()
                                 .orElse(NONE)
                 );
