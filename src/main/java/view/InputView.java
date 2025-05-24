@@ -5,11 +5,9 @@ import java.util.*;
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static int readBuyMoney() {
+    public static String readBuyMoney() {
         System.out.println("구입 금액을 입력해 주세요.");
-        int money = scanner.nextInt();
-        scanner.nextLine();
-        return money;
+        return scanner.nextLine();
     }
 
     public static String readWinningNumber() {

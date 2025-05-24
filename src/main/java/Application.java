@@ -10,7 +10,7 @@ import view.OutputView;
 public class Application {
     public static void main(String[] args) {
 
-        int money = InputView.readBuyMoney(); //돈 입력
+        Money money = InputParser.parseMoney(InputView.readBuyMoney()); //돈 입력
 
         //자동 로또 생성
         LottoGenerator generator = new AutoLottoGenerator();

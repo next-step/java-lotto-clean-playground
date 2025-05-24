@@ -33,16 +33,16 @@ public class OutputView {
         int second = result.secondPrizeCount();
         int first  = result.firstPrizeCount();
 
-        builder.append("3개 일치 (").append(Prize.FIFTH.getPrizeAmount()).append("원)- ").append(fifth).append("개\n");
-        builder.append("4개 일치 (").append(Prize.FOURTH.getPrizeAmount()).append("원)- ").append(fourth).append("개\n");
-        builder.append("5개 일치 (").append(Prize.THIRD.getPrizeAmount()).append("원)- ").append(third).append("개\n");
-        builder.append("5개 일치, 보너스 볼 일치(").append(Prize.SECOND.getPrizeAmount()).append("원)- ").append(second).append("개\n");
-        builder.append("6개 일치 (").append(Prize.FIRST.getPrizeAmount()).append("원)- ").append(first).append("개\n");
+        builder.append("3개 일치 (").append(Prize.FIFTH.getPrizeAmount().value()).append("원)- ").append(fifth).append("개\n");
+        builder.append("4개 일치 (").append(Prize.FOURTH.getPrizeAmount().value()).append("원)- ").append(fourth).append("개\n");
+        builder.append("5개 일치 (").append(Prize.THIRD.getPrizeAmount().value()).append("원)- ").append(third).append("개\n");
+        builder.append("5개 일치, 보너스 볼 일치(").append(Prize.SECOND.getPrizeAmount().value()).append("원)- ").append(second).append("개\n");
+        builder.append("6개 일치 (").append(Prize.FIRST.getPrizeAmount().value()).append("원)- ").append(first).append("개\n");
     }
 
     private static void appendProfitRate(StringBuilder builder, LottoResult result, int totalTickets) {
-        long revenue = LottoProfitCalculator.calculateRevenue(result);
-        int spent = LottoProfitCalculator.calculateTotalSpent(totalTickets);
+        Money revenue = LottoProfitCalculator.calculateRevenue(result);
+        Money spent = LottoProfitCalculator.calculateTotalSpent(totalTickets);
         double rate = LottoProfitCalculator.calculateProfitRate(revenue, spent);
 
         String resultText = determineProfitResult(rate);
