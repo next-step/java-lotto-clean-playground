@@ -17,7 +17,7 @@ class WinningStatisticsTest {
     @DisplayName("구매한 로또 번호와 지난 당첨 번호의 비교해 등수별 당첨 통계를 정확히 보여준다.")
     void shouldReturnWinningStatistics_whenComparingPurchasedLottoAndLastWinningNumber() {
         // given
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", "7");
+        WinningLotto winningLotto = WinningLottoParser.of("1,2,3,4,5,6", "7");
 
         Lottos purchasedLottos = new Lottos(List.of(
                 lotto(1, 2, 3, 4, 5, 6),
@@ -41,7 +41,7 @@ class WinningStatisticsTest {
     @DisplayName("1등과 2등에 해당하는 로또가 각각 1장 있을 때 총 당첨 금액을 계산한다.")
     void shouldCalculateTotalPrize_whenFirstAndSecondExists() {
         // given
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", "7");
+        WinningLotto winningLotto = WinningLottoParser.of("1,2,3,4,5,6", "7");
         Lottos purchasedLottos = new Lottos(List.of(
                 lotto(1, 2, 3, 4, 5, 6),
                 lotto(1, 2, 3, 4, 5, 7)
@@ -62,7 +62,7 @@ class WinningStatisticsTest {
     @DisplayName("총 당첨 금액과 구매 금액으로부터 수익률을 정확히 계산한다.")
     void shouldCalculateProfitRate_whenGivenTotalPrizeAndPurchaseAmount() {
         // given
-        WinningLotto winningLotto = new WinningLotto("1,2,3,4,5,6", "7");
+        WinningLotto winningLotto = WinningLottoParser.of("1,2,3,4,5,6", "7");
         Lottos purchasedLottos = new Lottos(List.of(
                 lotto(1, 2, 3, 4, 5, 6),
                 lotto(1, 2, 3, 4, 5, 7)

@@ -7,12 +7,12 @@ public record LottoNumber(
         int number
 ) implements Comparable<LottoNumber> {
 
-    public static LottoNumber of(int number) {
+    public static LottoNumber from(final int number) {
         validateLottoRange(number);
         return new LottoNumber(number);
     }
 
-    private static void validateLottoRange(int number) {
+    private static void validateLottoRange(final int number) {
         if (number < MIN_LOTTO_NUMBER || MAX_LOTTO_NUMBER < number) {
             throw new IllegalArgumentException("로또 번호는 1 ~ 45 사이여야 합니다.");
         }

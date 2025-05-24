@@ -13,7 +13,7 @@ public class LottoTestHelper {
 
     public static List<LottoNumber> numbers(int... nums) {
         return Arrays.stream(nums)
-                .mapToObj(LottoNumber::of)
+                .mapToObj(LottoNumber::from)
                 .toList();
     }
 }

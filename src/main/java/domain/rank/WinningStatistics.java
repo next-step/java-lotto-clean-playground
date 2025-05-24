@@ -48,6 +48,6 @@ public class WinningStatistics {
     public Money calculateProfitRate(final String purchaseAmount) {
         Money totalPrize = calculateTotalPrize();
         Money purchase = Money.from(purchaseAmount);
-        return totalPrize.divideBy(purchase);
+        return totalPrize.divide(purchase);
     }
 }

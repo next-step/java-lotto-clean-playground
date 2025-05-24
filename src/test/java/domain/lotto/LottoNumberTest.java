@@ -13,7 +13,7 @@ class LottoNumberTest {
     @DisplayName("범위보다 작은 숫자가 있으면 예외가 발생한다.")
     void shouldThrowException_whenMinRangeNumber(int number) {
         // given & when & then
-        assertThatThrownBy(() -> LottoNumber.of(number))
+        assertThatThrownBy(() -> LottoNumber.from(number))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
@@ -23,7 +23,7 @@ class LottoNumberTest {
     @DisplayName("범위보다 큰 숫자가 있으면 예외가 발생한다.")
     void shouldThrowException_whenMaxRangeNumber(int number) {
         // given & when & then
-        assertThatThrownBy(() -> LottoNumber.of(number))
+        assertThatThrownBy(() -> LottoNumber.from(number))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }

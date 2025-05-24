@@ -1,6 +1,7 @@
 import domain.lotto.Lottos;
 import domain.money.Money;
 import domain.rank.WinningLotto;
+import domain.rank.WinningLottoParser;
 import domain.rank.WinningStatistics;
 import domain.store.LottoStore;
 import strategy.LottoNumberGenerator;
@@ -22,7 +23,7 @@ public class Application {
 
         String winningLottoNumber = InputView.inputWinningNumberForLastWeek();
         String bonusNumber = InputView.inputBonusNumber();
-        WinningLotto winningLotto = new WinningLotto(winningLottoNumber, bonusNumber);
+        WinningLotto winningLotto = WinningLottoParser.of(winningLottoNumber, bonusNumber);
 
         WinningStatistics winningStatistics = new WinningStatistics(winningLotto, lottos);
         Money profitRate = winningStatistics.calculateProfitRate(purchaseAmountInput);

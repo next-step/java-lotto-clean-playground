@@ -25,7 +25,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,6";
 
             // when
-            WinningLotto winningLotto = new WinningLotto(input, "7");
+            WinningLotto winningLotto = WinningLottoParser.of(input, "7");
             List<LottoNumber> numbers = winningLotto.getWinningLotto().getNumbers();
 
             // then
@@ -39,7 +39,7 @@ class WinningLottoTest {
         @NullAndEmptySource
         @DisplayName("당첨 번호를 입력하지 않았을 경우 예외가 발생한다.")
         void shouldThrowException_whenEmptyLotto(String input) {
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "7"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("번호를 입력해야 합니다.");
         }
@@ -51,7 +51,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "7"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 6개여야 합니다.");
         }
@@ -63,7 +63,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,6,7";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "8"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "8"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 6개여야 합니다.");
         }
@@ -75,7 +75,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,5";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "7"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("중복된 로또 번호가 있습니다.");
         }
@@ -87,9 +87,9 @@ class WinningLottoTest {
             String input = "1,2,삼,4,5,6";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "7"))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("모든 번호는 숫자 형식이어야 합니다.");
+                    .hasMessage("모든 번호는 숫자여야 합니다.");
         }
 
         @ParameterizedTest
@@ -97,7 +97,7 @@ class WinningLottoTest {
         @DisplayName("범위를 벗어나는 숫자가 포함될 경우 예외가 발생한다.")
         void shouldThrowException_whenNumberOutOfRange(String input) {
             // given & when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, "7"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
         }
@@ -115,7 +115,7 @@ class WinningLottoTest {
             String bonus = "7";
 
             // when
-            WinningLotto winningLotto = new WinningLotto(input, bonus);
+            WinningLotto winningLotto = WinningLottoParser.of(input, bonus);
 
             // then
             assertThat(winningLotto.getBonusNumber().number())
@@ -130,7 +130,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,6";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, bonus))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, bonus))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("번호를 입력해야 합니다.");
         }
@@ -143,7 +143,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,6";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, bonus))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, bonus))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
         }
@@ -156,7 +156,7 @@ class WinningLottoTest {
             String bonus = "6";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, bonus))
+            assertThatThrownBy(() -> WinningLottoParser.of(input, bonus))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }

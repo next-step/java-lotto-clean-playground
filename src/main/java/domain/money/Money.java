@@ -9,7 +9,7 @@ public record Money(
 
     private static final int DIVIDE_SCALE = 2;
     private static final Money ZERO = new Money(BigDecimal.ZERO);
-    
+
     public static Money from(final String amount) {
         try {
             BigDecimal parsedAmount = new BigDecimal(amount);
@@ -39,7 +39,7 @@ public record Money(
         return new Money(this.amount.multiply(BigDecimal.valueOf(multiplier)));
     }
 
-    public Money divideBy(final Money divisor) {
+    public Money divide(final Money divisor) {
         validateNonZeroDivisor(divisor);
         return new Money(this.amount.divide(divisor.amount, DIVIDE_SCALE, RoundingMode.HALF_UP));
     }

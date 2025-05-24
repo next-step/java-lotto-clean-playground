@@ -42,6 +42,6 @@ public class LottoStore {
     }
 
     private int calculateLottoCount(final Money purchaseAmount) {
-        return purchaseAmount.divideBy(LOTTO_PRICE).amount().intValueExact();
+        return purchaseAmount.divide(LOTTO_PRICE).amount().intValueExact();
     }
 }
