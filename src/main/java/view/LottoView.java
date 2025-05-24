@@ -1,0 +1,133 @@
+package view;
+
+import java.util.ArrayList;
+import model.Lotto;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Scanner;
+import model.LottoNumber;
+import java.util.stream.Collectors;
+import model.LottoStatistics;
+import model.Rank;
+
+
+public class LottoView {
+    private static final String DELIMITER = ",";
+    private static final int LOTTO_NUMBER_COUNT = 6;
+    private final Scanner scanner;
+
+    public LottoView() {
+        this(new Scanner(System.in));
+    }
+
+    public LottoView(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public int readPurchaseAmount() {
+        System.out.println("구입 금액을 입력해 주세요");
+        String input = scanner.nextLine().trim();
+        int amount;
+
+        try {
+            amount = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자를 입력하세요.");
+        }
+
+        if (amount < 0) {
+            throw new IllegalArgumentException("0이상의 값을 입력하세요.");
+        }
+        return amount;
+    }
+
+    public void printLottoCount(int manualCount, int autoCount) {
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
+    }
+
+    public void printLotto(List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto);
+        }
+    }
+
+    public List<LottoNumber> readWinningNumbers() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요");
+        String input = scanner.nextLine().trim();
+        try {
+            List<LottoNumber> winningNumbers = Arrays.stream(input.split(DELIMITER)).map(String::trim)
+                    .map(Integer::parseInt)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList());
+
+            if (winningNumbers.size() != LOTTO_NUMBER_COUNT) {
+                throw new IllegalArgumentException("로또 번호는 6개를 입력해야 합니다.");
+            }
+
+            return winningNumbers;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("입력 형식 오류: 숫자만 콤마로 구분하여 입력해주세요.");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("입력 값 오류: " + e.getMessage());
+        }
+    }
+
+    public void printStatistics(LottoStatistics statistics) {
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+        printRankCount(statistics, Rank.FIFTH, "3개 일치 (5000원)");
+        printRankCount(statistics, Rank.FOURTH, "4개 일치 (50000원)");
+        printRankCount(statistics, Rank.THIRD, "5개 일치 (1500000원)");
+        printRankCount(statistics, Rank.SECOND, "5개 일치, 보너스 볼 일치 (30000000원)");
+        printRankCount(statistics, Rank.FIRST, "6개 일치 (2000000000원)");
+        System.out.printf("총 수익률은 %.2f입니다.%n", statistics.getProfitRate());
+    }
+
+    private void printRankCount(LottoStatistics statistics, Rank rank, String label) {
+        System.out.printf("%s - %d개%n", label, statistics.getCount(rank));
+    }
+
+    public LottoNumber readBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int number = Integer.parseInt(scanner.nextLine().trim());
+        return new LottoNumber(number);
+    }
+
+    public int readManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String input = scanner.nextLine().trim();
+        try {
+            int count = Integer.parseInt(input);
+            if (count < 0) {
+                throw new IllegalArgumentException("0 이상의 수를 입력해야 합니다.");
+            }
+            return count;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자를 입력하세요.");
+        }
+    }
+
+    public List<Lotto> readManualLottos(int count) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            String input = scanner.nextLine().trim();
+            try {
+                List<LottoNumber> manualNumbers = Arrays.stream(input.split(DELIMITER)).map(String::trim)
+                        .map(Integer::parseInt)
+                        .map(LottoNumber::new)
+                        .collect(Collectors.toList());
+
+                if (manualNumbers.size() != LOTTO_NUMBER_COUNT) {
+                    throw new IllegalArgumentException("로또 번호는 6개를 입력해야 합니다.");
+                }
+                manualLottos.add(new Lotto(manualNumbers));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("입력 형식 오류: 숫자만 콤마로 구분하여 입력해주세요.");
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("입력 값 오류: " + e.getMessage());
+            }
+        }
+        return manualLottos;
+    }
+}

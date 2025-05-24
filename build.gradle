@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'cholog'
@@ -14,6 +15,10 @@ dependencies {
     testImplementation platform('org.assertj:assertj-bom:3.25.1')
     testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation('org.assertj:assertj-core')
+}
+
+application {
+    mainClass.set('LottoApplication')
 }
 
 test {
