@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoGenerator {
-    private static final int LOTTO_NUMBER_COUNT = 6;
+    private static final int LOTTO_NUMBER_COUNT = Lotto.LOTTO_NUMBER_COUNT ;
 
     public List<Lotto> generate(int count) {
         return IntStream.range(0, count)

@@ -1,36 +1,34 @@
 package model;
 
 import java.util.Arrays;
+import java.util.function.BiPredicate;
 
 public enum Rank {
-    FIRST(6, false, 2_000_000_000),
-    SECOND(5, true, 30_000_000),
-    THIRD(5, false, 1_500_000),
-    FOURTH(4, false, 50_000),
-    FIFTH(3, false, 5_000),
-    NONE(0, false, 0);
+    FIRST((matchCount, matchBonusBall) -> matchCount == 6, 2_000_000_000),
+    SECOND((matchCount, matchBonusBall) -> matchCount == 5 && matchBonusBall,30_000_000),
+    THIRD((matchCount, matchBonusBall) -> matchCount == 5 && !matchBonusBall, 1_500_000),
+    FOURTH((matchCount, matchBonusBall) -> matchCount == 4, 50_000),
+    FIFTH((matchCount, matchBonusBall) -> matchCount == 3, 5_000),
+    NONE((matchCount,matchBonusBall)->false, 0);
 
-    private final int matchCount;
-    private final boolean needsBonus;
+    private final BiPredicate<Integer,Boolean> matchCondition;
     private final int prize;
 
-    Rank(int matchCount, boolean needsBonus, int prize) {
-        this.matchCount = matchCount;
-        this.needsBonus = needsBonus;
+    Rank(BiPredicate<Integer, Boolean> matchCondition, int prize) {
+        this.matchCondition = matchCondition;
         this.prize = prize;
     }
-
     public int getPrize() {
         return prize;
     }
 
-    public boolean isMatch(int count,boolean bonus) {
-        return this.matchCount ==count && this.needsBonus==bonus;
+    public boolean isMatch(int count, boolean bonus) {
+        return matchCondition.test(count, bonus);
     }
 
     public static Rank of(int count, boolean bonus) {
         return Arrays.stream(values())
-                .filter(rank->rank.isMatch(count,bonus))
+                .filter(rank -> rank.isMatch(count, bonus))
                 .findFirst()
                 .orElse(NONE);
     }
