@@ -12,12 +12,29 @@ public class WinningLotto {
     private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(final String winningNumbers, final String bonusNumber) {
+    public WinningLotto(final String winningNumbersInput, final String bonusNumberInput) {
+        validateEmptyInput(winningNumbersInput, bonusNumberInput);
+
+        List<LottoNumber> numbers = parseWinningNumbers(winningNumbersInput);
+        LottoNumber bonus = parseBonusNumber(bonusNumberInput);
+
+        validateDuplicate(numbers, bonus);
+
+        this.winningNumbers = new Lotto(numbers);
+        this.bonusNumber = bonus;
+    }
+
+    private void validateEmptyInput(final String winningNumbers, final String bonusNumber) {
         validateEmpty(winningNumbers);
-        this.winningNumbers = new Lotto(convertToLottoNumbers(winningNumbers));
         validateEmpty(bonusNumber);
-        this.bonusNumber = LottoNumber.of(Integer.parseInt(bonusNumber));
-        validateDuplicateWinningNumbers();
+    }
+
+    private List<LottoNumber> parseWinningNumbers(final String input) {
+        return convertToLottoNumbers(input);
+    }
+
+    private LottoNumber parseBonusNumber(final String input) {
+        return LottoNumber.of(Integer.parseInt(input));
     }
 
     public Lotto getWinningLotto() {
@@ -34,17 +51,17 @@ public class WinningLotto {
         }
     }
 
-    private void validateDuplicateWinningNumbers() {
-        if (winningNumbers.getNumbers().contains(bonusNumber)) {
+    private void validateDuplicate(final List<LottoNumber> winningNumbers, final LottoNumber bonusNumber) {
+        if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }
 
     private List<LottoNumber> convertToLottoNumbers(final String value) {
         List<Integer> numbers = parseToInt(value);
-        return numbers.stream()
+        return List.copyOf(numbers.stream()
                 .map(LottoNumber::of)
-                .toList();
+                .toList());
     }
 
     private List<Integer> parseToInt(final String value) {

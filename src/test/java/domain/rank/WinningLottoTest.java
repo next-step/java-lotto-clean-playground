@@ -63,7 +63,7 @@ class WinningLottoTest {
             String input = "1,2,3,4,5,6,7";
 
             // when & then
-            assertThatThrownBy(() -> new WinningLotto(input, "7"))
+            assertThatThrownBy(() -> new WinningLotto(input, "8"))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("로또 번호는 6개여야 합니다.");
         }
