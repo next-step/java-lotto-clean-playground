@@ -1,4 +1,6 @@
-package domain;
+package domain.result;
+
+import domain.*;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -10,7 +12,11 @@ public class LottoWinningChecker {
 
     public static LottoResult checkLotto(Lottos lottos, WinningNumbers winningNumbers) {
         Map<Prize, Long> counts = lottos.getLottos().stream()
-                .map(lotto -> Prize.fromMatchCount(countMatch(lotto, winningNumbers)))
+                .map(lotto -> {
+                    int matchCount = countMatch(lotto, winningNumbers);
+                    boolean matchBonus = lotto.getNumbers().contains(winningNumbers.getBonusNumber());
+                    return Prize.fromMatchCount(matchCount, matchBonus);
+                })
                 .filter(Prize::isWinning)
                 .collect(Collectors.groupingBy(
                         prize -> prize,
@@ -29,10 +35,11 @@ public class LottoWinningChecker {
 
     private static LottoResult buildResult(Map<Prize, Long> counts) {
         return new LottoResult(
-                counts.getOrDefault(Prize.FIRST,  0L).intValue(),
+                counts.getOrDefault(Prize.FIRST, 0L).intValue(),
                 counts.getOrDefault(Prize.SECOND, 0L).intValue(),
-                counts.getOrDefault(Prize.THIRD,  0L).intValue(),
-                counts.getOrDefault(Prize.FOURTH, 0L).intValue()
+                counts.getOrDefault(Prize.THIRD, 0L).intValue(),
+                counts.getOrDefault(Prize.FOURTH, 0L).intValue(),
+                counts.getOrDefault(Prize.FIFTH, 0L).intValue()
         );
     }
 }

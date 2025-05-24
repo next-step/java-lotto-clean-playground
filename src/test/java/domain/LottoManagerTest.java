@@ -13,7 +13,7 @@ class LottoManagerTest {
     @Test
     @DisplayName("로또 구매 테스트")
     void purchaseLottoNumbers() {
-        int money = 1500;
+        Money money = new Money(1500);
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager lottoManager = new LottoManager(generator);
         Lottos history = lottoManager.purchaseLottos(money);
@@ -27,7 +27,7 @@ class LottoManagerTest {
         LottoManager manager = new LottoManager(generator);
 
         assertThatThrownBy(() -> {
-            manager.purchaseLottos(500);
+            manager.purchaseLottos(new Money(500));
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입 금액의 최소단위는 1000원입니다.");
     }
