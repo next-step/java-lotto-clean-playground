@@ -7,7 +7,7 @@ public record Money(
         BigDecimal amount
 ) {
 
-    private static final int DIVIDE_SCALE = 2;
+    public static final int DIVIDE_SCALE = 2;
     private static final Money ZERO = new Money(BigDecimal.ZERO);
 
     public static Money from(final String amount) {

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -79,6 +80,22 @@ class MoneyTest {
         // then
         assertThat(result.amount())
                 .isEqualTo("0");
+    }
+
+    @Test
+    @DisplayName("나눗셈 결과는 DIVIDE SCALE 자릿수까지 반올림된다.")
+    void shouldResultRoundingHalf_whenDivide() {
+        // given
+        Money dividend = Money.from("100");
+        Money divisor = Money.from("3");
+
+        // when
+        Money result = dividend.divide(divisor);
+
+        // then
+        BigDecimal expected = new BigDecimal("33.33").setScale(Money.DIVIDE_SCALE, RoundingMode.HALF_UP);
+        assertThat(result.amount())
+                .isEqualByComparingTo(expected);
     }
 
     @Test
