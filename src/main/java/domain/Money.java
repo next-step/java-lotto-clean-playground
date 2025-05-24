@@ -38,8 +38,4 @@ public record Money(long amount) {
     public long value() {
         return amount;
     }
-
-    public boolean isLessThan(Money other) {
-        return this.amount < other.amount;
-    }
 }
