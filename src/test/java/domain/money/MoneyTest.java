@@ -68,15 +68,17 @@ class MoneyTest {
     }
 
     @Test
-    @DisplayName("0으로 나누면 예외가 발생한다.")
+    @DisplayName("0으로 나누면 0을 반환한다.")
     void shouldThrowException_whenDivideZero() {
         // given
         Money dividend = Money.from("1000");
 
-        // when & then
-        assertThatThrownBy(() -> dividend.divide(Money.zero()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("분모는 0보다 커야 합니다.");
+        // when
+        Money result = dividend.divide(Money.zero());
+
+        // then
+        assertThat(result.amount())
+                .isEqualTo("0");
     }
 
     @Test
@@ -90,6 +92,6 @@ class MoneyTest {
         Money result = m1.divide(m2);
 
         // then
-        assertThat(result).isEqualTo(Money.from("250.00"));
+        assertThat(result.amount()).isEqualTo("250.00");
     }
 }

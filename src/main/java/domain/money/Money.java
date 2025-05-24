@@ -40,14 +40,13 @@ public record Money(
     }
 
     public Money divide(final Money divisor) {
-        validateNonZeroDivisor(divisor);
+        if (isZero(divisor)) {
+            return Money.zero();
+        }
         return new Money(this.amount.divide(divisor.amount, DIVIDE_SCALE, RoundingMode.HALF_UP));
     }
-
-    private void validateNonZeroDivisor(final Money divisor) {
-        boolean isZeroOrNegative = divisor.amount.compareTo(BigDecimal.ZERO) <= 0;
-        if (isZeroOrNegative) {
-            throw new IllegalArgumentException("분모는 0보다 커야 합니다.");
-        }
+    
+    private boolean isZero(final Money divisor) {
+        return divisor.amount.compareTo(BigDecimal.ZERO) <= 0;
     }
 }
