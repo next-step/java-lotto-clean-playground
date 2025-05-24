@@ -9,7 +9,7 @@ import domain.rank.WinningStatistics;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public class OutputView {
+public final class OutputView {
 
     private OutputView() {
     }
