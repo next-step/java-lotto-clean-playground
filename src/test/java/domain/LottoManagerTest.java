@@ -13,7 +13,7 @@ class LottoManagerTest {
     @Test
     @DisplayName("로또 구매 테스트")
     void purchaseLottoNumbers() {
-        Money money = new Money(1500);
+        Money money = new Money(1000);
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager lottoManager = new LottoManager(generator);
         Lottos history = lottoManager.purchaseLottos(money,0);
@@ -29,7 +29,49 @@ class LottoManagerTest {
         assertThatThrownBy(() -> {
             manager.purchaseLottos(new Money(500),0);
         }).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액의 최소단위는 1000원입니다.");
+                .hasMessage("금액은 1000원 단위로 입력해야 합니다.");
+    }
+
+    @Test
+    @DisplayName("수동 로또 개수를 제외한 자동 로또만큼 생성된다")
+    void generateAutoLottosExcludingManual() {
+        Money money = new Money(5000);
+        int manualCount = 2;
+
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager manager = new LottoManager(generator);
+
+        Lottos autoLottos = manager.purchaseLottos(money, manualCount);
+
+        assertEquals(3, autoLottos.size());
+    }
+
+    @Test
+    @DisplayName("수동 로또 수가 총 구매 가능 개수를 초과하면 예외 발생")
+    void throwsExceptionWhenManualCountExceedsTotal() {
+        Money money = new Money(3000);
+        int manualCount = 5;
+
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager manager = new LottoManager(generator);
+
+        assertThatThrownBy(() -> manager.purchaseLottos(money, manualCount))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("수동 로또 수가 총 구매 가능 수보다 많을 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("수동 로또 수가 전체 구매 수와 같을 경우 자동은 0장")
+    void allManualNoAuto() {
+        Money money = new Money(3000);
+        int manualCount = 3;
+
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager manager = new LottoManager(generator);
+
+        Lottos autoLottos = manager.purchaseLottos(money, manualCount);
+
+        assertEquals(0, autoLottos.size());
     }
 
 }
