@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +29,5 @@ public class InputLottoNumber {
         return numbers.stream()
                 .map(n -> String.valueOf(n.getValue()))
                 .collect(Collectors.joining(", ", "[", "]"));
-
-    @Override
-    public String toString() {
-        return numbers.toString();
     }
 }

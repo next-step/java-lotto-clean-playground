@@ -1,4 +1,8 @@
-package lotto;
+package lotto.input;
+
+import lotto.domain.LottoNumber;
+import lotto.domain.WinningNumber;
+import lotto.parser.WinningNumberParser;
 
 import java.util.List;
 import java.util.Scanner;
