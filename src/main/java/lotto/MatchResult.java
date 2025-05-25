@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MatchResult {
     public static final MatchResult NONE = new MatchResult(LottoBonus.LOSING_PLACE);
+
     private static boolean bonusMatch;
     private final LottoBonus bonus;
 
@@ -15,6 +16,13 @@ public class MatchResult {
     public static MatchResult of(int matchCount) {
         LottoBonus lottoBonus = LottoBonus.valueOf(matchCount, bonusMatch);
         return new MatchResult(lottoBonus);
+    }
+
+    public static List<MatchResult> getAll() {
+        return Arrays.stream(LottoBonus.values())
+                .filter(b -> b != LottoBonus.LOSING_PLACE)
+                .map(MatchResult::new)
+                .toList();
     }
 
     public int getMatchCount() {
@@ -31,13 +39,6 @@ public class MatchResult {
 
     public boolean isWinning() {
         return bonus != LottoBonus.LOSING_PLACE;
-    }
-
-    public static List<MatchResult> getAll() {
-        return Arrays.stream(LottoBonus.values())
-                .filter(b -> b != LottoBonus.LOSING_PLACE)
-                .map(MatchResult::new)
-                .toList();
     }
 
     @Override

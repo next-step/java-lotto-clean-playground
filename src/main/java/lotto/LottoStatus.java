@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,15 +13,13 @@ public class LottoStatus {
 
     public void print() {
         MatchResult.getAll().stream()
-                .map(matchResult -> String.format(
-                        "%d개 일치%s (%d원) - %d개",
-                        matchResult.getMatchCount(),
-                        matchResult.isBonusMatch() ? ", 보너스 볼 일치" : "",
-                        matchResult.getPrizeAmount().getAmount(),
+                .filter(matchResult -> matchResult != MatchResult.NONE)
+                .sorted(Comparator.comparing(MatchResult::getMatchCount))
+                .forEach(matchResult -> System.out.printf(
+                        "%d개 일치 (%d원)- %d개\n",
+                        matchResult.getMatchCount(), matchResult.getPrizeAmount().amount,
                         stat.getOrDefault(matchResult, 0)
-                ))
-                .forEach(System.out::println);
-
+                ));
     }
 
     public Money getTotalPrizeAmount() {
