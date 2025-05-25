@@ -3,21 +3,14 @@ package domain;
 import java.util.List;
 
 public class LottoTicket {
-    private final List<Integer> numbers;
+    private final LottoNumbers numbers;
 
     public LottoTicket(List<Integer> numbers) {
-        validateSize(numbers);
-        this.numbers = numbers;
+        this.numbers = new LottoNumbers(numbers);
     }
 
-    private void validateSize(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
-        }
-    }
-
-    public List<Integer> getNumbers() {
-        return numbers;
+    public int countMatch(LottoNumbers winningNumbers) {
+        return numbers.countMatch(winningNumbers);
     }
 
     @Override

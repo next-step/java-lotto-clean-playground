@@ -8,7 +8,6 @@ public class LottoMachine {
     private static final int LOTTO_NUMBER_START = 1;
     private static final int LOTTO_NUMBER_END = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
-    private static final int LOTTO_TICKET_PRICE = 1000;
 
     public List<LottoTicket> generateTickets(int count) {
         List<LottoTicket> tickets = new ArrayList<>();
@@ -40,9 +39,5 @@ public class LottoMachine {
             result.add(pool.get(i));
         }
         return result;
-    }
-
-    public static int calculateTicketCount(int money) {
-        return money / LOTTO_TICKET_PRICE;
     }
 }
