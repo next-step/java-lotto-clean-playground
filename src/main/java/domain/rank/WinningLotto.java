@@ -2,6 +2,7 @@ package domain.rank;
 
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
+import domain.lotto.LottoParser;
 import java.util.List;
 
 public class WinningLotto {
@@ -9,10 +10,17 @@ public class WinningLotto {
     private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    private WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         validateDuplicate(winningNumbers, bonusNumber);
         this.winningNumbers = new Lotto(winningNumbers);
         this.bonusNumber = bonusNumber;
+    }
+
+    public static WinningLotto of(final String winningNumbersInput, final String bonusNumberInput) {
+        LottoParser.validateEmpty(bonusNumberInput);
+        List<LottoNumber> lottoNumbers = LottoParser.parseNumbers(winningNumbersInput);
+        LottoNumber bonusNumber = LottoNumber.from(Integer.parseInt(bonusNumberInput));
+        return new WinningLotto(lottoNumbers, bonusNumber);
     }
 
     public Lotto getWinningLotto() {
