@@ -6,10 +6,10 @@ import domain.result.LottoResult;
 
 public class OutputView {
 
-    public static void printLottoHistory(Lottos history) {
+    public static void printLottoHistory(AllLottos allLottos) {
         System.out.println();
-        System.out.println(history.size() + "개를 구매했습니다.");
-        for (Lotto lotto : history.getLottos()) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%n", allLottos.manualSize(), allLottos.autoSize());
+        for (Lotto lotto : allLottos.getAllLottos().getLottos()) {
             System.out.println(lotto);
         }
     }
