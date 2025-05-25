@@ -23,9 +23,6 @@ public class Purchase {
             throw new IllegalArgumentException("수동 구매 개수가 전체 구매 개수를 초과할 수 없습니다.");
         }
 
-        if (manualLottos.size() != manualCount) {
-            throw new IllegalArgumentException("수동 로또 개수와 입력된 로또 개수가 일치하지 않습니다.");
-        }
     }
 
     public int getTotalCount() {
