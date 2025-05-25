@@ -32,8 +32,7 @@ public record LottoPurchaseInfo(
     }
 
     private void validateUnit(final Money purchaseAmount) {
-        boolean isInvalidUnit =
-                purchaseAmount.amount().remainder(LOTTO_PRICE.amount()).compareTo(BigDecimal.ZERO) != 0;
+        boolean isInvalidUnit = purchaseAmount.amount().remainder(LOTTO_PRICE.amount()).compareTo(BigDecimal.ZERO) != 0;
         if (isInvalidUnit) {
             throw new IllegalArgumentException("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
         }
