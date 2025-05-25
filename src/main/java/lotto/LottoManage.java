@@ -28,8 +28,4 @@ public class LottoManage {
         Collections.sort(lottoNumbers);
         return lottoNumbers;
     }
-
-=======
-
-
 }

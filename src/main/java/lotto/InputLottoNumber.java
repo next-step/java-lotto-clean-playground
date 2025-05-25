@@ -1,7 +1,7 @@
 package lotto;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 public class InputLottoNumber {
     private final List<LottoNumber> numbers;
@@ -9,8 +9,7 @@ public class InputLottoNumber {
     private InputLottoNumber(List<LottoNumber> numbers) {
         this.numbers = numbers;
     }
-
-
+  
     public static InputLottoNumber of(List<LottoNumber> list) {
         return new InputLottoNumber(list);
     }
@@ -20,6 +19,16 @@ public class InputLottoNumber {
                 .filter(winning::contains)
                 .count();
     }
+
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
+    @Override
+    public String toString() {
+        return numbers.stream()
+                .map(n -> String.valueOf(n.getValue()))
+                .collect(Collectors.joining(", ", "[", "]"));
 
     @Override
     public String toString() {
