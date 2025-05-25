@@ -1,5 +1,6 @@
-package domain;
+package domain.lotto;
 
+import static domain.lotto.LottoConstant.LOTTO_NUMBER_COUNT;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static support.LottoTestHelper.lotto;
@@ -23,7 +24,7 @@ class LottoTest {
         // given & when & then
         assertThatThrownBy(() -> lotto(1, 2, 3, 4, 5))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 6개여야 합니다.");
+                .hasMessage("로또 번호는 %s개여야 합니다.".formatted(LOTTO_NUMBER_COUNT));
     }
 
     @Test
@@ -32,7 +33,7 @@ class LottoTest {
         // given & when & then
         assertThatThrownBy(() -> lotto(1, 2, 3, 4, 5, 6, 7))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 6개여야 합니다.");
+                .hasMessage("로또 번호는 %s개여야 합니다.".formatted(LOTTO_NUMBER_COUNT));
     }
 
     @Test
@@ -41,6 +42,6 @@ class LottoTest {
         // given & when & then
         assertThatThrownBy(() -> lotto(1, 2, 2, 4, 5, 6))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("중복된 로또 번호가 있습니다.");
+                .hasMessage("중복된 로또 번호가 있습니다.");
     }
 }

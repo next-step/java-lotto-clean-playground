@@ -1,5 +1,8 @@
-package domain;
+package domain.rank;
 
+import domain.lotto.Lotto;
+import domain.lotto.Lottos;
+import domain.money.Money;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -23,27 +26,31 @@ public class WinningStatistics {
     private void calculateRankCounts(final Lottos purchasedLottos) {
         for (Lotto lotto : purchasedLottos.getValues()) {
             int matchCount = lotto.countMatch(winningLotto.getWinningLotto());
-            Rank rank = Rank.from(matchCount);
-            rankCounts.put(rank, getCount(rank) + 1);
+            boolean bonusMatch = lotto.contains(winningLotto.getBonusNumber());
+            Rank rank = Rank.of(matchCount, bonusMatch);
+            updateRankCount(rank);
         }
     }
 
-    public int getCount(final Rank rank) {
-        return rankCounts.get(rank);
+    private void updateRankCount(final Rank rank) {
+        rankCounts.put(rank, getCount(rank) + 1);
     }
 
-    public Prize calculateTotalPrize() {
-        Prize total = Prize.from(0L);
+    public Money calculateTotalPrize() {
+        Money total = Money.zero();
         for (Rank rank : Rank.values()) {
-            Prize prize = rank.getPrize().multiply(getCount(rank));
-            total = total.multiply(1).add(prize);
+            Money prize = rank.getPrize().multiply(getCount(rank));
+            total = total.add(prize);
         }
         return total;
     }
 
-    public Prize calculateProfitRate(final long purchaseAmount) {
-        Prize totalPrize = calculateTotalPrize();
-        Prize purchase = Prize.from(purchaseAmount);
-        return totalPrize.divideBy(purchase);
+    public int getCount(final Rank rank) {
+        return rankCounts.getOrDefault(rank, 0);
+    }
+
+    public Money calculateProfitRate(final Money purchaseAmount) {
+        Money totalPrize = calculateTotalPrize();
+        return totalPrize.divide(purchaseAmount);
     }
 }

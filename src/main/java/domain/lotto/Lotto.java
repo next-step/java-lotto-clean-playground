@@ -1,6 +1,6 @@
-package domain;
+package domain.lotto;
 
-import static domain.LottoConstant.LOTTO_NUMBER_COUNT;
+import static domain.lotto.LottoConstant.LOTTO_NUMBER_COUNT;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +11,8 @@ public class Lotto {
     private final List<LottoNumber> numbers;
 
     public Lotto(final List<LottoNumber> numbers) {
-        validate(numbers);
+        validateLottoCount(numbers);
+        validateDuplicateLottoNumber(numbers);
         this.numbers = numbers;
     }
 
@@ -23,26 +24,26 @@ public class Lotto {
         return Collections.unmodifiableList(numbers);
     }
 
-    private void validate(final List<LottoNumber> numbers) {
-        validateLottoCount(numbers);
-        validateDuplicateLottoNumber(numbers);
-    }
-
     private void validateLottoCount(final List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는 %s개여야 합니다.".formatted(LOTTO_NUMBER_COUNT));
         }
     }
 
     private void validateDuplicateLottoNumber(final List<LottoNumber> numbers) {
-        if (numbers.stream().distinct().count() != LOTTO_NUMBER_COUNT) {
+        boolean isDuplicate = numbers.stream().distinct().count() != LOTTO_NUMBER_COUNT;
+        if (isDuplicate) {
             throw new IllegalArgumentException("중복된 로또 번호가 있습니다.");
         }
     }
 
-    public int countMatch(Lotto other) {
+    public int countMatch(final Lotto other) {
         return (int) this.numbers.stream()
                 .filter(other.numbers::contains)
                 .count();
+    }
+
+    public boolean contains(final LottoNumber number) {
+        return numbers.contains(number);
     }
 }

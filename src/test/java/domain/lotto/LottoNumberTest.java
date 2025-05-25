@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -13,9 +13,9 @@ class LottoNumberTest {
     @DisplayName("범위보다 작은 숫자가 있으면 예외가 발생한다.")
     void shouldThrowException_whenMinRangeNumber(int number) {
         // given & when & then
-        assertThatThrownBy(() -> LottoNumber.of(number))
+        assertThatThrownBy(() -> LottoNumber.from(number))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 1 ~ 45 사이여야 합니다.");
+                .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
 
     @ParameterizedTest
@@ -23,8 +23,8 @@ class LottoNumberTest {
     @DisplayName("범위보다 큰 숫자가 있으면 예외가 발생한다.")
     void shouldThrowException_whenMaxRangeNumber(int number) {
         // given & when & then
-        assertThatThrownBy(() -> LottoNumber.of(number))
+        assertThatThrownBy(() -> LottoNumber.from(number))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 1 ~ 45 사이여야 합니다.");
+                .hasMessage("로또 번호는 1 ~ 45 사이여야 합니다.");
     }
 }

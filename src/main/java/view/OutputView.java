@@ -1,15 +1,15 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoNumber;
-import domain.Lottos;
-import domain.Prize;
-import domain.Rank;
-import domain.WinningStatistics;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import domain.money.Money;
+import domain.rank.Rank;
+import domain.rank.WinningStatistics;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public class OutputView {
+public final class OutputView {
 
     private OutputView() {
     }
@@ -37,18 +37,31 @@ public class OutputView {
         Arrays.stream(Rank.values())
                 .filter(rank -> rank != Rank.NONE)
                 .forEach(rank -> System.out.printf(
-                        "%d개 일치 (%,.0f원) - %d개%n",
+                        formatRankMessage(rank),
                         rank.getMatchCount(),
-                        rank.getPrize().getAmount(),
+                        rank.getPrize().amount(),
                         statistics.getCount(rank)
                 ));
     }
 
-    public static void printProfitRate(final Prize profitRate) {
-        System.out.printf("총 수익률은 %.2f입니다.", profitRate.getAmount());
-        if (profitRate.getAmount().compareTo(BigDecimal.ONE) < 0) {
+    private static String formatRankMessage(final Rank rank) {
+        if (rank == Rank.SECOND) {
+            return "%d개 일치, 보너스 볼 일치 (%,.0f원) - %d개%n";
+        }
+        return "%d개 일치 (%,.0f원) - %d개%n";
+    }
+
+
+    public static void printProfitRate(final Money profitRate) {
+        System.out.printf("총 수익률은 %.2f입니다.", profitRate.amount());
+        validateStandardProfitRate(profitRate);
+        System.out.println();
+    }
+
+    private static void validateStandardProfitRate(final Money profitRate) {
+        boolean isStandardProfitRate = profitRate.amount().compareTo(BigDecimal.ONE) < 0;
+        if (isStandardProfitRate) {
             System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }
-        System.out.println();
     }
 }
