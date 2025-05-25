@@ -13,6 +13,10 @@ public class LottoTicket {
         return numbers.countMatch(winningNumbers);
     }
 
+    public List<Integer> getNumbers() {
+        return numbers.getNumbers();
+    }
+
     @Override
     public String toString() {
         return numbers.toString();
