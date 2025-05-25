@@ -3,6 +3,9 @@ package lotto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Application {
@@ -13,6 +16,9 @@ public class Application {
         List<InputLottoNumber> tickets = createTickets(ticketCount);
         WinningNumberInput input = new WinningNumberInput();
         WinningNumber winning = input.inputWinningNumber();
+        int ticketCount = buyLotto();
+        List<InputLottoNumber> tickets = createTickets(ticketCount);
+        WinningNumber winning = WinningNumber.inputWinningNumbers();
         LottoStatus status = checkResult(tickets, winning);
         printResults(status, ticketCount);
     }
@@ -26,6 +32,39 @@ public class Application {
 
     private static List<InputLottoNumber> createTickets(int count) {
         List<InputLottoNumber> tickets = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            List<Integer> lottoParts = LottoManage.pullOutNumbers();
+            LottoManage.shuffleNumbers(lottoParts);
+            List<Integer> picked = LottoManage.pickupLottoNumbers(lottoParts);
+            List<LottoNumber> wrapped = picked.stream()
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList());
+
+            tickets.add(InputLottoNumber.of(wrapped));
+        }
+        return tickets;
+    }
+
+    private static LottoStatus checkResult(
+            List<InputLottoNumber> tickets,
+            WinningNumber winning) {
+        LottoStatus status = new LottoStatus();
+        tickets.forEach(ticket -> {
+            System.out.println(ticket);
+            status.record(MatchResult.of(ticket.countMatching(winning)));
+        });
+        return status;
+    }
+
+    private static void printResults(LottoStatus status, int ticketCount) {
+        System.out.println("\n당첨 통계\n---------");
+        status.print();
+        Money totalCost = new Money(ticketCount * MINIMUM_AMOUNT);
+        Money totalPayout = status.getTotalPrizeAmount();
+        double returnMoney = (double) totalPayout.getAmount() / totalCost.getAmount();
+        System.out.printf("총 수익률: %.2f 입니다.%n", returnMoney);
+        int money = inputMoney();
+        int count = money / MINIMUM_AMOUNT;
         for (int i = 0; i < count; i++) {
             List<Integer> lottoParts = LottoManage.pullOutNumbers();
             LottoManage.shuffleNumbers(lottoParts);
@@ -70,7 +109,3 @@ public class Application {
         return money;
     }
 }
-
-
-
-

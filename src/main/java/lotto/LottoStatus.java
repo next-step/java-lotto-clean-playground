@@ -19,6 +19,11 @@ public class LottoStatus {
                         "%d개 일치 (%d원)- %d개\n",
                         matchResult.getMatchCount(), matchResult.getPrizeAmount().amount,
                         stat.getOrDefault(matchResult, 0)
+                .filter(r -> r != MatchResult.NONE)
+                .forEach(r -> System.out.printf(
+                        "%d개 일치 (%d원)- %d개\n",
+                        r.getMatchCount(), r.getPrizeAmount().amount,
+                        stat.getOrDefault(r, 0)
                 ));
     }
 

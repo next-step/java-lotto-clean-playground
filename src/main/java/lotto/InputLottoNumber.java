@@ -9,7 +9,7 @@ public class InputLottoNumber {
     private InputLottoNumber(List<LottoNumber> numbers) {
         this.numbers = numbers;
     }
-
+  
     public static InputLottoNumber of(List<LottoNumber> list) {
         return new InputLottoNumber(list);
     }
@@ -29,5 +29,9 @@ public class InputLottoNumber {
         return numbers.stream()
                 .map(n -> String.valueOf(n.getValue()))
                 .collect(Collectors.joining(", ", "[", "]"));
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }
