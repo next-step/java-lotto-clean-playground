@@ -20,6 +20,12 @@ public class Lottos {
         return new Lottos(lottoList);
     }
 
+    public Lottos merge(final Lottos other) {
+        List<Lotto> merged = new ArrayList<>(this.lottos);
+        merged.addAll(other.getValues());
+        return new Lottos(merged);
+    }
+
     public List<Lotto> getValues() {
         return lottos;
     }

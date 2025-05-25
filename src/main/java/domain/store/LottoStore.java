@@ -1,13 +1,12 @@
 package domain.store;
 
+import domain.lotto.Lotto;
+import domain.lotto.LottoParser;
 import domain.lotto.Lottos;
-import domain.money.Money;
-import java.math.BigDecimal;
+import java.util.List;
 import strategy.LottoNumberGenerator;
 
 public class LottoStore {
-
-    public static final Money LOTTO_PRICE = Money.from("1000");
 
     private final LottoNumberGenerator generator;
 
@@ -15,33 +14,15 @@ public class LottoStore {
         this.generator = generator;
     }
 
-    public Lottos buy(final Money purchaseAmount) {
-        validateMinimum(purchaseAmount);
-        validateUnit(purchaseAmount);
-        int count = calculateLottoCount(purchaseAmount);
-        return lottoMachine(count);
-    }
-
-    private void validateUnit(final Money purchaseAmount) {
-        boolean isInvalidUnit =
-                purchaseAmount.amount().remainder(LOTTO_PRICE.amount()).compareTo(BigDecimal.ZERO) != 0;
-        if (isInvalidUnit) {
-            throw new IllegalArgumentException("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
-        }
-    }
-
-    private void validateMinimum(final Money purchaseAmount) {
-        boolean isBelowMinimum = purchaseAmount.amount().compareTo(LOTTO_PRICE.amount()) < 0;
-        if (isBelowMinimum) {
-            throw new IllegalArgumentException("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
-        }
-    }
-
-    private Lottos lottoMachine(final int count) {
+    public Lottos buyAuto(final int count) {
         return Lottos.generate(count, generator);
     }
 
-    private int calculateLottoCount(final Money purchaseAmount) {
-        return purchaseAmount.divide(LOTTO_PRICE).amount().intValueExact();
+    public Lottos buyManual(final List<String> manualInputs) {
+        List<Lotto> lottos = manualInputs.stream()
+                .map(LottoParser::parseNumbers)
+                .map(Lotto::new)
+                .toList();
+        return new Lottos(lottos);
     }
 }
