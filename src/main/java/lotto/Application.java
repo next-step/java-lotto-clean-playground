@@ -37,8 +37,7 @@ public class Application {
         System.out.printf("수동 %d장, 자동 %d장 구매 완료%n", passivityCount, ticketCount - passivityCount);
         return totalTicket;
     }
-
-
+  
     private static int buyLotto() {
         Money money = new Money(inputMoney());
         int ticketCount = money.countTickets(MINIMUM_AMOUNT);
