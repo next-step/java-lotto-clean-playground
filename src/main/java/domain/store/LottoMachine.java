@@ -6,19 +6,19 @@ import domain.lotto.Lottos;
 import java.util.List;
 import strategy.LottoNumberGenerator;
 
-public class LottoStore {
+public final class LottoMachine {
 
     private final LottoNumberGenerator generator;
 
-    public LottoStore(final LottoNumberGenerator generator) {
+    public LottoMachine(final LottoNumberGenerator generator) {
         this.generator = generator;
     }
 
-    public Lottos buyAuto(final int count) {
+    public Lottos generateAuto(final int count) {
         return Lottos.generate(count, generator);
     }
 
-    public Lottos buyManual(final List<String> manualInputs) {
+    public Lottos generateManual(final List<String> manualInputs) {
         List<Lotto> lottos = manualInputs.stream()
                 .map(LottoParser::parseNumbers)
                 .map(Lotto::new)
