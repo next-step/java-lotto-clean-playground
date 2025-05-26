@@ -11,9 +11,10 @@ public record Cashier(
     public static final Money LOTTO_PRICE = Money.from("1000");
 
     public Cashier {
+        validateBelowZero(manualCount);
         validateMinimum(purchaseAmount);
         validateUnit(purchaseAmount);
-        validateManualCount(purchaseAmount, manualCount);
+        validateManualCount(manualCount, purchaseAmount);
     }
 
     public int getTotalCount() {
@@ -22,6 +23,12 @@ public record Cashier(
 
     public int getAutoCount() {
         return getTotalCount() - manualCount;
+    }
+
+    private void validateBelowZero(final int manualCount) {
+        if (manualCount < 0) {
+            throw new IllegalArgumentException("수동 로또 개수는 음수가 될 수 없습니다.");
+        }
     }
 
     private void validateMinimum(final Money purchaseAmount) {
@@ -38,7 +45,7 @@ public record Cashier(
         }
     }
 
-    private void validateManualCount(Money totalAmount, int manualCount) {
+    private void validateManualCount(final int manualCount, final Money totalAmount) {
         int maxCount = totalAmount.divide(LOTTO_PRICE).amount().intValueExact();
         if (maxCount < manualCount) {
             throw new IllegalArgumentException("수동 로또 개수가 전체 구매 가능한 개수보다 적어야 합니다.");

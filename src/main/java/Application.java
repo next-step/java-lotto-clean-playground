@@ -22,10 +22,10 @@ public class Application {
         String purchaseAmountInput = InputView.inputPurchaseAmount();
         Money money = Money.from(purchaseAmountInput);
         int manualCount = Integer.parseInt(InputView.inputManualLottoCount());
-        List<String> manualInputs = InputView.inputManualLottoNumbers(manualCount);
+        List<String> manualLottoNumbers = InputView.inputManualLottoNumbers(manualCount);
 
         Cashier cashier = new Cashier(money, manualCount);
-        LottoReceipt receipt = store.buy(cashier, manualInputs);
+        LottoReceipt receipt = store.buy(cashier, manualLottoNumbers);
 
         OutputView.printPurchaseCount(receipt.manual().size(), receipt.auto().size());
         OutputView.printLottos(receipt.total());

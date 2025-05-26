@@ -2,15 +2,15 @@ package domain.rank;
 
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
-import domain.lotto.LottoParser;
 import java.util.List;
+import util.LottoParser;
 
 public class WinningLotto {
 
     private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    private WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    private WinningLotto(final List<LottoNumber> winningNumbers, final LottoNumber bonusNumber) {
         validateDuplicate(winningNumbers, bonusNumber);
         this.winningNumbers = new Lotto(winningNumbers);
         this.bonusNumber = bonusNumber;

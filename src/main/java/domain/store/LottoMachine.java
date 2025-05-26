@@ -1,10 +1,10 @@
 package domain.store;
 
 import domain.lotto.Lotto;
-import domain.lotto.LottoParser;
 import domain.lotto.Lottos;
 import java.util.List;
 import strategy.LottoNumberGenerator;
+import util.LottoParser;
 
 public final class LottoMachine {
 
@@ -18,8 +18,8 @@ public final class LottoMachine {
         return Lottos.generate(count, generator);
     }
 
-    public Lottos generateManual(final List<String> manualInputs) {
-        List<Lotto> lottos = manualInputs.stream()
+    public Lottos generateManual(final List<String> manualNumbers) {
+        List<Lotto> lottos = manualNumbers.stream()
                 .map(LottoParser::parseNumbers)
                 .map(Lotto::new)
                 .toList();
