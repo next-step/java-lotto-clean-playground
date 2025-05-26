@@ -15,16 +15,16 @@ public class Application {
 
     public static void main(String[] args) {
 
-        String purchaseAmountInput = InputView.inputPurchaseAmount();
-        Money money = Money.from(purchaseAmountInput);
-
-        int manualCount = Integer.parseInt(InputView.inputManualLottoCount());
-        List<String> manualInputs = InputView.inputManualLottoNumbers(manualCount);
-        Cashier cashier = new Cashier(money, manualCount);
-
         LottoNumberGenerator generator = new RandomNumberGenerator();
         LottoMachine machine = new LottoMachine(generator);
         LottoStore store = new LottoStore(machine);
+
+        String purchaseAmountInput = InputView.inputPurchaseAmount();
+        Money money = Money.from(purchaseAmountInput);
+        int manualCount = Integer.parseInt(InputView.inputManualLottoCount());
+        List<String> manualInputs = InputView.inputManualLottoNumbers(manualCount);
+
+        Cashier cashier = new Cashier(money, manualCount);
         LottoReceipt receipt = store.buy(cashier, manualInputs);
 
         OutputView.printPurchaseCount(receipt.manual().size(), receipt.auto().size());
