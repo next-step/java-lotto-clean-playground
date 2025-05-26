@@ -1,16 +1,16 @@
-package domain.lotto;
+package domain.store;
 
 import domain.money.Money;
 import java.math.BigDecimal;
 
-public record LottoPurchaseInfo(
+public record Cashier(
         Money purchaseAmount,
         int manualCount
 ) {
 
     public static final Money LOTTO_PRICE = Money.from("1000");
 
-    public LottoPurchaseInfo {
+    public Cashier {
         validateMinimum(purchaseAmount);
         validateUnit(purchaseAmount);
         validateManualCount(purchaseAmount, manualCount);
