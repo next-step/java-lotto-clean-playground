@@ -1,5 +1,3 @@
-package controller;
-
 import domain.LottoMachine;
 import domain.LottoNumbers;
 import domain.LottoResult;
@@ -11,7 +9,7 @@ import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
-public class LottoController {
+public class LottoApplication {
     public static void main(String[] args) {
         Money money = new Money(InputView.inputMoney());
         LottoMachine lottoMachine = new LottoMachine();

@@ -46,6 +46,18 @@ class LottoNumbersTest {
     }
 
     @Test
+    @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다")
+    void throwsException_when_input_duplicate_number() {
+        //Given
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 5);
+
+        //When & Then
+        assertThatThrownBy(() -> new LottoNumbers(numbers))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("중복된 번호는 입력할 수 없습니다.");
+    }
+
+    @Test
     @DisplayName("로또 번호를 비교해 일치하는 번호 개수를 반환한다")
     void return_CorrectMatchCount_when_Compare_LottoNumber() {
         // Given
