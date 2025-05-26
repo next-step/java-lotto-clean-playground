@@ -1,14 +1,9 @@
 package domain;
 
-public class AllLottos {
-    private final Lottos manualLottos;
-    private final Lottos autoLottos;
-    private final Lottos merged;
+public record AllLottos(Lottos manualLottos, Lottos autoLottos, Lottos merged) {
 
     public AllLottos(Lottos manual, Lottos auto) {
-        this.manualLottos = manual;
-        this.autoLottos = auto;
-        this.merged = Lottos.merge(manual, auto);
+        this(manual, auto, Lottos.merge(manual, auto));
     }
 
     public Lottos getAllLottos() {
