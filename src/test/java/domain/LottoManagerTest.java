@@ -33,7 +33,7 @@ class LottoManagerTest {
     }
 
     @Test
-    @DisplayName("수동 로또 개수를 제외한 자동 로또만큼 생성된다")
+    @DisplayName("수동 로또 개수를 제외한 만큼 자동 로또가 생성된다")
     void generateAutoLottosExcludingManual() {
         Money money = new Money(5000);
         int manualCount = 2;
@@ -48,7 +48,7 @@ class LottoManagerTest {
     }
 
     @Test
-    @DisplayName("수동 로또 수가 총 구매 가능 개수를 초과하면 예외 발생")
+    @DisplayName("수동 로또 수가 총 구매 가능 개수를 초과하면 예외 발생한다")
     void throwsExceptionWhenManualCountExceedsTotal() {
         Money money = new Money(3000);
         int manualCount = 5;
@@ -62,7 +62,7 @@ class LottoManagerTest {
     }
 
     @Test
-    @DisplayName("수동 로또 수가 전체 구매 수와 같을 경우 자동은 0장")
+    @DisplayName("수동 로또 수가 전체 구매 수와 같을 경우 자동 로또는 생성되지 않는다")
     void allManualNoAuto() {
         Money money = new Money(3000);
         int manualCount = 3;
