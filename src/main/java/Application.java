@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
+        LottoGenerator generator = new AutoLottoGenerator();
+        LottoManager manager = new LottoManager(generator);
 
         Money money = InputParser.parseMoney(InputView.readBuyMoney()); //돈 입력
 
@@ -19,10 +21,10 @@ public class Application {
         List<String> manualLottoInputs = InputView.readManualLottos(manualLottoCount);
         Lottos manualLottos = InputParser.parseManualLottos(manualLottoInputs);
 
+        Money remainingMoney = manager.purchaseManualLottos(money, manualLottoCount);
+
         //자동 로또 생성
-        LottoGenerator generator = new AutoLottoGenerator();
-        LottoManager manager = new LottoManager(generator);
-        Lottos autoLottos = manager.purchaseLottos(money, manualLottoCount);
+        Lottos autoLottos = manager.purchaseAutoLottos(remainingMoney);
 
         // 수동 + 자동 합치기
         AllLottos allLottos = new AllLottos(manualLottos, autoLottos);
