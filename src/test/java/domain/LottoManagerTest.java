@@ -16,7 +16,7 @@ class LottoManagerTest {
         Money money = new Money(1000);
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager lottoManager = new LottoManager(generator);
-        Lottos history = lottoManager.purchaseLottos(money,0);
+        Lottos history = lottoManager.purchaseAutoLottos(money);
         assertEquals(6, history.getLottos().get(0).getNumbers().size());
     }
 
@@ -27,7 +27,7 @@ class LottoManagerTest {
         LottoManager manager = new LottoManager(generator);
 
         assertThatThrownBy(() -> {
-            manager.purchaseLottos(new Money(500),0);
+            manager.purchaseAutoLottos(new Money(500));
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("금액은 1000원 단위로 입력해야 합니다.");
     }
@@ -41,7 +41,8 @@ class LottoManagerTest {
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
 
-        Lottos autoLottos = manager.purchaseLottos(money, manualCount);
+        Money remainingMoney = manager.purchaseManualLottos(money, manualCount);
+        Lottos autoLottos = manager.purchaseAutoLottos(remainingMoney);
 
         assertEquals(3, autoLottos.size());
     }
@@ -55,9 +56,9 @@ class LottoManagerTest {
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
 
-        assertThatThrownBy(() -> manager.purchaseLottos(money, manualCount))
+        assertThatThrownBy(() -> manager.purchaseManualLottos(money, manualCount))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("수동 로또 수가 총 구매 가능 수보다 많을 수 없습니다.");
+                .hasMessage("수동 로또 구입 금액이 부족합니다.");
     }
 
     @Test
@@ -69,7 +70,8 @@ class LottoManagerTest {
         LottoGenerator generator = new AutoLottoGenerator();
         LottoManager manager = new LottoManager(generator);
 
-        Lottos autoLottos = manager.purchaseLottos(money, manualCount);
+        Money remaining = manager.purchaseManualLottos(money, manualCount);
+        Lottos autoLottos = manager.purchaseAutoLottos(remaining);
 
         assertEquals(0, autoLottos.size());
     }
