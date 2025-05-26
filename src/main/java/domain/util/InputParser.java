@@ -31,7 +31,13 @@ public class InputParser {
     }
 
     public static int parseManualLottoCount(String input) {
-        return Integer.parseInt(input.strip());
+        int count = Integer.parseInt(input.strip());
+
+        if (count < 0) {
+            throw new IllegalArgumentException("수동 로또 개수는 음수일 수 없습니다.");
+        }
+
+        return count;
     }
 
     public static Lottos parseManualLottos(List<String> lines) {
