@@ -18,6 +18,7 @@ public class Application {
         new Application().run();
     }
 
+    // 테스트 확인
     private void run() {
         int ticketCount = buyLotto();
         List<InputLottoNumber> ticket = prepareTicket(ticketCount);
