@@ -1,6 +1,7 @@
 package lotto.domain;
 
 public record LottoNumber(int value) {
+
     private static final int MINIMUM_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
