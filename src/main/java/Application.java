@@ -2,12 +2,9 @@ import domain.money.Money;
 import domain.rank.WinningLotto;
 import domain.rank.WinningStatistics;
 import domain.store.Cashier;
-import domain.store.LottoMachine;
 import domain.store.LottoReceipt;
 import domain.store.LottoStore;
 import java.util.List;
-import strategy.LottoNumberGenerator;
-import strategy.RandomNumberGenerator;
 import view.InputView;
 import view.OutputView;
 
@@ -15,12 +12,10 @@ public class Application {
 
     public static void main(String[] args) {
 
-        LottoNumberGenerator generator = new RandomNumberGenerator();
-        LottoMachine machine = new LottoMachine(generator);
-        LottoStore store = new LottoStore(machine);
+        LottoStore store = new LottoStore();
 
-        String purchaseAmountInput = InputView.inputPurchaseAmount();
-        Money money = Money.from(purchaseAmountInput);
+        String purchaseAmount = InputView.inputPurchaseAmount();
+        Money money = Money.from(purchaseAmount);
         int manualCount = Integer.parseInt(InputView.inputManualLottoCount());
         List<String> manualLottoNumbers = InputView.inputManualLottoNumbers(manualCount);
 
