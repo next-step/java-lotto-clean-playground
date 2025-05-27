@@ -1,4 +1,6 @@
-package lotto;
+package lotto.parser;
+
+import lotto.domain.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.List;

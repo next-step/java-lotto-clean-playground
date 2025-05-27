@@ -1,4 +1,7 @@
-package lotto;
+package lotto.domain;
+
+import java.util.Comparator;
+import java.util.EnumSet;
 
 public enum LottoBonus {
     FIRST_PLACE(6, false, 2000000000),
@@ -31,16 +34,9 @@ public enum LottoBonus {
     }
 
     public static LottoBonus valueOf (int matchCount, boolean needBonusMatch) {
-        for (LottoBonus bonus : values()) {
-            if (bonus.matchCount == matchCount && bonus.needBonusMatch == needBonusMatch) {
-                return bonus;
-            }
-        }
-        for (LottoBonus bonus : values()) {
-            if (bonus.matchCount == matchCount && !bonus.needBonusMatch) {
-                return bonus;
-            }
-        }
-        return LOSING_PLACE;
+        return EnumSet.allOf(LottoBonus.class).stream()
+                .filter(b -> b.matchCount == matchCount)
+                .min(Comparator.comparing(b -> b.needBonusMatch != needBonusMatch))
+                .orElse(LOSING_PLACE);
     }
 }

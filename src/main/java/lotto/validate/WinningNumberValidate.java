@@ -1,4 +1,6 @@
-package lotto;
+package lotto.validate;
+
+import lotto.domain.LottoNumber;
 
 import java.util.HashSet;
 import java.util.List;
