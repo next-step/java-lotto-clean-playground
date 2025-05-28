@@ -14,10 +14,20 @@ public class LottoManager {
         this.generator = generator;
     }
 
-    public Lottos purchaseLottos(Money money) {
-        int lottoCount = money.divideBy(PRICE_PER_LOTTO);
-        List<Lotto> lottos = generateLottos(lottoCount);
-        return new Lottos(lottos);
+    public Money purchaseManualLottos(Money money, int manualCount) {
+        Money totalManualPrice = PRICE_PER_LOTTO.multiplyBy(manualCount);
+
+        if (money.value() < totalManualPrice.value()) {
+            throw new IllegalArgumentException("수동 로또 구입 금액이 부족합니다.");
+        }
+
+        return money.minus(totalManualPrice);
+    }
+
+    public Lottos purchaseAutoLottos(Money remainingMoney) {
+        int autoCount = remainingMoney.divideBy(PRICE_PER_LOTTO);
+        List<Lotto> autoLottos = generateLottos(autoCount);
+        return new Lottos(autoLottos);
     }
 
     private List<Lotto> generateLottos(int lottoCount) {

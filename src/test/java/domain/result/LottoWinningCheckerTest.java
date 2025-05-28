@@ -22,10 +22,7 @@ class LottoWinningCheckerTest {
         Lotto secondPrize = InputParser.parseLotto("1,2,3,4,5,7");      // 5개 + 보너스 → 2등
         Lotto fifthPrize = InputParser.parseLotto("1,2,3,10,11,12");    // 3개 일치 → 5등
 
-        List<Lotto> testLottos = List.of(firstPrize, secondPrize, fifthPrize);
-        LottoGenerator fixedGenerator = new FixedLottoGenerator(testLottos);
-        LottoManager manager = new LottoManager(fixedGenerator);
-        Lottos lottos = manager.purchaseLottos(new Money(3000));
+        Lottos lottos = new Lottos(List.of(firstPrize, secondPrize, fifthPrize));
 
         Lotto winningLotto = InputParser.parseLotto("1,2,3,4,5,6");
         LottoNumber bonus = new LottoNumber(7);

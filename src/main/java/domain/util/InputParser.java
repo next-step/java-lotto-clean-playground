@@ -2,6 +2,7 @@ package domain.util;
 
 import domain.Lotto;
 import domain.LottoNumber;
+import domain.Lottos;
 import domain.Money;
 
 import java.util.Arrays;
@@ -27,5 +28,22 @@ public class InputParser {
     public static Money parseMoney(String input) {
         long amount = Long.parseLong(input.strip());
         return new Money(amount);
+    }
+
+    public static int parseManualLottoCount(String input) {
+        int count = Integer.parseInt(input.strip());
+
+        if (count < 0) {
+            throw new IllegalArgumentException("수동 로또 개수는 음수일 수 없습니다.");
+        }
+
+        return count;
+    }
+
+    public static Lottos parseManualLottos(List<String> lines) {
+        List<Lotto> manualLottoList = lines.stream()
+                .map(InputParser::parseLotto)
+                .toList();
+        return new Lottos(manualLottoList);
     }
 }
