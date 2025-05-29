@@ -15,9 +15,6 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    //외부에 리스트가 없을 때, 알아서 숫자뽑고 랜덤을 돌려서 생성->생성
-    //과정을 숨김
-    //근데 인자 없는 생성자를 만들어서 거기서 실행해주면 되는거 아닌가?
     public static Lotto generateLotto() {
         List<Integer> pickedNums = IntStream.range(1, 46)
                                            .boxed()
@@ -30,6 +27,10 @@ public class Lotto {
                                                  .map(LottoNumber::new)
                                                  .collect(Collectors.toList());
         return new Lotto(lottoNumbers);
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return numbers;
     }
 
     @Override

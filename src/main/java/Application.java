@@ -1,7 +1,7 @@
-import controller.PurchaseLotto;
+import controller.LottoController;
 public class Application {
     public static void main(String[] args) {
-        PurchaseLotto purchaseLotto = new PurchaseLotto();
-        purchaseLotto.run();
+        LottoController lottoController = new LottoController();
+        lottoController.run();
     }
 }
