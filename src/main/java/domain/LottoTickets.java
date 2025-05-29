@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +12,12 @@ public class LottoTickets {
         this.tickets = new ArrayList<>(tickets);
     }
 
-    public Map<Integer, Integer> countMatchResults(LottoNumbers winningNumbers) {
-        Map<Integer, Integer> results = new HashMap<>();
+    public MatchResult countMatchResults(WinningNumbers winningNumbers) {
+        Map<Rank, Integer> results = new EnumMap<>(Rank.class);
         for (LottoTicket ticket : tickets) {
-            int match = ticket.countMatch(winningNumbers);
-            results.put(match, results.getOrDefault(match, 0) + 1);
+            Rank rank = ticket.countMatch(winningNumbers);
+            results.put(rank, results.getOrDefault(rank, 0) + 1);
         }
-        return results;
+        return new MatchResult(results);
     }
 }

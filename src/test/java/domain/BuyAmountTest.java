@@ -6,15 +6,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class MoneyTest {
+class BuyAmountTest {
     @Test
     @DisplayName("구매 금액이 1000원 이상일 경우 객체 생성 성공")
     void success_createMoney_when_input_1000_or_over() {
         //Given & When
-        Money money = new Money(1000);
+        BuyAmount buyAmount = new BuyAmount(1000);
 
         //Then
-        assertThat(money.getAmount()).isEqualTo(1000);
+        assertThat(buyAmount.getAmount()).isEqualTo(1000);
     }
 
     @Test
@@ -24,7 +24,7 @@ class MoneyTest {
         int input = 500;
 
         //When & Then
-        assertThatThrownBy(() -> new Money(input))
+        assertThatThrownBy(() -> new BuyAmount(input))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("금액은 1000원 이상이어야 합니다.");
     }
@@ -33,9 +33,9 @@ class MoneyTest {
     @DisplayName("로또 구입 개수를 정상적으로 반환한다")
     void return_ticketCount_when_validAmountGiven() {
         //Given
-        Money money = new Money(14000);
+        BuyAmount buyAmount = new BuyAmount(14000);
 
         //When & Then
-        assertThat(money.getTicketCount()).isEqualTo(14);
+        assertThat(buyAmount.getPurchasableTicketCount()).isEqualTo(14);
     }
 }

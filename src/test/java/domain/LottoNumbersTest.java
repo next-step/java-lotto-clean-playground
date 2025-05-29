@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoNumbersTest {
     @Test
@@ -33,11 +35,12 @@ class LottoNumbersTest {
             .hasMessage("로또 번호는 6개여야 합니다.");
     }
 
-    @Test
+    @ValueSource(ints = {0, 46})
+    @ParameterizedTest
     @DisplayName("로또 번호에 1보다 작거나 45보다 큰 숫자가 있으면 예외가 발생한다")
-    void throwsException_when_input_LottoNum_outOfRange() {
+    void throwsException_when_input_LottoNum_outOfRange(int illegalNumber) {
         //Given
-        List<Integer> numbers = List.of(0, 2, 3, 4, 5, 46);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, illegalNumber);
 
         //When & Then
         assertThatThrownBy(() -> new LottoNumbers(numbers))
@@ -65,7 +68,7 @@ class LottoNumbersTest {
         LottoNumbers winningNumbers = new LottoNumbers(List.of(4, 5, 6, 7, 8, 9));
 
         // When
-        int matchCount = myNumbers.countMatch(winningNumbers);
+        Rank matchCount = myNumbers.countMatch(winningNumbers);
 
         // Then
         assertThat(matchCount).isEqualTo(3);

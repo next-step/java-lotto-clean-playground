@@ -9,16 +9,11 @@ public class LottoTicket {
         this.numbers = new LottoNumbers(numbers);
     }
 
-    public int countMatch(LottoNumbers winningNumbers) {
-        return numbers.countMatch(winningNumbers);
+    public Rank countMatch(WinningNumbers winningNumbers) {
+        return numbers.countMatch(winningNumbers.getWinningNumbers());
     }
 
     public List<Integer> getNumbers() {
         return numbers.getNumbers();
-    }
-
-    @Override
-    public String toString() {
-        return numbers.toString();
     }
 }

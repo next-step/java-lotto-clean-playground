@@ -1,8 +1,10 @@
 package view;
 
 import domain.LottoTicket;
+import domain.MatchResult;
+import domain.Rank;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputView {
 
@@ -17,20 +19,26 @@ public class OutputView {
 
     public static void printTickets(List<LottoTicket> tickets) {
         for (LottoTicket ticket : tickets) {
-            System.out.println(ticket);
+            System.out.println(formatTicket(ticket));
         }
         System.out.println();
     }
 
-    public static void printResult(Map<Integer, Integer> matchResults) {
+    private static String formatTicket(LottoTicket ticket) {
+        return "[" + ticket.getNumbers().stream()
+            .map(String::valueOf)
+            .collect(Collectors.joining(", ")) + "]";
+    }
+
+    public static void printResult(MatchResult matchResults) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        System.out.println("3개 일치 (5000원) - " + matchResults.getOrDefault(3, 0) + "개");
-        System.out.println("4개 일치 (50000원) - " + matchResults.getOrDefault(4, 0) + "개");
-        System.out.println("5개 일치 (1500000원) - " + matchResults.getOrDefault(5, 0) + "개");
-        System.out.println("6개 일치 (2000000000원) - " + matchResults.getOrDefault(6, 0) + "개");
+        System.out.println("3개 일치 (5000원) - " + matchResults.getCount(Rank.FOURTH) + "개");
+        System.out.println("4개 일치 (50000원) - " + matchResults.getCount(Rank.THIRD) + "개");
+        System.out.println("5개 일치 (1500000원) - " + matchResults.getCount(Rank.SECOND) + "개");
+        System.out.println("6개 일치 (2000000000원) - " + matchResults.getCount(Rank.FIRST) + "개");
     }
 
     public static void printProfitRate(double profitRate) {

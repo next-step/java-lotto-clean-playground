@@ -7,26 +7,20 @@ public class LottoResult {
         throw new AssertionError("LottoResult는 인스턴스화 할 수 없습니다.");
     }
 
-    private static final Map<Integer, Integer> PRIZE_TABLE = Map.of(
-        3, 5000,
-        4, 50000,
-        5, 1500000,
-        6, 2000000000
-    );
+    //로또 당첨 결과: Rank별 당첨 개수
+    public static Prize calculateTotalPrize(MatchResult matchResults) {
+        Prize totalPrize = Prize.from(0L);
 
-    public static int calculateTotalPrize(Map<Integer, Integer> matchResults) {
-        int totalPrize = 0;
-
-        for (Integer matchCount : matchResults.keySet()) {
-            int prizePerTicket = PRIZE_TABLE.getOrDefault(matchCount, 0);
-            int count = matchResults.get(matchCount);
-            totalPrize += prizePerTicket * count;
+        for (Map.Entry<Rank, Integer> entry : matchResults.getResult().entrySet()) {
+            Rank rank = entry.getKey();
+            int count = entry.getValue();
+            totalPrize = totalPrize.add(rank.getPrize().multiply(count));
         }
 
         return totalPrize;
     }
 
-    public static double calculateRateOfReturn(int totalPrize, int paidMoney) {
-        return (double) totalPrize / paidMoney;
+    public static double calculateRateOfReturn(Prize totalPrize, int paidMoney) {
+        return (double) totalPrize.getAmount() / paidMoney;
     }
 }

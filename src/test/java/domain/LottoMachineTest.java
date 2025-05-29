@@ -20,17 +20,4 @@ class LottoMachineTest {
         //Then
         assertThat(tickets).hasSize(count);
     }
-
-    @Test
-    @DisplayName("생성된 로또 티켓은 6개의 숫자를 가진다")
-    void eachTicket_has_SixNumbers() {
-        //Given
-        LottoMachine lottoMachine = new LottoMachine();
-        List<LottoTicket> lottoTickets = lottoMachine.generateTickets(10);
-
-        for (LottoTicket lottoTicket : lottoTickets) {
-            List<Integer> numbers = lottoTicket.getNumbers();
-            assertThat(numbers).hasSize(6);
-        }
-    }
 }

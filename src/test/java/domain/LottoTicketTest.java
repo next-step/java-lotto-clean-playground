@@ -26,10 +26,10 @@ class LottoTicketTest {
     void correctMatchCount_when_put_winningNumbers() {
         // Given
         LottoTicket lottoTicket = new LottoTicket(List.of(4, 5, 6, 7, 8, 9));
-        LottoNumbers winningNumbers = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
+        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
 
         // When
-        int matchCount = lottoTicket.countMatch(winningNumbers);
+        Rank matchCount = lottoTicket.countMatch(winningNumbers);
 
         // Then
         assertThat(matchCount).isEqualTo(3);

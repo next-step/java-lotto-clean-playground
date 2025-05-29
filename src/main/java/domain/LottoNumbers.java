@@ -15,10 +15,12 @@ public class LottoNumbers {
         this.numbers = numbers;
     }
 
-    public int countMatch(LottoNumbers winningNumbers) {
-        return (int) numbers.stream()
+    public Rank countMatch(LottoNumbers winningNumbers) {
+        long matchCount = numbers.stream()
             .filter(winningNumbers.numbers::contains)
             .count();
+
+        return Rank.from((int) matchCount);
     }
 
     private void validate(List<Integer> numbers) {
@@ -54,10 +56,5 @@ public class LottoNumbers {
 
     public List<Integer> getNumbers() {
         return List.copyOf(numbers);
-    }
-
-    @Override
-    public String toString() {
-        return numbers.toString();
     }
 }
