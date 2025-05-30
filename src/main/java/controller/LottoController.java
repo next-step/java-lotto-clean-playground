@@ -22,15 +22,22 @@ public class LottoController {
         //지난주 로또 번호 받기
         List<Integer> winningNumbers = InputView.getLastWeekNumbers();
 
+        //보너스볼 입력받기
+        int bonusBallNumber = InputView.getBonusBallNumber();
+
         //각 로또와 winningnumber 비교해서 일치개수(matchCount)구하기
         Map<Prize, Integer> prizeCounts = new HashMap<>();
         for (Lotto lotto : lottoList.getLottoLists()) {
-            int matchCount = (int) lotto.getNumbers().stream()
-                                           .map(LottoNumber::getNumber)
+            int matchCount = (int) lotto.getNumberValues()
+                                           .stream()
                                            .filter(winningNumbers::contains)
                                            .count();
+            //보너스볼 일치 여부
+            boolean bonusMatch = lotto.getNumberValues().contains(bonusBallNumber);
+
             //3이상 Prize객체로 변환
-            Prize prize = Prize.of(matchCount);
+            Prize prize = Prize.of(matchCount,bonusMatch);
+
             if (prize != null) {
                 prizeCounts.put(prize, prizeCounts.getOrDefault(prize, 0) + 1);
             }
@@ -41,6 +48,8 @@ public class LottoController {
 
         //출력
         OutputView.printWinningStatics(statistics);
+
+
     }
 }
 

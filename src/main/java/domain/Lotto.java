@@ -33,6 +33,12 @@ public class Lotto {
         return numbers;
     }
 
+    public List<Integer> getNumberValues() {
+        return numbers.stream()
+                .map(LottoNumber::getNumber)
+                       .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return numbers.toString();

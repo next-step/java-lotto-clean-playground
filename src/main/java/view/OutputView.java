@@ -21,8 +21,8 @@ public class OutputView {
         System.out.println("---------------------");
         for (Prize prize : Prize.values()) {
             int count = statistics.getPrizeCounts().getOrDefault(prize, 0);
-            System.out.printf("%d개 일치 (%d원)- %d개\n",
-                    prize.getMatchCount(),
+            System.out.printf("%s (%d원)- %d개\n",
+                    prize.getDescription(),
                     prize.getReward(),
                     count
             );

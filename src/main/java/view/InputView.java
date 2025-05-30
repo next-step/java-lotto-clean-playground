@@ -28,4 +28,9 @@ public class InputView {
                        .map(Integer::parseInt)
                        .collect(Collectors.toList());
     }
+
+    public static int getBonusBallNumber(){
+        System.out.println("보너스 볼을 입력해주세요.");
+        return sc.nextInt();
+    }
 }
