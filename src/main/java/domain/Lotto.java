@@ -10,7 +10,6 @@ public class Lotto {
 
     private final List<LottoNumber> numbers;
 
-    //외부에 이미 list를 갖고 있을 때
     public Lotto(List<LottoNumber> numbers) {
         this.numbers = numbers;
     }
@@ -34,10 +33,6 @@ public class Lotto {
                                                  .map(LottoNumber::new)
                                                  .collect(Collectors.toList());
         return new Lotto(lottoNumbers);
-    }
-
-    public List<LottoNumber> getNumbers() {
-        return numbers;
     }
 
     public List<Integer> getNumberValues() {
