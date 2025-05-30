@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public enum Prize {
     FIRST(6, false, 2_000_000_000, "6개 일치"),

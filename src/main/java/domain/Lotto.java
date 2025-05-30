@@ -15,7 +15,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public static Lotto generateLotto() {
+    public static Lotto generateAutoLotto() {
         List<Integer> pickedNums = IntStream.range(1, 46)
                                            .boxed()
                                            .collect(Collectors.toList());
@@ -29,13 +29,20 @@ public class Lotto {
         return new Lotto(lottoNumbers);
     }
 
+    public static Lotto generateManualLotto(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                                                 .map(LottoNumber::new)
+                                                 .collect(Collectors.toList());
+        return new Lotto(lottoNumbers);
+    }
+
     public List<LottoNumber> getNumbers() {
         return numbers;
     }
 
     public List<Integer> getNumberValues() {
         return numbers.stream()
-                .map(LottoNumber::getNumber)
+                       .map(LottoNumber::getNumber)
                        .collect(Collectors.toList());
     }
 

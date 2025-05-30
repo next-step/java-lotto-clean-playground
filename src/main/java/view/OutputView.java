@@ -6,11 +6,8 @@ import domain.Prize;
 import domain.WinningStatistics;
 
 public class OutputView {
-    public static void printLottoAmount(int cnt) {
-        System.out.println(cnt + "개를 구매했습니다.");
-    }
-
-    public static void printLottoLists(LottoList lottoList) {
+    public static void printLottoLists(int manualCount, int autoCount, LottoList lottoList) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다\n", manualCount, autoCount);
         for (Lotto list : lottoList.getLottoLists()) {
             System.out.println(list);
         }

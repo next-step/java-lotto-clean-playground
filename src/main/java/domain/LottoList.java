@@ -13,13 +13,17 @@ public class LottoList {
         this.lottoLists = lottoLists;
     }
 
-    public static LottoList generateLottoList(int cnt) {
-        List<Lotto> list = new ArrayList<>();
-
-        for (int i = 0; i < cnt; i++) {
-            list.add(Lotto.generateLotto());
+    public static LottoList generateLottoList(List<List<Integer>> manaulNumbers, int cnt) {
+        List<Lotto> lottoList = new ArrayList<>();
+        //수동 로또 생성
+        for (List<Integer> manaulNumber : manaulNumbers) {
+            lottoList.add(Lotto.generateManualLotto(manaulNumber));
         }
-        return new LottoList(list);
+        //자동로또 생성
+        for (int i = 0; i < cnt; i++) {
+            lottoList.add(Lotto.generateAutoLotto());
+        }
+        return new LottoList(lottoList);
     }
 
     public List<Lotto> getLottoLists() {

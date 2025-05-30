@@ -12,12 +12,16 @@ public class LottoController {
     public void run() {
         // 입력
         int money = InputView.getPurchaseAmount();
-        int count = money / 1000;
-        OutputView.printLottoAmount(count);
 
-        // 로또 생성
-        LottoList lottoList = LottoList.generateLottoList(count);
-        OutputView.printLottoLists(lottoList);
+        //수동 로또 갯수, 리스트 입력
+        int manualLottoAmount = InputView.getManualLottoAmount();
+        List<List<Integer>> manualNumbers = InputView.getManualLottoNumbers(manualLottoAmount);
+
+        int count = (money / 1000) - manualLottoAmount;
+
+        // 로또리스트 생성
+        LottoList lottoList = LottoList.generateLottoList(manualNumbers, count);
+        OutputView.printLottoLists(manualLottoAmount, count, lottoList);
 
         //지난주 로또 번호 받기
         List<Integer> winningNumbers = InputView.getLastWeekNumbers();
@@ -35,8 +39,8 @@ public class LottoController {
             //보너스볼 일치 여부
             boolean bonusMatch = lotto.getNumberValues().contains(bonusBallNumber);
 
-            //3이상 Prize객체로 변환
-            Prize prize = Prize.of(matchCount,bonusMatch);
+            //3이상 Prize 객체로 변환
+            Prize prize = Prize.of(matchCount, bonusMatch);
 
             if (prize != null) {
                 prizeCounts.put(prize, prizeCounts.getOrDefault(prize, 0) + 1);
@@ -48,8 +52,6 @@ public class LottoController {
 
         //출력
         OutputView.printWinningStatics(statistics);
-
-
     }
 }
 
