@@ -13,5 +13,4 @@ public class WinningNumbers {
     public List<Integer> getNumbers() {
         return numbers.getNumbers();
     }
-
 }

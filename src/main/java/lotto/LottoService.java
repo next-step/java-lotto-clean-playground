@@ -2,11 +2,11 @@ package lotto;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
-import lotto.model.LottoTicket;
+import lotto.model.Lottos;
 import lotto.model.MatchCount;
 import lotto.model.Money;
+import lotto.model.PurchaseLotto;
 import lotto.model.WinningNumbers;
 import lotto.model.WinningResult;
 import lotto.view.LottoInputView;
@@ -25,30 +25,22 @@ public class LottoService {
     }
 
     public void start() {
-        Money purchaseMoney = new Money(inputView.inputMoney());
+        Money money = new Money(inputView.inputMoney());
+        PurchaseLotto purchaseLotto = new PurchaseLotto(money, lottoGenerator);
+        Lottos lottos = purchaseLotto.getLottos();
 
-        List<Lotto> lottos = purchaseLottos(purchaseMoney);
-
-        LottoTicket lottoTicket = purchaseMoney.calculateTicketCount();
-
-        outputView.printPurchasedLottoCount(lottoTicket.getCount());
-        outputView.printLottos(lottos);
+        outputView.printPurchasedLottoCount(purchaseLotto.purchaseCount());
+        outputView.printLottos(lottos.asList());
 
         WinningNumbers winningNumbers = new WinningNumbers(inputView.inputWinningNumber());
-
         WinningResult winningResult = calculateWinningResult(lottos, winningNumbers);
 
-        outputView.printWinningStatistics(purchaseMoney.getValue(),
-            winningResult.getWinningStatistics());
+        outputView.printWinningStatistics(money.getAmount(), winningResult.getWinningStatistics());
     }
 
-    private List<Lotto> purchaseLottos(Money money) {
-        return lottoGenerator.generate(money.calculateTicketCount().getCount());
-    }
-
-    private WinningResult calculateWinningResult(List<Lotto> lottos, WinningNumbers winningNumbers) {
-        List<MatchCount> matchCounts = lottos.stream()
-            .map(lotto -> lotto.matchWith(winningNumbers))
+    private WinningResult calculateWinningResult(Lottos lottos, WinningNumbers winningNumbers) {
+        List<MatchCount> matchCounts = lottos.asList().stream()
+            .map(lotto -> lotto.match(winningNumbers))
             .collect(Collectors.toList());
 
         return new WinningResult(matchCounts);

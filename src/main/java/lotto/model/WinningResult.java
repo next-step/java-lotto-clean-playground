@@ -1,49 +1,43 @@
 package lotto.model;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class WinningResult {
 
-    private static final Map<Integer, Integer> PRIZE_MONEY = Map.of(
-        3, 5_000,
-        4, 50_000,
-        5, 1_500_000,
-        6, 2_000_000_000
-    );
-
-    private final Map<Integer, Integer> matchResults;
+    private final Map<Rank, Long> matchResults;
 
     public WinningResult(List<MatchCount> matchCounts) {
         this.matchResults = calculateResults(matchCounts);
     }
 
-    private Map<Integer, Integer> calculateResults(List<MatchCount> matchCounts) {
-        Map<Integer, Integer> results = new HashMap<>();
-        PRIZE_MONEY.keySet().forEach(matchCount -> results.put(matchCount, 0));
+    private Map<Rank, Long> calculateResults(List<MatchCount> matchCounts) {
+        Map<Rank, Long> results = new EnumMap<>(Rank.class);
 
-        for (MatchCount matchCount : matchCounts) {
-            int count = matchCount.getCount();
-            if (count >= 3) {
-                results.put(count, results.get(count) + 1);
-            }
+        for (Rank rank : Rank.values()) {
+            results.put(rank, 0L);
         }
+
+        matchCounts.stream()
+            .map(mc -> findRankByMatchCount(mc.getCount()))
+            .filter(Objects::nonNull)
+            .forEach(rank -> results.put(rank, results.get(rank) + 1));
 
         return results;
     }
 
-    public Map<String, Long> getWinningStatistics() {
-        Map<String, Long> statistics = new HashMap<>();
+    private Rank findRankByMatchCount(int matchCount) {
+        for (Rank rank : Rank.values()) {
+            if (rank.getMatchCount() == matchCount) {
+                return rank;
+            }
+        }
+        return null;
+    }
 
-        matchResults.forEach((matchCount, count) ->
-            statistics.put(String.valueOf(matchCount), (long) count));
-
-        long totalPrize = matchResults.entrySet().stream()
-            .mapToLong(entry -> (long) PRIZE_MONEY.get(entry.getKey()) * entry.getValue())
-            .sum();
-
-        statistics.put("total", totalPrize);
-        return statistics;
+    public Map<Rank, Long> getWinningStatistics() {
+        return new EnumMap<>(matchResults);
     }
 }

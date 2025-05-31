@@ -1,6 +1,5 @@
 package lotto.model;
 
-import java.util.Collections;
 import java.util.List;
 
 public class LottoNumbers {
@@ -10,7 +9,7 @@ public class LottoNumbers {
 
     public LottoNumbers(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
     }
 
     private void validate(List<Integer> numbers) {
@@ -19,8 +18,14 @@ public class LottoNumbers {
         }
     }
 
-    // 수정 불가능한 숫자 리스트를 반환
+    public MatchCount match(WinningNumbers winningNumbers) {
+        long count = numbers.stream()
+            .filter(winningNumbers.getNumbers()::contains)
+            .count();
+        return new MatchCount((int) count);
+    }
+
     public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(numbers);
+        return numbers;
     }
 }

@@ -10,24 +10,26 @@ public class LottoGenerator {
     private static final int MAX_NUMBER = 45;
     private static final int LOTTO_SIZE = 6;
 
-    public List<Lotto> generate(int count) {
-        return IntStream.range(0, count)
-            .mapToObj(i -> new Lotto(pickFirstSixSorted(createShuffledNumbers())))
-            .collect(Collectors.toList());
+    public LottoNumbers generate() {
+        List<Integer> shuffledNumbers = createShuffledNumbers();
+        List<Integer> pickSixNumber = pickRandomSixSorted(shuffledNumbers);
+        return new LottoNumbers(pickSixNumber);
     }
 
     private List<Integer> createShuffledNumbers() {
         List<Integer> numbers = IntStream.rangeClosed(1, MAX_NUMBER)
             .boxed()
             .collect(Collectors.toList());
+
         Collections.shuffle(numbers);
         return numbers;
     }
 
-    private List<Integer> pickFirstSixSorted(List<Integer> numbers) {
+    private List<Integer> pickRandomSixSorted(List<Integer> numbers) {
         return numbers.stream()
             .limit(LOTTO_SIZE)
             .sorted()
             .collect(Collectors.toList());
     }
 }
+

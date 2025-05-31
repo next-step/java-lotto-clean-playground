@@ -2,7 +2,8 @@ package lotto.view;
 
 import java.util.List;
 import java.util.Map;
-import lotto.model.Lotto;
+import lotto.model.LottoNumbers;
+import lotto.model.Rank;
 
 public class LottoOutputView {
 
@@ -10,23 +11,25 @@ public class LottoOutputView {
         System.out.println(count + "개를 구매했습니다.");
     }
 
-    public void printLottos(List<Lotto> lottos) {
-        for (Lotto lotto : lottos) {
+    public void printLottos(List<LottoNumbers> lottoNumbers) {
+        for (LottoNumbers lotto : lottoNumbers) {
             System.out.println(lotto.getNumbers());
         }
     }
 
-    public void printWinningStatistics(int money, Map<String, Long> winningLottos) {
+    public void printWinningStatistics(int money, Map<Rank, Long> winningLottos) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원) - " + winningLottos.get("3") + "개");
-        System.out.println("4개 일치 (50000원) - " + winningLottos.get("4") + "개");
-        System.out.println("5개 일치 (1500000원) - " + winningLottos.get("5") + "개");
-        System.out.println("6개 일치 (2000000000원) - " + winningLottos.get("6") + "개");
+        long totalPrize = 0L;
 
-        Long totalWinningMoney = winningLottos.get("total");
+        for (Rank rank : Rank.values()) {
+            long count = winningLottos.getOrDefault(rank, 0L);
+            System.out.println(rank.getDisplay() + " - " + count + "개");
+            totalPrize += count * rank.getPrize();
+        }
 
-        double profitRate = (double) totalWinningMoney / money;
+        double profitRate = (double) totalPrize / money;
         System.out.printf("총 수익률은 %.2f%%입니다.%n", profitRate);
+
     }
 }
