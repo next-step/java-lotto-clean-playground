@@ -58,7 +58,7 @@ public class InputView {
     public static int getBonusBallNumber() {
         System.out.println("보너스 볼을 입력해주세요.");
         int number = sc.nextInt();
-        Validator.validateBonusNumber(number);
+        Validator.validateNumberRange(number);
         return number;
     }
 }

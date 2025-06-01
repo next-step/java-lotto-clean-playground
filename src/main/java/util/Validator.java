@@ -28,7 +28,7 @@ public class Validator {
         }
     }
 
-    public static void validateBonusNumber(int number) {
+    public static void validateNumberRange(int number) {
         if (number < 1 || number > 45) {
             throw new IllegalArgumentException("로또 번호는 1~45사이여야합니다");
         }

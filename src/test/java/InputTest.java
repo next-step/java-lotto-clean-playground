@@ -37,6 +37,6 @@ class InputTest {
     @Test
     void bonusNumberOutOfRange() {
         int num = 0;
-        assertThrows(IllegalArgumentException.class, () -> Validator.validateBonusNumber(num));
+        assertThrows(IllegalArgumentException.class, () -> Validator.validateNumberRange(num));
     }
 }
