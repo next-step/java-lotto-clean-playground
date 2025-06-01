@@ -47,6 +47,7 @@ public class LottoInputView {
         }
         return result;
     }
+
     public int inputBonusBall() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return readBonusNumber();
@@ -66,5 +67,32 @@ public class LottoInputView {
             }
             return bonusBall;
         }
+    }
+
+    public int inputManualCount(int totalMoney) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        while (true) {
+            int count = Integer.parseInt(scanner.nextLine());
+            if (count * 1000 <= totalMoney) {
+                return count;
+            }
+            System.out.println("수동 구매 수가 구입 금액을 초과할 수 없습니다.");
+        }
+    }
+
+    public List<List<Integer>> inputManualNumbers(int manualCount) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            while (true) {
+                List<Integer> numbers = parseWinningNumbers(scanner.nextLine());
+                if (numbers.size() == 6) {
+                    manualNumbers.add(numbers);
+                    break;
+                }
+                System.out.println("6개의 숫자를 입력해주세요.");
+            }
+        }
+        return manualNumbers;
     }
 }

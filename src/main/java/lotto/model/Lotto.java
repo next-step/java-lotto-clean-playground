@@ -2,11 +2,11 @@ package lotto.model;
 
 import java.util.List;
 
-public class Lottos {
+public class Lotto {
 
     private final List<LottoNumbers> lottoNumbers;
 
-    public Lottos(List<LottoNumbers> lottoNumbers) {
+    public Lotto(List<LottoNumbers> lottoNumbers) {
         this.lottoNumbers = List.copyOf(lottoNumbers);
     }
 

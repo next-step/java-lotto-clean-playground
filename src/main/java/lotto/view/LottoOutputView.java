@@ -7,23 +7,23 @@ import lotto.model.Rank;
 
 public class LottoOutputView {
 
-    public void printPurchasedLottoCount(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public void printPurchaseInfo(int manualCount, int autoCount) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장 구매했습니다.%n", manualCount, autoCount);
     }
 
-    public void printLottos(List<LottoNumbers> lottoNumbers) {
+    public void printLotto(List<LottoNumbers> lottoNumbers) {
         for (LottoNumbers lotto : lottoNumbers) {
             System.out.println(lotto.getNumbers());
         }
     }
 
-    public void printWinningStatistics(int money, Map<Rank, Long> winningLottos) {
+    public void printWinningStatistics(int money, Map<Rank, Long> winningLotto) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         long totalPrize = 0L;
 
         for (Rank rank : Rank.values()) {
-            long count = winningLottos.getOrDefault(rank, 0L);
+            long count = winningLotto.getOrDefault(rank, 0L);
             System.out.println(rank.getDisplay() + " - " + count + "개");
             totalPrize += count * rank.getPrize();
         }
