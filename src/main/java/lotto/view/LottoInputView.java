@@ -84,15 +84,18 @@ public class LottoInputView {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         List<List<Integer>> manualNumbers = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
-            while (true) {
-                List<Integer> numbers = parseWinningNumbers(scanner.nextLine());
-                if (numbers.size() == 6) {
-                    manualNumbers.add(numbers);
-                    break;
-                }
-                System.out.println("6개의 숫자를 입력해주세요.");
-            }
+            manualNumbers.add(inputSingleManualNumbers());
         }
         return manualNumbers;
+    }
+
+    private List<Integer> inputSingleManualNumbers() {
+        while (true) {
+            List<Integer> numbers = parseWinningNumbers(scanner.nextLine());
+            if (numbers.size() == 6) {
+                return numbers;
+            }
+            System.out.println("6개의 숫자를 입력해주세요.");
+        }
     }
 }

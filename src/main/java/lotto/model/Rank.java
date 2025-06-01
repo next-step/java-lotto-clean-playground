@@ -36,17 +36,12 @@ public enum Rank {
     }
 
     public static Rank valueOf(int count, boolean isBonus) {
-        switch (count) {
-            case 6:
-                return FIRST;
-            case 5:
-                return isBonus ? SECOND : THIRD;
-            case 4:
-                return FOURTH;
-            case 3:
-                return FIFTH;
-            default:
-                return null;
-        }
+        if (count == 6) return FIRST;
+        if (count == 5 && isBonus) return SECOND;
+        if (count == 5) return THIRD;
+        if (count == 4) return FOURTH;
+        if (count == 3) return FIFTH;
+        return null;
     }
+
 }
