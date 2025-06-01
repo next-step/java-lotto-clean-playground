@@ -16,29 +16,29 @@ public class Lotto {
 
     public static Lotto generateAutoLotto() {
         List<Integer> pickedNums = IntStream.range(1, 46)
-                                           .boxed()
-                                           .collect(Collectors.toList());
+                                            .boxed()
+                                            .collect(Collectors.toList());
 
         Collections.shuffle(pickedNums);
 
         List<LottoNumber> lottoNumbers = pickedNums.stream()
-                                                 .limit(6)
-                                                 .map(LottoNumber::new)
-                                                 .collect(Collectors.toList());
+                                                    .limit(6)
+                                                    .map(LottoNumber::new)
+                                                    .collect(Collectors.toList());
         return new Lotto(lottoNumbers);
     }
 
     public static Lotto generateManualLotto(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = numbers.stream()
-                                                 .map(LottoNumber::new)
-                                                 .collect(Collectors.toList());
+                                                    .map(LottoNumber::new)
+                                                    .collect(Collectors.toList());
         return new Lotto(lottoNumbers);
     }
 
     public List<Integer> getNumberValues() {
         return numbers.stream()
-                       .map(LottoNumber::getNumber)
-                       .collect(Collectors.toList());
+                        .map(LottoNumber::getNumber)
+                        .collect(Collectors.toList());
     }
 
     @Override
