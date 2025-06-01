@@ -2,6 +2,7 @@ package domain;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class LottoNumbers {
     private static final int REQUIRED_COUNT = 6;
@@ -15,12 +16,12 @@ public class LottoNumbers {
         this.numbers = numbers;
     }
 
-    public Rank countMatch(LottoNumbers winningNumbers) {
+    public Rank countMatch(LottoNumbers winningNumbers, boolean isMatchedBonus) {
         long matchCount = numbers.stream()
             .filter(winningNumbers.numbers::contains)
             .count();
 
-        return Rank.from((int) matchCount);
+        return Rank.from((int) matchCount, isMatchedBonus);
     }
 
     private void validate(List<Integer> numbers) {
@@ -56,5 +57,18 @@ public class LottoNumbers {
 
     public List<Integer> getNumbers() {
         return List.copyOf(numbers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof LottoNumbers that)) {
+            return false;
+        }
+        return Objects.equals(numbers, that.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(numbers);
     }
 }

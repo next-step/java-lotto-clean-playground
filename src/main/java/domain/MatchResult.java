@@ -14,16 +14,9 @@ public class MatchResult {
     }
 
     public Prize calculateTotalPrize() {
-        Prize total = Prize.from(0L);
-        for (Rank rank : Rank.values()) {
-            Prize prize = rank.getPrize().multiply(getCount(rank));
-            total = total.add(prize);
-        }
-        return total;
-    }
-
-    public Map<Rank, Integer> getResult() {
-        return Map.copyOf(matchCountByRank);
+        return matchCountByRank.keySet().stream()
+            .map(rank -> rank.getPrize().multiply(getCount(rank)))
+            .reduce(Prize::add)
+            .orElseGet(() -> Prize.from(0));
     }
 }
-

@@ -35,6 +35,10 @@ public class Prize {
         return amount;
     }
 
+    public static double calculateRateOfReturn(Prize totalPrize, int paidMoney) {
+        return (double) totalPrize.getAmount() / paidMoney;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Prize prize)) {
