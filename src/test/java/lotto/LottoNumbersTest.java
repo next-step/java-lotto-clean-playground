@@ -24,9 +24,10 @@ class LottoNumbersTest {
     @DisplayName("로또 번호와 당첨 번호를 비교해 일치 개수를 계산")
     void calculateMatchedCountCorrectly() {
         LottoNumbers lotto = new LottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
-        WinningNumbers winning = new WinningNumbers(Arrays.asList(1, 2, 3, 7, 8, 9));
+        WinningNumbers winning = new WinningNumbers(Arrays.asList(1, 2, 3, 7, 8, 9), 10);
 
         MatchCount result = lotto.match(winning);
         assertThat(result.getCount()).isEqualTo(3);
+        assertThat(result.isMatchBonus()).isFalse();
     }
 }

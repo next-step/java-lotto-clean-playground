@@ -21,20 +21,15 @@ public class WinningResult {
         }
 
         matchCounts.stream()
-            .map(mc -> findRankByMatchCount(mc.getCount()))
+            .map(this::findRankByMatchCountAndBonus)
             .filter(Objects::nonNull)
             .forEach(rank -> results.put(rank, results.get(rank) + 1));
 
         return results;
     }
 
-    private Rank findRankByMatchCount(int matchCount) {
-        for (Rank rank : Rank.values()) {
-            if (rank.getMatchCount() == matchCount) {
-                return rank;
-            }
-        }
-        return null;
+    private Rank findRankByMatchCountAndBonus(MatchCount matchCount) {
+        return Rank.valueOf(matchCount.getCount(), matchCount.isMatchBonus());
     }
 
     public Map<Rank, Long> getWinningStatistics() {

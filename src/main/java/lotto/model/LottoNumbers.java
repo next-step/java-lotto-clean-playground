@@ -22,7 +22,8 @@ public class LottoNumbers {
         long count = numbers.stream()
             .filter(winningNumbers.getNumbers()::contains)
             .count();
-        return new MatchCount((int) count);
+        boolean isBonus = numbers.contains(winningNumbers.getBonusBall());
+        return new MatchCount((int) count, isBonus);
     }
 
     public List<Integer> getNumbers() {

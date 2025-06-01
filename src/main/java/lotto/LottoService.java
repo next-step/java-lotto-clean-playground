@@ -32,7 +32,10 @@ public class LottoService {
         outputView.printPurchasedLottoCount(purchaseLotto.purchaseCount());
         outputView.printLottos(lottos.asList());
 
-        WinningNumbers winningNumbers = new WinningNumbers(inputView.inputWinningNumber());
+        List<Integer> winningNumbersInput = inputView.inputWinningNumber();
+        int bonusBall = inputView.inputBonusBall();
+        WinningNumbers winningNumbers = new WinningNumbers(winningNumbersInput, bonusBall);
+
         WinningResult winningResult = calculateWinningResult(lottos, winningNumbers);
 
         outputView.printWinningStatistics(money.getAmount(), winningResult.getWinningStatistics());
@@ -42,7 +45,6 @@ public class LottoService {
         List<MatchCount> matchCounts = lottos.asList().stream()
             .map(lotto -> lotto.match(winningNumbers))
             .collect(Collectors.toList());
-
         return new WinningResult(matchCounts);
     }
 }

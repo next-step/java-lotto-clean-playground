@@ -3,28 +3,68 @@ package lotto.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import lotto.model.Money;
 
 public class LottoInputView {
 
+    private final Scanner scanner = new Scanner(System.in);
+
     public int inputMoney() {
         System.out.println("구입금액을 입력해 주세요.");
-        Scanner scanner = new Scanner(System.in);
+        return readMoney();
+    }
 
-        return scanner.nextInt();
+    private int readMoney() {
+        while (true) {
+            try {
+                int money = Integer.parseInt(scanner.nextLine());
+                new Money(money);
+                return money;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자만 입력할 수 있습니다.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public List<Integer> inputWinningNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        Scanner scanner = new Scanner(System.in);
-
-        String winningNumbersString = scanner.nextLine();
-        String[] numbers = winningNumbersString.split(",");
-        ArrayList<Integer> winningNumbers = new ArrayList<>();
-
-        for (String num : numbers) {
-            winningNumbers.add(Integer.parseInt(num.trim()));
+        while (true) {
+            List<Integer> numbers = parseWinningNumbers(scanner.nextLine());
+            if (numbers.size() == 6) {
+                return numbers;
+            }
+            System.out.println("6개의 숫자를 입력해주세요.");
         }
+    }
 
-        return winningNumbers;
+    private List<Integer> parseWinningNumbers(String input) {
+        String[] split = input.split(",");
+        List<Integer> result = new ArrayList<>();
+        for (String num : split) {
+            result.add(Integer.parseInt(num.trim()));
+        }
+        return result;
+    }
+    public int inputBonusBall() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return readBonusNumber();
+    }
+
+    private int readBonusNumber() {
+        while (true) {
+            String input = scanner.nextLine().trim();
+            if (!input.matches("\\d+")) {
+                System.out.println("숫자만 입력할 수 있습니다.");
+                continue;
+            }
+            int bonusBall = Integer.parseInt(input);
+            if (bonusBall < 1 || bonusBall > 45) {
+                System.out.println("1에서 45 사이의 숫자만 입력할 수 있습니다.");
+                continue;
+            }
+            return bonusBall;
+        }
     }
 }
