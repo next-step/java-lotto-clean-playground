@@ -1,5 +1,7 @@
 package view;
 
+import util.Validator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +14,10 @@ public class InputView {
 
     public static int getPurchaseAmount() {
         System.out.println("구매 금액을 입력해주세요.");
-        try {
-            String amount = sc.nextLine();
-            return Integer.parseInt(amount.trim());
-        } catch (NumberFormatException e) {
-            System.out.println("숫자 외의 값이 입력됨");
-            throw e;
-        }
+        int amount = Integer.parseInt(sc.nextLine().trim());
+        Validator.validateLottoPurchaseAmount(amount);
+
+        return amount;
     }
 
     public static int getManualLottoAmount() {
@@ -40,6 +39,7 @@ public class InputView {
                                             .map(String::trim)
                                             .map(Integer::parseInt)
                                             .collect(Collectors.toList());
+            Validator.validateManualLottoNumberInRange(numbers);
             manualNumbers.add(numbers);
         }
         return manualNumbers;
@@ -47,14 +47,18 @@ public class InputView {
 
     public static List<Integer> getLastWeekNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해주세요");
-        return Arrays.stream(sc.nextLine().split(",")) //리스트로 받아서 ,기준 나눠주고
-                       .map(String::trim)
-                       .map(Integer::parseInt)
-                       .collect(Collectors.toList());
+        List<Integer> numbers = Arrays.stream(sc.nextLine().split(",")) //리스트로 받아서 ,기준 나눠주고
+                                        .map(String::trim)
+                                        .map(Integer::parseInt)
+                                        .collect(Collectors.toList());
+        Validator.validateLastWeekNumbers(numbers);
+        return numbers;
     }
 
     public static int getBonusBallNumber() {
         System.out.println("보너스 볼을 입력해주세요.");
-        return sc.nextInt();
+        int number = sc.nextInt();
+        Validator.validateBonusNumber(number);
+        return number;
     }
 }
