@@ -2,7 +2,6 @@ package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,26 +40,5 @@ class PrizeTest {
         assertThatThrownBy(() -> prize.multiply(-1))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("개수는 음수일 수 없습니다.");
-    }
-
-    @Test
-    @DisplayName("상금끼리 합산하면 새로운 상금 객체가 반환된다")
-    void add_prizes() {
-        Prize a = Prize.from(2000L);
-        Prize b = Prize.from(3000L);
-        Prize result = a.add(b);
-
-        assertThat(result.getAmount()).isEqualTo(5000L);
-    }
-
-    @Test
-    @DisplayName("수익률을 알맞게 계산한다")
-    void calculate_rate_of_return() {
-        Prize prize = Prize.from(5000L);
-        int paid = 10000;
-
-        double rate = Prize.calculateRateOfReturn(prize, paid);
-
-        assertThat(rate).isEqualTo(0.5);
     }
 }

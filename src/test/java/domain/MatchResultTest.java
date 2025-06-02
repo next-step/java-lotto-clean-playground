@@ -52,4 +52,20 @@ class MatchResultTest {
         // Then
         assertThat(total.getAmount()).isEqualTo(0L);
     }
+
+    @Test
+    @DisplayName("총 상금 대비 수익률을 계산한다")
+    void calculate_profit_rate() {
+        // Given
+        Map<Rank, Integer> resultMap = new EnumMap<>(Rank.class);
+        resultMap.put(Rank.FIFTH, 4); // 4 * 5000 = 20_000
+        MatchResult result = new MatchResult(resultMap);
+        BuyAmount buyAmount = new BuyAmount(10000, 0);
+
+        // When
+        double profitRate = result.calculateProfitRate(buyAmount);
+
+        // Then
+        assertThat(profitRate).isEqualTo(2.0); // 20_000 / 10_000
+    }
 }

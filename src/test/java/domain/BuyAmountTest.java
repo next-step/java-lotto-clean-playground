@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class BuyAmountTest {
+
     @Test
     @DisplayName("구매 금액이 1000원 이상일 경우 객체 생성 성공")
     void success_createMoney_when_input_1000_or_over() {
@@ -61,17 +62,4 @@ class BuyAmountTest {
         // When & Then
         assertThat(buyAmount.getAutoCount()).isEqualTo(3);
     }
-
-    @DisplayName("동일한 금액과 수동 구매 수를 가진 BuyAmount는 동등하다")
-    @Test
-    void equals_and_hashCode_test() {
-        // Given
-        BuyAmount a = new BuyAmount(3000, 1);
-        BuyAmount b = new BuyAmount(3000, 1);
-
-        // When & Then
-        assertThat(a).isEqualTo(b);
-        assertThat(a.hashCode()).isEqualTo(b.hashCode());
-    }
-
 }

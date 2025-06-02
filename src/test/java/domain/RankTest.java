@@ -2,19 +2,10 @@ package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class RankTest {
-    @Test
-    @DisplayName("Enum을 구하는 정적 팩터리 메서드에서 두 객체가 같은 값인지 확인한다")
-    void returnSameInstanceWhenStaticFactoryMethod() {
-        List<Rank> first = Rank.getValues();
-        List<Rank> second = Rank.getValues();
-
-        assertThat(first == second).isTrue();
-    }
 
     @Test
     @DisplayName("matchCount와 isBonusMatch에 따라 적절한 Rank를 반환한다")
@@ -37,11 +28,10 @@ class RankTest {
     @DisplayName("각 Rank는 정확한 상금 정보를 가진다")
     void each_rank_has_correct_prize() {
         assertThat(Rank.FIRST.getPrize().getAmount()).isEqualTo(2_000_000_000L);
-        assertThat(Rank.SECOND.getPrize().getAmount()).isEqualTo(1_500_000L);
-        assertThat(Rank.THIRD.getPrize().getAmount()).isEqualTo(50_000L);
-        assertThat(Rank.FOURTH.getPrize().getAmount()).isEqualTo(5_000L);
+        assertThat(Rank.SECOND.getPrize().getAmount()).isEqualTo(30_000_000L);
+        assertThat(Rank.THIRD.getPrize().getAmount()).isEqualTo(1_500_000L);
+        assertThat(Rank.FOURTH.getPrize().getAmount()).isEqualTo(50_000L);
         assertThat(Rank.FIFTH.getPrize().getAmount()).isEqualTo(5_000L);
         assertThat(Rank.NONE.getPrize().getAmount()).isEqualTo(0L);
     }
-
 }

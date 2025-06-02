@@ -36,24 +36,28 @@ public class InputView {
         return input;
     }
 
-    public static int howManyTimeBuyHandTicket() {
+    public static int inputManualTicketCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         int input = scanner.nextInt();
         scanner.nextLine();
         return input;
     }
 
-    public static List<String> writeHandTickets(int count) {
+    public static List<String> writeManualTickets(int count) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         List<String> inputs = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
             String input = scanner.nextLine().strip();
-            if (input.isBlank()) {
-                throw new IllegalArgumentException("로또 번호 입력은 비어 있을 수 없습니다.");
-            }
+            valiedateBlank(input);
             inputs.add(input);
         }
         return inputs;
+    }
+
+    private static void valiedateBlank(String input) {
+        if (input.isBlank()) {
+            throw new IllegalArgumentException("로또 번호 입력은 비어 있을 수 없습니다.");
+        }
     }
 }

@@ -9,20 +9,20 @@ public class LottoMachine {
     private static final int LOTTO_NUMBER_END = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
 
-    public List<LottoTicket> generateTickets(List<LottoTicket> handTickets, int autoCount) {
-        List<LottoTicket> tickets = new ArrayList<>(handTickets);
+    public List<Lotto> generateTickets(List<Lotto> handTickets, int autoCount) {
+        List<Lotto> tickets = new ArrayList<>(handTickets);
         for (int i = 0; i < autoCount; i++) {
             tickets.add(generateRandomSingleTicket());
         }
         return tickets;
     }
 
-    private LottoTicket generateRandomSingleTicket() {
+    private Lotto generateRandomSingleTicket() {
         List<Integer> tempNumbers = generateNumberPool();
         Collections.shuffle(tempNumbers);
         List<Integer> selectedNumbers = pickLottoNumbers(tempNumbers);
         Collections.sort(selectedNumbers);
-        return new LottoTicket(selectedNumbers);
+        return new Lotto(selectedNumbers);
     }
 
     private List<Integer> generateNumberPool() {

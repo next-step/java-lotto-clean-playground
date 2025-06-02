@@ -10,15 +10,15 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class LottoTickets {
-    private final List<LottoTicket> tickets;
+    private final List<Lotto> tickets;
 
-    public LottoTickets(List<LottoTicket> tickets) {
+    public LottoTickets(List<Lotto> tickets) {
         this.tickets = new ArrayList<>(tickets);
     }
 
-    public MatchResult countMatchResults(WinningNumbers winningNumbers, BonusNumber bonusNumber) {
+    public MatchResult countMatchResults(WinningNumbers winningNumbers) {
         Map<Rank, Integer> result = tickets.stream()
-            .map(ticket -> ticket.countMatch(winningNumbers, bonusNumber))
+            .map(ticket -> ticket.countMatch(winningNumbers))
             .collect(groupingBy(Function.identity(), () -> new EnumMap<>(Rank.class),
                 summingInt(e -> 1)));
         return new MatchResult(result);

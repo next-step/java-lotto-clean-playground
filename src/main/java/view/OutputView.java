@@ -1,6 +1,6 @@
 package view;
 
-import domain.LottoTicket;
+import domain.Lotto;
 import domain.MatchResult;
 import domain.Rank;
 import java.util.List;
@@ -17,14 +17,14 @@ public class OutputView {
         System.out.println("수동으로 " + handCount + "장, 자동으로 " + +autoCount + "개를 구매했습니다.");
     }
 
-    public static void printTickets(List<LottoTicket> tickets) {
-        for (LottoTicket ticket : tickets) {
+    public static void printTickets(List<Lotto> tickets) {
+        for (Lotto ticket : tickets) {
             System.out.println(formatTicket(ticket));
         }
         System.out.println();
     }
 
-    private static String formatTicket(LottoTicket ticket) {
+    private static String formatTicket(Lotto ticket) {
         return ticket.getNumbers().stream()
             .map(String::valueOf)
             .collect(Collectors.joining(", ", "[", "]"));

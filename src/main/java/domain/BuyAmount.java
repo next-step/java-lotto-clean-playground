@@ -41,7 +41,7 @@ public class BuyAmount {
         return amount / TICKET_PRICE;
     }
 
-    public int getHandCount() {
+    public int getManualCount() {
         return handCount;
     }
 

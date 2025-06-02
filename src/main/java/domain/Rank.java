@@ -7,9 +7,9 @@ import java.util.List;
 public enum Rank {
     NONE(0, Prize.from(0L), false),
     FIFTH(3, Prize.from(5_000L), false),
-    FOURTH(4, Prize.from(5_000L), false),
-    THIRD(5, Prize.from(50_000L), false),
-    SECOND(5, Prize.from(1_500_000L), true),
+    FOURTH(4, Prize.from(50_000L), false),
+    THIRD(5, Prize.from(1_500_000L), false),
+    SECOND(5, Prize.from(30_000_000L), true),
     FIRST(6, Prize.from(2_000_000_000L), false);
 
     private static final List<Rank> VALUES = Collections.unmodifiableList(Arrays.asList(values()));

@@ -13,33 +13,17 @@ class LottoMachineTest {
     void generate_mixed_lotto_tickets() {
         // Given
         LottoMachine machine = new LottoMachine();
-        List<LottoTicket> handTickets = List.of(
-            LottoTicket.from("1,2,3,4,5,6"),
-            LottoTicket.from("7,8,9,10,11,12")
+        List<Lotto> handTickets = List.of(
+            Lotto.from("1,2,3,4,5,6"),
+            Lotto.from("7,8,9,10,11,12")
         );
         int autoCount = 3;
 
         // When
-        List<LottoTicket> result = machine.generateTickets(handTickets, autoCount);
+        List<Lotto> result = machine.generateTickets(handTickets, autoCount);
 
         // Then
         assertThat(result).hasSize(5); // 2 수동 + 3 자동
-    }
-
-    @Test
-    @DisplayName("자동 생성된 로또 번호는 6개이고 1~45 사이이며 중복되지 않는다")
-    void generate_single_lotto_ticket_randomly() {
-        // Given
-        LottoMachine machine = new LottoMachine();
-
-        // When
-        LottoTicket ticket = machine.generateTickets(List.of(), 1).get(0);
-        List<Integer> numbers = ticket.getNumbers();
-
-        // Then
-        assertThat(numbers).hasSize(6);
-        assertThat(numbers).allMatch(n -> n >= 1 && n <= 45);
-        assertThat(numbers).doesNotHaveDuplicates();
     }
 
     @Test

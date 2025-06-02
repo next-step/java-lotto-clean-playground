@@ -19,4 +19,8 @@ public class MatchResult {
             .reduce(Prize::add)
             .orElseGet(() -> Prize.from(0));
     }
+
+    public double calculateProfitRate(BuyAmount buyAmount) {
+        return (double) calculateTotalPrize().getAmount() / buyAmount.getAmount();
+    }
 }
