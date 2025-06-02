@@ -22,7 +22,7 @@ class MoneyTest {
     }
 
     @Test
-    @DisplayName("VO 객체가 아니면 예외 발생")
+    @DisplayName("같은 금액을 가진 Money는 같은 값")
     public void voCheck() {
         Money first = new Money(1000);
         Money second = new Money(1000);

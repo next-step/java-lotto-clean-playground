@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class Money {
 
-    private final int amount;
+    private final long amount;
 
-    public Money(int amount) {
+    public Money(long amount) {
         validate(amount);
         this.amount = amount;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    private void validate(int amount) {
+    private void validate(long amount) {
         if (amount < 0) {
             throw new IllegalArgumentException("금액은 음수일 수 없습니다.");
         }

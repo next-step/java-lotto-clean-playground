@@ -5,10 +5,10 @@ import java.util.List;
 public class WinningNumbers {
 
     private final LottoNumbers numbers;
-    private final int bonusBall;
+    private final BonusBall bonusBall;
 
-    public WinningNumbers(List<Integer> numbers, int bonusBall) {
-        this.numbers = new LottoNumbers(numbers);
+    public WinningNumbers(LottoNumbers numbers, BonusBall bonusBall) {
+        this.numbers = numbers;
         this.bonusBall = bonusBall;
     }
 
@@ -16,7 +16,7 @@ public class WinningNumbers {
         return numbers.getNumbers();
     }
 
-    public int getBonusBall() {
-        return bonusBall;
+    public int getBonusNumber() {
+        return bonusBall.getValue();
     }
 }

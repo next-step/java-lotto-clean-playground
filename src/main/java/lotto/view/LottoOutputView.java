@@ -3,7 +3,9 @@ package lotto.view;
 import java.util.List;
 import java.util.Map;
 import lotto.model.LottoNumbers;
+import lotto.model.Money;
 import lotto.model.Rank;
+import lotto.model.WinningResult;
 
 public class LottoOutputView {
 
@@ -17,19 +19,14 @@ public class LottoOutputView {
         }
     }
 
-    public void printWinningStatistics(int money, Map<Rank, Long> winningLotto) {
+    public void printWinningStatistics(WinningResult winningResult, Money purchaseAmount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        long totalPrize = 0L;
-
+        Map<Rank, Long> winningStatistics = winningResult.getWinningStatistics();
         for (Rank rank : Rank.values()) {
-            long count = winningLotto.getOrDefault(rank, 0L);
+            long count = winningStatistics.getOrDefault(rank, 0L);
             System.out.println(rank.getDisplay() + " - " + count + "개");
-            totalPrize += count * rank.getPrize();
         }
-
-        double profitRate = (double) totalPrize / money;
-        System.out.printf("총 수익률은 %.2f%%입니다.%n", profitRate);
-
+        System.out.printf("총 수익률은 %.2f%%입니다.%n", winningResult.calculateProfitRate(purchaseAmount));
     }
 }
