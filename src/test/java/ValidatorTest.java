@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InputTest {
+class ValidatorTest {
     @DisplayName("구매금액 정상 입력")
     @Test
     void validAmountDoesNotThrow() {

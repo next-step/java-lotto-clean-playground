@@ -14,18 +14,17 @@ public class WinningStatistics {
 
     //등수별 당첨 횟수 X 당첨 금액 = 개별 수익 다 더하기
     public int totalReward() {
-        return
-                prizeCounts.entrySet().stream()
-                        .mapToInt(e -> e.getKey().getReward() * e.getValue())
-                        .sum();
+        return prizeCounts.entrySet().stream()
+                            .mapToInt(e -> e.getKey().getReward() * e.getValue())
+                            .sum();
     }
 
     //수익률 계산
     public double calculateRate() {
         int spent = moneySpent.getAmount();
-
-        if (spent == 0) return 0.0;
-
+        if (spent == 0) {
+            return 0.0;
+        }
         return (double) totalReward() / spent;
     }
 
