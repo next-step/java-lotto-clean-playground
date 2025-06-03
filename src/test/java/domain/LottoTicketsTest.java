@@ -1,30 +1,43 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LottoTicketsTest {
+
     @Test
-    @DisplayName("당첨 번호와 비교하여 일치 개수별로 결과를 집계한다")
-    void return_CorrectMatchCount_Map_compare_With_WinningNumbers() {
+    @DisplayName("여러 로또 티켓의 당첨 결과를 정확하게 집계한다")
+    void count_match_results_correctly() {
         // Given
-        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
-        List<LottoTicket> tickets = List.of(
-            new LottoTicket(List.of(1, 2, 3, 4, 5, 6)),  // 6개 일치
-            new LottoTicket(List.of(1, 2, 3, 7, 8, 9)),  // 3개 일치
-            new LottoTicket(List.of(10, 11, 12, 13, 14, 15)) // 0개 일치
-        );
+        Lotto first = Lotto.from("1,2,3,4,5,6");  // 1등
+        Lotto second = Lotto.from("1,2,3,4,5,7"); // 2등 (보너스 포함)
+        Lotto third = Lotto.from("1,2,3,4,5,8");  // 3등
+        Lotto fourth = Lotto.from("1,2,3,4,8,9"); // 4등
+        Lotto fifth = Lotto.from("1,2,3,9,10,11"); // 5등
+        Lotto none = Lotto.from("11,12,13,14,15,16"); // 낙첨
+
+        List<Lotto> tickets = List.of(first, second, third, fourth, fifth, none);
         LottoTickets lottoTickets = new LottoTickets(tickets);
 
+        WinningNumbers winningNumbers = new WinningNumbers(
+            List.of(1, 2, 3, 4, 5, 6), 7
+        );
+
         // When
-        MatchResult results = lottoTickets.countMatchResults(winningNumbers);
+        MatchResult result = lottoTickets.countMatchResults(winningNumbers);
 
         // Then
-        assertThat(results.getCount(Rank.FIRST)).isEqualTo(1); // 6개 일치한 건 1개
-        assertThat(results.getCount(Rank.FOURTH)).isEqualTo(1); // 3개 일치한 건 1개
-        assertThat(results.getCount(Rank.NONE)).isEqualTo(1); // 0개 일치한 건 1개
+        assertAll(
+            () -> assertThat(result.getCount(Rank.FIRST)).isEqualTo(1),
+            () -> assertThat(result.getCount(Rank.SECOND)).isEqualTo(1),
+            () -> assertThat(result.getCount(Rank.THIRD)).isEqualTo(1),
+            () -> assertThat(result.getCount(Rank.FOURTH)).isEqualTo(1),
+            () -> assertThat(result.getCount(Rank.FIFTH)).isEqualTo(1),
+            () -> assertThat(result.getCount(Rank.NONE)).isEqualTo(1)
+        );
     }
 }

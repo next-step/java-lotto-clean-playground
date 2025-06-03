@@ -4,26 +4,34 @@ import java.util.List;
 import java.util.Objects;
 
 public class WinningNumbers {
-    private final LottoNumbers winningNumbers;
+    private final LottoNumber winningNumbers;
+    private final BonusNumber bonusNumber;
 
-    public WinningNumbers(List<Integer> numbers) {
-        this.winningNumbers = new LottoNumbers(numbers);
+    public WinningNumbers(List<Integer> numbers, int bonus) {
+        this.winningNumbers = new LottoNumber(numbers);
+        this.bonusNumber = new BonusNumber(bonus, winningNumbers);
     }
 
-    public LottoNumbers getWinningNumbers() {
+    public LottoNumber getWinningNumbers() {
         return winningNumbers;
+    }
+
+    public BonusNumber getBonusNumber() {
+        return bonusNumber;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof WinningNumbers that)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return Objects.equals(winningNumbers, that.winningNumbers);
+        WinningNumbers that = (WinningNumbers) o;
+        return Objects.equals(winningNumbers, that.winningNumbers)
+            && Objects.equals(bonusNumber, that.bonusNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(winningNumbers);
+        return Objects.hash(winningNumbers, bonusNumber);
     }
 }
