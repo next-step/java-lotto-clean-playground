@@ -14,4 +14,8 @@ public class Money {
     public int autoTicketCount(int manualCount) {
         return totalTicketCount() - manualCount;
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }

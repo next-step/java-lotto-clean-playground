@@ -4,10 +4,10 @@ import java.util.Map;
 
 public class WinningStatistics {
     private final Map<Prize, Integer> prizeCounts;
-    private final int moneySpent;
+    private final Money moneySpent;
 
     //로또 하나마다 당첨번호와 일치하는 개수를 담은 리스트를 enum 으로 리턴,prize별 개수 세기
-    public WinningStatistics(Map<Prize, Integer> prizeCounts, int moneySpent) {
+    public WinningStatistics(Map<Prize, Integer> prizeCounts, Money moneySpent) {
         this.prizeCounts = prizeCounts;
         this.moneySpent = moneySpent;
     }
@@ -22,8 +22,11 @@ public class WinningStatistics {
 
     //수익률 계산
     public double calculateRate() {
-        if (moneySpent == 0) return 0.0;
-        return (double) totalReward() / moneySpent;
+        int spent = moneySpent.getAmount();
+
+        if (spent == 0) return 0.0;
+
+        return (double) totalReward() / spent;
     }
 
     public Map<Prize, Integer> getPrizeCounts() {
