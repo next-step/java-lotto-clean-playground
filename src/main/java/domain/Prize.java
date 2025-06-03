@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum Prize {
     FIRST(6, false, 2000000000, "6개 일치"),
@@ -24,10 +25,20 @@ public enum Prize {
 
     public static Prize of(int matchCount, boolean bonusMatch) {
         return Arrays.stream(values())
-                       .filter(p -> p.matchCount == matchCount)
-                       .filter(p -> p.bonusStatus == bonusMatch || !p.bonusStatus)
-                       .findFirst()
-                       .orElse(null);
+                        .filter(p -> p.matchCount == matchCount)
+                        .filter(p -> p.bonusStatus == bonusMatch || !p.bonusStatus)
+                        .findFirst()
+                        .orElse(null);
+    }
+
+    public static Prize calculatePrize(Lotto lotto, List<Integer> winningNumbers, int bonusBall) {
+        int matchCount = (int) lotto.getNumberValues()
+                                        .stream()
+                                        .filter(winningNumbers::contains)
+                                        .count();
+
+        boolean bonusMatch = lotto.getNumberValues().contains(bonusBall);
+        return Prize.of(matchCount, bonusMatch);
     }
 
     public String getDescription() {
