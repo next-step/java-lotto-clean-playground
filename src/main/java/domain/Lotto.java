@@ -15,7 +15,7 @@ public class Lotto {
     }
 
     public static Lotto generateAutoLotto() {
-        List<Integer> pickedNums = IntStream.range(1, 46)
+        List<Integer> pickedNums = IntStream.rangeClosed(1, 45)
                                             .boxed()
                                             .collect(Collectors.toList());
 
