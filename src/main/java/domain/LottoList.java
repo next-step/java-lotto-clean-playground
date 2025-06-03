@@ -13,10 +13,10 @@ public class LottoList {
         this.lottoLists = lottoLists;
     }
 
-    public static LottoList generateLottoList(List<List<Integer>> manaulNumbers, int cnt) {
+    public static LottoList generateLottoList(List<List<Integer>> manualNumbers, int cnt) {
         List<Lotto> lottoList = new ArrayList<>();
         //수동 로또 생성
-        for (List<Integer> manaulNumber : manaulNumbers) {
+        for (List<Integer> manaulNumber : manualNumbers) {
             lottoList.add(Lotto.generateManualLotto(manaulNumber));
         }
         //자동로또 생성
