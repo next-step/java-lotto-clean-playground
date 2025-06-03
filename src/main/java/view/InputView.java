@@ -1,5 +1,6 @@
 package view;
 
+import domain.Money;
 import util.Validator;
 
 import java.util.ArrayList;
@@ -12,12 +13,12 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static int getPurchaseAmount() {
+    public static Money getPurchaseAmount() {
         System.out.println("구매 금액을 입력해주세요.");
         int amount = Integer.parseInt(sc.nextLine().trim());
         Validator.validateLottoPurchaseAmount(amount);
 
-        return amount;
+        return new Money(amount);
     }
 
     public static int getManualLottoAmount() {

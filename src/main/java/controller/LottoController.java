@@ -11,13 +11,13 @@ import java.util.Map;
 public class LottoController {
     public void run() {
         // 입력
-        int money = InputView.getPurchaseAmount();
+        Money money = InputView.getPurchaseAmount();
 
         //수동 로또 갯수, 리스트 입력
         int manualLottoAmount = InputView.getManualLottoAmount();
         List<List<Integer>> manualNumbers = InputView.getManualLottoNumbers(manualLottoAmount);
 
-        int count = (money / 1000) - manualLottoAmount;
+        int count = money.autoTicketCount(manualLottoAmount);
 
         // 로또리스트 생성
         LottoList lottoList = LottoList.generateLottoList(manualNumbers, count);
