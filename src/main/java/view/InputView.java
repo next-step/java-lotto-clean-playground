@@ -17,7 +17,6 @@ public class InputView {
         System.out.println("구매 금액을 입력해주세요.");
         int amount = Integer.parseInt(sc.nextLine().trim());
         Validator.validateLottoPurchaseAmount(amount);
-
         return new Money(amount);
     }
 

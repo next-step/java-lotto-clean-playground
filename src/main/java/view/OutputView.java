@@ -15,11 +15,11 @@ public class OutputView {
     }
 
     private static String formatPrizeLine(Prize prize, int count) {
-        String matchText = prize.getMatchCount() + "개 일치";
+        String text = prize.getMatchCount() + "개 일치";
         if (prize.isBonusStatus()) {
-            matchText += ", 보너스 볼 일치";
+            text += ", 보너스 볼 일치";
         }
-        return String.format("%s (%,d원) - %d개", matchText, prize.getReward(), count);
+        return String.format("%s (%,d원) - %d개", text, prize.getReward(), count);
     }
 
     public static void printWinningStatics(WinningStatistics statistics) {
