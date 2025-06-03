@@ -10,7 +10,7 @@ public class Validator {
 
     public static void validateLottoPurchaseAmount(int amount) {
         if ((amount % 1000) != 0) {
-            throw new IllegalArgumentException("구매금액을 다시 입력해주세요");
+            throw new IllegalArgumentException("구매금액은 1000원 단위로 입력하세요");
         }
     }
 
