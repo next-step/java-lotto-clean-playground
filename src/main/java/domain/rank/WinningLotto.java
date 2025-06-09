@@ -3,16 +3,24 @@ package domain.rank;
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
 import java.util.List;
+import util.LottoParser;
 
 public class WinningLotto {
 
     private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    private WinningLotto(final List<LottoNumber> winningNumbers, final LottoNumber bonusNumber) {
         validateDuplicate(winningNumbers, bonusNumber);
         this.winningNumbers = new Lotto(winningNumbers);
         this.bonusNumber = bonusNumber;
+    }
+
+    public static WinningLotto of(final String winningNumbersInput, final String bonusNumberInput) {
+        LottoParser.validateEmpty(bonusNumberInput);
+        List<LottoNumber> lottoNumbers = LottoParser.parseNumbers(winningNumbersInput);
+        LottoNumber bonusNumber = LottoNumber.from(Integer.parseInt(bonusNumberInput));
+        return new WinningLotto(lottoNumbers, bonusNumber);
     }
 
     public Lotto getWinningLotto() {

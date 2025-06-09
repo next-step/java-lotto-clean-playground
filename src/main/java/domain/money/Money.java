@@ -1,5 +1,7 @@
 package domain.money;
 
+import static util.LottoParser.validateEmpty;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -12,6 +14,7 @@ public record Money(
 
     public static Money from(final String amount) {
         try {
+            validateEmpty(amount);
             BigDecimal parsedAmount = new BigDecimal(amount);
             validateNonNegativeAmount(parsedAmount);
             return new Money(parsedAmount);

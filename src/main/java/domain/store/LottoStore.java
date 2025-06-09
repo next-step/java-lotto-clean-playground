@@ -1,47 +1,20 @@
 package domain.store;
 
 import domain.lotto.Lottos;
-import domain.money.Money;
-import java.math.BigDecimal;
-import strategy.LottoNumberGenerator;
+import java.util.List;
+import strategy.RandomNumberGenerator;
 
 public class LottoStore {
 
-    public static final Money LOTTO_PRICE = Money.from("1000");
+    private final LottoMachine machine;
 
-    private final LottoNumberGenerator generator;
-
-    public LottoStore(final LottoNumberGenerator generator) {
-        this.generator = generator;
+    public LottoStore() {
+        this.machine = new LottoMachine(new RandomNumberGenerator());
     }
 
-    public Lottos buy(final Money purchaseAmount) {
-        validateMinimum(purchaseAmount);
-        validateUnit(purchaseAmount);
-        int count = calculateLottoCount(purchaseAmount);
-        return lottoMachine(count);
-    }
-
-    private void validateUnit(final Money purchaseAmount) {
-        boolean isInvalidUnit =
-                purchaseAmount.amount().remainder(LOTTO_PRICE.amount()).compareTo(BigDecimal.ZERO) != 0;
-        if (isInvalidUnit) {
-            throw new IllegalArgumentException("구입 금액은 %s원 단위로 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
-        }
-    }
-
-    private void validateMinimum(final Money purchaseAmount) {
-        boolean isBelowMinimum = purchaseAmount.amount().compareTo(LOTTO_PRICE.amount()) < 0;
-        if (isBelowMinimum) {
-            throw new IllegalArgumentException("최소 %s원 이상 입력해야 합니다.".formatted(LOTTO_PRICE.amount()));
-        }
-    }
-
-    private Lottos lottoMachine(final int count) {
-        return Lottos.generate(count, generator);
-    }
-
-    private int calculateLottoCount(final Money purchaseAmount) {
-        return purchaseAmount.divide(LOTTO_PRICE).amount().intValueExact();
+    public LottoReceipt buy(final Cashier cashier, final List<String> manualNumbers) {
+        Lottos manual = machine.generateManual(manualNumbers);
+        Lottos auto = machine.generateAuto(cashier.getAutoCount());
+        return new LottoReceipt(manual, auto);
     }
 }
