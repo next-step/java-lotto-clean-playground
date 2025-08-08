@@ -32,7 +32,7 @@ public class LottoShop {
                 .boxed()
                 .toList());
         Collections.shuffle(random);
-        return new Lotto(random.subList(0, Lotto.MIN_LOTTO_NUMBER));
+        return new Lotto(random.subList(0, Lotto.LOTTO_SIZE));
     }
 
     public LottoTickets getTickets() {
