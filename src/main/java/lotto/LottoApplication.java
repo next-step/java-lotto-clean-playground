@@ -12,14 +12,17 @@ public class LottoApplication {
         try {
             Money purchaseAmount = Money.of(readPurchaseAmount());
             validatePurchaseAmount(purchaseAmount);
-            int numberOfTickets = calculateNumberOfTickets(purchaseAmount);
-            LottoTickets tickets = generateTickets(numberOfTickets);
-            printPurchaseCount(tickets.size());
-            printTickets(tickets);
+            int totalTickets = calculateNumberOfTickets(purchaseAmount);
+            int manualCount = readManualCount(totalTickets);
+            LottoTickets manualTickets = readManualTickets(manualCount);
+            LottoTickets autoTickets = generateTickets(totalTickets - manualCount);
+            LottoTickets allTickets = mergeTickets(manualTickets, autoTickets);
+            printManualAutoCount(manualCount, autoTickets.size());
+            printTickets(allTickets);
 
             LottoTicket winningTicket = readWinningTicket();
             LottoNumber bonusNumber = readBonusNumber(winningTicket);
-            ResultStatistics statistics = evaluate(tickets, winningTicket, bonusNumber);
+            ResultStatistics statistics = evaluate(allTickets, winningTicket, bonusNumber);
             printStatistics(statistics, purchaseAmount);
         } catch (RuntimeException exception) {
             System.out.println(exception.getMessage());
@@ -54,8 +57,49 @@ public class LottoApplication {
         return lottoGenerator.generateMultiple(numberOfTickets);
     }
 
-    private static void printPurchaseCount(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    private static int readManualCount(int totalTickets) {
+        System.out.println();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int manualCount = parseInteger(INPUT.nextLine());
+        if (manualCount < 0 || manualCount > totalTickets) {
+            throw new IllegalArgumentException("수동 구매 수는 0 이상이고 총 구매 수 이하여야 합니다.");
+        }
+        return manualCount;
+    }
+
+    private static LottoTickets readManualTickets(int manualCount) {
+        List<LottoTicket> tickets = new ArrayList<>();
+        if (manualCount == 0) {
+            return new LottoTickets(tickets);
+        }
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < manualCount; i++) {
+            String line = INPUT.nextLine();
+            String[] tokens = line.split(",");
+            if (tokens.length != LottoTicket.SIZE) {
+                throw new IllegalArgumentException("쉼표로 구분된 " + LottoTicket.SIZE + "개의 번호를 입력해 주세요.");
+            }
+            List<LottoNumber> numbers = new ArrayList<>();
+            for (String token : tokens) {
+                int value = parseInteger(token.trim());
+                numbers.add(LottoNumber.of(value));
+            }
+            tickets.add(new LottoTicket(numbers));
+        }
+        return new LottoTickets(tickets);
+    }
+
+    private static LottoTickets mergeTickets(LottoTickets manual, LottoTickets auto) {
+        List<LottoTicket> merged = new ArrayList<>();
+        merged.addAll(manual.asList());
+        merged.addAll(auto.asList());
+        return new LottoTickets(merged);
+    }
+
+    private static void printManualAutoCount(int manualCount, int autoCount) {
+        System.out.println();
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
     }
 
     private static void printTickets(LottoTickets tickets) {
