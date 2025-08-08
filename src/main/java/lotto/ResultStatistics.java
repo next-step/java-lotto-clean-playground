@@ -28,5 +28,3 @@ public class ResultStatistics {
         return Money.of(sum);
     }
 }
-
-
