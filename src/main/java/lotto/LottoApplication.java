@@ -22,7 +22,8 @@ public class LottoApplication {
 
             LottoTicket winningTicket = readWinningTicket();
             LottoNumber bonusNumber = readBonusNumber(winningTicket);
-            ResultStatistics statistics = evaluate(allTickets, winningTicket, bonusNumber);
+            WinningNumbers winningNumbers = WinningNumbers.of(winningTicket, bonusNumber);
+            ResultStatistics statistics = evaluate(allTickets, winningNumbers);
             printStatistics(statistics, purchaseAmount);
         } catch (RuntimeException exception) {
             System.out.println(exception.getMessage());
@@ -75,19 +76,33 @@ public class LottoApplication {
         System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         for (int i = 0; i < manualCount; i++) {
-            String line = INPUT.nextLine();
-            String[] tokens = line.split(",");
-            if (tokens.length != LottoTicket.SIZE) {
-                throw new IllegalArgumentException("쉼표로 구분된 " + LottoTicket.SIZE + "개의 번호를 입력해 주세요.");
-            }
-            List<LottoNumber> numbers = new ArrayList<>();
-            for (String token : tokens) {
-                int value = parseInteger(token.trim());
-                numbers.add(LottoNumber.of(value));
-            }
-            tickets.add(new LottoTicket(numbers));
+            LottoTicket ticket = readSingleManualTicket();
+            tickets.add(ticket);
         }
         return new LottoTickets(tickets);
+    }
+
+    private static LottoTicket readSingleManualTicket() {
+        String line = INPUT.nextLine();
+        String[] tokens = line.split(",");
+        validateTokenLength(tokens);
+        List<LottoNumber> numbers = parseLottoNumbers(tokens);
+        return new LottoTicket(numbers);
+    }
+
+    private static void validateTokenLength(String[] tokens) {
+        if (tokens.length != LottoTicket.SIZE) {
+            throw new IllegalArgumentException("쉼표로 구분된 " + LottoTicket.SIZE + "개의 번호를 입력해 주세요.");
+        }
+    }
+
+    private static List<LottoNumber> parseLottoNumbers(String[] tokens) {
+        List<LottoNumber> numbers = new ArrayList<>();
+        for (String token : tokens) {
+            int value = parseInteger(token.trim());
+            numbers.add(LottoNumber.of(value));
+        }
+        return numbers;
     }
 
     private static LottoTickets mergeTickets(LottoTickets manual, LottoTickets auto) {
@@ -124,30 +139,43 @@ public class LottoApplication {
         return new LottoTicket(numbers);
     }
 
-    private static ResultStatistics evaluate(LottoTickets tickets, LottoTicket winningTicket, LottoNumber bonusNumber) {
+    private static ResultStatistics evaluate(LottoTickets tickets, WinningNumbers winningNumbers) {
         ResultStatistics statistics = new ResultStatistics();
         for (LottoTicket ticket : tickets.asList()) {
-            int matchCount = ticket.countMatches(winningTicket);
-            boolean bonusMatched = ticket.contains(bonusNumber);
-            Rank rank = Rank.from(matchCount, bonusMatched);
-            if (rank != null) {
-                statistics.add(rank);
-            }
+            Rank rank = decideRank(ticket, winningNumbers);
+            addRankIfPresent(statistics, rank);
         }
         return statistics;
+    }
+
+    private static Rank decideRank(LottoTicket ticket, WinningNumbers winningNumbers) {
+        int matchCount = ticket.countMatches(winningNumbers.getWinningTicket());
+        boolean bonusMatched = ticket.contains(winningNumbers.getBonusNumber());
+        return Rank.from(matchCount, bonusMatched);
+    }
+
+    private static void addRankIfPresent(ResultStatistics statistics, Rank rank) {
+        if (rank == null) {
+            return;
+        }
+        statistics.add(rank);
     }
 
     private static void printStatistics(ResultStatistics statistics, Money purchaseAmount) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5,000원) - " + statistics.getCount(Rank.THREE) + "개");
-        System.out.println("4개 일치 (50,000원) - " + statistics.getCount(Rank.FOUR) + "개");
-        System.out.println("5개 일치 (1,500,000원) - " + statistics.getCount(Rank.FIVE) + "개");
-        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + statistics.getCount(Rank.SECOND) + "개");
-        System.out.println("6개 일치 (2,000,000,000원) - " + statistics.getCount(Rank.SIX) + "개");
+        printRankLine(Rank.THREE.getLabel(), statistics.getCount(Rank.THREE));
+        printRankLine(Rank.FOUR.getLabel(), statistics.getCount(Rank.FOUR));
+        printRankLine(Rank.FIVE.getLabel(), statistics.getCount(Rank.FIVE));
+        printRankLine(Rank.SECOND.getLabel(), statistics.getCount(Rank.SECOND));
+        printRankLine(Rank.SIX.getLabel(), statistics.getCount(Rank.SIX));
         double profitRate = statistics.getTotalPrizeMoney().ratioAgainst(purchaseAmount);
         System.out.println("총 수익률은 " + String.format("%.2f", profitRate) + "입니다.");
+    }
+
+    private static void printRankLine(String label, int count) {
+        System.out.println(label + " - " + count + "개");
     }
 
     private static LottoNumber readBonusNumber(LottoTicket winningTicket) {

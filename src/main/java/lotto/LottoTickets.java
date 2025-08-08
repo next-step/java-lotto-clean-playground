@@ -31,11 +31,11 @@ public class LottoTickets {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (LottoTicket ticket : tickets) {
-            sb.append(ticket).append(System.lineSeparator());
+            stringBuilder.append(ticket).append(System.lineSeparator());
         }
-        return sb.toString();
+        return stringBuilder.toString();
     }
 }
 
