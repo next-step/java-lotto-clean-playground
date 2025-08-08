@@ -8,7 +8,6 @@ public class Lotto {
     public static final int MAX_LOTTO_NUMBER = 45;
     public static final int LOTTO_SIZE = 6;
 
-
     public Lotto(List<Integer> numbers) {
         validate(numbers);
         this.numbers = numbers;
