@@ -23,7 +23,7 @@ public class LottoShop {
                 mapToObj(i -> createRandomLotto())
                 .toList();
 
-        this.tickets = new LottoTickets(manual, random);
+        this.tickets = new LottoTickets(random, manual);
     }
 
     private Lotto createRandomLotto() {
