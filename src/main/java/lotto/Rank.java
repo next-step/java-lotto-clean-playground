@@ -5,7 +5,8 @@ public enum Rank {
     FOUR(4, 50_000, "4개 일치 (50,000원)"),
     FIVE(5, 1_500_000, "5개 일치 (1,500,000원)"),
     SECOND(5, 30_000_000, "5개 일치, 보너스 볼 일치 (30,000,000원)"),
-    SIX(6, 2_000_000_000, "6개 일치 (2,000,000,000원)");
+    SIX(6, 2_000_000_000, "6개 일치 (2,000,000,000원)"),
+    NONE(0, 0, "");
 
     private final int matchCount;
     private final int prize;
@@ -42,7 +43,7 @@ public enum Rank {
         if (matchCount == 3) {
             return THREE;
         }
-        return null;
+        return NONE;
     }
 
     private static Rank fromFive(boolean bonusMatched) {

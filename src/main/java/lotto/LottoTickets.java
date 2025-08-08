@@ -29,6 +29,19 @@ public class LottoTickets {
         return count;
     }
 
+    public Money sumOfPrizes(WinningNumbers winningNumbers) {
+        int total = 0;
+        for (LottoTicket ticket : tickets) {
+            int matches = ticket.countMatches(winningNumbers.getWinningTicket());
+            boolean bonus = ticket.contains(winningNumbers.getBonusNumber());
+            Rank rank = Rank.from(matches, bonus);
+            if (rank != null) {
+                total += rank.getPrize();
+            }
+        }
+        return Money.of(total);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

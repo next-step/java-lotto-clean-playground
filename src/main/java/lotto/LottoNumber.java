@@ -7,6 +7,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public static final int MAX = 45;
 
     private final int value;
+    private static final LottoNumber[] CACHE = new LottoNumber[MAX + 1];
 
     private LottoNumber(int value) {
         if (value < MIN || value > MAX) {
@@ -16,7 +17,13 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     public static LottoNumber of(int value) {
-        return new LottoNumber(value);
+        LottoNumber cached = CACHE[value];
+        if (cached != null) {
+            return cached;
+        }
+        LottoNumber created = new LottoNumber(value);
+        CACHE[value] = created;
+        return created;
     }
 
     public int getValue() {
