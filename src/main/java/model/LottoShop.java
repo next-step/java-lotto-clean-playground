@@ -2,7 +2,6 @@ package model;
 
 import util.NumberGenerator;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -14,28 +13,15 @@ public class LottoShop {
         int total = amount / PRICE_PER_TICKET;
 
         validateManualLotto(amount, total, manualNumbers);
-        List<Lotto> manual = manualNumbers.stream()
-                .map(Lotto::new)
-                .toList();
 
-        List<Lotto> random = IntStream.range(0, total - manual.size())
-                .mapToObj(i -> new Lotto(generator.generate()))
-                .toList();
+        List<Lotto> manual = generateManualLotto(manualNumbers);
+        List<Lotto> random = generateRandomLotto(total, manual, generator);
 
         this.tickets = new LottoTickets(random, manual);
     }
 
     public LottoShop(int amount, List<List<Integer>> manualNumbers) {
         this(amount, manualNumbers, new util.RandomNumberGenerator());
-    }
-
-    private Lotto createRandomLotto() {
-        List<Integer> random = new java.util.ArrayList<>
-                (IntStream.rangeClosed(Lotto.MIN_LOTTO_NUMBER, Lotto.MAX_LOTTO_NUMBER)
-                .boxed()
-                .toList());
-        Collections.shuffle(random);
-        return new Lotto(random.subList(0, Lotto.LOTTO_SIZE));
     }
 
     public LottoTickets getTickets() {
@@ -57,5 +43,17 @@ public class LottoShop {
         if (manualNumbers.size() > total) {
             throw new IllegalArgumentException("수동 로또 개수가 총 구매 개수를 초과합니다.");
         }
+    }
+
+    private List<Lotto> generateRandomLotto(int total, List<Lotto> manual, NumberGenerator generator) {
+        return IntStream.range(0, total - manual.size())
+                .mapToObj(i -> new Lotto(generator.generate()))
+                .toList();
+    }
+
+    private List<Lotto> generateManualLotto(List<List<Integer>> manualNumbers) {
+        return manualNumbers.stream()
+                .map(Lotto::new)
+                .toList();
     }
 }
