@@ -13,7 +13,7 @@ public class LottoController {
 
     public void run() {
         int amount = input.inputLottoAmount();
-        int manualCnt = input.manualLottoAmount(amount / 1000);
+        int manualCnt = input.manualLottoAmount(amount / LottoShop.PRICE_PER_TICKET);
         List<List<Integer>> manualNums = input.inputManualNumbers(manualCnt);
 
         LottoShop shop = new LottoShop(amount, manualNums);
