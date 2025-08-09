@@ -8,7 +8,7 @@ public class WinningLotto {
 
     public WinningLotto(List<Integer> winningNumbers, int bonusBall) {
         this.winningLotto = new Lotto(winningNumbers);
-        this.bonusBall   = bonusBall;
+        this.bonusBall = bonusBall;
     }
 
     public List<Integer> getWinningNumbers() {
