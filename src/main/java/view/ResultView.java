@@ -28,19 +28,16 @@ public class ResultView {
     }
 
     private void printRankInfo(Rank rank, Long count) {
-        System.out.printf("%d개 일치%s (%d원) - %d개\n",
-                rank.getMatch(),
-                rank.hasBonus() ? " + 보너스 볼" : "",
-                rank.getReward(),
-                count
-        );
+        if (rank.hasBonus()) {
+            System.out.printf("%d개 일치 + 보너스 볼 (%d원) - %d개%n",
+                    rank.getMatch(), rank.getReward(), count);
+            return;
+        }
+        System.out.printf("%d개 일치 (%d원) - %d개%n",
+                rank.getMatch(), rank.getReward(), count);
     }
 
     public void printProfitRate(double profitRate){
         System.out.printf("총 수익률은 %.2f 입니다.\n", profitRate);
-    }
-
-    public void printInputManualLottoMessage(){
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }
