@@ -29,8 +29,8 @@ public class InputValidator {
             if(amount > randomLottoAmount){
                 throw new RuntimeException("총 구매할 로또 수 이하로 구매하여야 합니다.");
             }
-            if(amount <= 0){
-                throw new RuntimeException("1개 이상 구매하여야 합니다.");
+            if(amount < 0){
+                throw new RuntimeException("0개 이상 구매하여야 합니다.");
             }
         }
         catch (NumberFormatException e){
