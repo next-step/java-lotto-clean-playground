@@ -5,20 +5,24 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoTickets {
-    private final List<Lotto> randomLottos;
-    private final List<Lotto> manualLottos;
+    private final Lottos randomLottos;
+    private final Lottos manualLottos;
 
-    public LottoTickets(List<Lotto> randomLottos, List<Lotto> manualLottos) {
+    public LottoTickets(Lottos randomLottos, Lottos manualLottos) {
         this.randomLottos = randomLottos;
         this.manualLottos = manualLottos;
     }
 
-    public List<Lotto> getManualLottos() {
+    public Lottos getManualLottos() {
         return manualLottos;
     }
 
-    public List<Lotto> getRandomLottos() {
+    public Lottos getRandomLottos() {
         return randomLottos;
+    }
+
+    public List<Lotto> getRandomLottosList() {
+        return randomLottos.asList();
     }
 
     public List<Lotto> getAllLottos() {

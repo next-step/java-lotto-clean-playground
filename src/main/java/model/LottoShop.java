@@ -17,7 +17,7 @@ public class LottoShop {
         List<Lotto> manual = generateManualLotto(manualNumbers);
         List<Lotto> random = generateRandomLotto(total, manual, generator);
 
-        this.tickets = new LottoTickets(random, manual);
+        this.tickets = new LottoTickets(new Lottos(manual), new Lottos(random));
     }
 
     public LottoShop(int amount, List<List<Integer>> manualNumbers) {

@@ -29,7 +29,7 @@ class LottoShopMockTest {
 
         assertThat(tickets.getAllLottos()).hasSize(8);
 
-        assertThat(tickets.getRandomLottos())
+        assertThat(tickets.getRandomLottosList())
                 .extracting(Lotto::getNumbers)
                 .containsExactly(
                         List.of(8, 21, 23, 41, 42, 43),
