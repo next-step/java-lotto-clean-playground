@@ -12,11 +12,11 @@ public class StaticsResult {
             results.put(r, 0L);
         }
 
-        tickets.forEach(l -> {
-            int matchCount = (int) l.getNumbers().stream()
+        tickets.forEach(lotto -> {
+            int matchCount = (int) lotto.getNumbers().stream()
                     .filter(winning.getWinningLotto().getNumbers()::contains)
                     .count();
-            boolean bonus = matchCount == 5 && l.getNumbers().contains(winning.getBonusBall());
+            boolean bonus = matchCount == 5 && lotto.getNumbers().contains(winning.getBonusBall());
             Rank rank = Rank.getRank(matchCount, bonus);
             results.put(rank, results.get(rank) + 1);
         });
