@@ -1,12 +1,9 @@
-public class Main {
-    public static void main(String[] args) {
-        LottoMarket market = new LottoMarket();
-        Statics statics = new Statics();
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+import controller.LottoController;
 
-        Controller controller = new Controller(market, statics, inputView, outputView);
+public class Main {
+
+    public static void main(String[] args) {
+        LottoController controller = new LottoController();
         controller.run();
     }
-
 }
