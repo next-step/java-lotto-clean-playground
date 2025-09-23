@@ -18,15 +18,12 @@ public class MatchCount {
     public void addMatch3Count(int count) {
         this.match3Count += count;
     }
-
     public void addMatch4Count(int count) {
         this.match4Count += count;
     }
-
     public void addMatch5Count(int count) {
         this.match5Count += count;
     }
-
     public void addMatch6Count(int count) {
         this.match6Count += count;
     }
