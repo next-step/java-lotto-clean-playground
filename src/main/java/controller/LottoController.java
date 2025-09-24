@@ -38,6 +38,6 @@ public class LottoController {
         resultView.printLottoProfit(profitRate.getProfitRate());
 
         resultView.printLottoMatch(matchCount);
-        resultView.printLottoProfit(profitRate);
+        resultView.printLottoProfit(profitRate.getProfitRate());
     }
 }

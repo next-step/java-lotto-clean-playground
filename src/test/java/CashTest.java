@@ -13,7 +13,22 @@ public class CashTest {
         LottoTicketCount ticketNumber = MoneyToTicket.MoneyToTicket(money);
        assertEquals(5,ticketNumber.getCount());
     }
-    // 1000의 단위가 아닌 금액 입력시 예외처리 로직 짠 후 테스트 코드 작성
+
+    @Test
+    @DisplayName("금액 입력이 올바르지 않을 시 예외처리")
+    void testInvalidCash(){
+        try {
+            Money money = new Money(-5000);
+        } catch (IllegalArgumentException e) {
+            assertEquals("금액은 0보다 커야 합니다.", e.getMessage());
+        }
+
+        try {
+            Money money = new Money(5500);
+        } catch (IllegalArgumentException e) {
+            assertEquals("금액은 1000원 단위여야 합니다.", e.getMessage());
+        }
+    }
 
     @Test
     @DisplayName("최종 당첨 금액 합계가 올바른지 확인")
