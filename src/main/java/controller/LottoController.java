@@ -1,9 +1,6 @@
 package controller;
 import domain.*;
-import domain.Lotto;
-import view.InputView;
-import view.OutputView;
-import view.ResultView;
+import view.*;
 
 import java.util.Arrays;
 import java.util.List;
