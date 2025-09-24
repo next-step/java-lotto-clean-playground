@@ -9,8 +9,9 @@ public class CashTest {
     @DisplayName("금액 입력 시 올바른 로또 갯수가 출력되는지 확인")
 
     void testCashToTicket(){
-       int ticket = MoenyToTicket.MoenyToTicket(5000);
-       assertEquals(5,ticket);
+        Money money = new Money(5000);
+        LottoTicketCount ticketNumber = MoneyToTicket.MoneyToTicket(money);
+       assertEquals(5,ticketNumber.getCount());
     }
     // 1000의 단위가 아닌 금액 입력시 예외처리 로직 짠 후 테스트 코드 작성
 

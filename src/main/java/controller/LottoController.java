@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class LottoController {
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
@@ -14,10 +13,9 @@ public class LottoController {
 
     public void run() {
         outputView.printWonMessage();
-        int money = inputView.inputMoney();
-        int ticketNumber = MoenyToTicket.MoenyToTicket(money);
-
-        resultView.printTicketNumbers(ticketNumber);
+        Money money = new Money(inputView.inputMoney());
+        LottoTicketCount ticketNumber = MoneyToTicket.MoneyToTicket(money);
+        resultView.printTicketNumbers(ticketNumber.getCount());
 
         LottoTickets lottoTickets = new LottoTickets(ticketNumber);
         for (Lotto lotto : lottoTickets.getTickets()) {
@@ -36,10 +34,10 @@ public class LottoController {
         MatchCount matchCount = MatchCount.countAllMatches(lottoTickets.getTickets(), lottoAnswerobj);
 
         int totalSum = LottoProfit.LottoSum(matchCount);
-        double profitRate = LottoProfit.LottoProfit(money, totalSum);
+        ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(totalSum));
+        resultView.printLottoProfit(profitRate.getProfitRate());
 
         resultView.printLottoMatch(matchCount);
         resultView.printLottoProfit(profitRate);
-
     }
 }

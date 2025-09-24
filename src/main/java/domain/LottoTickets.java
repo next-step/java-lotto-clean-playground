@@ -6,9 +6,9 @@ import java.util.List;
 public class LottoTickets {
     private final List<Lotto> tickets;
 
-    public LottoTickets(int count){
+    public LottoTickets(LottoTicketCount count){
         this.tickets = new ArrayList<>();
-        for(int i=0;i<count;i++){
+        for(int i=0;i<count.getCount();i++){
             List<Integer> lottoList = NumberShuffle.CreateList();
             NumberShuffle.shuffle(lottoList);
             List<Integer> lottoNumbers = NumberShuffle.getLottoNumbers(lottoList);
