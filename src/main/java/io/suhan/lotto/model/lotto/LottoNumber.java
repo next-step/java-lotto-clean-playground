@@ -1,13 +1,11 @@
-package io.suhan.lotto.model;
+package io.suhan.lotto.model.lotto;
 
 public class LottoNumber {
-    public static final int LOTTO_NUMBER_MIN = 1;
-    public static final int LOTTO_NUMBER_MAX = 45;
     private final int value;
 
     public LottoNumber(int value) {
-        if (value < LOTTO_NUMBER_MIN || value > LOTTO_NUMBER_MAX) {
-            throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_MIN + "~" + LOTTO_NUMBER_MAX + " 사이여야 합니다.");
+        if (value < Lotto.LOTTO_NUMBER_MIN || value > Lotto.LOTTO_NUMBER_MAX) {
+            throw new IllegalArgumentException("로또 번호는 " + Lotto.LOTTO_NUMBER_MIN + "~" + Lotto.LOTTO_NUMBER_MAX + " 사이여야 합니다.");
         }
 
         this.value = value;

@@ -1,9 +1,9 @@
 package io.suhan.lotto;
 
 import io.suhan.lotto.model.DrawResult;
-import io.suhan.lotto.model.Lotto;
-import io.suhan.lotto.model.LottoNumber;
-import io.suhan.lotto.model.LottoRegistry;
+import io.suhan.lotto.model.lotto.Lotto;
+import io.suhan.lotto.model.lotto.LottoNumber;
+import io.suhan.lotto.model.lotto.LottoRegistry;
 import io.suhan.lotto.model.executor.LottoDrawExecutor;
 import io.suhan.lotto.model.executor.LottoPurchaseExecutor;
 import io.suhan.lotto.view.InputView;

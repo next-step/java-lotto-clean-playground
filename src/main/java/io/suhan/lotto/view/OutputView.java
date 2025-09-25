@@ -1,7 +1,7 @@
 package io.suhan.lotto.view;
 
 import io.suhan.lotto.model.DrawResult;
-import io.suhan.lotto.model.Lotto;
+import io.suhan.lotto.model.lotto.Lotto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

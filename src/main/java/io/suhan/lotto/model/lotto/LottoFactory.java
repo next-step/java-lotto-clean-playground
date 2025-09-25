@@ -1,5 +1,6 @@
-package io.suhan.lotto.model;
+package io.suhan.lotto.model.lotto;
 
+import io.suhan.lotto.model.NumberPool;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ public class LottoFactory {
     }
 
     public static Lotto createLotto() {
-        NumberPool pool = new NumberPool(LottoNumber.LOTTO_NUMBER_MIN, LottoNumber.LOTTO_NUMBER_MAX);
+        NumberPool pool = new NumberPool(Lotto.LOTTO_NUMBER_MIN, Lotto.LOTTO_NUMBER_MAX);
         return createLotto(pool);
     }
 }

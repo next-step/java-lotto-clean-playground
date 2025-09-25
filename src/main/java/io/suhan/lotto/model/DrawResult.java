@@ -1,5 +1,7 @@
 package io.suhan.lotto.model;
 
+import io.suhan.lotto.model.lotto.Lotto;
+
 public class DrawResult {
     private final Lotto lotto;
     private final int matchedCount;

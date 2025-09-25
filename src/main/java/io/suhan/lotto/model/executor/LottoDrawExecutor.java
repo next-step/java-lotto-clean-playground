@@ -1,9 +1,9 @@
 package io.suhan.lotto.model.executor;
 
 import io.suhan.lotto.model.DrawResult;
-import io.suhan.lotto.model.Lotto;
-import io.suhan.lotto.model.LottoNumber;
-import io.suhan.lotto.model.LottoRegistry;
+import io.suhan.lotto.model.lotto.Lotto;
+import io.suhan.lotto.model.lotto.LottoNumber;
+import io.suhan.lotto.model.lotto.LottoRegistry;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

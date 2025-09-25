@@ -1,4 +1,4 @@
-package io.suhan.lotto.model;
+package io.suhan.lotto.model.lotto;
 
 import java.util.ArrayList;
 import java.util.List;

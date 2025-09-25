@@ -1,5 +1,6 @@
 package io.suhan.lotto.model;
 
+import io.suhan.lotto.model.lotto.Lotto;
 import java.util.ArrayList;
 import java.util.List;
 
