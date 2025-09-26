@@ -24,7 +24,7 @@ public class LottoDrawExecutor implements LottoExecutor {
     public void execute() {
         for (Lotto lotto : registry.getLottos()) {
             int matchedCount = calculateMatchedCount(lotto, winningLotto);
-            results.add(new DrawResult(lotto, matchedCount));
+            results.add(DrawResult.of(matchedCount));
         }
     }
 
