@@ -19,12 +19,12 @@ public class Lotto {
         this.numbers = new HashSet<>(numbers);
     }
 
-    public Set<LottoNumber> getNumbers() {
-        return numbers;
-    }
-
     @Override
     public String toString() {
         return numbers.stream().sorted(Comparator.comparingInt(LottoNumber::getValue)).toList().toString();
+    }
+
+    public Set<LottoNumber> getNumbers() {
+        return numbers;
     }
 }

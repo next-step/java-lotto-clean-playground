@@ -5,6 +5,7 @@ import io.suhan.lotto.model.lotto.LottoRegistry;
 
 public class LottoPurchaseExecutor implements LottoExecutor {
     public static final int PRICE_PER_LOTTO = 1000;
+
     private final LottoRegistry registry;
     private final int balance;
 

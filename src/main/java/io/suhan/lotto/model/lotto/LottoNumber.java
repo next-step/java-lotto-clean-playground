@@ -11,10 +11,6 @@ public class LottoNumber {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,5 +26,9 @@ public class LottoNumber {
     @Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+    public int getValue() {
+        return value;
     }
 }

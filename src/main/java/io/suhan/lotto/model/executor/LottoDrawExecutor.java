@@ -28,14 +28,14 @@ public class LottoDrawExecutor implements LottoExecutor {
         }
     }
 
-    public List<DrawResult> getResults() {
-        return results;
-    }
-
     private int calculateMatchedCount(Lotto lotto, Lotto winningLotto) {
         Set<LottoNumber> numbers = new HashSet<>(lotto.getNumbers());
         numbers.retainAll(winningLotto.getNumbers());
 
         return numbers.size();
+    }
+
+    public List<DrawResult> getResults() {
+        return results;
     }
 }
