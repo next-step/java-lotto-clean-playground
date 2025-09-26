@@ -7,6 +7,7 @@ import io.suhan.lotto.model.lotto.Lotto;
 import io.suhan.lotto.model.lotto.LottoFactory;
 import io.suhan.lotto.model.lotto.LottoRegistry;
 import java.util.List;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,10 @@ public class LottoDrawExecutorTest {
         executor.execute();
 
         List<DrawResult> results = executor.getResults();
-        assertThat(results).hasSize(1);
-        assertThat(results.get(0).getMatchedCount()).isEqualTo(Lotto.LOTTO_SIZE);
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(results).hasSize(0);
+        softAssertions.assertThat(results.get(0).getMatchedCount()).isEqualTo(Lotto.LOTTO_SIZE);
+        softAssertions.assertAll();
     }
 }
