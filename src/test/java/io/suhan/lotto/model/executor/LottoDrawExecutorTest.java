@@ -28,7 +28,7 @@ public class LottoDrawExecutorTest {
         List<DrawResult> results = executor.getResults();
 
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(results).hasSize(0);
+        softAssertions.assertThat(results).hasSize(1);
         softAssertions.assertThat(results.get(0).getMatchedCount()).isEqualTo(Lotto.LOTTO_SIZE);
         softAssertions.assertAll();
     }
