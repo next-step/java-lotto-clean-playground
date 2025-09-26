@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class LottoFactory {
     public static Lotto createLotto() {
-        NumberPool pool = new NumberPool(Lotto.LOTTO_NUMBER_MIN, Lotto.LOTTO_NUMBER_MAX);
+        NumberPool pool = NumberPool.of(Lotto.LOTTO_NUMBER_MIN, Lotto.LOTTO_NUMBER_MAX);
         return createLotto(pool);
     }
 
