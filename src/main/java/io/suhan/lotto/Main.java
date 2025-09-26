@@ -21,7 +21,7 @@ public class Main {
             LottoPurchaseExecutor purchaseExecutor = new LottoPurchaseExecutor(registry, balance);
             purchaseExecutor.execute();
 
-            OutputView.printPurchaseResult(registry.getLottoList());
+            OutputView.printPurchaseResult(registry.getLottos());
 
             Set<LottoNumber> wonNumbers = InputView.getWonNumbers()
                     .stream()

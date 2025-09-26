@@ -14,9 +14,9 @@ public class OutputView {
             6, 2000000000
     );
 
-    public static void printPurchaseResult(List<Lotto> lottoList) {
-        System.out.println("\n" + lottoList.size() + "개를 구매했습니다.");
-        printLottoList(lottoList);
+    public static void printPurchaseResult(List<Lotto> lottos) {
+        System.out.println("\n" + lottos.size() + "개를 구매했습니다.");
+        printLottos(lottos);
     }
 
     public static void printDrawResult(List<DrawResult> results, int totalSpent) {
@@ -41,8 +41,8 @@ public class OutputView {
         System.out.printf("총 수익률은 %.2f입니다.", revenue);
     }
 
-    private static void printLottoList(List<Lotto> lottoList) {
-        lottoList.forEach(OutputView::printLotto);
+    private static void printLottos(List<Lotto> lottos) {
+        lottos.forEach(OutputView::printLotto);
     }
 
     private static void printLotto(Lotto lotto) {

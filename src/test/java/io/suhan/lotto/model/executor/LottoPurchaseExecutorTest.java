@@ -20,6 +20,6 @@ public class LottoPurchaseExecutorTest {
         executor.execute();
 
         int expectedSize = balance / PRICE_PER_LOTTO;
-        assertThat(registry.getLottoList()).hasSize(expectedSize);
+        assertThat(registry.getLottos()).hasSize(expectedSize);
     }
 }

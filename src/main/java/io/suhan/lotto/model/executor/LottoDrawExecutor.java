@@ -22,7 +22,7 @@ public class LottoDrawExecutor implements LottoExecutor {
 
     @Override
     public void execute() {
-        for (Lotto lotto : registry.getLottoList()) {
+        for (Lotto lotto : registry.getLottos()) {
             int matchedCount = calculateMatchedCount(lotto, winningLotto);
             results.add(new DrawResult(lotto, matchedCount));
         }
