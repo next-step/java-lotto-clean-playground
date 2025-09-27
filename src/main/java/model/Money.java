@@ -5,18 +5,18 @@ public class Money {
     private int purchaseAmount;
 
     public Money(int purchaseAmount) {
-        validate(purchaseAmount);
-        validate2(purchaseAmount);
+        validateMinimumAmount(purchaseAmount);
+        validateAmountUnit(purchaseAmount);
         this.purchaseAmount = purchaseAmount;
     }
 
-    private void validate(int purchaseAmount) {
+    private void validateMinimumAmount(int purchaseAmount) {
         if (purchaseAmount < LOTTO_PRICE) {
             throw new IllegalArgumentException(LOTTO_PRICE + "원 이상 구매 가능합니다.");
         }
     }
 
-    private void validate2(int purchaseAmount) {
+    private void validateAmountUnit(int purchaseAmount) {
         if (purchaseAmount % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("구매는" + LOTTO_PRICE + "원 단위로 가능합니다");
         }
