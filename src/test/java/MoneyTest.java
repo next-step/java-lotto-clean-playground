@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("model.domain.Money 클래스 테스트")
+@DisplayName("model.Money 클래스 테스트")
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class MoneyTest {
@@ -20,7 +20,7 @@ public class MoneyTest {
 
     @Test
     void getCountOfLottos_호출_시_구매_가능한_로또_개수를_반환한다() {
-        Money money = new Money(Money.LOTTO_PRICE*5);
+        Money money = new Money(Money.LOTTO_PRICE * 5);
 
         int count = money.getCountOfLottos();
 

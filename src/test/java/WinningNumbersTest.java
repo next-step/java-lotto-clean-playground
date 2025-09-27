@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("model.domain.WinningNumbers 클래스 테스트")
+@DisplayName("model.WinningNumbers 클래스 테스트")
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class WinningNumbersTest {
