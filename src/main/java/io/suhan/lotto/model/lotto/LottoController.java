@@ -1,7 +1,7 @@
 package io.suhan.lotto.model.lotto;
 
-import io.suhan.lotto.model.executor.LottoDrawExecutor;
-import io.suhan.lotto.model.executor.LottoPurchaseExecutor;
+import io.suhan.lotto.model.executor.DrawExecutor;
+import io.suhan.lotto.model.executor.PurchaseExecutor;
 import io.suhan.lotto.view.InputView;
 import io.suhan.lotto.view.OutputView;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class LottoController {
     }
 
     public void executePurchase(int balance) {
-        LottoPurchaseExecutor purchaseExecutor = new LottoPurchaseExecutor(registry, balance);
+        PurchaseExecutor purchaseExecutor = new PurchaseExecutor(registry, balance);
         purchaseExecutor.execute();
 
         OutputView.printPurchaseResult(registry.getLottos());
@@ -24,7 +24,7 @@ public class LottoController {
     public void executeDraw(int balance) {
         Lotto winningLotto = createWinningLotto();
 
-        LottoDrawExecutor drawExecutor = new LottoDrawExecutor(registry, winningLotto);
+        DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto);
         drawExecutor.execute();
 
         LottoStatistics statistics = new LottoStatistics(drawExecutor.getResults());

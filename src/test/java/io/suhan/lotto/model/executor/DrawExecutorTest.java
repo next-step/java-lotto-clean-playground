@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(ReplaceUnderscores.class)
-public class LottoDrawExecutorTest {
+public class DrawExecutorTest {
     @Test
     void 당첨번호와_로또를_비교할_수_있다() {
         LottoRegistry registry = new LottoRegistry();
@@ -22,7 +22,7 @@ public class LottoDrawExecutorTest {
         Lotto winningLotto = LottoFactory.createLotto();
         registry.add(winningLotto);
 
-        LottoDrawExecutor executor = new LottoDrawExecutor(registry, winningLotto);
+        DrawExecutor executor = new DrawExecutor(registry, winningLotto);
         executor.execute();
 
         List<DrawResult> results = executor.getResults();

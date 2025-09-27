@@ -9,12 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class LottoDrawExecutor implements LottoExecutor {
+public class DrawExecutor implements Executor {
     private final LottoRegistry registry;
     private final Lotto winningLotto;
     private final List<DrawResult> results;
 
-    public LottoDrawExecutor(LottoRegistry registry, Lotto winningLotto) {
+    public DrawExecutor(LottoRegistry registry, Lotto winningLotto) {
         this.registry = registry;
         this.winningLotto = winningLotto;
         this.results = new ArrayList<>();

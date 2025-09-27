@@ -3,13 +3,13 @@ package io.suhan.lotto.model.executor;
 import io.suhan.lotto.model.lotto.LottoFactory;
 import io.suhan.lotto.model.lotto.LottoRegistry;
 
-public class LottoPurchaseExecutor implements LottoExecutor {
+public class PurchaseExecutor implements Executor {
     public static final int PRICE_PER_LOTTO = 1000;
 
     private final LottoRegistry registry;
     private final int balance;
 
-    public LottoPurchaseExecutor(LottoRegistry registry, int balance) {
+    public PurchaseExecutor(LottoRegistry registry, int balance) {
         this.registry = registry;
         this.balance = balance;
     }
