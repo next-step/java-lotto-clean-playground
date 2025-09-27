@@ -1,18 +1,11 @@
 package io.suhan.lotto;
 
-import io.suhan.lotto.model.lotto.LottoController;
-import io.suhan.lotto.view.InputView;
+import io.suhan.lotto.model.executor.LottoExecutor;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            LottoController controller = new LottoController();
-            int balance = InputView.getBalance();
+        LottoExecutor executor = new LottoExecutor();
 
-            controller.executePurchase(balance);
-            controller.executeDraw(balance);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        executor.execute();
     }
 }

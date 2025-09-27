@@ -1,27 +1,41 @@
-package io.suhan.lotto.model.lotto;
+package io.suhan.lotto.model.executor;
 
-import io.suhan.lotto.model.executor.DrawExecutor;
-import io.suhan.lotto.model.executor.PurchaseExecutor;
+import io.suhan.lotto.model.lotto.Lotto;
+import io.suhan.lotto.model.lotto.LottoNumber;
+import io.suhan.lotto.model.lotto.LottoRegistry;
+import io.suhan.lotto.model.lotto.LottoStatistics;
 import io.suhan.lotto.view.InputView;
 import io.suhan.lotto.view.OutputView;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LottoController {
+public class LottoExecutor implements Executor {
     private final LottoRegistry registry;
 
-    public LottoController() {
+    public LottoExecutor() {
         this.registry = new LottoRegistry();
     }
 
-    public void executePurchase(int balance) {
+    @Override
+    public void execute() {
+        try {
+            int balance = InputView.getBalance();
+
+            executePurchase(balance);
+            executeDraw(balance);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void executePurchase(int balance) {
         PurchaseExecutor purchaseExecutor = new PurchaseExecutor(registry, balance);
         purchaseExecutor.execute();
 
         OutputView.printPurchaseResult(registry.getLottos());
     }
 
-    public void executeDraw(int balance) {
+    private void executeDraw(int balance) {
         Lotto winningLotto = createWinningLotto();
 
         DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto);
