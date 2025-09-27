@@ -1,10 +1,12 @@
 package io.suhan.lotto.model.lotto;
 
 import io.suhan.lotto.model.NumberPool;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LottoFactory {
     public static Lotto createLotto() {
@@ -13,13 +15,13 @@ public class LottoFactory {
     }
 
     private static Lotto createLotto(NumberPool pool) {
-        Set<LottoNumber> numbers = new HashSet<>();
-        List<Integer> poolNumbers = pool.getNumbers();
+        List<Integer> poolNumbers = new ArrayList<>(pool.getNumbers()); // copy
+        Collections.shuffle(poolNumbers);
 
-        while (numbers.size() < Lotto.LOTTO_SIZE) {
-            Collections.shuffle(poolNumbers);
-            numbers.add(new LottoNumber(poolNumbers.get(0)));
-        }
+        Set<LottoNumber> numbers = poolNumbers.subList(0, Lotto.LOTTO_SIZE)
+                .stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toSet());
 
         return new Lotto(numbers);
     }
