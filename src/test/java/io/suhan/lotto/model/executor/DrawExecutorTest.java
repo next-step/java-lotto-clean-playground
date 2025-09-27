@@ -1,7 +1,5 @@
 package io.suhan.lotto.model.executor;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-
 import io.suhan.lotto.model.DrawResult;
 import io.suhan.lotto.model.lotto.Lotto;
 import io.suhan.lotto.model.lotto.LottoFactory;
