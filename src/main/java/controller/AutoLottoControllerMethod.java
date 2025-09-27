@@ -12,7 +12,7 @@ import util.RandomLottoNumberGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RaceLottoMethod {
+public class AutoLottoControllerMethod {
     private final InputView inputView = new InputView();
     private final OutputView outView = new OutputView();
 

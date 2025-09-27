@@ -5,8 +5,8 @@ import inputView.Price;
 import model.LottoNumbers;
 import model.LottoNumbersRepository;
 
-public class RaceLotto {
-    private final RaceLottoMethod race = new RaceLottoMethod();
+public class AutoLottoController {
+    private final AutoLottoControllerMethod race = new AutoLottoControllerMethod();
     private final OutputView outView = new OutputView();
 
     public void race() {
