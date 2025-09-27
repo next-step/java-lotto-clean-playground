@@ -1,5 +1,6 @@
 package view;
 
+import domain.LottoPrice;
 import domain.MatchCount;
 
 public class ResultView {
@@ -9,15 +10,11 @@ public class ResultView {
         System.out.println(ticketNumber+"개를 구매했습니다.");
     }
 
-    public void printLottoNumbers(String lottoNumbers) {
-        System.out.println("로또 번호: " + lottoNumbers);
-    }
-
     public void printLottoMatch(MatchCount matchCount) {
-        int match3Count = matchCount.getMatch3Count();
-        int match4Count = matchCount.getMatch4Count();
-        int match5Count = matchCount.getMatch5Count();
-        int match6Count = matchCount.getMatch6Count();
+        int match3Count = matchCount.getCount(LottoPrice.MATCH_3);
+        int match4Count = matchCount.getCount(LottoPrice.MATCH_4);
+        int match5Count = matchCount.getCount(LottoPrice.MATCH_5);
+        int match6Count = matchCount.getCount(LottoPrice.MATCH_6);
 
         System.out.println("3개 일치 (5000원) - " + match3Count + "개");
         System.out.println("4개 일치 (50000원) - " + match4Count + "개");

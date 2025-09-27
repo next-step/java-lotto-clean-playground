@@ -5,7 +5,7 @@ public class Match {
     public static int getMatchCount(Lotto lotto, Lotto lottoAnswer) {
         int matchCount = 0;
 
-        for (int number : lotto.getNumbers()) {
+        for (LottoNumber number : lotto.getNumbers()) {
             if (lottoAnswer.getNumbers().contains(number)) {
                 matchCount++;
             }

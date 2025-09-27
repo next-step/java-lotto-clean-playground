@@ -1,4 +1,5 @@
 package controller;
+
 import domain.*;
 import view.*;
 
@@ -11,27 +12,36 @@ public class LottoController {
     InputView inputView = new InputView();
     ResultView resultView = new ResultView();
 
-    public void run() {
+    public void run(){
         outputView.printWonMessage();
         Money money = new Money(inputView.inputMoney());
-        LottoTicketCount ticketNumber = MoneyToTicket.MoneyToTicket(money);
+
+        LottoTickets lottoTickets = buyLotto(money);
+        checkLotto(lottoTickets,money);
+    }
+
+
+    public LottoTickets buyLotto(Money money) {
+
+        LottoTicketCount ticketNumber = Money.getTicketCount(money);
         resultView.printTicketNumbers(ticketNumber.getCount());
+
+        outputView.lottoResult();
 
         LottoTickets lottoTickets = new LottoTickets(ticketNumber);
         for (Lotto lotto : lottoTickets.getTickets()) {
             System.out.println(lotto);
         }
+        return lottoTickets;
+    }
 
+    public void checkLotto(LottoTickets lottoTickets, Money money) {
         outputView.printLottoAnswer();
+
+        LottoService lottoService = new LottoService();
         String lottoAnswer = inputView.inputLottoAnswer();
-
-        List<Integer> lottoAnswerList = Arrays.stream(lottoAnswer.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-
-        Lotto lottoAnswerobj = new Lotto(lottoAnswerList);
-        MatchCount matchCount = MatchCount.countAllMatches(lottoTickets.getTickets(), lottoAnswerobj);
+        Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
+        MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj);
 
         int totalSum = LottoProfit.LottoSum(matchCount);
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(totalSum));

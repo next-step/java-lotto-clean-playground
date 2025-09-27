@@ -1,5 +1,3 @@
-package domain;
-
 import controller.LottoController;
 
 public class Main {

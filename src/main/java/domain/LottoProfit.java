@@ -1,16 +1,15 @@
 package domain;
 
-import java.util.List;
-
 public class LottoProfit {
 
     public static int LottoSum(MatchCount matchCount) {
-        int match3Count = matchCount.getMatch3Count();
-        int match4Count = matchCount.getMatch4Count();
-        int match5Count = matchCount.getMatch5Count();
-        int match6Count = matchCount.getMatch6Count();
+        int match3Count = matchCount.getCount(LottoPrice.MATCH_3);
+        int match4Count = matchCount.getCount(LottoPrice.MATCH_4);
+        int match5Count = matchCount.getCount(LottoPrice.MATCH_5);
+        int match6Count = matchCount.getCount(LottoPrice.MATCH_6);
 
-        int lottoSum=(match3Count * 5000) + (match4Count * 50000) + (match5Count * 1500000) + (match6Count * 2000000000);
+        int lottoSum = (match3Count * LottoPrice.MATCH_3.getPrice()) + (match4Count * LottoPrice.MATCH_4.getPrice())
+                + (match5Count * LottoPrice.MATCH_5.getPrice()) + (match6Count * LottoPrice.MATCH_6.getPrice());
         return lottoSum;
     }
 

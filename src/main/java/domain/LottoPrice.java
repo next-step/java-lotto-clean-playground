@@ -6,13 +6,13 @@ public enum LottoPrice {
     MATCH_5(1500000),
     MATCH_6(2000000000);
 
-    private final int priceAmount;
+    private final int price;
 
-    LottoPrice(int priceAmount) {
-        this.priceAmount = priceAmount;
+    LottoPrice(int price) {
+        this.price = price;
     }
 
-    public int getPrizeAmount() {
-        return priceAmount;
+    public int getPrice() {
+        return price;
     }
 }

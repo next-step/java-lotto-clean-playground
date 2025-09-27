@@ -10,10 +10,10 @@ public class LottoTotalPrice {
     private long calculateTotalSum(MatchCount matchCount) {
         long sum = 0;
 
-        sum += (long) matchCount.getMatch3Count() * LottoPrice.MATCH_3.getPrizeAmount();
-        sum += (long) matchCount.getMatch4Count() * LottoPrice.MATCH_4.getPrizeAmount();
-        sum += (long) matchCount.getMatch5Count() * LottoPrice.MATCH_5.getPrizeAmount();
-        sum += (long) matchCount.getMatch6Count() * LottoPrice.MATCH_6.getPrizeAmount();
+        sum += (long) matchCount.getCount(LottoPrice.MATCH_3) * LottoPrice.MATCH_3.getPrice();
+        sum += (long) matchCount.getCount(LottoPrice.MATCH_4) * LottoPrice.MATCH_4.getPrice();
+        sum += (long) matchCount.getCount(LottoPrice.MATCH_5) * LottoPrice.MATCH_5.getPrice();
+        sum += (long) matchCount.getCount(LottoPrice.MATCH_6) * LottoPrice.MATCH_6.getPrice();
 
         return sum;
     }

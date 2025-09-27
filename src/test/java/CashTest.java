@@ -10,7 +10,7 @@ public class CashTest {
 
     void testCashToTicket(){
         Money money = new Money(5000);
-        LottoTicketCount ticketNumber = MoneyToTicket.MoneyToTicket(money);
+        LottoTicketCount ticketNumber Money.getTicketCount(money);
        assertEquals(5,ticketNumber.getCount());
     }
 
