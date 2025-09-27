@@ -1,11 +1,11 @@
 package io.suhan.lotto;
 
-import io.suhan.lotto.model.executor.LottoExecutor;
+import io.suhan.lotto.model.lotto.LottoController;
 
 public class Main {
     public static void main(String[] args) {
-        LottoExecutor executor = new LottoExecutor();
+        LottoController controller = new LottoController();
 
-        executor.execute();
+        controller.run();
     }
 }

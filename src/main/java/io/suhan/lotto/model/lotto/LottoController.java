@@ -1,23 +1,20 @@
-package io.suhan.lotto.model.executor;
+package io.suhan.lotto.model.lotto;
 
-import io.suhan.lotto.model.lotto.Lotto;
-import io.suhan.lotto.model.lotto.LottoNumber;
-import io.suhan.lotto.model.lotto.LottoRegistry;
-import io.suhan.lotto.model.lotto.LottoStatistics;
+import io.suhan.lotto.model.executor.DrawExecutor;
+import io.suhan.lotto.model.executor.PurchaseExecutor;
 import io.suhan.lotto.view.InputView;
 import io.suhan.lotto.view.OutputView;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LottoExecutor implements Executor {
+public class LottoController {
     private final LottoRegistry registry;
 
-    public LottoExecutor() {
+    public LottoController() {
         this.registry = new LottoRegistry();
     }
 
-    @Override
-    public void execute() {
+    public void run() {
         try {
             int balance = InputView.getBalance();
 
