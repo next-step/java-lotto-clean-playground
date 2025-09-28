@@ -62,31 +62,25 @@ public class AutoLottoControllerMethod {
         return new LottoNumbers(numbers);
     }
 
-    public void createLotteryStatistics(List<LottoNumbers> lottos, List<LottoNumber> lastLotto, int price) {
-        int[] matchCount = {0, 0, 0, 0, 0, 0};
-        for (LottoNumbers lotto : lottos) {
-            matchCount[matchLottoNumber(lotto.getNumbers(), lastLotto)]++;
+    public int[] countMatchResults(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto) {
+        int[] matchCounts = {0, 0, 0, 0, 0, 0, 0};
+        for (LottoNumbers oneLotto : allLotteries) {
+            matchCounts[matchLottoNumber(oneLotto.getNumbers(), lastLotto)]++;
         }
-        String three = String.valueOf(matchCount[2]);
-        String four = String.valueOf(matchCount[3]);
-        String five = String.valueOf(matchCount[4]);
-        String six = String.valueOf(matchCount[5]);
-        double prizeMoney = (matchCount[2] * 5000 + matchCount[3] * 50000
-                + matchCount[4] * 150000 + matchCount[5] * 2000000000) / (double) price;
-        String formatted = String.format("%.2f", prizeMoney);
-        outView.printLotteryStatistics(three, four, five, six, formatted);
+        return matchCounts.clone();
+
     }
 
-    private int matchLottoNumber(List<LottoNumber> lotto, List<LottoNumber> lastLotto) {
+    private int matchLottoNumber(List<LottoNumber> oneLotto, List<LottoNumber> lastLotto) {
         List<Integer> lastNumbers = lastLotto.stream()
                 .map(LottoNumber::getNumber)
                 .toList();
-        int count = 0;
-        for (LottoNumber number : lotto) {
+        int matchCount = 0;
+        for (LottoNumber number : oneLotto) {
             if (lastNumbers.contains(number.getNumber())) {
-                count++;
+                matchCount++;
             }
         }
-        return count;
+        return matchCount; //일치하는 번호 개수
     }
 }
