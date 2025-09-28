@@ -68,7 +68,6 @@ public class AutoLottoControllerMethod {
             matchCounts[matchLottoNumber(oneLotto.getNumbers(), lastLotto)]++;
         }
         return matchCounts.clone();
-
     }
 
     private int matchLottoNumber(List<LottoNumber> oneLotto, List<LottoNumber> lastLotto) {
@@ -81,6 +80,12 @@ public class AutoLottoControllerMethod {
                 matchCount++;
             }
         }
-        return matchCount; //일치하는 번호 개수
+        return matchCount;
+    }
+
+    public String calculateProfitRrate(int[] matchCounts, int money) {
+        double profitRate = (matchCounts[3] * 5000 + matchCounts[4] * 50000
+                + matchCounts[5] * 150000 + matchCounts[6] * 2000000000) / (double) money;
+        return String.format("%.2f", profitRate);
     }
 }
