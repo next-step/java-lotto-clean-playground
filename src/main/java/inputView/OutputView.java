@@ -35,13 +35,13 @@ public class OutputView {
         }
     }
 
-    public void printLotteryStatistics(String three, String four, String five, String six, String amount) {
+    public void printLotteryStatistics(int[] matchCounts, String profitRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- " + three + "개");
-        System.out.println("4개 일치 (50000원)- " + four + "개");
-        System.out.println("5개 일치 (150000원)- " + five + "개");
-        System.out.println("6개 일치 (2000000000원)- " + six + "개");
-        System.out.println("총 수익률은 " + amount + "입니다.");
+        System.out.println("3개 일치 (5000원)- " + matchCounts[3] + "개");
+        System.out.println("4개 일치 (50000원)- " + matchCounts[4] + "개");
+        System.out.println("5개 일치 (150000원)- " + matchCounts[5] + "개");
+        System.out.println("6개 일치 (2000000000원)- " + matchCounts[6] + "개");
+        System.out.println("총 수익률은 " + profitRate + "입니다.");
     }
 }
