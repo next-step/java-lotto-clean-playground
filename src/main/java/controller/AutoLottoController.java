@@ -2,8 +2,11 @@ package controller;
 
 import inputView.OutputView;
 import inputView.Price;
+import model.LottoNumber;
 import model.LottoNumbers;
 import model.LottoNumbersRepository;
+
+import java.util.List;
 
 public class AutoLottoController {
     private final AutoLottoControllerMethod race = new AutoLottoControllerMethod();
@@ -26,6 +29,12 @@ public class AutoLottoController {
         System.out.println();
 
         // // 4. 통계 출력
-        race.createLotteryStatistics(repository.readLottoNumbersRepository(), lastLotto.getNumbers(), price.getValue());
+        showLotteryStatistics(repository.readLottoNumbersRepository(), lastLotto.getNumbers(), price.getValue());
+    }
+
+    public void showLotteryStatistics(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto, int money) {
+        int[] matchCounts = race.countMatchResults(allLotteries, lastLotto);
+        String profitRate = race.calculateProfitRrate(matchCounts, money);
+        outView.printLotteryStatistics(matchCounts, profitRate);
     }
 }
