@@ -9,11 +9,11 @@ public class LottoNumbers {
     private final List<LottoNumber> numbers;
 
     public LottoNumbers(List<LottoNumber> numbers) {
-        checkSize(numbers);
+        validatesize(numbers);
         this.numbers = List.copyOf(numbers);
     }
 
-    private void checkSize(List<LottoNumber> numbers) {
+    private void validatesize(List<LottoNumber> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("로또 번호가 6개가 아닙니다");
         }

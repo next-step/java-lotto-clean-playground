@@ -4,11 +4,11 @@ public class LottoNumber {
     private final int number;
 
     public LottoNumber(int number) {
-        checkRange(number);
+        validateRange(number);
         this.number = number;
     }
 
-    private void checkRange(int number) {
+    private void validateRange(int number) {
         if (number < 1 || number > 45) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다");
         }
