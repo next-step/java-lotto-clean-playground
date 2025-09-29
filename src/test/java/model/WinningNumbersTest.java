@@ -1,5 +1,5 @@
-import model.LottoNumber;
-import model.WinningNumbers;
+package model;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -27,7 +27,7 @@ public class WinningNumbersTest {
     void WinningNumbers_생성_시_중복된_숫자가_있으면_예외가_발생한다() {
         List<LottoNumber> numbersWithDuplicates = Arrays.asList(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(5) // 5 중복
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(5)
         );
 
         assertThrows(IllegalArgumentException.class, () -> new WinningNumbers(numbersWithDuplicates));
