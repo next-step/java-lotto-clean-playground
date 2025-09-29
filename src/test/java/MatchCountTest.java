@@ -3,6 +3,7 @@ import domain.Lotto;
 import domain.LottoPrice;
 import domain.LottoNumber;
 import domain.Match;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import java.util.Arrays;
@@ -15,7 +16,8 @@ class MatchCountTest {
             "1,2,3,4,5,7,1,2,3,4,5,6,MATCH_5",
             "1,2,3,4,8,9,1,2,3,4,5,6,MATCH_4"
     })
-    void 당첨_통계_테스트(int n1, int n2, int n3, int n4, int n5, int n6,
+    @DisplayName("당첨 통계 테스트")
+    void Match(int n1, int n2, int n3, int n4, int n5, int n6,
                    int w1, int w2, int w3, int w4, int w5, int w6,
                    LottoPrice expectedRank) {
         Lotto lotto = new Lotto(Arrays.asList(
