@@ -1,10 +1,14 @@
 package io.suhan.lotto.model.executor;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+
 import io.suhan.lotto.model.DrawResult;
 import io.suhan.lotto.model.lotto.Lotto;
 import io.suhan.lotto.model.lotto.LottoFactory;
+import io.suhan.lotto.model.lotto.LottoNumber;
 import io.suhan.lotto.model.lotto.LottoRegistry;
 import java.util.List;
+import java.util.Set;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
@@ -20,7 +24,7 @@ public class DrawExecutorTest {
         Lotto winningLotto = LottoFactory.createLotto();
         registry.add(winningLotto);
 
-        DrawExecutor executor = new DrawExecutor(registry, winningLotto);
+        DrawExecutor executor = new DrawExecutor(registry, winningLotto, new LottoNumber(1));
         executor.execute();
 
         List<DrawResult> results = executor.getResults();
@@ -29,5 +33,25 @@ public class DrawExecutorTest {
             softly.assertThat(results).hasSize(1);
             softly.assertThat(results.get(0).getMatchedCount()).isEqualTo(Lotto.LOTTO_SIZE);
         });
+    }
+
+    @Test
+    void 보너스_번호는_당첨번호와_중복될_수_없다() {
+        LottoRegistry registry = new LottoRegistry();
+
+        Lotto lotto = LottoFactory.createLotto();
+        registry.add(lotto);
+
+        Lotto winningLotto = new Lotto(Set.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6))
+        );
+
+        LottoNumber bonusNumber = new LottoNumber(6);
+
+        assertThatThrownBy(() -> {
+            DrawExecutor executor = new DrawExecutor(registry, winningLotto, bonusNumber);
+            executor.execute();
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 }

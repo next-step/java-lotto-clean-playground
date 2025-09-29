@@ -12,19 +12,26 @@ import java.util.Set;
 public class DrawExecutor implements Executor {
     private final LottoRegistry registry;
     private final Lotto winningLotto;
+    private final LottoNumber bonusNumber;
     private final List<DrawResult> results;
 
-    public DrawExecutor(LottoRegistry registry, Lotto winningLotto) {
+    public DrawExecutor(LottoRegistry registry, Lotto winningLotto, LottoNumber bonusNumber) {
         this.registry = registry;
         this.winningLotto = winningLotto;
+        this.bonusNumber = bonusNumber;
         this.results = new ArrayList<>();
     }
 
     @Override
     public void execute() {
+        if (winningLotto.getNumbers().contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
+
         for (Lotto lotto : registry.getLottos()) {
             int matchedCount = calculateMatchedCount(lotto, winningLotto);
-            results.add(DrawResult.of(matchedCount));
+            boolean bonusMatched = isBonusMatched(matchedCount, lotto);
+            results.add(DrawResult.of(matchedCount, bonusMatched));
         }
     }
 
@@ -33,6 +40,14 @@ public class DrawExecutor implements Executor {
         numbers.retainAll(winningLotto.getNumbers());
 
         return numbers.size();
+    }
+
+    private boolean isBonusMatched(int matchedCount, Lotto lotto) {
+        if (matchedCount != Lotto.LOTTO_SIZE - 1) {
+            return false;
+        }
+
+        return lotto.getNumbers().contains(bonusNumber);
     }
 
     public List<DrawResult> getResults() {

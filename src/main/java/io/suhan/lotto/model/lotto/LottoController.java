@@ -35,7 +35,9 @@ public class LottoController {
     private void executeDraw(int balance) {
         Lotto winningLotto = createWinningLotto();
 
-        DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto);
+        LottoNumber bonusNumber = new LottoNumber(InputView.getBonusNumber());
+
+        DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto, bonusNumber);
         drawExecutor.execute();
 
         LottoStatistics statistics = new LottoStatistics(drawExecutor.getResults());

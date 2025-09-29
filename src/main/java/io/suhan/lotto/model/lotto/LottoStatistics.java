@@ -1,23 +1,17 @@
 package io.suhan.lotto.model.lotto;
 
 import io.suhan.lotto.model.DrawResult;
+import io.suhan.lotto.model.Rank;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LottoStatistics {
-    private static final Map<Integer, Integer> winningsMap = Map.of(
-            3, 5000,
-            4, 50000,
-            5, 1500000,
-            6, 2000000000
-    );
-
-    private final Map<Integer, Long> countMap;
+    private final Map<Rank, Long> countMap;
     private final long totalWinnings;
 
     public LottoStatistics(List<DrawResult> results) {
-        this.countMap = calculateMatchedCounts(results);
+        this.countMap = calculateRankCounts(results);
         this.totalWinnings = calculateTotalWinnings();
     }
 
@@ -25,12 +19,12 @@ public class LottoStatistics {
         return (double) totalWinnings / totalSpent;
     }
 
-    private Map<Integer, Long> calculateMatchedCounts(List<DrawResult> results) {
-        Map<Integer, Long> map = new HashMap<>();
+    private Map<Rank, Long> calculateRankCounts(List<DrawResult> results) {
+        Map<Rank, Long> map = new HashMap<>();
 
         for (DrawResult result : results) {
-            int matchedCount = result.getMatchedCount();
-            map.put(matchedCount, map.getOrDefault(matchedCount, 0L) + 1);
+            Rank rank = result.getRank();
+            map.put(rank, map.getOrDefault(rank, 0L) + 1);
         }
 
         return map;
@@ -39,21 +33,14 @@ public class LottoStatistics {
     private long calculateTotalWinnings() {
         long sum = 0;
 
-        for (Map.Entry<Integer, Long> entry : countMap.entrySet()) {
-            int matchedCount = entry.getKey();
-            long count = entry.getValue();
-
-            sum += winningsMap.getOrDefault(matchedCount, 0) * count;
+        for (Map.Entry<Rank, Long> entry : countMap.entrySet()) {
+            sum += entry.getKey().getPrize() * entry.getValue();
         }
 
         return sum;
     }
 
-    public Map<Integer, Integer> getWinningsMap() {
-        return winningsMap;
-    }
-
-    public Map<Integer, Long> getCountMap() {
+    public Map<Rank, Long> getCountMap() {
         return countMap;
     }
 }
