@@ -1,4 +1,3 @@
-// src/test/java/domain/MatchCountTest.java
 import domain.Lotto;
 import domain.LottoPrice;
 import domain.LottoNumber;
