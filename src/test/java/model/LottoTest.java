@@ -1,6 +1,5 @@
-import model.Lotto;
-import model.LottoNumber;
-import model.WinningNumbers;
+package model;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -39,7 +38,11 @@ public class LottoTest {
 
     @ParameterizedTest
     @MethodSource("provideLottoNumbersAndExpectedMatchCount")
-    void countMatches_호출_시_일치하는_번호의_개수를_정확히_반환한다(List<Integer> userNumbers, List<Integer> winningNumbers, int expectedCount) {
+    void countMatches_호출_시_일치하는_번호의_개수를_정확히_반환한다(
+            List<Integer> userNumbers,
+            List<Integer> winningNumbers,
+            int expectedCount
+    ) {
         Lotto userLotto = new Lotto(userNumbers);
         List<LottoNumber> winningLottoNumbers = winningNumbers.stream().map(LottoNumber::new).collect(Collectors.toList());
         WinningNumbers winningNumbersObject = new WinningNumbers(winningLottoNumbers);
