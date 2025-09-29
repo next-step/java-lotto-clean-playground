@@ -10,7 +10,7 @@ public class CashTest {
 
     void testCashToTicket(){
         Money money = new Money(5000);
-        LottoTicketCount ticketNumber Money.getTicketCount(money);
+        LottoTicketCount ticketNumber = Money.getTicketCount(money);
        assertEquals(5,ticketNumber.getCount());
     }
 
@@ -22,26 +22,25 @@ public class CashTest {
         } catch (IllegalArgumentException e) {
             assertEquals("금액은 0보다 커야 합니다.", e.getMessage());
         }
-
-        try {
-            Money money = new Money(5500);
-        } catch (IllegalArgumentException e) {
-            assertEquals("금액은 1000원 단위여야 합니다.", e.getMessage());
-        }
     }
 
     @Test
     @DisplayName("최종 당첨 금액 합계가 올바른지 확인")
     void totalSum(){
         MatchCount matchCount = new MatchCount();
-        matchCount.addMatch3Count(2);
-        matchCount.addMatch4Count(1);
-        matchCount.addMatch5Count(0);
-        matchCount.addMatch6Count(1);
+        matchCount.addCount(LottoPrice.MATCH_3, 2);
+        matchCount.addCount(LottoPrice.MATCH_4, 1);
+        matchCount.addCount(LottoPrice.MATCH_5, 0);
+        matchCount.addCount(LottoPrice.MATCH_6, 1);
 
+
+        int expectedSum = LottoPrice.MATCH_3.getPrice()*2+
+                LottoPrice.MATCH_4.getPrice()*1+
+                LottoPrice.MATCH_5.getPrice()*0+
+                LottoPrice.MATCH_6.getPrice()*1;
         int sum = LottoProfit.LottoSum(matchCount);
 
-        assertEquals(2000060000, sum);
+        assertEquals(expectedSum, sum);
     }
 
     @Test
@@ -50,6 +49,6 @@ public class CashTest {
         int totalSum = 48000000;
         int purchaseAmount = 24000;
         double profitRate = LottoProfit.LottoProfit(purchaseAmount, totalSum);
-        assertEquals(2000.0, profitRate);
+        assertEquals((double) totalSum /purchaseAmount, profitRate);
     }
 }
