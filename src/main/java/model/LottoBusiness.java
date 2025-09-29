@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBusiness {
-    private final InputView inputView = new InputView();
-    private final OutputView outView = new OutputView();
-
     public LottoNumbers createOneLotto() {
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoNumbers lottoNumbers = generator.generate();
-        return lottoNumbers;
+        LottoNumbers oneLotto = generator.generate();
+        return oneLotto;
     }
 
     public LottoNumbersRepository createLottos(int count) {
