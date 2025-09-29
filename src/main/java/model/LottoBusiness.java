@@ -10,12 +10,12 @@ import java.util.List;
 
 public class LottoBusiness {
     private final InputView inputView = new InputView();
-    private final OutputView outView = new OutputView(
+    private final OutputView outView = new OutputView();
 
-    private LottoNumbers createOneLotto() {
+    public LottoNumbers createOneLotto() {
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoNumbers lottonumbers = generator.generate();
-        return lottonumbers;
+        LottoNumbers lottoNumbers = generator.generate();
+        return lottoNumbers;
     }
 
     public LottoNumbersRepository createLottos(int count) {
