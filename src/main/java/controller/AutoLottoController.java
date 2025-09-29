@@ -1,7 +1,9 @@
 package controller;
 
+import inputView.InputView;
 import inputView.OutputView;
 import inputView.Price;
+import model.LottoBusiness;
 import model.LottoNumber;
 import model.LottoNumbers;
 import model.LottoNumbersRepository;
@@ -9,32 +11,56 @@ import model.LottoNumbersRepository;
 import java.util.List;
 
 public class AutoLottoController {
-    private final AutoLottoControllerMethod race = new AutoLottoControllerMethod();
+    private final LottoBusiness lottoBusiness = new LottoBusiness();
     private final OutputView outView = new OutputView();
+    private final InputView inputView = new InputView();
 
-    public void race() {
-        // 1. 구입 금액 입력
-        Price price = race.readPrice();
-        outView.printPriceValue(price.getValue());
+    private Price readPrice() {
+        outView.printInputPrice();
+        while (true) {
+            Price price = readPriceException();
+            if (price != null) {
+                return price;
+            }
+        }
+    }
+
+    private Price readPriceException() {
+        try {
+            return new Price(Integer.parseInt(inputView.inputPrice()));
+        } catch (NumberFormatException input) {
+            outView.printInvalidNumber();
+        } catch (IllegalArgumentException input) {
+            outView.printInvalidPrice();
+        }
+        return null;
+    }
+
+    public Price showPrice() {
+        Price money = readPrice();
+        outView.printPriceValue(money.getValue());
         System.out.println();
-        outView.printBuyCount(price.howManyLottos());
+        outView.printBuyCount(money.howManyLottos());
+        return money;
+    }
 
-        // 2. 로또 번호 생성
-        LottoNumbersRepository repository = race.createLottos(price.howManyLottos());
+    public LottoNumbersRepository showLottoNumbers(int ticketCount) {
+        LottoNumbersRepository repository = lottoBusiness.createLottos(ticketCount);
         outView.printLottos(repository.readLottoNumbersRepository());
         System.out.println();
+        return repository;
+    }
 
-        // 3. 당첨 번호 입력
-        LottoNumbers lastLotto = race.createLastLotto();
+    public LottoNumbers readLastLotto() {
+        outView.printInputLastLotto();
+        LottoNumbers lastLotto = lottoBusiness.createLastLotto(inputView.inputLastLotto());
         System.out.println();
-
-        // // 4. 통계 출력
-        showLotteryStatistics(repository.readLottoNumbersRepository(), lastLotto.getNumbers(), price.getValue());
+        return lastLotto;
     }
 
     public void showLotteryStatistics(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto, int money) {
-        int[] matchCounts = race.countMatchResults(allLotteries, lastLotto);
-        String profitRate = race.calculateProfitRrate(matchCounts, money);
+        int[] matchCounts = lottoBusiness.countMatchResults(allLotteries, lastLotto);
+        String profitRate = lottoBusiness.calculateProfitRrate(matchCounts, money);
         outView.printLotteryStatistics(matchCounts, profitRate);
     }
 }
