@@ -1,41 +1,16 @@
-package controller;
+package model;
 
 import inputView.InputView;
 import inputView.OutputView;
-import inputView.Price;
-import model.LottoNumber;
-import model.LottoNumbers;
-import model.LottoNumbersRepository;
 import util.LottoNumberGenerator;
 import util.RandomLottoNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoLottoControllerMethod {
+public class LottoBusiness {
     private final InputView inputView = new InputView();
-    private final OutputView outView = new OutputView();
-
-    public Price readPrice() {
-        outView.printInputPrice();
-        while (true) {
-            Price price = readPriceException();
-            if (price != null) {
-                return price;
-            }
-        }
-    }
-
-    private Price readPriceException() {
-        try {
-            return new Price(Integer.parseInt(inputView.inputPrice()));
-        } catch (NumberFormatException input) {
-            outView.printInvalidNumber();
-        } catch (IllegalArgumentException input) {
-            outView.printInvalidPrice();
-        }
-        return null;
-    }
+    private final OutputView outView = new OutputView(
 
     private LottoNumbers createOneLotto() {
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
@@ -51,10 +26,9 @@ public class AutoLottoControllerMethod {
         return repository;
     }
 
-    public LottoNumbers createLastLotto() {
-        outView.printInputLastLotto();
+    public LottoNumbers createLastLotto(String LastLotto) {
         List<LottoNumber> numbers = new ArrayList<>();
-        String[] lastNumbers = inputView.inputLastLotto().split(",");
+        String[] lastNumbers = LastLotto.split(",");
         for (int i = 0; i < lastNumbers.length; i++) {
             lastNumbers[i] = lastNumbers[i].trim();
             numbers.add(new LottoNumber(Integer.parseInt(lastNumbers[i])));
