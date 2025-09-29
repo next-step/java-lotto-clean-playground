@@ -1,11 +1,18 @@
 package controller;
 
-import domain.*;
-import view.*;
+import domain.Lotto;
+import domain.LottoService;
+import domain.LottoTicketCount;
+import domain.LottoTickets;
+import domain.Money;
+import domain.MatchCount;
+import domain.LottoTotalPrice;
+import domain.ProfitRate;
+import domain.LottoProfit;
+import view.InputView;
+import view.OutputView;
+import view.ResultView;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class LottoController {
     OutputView outputView = new OutputView();
