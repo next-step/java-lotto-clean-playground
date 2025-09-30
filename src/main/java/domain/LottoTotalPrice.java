@@ -1,22 +1,18 @@
 package domain;
 
+import java.util.Arrays;
+
 public class LottoTotalPrice {
     private final long totalSum;
 
-    public LottoTotalPrice(int totalSum) {
-        this.totalSum = totalSum;
+    public LottoTotalPrice(MatchCount matchCount) {
+        this.totalSum = calculateTotalSum(matchCount);
     }
 
     private long calculateTotalSum(MatchCount matchCount) {
-        long sum = 0;
-
-        sum += (long) matchCount.getCount(LottoPrice.MATCH_3) * LottoPrice.MATCH_3.getPrice();
-        sum += (long) matchCount.getCount(LottoPrice.MATCH_4) * LottoPrice.MATCH_4.getPrice();
-        sum += (long) matchCount.getCount(LottoPrice.MATCH_5) * LottoPrice.MATCH_5.getPrice();
-        sum += (long) matchCount.getCount(LottoPrice.MATCH_5_BONUS) * LottoPrice.MATCH_5_BONUS.getPrice();
-        sum += (long) matchCount.getCount(LottoPrice.MATCH_6) * LottoPrice.MATCH_6.getPrice();
-
-        return sum;
+        return Arrays.stream(LottoPrice.values())
+                .mapToLong(price -> (long) matchCount.getCount(price) * price.getPrice())
+                .sum();
     }
 
     public long getTotalSum() {

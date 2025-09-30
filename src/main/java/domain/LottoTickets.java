@@ -9,7 +9,7 @@ public class LottoTickets {
     public LottoTickets(LottoTicketCount count) {
         this.tickets = new ArrayList<>();
         for (int i = 0; i < count.getCount(); i++) {
-            Set<Integer> lottoNumbers = NumberShuffle.generateLottoNumbers();
+            Set<Integer> lottoNumbers = createList.generateLottoNumbers();
             SortedSet<LottoNumber> lottoNumberObjects = lottoNumbers.stream()
                     .map(LottoNumber::new)
                     .collect(Collectors.toCollection(TreeSet::new));
