@@ -1,7 +1,4 @@
-package util;
-
-import model.LottoNumber;
-import model.LottoNumbers;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;

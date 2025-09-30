@@ -1,6 +1,4 @@
-package util;
-
-import model.LottoNumbers;
+package model;
 
 public interface LottoNumberGenerator {
     LottoNumbers generate();
