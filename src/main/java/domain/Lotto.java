@@ -1,39 +1,30 @@
 package domain;
 
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class Lotto {
-    private List<LottoNumber> numbers;
+    private final SortedSet<LottoNumber> numbers;
 
-    public Lotto(List<LottoNumber> numbers) {
-        if (!isSorted(numbers)) {
-            throw new IllegalArgumentException("로또 숫자는 정렬되어야 합니다.");
+    public Lotto(SortedSet<LottoNumber> numbers) {
+        if (numbers.size() != 6) {
+            throw new IllegalArgumentException("로또 숫자는 6개여야 하며, 중복될 수 없습니다.");
         }
-        if (hasDuplicate(numbers)) {
-            throw new IllegalArgumentException("로또 숫자는 중복될 수 없습니다.");
-        }
-        this.numbers = numbers;
+        this.numbers = new TreeSet<>(numbers);
     }
 
-    public List<LottoNumber> getNumbers() {
-        return numbers;
+    public int contains(LottoNumber number) {
+        if(numbers.contains(number)) return 1;
+        return 0;
     }
 
+    public SortedSet<LottoNumber> getNumbers() {
+        return new TreeSet<>(numbers);
+    }
+
+    @Override
     public String toString() {
         return numbers.toString();
-    }
-
-    private boolean isSorted(List<LottoNumber> numbers) {
-        for (int i = 0; i < numbers.size() - 1; i++) {
-            if (numbers.get(i).getNumber() > numbers.get(i + 1).getNumber()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean hasDuplicate(List<LottoNumber> numbers) {
-        return numbers.stream().map(LottoNumber::getNumber).distinct().count() != numbers.size();
     }
 
 }

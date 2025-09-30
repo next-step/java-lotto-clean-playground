@@ -2,6 +2,7 @@ package domain;
 
 import java.util.EnumMap;
 import java.util.List;
+import domain.Lotto;
 
 public class MatchCount {
     private final EnumMap<LottoPrice, Integer> counts = new EnumMap<>(LottoPrice.class);
@@ -31,5 +32,21 @@ public class MatchCount {
             }
         }
         return matchCount;
+    }
+    public static MatchCount countBonusBallMatches(List<Lotto> tickets, Lotto answer, LottoNumber bonusBall) {
+        MatchCount matchCount = new MatchCount();
+        for (Lotto lotto : tickets) {
+            int match = Match.getMatchCount(lotto, answer);
+            if (match == 5 && lotto.contains(bonusBall)==1) {
+                matchCount.addCount(LottoPrice.MATCH_5_BONUS, 1);
+            }
+        }
+        return matchCount;
+    }
+
+    public void merge(MatchCount bonusCount) {
+        for (LottoPrice price : LottoPrice.values()) {
+            this.addCount(price, bonusCount.getCount(price));
+        }
     }
 }

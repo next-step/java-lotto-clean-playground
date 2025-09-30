@@ -1,14 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoService;
-import domain.LottoTicketCount;
-import domain.LottoTickets;
-import domain.Money;
-import domain.MatchCount;
-import domain.LottoTotalPrice;
-import domain.ProfitRate;
-import domain.LottoProfit;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 import view.ResultView;
@@ -19,12 +11,12 @@ public class LottoController {
     InputView inputView = new InputView();
     ResultView resultView = new ResultView();
 
-    public void run(){
+    public void run() {
         outputView.printWonMessage();
         Money money = new Money(inputView.inputMoney());
 
         LottoTickets lottoTickets = buyLotto(money);
-        checkLotto(lottoTickets,money);
+        checkLotto(lottoTickets, money);
     }
 
 
@@ -47,12 +39,15 @@ public class LottoController {
 
         LottoService lottoService = new LottoService();
         String lottoAnswer = inputView.inputLottoAnswer();
+        outputView.printBonusMessage();
+        int bonusBallNumber = inputView.inputBonusNumber();
+        LottoNumber bonuseBall = new LottoNumber(bonusBallNumber);
+
         Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
-        MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj);
+        MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj, bonuseBall);
 
         int totalSum = LottoProfit.LottoSum(matchCount);
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(totalSum));
-        resultView.printLottoProfit(profitRate.getProfitRate());
 
         resultView.printLottoMatch(matchCount);
         resultView.printLottoProfit(profitRate.getProfitRate());

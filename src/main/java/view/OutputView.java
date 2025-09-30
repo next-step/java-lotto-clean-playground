@@ -15,4 +15,8 @@ public class OutputView {
         System.out.println("---------");
 
     }
+
+    public void printBonusMessage() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+    }
 }

@@ -1,7 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoTickets {
@@ -10,14 +9,10 @@ public class LottoTickets {
     public LottoTickets(LottoTicketCount count) {
         this.tickets = new ArrayList<>();
         for (int i = 0; i < count.getCount(); i++) {
-            List<Integer> lottoList = NumberShuffle.CreateList();
-            NumberShuffle.shuffle(lottoList);
-            List<Integer> lottoNumbers = NumberShuffle.getLottoNumbers(lottoList);
-            NumberShuffle.sortLottoNumber(lottoNumbers);
-
-            List<LottoNumber> lottoNumberObjects = lottoNumbers.stream()
-                    .map(LottoNumber::new).collect(Collectors.toList());
-
+            Set<Integer> lottoNumbers = NumberShuffle.generateLottoNumbers();
+            SortedSet<LottoNumber> lottoNumberObjects = lottoNumbers.stream()
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toCollection(TreeSet::new));
             tickets.add(new Lotto(lottoNumberObjects));
         }
     }

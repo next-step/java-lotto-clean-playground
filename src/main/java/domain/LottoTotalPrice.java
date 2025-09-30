@@ -13,6 +13,7 @@ public class LottoTotalPrice {
         sum += (long) matchCount.getCount(LottoPrice.MATCH_3) * LottoPrice.MATCH_3.getPrice();
         sum += (long) matchCount.getCount(LottoPrice.MATCH_4) * LottoPrice.MATCH_4.getPrice();
         sum += (long) matchCount.getCount(LottoPrice.MATCH_5) * LottoPrice.MATCH_5.getPrice();
+        sum += (long) matchCount.getCount(LottoPrice.MATCH_5_BONUS) * LottoPrice.MATCH_5_BONUS.getPrice();
         sum += (long) matchCount.getCount(LottoPrice.MATCH_6) * LottoPrice.MATCH_6.getPrice();
 
         return sum;

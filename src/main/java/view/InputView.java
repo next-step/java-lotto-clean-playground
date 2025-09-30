@@ -14,4 +14,9 @@ public class InputView {
         String lottoAnswer = scanner.nextLine();
         return lottoAnswer;
     }
+
+    public int inputBonusNumber() {
+        int bonusNumber = scanner.nextInt();
+        return bonusNumber;
+    }
 }

@@ -1,30 +1,19 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NumberShuffle {
     private static final int  LOTTO_MIN_NUMBER=1;
     private static final int  LOTTO_MAX_NUMBER=45;
     private static final int  LOTTO_NUMBER_COUNT=6;
 
-    public static List<Integer> CreateList(){
-        List<Integer> list = new ArrayList<>();
-        for(int i=LOTTO_MIN_NUMBER; i<=LOTTO_MAX_NUMBER; i++){
-            list.add(i);
+    public static Set<Integer> generateLottoNumbers() {
+        Set<Integer> numbers = new HashSet<>();
+        while (numbers.size() < LOTTO_NUMBER_COUNT) {
+            int num = (int) (Math.random() * LOTTO_MAX_NUMBER) + LOTTO_MIN_NUMBER;
+            numbers.add(num);
         }
-        return list;
-    }
-
-    public static void shuffle(List<Integer> list) {
-        java.util.Collections.shuffle(list);
-    }
-
-    public static List<Integer> getLottoNumbers(List<Integer> list) {
-        return list.subList(0, LOTTO_NUMBER_COUNT);
-    }
-
-    public static void sortLottoNumber(List<Integer> list) {
-        java.util.Collections.sort(list);
+        return numbers;
     }
 }
