@@ -3,8 +3,8 @@ package domain;
 public class ProfitRate {
     private final double profitRate;
 
-    public ProfitRate(Money money, LottoTotalPrice totalPrize) {
-        this.profitRate = (double) totalPrize.getTotalSum() / money.getMoney();
+    public ProfitRate(Money money, LottoTotalPrice totalPrice) {
+        this.profitRate = (double) totalPrice.getTotalSum() / money.getMoney();
     }
 
     public double getProfitRate() {

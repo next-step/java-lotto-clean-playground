@@ -46,10 +46,9 @@ public class LottoController {
         Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
         MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj, bonuseBall);
 
-        int totalSum = LottoProfit.LottoSum(matchCount);
-//        ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(totalSum));
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(matchCount));
 
+        outputView.lottoResult();
         resultView.printLottoMatch(matchCount);
         resultView.printLottoProfit(profitRate.getProfitRate());
     }
