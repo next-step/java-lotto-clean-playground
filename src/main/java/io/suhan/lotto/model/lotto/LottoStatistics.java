@@ -2,6 +2,7 @@ package io.suhan.lotto.model.lotto;
 
 import io.suhan.lotto.model.DrawResult;
 import io.suhan.lotto.model.Rank;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,6 @@ public class LottoStatistics {
     }
 
     public Map<Rank, Long> getCountMap() {
-        return countMap;
+        return Collections.unmodifiableMap(countMap);
     }
 }
