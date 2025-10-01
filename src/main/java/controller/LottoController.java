@@ -1,9 +1,20 @@
 package controller;
 
-import domain.*;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoService;
+import domain.LottoTicketCount;
+import domain.LottoTickets;
+import domain.LottoTotalPrice;
+import domain.Money;
+import domain.MatchCount;
+import domain.ProfitRate;
 import view.InputView;
 import view.OutputView;
 import view.ResultView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LottoController {
@@ -21,20 +32,38 @@ public class LottoController {
 
 
     public LottoTickets buyLotto(Money money) {
-
         LottoTicketCount ticketNumber = Money.getTicketCount(money);
         resultView.printTicketNumbers(ticketNumber.getCount());
 
-        outputView.lottoResult();
+        outputView.printManualCount();
+        int manualCount = inputView.inputManualCount();
 
-        LottoTickets lottoTickets = new LottoTickets(ticketNumber);
+        List<Lotto> manualLottos = new ArrayList<>();
+        outputView.printManualNumbers();
+
+        LottoService lottoService = new LottoService();
+        for (int i = 0; i < manualCount; i++) {
+            String manualNumbers = inputView.inputManualNumbers();
+            manualLottos.add(lottoService.parseLottoAnswer(manualNumbers));
+
+        }
+
+        int autoCount = ticketNumber.getCount() - manualCount;
+
+        resultView.printManualAuto(manualCount, autoCount);
+        outputView.lottoResult();
+        LottoTickets lottoTickets = LottoTickets.createMixedTickets(manualLottos, autoCount);
+
         for (Lotto lotto : lottoTickets.getTickets()) {
             System.out.println(lotto);
         }
+
+
         return lottoTickets;
     }
 
-    public void checkLotto(LottoTickets lottoTickets, Money money) {
+
+    public void checkLotto(LottoTickets tickektAutoCount, Money money) {
         outputView.printLottoAnswer();
 
         LottoService lottoService = new LottoService();
@@ -46,7 +75,7 @@ public class LottoController {
         Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
         lottoService.validateBonusBall(lottoAnswerObj, bonuseBall);
 
-        MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj, bonuseBall);
+        MatchCount matchCount = lottoService.calculateMatchCount(tickektAutoCount.getTickets(), lottoAnswerObj, bonuseBall);
 
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(matchCount));
 

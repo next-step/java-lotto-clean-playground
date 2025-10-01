@@ -4,17 +4,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoTickets {
-    private final List<Lotto> tickets;
+    private List<Lotto> tickets;
 
-    public LottoTickets(LottoTicketCount count) {
+    public LottoTickets() {
         this.tickets = new ArrayList<>();
-        for (int i = 0; i < count.getCount(); i++) {
-            Set<Integer> lottoNumbers = createList.generateLottoNumbers();
-            SortedSet<LottoNumber> lottoNumberObjects = lottoNumbers.stream()
+    }
+
+    public static LottoTickets createMixedTickets(List<Lotto> manualLottos, int autoCount) {
+        LottoTickets lottoTickets = new LottoTickets();
+
+        lottoTickets.tickets.addAll(manualLottos);
+
+        for (int i = 0; i < autoCount; i++) {
+            Set<Integer> generatedNumbers = createList.generateLottoNumbers();
+            SortedSet<LottoNumber> lottoNumbers = generatedNumbers.stream()
                     .map(LottoNumber::new)
                     .collect(Collectors.toCollection(TreeSet::new));
-            tickets.add(new Lotto(lottoNumberObjects));
+            lottoTickets.tickets.add(new Lotto(lottoNumbers));
         }
+
+        return lottoTickets;
     }
 
     public List<Lotto> getTickets() {
