@@ -6,10 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoBusiness {
+    private final LottoNumberGenerator generator;
+
+    public LottoBusiness() {
+        this(new RandomLottoNumberGenerator());
+    }
+
+    public LottoBusiness(LottoNumberGenerator generator) {
+        this.generator = generator;
+    }
+
     public LottoNumbers createOneLotto() {
-        LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoNumbers lottoNumbers = generator.generate();
-        return lottoNumbers;
+        return generator.generate();
     }
 
     public LottoNumbersRepository createLottos(int count) {
