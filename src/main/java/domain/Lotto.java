@@ -14,7 +14,7 @@ public class Lotto {
     }
 
     public int contains(LottoNumber number) {
-        if(numbers.contains(number)) return 1;
+        if (numbers.contains(number)) return 1;
         return 0;
     }
 

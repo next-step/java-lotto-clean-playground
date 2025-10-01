@@ -44,6 +44,8 @@ public class LottoController {
         LottoNumber bonuseBall = new LottoNumber(bonusBallNumber);
 
         Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
+        lottoService.validateBonusBall(lottoAnswerObj, bonuseBall);
+
         MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj, bonuseBall);
 
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(matchCount));

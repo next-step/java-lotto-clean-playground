@@ -1,11 +1,12 @@
 package view;
+
 import java.util.Scanner;
 
 public class InputView {
     Scanner scanner = new Scanner(System.in);
 
     public int inputMoney() {
-        int money= scanner.nextInt();
+        int money = scanner.nextInt();
         return money;
     }
 

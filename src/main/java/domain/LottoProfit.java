@@ -10,7 +10,7 @@ public class LottoProfit {
         int match6Count = matchCount.getCount(LottoPrice.MATCH_6);
 
         int lottoSum = (match3Count * LottoPrice.MATCH_3.getPrice()) + (match4Count * LottoPrice.MATCH_4.getPrice())
-                + (match5Count * LottoPrice.MATCH_5.getPrice()) +(match5BonusCount * LottoPrice.MATCH_5_BONUS.getPrice())
+                + (match5Count * LottoPrice.MATCH_5.getPrice()) + (match5BonusCount * LottoPrice.MATCH_5_BONUS.getPrice())
                 + (match6Count * LottoPrice.MATCH_6.getPrice());
         return lottoSum;
     }
