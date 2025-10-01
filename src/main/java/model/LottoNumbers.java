@@ -1,19 +1,16 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class LottoNumbers {
     private final List<LottoNumber> numbers;
 
     public LottoNumbers(List<LottoNumber> numbers) {
-        validatesize(numbers);
+        validateSize(numbers);
         this.numbers = List.copyOf(numbers);
     }
 
-    private void validatesize(List<LottoNumber> numbers) {
+    private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("로또 번호가 6개가 아닙니다");
         }
@@ -27,5 +24,18 @@ public class LottoNumbers {
 
     public List<LottoNumber> getNumbers() {
         return Collections.unmodifiableList(numbers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LottoNumbers)) return false;
+        LottoNumbers lottoNumbers = (LottoNumbers) o;
+        return Objects.equals(numbers, lottoNumbers.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numbers);
     }
 }
