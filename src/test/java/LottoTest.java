@@ -22,4 +22,16 @@ public class LottoTest {
         });
         assertEquals("로또 번호는 1부터 45 사이의 숫자여야 합니다.", e.getMessage());
     }
+
+    @Test
+    @DisplayName("보너스볼 숫자가 기존 당첨번호와 중복될 경우 예외가 발생한다.")
+    void bonusBallDuplicate(){
+        LottoService lottoService = new LottoService();
+        Lotto lottoAnswer = lottoService.parseLottoAnswer("1,2,3,4,5,6");
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            lottoService.validateBonusBall(lottoAnswer, new LottoNumber(1));
+        });
+        assertEquals("보너스 볼은 당첨 번호와 중복될 수 없습니다.", e.getMessage());
+    }
+
 }

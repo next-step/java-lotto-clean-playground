@@ -14,10 +14,6 @@ public class LottoService {
     }
 
     public void validateBonusBall(Lotto answer, LottoNumber bonusBall) {
-        System.out.println("당첨 번호들: " + answer.getNumbers());
-        System.out.println("보너스 볼: " + bonusBall);
-        System.out.println("중복 체크 결과: " + answer.getNumbers().contains(bonusBall));
-
         if (answer.getNumbers().contains(bonusBall)) {
             throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
         }
