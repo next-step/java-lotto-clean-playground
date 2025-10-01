@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.SortedSet;
 
-import domain.*;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoService;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//실패코드 작성
 public class LottoTest {
     @Test
     @DisplayName("로또 숫자가 1~45 사이의 숫자가 아닐 경우 예외가 발생한다")
@@ -25,7 +26,7 @@ public class LottoTest {
 
     @Test
     @DisplayName("보너스볼 숫자가 기존 당첨번호와 중복될 경우 예외가 발생한다.")
-    void bonusBallDuplicate(){
+    void bonusBallDuplicate() {
         LottoService lottoService = new LottoService();
         Lotto lottoAnswer = lottoService.parseLottoAnswer("1,2,3,4,5,6");
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {

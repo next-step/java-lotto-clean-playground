@@ -1,7 +1,12 @@
-import domain.*;
+import domain.LottoPrice;
+import domain.Money;
+import domain.LottoTicketCount;
+import domain.LottoTotalPrice;
+import domain.MatchCount;
+import domain.ProfitRate;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -47,24 +52,15 @@ public class CashTest {
         final int totalSumValue = 48000000;
         final int purchaseAmount = 24000;
 
-        // 1. ProfitRate의 의존성 Money 생성
         Money money = new Money(purchaseAmount);
-
-        // 2. totalSumValue (48,000,000)을 반환하는 가상의 LottoTotalPrice 객체 생성
-        //    익명 클래스를 사용하여 테스트 목적으로만 getTotalSum() 메서드를 오버라이드합니다.
         LottoTotalPrice fixedTotalPrice = new LottoTotalPrice(new MatchCount()) {
             @Override
             public long getTotalSum() {
-                // 고정된 테스트 값 반환
-                return (long) totalSumValue;
+                return totalSumValue;
             }
         };
 
-        // 3. ProfitRate 객체 생성 및 검증
         ProfitRate profitRate = new ProfitRate(money, fixedTotalPrice);
-
-        // LottoProfit.LottoProfit(purchaseAmount, totalSum) 대신 ProfitRate.getProfitRate() 사용
-        // 고정된 값으로 계산한 예상 값과 실제 ProfitRate 객체의 결과가 일치하는지 확인합니다.
         assertEquals((double) totalSumValue / purchaseAmount, profitRate.getProfitRate());
     }
 }
