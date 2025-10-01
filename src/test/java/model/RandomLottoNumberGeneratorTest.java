@@ -1,6 +1,5 @@
-package util;
+package model;
 
-import model.LottoNumbers;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

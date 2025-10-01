@@ -30,4 +30,14 @@ class LottoNumberTest {
         assertThrows(IllegalArgumentException.class, () -> new LottoNumber(invalidMin));
         assertThrows(IllegalArgumentException.class, () -> new LottoNumber(invalidMax));
     }
+
+    @Test
+    void 같은숫자는_equal비교() {
+        //given
+        LottoNumber n1 = new LottoNumber(3);
+        LottoNumber n2 = new LottoNumber(3);
+
+        //when & then
+        assertEquals(n1, n2);
+    }
 }

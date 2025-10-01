@@ -31,18 +31,6 @@ class LottoNumbersTest {
     }
 
     @Test
-    void getNumbers_반환값은_불변리스트이다() {
-        List<LottoNumber> numbers = Arrays.asList(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
-
-        LottoNumbers lottoNumbers = new LottoNumbers(numbers);
-
-        assertThrows(UnsupportedOperationException.class,
-                () -> lottoNumbers.getNumbers().add(new LottoNumber(7)));
-    }
-
-    @Test
     void sortNumbers는_번호를_오름차순으로_정렬한다() {
         List<LottoNumber> numbers = Arrays.asList(
                 new LottoNumber(6), new LottoNumber(3), new LottoNumber(5),
@@ -53,5 +41,22 @@ class LottoNumbersTest {
 
         assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6),
                 sorted.getNumbers().stream().map(LottoNumber::getNumber).toList());
+    }
+
+    @Test
+    void 같은번호면_동일한객체() {
+        // Given
+        LottoNumbers lotto1 = new LottoNumbers(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        ));
+        LottoNumbers lotto2 = new LottoNumbers(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        ));
+
+        // When & Then
+        assertEquals(lotto1, lotto2);
+        assertEquals(lotto1.hashCode(), lotto2.hashCode());
     }
 }

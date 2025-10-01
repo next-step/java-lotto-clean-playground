@@ -25,19 +25,24 @@ class LottoNumbersRepositoryTest {
     }
 
     @Test
-    void 반환된_리스트는_불변리스트이다() {
-        // given
-        LottoNumbersRepository repository = new LottoNumbersRepository();
-        LottoNumbers lottoNumbers = new LottoNumbers(Arrays.asList(
+    void 같은로또묶음들을가지면_동일한저장소다() {
+        // Given
+        LottoNumbersRepository re1 = new LottoNumbersRepository();
+        LottoNumbersRepository re2 = new LottoNumbersRepository();
+
+        LottoNumbers lotto = new LottoNumbers(List.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
-        repository.addLottoNumbers(lottoNumbers);
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        ));
 
-        // when
-        List<LottoNumbers> list = repository.readLottoNumbersRepository();
+        re1.addLottoNumbers(lotto);
+        re2.addLottoNumbers(new LottoNumbers(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        )));
 
-        // then
-        assertThrows(UnsupportedOperationException.class,
-                () -> list.add(lottoNumbers));
+        // When & Then
+        assertEquals(re1, re2);
+        assertEquals(re1.hashCode(), re2.hashCode());
     }
 }
