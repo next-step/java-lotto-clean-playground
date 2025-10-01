@@ -1,18 +1,15 @@
 package model;
 
-import inputView.InputView;
-import inputView.OutputView;
-import util.LottoNumberGenerator;
-import util.RandomLottoNumberGenerator;
-
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoBusiness {
     public LottoNumbers createOneLotto() {
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoNumbers oneLotto = generator.generate();
-        return oneLotto;
+        LottoNumbers lottoNumbers = generator.generate();
+        return lottoNumbers;
     }
 
     public LottoNumbersRepository createLottos(int count) {
@@ -33,12 +30,17 @@ public class LottoBusiness {
         return new LottoNumbers(numbers);
     }
 
-    public int[] countMatchResults(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto) {
-        int[] matchCounts = {0, 0, 0, 0, 0, 0, 0};
-        for (LottoNumbers oneLotto : allLotteries) {
-            matchCounts[matchLottoNumber(oneLotto.getNumbers(), lastLotto)]++;
+    public Map<MatchResult, Integer> countMatchResults(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto) {
+        Map<MatchResult, Integer> matchCounts = new EnumMap<>(MatchResult.class);
+        for (MatchResult result : MatchResult.values()) {
+            matchCounts.put(result, 0);
         }
-        return matchCounts.clone();
+        for (LottoNumbers oneLotto : allLotteries) {
+            int count = matchLottoNumber(oneLotto.getNumbers(), lastLotto);
+            MatchResult result = MatchResult.fromCount(count);
+            matchCounts.put(result, matchCounts.get(result) + 1);
+        }
+        return matchCounts;
     }
 
     private int matchLottoNumber(List<LottoNumber> oneLotto, List<LottoNumber> lastLotto) {
@@ -54,9 +56,12 @@ public class LottoBusiness {
         return matchCount;
     }
 
-    public String calculateProfitRrate(int[] matchCounts, int money) {
-        double profitRate = (matchCounts[3] * 5000 + matchCounts[4] * 50000
-                + matchCounts[5] * 150000 + matchCounts[6] * 2000000000) / (double) money;
+    public String calculateProfitRrate(Map<MatchResult, Integer> matchCounts, int money) {
+        double profitRate = 0;
+        for (MatchResult result : matchCounts.keySet()) {
+            profitRate += matchCounts.get(result) * result.getReward();
+        }
+        profitRate = profitRate / (double) money;
         return String.format("%.2f", profitRate);
     }
 }
