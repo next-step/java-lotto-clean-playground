@@ -3,12 +3,10 @@ package controller;
 import inputView.InputView;
 import inputView.OutputView;
 import inputView.Price;
-import model.LottoBusiness;
-import model.LottoNumber;
-import model.LottoNumbers;
-import model.LottoNumbersRepository;
+import model.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class AutoLottoController {
     private final LottoBusiness lottoBusiness = new LottoBusiness();
@@ -59,7 +57,7 @@ public class AutoLottoController {
     }
 
     public void showLotteryStatistics(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto, int money) {
-        int[] matchCounts = lottoBusiness.countMatchResults(allLotteries, lastLotto);
+        Map<MatchResult, Integer> matchCounts = lottoBusiness.countMatchResults(allLotteries, lastLotto);
         String profitRate = lottoBusiness.calculateProfitRrate(matchCounts, money);
         outView.printLotteryStatistics(matchCounts, profitRate);
     }
