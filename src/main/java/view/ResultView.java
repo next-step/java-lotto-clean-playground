@@ -11,10 +11,10 @@ public class ResultView {
     }
 
 
-
-    public void printManualAuto( int manualCount, int autoCount) {
-        System.out.println("수동으로 "+ manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
+    public void printManualAuto(int manualCount, int autoCount) {
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
     }
+
     public void printLottoMatch(MatchCount matchCount) {
         int match3Count = matchCount.getCount(LottoPrice.MATCH_3);
         int match4Count = matchCount.getCount(LottoPrice.MATCH_4);

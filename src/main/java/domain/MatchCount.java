@@ -37,7 +37,7 @@ public class MatchCount {
         return matchCount;
     }
 
-    private static LottoPrice determineLottoPrice(int match, boolean hasBonus) {
+    public static LottoPrice determineLottoPrice(int match, boolean hasBonus) {
         if (match == 6) {
             return LottoPrice.MATCH_6;
         }
