@@ -22,10 +22,17 @@ public class DrawExecutorTest {
     void 당첨번호와_로또를_비교할_수_있다() {
         LottoRegistry registry = new LottoRegistry();
 
-        Lotto winningLotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
+        Set<LottoNumber> numbers = Set.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+
+        Lotto winningLotto = Lotto.of(numbers);
+
         registry.add(winningLotto);
 
-        DrawExecutor executor = new DrawExecutor(registry, winningLotto, new LottoNumber(1));
+        LottoNumber bonusNumber = new LottoNumber(7);
+
+        DrawExecutor executor = new DrawExecutor(registry, winningLotto, bonusNumber);
         executor.execute();
 
         List<DrawResult> results = executor.getResults();
