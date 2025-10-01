@@ -34,7 +34,7 @@ public class LottoController {
         int manualCount = InputView.getManualCount();
 
         if (manualCount < 0) {
-            throw new IllegalArgumentException("로또 수는 0보다 커야합니다.");
+            throw new IllegalArgumentException("로또 수는 0 또는 양수만 입력할 수 있습니다.");
         }
 
         if (PRICE_PER_LOTTO * manualCount > balance) {

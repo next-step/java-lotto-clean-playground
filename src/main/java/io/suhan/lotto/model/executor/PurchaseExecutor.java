@@ -23,6 +23,18 @@ public class PurchaseExecutor implements Executor {
 
     @Override
     public void execute() {
+        if (manualCount > 0) {
+            purchaseManualNumbers();
+        }
+
+        int autoCount = getAvailableCount(balance);
+
+        for (int i = 0; i < autoCount; i++) {
+            registry.add(LottoFactory.createLotto(LottoType.AUTOMATIC));
+        }
+    }
+
+    private void purchaseManualNumbers() {
         List<Set<Integer>> manualNumbersList = InputView.getManualNumbers(manualCount);
 
         for (Set<Integer> numbers : manualNumbersList) {
@@ -30,12 +42,6 @@ public class PurchaseExecutor implements Executor {
 
             registry.add(lotto);
             balance -= PRICE_PER_LOTTO;
-        }
-
-        int autoCount = getAvailableCount(balance);
-
-        for (int i = 0; i < autoCount; i++) {
-            registry.add(LottoFactory.createLotto(LottoType.AUTOMATIC));
         }
     }
 
