@@ -7,6 +7,7 @@ import io.suhan.lotto.model.lotto.Lotto;
 import io.suhan.lotto.model.lotto.LottoFactory;
 import io.suhan.lotto.model.lotto.LottoNumber;
 import io.suhan.lotto.model.lotto.LottoRegistry;
+import io.suhan.lotto.model.lotto.LottoType;
 import java.util.List;
 import java.util.Set;
 import org.assertj.core.api.SoftAssertions;
@@ -21,7 +22,7 @@ public class DrawExecutorTest {
     void 당첨번호와_로또를_비교할_수_있다() {
         LottoRegistry registry = new LottoRegistry();
 
-        Lotto winningLotto = LottoFactory.createLotto();
+        Lotto winningLotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
         registry.add(winningLotto);
 
         DrawExecutor executor = new DrawExecutor(registry, winningLotto, new LottoNumber(1));
@@ -39,13 +40,14 @@ public class DrawExecutorTest {
     void 보너스_번호는_당첨번호와_중복될_수_없다() {
         LottoRegistry registry = new LottoRegistry();
 
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
         registry.add(lotto);
 
-        Lotto winningLotto = new Lotto(Set.of(
+        Set<LottoNumber> numbers = Set.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6))
-        );
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+
+        Lotto winningLotto = Lotto.of(numbers);
 
         LottoNumber bonusNumber = new LottoNumber(6);
 

@@ -2,12 +2,10 @@ package io.suhan.lotto.model;
 
 public class DrawResult {
     private final int matchedCount;
-    private final boolean bonusMatched;
     private final Rank rank;
 
     private DrawResult(int matchedCount, boolean bonusMatched) {
         this.matchedCount = matchedCount;
-        this.bonusMatched = bonusMatched;
         this.rank = Rank.of(matchedCount, bonusMatched);
     }
 

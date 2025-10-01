@@ -8,12 +8,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LottoFactory {
-    public static Lotto createLotto() {
+    public static Lotto createLotto(LottoType type) {
         NumberPool pool = NumberPool.of(Lotto.LOTTO_NUMBER_MIN, Lotto.LOTTO_NUMBER_MAX);
-        return createLotto(pool);
+        return createLotto(type, pool);
     }
 
-    private static Lotto createLotto(NumberPool pool) {
+    public static Lotto createLotto(LottoType type, NumberPool pool) {
         List<Integer> poolNumbers = new ArrayList<>(pool.getNumbers()); // copy
         Collections.shuffle(poolNumbers);
 
@@ -22,6 +22,16 @@ public class LottoFactory {
                 .map(LottoNumber::new)
                 .collect(Collectors.toSet());
 
-        return new Lotto(numbers);
+        return Lotto.of(type, numbers);
+    }
+
+    public static Set<LottoNumber> toLottoNumbers(Set<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toSet());
+    }
+
+    public static int getManualLottosCount(List<Lotto> lottos) {
+        return lottos.stream().filter((lotto) -> lotto.getType() == LottoType.MANUAL).toList().size();
     }
 }

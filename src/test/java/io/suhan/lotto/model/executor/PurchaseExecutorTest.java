@@ -14,12 +14,12 @@ public class PurchaseExecutorTest {
     @Test
     void 금액에_맞는_로또를_구매할_수_있다() {
         LottoRegistry registry = new LottoRegistry();
-        int balance = 5000;
+        int count = 5;
+        int balance = PRICE_PER_LOTTO * count;
 
-        PurchaseExecutor executor = new PurchaseExecutor(registry, balance);
+        PurchaseExecutor executor = new PurchaseExecutor(registry, balance, 0);
         executor.execute();
 
-        int expectedSize = balance / PRICE_PER_LOTTO;
-        assertThat(registry.getLottos()).hasSize(expectedSize);
+        assertThat(registry.getLottos()).hasSize(count);
     }
 }

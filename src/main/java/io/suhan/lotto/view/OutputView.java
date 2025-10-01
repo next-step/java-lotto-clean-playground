@@ -2,17 +2,20 @@ package io.suhan.lotto.view;
 
 import io.suhan.lotto.model.Rank;
 import io.suhan.lotto.model.lotto.Lotto;
+import io.suhan.lotto.model.lotto.LottoFactory;
 import io.suhan.lotto.model.lotto.LottoStatistics;
 import java.util.List;
 
 public class OutputView {
     public static void printPurchaseResult(List<Lotto> lottos) {
-        System.out.println("\n" + lottos.size() + "개를 구매했습니다.");
+        int manualCount = LottoFactory.getManualLottosCount(lottos);
+        int autoCount = lottos.size() - manualCount;
+
+        System.out.println("\n수동으로 " + manualCount + "장, 자동으로 " + autoCount + "장을 구매했습니다.");
         printLottos(lottos);
     }
 
     public static void printStatistics(LottoStatistics statistics, int totalSpent) {
-
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
