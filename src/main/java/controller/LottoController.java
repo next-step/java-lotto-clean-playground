@@ -58,7 +58,6 @@ public class LottoController {
             System.out.println(lotto);
         }
 
-
         return lottoTickets;
     }
 
