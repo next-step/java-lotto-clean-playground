@@ -7,12 +7,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoNumbersRepositoryTest {
+class LottoTicketBundleTest {
 
     @Test
     void 저장소에_로또번호를_추가하면_읽을때_사이즈가_증가한다() {
         // given
-        LottoNumbersRepository repository = new LottoNumbersRepository();
+        LottoTicketBundle repository = new LottoTicketBundle();
         LottoNumbers lottoNumbers = new LottoNumbers(Arrays.asList(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
                 new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
@@ -27,8 +27,8 @@ class LottoNumbersRepositoryTest {
     @Test
     void 같은로또묶음들을가지면_동일한저장소다() {
         // Given
-        LottoNumbersRepository re1 = new LottoNumbersRepository();
-        LottoNumbersRepository re2 = new LottoNumbersRepository();
+        LottoTicketBundle re1 = new LottoTicketBundle();
+        LottoTicketBundle re2 = new LottoTicketBundle();
 
         LottoNumbers lotto = new LottoNumbers(List.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),

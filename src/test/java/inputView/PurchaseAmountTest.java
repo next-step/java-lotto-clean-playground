@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class PriceTest {
+class PurchaseAmountTest {
 
     @Test
     void 올바른_금액이면_로또개수계산() {
         // given
-        Price price = new Price(2000);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(2000);
 
         // when
-        int count = price.howManyLottos();
+        int count = purchaseAmount.howManyLottos();
 
         // then
         assertEquals(2, count);
@@ -25,17 +25,17 @@ class PriceTest {
         int invalidMoney = -2000;
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> new Price(invalidMoney));
+        assertThrows(IllegalArgumentException.class, () -> new PurchaseAmount(invalidMoney));
     }
 
     @Test
     void 같은금액이면_동일객체() {
         // given
-        Price price1 = new Price(6000);
-        Price price2 = new Price(6000);
+        PurchaseAmount purchaseAmount1 = new PurchaseAmount(6000);
+        PurchaseAmount purchaseAmount2 = new PurchaseAmount(6000);
 
         // when & then
-        assertEquals(price1, price2);
-        assertEquals(price1.hashCode(), price2.hashCode());
+        assertEquals(purchaseAmount1, purchaseAmount2);
+        assertEquals(purchaseAmount1.hashCode(), purchaseAmount2.hashCode());
     }
 }
