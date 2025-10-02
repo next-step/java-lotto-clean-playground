@@ -13,9 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 public class RankTest {
     @ParameterizedTest
-    @CsvSource({"6, FIRST", "5, SECOND", "4, THIRD", "3, FOURTH", "2, NONE", "0, NONE"})
-    void 일치_개수에_맞는_Rank를_반환한다(int matchCount, Rank expectedRank) {
-        Rank actualRank = Rank.of(matchCount);
+    @CsvSource({
+            "6, false, FIRST",
+            "5, true, SECOND",
+            "5, false, THIRD",
+            "4, false, FOURTH",
+            "3, false, FIFTH",
+            "2, false, NONE",
+            "0, true, NONE"
+    })
+    void 일치_개수에_맞는_Rank를_반환한다(int matchCount, boolean matchBonus, Rank expectedRank) {
+        Rank actualRank = Rank.of(matchCount, matchBonus);
 
         assertEquals(expectedRank, actualRank);
     }

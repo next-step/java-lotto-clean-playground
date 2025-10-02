@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("model.LottoNumber 클래스 테스트")
 @SuppressWarnings("NonAsciiCharacters")
@@ -24,12 +24,14 @@ public class LottoNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1})
     void LottoNumber_생성_시_1보다_작은_값이면_예외가_발생한다(int invalidNumber) {
-        assertThrows(IllegalArgumentException.class, () -> new LottoNumber(invalidNumber));
+        assertThatThrownBy(() -> new LottoNumber(invalidNumber))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {46, 100})
     void LottoNumber_생성_시_45보다_큰_값이면_예외가_발생한다(int invalidNumber) {
-        assertThrows(IllegalArgumentException.class, () -> new LottoNumber(invalidNumber));
+        assertThatThrownBy(() -> new LottoNumber(invalidNumber))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
