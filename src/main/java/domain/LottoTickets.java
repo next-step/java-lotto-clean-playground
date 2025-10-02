@@ -1,6 +1,10 @@
 package domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class LottoTickets {
@@ -17,9 +21,10 @@ public class LottoTickets {
 
         for (int i = 0; i < autoCount; i++) {
             Set<Integer> generatedNumbers = createList.generateLottoNumbers();
-            SortedSet<LottoNumber> lottoNumbers = generatedNumbers.stream()
-                    .map(LottoNumber::new)
-                    .collect(Collectors.toCollection(TreeSet::new));
+            if (generatedNumbers.size() != 6) {
+                throw new IllegalArgumentException("로또 번호에 중복된 숫자가 있습니다.");
+            }
+            SortedSet<LottoNumber> lottoNumbers = generatedNumbers.stream().map(LottoNumber::new).collect(Collectors.toCollection(TreeSet::new));
             lottoTickets.tickets.add(new Lotto(lottoNumbers));
         }
 
