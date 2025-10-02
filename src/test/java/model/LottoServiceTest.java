@@ -7,14 +7,14 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoBusinessTest {
-    private final LottoBusiness business = new LottoBusiness();
+class LottoServiceTest {
+    private final LottoService business = new LottoService();
 
     @Test
     void 고정된로또가_생성된다() {
         // Given
-        LottoBusiness business =
-                new LottoBusiness(new FixedLottoNumberGenerator(List.of(1, 2, 3, 4, 5, 6)));
+        LottoService business =
+                new LottoService(new FixedLottoNumberGenerator(List.of(1, 2, 3, 4, 5, 6)));
 
         // When
         LottoNumbers lotto = business.createOneLotto();
@@ -30,7 +30,7 @@ class LottoBusinessTest {
         int count = 3;
 
         // When
-        LottoNumbersRepository re = business.createLottos(count);
+        LottoTicketBundle re = business.createLottos(count);
 
         // Then
         assertEquals(count, re.readLottoNumbersRepository().size());
@@ -44,7 +44,7 @@ class LottoBusinessTest {
         String input = "1, 2,3, 4 ,5,6";
 
         // When
-        LottoNumbers last = business.createLastLotto(input);
+        LottoNumbers last = business.createInputLotto(input);
 
         // Then
         assertEquals(6, last.getNumbers().size());
@@ -63,10 +63,11 @@ class LottoBusinessTest {
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
                 new LottoNumber(4), new LottoNumber(7), new LottoNumber(8)
         ));
+        LottoNumber bonus = new LottoNumber(9);
 
         // When
         Map<MatchResult, Integer> result =
-                business.countMatchResults(List.of(mine), last.getNumbers());
+                business.countMatchResults(List.of(mine), last.getNumbers(), bonus);
 
         // Then
         assertEquals(1, result.get(MatchResult.FOUR));
@@ -82,14 +83,37 @@ class LottoBusinessTest {
                 MatchResult.TWO, 0,
                 MatchResult.FOUR, 0,
                 MatchResult.FIVE, 0,
+                MatchResult.FIVE_BONUS, 0,
                 MatchResult.SIX, 0
         );
+        LottoNumber bonus = new LottoNumber(7);
         int money = 1000;
 
         // When
-        String rate = business.calculateProfitRrate(matchCounts, money);
+        String rate = business.calculateProfitRate(matchCounts, money);
 
         // Then
         assertEquals("5.00", rate);
+    }
+
+    @Test
+    void 보너스볼까지_맞추면_FIVE_BONUS로_집계된다() {
+        // Given
+        LottoNumbers mine = new LottoNumbers(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(7)
+        ));
+        LottoNumbers winning = new LottoNumbers(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        ));
+        LottoNumber bonus = new LottoNumber(7);
+
+        // When
+        Map<MatchResult, Integer> result =
+                business.countMatchResults(List.of(mine), winning.getNumbers(), bonus);
+
+        // Then
+        assertEquals(1, result.get(MatchResult.FIVE_BONUS));
     }
 }
