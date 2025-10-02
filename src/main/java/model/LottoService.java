@@ -26,13 +26,17 @@ public class LottoService {
     }
 
     public LottoNumbers createInputLotto(String inputNumber) {
-        List<LottoNumber> numbers = new ArrayList<>();
-        String[] lastNumbers = inputNumber.split(",");
-        for (int i = 0; i < lastNumbers.length; i++) {
-            lastNumbers[i] = lastNumbers[i].trim();
-            numbers.add(new LottoNumber(Integer.parseInt(lastNumbers[i])));
-        }
+        List<LottoNumber> numbers = parseInputToNumbers(inputNumber);
         return new LottoNumbers(numbers);
+    }
+
+    private List<LottoNumber> parseInputToNumbers(String inputNumber) {
+        String[] rawNumbers = inputNumber.split(",");
+        List<LottoNumber> numbers = new ArrayList<>();
+        for (String raw : rawNumbers) {
+            numbers.add(new LottoNumber(Integer.parseInt(raw.trim())));
+        }
+        return numbers;
     }
 
     public LottoTicketBundle createManualLottos(List<String> inputs) {
@@ -58,10 +62,7 @@ public class LottoService {
     public Map<MatchResult, Integer> countMatchResults(List<LottoNumbers> allLotteries,
                                                        List<LottoNumber> lastLotto,
                                                        LottoNumber bonusBall) {
-        Map<MatchResult, Integer> matchCounts = new EnumMap<>(MatchResult.class);
-        for (MatchResult result : MatchResult.values()) {
-            matchCounts.put(result, 0);
-        }
+        Map<MatchResult, Integer> matchCounts = initializeMatchCounts();
         for (LottoNumbers oneLotto : allLotteries) {
             int count = matchLottoNumber(oneLotto.getNumbers(), lastLotto);
             boolean bonusMatch = matchBonus(oneLotto.getNumbers(), bonusBall, count);
@@ -69,6 +70,14 @@ public class LottoService {
             matchCounts.put(result, matchCounts.get(result) + 1);
         }
         return matchCounts;
+    }
+
+    private Map<MatchResult, Integer> initializeMatchCounts() {
+        Map<MatchResult, Integer> counts = new EnumMap<>(MatchResult.class);
+        for (MatchResult result : MatchResult.values()) {
+            counts.put(result, 0);
+        }
+        return counts;
     }
 
     private int matchLottoNumber(List<LottoNumber> oneLotto, List<LottoNumber> lastLotto) {
