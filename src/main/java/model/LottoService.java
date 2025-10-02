@@ -2,14 +2,14 @@ package model;
 
 import java.util.*;
 
-public class LottoBusiness {
+public class LottoService {
     private final LottoNumberGenerator generator;
 
-    public LottoBusiness() {
+    public LottoService() {
         this(new RandomLottoNumberGenerator());
     }
 
-    public LottoBusiness(LottoNumberGenerator generator) {
+    public LottoService(LottoNumberGenerator generator) {
         this.generator = generator;
     }
 
@@ -17,8 +17,8 @@ public class LottoBusiness {
         return generator.generate();
     }
 
-    public LottoNumbersRepository createLottos(int count) {
-        LottoNumbersRepository repository = new LottoNumbersRepository();
+    public LottoTicketBundle createLottos(int count) {
+        LottoTicketBundle repository = new LottoTicketBundle();
         for (int i = 0; i < count; i++) {
             repository.addLottoNumbers(createOneLotto().sortNumbers());
         }
@@ -35,16 +35,16 @@ public class LottoBusiness {
         return new LottoNumbers(numbers);
     }
 
-    public LottoNumbersRepository createManualLottos(List<String> inputs) {
-        LottoNumbersRepository repository = new LottoNumbersRepository();
+    public LottoTicketBundle createManualLottos(List<String> inputs) {
+        LottoTicketBundle repository = new LottoTicketBundle();
         for (String input : inputs) {
             repository.addLottoNumbers(createInputLotto(input));
         }
         return repository;
     }
 
-    public LottoNumbersRepository mergeRepository(LottoNumbersRepository manual, LottoNumbersRepository auto) {
-        LottoNumbersRepository repository = new LottoNumbersRepository();
+    public LottoTicketBundle mergeRepositories(LottoTicketBundle manual, LottoTicketBundle auto) {
+        LottoTicketBundle repository = new LottoTicketBundle();
         for (LottoNumbers lotto : manual.readLottoNumbersRepository()) {
             repository.addLottoNumbers(lotto);
         }
@@ -91,7 +91,7 @@ public class LottoBusiness {
         return false;
     }
 
-    public String calculateProfitRrate(Map<MatchResult, Integer> matchCounts, int money) {
+    public String calculateProfitRate(Map<MatchResult, Integer> matchCounts, int money) {
         double profitRate = 0;
         for (MatchResult result : matchCounts.keySet()) {
             profitRate += matchCounts.get(result) * result.getReward();

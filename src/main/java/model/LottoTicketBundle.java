@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class LottoNumbersRepository {
+public class LottoTicketBundle {
     private final List<LottoNumbers> repository = new ArrayList<>();
 
     public void addLottoNumbers(LottoNumbers lottoNumbers) {
@@ -19,8 +19,8 @@ public class LottoNumbersRepository {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof LottoNumbersRepository)) return false;
-        LottoNumbersRepository allLotteries = (LottoNumbersRepository) o;
+        if (!(o instanceof LottoTicketBundle)) return false;
+        LottoTicketBundle allLotteries = (LottoTicketBundle) o;
         return Objects.equals(repository, allLotteries.repository);
     }
 

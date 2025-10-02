@@ -2,15 +2,15 @@ package inputView;
 
 import java.util.Objects;
 
-public class Price {
+public class PurchaseAmount {
     private final int value;
 
-    public Price(int value) {
-        vaildateNegative(value);
+    public PurchaseAmount(int value) {
+        validateNegative(value);
         this.value = value;
     }
 
-    private static void vaildateNegative(int value) {
+    private static void validateNegative(int value) {
         if (value < 0) {
             throw new IllegalArgumentException("구입 금액은 0원 이상입니다.");
         }
@@ -27,8 +27,8 @@ public class Price {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Price)) return false;
-        Price money = (Price) o;
+        if (!(o instanceof PurchaseAmount)) return false;
+        PurchaseAmount money = (PurchaseAmount) o;
         return value == money.value;
     }
 

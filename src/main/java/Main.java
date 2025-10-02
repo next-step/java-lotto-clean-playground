@@ -1,24 +1,30 @@
-import controller.AutoLottoController;
-import inputView.Price;
+import controller.LottoController;
+import inputView.PurchaseAmount;
+import model.LottoNumber;
 import model.LottoNumbers;
-import model.LottoNumbersRepository;
+import model.LottoTicketBundle;
 
 public class Main {
     public static void main(String[] args) {
-        AutoLottoController controller = new AutoLottoController();
+        LottoController controller = new LottoController();
 
         // 1. 구입 금액 입력
-        Price money = controller.showPrice();
+        PurchaseAmount purchaseAmount = controller.askPurchaseAmount();
 
-        // 2. 로또 번호 생성
-        LottoNumbersRepository allLotteries = controller.showLottoNumbers(money.howManyLottos());
+        // 2. 수동 및 자동 로또 번호 생성
+        LottoTicketBundle allTickets = controller.buyTickets(purchaseAmount.howManyLottos());
 
         // 3. 당첨 번호 입력
-        LottoNumbers lastLotto = controller.readLastLotto();
+        LottoNumbers winningNumbers = controller.askWinningNumbers();
 
-        // 4. 통계 출력
-        controller.showLotteryStatistics(allLotteries.readLottoNumbersRepository()
-                , lastLotto.getNumbers()
-                , money.getValue());
+        // 4. 보너스 볼 입력
+        LottoNumber bonusBall = controller.askBonusBall();
+
+        // 5. 통계 출력
+        controller.showStatistics(allTickets.readLottoNumbersRepository(),
+                winningNumbers.getNumbers(),
+                purchaseAmount.getValue(),
+                bonusBall
+        );
     }
 }

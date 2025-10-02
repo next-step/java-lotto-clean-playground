@@ -11,7 +11,7 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public String inputManualTicket() {
+    public String inputManualCount() {
         return scanner.nextLine();
     }
 
@@ -27,7 +27,7 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public String inputLastLotto() {
+    public String inputWinningNumbers() {
         return scanner.nextLine();
     }
 }
