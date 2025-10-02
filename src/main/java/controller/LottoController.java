@@ -17,9 +17,7 @@ public class LottoController {
         outView.printInputPrice();
         while (true) {
             PurchaseAmount purchaseAmount = readPriceException();
-            if (purchaseAmount != null) {
-                return purchaseAmount;
-            }
+            if (purchaseAmount != null) return purchaseAmount;
         }
     }
 
@@ -42,25 +40,37 @@ public class LottoController {
     }
 
     public LottoTicketBundle buyTickets(int ticketCount) {
+        int manualCount = requestManualTicketCount();
+        int autoCount = calculateAutoCount(ticketCount, manualCount);
+
+        LottoTicketBundle tickets = generateTickets(manualCount, autoCount);
+        displayTickets(manualCount, autoCount, tickets);
+
+        return tickets;
+    }
+
+    private int requestManualTicketCount() {
         outView.printManualTicketCount();
-        int manualCount = Integer.parseInt(inputView.inputManualCount());
-        int autoCount = ticketCount - manualCount;
-        System.out.println();
+        return Integer.parseInt(inputView.inputManualCount());
+    }
 
+    private int calculateAutoCount(int totalTickets, int manualCount) {
+        return totalTickets - manualCount;
+    }
+
+    private LottoTicketBundle generateTickets(int manualCount, int autoCount) {
         outView.printManualLottoNumbersPrompt();
-        List<String> manualLottos = inputView.inputManualLottos(manualCount);
-        System.out.println();
+        List<String> manualInputs = inputView.inputManualLottos(manualCount);
 
-        LottoTicketBundle manualTickets = lottoService.createManualLottos(manualLottos);
+        LottoTicketBundle manualTickets = lottoService.createManualLottos(manualInputs);
         LottoTicketBundle autoTickets = lottoService.createLottos(autoCount);
 
-        outView.printBuyCount(manualCount, autoCount);
+        return lottoService.mergeRepositories(manualTickets, autoTickets);
+    }
 
-        LottoTicketBundle allTickets = lottoService.mergeRepositories(manualTickets,
-                autoTickets);
-        outView.printLottos(allTickets.readLottoNumbersRepository());
-        System.out.println();
-        return allTickets;
+    private void displayTickets(int manualCount, int autoCount, LottoTicketBundle tickets) {
+        outView.printBuyCount(manualCount, autoCount);
+        outView.printLottos(tickets.readLottoNumbersRepository());
     }
 
     public LottoNumbers askWinningNumbers() {
