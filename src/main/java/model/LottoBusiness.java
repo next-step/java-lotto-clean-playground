@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoBusiness {
     private final LottoNumberGenerator generator;
@@ -28,9 +25,9 @@ public class LottoBusiness {
         return repository;
     }
 
-    public LottoNumbers createLastLotto(String LastLotto) {
+    public LottoNumbers createInputLotto(String inputNumber) {
         List<LottoNumber> numbers = new ArrayList<>();
-        String[] lastNumbers = LastLotto.split(",");
+        String[] lastNumbers = inputNumber.split(",");
         for (int i = 0; i < lastNumbers.length; i++) {
             lastNumbers[i] = lastNumbers[i].trim();
             numbers.add(new LottoNumber(Integer.parseInt(lastNumbers[i])));
@@ -38,14 +35,37 @@ public class LottoBusiness {
         return new LottoNumbers(numbers);
     }
 
-    public Map<MatchResult, Integer> countMatchResults(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto) {
+    public LottoNumbersRepository createManualLottos(List<String> inputs) {
+        LottoNumbersRepository repository = new LottoNumbersRepository();
+        for (String input : inputs) {
+            repository.addLottoNumbers(createInputLotto(input));
+        }
+        return repository;
+    }
+
+    public LottoNumbersRepository mergeRepository(LottoNumbersRepository manual, LottoNumbersRepository auto) {
+        LottoNumbersRepository repository = new LottoNumbersRepository();
+        for (LottoNumbers lotto : manual.readLottoNumbersRepository()) {
+            repository.addLottoNumbers(lotto);
+        }
+
+        for (LottoNumbers lotto : auto.readLottoNumbersRepository()) {
+            repository.addLottoNumbers(lotto);
+        }
+        return repository;
+    }
+
+    public Map<MatchResult, Integer> countMatchResults(List<LottoNumbers> allLotteries,
+                                                       List<LottoNumber> lastLotto,
+                                                       LottoNumber bonusBall) {
         Map<MatchResult, Integer> matchCounts = new EnumMap<>(MatchResult.class);
         for (MatchResult result : MatchResult.values()) {
             matchCounts.put(result, 0);
         }
         for (LottoNumbers oneLotto : allLotteries) {
             int count = matchLottoNumber(oneLotto.getNumbers(), lastLotto);
-            MatchResult result = MatchResult.fromCount(count);
+            boolean bonusMatch = matchBonus(oneLotto.getNumbers(), bonusBall, count);
+            MatchResult result = MatchResult.fromCount(count, bonusMatch);
             matchCounts.put(result, matchCounts.get(result) + 1);
         }
         return matchCounts;
@@ -62,6 +82,13 @@ public class LottoBusiness {
             }
         }
         return matchCount;
+    }
+
+    private boolean matchBonus(List<LottoNumber> oneLotto, LottoNumber bonusBall, int count) {
+        if (count == 5) {
+            return oneLotto.contains(bonusBall);
+        }
+        return false;
     }
 
     public String calculateProfitRrate(Map<MatchResult, Integer> matchCounts, int money) {

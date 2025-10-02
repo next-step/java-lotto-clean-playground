@@ -7,6 +7,7 @@ public enum MatchResult {
     THREE(3, "3개 일치", 5000),
     FOUR(4, "4개 일치", 50000),
     FIVE(5, "5개 일치", 150000),
+    FIVE_BONUS(5, "5개 + 보너스 일치", 30000000),
     SIX(6, "6개 일치", 2000000000);
 
     private final int count;
@@ -31,9 +32,12 @@ public enum MatchResult {
         return reward;
     }
 
-    public static MatchResult fromCount(int count) {
+    public static MatchResult fromCount(int count, boolean bonusMatch) {
+        if (count == 5 && bonusMatch) {
+            return FIVE_BONUS;
+        }
         for (MatchResult result : values()) {
-            if (result.count == count) return result;
+            if (result.count == count && result != FIVE_BONUS) return result;
         }
         return ZERO;
     }

@@ -38,12 +38,22 @@ public class AutoLottoController {
         Price money = readPrice();
         outView.printPriceValue(money.getValue());
         System.out.println();
-        outView.printBuyCount(money.howManyLottos());
         return money;
     }
 
     public LottoNumbersRepository showLottoNumbers(int ticketCount) {
-        LottoNumbersRepository repository = lottoBusiness.createLottos(ticketCount);
+        outView.printManualTicketCount();
+        int manualTicket = Integer.parseInt(inputView.inputManualTicket());
+        System.out.println();
+        int autoTicket = ticketCount - manualTicket;
+        outView.showManualTicketLottoNumber();
+        List<String> manualLottos = inputView.inputManualLottos(manualTicket);
+        System.out.println();
+        LottoNumbersRepository manualRepository = lottoBusiness.createManualLottos(manualLottos);
+        LottoNumbersRepository autoRepository = lottoBusiness.createLottos(ticketCount);
+        outView.printBuyCount(manualTicket, autoTicket);
+        LottoNumbersRepository repository = lottoBusiness.mergeRepository(manualRepository,
+                autoRepository);
         outView.printLottos(repository.readLottoNumbersRepository());
         System.out.println();
         return repository;
@@ -51,13 +61,20 @@ public class AutoLottoController {
 
     public LottoNumbers readLastLotto() {
         outView.printInputLastLotto();
-        LottoNumbers lastLotto = lottoBusiness.createLastLotto(inputView.inputLastLotto());
+        LottoNumbers lastLotto = lottoBusiness.createInputLotto(inputView.inputLastLotto());
         System.out.println();
         return lastLotto;
     }
 
-    public void showLotteryStatistics(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto, int money) {
-        Map<MatchResult, Integer> matchCounts = lottoBusiness.countMatchResults(allLotteries, lastLotto);
+    public LottoNumber readBonusBall() {
+        outView.printBonusBall();
+        LottoNumber bonusNumber = new LottoNumber(Integer.parseInt(inputView.inputBonusBall()));
+        System.out.println();
+        return bonusNumber;
+    }
+
+    public void showLotteryStatistics(List<LottoNumbers> allLotteries, List<LottoNumber> lastLotto, int money, LottoNumber bonusBall) {
+        Map<MatchResult, Integer> matchCounts = lottoBusiness.countMatchResults(allLotteries, lastLotto, bonusBall);
         String profitRate = lottoBusiness.calculateProfitRrate(matchCounts, money);
         outView.printLotteryStatistics(matchCounts, profitRate);
     }
