@@ -22,8 +22,11 @@ public class Money {
         }
     }
 
-    public int getCountOfLottos() {
-        return purchaseAmount / LOTTO_PRICE;
+    public int getTotalLottoCount(){
+        return this.purchaseAmount/LOTTO_PRICE;
     }
 
+    public int getCountOfAutoLottos(int manualLotto) {
+        return (purchaseAmount / LOTTO_PRICE) - manualLotto;
+    }
 }

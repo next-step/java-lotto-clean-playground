@@ -18,31 +18,63 @@ import java.util.stream.Collectors;
 
 public class LottoController {
     public void lottoRun() {
-        Lottos lottos = purchaseLottos();
-        displayPurchasedLottos(lottos);
+        try {
+            int purchaseAmount = InputView.readAmount();
+            int manualCount = InputView.readManualPurchase();
 
-        WinningNumbers winningNumbers = createWinningNumbers();
-        showWinningResults(lottos, winningNumbers);
-        InputView.close();
+            Lottos lottos = purchseLottos(purchaseAmount, manualCount);
+
+            displayPurchasedLottos(lottos, manualCount);
+
+            WinningNumbers winningNumbers = createWinningNumbers();
+            int bonusNumberInt = InputView.readBonusNumbers();
+            winningNumbers.setBonusBall(new LottoNumber(bonusNumberInt));
+
+            showWinningResults(lottos, winningNumbers);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+        } finally {
+            InputView.close();
+
+        }
     }
 
-    private Lottos purchaseLottos() {
-        int purchaseAmount = InputView.readAmount();
+    private Lottos purchseLottos(int purchaseAmount, int manualCount) {
         Money money = new Money(purchaseAmount);
 
         List<Lotto> lottoList = new ArrayList<>();
-        int countOfLottos = money.getCountOfLottos();
 
-        for (int i = 0; i < countOfLottos; i++) {
-            List<Integer> generatedNumbers = LottoGenerator.generate();
-            lottoList.add(new Lotto(generatedNumbers));
-        }
+        addManualLottos(lottoList, manualCount);
+        addAutoLottos(lottoList, money, manualCount);
+
 
         return new Lottos(lottoList);
     }
 
-    private void displayPurchasedLottos(Lottos lottos) {
-        OutputView.printPurchaseCount(lottos.size());
+    private void addManualLottos(List<Lotto> lottoList, int manualCount) {
+        OutputView.displayManualLottoPrompt();
+        for (int i = 0; i < manualCount; i++) {
+            String numbers = InputView.readManualLotto();
+            List<Integer> lottoNumbers = Arrays.stream(numbers.split(","))
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            lottoList.add(new Lotto(lottoNumbers));
+        }
+    }
+
+    private void addAutoLottos(List<Lotto> lottoList, Money money, int manualCount) {
+        int autoLottos = money.getCountOfAutoLottos(manualCount);
+
+        for (int i = 0; i < autoLottos; i++) {
+            List<Integer> generatedNumbers = LottoGenerator.generate();
+            lottoList.add(new Lotto(generatedNumbers));
+        }
+    }
+
+    private void displayPurchasedLottos(Lottos lottos, int manualCount) {
+        OutputView.printPurchaseCount(manualCount, lottos.size() - manualCount);
         OutputView.printLottos(lottos);
     }
 

@@ -24,7 +24,9 @@ public class Lottos {
         Map<Rank, Integer> result = new HashMap<>();
         for (Lotto lotto : lottos) {
             int matchCount = lotto.countMatches(winningNumbers);
-            Rank rank = Rank.of(matchCount);
+
+            boolean matchBonus = lotto.bonusMatch(winningNumbers.getBonusBall());
+            Rank rank = Rank.of(matchCount, matchBonus);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }
         return result;
