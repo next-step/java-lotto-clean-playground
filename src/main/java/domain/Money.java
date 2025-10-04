@@ -19,7 +19,7 @@ public class Money {
         return money;
     }
 
-    public static LottoTicketCount getTicketCount(Money money) {
-        return new LottoTicketCount(money.getMoney() / LOTTO_PRICE);
+    public LottoTicketCount getTicketCount() {
+        return new LottoTicketCount(this.money / LOTTO_PRICE);
     }
 }

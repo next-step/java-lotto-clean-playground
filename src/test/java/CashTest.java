@@ -16,7 +16,7 @@ public class CashTest {
     @DisplayName("금액 입력 시 올바른 로또 갯수가 출력되는지 확인")
     void testCashToTicket() {
         Money money = new Money(5500);
-        LottoTicketCount ticketNumber = Money.getTicketCount(money);
+        LottoTicketCount ticketNumber = money.getTicketCount();
         assertEquals(5, ticketNumber.getCount());
     }
 

@@ -32,7 +32,7 @@ public class LottoController {
 
 
     public LottoTickets buyLotto(Money money) {
-        LottoTicketCount ticketNumber = Money.getTicketCount(money);
+        LottoTicketCount ticketNumber = money.getTicketCount();
         resultView.printTicketNumbers(ticketNumber.getCount());
 
         outputView.printManualCount();
@@ -45,7 +45,6 @@ public class LottoController {
         for (int i = 0; i < manualCount; i++) {
             String manualNumbers = inputView.inputManualNumbers();
             manualLottos.add(lottoService.parseLottoAnswer(manualNumbers));
-
         }
 
         int autoCount = ticketNumber.getCount() - manualCount;
