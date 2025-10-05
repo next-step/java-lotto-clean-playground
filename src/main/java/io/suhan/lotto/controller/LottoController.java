@@ -1,9 +1,14 @@
-package io.suhan.lotto.model.lotto;
+package io.suhan.lotto.controller;
 
 import static io.suhan.lotto.model.executor.PurchaseExecutor.PRICE_PER_LOTTO;
 
 import io.suhan.lotto.model.executor.DrawExecutor;
 import io.suhan.lotto.model.executor.PurchaseExecutor;
+import io.suhan.lotto.model.lotto.Lotto;
+import io.suhan.lotto.model.lotto.LottoFactory;
+import io.suhan.lotto.model.lotto.LottoNumber;
+import io.suhan.lotto.model.lotto.LottoRegistry;
+import io.suhan.lotto.model.lotto.LottoStatistics;
 import io.suhan.lotto.view.InputView;
 import io.suhan.lotto.view.OutputView;
 import java.util.Set;
