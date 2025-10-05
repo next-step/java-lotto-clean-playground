@@ -24,7 +24,15 @@ public class LottoController {
 
     public void run() {
         outputView.printWonMessage();
-        Money money = new Money(inputView.inputMoney());
+        Money money = null;
+        while (money == null) {
+            try {
+                money = new Money(inputView.inputMoney());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
 
         LottoTickets lottoTickets = buyLotto(money);
         checkLotto(lottoTickets, money);
@@ -36,7 +44,18 @@ public class LottoController {
         resultView.printTicketNumbers(ticketNumber.getCount());
 
         outputView.printManualCount();
-        int manualCount = inputView.inputManualCount();
+        int manualCount = 0;
+
+        while (true) {
+            try {
+                manualCount = inputView.inputManualCount();
+                ticketNumber.validateManualCount(manualCount);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
 
         List<Lotto> manualLottos = new ArrayList<>();
         outputView.printManualNumbers();
@@ -73,7 +92,10 @@ public class LottoController {
         Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
         lottoService.validateBonusBall(lottoAnswerObj, bonuseBall);
 
-        MatchCount matchCount = lottoService.calculateMatchCount(tickektAutoCount.getTickets(), lottoAnswerObj, bonuseBall);
+        MatchCount matchCount = lottoService.calculateMatchCount(
+                tickektAutoCount.getTickets(),
+                lottoAnswerObj,
+                bonuseBall);
 
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(matchCount));
 

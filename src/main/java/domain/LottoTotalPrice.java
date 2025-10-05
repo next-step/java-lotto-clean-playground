@@ -10,7 +10,8 @@ public class LottoTotalPrice {
     }
 
     private long calculateTotalSum(MatchCount matchCount) {
-        return Arrays.stream(LottoPrice.values()).mapToLong(price -> (long) matchCount.getCount(price) * price.getPrice()).sum();
+        return Arrays.stream(LottoPrice.values())
+                     .mapToLong(price -> (long) matchCount.getCount(price) * price.getPrice()).sum();
     }
 
     public long getTotalSum() {

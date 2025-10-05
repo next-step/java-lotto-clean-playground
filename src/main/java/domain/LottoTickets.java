@@ -24,7 +24,8 @@ public class LottoTickets {
             if (generatedNumbers.size() != 6) {
                 throw new IllegalArgumentException("로또 번호에 중복된 숫자가 있습니다.");
             }
-            SortedSet<LottoNumber> lottoNumbers = generatedNumbers.stream().map(LottoNumber::new).collect(Collectors.toCollection(TreeSet::new));
+            SortedSet<LottoNumber> lottoNumbers = generatedNumbers.stream().map(LottoNumber::new)
+                                                                  .collect(Collectors.toCollection(TreeSet::new));
             lottoTickets.tickets.add(new Lotto(lottoNumbers));
         }
 
