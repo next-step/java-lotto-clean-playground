@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final String INPUT_DELIMITER = ",";
 
     public static int getBalance() {
         System.out.println("구입할 금액을 입력해주세요.");
@@ -46,7 +47,7 @@ public class InputView {
     }
 
     private static Set<Integer> parseNumbers(String input) {
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(input.split(INPUT_DELIMITER))
                 .map(Integer::parseInt)
                 .collect(Collectors.toSet());
     }
