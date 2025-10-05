@@ -11,6 +11,7 @@ import io.suhan.lotto.model.lotto.LottoType;
 import java.util.List;
 import java.util.Set;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
@@ -18,16 +19,21 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(ReplaceUnderscores.class)
 public class DrawExecutorTest {
-    @Test
-    void 당첨번호와_로또를_비교할_수_있다() {
-        LottoRegistry registry = new LottoRegistry();
+    private LottoRegistry registry;
+    private Lotto winningLotto;
 
+    @BeforeEach
+    void setUp() {
+        registry = new LottoRegistry();
         Set<LottoNumber> numbers = Set.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        );
+        winningLotto = Lotto.of(numbers);
+    }
 
-        Lotto winningLotto = Lotto.of(numbers);
-
+    @Test
+    void 당첨번호와_로또를_비교할_수_있다() {
         registry.add(winningLotto);
 
         LottoNumber bonusNumber = new LottoNumber(7);
@@ -45,16 +51,8 @@ public class DrawExecutorTest {
 
     @Test
     void 보너스_번호는_당첨번호와_중복될_수_없다() {
-        LottoRegistry registry = new LottoRegistry();
-
         Lotto lotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
         registry.add(lotto);
-
-        Set<LottoNumber> numbers = Set.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
-
-        Lotto winningLotto = Lotto.of(numbers);
 
         LottoNumber bonusNumber = new LottoNumber(6);
 
