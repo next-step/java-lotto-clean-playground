@@ -22,11 +22,7 @@ public class LottoController {
 
     public void run() {
         try {
-            int balance = InputView.getBalance();
-
-            if (balance < PRICE_PER_LOTTO) {
-                throw new IllegalArgumentException("금액은 " + PRICE_PER_LOTTO + "원 보다 커야 합니다.");
-            }
+            int balance = InputView.getValidBalance();
 
             executePurchase(balance);
             executeDraw(balance);
@@ -36,11 +32,7 @@ public class LottoController {
     }
 
     private void executePurchase(int balance) {
-        int manualCount = InputView.getManualCount();
-
-        if (manualCount < 0) {
-            throw new IllegalArgumentException("로또 수는 0 또는 양수만 입력할 수 있습니다.");
-        }
+        int manualCount = InputView.getValidManualCount();
 
         if (PRICE_PER_LOTTO * manualCount > balance) {
             throw new IllegalArgumentException("금액이 부족합니다.");
@@ -55,7 +47,7 @@ public class LottoController {
     private void executeDraw(int balance) {
         Lotto winningLotto = createWinningLotto();
 
-        LottoNumber bonusNumber = new LottoNumber(InputView.getBonusNumber());
+        LottoNumber bonusNumber = InputView.getValidBonusNumber();
 
         DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto, bonusNumber);
         drawExecutor.execute();
@@ -66,7 +58,7 @@ public class LottoController {
     }
 
     private Lotto createWinningLotto() {
-        Set<LottoNumber> wonNumbers = LottoFactory.toLottoNumbers(InputView.getWonNumbers());
+        Set<LottoNumber> wonNumbers = LottoFactory.toLottoNumbers(InputView.getValidWonNumbers());
 
         return Lotto.of(wonNumbers);
     }

@@ -35,7 +35,7 @@ public class PurchaseExecutor implements Executor {
     }
 
     private void purchaseManualNumbers() {
-        List<Set<Integer>> manualNumbersList = InputView.getManualNumbers(manualCount);
+        List<Set<Integer>> manualNumbersList = InputView.getValidManualNumbers(manualCount);
 
         for (Set<Integer> numbers : manualNumbersList) {
             Lotto lotto = Lotto.of(LottoType.MANUAL, LottoFactory.toLottoNumbers(numbers));
