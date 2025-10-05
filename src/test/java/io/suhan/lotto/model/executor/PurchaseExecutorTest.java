@@ -13,13 +13,17 @@ import org.junit.jupiter.api.Test;
 public class PurchaseExecutorTest {
     @Test
     void 금액에_맞는_로또를_구매할_수_있다() {
+        // given
         LottoRegistry registry = new LottoRegistry();
         int count = 5;
         int balance = PRICE_PER_LOTTO * count;
 
         PurchaseExecutor executor = new PurchaseExecutor(registry, balance, 0);
+
+        // when
         executor.execute();
 
+        // then
         assertThat(registry.getLottos()).hasSize(count);
     }
 }
