@@ -16,4 +16,5 @@ public enum LottoPrice {
     public int getPrice() {
         return price;
     }
+
 }

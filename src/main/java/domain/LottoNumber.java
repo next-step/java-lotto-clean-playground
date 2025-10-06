@@ -1,6 +1,7 @@
 package domain;
 
 public class LottoNumber implements Comparable<LottoNumber> {
+
     private final int number;
 
     public LottoNumber(int number) {
@@ -35,4 +36,5 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public String toString() {
         return String.valueOf(number);
     }
+
 }

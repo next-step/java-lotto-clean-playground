@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class MatchCount {
+
     private final EnumMap<LottoPrice, Integer> counts = new EnumMap<>(LottoPrice.class);
 
     public MatchCount() {
@@ -56,5 +57,6 @@ public class MatchCount {
         }
         return null;
     }
+
 }
 

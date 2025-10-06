@@ -18,16 +18,18 @@ import java.util.List;
 
 
 public class LottoController {
+
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
     ResultView resultView = new ResultView();
 
     public void run() {
         outputView.printWonMessage();
-        Money money = null;
-        while (money == null) {
+        Money money;
+        while (true) {
             try {
                 money = new Money(inputView.inputMoney());
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 System.out.println("다시 입력해주세요.");
@@ -119,7 +121,6 @@ public class LottoController {
                 System.out.println("다시 입력해주세요.");
             }
         }
-
 
         MatchCount matchCount = lottoService.calculateMatchCount(
                 ticketAutoCount.getTickets(),

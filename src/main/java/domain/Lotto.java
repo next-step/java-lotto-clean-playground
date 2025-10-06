@@ -4,6 +4,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Lotto {
+
     private final SortedSet<LottoNumber> numbers;
 
     public Lotto(SortedSet<LottoNumber> numbers) {

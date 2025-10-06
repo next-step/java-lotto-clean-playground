@@ -1,6 +1,7 @@
 package domain;
 
 public class LottoTotalPrice {
+
     private final long totalSum;
 
     public LottoTotalPrice(MatchCount matchCount) {
@@ -15,4 +16,5 @@ public class LottoTotalPrice {
     public long getTotalSum() {
         return totalSum;
     }
+
 }

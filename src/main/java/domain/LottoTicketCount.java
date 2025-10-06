@@ -1,6 +1,7 @@
 package domain;
 
 public class LottoTicketCount {
+
     private final int count;
 
     public LottoTicketCount(int count) {
@@ -19,4 +20,5 @@ public class LottoTicketCount {
             throw new IllegalArgumentException("수동으로 구매할 로또 수는 0 이상이여야 하며, 구매 가능한 티켓 수를 초과할 수 없습니다.");
         }
     }
+
 }

@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Lottos {
+
     private List<Lotto> tickets;
 
     public Lottos() {
@@ -16,7 +17,6 @@ public class Lottos {
 
     public static Lottos createMixedTickets(List<Lotto> manualLottos, int autoCount) {
         Lottos lottoTickets = new Lottos();
-
         lottoTickets.tickets.addAll(manualLottos);
 
         for (int i = 0; i < autoCount; i++) {
@@ -35,4 +35,5 @@ public class Lottos {
     public List<Lotto> getTickets() {
         return tickets;
     }
+
 }

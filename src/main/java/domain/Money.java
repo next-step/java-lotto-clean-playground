@@ -1,6 +1,7 @@
 package domain;
 
 public class Money {
+
     private static final int LOTTO_PRICE = 1000;
     private final int money;
 
@@ -22,4 +23,5 @@ public class Money {
     public LottoTicketCount getTicketCount() {
         return new LottoTicketCount(this.money / LOTTO_PRICE);
     }
+
 }

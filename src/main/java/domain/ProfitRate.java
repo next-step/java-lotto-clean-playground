@@ -1,6 +1,7 @@
 package domain;
 
 public class ProfitRate {
+
     private final double profitRate;
 
     public ProfitRate(Money money, LottoTotalPrice totalPrice) {
@@ -10,4 +11,5 @@ public class ProfitRate {
     public double getProfitRate() {
         return profitRate;
     }
+
 }

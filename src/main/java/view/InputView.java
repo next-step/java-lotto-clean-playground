@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 public class InputView {
+
     Scanner scanner = new Scanner(System.in);
 
     public int inputMoney() {
@@ -32,4 +33,5 @@ public class InputView {
         String manualNumbers = scanner.nextLine();
         return manualNumbers;
     }
+
 }
