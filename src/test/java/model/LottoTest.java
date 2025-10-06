@@ -40,16 +40,20 @@ public class LottoTest {
 
     @Test
     void Lotto_생성_시_숫자가_6개가_아니면_예외가_발생한다() {
+        //given
         List<Integer> numbersWithFive = List.of(1, 2, 3, 4, 5);
 
+        //when & then
         assertThatThrownBy(() -> new Lotto(numbersWithFive))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void Lotto_생성_시_중복된_숫자가_있으면_예외가_발생한다() {
+        //given
         List<Integer> numbersWithDuplicates = List.of(1, 2, 3, 4, 5, 5);
 
+        //when & then
         assertThatThrownBy(() -> new Lotto(numbersWithDuplicates))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -61,8 +65,11 @@ public class LottoTest {
             WinningNumbers winningNumbers,
             int expectedCount
     ) {
+
+        //when
         int matchCount = userLotto.countMatches(winningNumbers);
 
+        //then
         assertEquals(expectedCount, matchCount);
     }
 }

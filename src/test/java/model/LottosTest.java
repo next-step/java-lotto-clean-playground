@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LottosTest {
     @Test
     void calculateResult_호출_시_올바른_당첨_통계를_반환한다() {
+        //given
         WinningNumbers winningNumbers = new WinningNumbers(DEFAULT_WINNING_NUMBERS);
         winningNumbers.setBonusBall(BONUS_BALL);
 
@@ -35,9 +36,10 @@ public class LottosTest {
                 LOTTO_MATCH_5_MATCH_BONUS_BALL,
                 LOTTO_MATCH_6
         ));
-
+        //when
         Map<Rank, Integer> result = userLottos.calculateResult(winningNumbers);
 
+        //then
         assertEquals(1, result.get(Rank.FIRST));
         assertEquals(1, result.get(Rank.SECOND));
         assertEquals(1, result.get(Rank.THIRD));

@@ -23,8 +23,10 @@ public class RankTest {
             "0, true, NONE"
     })
     void 일치_개수에_맞는_Rank를_반환한다(int matchCount, boolean matchBonus, Rank expectedRank) {
+        //when
         Rank actualRank = Rank.of(matchCount, matchBonus);
 
+        //then
         assertEquals(expectedRank, actualRank);
     }
 }

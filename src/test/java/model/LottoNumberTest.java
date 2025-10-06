@@ -17,13 +17,17 @@ public class LottoNumberTest {
 
     @Test
     void LottoNumber_생성_시_1에서_45_사이의_값이면_성공한다() {
+        //given
         int validNumber = 45;
+
+        //when & then
         assertDoesNotThrow(() -> new LottoNumber(validNumber));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, -1})
     void LottoNumber_생성_시_1보다_작은_값이면_예외가_발생한다(int invalidNumber) {
+        //when & then
         assertThatThrownBy(() -> new LottoNumber(invalidNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -31,6 +35,7 @@ public class LottoNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {46, 100})
     void LottoNumber_생성_시_45보다_큰_값이면_예외가_발생한다(int invalidNumber) {
+        //when & then
         assertThatThrownBy(() -> new LottoNumber(invalidNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
