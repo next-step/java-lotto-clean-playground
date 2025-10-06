@@ -4,24 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int LOTTO_TICKET_SIZE = 6;
 
-    private List<LottoNumber> numbers;
+    private final Set<LottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
-        List<Integer>sortedNumbers = sortNumbers(numbers);
-        validateSize(sortedNumbers);
-        validateDuplicates(sortedNumbers);
-        this.numbers = convertToLottoNumbers(sortedNumbers);
-    }
-
-    private List<Integer> sortNumbers(List<Integer> numbers) {
-        return numbers.stream()
-                .sorted()
-                .collect(Collectors.toList());
+        validateSize(numbers);
+        validateDuplicates(numbers);
+        this.numbers = convertToLottoNumbers(numbers);
     }
 
     public int countMatches(WinningNumbers winningNumbers) {
@@ -40,7 +34,7 @@ public class Lotto {
 
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_TICKET_SIZE) {
-            throw new IllegalArgumentException("당첨 번호는 반드시 " + Lotto.LOTTO_TICKET_SIZE + "개여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는 반드시 " + Lotto.LOTTO_TICKET_SIZE + "개여야 합니다.");
         }
     }
 
@@ -51,11 +45,9 @@ public class Lotto {
         }
     }
 
-    private List<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (Integer number : numbers) {
-            lottoNumbers.add(new LottoNumber(number));
-        }
-        return lottoNumbers;
+    private Set<LottoNumber> convertToLottoNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 }
