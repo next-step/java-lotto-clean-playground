@@ -22,6 +22,12 @@ public class Money {
         }
     }
 
+    public void validateManualLottoCount(int manualLottoCount){
+        if (manualLottoCount > getTotalLottoCount()) {
+            throw new IllegalArgumentException("수동으로 구매할 로또의 수가 총 구매 가능 개수를 초과했습니다.");
+        }
+    }
+
     public int getTotalLottoCount(){
         return this.purchaseAmount/LOTTO_PRICE;
     }
