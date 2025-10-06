@@ -20,9 +20,12 @@ public class LottoController {
     public void lottoRun() {
         try {
             int purchaseAmount = InputView.readAmount();
-            int manualCount = InputView.readManualPurchase();
+            Money money = new Money(purchaseAmount);
 
-            Lottos lottos = purchseLottos(purchaseAmount, manualCount);
+            int manualCount = InputView.readManualPurchase();
+            money.validateManualLottoCount(manualCount);
+
+            Lottos lottos = purchaseLottos(money, manualCount);
 
             displayPurchasedLottos(lottos, manualCount);
 
@@ -35,18 +38,14 @@ public class LottoController {
             OutputView.printErrorMessage(e.getMessage());
         } finally {
             InputView.close();
-
         }
     }
 
-    private Lottos purchseLottos(int purchaseAmount, int manualCount) {
-        Money money = new Money(purchaseAmount);
-
+    private Lottos purchaseLottos(Money money, int manualCount) {
         List<Lotto> lottoList = new ArrayList<>();
 
         addManualLottos(lottoList, manualCount);
         addAutoLottos(lottoList, money, manualCount);
-
 
         return new Lottos(lottoList);
     }
@@ -91,18 +90,9 @@ public class LottoController {
     private void showWinningResults(Lottos lottos, WinningNumbers winningNumbers) {
         Map<Rank, Integer> matchResult = lottos.calculateResult(winningNumbers);
 
-        long totalPrize = calculateTotalPrize(matchResult);
-        double rateOfReturn = (double) totalPrize / (lottos.size() * Money.LOTTO_PRICE);
+        long totalPrize = lottos.calculateTotalPrize(matchResult);
+        double rateOfReturn = lottos.calculateRateOfReturn(totalPrize);
 
         OutputView.printWinningResult(matchResult, rateOfReturn);
-    }
-
-    private long calculateTotalPrize(Map<Rank, Integer> matchResult) {
-        long totalPrize = 0;
-        for (Rank rank : matchResult.keySet()) {
-            int count = matchResult.get(rank);
-            totalPrize += (long) rank.getPrize() * count;
-        }
-        return totalPrize;
     }
 }

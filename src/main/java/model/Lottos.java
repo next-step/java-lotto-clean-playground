@@ -31,4 +31,18 @@ public class Lottos {
         }
         return result;
     }
+
+    public long calculateTotalPrize(Map<Rank, Integer> matchResult) {
+        return matchResult.entrySet().stream()
+                .mapToLong(entry -> (long) entry.getKey().getPrize() * entry.getValue())
+                .sum();
+    }
+
+    public double calculateRateOfReturn(long totalPrize) {
+        if (lottos.isEmpty()) {
+            return 0.0;
+        }
+        long totalPurchaseAmount = (long) lottos.size() * Money.LOTTO_PRICE;
+        return (double) totalPrize / totalPurchaseAmount;
+    }
 }
