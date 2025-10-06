@@ -7,10 +7,14 @@ public class Lotto {
     private final SortedSet<LottoNumber> numbers;
 
     public Lotto(SortedSet<LottoNumber> numbers) {
+        validateSize(numbers);
+        this.numbers = new TreeSet<>(numbers);
+    }
+
+    private void validateSize(SortedSet<LottoNumber> numbers) {
         if (numbers.size() != createList.LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 숫자는 6개여야 하며, 중복될 수 없습니다.");
         }
-        this.numbers = new TreeSet<>(numbers);
     }
 
     public int contains(LottoNumber number) {

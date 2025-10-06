@@ -7,15 +7,15 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class LottoTickets {
+public class Lottos {
     private List<Lotto> tickets;
 
-    public LottoTickets() {
+    public Lottos() {
         this.tickets = new ArrayList<>();
     }
 
-    public static LottoTickets createMixedTickets(List<Lotto> manualLottos, int autoCount) {
-        LottoTickets lottoTickets = new LottoTickets();
+    public static Lottos createMixedTickets(List<Lotto> manualLottos, int autoCount) {
+        Lottos lottoTickets = new Lottos();
 
         lottoTickets.tickets.addAll(manualLottos);
 

@@ -4,7 +4,7 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoService;
 import domain.LottoTicketCount;
-import domain.LottoTickets;
+import domain.Lottos;
 import domain.LottoTotalPrice;
 import domain.Money;
 import domain.MatchCount;
@@ -34,12 +34,12 @@ public class LottoController {
             }
         }
 
-        LottoTickets lottoTickets = buyLotto(money);
+        Lottos lottoTickets = buyLotto(money);
         checkLotto(lottoTickets, money);
     }
 
 
-    public LottoTickets buyLotto(Money money) {
+    public Lottos buyLotto(Money money) {
         LottoTicketCount ticketNumber = money.getTicketCount();
         resultView.printTicketNumbers(ticketNumber.getCount());
 
@@ -70,7 +70,7 @@ public class LottoController {
 
         resultView.printManualAuto(manualCount, autoCount);
         outputView.lottoResult();
-        LottoTickets lottoTickets = LottoTickets.createMixedTickets(manualLottos, autoCount);
+        Lottos lottoTickets = Lottos.createMixedTickets(manualLottos, autoCount);
 
         for (Lotto lotto : lottoTickets.getTickets()) {
             System.out.println(lotto);
@@ -80,7 +80,7 @@ public class LottoController {
     }
 
 
-    public void checkLotto(LottoTickets tickektAutoCount, Money money) {
+    public void checkLotto(Lottos tickektAutoCount, Money money) {
         outputView.printLottoAnswer();
 
         LottoService lottoService = new LottoService();
