@@ -90,11 +90,14 @@ public class LottoService {
                 .toList();
         int matchCount = 0;
         for (LottoNumber number : oneLotto) {
-            if (lastNumbers.contains(number.getNumber())) {
-                matchCount++;
-            }
+            matchCount += containsNumber(lastNumbers, number);
         }
         return matchCount;
+    }
+
+    private int containsNumber(List<Integer> lastNumbers, LottoNumber number) {
+        if (lastNumbers.contains(number.getNumber())) return 1;
+        return 0;
     }
 
     private boolean matchBonus(List<LottoNumber> oneLotto, LottoNumber bonusBall, int count) {
