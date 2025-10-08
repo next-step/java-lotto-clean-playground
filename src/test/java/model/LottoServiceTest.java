@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
+import static model.LottoFixture.기본로또;
+import static model.LottoFixture.네개일치로또;
+import static model.LottoFixture.보너스7포함로또;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoServiceTest {
@@ -20,8 +23,7 @@ class LottoServiceTest {
         LottoNumbers lotto = business.createOneLotto();
 
         // Then
-        assertEquals(List.of(1, 2, 3, 4, 5, 6),
-                lotto.getNumbers().stream().map(LottoNumber::getNumber).toList());
+        assertEquals(기본로또(), lotto);
     }
 
     @Test
@@ -48,21 +50,14 @@ class LottoServiceTest {
 
         // Then
         assertEquals(6, last.getNumbers().size());
-        assertEquals(List.of(1, 2, 3, 4, 5, 6),
-                last.getNumbers().stream().map(LottoNumber::getNumber).toList());
+        assertEquals(기본로또(), last);
     }
 
     @Test
     void countMatchResults_4개일치면_FOUR가_1로_집계된다() {
         // Given
-        LottoNumbers mine = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-        ));
-        LottoNumbers last = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(7), new LottoNumber(8)
-        ));
+        LottoNumbers mine = 기본로또();
+        LottoNumbers last = 네개일치로또();
         LottoNumber bonus = new LottoNumber(9);
 
         // When
@@ -99,14 +94,8 @@ class LottoServiceTest {
     @Test
     void 보너스볼까지_맞추면_FIVE_BONUS로_집계된다() {
         // Given
-        LottoNumbers mine = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(7)
-        ));
-        LottoNumbers winning = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-        ));
+        LottoNumbers mine = 보너스7포함로또();
+        LottoNumbers winning = 기본로또();
         LottoNumber bonus = new LottoNumber(7);
 
         // When

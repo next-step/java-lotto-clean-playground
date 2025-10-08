@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+
+import static model.LottoFixture.기본로또;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoNumbersTest {
@@ -39,21 +41,14 @@ class LottoNumbersTest {
 
         LottoNumbers sorted = new LottoNumbers(numbers).sortNumbers();
 
-        assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6),
-                sorted.getNumbers().stream().map(LottoNumber::getNumber).toList());
+        assertEquals(기본로또(), sorted);
     }
 
     @Test
     void 같은번호면_동일한객체() {
         // Given
-        LottoNumbers lotto1 = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-        ));
-        LottoNumbers lotto2 = new LottoNumbers(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-        ));
+        LottoNumbers lotto1 = 기본로또();
+        LottoNumbers lotto2 = 기본로또();
 
         // When & Then
         assertEquals(lotto1, lotto2);
