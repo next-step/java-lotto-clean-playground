@@ -23,7 +23,7 @@ public class LottoNumbers {
     }
 
     public List<LottoNumber> getNumbers() {
-        return Collections.unmodifiableList(numbers);
+        return numbers;
     }
 
     @Override
