@@ -30,9 +30,25 @@ public enum MatchResult {
         if (count == 5 && bonusMatch) {
             return FIVE_BONUS;
         }
-        for (MatchResult result : values()) {
-            if (result.count == count && result != FIVE_BONUS) return result;
+
+        MatchResult[] results = values();
+        return findMatchResult(results, count);
+    }
+
+    private static MatchResult findMatchResult(MatchResult[] results, int count) {
+        int i = 0;
+        while (i < results.length && !isMatched(results[i], count)) {
+            i++;
         }
-        return ZERO;
+
+        if (i == results.length) {
+            return ZERO;
+        }
+
+        return results[i];
+    }
+
+    private static boolean isMatched(MatchResult result, int count) {
+        return result.count == count && result != FIVE_BONUS;
     }
 }
