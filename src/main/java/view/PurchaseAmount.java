@@ -1,4 +1,4 @@
-package inputView;
+package view;
 
 import java.util.Objects;
 

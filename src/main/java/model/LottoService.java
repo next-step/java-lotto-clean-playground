@@ -1,6 +1,10 @@
 package model;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 public class LottoService {
     private final LottoNumberGenerator generator;
@@ -47,7 +51,7 @@ public class LottoService {
         return repository;
     }
 
-    public LottoTicketBundle mergeRepositories(LottoTicketBundle manual, LottoTicketBundle auto) {
+    public LottoTicketBundle mergeAutoAndManualLottos(LottoTicketBundle manual, LottoTicketBundle auto) {
         LottoTicketBundle repository = new LottoTicketBundle();
         for (LottoNumbers lotto : manual.readLottoNumbersRepository()) {
             repository.addLottoNumbers(lotto);

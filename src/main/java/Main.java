@@ -1,5 +1,5 @@
 import controller.LottoController;
-import inputView.PurchaseAmount;
+import view.PurchaseAmount;
 import model.LottoNumber;
 import model.LottoNumbers;
 import model.LottoTicketBundle;

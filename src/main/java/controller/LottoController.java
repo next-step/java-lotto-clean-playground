@@ -1,9 +1,14 @@
 package controller;
 
-import inputView.InputView;
-import inputView.OutputView;
-import inputView.PurchaseAmount;
-import model.*;
+import view.InputView;
+import view.OutputView;
+import view.PurchaseAmount;
+import model.LottoNumber;
+import model.LottoNumbers;
+import model.LottoService;
+import model.LottoTicketBundle;
+import model.MatchResult;
+
 
 import java.util.List;
 import java.util.Map;
@@ -65,7 +70,7 @@ public class LottoController {
         LottoTicketBundle manualTickets = lottoService.createManualLottos(manualInputs);
         LottoTicketBundle autoTickets = lottoService.createLottos(autoCount);
 
-        return lottoService.mergeRepositories(manualTickets, autoTickets);
+        return lottoService.mergeAutoAndManualLottos(manualTickets, autoTickets);
     }
 
     private void displayTickets(int manualCount, int autoCount, LottoTicketBundle tickets) {
