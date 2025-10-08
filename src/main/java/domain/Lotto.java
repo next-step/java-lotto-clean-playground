@@ -1,5 +1,8 @@
 package domain;
 
+import domain.value.BonusNumber;
+import domain.value.WinningNumbers;
+
 import java.util.*;
 
 public class Lotto {
@@ -13,9 +16,13 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public int countMatches(List<Integer> targetNumbers) {
+    public boolean isBonusNumberMatched(BonusNumber bonusNumber) {
+        return numbers.contains(bonusNumber.value());
+    }
+
+    public int countMatches(WinningNumbers winningNumbers) {
         int count = 0;
-        for (int singleTargetNumber : targetNumbers)
+        for (int singleTargetNumber : winningNumbers.values())
             if (numbers.contains(singleTargetNumber)) count++;
         return count;
     }

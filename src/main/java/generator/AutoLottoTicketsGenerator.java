@@ -7,9 +7,9 @@ import java.util.*;
 import static domain.Lotto.ALL_LOTTO_NUMBER_SIZE;
 import static domain.Lotto.LOTTO_NUMBER_SIZE;
 
-public class LottoGenerator {
+public class AutoLottoTicketsGenerator {
 
-    public List<Lotto> generateLottoTickets(int ticketsCount) {
+    public List<Lotto> generateAutoLottoTickets(int ticketsCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < ticketsCount; i++) {
             lottos.add(new Lotto(generateSixLottoNumber()));

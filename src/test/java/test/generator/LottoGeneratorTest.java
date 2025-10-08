@@ -1,15 +1,18 @@
-package test;
+package test.generator;
 
 import domain.Lotto;
-import generator.LottoGenerator;
+import generator.AutoLottoTicketsGenerator;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("NonAsciiCharacters")
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class LottoGeneratorTest {
 
     private static boolean isSorted(List<Integer> numbers) {
@@ -22,7 +25,7 @@ class LottoGeneratorTest {
     @Test
     void 한장_생성하면_숫자_6개_범위_중복없고_정렬되어_있다() {
         // given
-        LottoGenerator generator = new LottoGenerator();
+        AutoLottoTicketsGenerator generator = new AutoLottoTicketsGenerator();
 
         // when
         Lotto lotto = new Lotto(generator.generateSixLottoNumber());
@@ -38,11 +41,11 @@ class LottoGeneratorTest {
     @Test
     void 여러장_생성하면_요청한_개수만큼_반환한다() {
         // given
-        LottoGenerator generator = new LottoGenerator();
+        AutoLottoTicketsGenerator generator = new AutoLottoTicketsGenerator();
         int ticketCount = 14;
 
         // when
-        List<Lotto> tickets = generator.generateLottoTickets(ticketCount);
+        List<Lotto> tickets = generator.generateAutoLottoTickets(ticketCount);
 
         // then
         assertEquals(ticketCount, tickets.size());
@@ -58,10 +61,10 @@ class LottoGeneratorTest {
     @Test
     void 개수가_0이면_빈_리스트를_반환한다() {
         // given
-        LottoGenerator generator = new LottoGenerator();
+        AutoLottoTicketsGenerator generator = new AutoLottoTicketsGenerator();
 
         // when
-        List<Lotto> tickets = generator.generateLottoTickets(0);
+        List<Lotto> tickets = generator.generateAutoLottoTickets(0);
 
         // then
         assertTrue(tickets.isEmpty());
