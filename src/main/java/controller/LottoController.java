@@ -26,12 +26,9 @@ public class LottoController {
             money.validateManualLottoCount(manualCount);
 
             Lottos lottos = purchaseLottos(money, manualCount);
-
             displayPurchasedLottos(lottos, manualCount);
 
             WinningNumbers winningNumbers = createWinningNumbers();
-            int bonusNumberInt = InputView.readBonusNumbers();
-            winningNumbers.setBonusBall(new LottoNumber(bonusNumberInt));
 
             showWinningResults(lottos, winningNumbers);
         } catch (IllegalArgumentException e) {
@@ -53,12 +50,7 @@ public class LottoController {
     private void addManualLottos(List<Lotto> lottoList, int manualCount) {
         OutputView.displayManualLottoPrompt();
         for (int i = 0; i < manualCount; i++) {
-            String numbers = InputView.readManualLotto();
-            List<Integer> lottoNumbers = Arrays.stream(numbers.split(","))
-                    .map(String::trim)
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-
+            List<Integer> lottoNumbers = InputView.readManualLotto();
             lottoList.add(new Lotto(lottoNumbers));
         }
     }
@@ -78,13 +70,15 @@ public class LottoController {
     }
 
     private WinningNumbers createWinningNumbers() {
-        String prizeNumbers = InputView.readWinningNumbers();
-        List<LottoNumber> numbers = Arrays.stream(prizeNumbers.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
-        return new WinningNumbers(numbers);
+        List<Integer> lottoNumbers = InputView.readWinningNumbers();
+        WinningNumbers winningNumbers = new WinningNumbers(
+                lottoNumbers.stream().map(LottoNumber::new).collect(Collectors.toList())
+        );
+
+        int bonusNumberInt = InputView.readBonusNumbers();
+        winningNumbers.setBonusBall(new LottoNumber(bonusNumberInt));
+
+        return winningNumbers;
     }
 
     private void showWinningResults(Lottos lottos, WinningNumbers winningNumbers) {
