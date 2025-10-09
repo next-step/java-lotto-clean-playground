@@ -133,4 +133,5 @@ public class LottoController {
         resultView.printLottoMatch(matchCount);
         resultView.printLottoProfit(profitRate.getProfitRate());
     }
+
 }

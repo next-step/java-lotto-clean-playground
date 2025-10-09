@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoService;
+import domain.MatchCount;
 
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -58,6 +60,7 @@ public class LottoTest {
                 new LottoNumber(5),
                 new LottoNumber(5)
         ));
+
         assertThatThrownBy(() -> new Lotto(duplicateNumbers)).isInstanceOf(IllegalArgumentException.class)
                                                              .hasMessageContaining("로또 숫자는 6개여야 하며, 중복될 수 없습니다.");
     }
