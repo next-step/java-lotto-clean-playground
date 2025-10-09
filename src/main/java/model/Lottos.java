@@ -25,7 +25,7 @@ public class Lottos {
         for (Lotto lotto : lottos) {
             int matchCount = lotto.countMatches(winningNumbers);
 
-            boolean matchBonus = lotto.bonusMatch(winningNumbers.getBonusBall());
+            boolean matchBonus = lotto.IsBonusBallMatch(winningNumbers.getBonusBall());
             Rank rank = Rank.of(matchCount, matchBonus);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }
