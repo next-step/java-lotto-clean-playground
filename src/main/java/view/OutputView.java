@@ -49,6 +49,10 @@ public class OutputView {
         System.out.println("보너스 볼을 입력해 주세요.");
     }
 
+    public  void printBlankLine(){
+        System.out.println();
+    }
+
     public void printLotteryStatistics(Map<MatchResult, Integer> matchCounts, String profitRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
