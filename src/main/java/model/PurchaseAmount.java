@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class PurchaseAmount {
         return value;
     }
 
-    public int howManyLottos() {
+    public int calculateLottoCount() {
         return value / 1000;
     }
 

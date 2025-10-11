@@ -2,7 +2,7 @@ package controller;
 
 import view.InputView;
 import view.OutputView;
-import view.PurchaseAmount;
+import model.PurchaseAmount;
 import model.LottoNumber;
 import model.LottoTicket;
 import model.LottoService;

@@ -1,5 +1,5 @@
 import controller.LottoController;
-import view.PurchaseAmount;
+import model.PurchaseAmount;
 import model.LottoNumber;
 import model.LottoTicket;
 import model.LottoTicketBundle;
@@ -12,7 +12,7 @@ public class Main {
         PurchaseAmount purchaseAmount = controller.askPurchaseAmount();
 
         // 2. 수동 및 자동 로또 번호 생성
-        LottoTicketBundle allTickets = controller.buyTickets(purchaseAmount.howManyLottos());
+        LottoTicketBundle allTickets = controller.buyTickets(purchaseAmount.calculateLottoCount());
 
         // 3. 당첨 번호 입력
         LottoTicket winningNumbers = controller.askWinningNumbers();

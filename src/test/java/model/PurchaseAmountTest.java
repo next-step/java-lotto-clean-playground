@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ class PurchaseAmountTest {
         PurchaseAmount purchaseAmount = new PurchaseAmount(2000);
 
         // when
-        int count = purchaseAmount.howManyLottos();
+        int count = purchaseAmount.calculateLottoCount();
 
         // then
         assertEquals(2, count);
