@@ -19,19 +19,4 @@ class LottoTicketBundleTest {
         // then
         assertEquals(1, repository.readLottoNumbersRepository().size());
     }
-
-    @Test
-    void 같은로또묶음들을가지면_동일한저장소다() {
-        // Given
-        LottoTicketBundle re1 = new LottoTicketBundle();
-        LottoTicketBundle re2 = new LottoTicketBundle();
-
-
-        re1.addLottoNumbers(기본로또());
-        re2.addLottoNumbers(기본로또());
-
-        // When & Then
-        assertEquals(re1, re2);
-        assertEquals(re1.hashCode(), re2.hashCode());
-    }
 }

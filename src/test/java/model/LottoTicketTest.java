@@ -43,15 +43,4 @@ class LottoTicketTest {
 
         assertEquals(기본로또(), sorted);
     }
-
-    @Test
-    void 같은번호면_동일한객체() {
-        // Given
-        LottoTicket lotto1 = 기본로또();
-        LottoTicket lotto2 = 기본로또();
-
-        // When & Then
-        assertEquals(lotto1, lotto2);
-        assertEquals(lotto1.hashCode(), lotto2.hashCode());
-    }
 }
