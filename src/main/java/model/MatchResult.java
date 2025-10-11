@@ -1,12 +1,14 @@
 package model;
 
+import java.util.Arrays;
+
 public enum MatchResult {
     ZERO(0, 0),
     ONE(1, 0),
     TWO(2, 0),
     THREE(3, 5000),
     FOUR(4, 50000),
-    FIVE(5, 150000),
+    FIVE(5, 1500000),
     FIVE_BONUS(5, 30000000),
     SIX(6, 2000000000);
 
@@ -32,23 +34,9 @@ public enum MatchResult {
         }
 
         MatchResult[] results = values();
-        return findMatchResult(results, count);
-    }
-
-    private static MatchResult findMatchResult(MatchResult[] results, int count) {
-        int i = 0;
-        while (i < results.length && !isMatched(results[i], count)) {
-            i++;
-        }
-
-        if (i == results.length) {
-            return ZERO;
-        }
-
-        return results[i];
-    }
-
-    private static boolean isMatched(MatchResult result, int count) {
-        return result.count == count && result != FIVE_BONUS;
+        return Arrays.stream(values())
+                .filter(result -> result.count == count && result != FIVE_BONUS)
+                .findFirst()
+                .orElse(ZERO);
     }
 }
