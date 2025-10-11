@@ -85,19 +85,9 @@ public class LottoService {
     }
 
     private int matchLottoNumber(List<LottoNumber> lotto, List<LottoNumber> winningLotto) {
-        List<Integer> lastNumbers = winningLotto.stream()
-                .map(LottoNumber::getNumber)
-                .toList();
-        int matchCount = 0;
-        for (LottoNumber number : lotto) {
-            matchCount += containsNumber(lastNumbers, number);
-        }
-        return matchCount;
-    }
-
-    private int containsNumber(List<Integer> winningLotto, LottoNumber number) {
-        if (winningLotto.contains(number.getNumber())) return 1;
-        return 0;
+        return (int) lotto.stream()
+                .filter(winningLotto::contains)
+                .count();
     }
 
     private boolean matchBonus(List<LottoNumber> lotto, LottoNumber bonusBall, int count) {
