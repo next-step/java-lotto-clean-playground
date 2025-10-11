@@ -15,7 +15,7 @@ class FixedLottoNumberGeneratorTest {
         FixedLottoNumberGenerator generator = new FixedLottoNumberGenerator(input);
 
         // When
-        LottoNumbers lotto = generator.generate();
+        LottoTicket lotto = generator.generate();
 
         // Then
         assertEquals(input.toString(), lotto.getNumbers().toString());

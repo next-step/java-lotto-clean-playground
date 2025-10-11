@@ -4,7 +4,7 @@ import view.InputView;
 import view.OutputView;
 import view.PurchaseAmount;
 import model.LottoNumber;
-import model.LottoNumbers;
+import model.LottoTicket;
 import model.LottoService;
 import model.LottoTicketBundle;
 import model.MatchResult;
@@ -40,7 +40,7 @@ public class LottoController {
     public PurchaseAmount askPurchaseAmount() {
         PurchaseAmount purchaseAmount = readPrice();
         outView.printPriceValue(purchaseAmount.getValue());
-        System.out.println();
+        outView.printBlankLine();
         return purchaseAmount;
     }
 
@@ -78,21 +78,21 @@ public class LottoController {
         outView.printLottos(tickets.readLottoNumbersRepository());
     }
 
-    public LottoNumbers askWinningNumbers() {
+    public LottoTicket askWinningNumbers() {
         outView.printInputWinningNumbers();
-        LottoNumbers lastLotto = lottoService.createInputLotto(inputView.inputWinningNumbers());
-        System.out.println();
+        LottoTicket lastLotto = lottoService.createInputLotto(inputView.inputWinningNumbers());
+        outView.printBlankLine();
         return lastLotto;
     }
 
     public LottoNumber askBonusBall() {
         outView.printBonusBall();
         LottoNumber bonusNumber = new LottoNumber(Integer.parseInt(inputView.inputBonusBall()));
-        System.out.println();
+        outView.printBlankLine();
         return bonusNumber;
     }
 
-    public void showStatistics(List<LottoNumbers> allTickets, List<LottoNumber> winningNumbers, int purchaseAmount, LottoNumber bonusBall) {
+    public void showStatistics(List<LottoTicket> allTickets, List<LottoNumber> winningNumbers, int purchaseAmount, LottoNumber bonusBall) {
         Map<MatchResult, Integer> matchCounts = lottoService.countMatchResults(allTickets, winningNumbers, bonusBall);
         String profitRate = lottoService.calculateProfitRate(matchCounts, purchaseAmount);
         outView.printLotteryStatistics(matchCounts, profitRate);

@@ -7,10 +7,10 @@ import java.util.List;
 public class RandomLottoNumberGenerator implements LottoNumberGenerator {
 
     @Override
-    public LottoNumbers generate() {
+    public LottoTicket generate() {
         List<LottoNumber> numbers = createLottoNumbers();
         Collections.shuffle(numbers);
-        return new LottoNumbers(numbers.subList(0, 6));
+        return new LottoTicket(numbers.subList(0, 6));
     }
 
     public List<LottoNumber> createLottoNumbers() {

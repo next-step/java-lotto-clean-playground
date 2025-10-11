@@ -1,6 +1,6 @@
 package view;
 
-import model.LottoNumbers;
+import model.LottoTicket;
 import model.MatchResult;
 
 import java.util.List;
@@ -31,8 +31,8 @@ public class OutputView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
-    public void printLottos(List<LottoNumbers> Lottos) {
-        for (LottoNumbers lotto : Lottos) {
+    public void printLottos(List<LottoTicket> Lottos) {
+        for (LottoTicket lotto : Lottos) {
             System.out.println(lotto.getNumbers());
         }
     }

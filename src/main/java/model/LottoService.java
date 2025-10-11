@@ -17,7 +17,7 @@ public class LottoService {
         this.generator = generator;
     }
 
-    public LottoNumbers createOneLotto() {
+    public LottoTicket createOneLotto() {
         return generator.generate();
     }
 
@@ -29,9 +29,9 @@ public class LottoService {
         return repository;
     }
 
-    public LottoNumbers createInputLotto(String inputNumber) {
+    public LottoTicket createInputLotto(String inputNumber) {
         List<LottoNumber> numbers = parseInputToNumbers(inputNumber);
-        return new LottoNumbers(numbers);
+        return new LottoTicket(numbers);
     }
 
     private List<LottoNumber> parseInputToNumbers(String inputNumber) {
@@ -53,21 +53,21 @@ public class LottoService {
 
     public LottoTicketBundle mergeAutoAndManualLottos(LottoTicketBundle manual, LottoTicketBundle auto) {
         LottoTicketBundle repository = new LottoTicketBundle();
-        for (LottoNumbers lotto : manual.readLottoNumbersRepository()) {
+        for (LottoTicket lotto : manual.readLottoNumbersRepository()) {
             repository.addLottoNumbers(lotto);
         }
 
-        for (LottoNumbers lotto : auto.readLottoNumbersRepository()) {
+        for (LottoTicket lotto : auto.readLottoNumbersRepository()) {
             repository.addLottoNumbers(lotto);
         }
         return repository;
     }
 
-    public Map<MatchResult, Integer> countMatchResults(List<LottoNumbers> allLotteries,
+    public Map<MatchResult, Integer> countMatchResults(List<LottoTicket> allLotteries,
                                                        List<LottoNumber> lastLotto,
                                                        LottoNumber bonusBall) {
         Map<MatchResult, Integer> matchCounts = initializeMatchCounts();
-        for (LottoNumbers oneLotto : allLotteries) {
+        for (LottoTicket oneLotto : allLotteries) {
             int count = matchLottoNumber(oneLotto.getNumbers(), lastLotto);
             boolean bonusMatch = matchBonus(oneLotto.getNumbers(), bonusBall, count);
             MatchResult result = MatchResult.fromCount(count, bonusMatch);

@@ -2,10 +2,10 @@ package model;
 
 import java.util.*;
 
-public class LottoNumbers {
+public class LottoTicket {
     private final List<LottoNumber> numbers;
 
-    public LottoNumbers(List<LottoNumber> numbers) {
+    public LottoTicket(List<LottoNumber> numbers) {
         validateSize(numbers);
         this.numbers = List.copyOf(numbers);
     }
@@ -16,26 +16,14 @@ public class LottoNumbers {
         }
     }
 
-    public LottoNumbers sortNumbers() {
+    public LottoTicket sortNumbers() {
         List<LottoNumber> sortNumber = new ArrayList<>(numbers);
         Collections.sort(sortNumber, Comparator.comparingInt(LottoNumber::getNumber));
-        return new LottoNumbers(sortNumber);
+        return new LottoTicket(sortNumber);
     }
 
     public List<LottoNumber> getNumbers() {
         return numbers;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LottoNumbers)) return false;
-        LottoNumbers lottoNumbers = (LottoNumbers) o;
-        return Objects.equals(numbers, lottoNumbers.numbers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numbers);
-    }
 }

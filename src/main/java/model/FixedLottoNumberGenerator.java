@@ -15,7 +15,7 @@ public class FixedLottoNumberGenerator implements LottoNumberGenerator {
     }
 
     @Override
-    public LottoNumbers generate() {
-        return new LottoNumbers(fixedNumbers);
+    public LottoTicket generate() {
+        return new LottoTicket(fixedNumbers);
     }
 }

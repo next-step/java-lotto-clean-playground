@@ -20,7 +20,7 @@ class LottoServiceTest {
                 new LottoService(new FixedLottoNumberGenerator(List.of(1, 2, 3, 4, 5, 6)));
 
         // When
-        LottoNumbers lotto = business.createOneLotto();
+        LottoTicket lotto = business.createOneLotto();
 
         // Then
         assertEquals(기본로또(), lotto);
@@ -46,7 +46,7 @@ class LottoServiceTest {
         String input = "1, 2,3, 4 ,5,6";
 
         // When
-        LottoNumbers last = business.createInputLotto(input);
+        LottoTicket last = business.createInputLotto(input);
 
         // Then
         assertEquals(6, last.getNumbers().size());
@@ -56,8 +56,8 @@ class LottoServiceTest {
     @Test
     void countMatchResults_4개일치면_FOUR가_1로_집계된다() {
         // Given
-        LottoNumbers mine = 기본로또();
-        LottoNumbers last = 네개일치로또();
+        LottoTicket mine = 기본로또();
+        LottoTicket last = 네개일치로또();
         LottoNumber bonus = new LottoNumber(9);
 
         // When
@@ -94,8 +94,8 @@ class LottoServiceTest {
     @Test
     void 보너스볼까지_맞추면_FIVE_BONUS로_집계된다() {
         // Given
-        LottoNumbers mine = 보너스7포함로또();
-        LottoNumbers winning = 기본로또();
+        LottoTicket mine = 보너스7포함로또();
+        LottoTicket winning = 기본로또();
         LottoNumber bonus = new LottoNumber(7);
 
         // When

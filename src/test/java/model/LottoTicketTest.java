@@ -9,7 +9,7 @@ import java.util.List;
 import static model.LottoFixture.기본로또;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoNumbersTest {
+class LottoTicketTest {
 
     @Test
     void 로또번호가_6개면_정상적으로_생성된다() {
@@ -17,9 +17,9 @@ class LottoNumbersTest {
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
                 new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
 
-        LottoNumbers lottoNumbers = new LottoNumbers(numbers);
+        LottoTicket lottoTicket = new LottoTicket(numbers);
 
-        assertEquals(6, lottoNumbers.getNumbers().size());
+        assertEquals(6, lottoTicket.getNumbers().size());
     }
 
     @Test
@@ -29,7 +29,7 @@ class LottoNumbersTest {
                 new LottoNumber(4));
 
         assertThrows(IllegalArgumentException.class,
-                () -> new LottoNumbers(numbers));
+                () -> new LottoTicket(numbers));
     }
 
     @Test
@@ -39,7 +39,7 @@ class LottoNumbersTest {
                 new LottoNumber(1), new LottoNumber(4), new LottoNumber(2)
         );
 
-        LottoNumbers sorted = new LottoNumbers(numbers).sortNumbers();
+        LottoTicket sorted = new LottoTicket(numbers).sortNumbers();
 
         assertEquals(기본로또(), sorted);
     }
@@ -47,8 +47,8 @@ class LottoNumbersTest {
     @Test
     void 같은번호면_동일한객체() {
         // Given
-        LottoNumbers lotto1 = 기본로또();
-        LottoNumbers lotto2 = 기본로또();
+        LottoTicket lotto1 = 기본로또();
+        LottoTicket lotto2 = 기본로또();
 
         // When & Then
         assertEquals(lotto1, lotto2);

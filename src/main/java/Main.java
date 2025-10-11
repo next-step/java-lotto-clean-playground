@@ -1,7 +1,7 @@
 import controller.LottoController;
 import view.PurchaseAmount;
 import model.LottoNumber;
-import model.LottoNumbers;
+import model.LottoTicket;
 import model.LottoTicketBundle;
 
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
         LottoTicketBundle allTickets = controller.buyTickets(purchaseAmount.howManyLottos());
 
         // 3. 당첨 번호 입력
-        LottoNumbers winningNumbers = controller.askWinningNumbers();
+        LottoTicket winningNumbers = controller.askWinningNumbers();
 
         // 4. 보너스 볼 입력
         LottoNumber bonusBall = controller.askBonusBall();
