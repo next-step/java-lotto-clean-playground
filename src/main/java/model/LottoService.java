@@ -64,12 +64,12 @@ public class LottoService {
     }
 
     public Map<MatchResult, Integer> countMatchResults(List<LottoTicket> allLotteries,
-                                                       List<LottoNumber> lastLotto,
+                                                       List<LottoNumber> winningLotto,
                                                        LottoNumber bonusBall) {
         Map<MatchResult, Integer> matchCounts = initializeMatchCounts();
-        for (LottoTicket oneLotto : allLotteries) {
-            int count = matchLottoNumber(oneLotto.getNumbers(), lastLotto);
-            boolean bonusMatch = matchBonus(oneLotto.getNumbers(), bonusBall, count);
+        for (LottoTicket lotto : allLotteries) {
+            int count = matchLottoNumber(lotto.getNumbers(), winningLotto);
+            boolean bonusMatch = matchBonus(lotto.getNumbers(), bonusBall, count);
             MatchResult result = MatchResult.fromCount(count, bonusMatch);
             matchCounts.put(result, matchCounts.get(result) + 1);
         }
@@ -84,25 +84,25 @@ public class LottoService {
         return counts;
     }
 
-    private int matchLottoNumber(List<LottoNumber> oneLotto, List<LottoNumber> lastLotto) {
-        List<Integer> lastNumbers = lastLotto.stream()
+    private int matchLottoNumber(List<LottoNumber> lotto, List<LottoNumber> winningLotto) {
+        List<Integer> lastNumbers = winningLotto.stream()
                 .map(LottoNumber::getNumber)
                 .toList();
         int matchCount = 0;
-        for (LottoNumber number : oneLotto) {
+        for (LottoNumber number : lotto) {
             matchCount += containsNumber(lastNumbers, number);
         }
         return matchCount;
     }
 
-    private int containsNumber(List<Integer> lastNumbers, LottoNumber number) {
-        if (lastNumbers.contains(number.getNumber())) return 1;
+    private int containsNumber(List<Integer> winningLotto, LottoNumber number) {
+        if (winningLotto.contains(number.getNumber())) return 1;
         return 0;
     }
 
-    private boolean matchBonus(List<LottoNumber> oneLotto, LottoNumber bonusBall, int count) {
+    private boolean matchBonus(List<LottoNumber> lotto, LottoNumber bonusBall, int count) {
         if (count == 5) {
-            return oneLotto.contains(bonusBall);
+            return lotto.contains(bonusBall);
         }
         return false;
     }

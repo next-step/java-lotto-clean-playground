@@ -80,9 +80,9 @@ public class LottoController {
 
     public LottoTicket askWinningNumbers() {
         outView.printInputWinningNumbers();
-        LottoTicket lastLotto = lottoService.createInputLotto(inputView.inputWinningNumbers());
+        LottoTicket winningLotto = lottoService.createInputLotto(inputView.inputWinningNumbers());
         outView.printBlankLine();
-        return lastLotto;
+        return winningLotto;
     }
 
     public LottoNumber askBonusBall() {
