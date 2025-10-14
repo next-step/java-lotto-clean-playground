@@ -32,7 +32,7 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return numbers.stream().sorted(Comparator.comparingInt(LottoNumber::getValue)).toList().toString();
+        return numbers.stream().sorted(Comparator.comparingInt(LottoNumber::value)).toList().toString();
     }
 
     public LottoType getType() {

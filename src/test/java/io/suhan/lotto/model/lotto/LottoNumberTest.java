@@ -19,7 +19,7 @@ public class LottoNumberTest {
         LottoNumber lottoNumber = new LottoNumber(validNumber);
 
         // then
-        assertThat(lottoNumber.getValue()).isEqualTo(validNumber);
+        assertThat(lottoNumber.value()).isEqualTo(validNumber);
     }
 
     @Test
