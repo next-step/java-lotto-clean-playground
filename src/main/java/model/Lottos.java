@@ -24,9 +24,25 @@ public class Lottos {
         Map<Rank, Integer> result = new HashMap<>();
         for (Lotto lotto : lottos) {
             int matchCount = lotto.countMatches(winningNumbers);
-            Rank rank = Rank.of(matchCount);
+
+            boolean matchBonus = lotto.IsBonusBallMatch(winningNumbers.getBonusBall());
+            Rank rank = Rank.of(matchCount, matchBonus);
             result.put(rank, result.getOrDefault(rank, 0) + 1);
         }
         return result;
+    }
+
+    public long calculateTotalPrize(Map<Rank, Integer> matchResult) {
+        return matchResult.entrySet().stream()
+                .mapToLong(entry -> (long) entry.getKey().getPrize() * entry.getValue())
+                .sum();
+    }
+
+    public double calculateRateOfReturn(long totalPrize) {
+        if (lottos.isEmpty()) {
+            return 0.0;
+        }
+        long totalPurchaseAmount = (long) lottos.size() * Money.LOTTO_PRICE;
+        return (double) totalPrize / totalPurchaseAmount;
     }
 }

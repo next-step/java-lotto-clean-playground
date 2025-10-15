@@ -18,59 +18,75 @@ import java.util.stream.Collectors;
 
 public class LottoController {
     public void lottoRun() {
-        Lottos lottos = purchaseLottos();
-        displayPurchasedLottos(lottos);
+        try {
+            int purchaseAmount = InputView.readAmount();
+            Money money = new Money(purchaseAmount);
 
-        WinningNumbers winningNumbers = createWinningNumbers();
-        showWinningResults(lottos, winningNumbers);
-        InputView.close();
+            int manualCount = InputView.readManualPurchase();
+            money.validateManualLottoCount(manualCount);
+
+            Lottos lottos = purchaseLottos(money, manualCount);
+            displayPurchasedLottos(lottos, manualCount);
+
+            WinningNumbers winningNumbers = createWinningNumbers();
+
+            showWinningResults(lottos, winningNumbers);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+        } finally {
+            InputView.close();
+        }
     }
 
-    private Lottos purchaseLottos() {
-        int purchaseAmount = InputView.readAmount();
-        Money money = new Money(purchaseAmount);
-
+    private Lottos purchaseLottos(Money money, int manualCount) {
         List<Lotto> lottoList = new ArrayList<>();
-        int countOfLottos = money.getCountOfLottos();
 
-        for (int i = 0; i < countOfLottos; i++) {
-            List<Integer> generatedNumbers = LottoGenerator.generate();
-            lottoList.add(new Lotto(generatedNumbers));
-        }
+        addManualLottos(lottoList, manualCount);
+        addAutoLottos(lottoList, money, manualCount);
 
         return new Lottos(lottoList);
     }
 
-    private void displayPurchasedLottos(Lottos lottos) {
-        OutputView.printPurchaseCount(lottos.size());
+    private void addManualLottos(List<Lotto> lottoList, int manualCount) {
+        OutputView.displayManualLottoPrompt();
+        for (int i = 0; i < manualCount; i++) {
+            List<Integer> lottoNumbers = InputView.readManualLotto();
+            lottoList.add(new Lotto(lottoNumbers));
+        }
+    }
+
+    private void addAutoLottos(List<Lotto> lottoList, Money money, int manualCount) {
+        int autoLottos = money.getCountOfAutoLottos(manualCount);
+
+        for (int i = 0; i < autoLottos; i++) {
+            List<Integer> generatedNumbers = LottoGenerator.generate();
+            lottoList.add(new Lotto(generatedNumbers));
+        }
+    }
+
+    private void displayPurchasedLottos(Lottos lottos, int manualCount) {
+        OutputView.printPurchaseCount(manualCount, lottos.size() - manualCount);
         OutputView.printLottos(lottos);
     }
 
     private WinningNumbers createWinningNumbers() {
-        String prizeNumbers = InputView.readWinningNumbers();
-        List<LottoNumber> numbers = Arrays.stream(prizeNumbers.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
-        return new WinningNumbers(numbers);
+        List<Integer> lottoNumbers = InputView.readWinningNumbers();
+        WinningNumbers winningNumbers = new WinningNumbers(
+                lottoNumbers.stream().map(LottoNumber::new).collect(Collectors.toList())
+        );
+
+        int bonusNumberInt = InputView.readBonusNumbers();
+        winningNumbers.setBonusBall(new LottoNumber(bonusNumberInt));
+
+        return winningNumbers;
     }
 
     private void showWinningResults(Lottos lottos, WinningNumbers winningNumbers) {
         Map<Rank, Integer> matchResult = lottos.calculateResult(winningNumbers);
 
-        long totalPrize = calculateTotalPrize(matchResult);
-        double rateOfReturn = (double) totalPrize / (lottos.size() * Money.LOTTO_PRICE);
+        long totalPrize = lottos.calculateTotalPrize(matchResult);
+        double rateOfReturn = lottos.calculateRateOfReturn(totalPrize);
 
         OutputView.printWinningResult(matchResult, rateOfReturn);
-    }
-
-    private long calculateTotalPrize(Map<Rank, Integer> matchResult) {
-        long totalPrize = 0;
-        for (Rank rank : matchResult.keySet()) {
-            int count = matchResult.get(rank);
-            totalPrize += (long) rank.getPrize() * count;
-        }
-        return totalPrize;
     }
 }
