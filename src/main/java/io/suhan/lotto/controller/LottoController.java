@@ -45,16 +45,32 @@ public class LottoController {
     }
 
     private void executeDraw(int balance) {
-        Lotto winningLotto = createWinningLotto();
+        Lotto winningLotto;
 
-        LottoNumber bonusNumber = InputView.getValidBonusNumber();
+        while (true) {
+            try {
+                winningLotto = createWinningLotto();
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
-        DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto, bonusNumber);
-        drawExecutor.execute();
+        while (true) {
+            try {
+                LottoNumber bonusNumber = InputView.getValidBonusNumber();
 
-        LottoStatistics statistics = new LottoStatistics(drawExecutor.getResults());
+                DrawExecutor drawExecutor = new DrawExecutor(registry, winningLotto, bonusNumber);
+                drawExecutor.execute();
 
-        OutputView.printStatistics(statistics, balance);
+                LottoStatistics statistics = new LottoStatistics(drawExecutor.getResults());
+
+                OutputView.printStatistics(statistics, balance);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private Lotto createWinningLotto() {
