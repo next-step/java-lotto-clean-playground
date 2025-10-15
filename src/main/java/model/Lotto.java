@@ -11,9 +11,9 @@ public class Lotto {
     private final Set<LottoNumber> numbers;
 
     public Lotto(List<Integer> initialNumbers) {
-        Set<LottoNumber> numbers = convertToLottoNumberSet(initialNumbers);
-        validateSize(numbers);
-        this.numbers = new TreeSet<>(numbers);
+        Set<LottoNumber> lottoNumbers = convertToLottoNumberSet(initialNumbers);
+        validateSize(lottoNumbers);
+        this.numbers = lottoNumbers;
     }
 
     private void validateSize(Set<LottoNumber> numbers) {
