@@ -1,5 +1,6 @@
 package model;
 
+
 import java.util.Arrays;
 
 public enum MatchResult {
@@ -17,7 +18,7 @@ public enum MatchResult {
         this.count = count;
         this.reward = reward;
     }
-
+  
     public int getReward() {
         return reward;
     }

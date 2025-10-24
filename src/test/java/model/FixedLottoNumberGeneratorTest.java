@@ -40,5 +40,4 @@ class FixedLottoNumberGeneratorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new FixedLottoNumberGenerator(input));
     }
-
 }

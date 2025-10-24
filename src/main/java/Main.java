@@ -1,3 +1,4 @@
+
 import controller.LottoController;
 import model.PurchaseAmount;
 import model.LottoNumber;
