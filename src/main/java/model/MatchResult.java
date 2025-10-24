@@ -27,7 +27,6 @@ public enum MatchResult {
             return FIVE_BONUS;
         }
 
-        MatchResult[] results = values();
         return Arrays.stream(values())
                 .filter(result -> result.count == count && result != FIVE_BONUS)
                 .findFirst()
