@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm'
 }
 
 group = 'cholog'
@@ -15,12 +14,8 @@ dependencies {
     testImplementation platform('org.assertj:assertj-bom:3.25.1')
     testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation('org.assertj:assertj-core')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 test {
     useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(17)
 }
