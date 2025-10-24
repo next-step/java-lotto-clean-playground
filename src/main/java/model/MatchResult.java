@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 public enum MatchResult {
     ZERO(0, 0),
-    ONE(1, 0),
-    TWO(2, 0),
     THREE(3, 5000),
     FOUR(4, 50000),
     FIVE(5, 1500000),
@@ -18,10 +16,6 @@ public enum MatchResult {
     MatchResult(int count, int reward) {
         this.count = count;
         this.reward = reward;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public int getReward() {

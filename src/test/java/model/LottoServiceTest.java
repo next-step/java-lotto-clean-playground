@@ -74,8 +74,6 @@ class LottoServiceTest {
         Map<MatchResult, Integer> matchCounts = Map.of(
                 MatchResult.THREE, 1,
                 MatchResult.ZERO, 0,
-                MatchResult.ONE, 0,
-                MatchResult.TWO, 0,
                 MatchResult.FOUR, 0,
                 MatchResult.FIVE, 0,
                 MatchResult.FIVE_BONUS, 0,
