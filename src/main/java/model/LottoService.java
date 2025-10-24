@@ -63,9 +63,11 @@ public class LottoService {
         return repository;
     }
 
-    public Map<MatchResult, Integer> countMatchResults(List<LottoTicket> allLotteries,
-                                                       List<LottoNumber> winningLotto,
-                                                       LottoNumber bonusBall) {
+    public Map<MatchResult, Integer> countMatchResults(
+            List<LottoTicket> allLotteries,
+            List<LottoNumber> winningLotto,
+            LottoNumber bonusBall
+    ) {
         Map<MatchResult, Integer> matchCounts = initializeMatchCounts();
         for (LottoTicket lotto : allLotteries) {
             int count = matchLottoNumber(lotto.getNumbers(), winningLotto);
