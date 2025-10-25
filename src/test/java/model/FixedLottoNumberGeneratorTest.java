@@ -15,11 +15,29 @@ class FixedLottoNumberGeneratorTest {
         FixedLottoNumberGenerator generator = new FixedLottoNumberGenerator(input);
 
         // When
-        LottoNumbers lotto = generator.generate();
+        LottoTicket lotto = generator.generate();
 
         // Then
-        // LottoNumbers.getNumbers()는 LottoNumber 객체들이라서
-        // 그대로 toString()해서 비교하면 간단해짐
         assertEquals(input.toString(), lotto.getNumbers().toString());
+    }
+
+    @Test
+    void 숫자가_6개가_아니면_예외가_발생한다() {
+        // Given
+        List<Integer> input = List.of(1, 2, 3, 4, 5);
+
+        // When & Then
+        assertThrows(IllegalArgumentException.class,
+                () -> new FixedLottoNumberGenerator(input));
+    }
+
+    @Test
+    void 숫자가_1에서_45범위를_벗어나면_예외가_발생한다() {
+        // Given
+        List<Integer> input = List.of(1, 2, 3, 4, 5, 46);
+
+        // When & Then
+        assertThrows(IllegalArgumentException.class,
+                () -> new FixedLottoNumberGenerator(input));
     }
 }
