@@ -1,8 +1,9 @@
 package lotto.view;
 
 import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoRank;
 import lotto.domain.model.Lottos;
-import lotto.domain.model.WinningLotto;
+import lotto.domain.model.WinningStatistics;
 
 public class OutputView {
 
@@ -20,8 +21,18 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printWinningLotto(WinningLotto winningLotto) {
-        System.out.println(winningLotto.getWinningLotto());
-    }
+    public static void printResult(WinningStatistics statistics) {
+        System.out.println("당첨 통계" + "\n---------\n");
 
+        for (LottoRank rank : LottoRank.values()) {
+            if (rank == LottoRank.MISS) continue;
+
+            System.out.printf("%s - %d개\n", rank.getDescription(), statistics.getCount(rank));
+        }
+        double profit = statistics.calculateProfitRate();
+        System.out.print("총 수익률은 " + profit + "입니다.");
+        if (profit < 1) {
+            System.out.print("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+        }
+    }
 }
