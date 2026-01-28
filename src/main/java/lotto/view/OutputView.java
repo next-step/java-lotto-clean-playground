@@ -2,6 +2,7 @@ package lotto.view;
 
 import lotto.domain.model.Lotto;
 import lotto.domain.model.Lottos;
+import lotto.domain.model.WinningLotto;
 
 public class OutputView {
 
@@ -9,13 +10,18 @@ public class OutputView {
     }
 
     public static void print(int amount) {
-        System.out.println(amount + "개를 구매했습니다");
+        System.out.println("\n" + amount + "개를 구매했습니다");
     }
 
     public static void printLottos(Lottos lottos) {
         for (Lotto lotto : lottos.getValues()) {
             System.out.println(lotto.getNumbers()); // [1, 2, 3, 4, 5, 6] 형태
         }
+        System.out.println();
+    }
+
+    public static void printWinningLotto(WinningLotto winningLotto) {
+        System.out.println(winningLotto.getWinningLotto());
     }
 
 }
