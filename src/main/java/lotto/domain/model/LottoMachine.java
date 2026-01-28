@@ -1,14 +1,15 @@
 package lotto.domain.model;
 
+import lotto.domain.generator.LottoNumberGenerator;
 import lotto.domain.generator.RandomLottoGenerator;
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class LottoMachine {
 
-    private final RandomLottoGenerator generator;
+    private final LottoNumberGenerator generator;
 
-    public LottoMachine(RandomLottoGenerator generator) {
+    public LottoMachine(LottoNumberGenerator generator) {
         this.generator = generator;
     }
 

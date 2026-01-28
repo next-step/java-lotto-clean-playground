@@ -20,4 +20,7 @@ public class LottoNumber {
         return String.valueOf(number);
     }
 
+    public int getNumber() {
+        return number;
+    }
 }
