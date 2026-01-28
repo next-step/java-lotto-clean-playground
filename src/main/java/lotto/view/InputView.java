@@ -15,12 +15,12 @@ public class InputView {
     }
 
     private static <T> T input(String message, Supplier<T> supplier) {
-        System.out.println(message);
         while (true) {
             try {
+                System.out.println(message);
                 return supplier.get();
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + "\n");
             }
         }
     }
