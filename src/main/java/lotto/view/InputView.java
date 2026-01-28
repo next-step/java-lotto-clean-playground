@@ -1,7 +1,11 @@
 package lotto.view;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
+import lotto.domain.casher.Money;
+import lotto.domain.model.LottoParser;
+import lotto.domain.model.WinningLotto;
 
 public class InputView {
 
@@ -10,7 +14,8 @@ public class InputView {
     private InputView() { // private 생성자를 만들어 외부에서 생성자 호출 방지
     }
 
-    private static <T> T repeatUntilSuccess(Supplier<T> supplier) {
+    private static <T> T input(String message, Supplier<T> supplier) {
+        System.out.println(message);
         while (true) {
             try {
                 return supplier.get();
@@ -20,14 +25,18 @@ public class InputView {
         }
     }
 
-    public static String inputPurchaseAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        return repeatUntilSuccess(() -> {
+    public static Money inputMoney() {
+        return input("구입 금액을 입력해 주세요.", () -> {
             String input = sc.nextLine();
-            if (input.isEmpty()) {
-                throw new IllegalArgumentException("구입금액은 빈 값일 수 없습니다.");
-            }
-            return input;
+            return new Money(input);
+        });
+    }
+
+    public static WinningLotto inputWinningLotto() {
+        return input("지난 주 당첨 번호를 입력해주세요.", () -> {
+            String input = sc.nextLine();
+            List<Integer> numbers = LottoParser.stringToLotto(input);
+            return new WinningLotto(numbers); // 파싱 에러도 여기서 다 잡힙니다.
         });
     }
 
