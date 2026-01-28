@@ -1,4 +1,4 @@
-package domain.lotto;
+package lotto.domain.model;
 
 public class LottoNumber {
 
