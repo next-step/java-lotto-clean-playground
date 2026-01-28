@@ -1,4 +1,4 @@
-package lotto.domain.casher;
+package lotto.domain.model;
 
 public class Money {
 
