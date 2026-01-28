@@ -3,7 +3,7 @@ package lotto.view;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
-import lotto.domain.casher.Money;
+import lotto.domain.model.Money;
 import lotto.domain.model.LottoParser;
 import lotto.domain.model.WinningLotto;
 
