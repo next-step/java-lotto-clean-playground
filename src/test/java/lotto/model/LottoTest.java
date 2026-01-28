@@ -36,4 +36,16 @@ public class LottoTest {
         assertThat(lotto.getNumbers().size()).isEqualTo(6);
     }
 
+    @Test
+    @DisplayName("로또 번호가 중복되면 IllegalArgumentException이 발생한다.")
+    void create_Duplicated_Lotto_Number() {
+        // given
+        List<Integer> duplicatedLottoNumbers = List.of(1, 2, 3, 4, 5, 5);
+
+        assertThatThrownBy(() -> {
+            Lotto.from(duplicatedLottoNumbers);
+        }).isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("로또 번호는 중복될 수 없습니다.");
+    }
+
 }
