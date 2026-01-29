@@ -14,7 +14,7 @@ public class LottoParser {
         try {
             String[] stringNumbers = string.split(",");
             for (String stringNumber : stringNumbers) {
-                int number = Integer.parseInt(stringNumber);
+                int number = Integer.parseInt(stringNumber.trim());
                 numbers.add(number);
             }
         } catch (NumberFormatException e) {
