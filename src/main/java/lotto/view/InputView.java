@@ -1,10 +1,11 @@
 package lotto.view;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
-import lotto.domain.model.Money;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoNumber;
 import lotto.domain.model.LottoParser;
+import lotto.domain.model.Money;
 import lotto.domain.model.WinningLotto;
 
 public class InputView {
@@ -33,11 +34,13 @@ public class InputView {
     }
 
     public static WinningLotto inputWinningLotto() {
-        return input("지난 주 당첨 번호를 입력해주세요.", () -> {
-            String input = sc.nextLine();
-            List<Integer> numbers = LottoParser.stringToLotto(input);
-            return new WinningLotto(numbers); // 파싱 에러도 여기서 다 잡힙니다.
+        Lotto winningNumbers = input("지난 주 당첨 번호를 입력해주세요.", () -> {
+            return Lotto.from(LottoParser.parseWinningNumbers(sc.nextLine()));
+        });
+
+        return input("보너스 볼을 입력해주세요", () -> {
+            LottoNumber bonusNumber = new LottoNumber(LottoParser.stringToInt(sc.nextLine()));
+            return new WinningLotto(winningNumbers, bonusNumber); // 생성자에서 중복 검사!
         });
     }
-
 }
