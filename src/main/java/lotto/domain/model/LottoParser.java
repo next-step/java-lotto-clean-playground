@@ -5,7 +5,11 @@ import java.util.List;
 
 public class LottoParser {
 
-    public static List<Integer> stringToLotto(String string) {
+    private LottoParser() {
+
+    }
+
+    public static List<Integer> parseWinningNumbers(String string) {
         List<Integer> numbers = new ArrayList<>();
         try {
             String[] stringNumbers = string.split(",");
@@ -19,4 +23,11 @@ public class LottoParser {
         return numbers;
     }
 
+    public static int stringToInt(String string) {
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+        }
+    }
 }
