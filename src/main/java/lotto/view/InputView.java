@@ -1,5 +1,7 @@
 package lotto.view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
 import lotto.domain.model.Lotto;
@@ -31,6 +33,31 @@ public class InputView {
             String input = sc.nextLine();
             return new Money(input);
         });
+    }
+
+    public static int inputManualCount(int maxCount) {
+        return input("수동으로 구매할 로또 수를 입력해 주세요.", () -> {
+            String input = sc.nextLine();
+            int count = LottoParser.stringToInt(input);
+
+            if (count < 0 || count > maxCount) {
+                throw new IllegalArgumentException("수동 구매 수는 0에서 " + maxCount + " 사이여야 합니다.");
+            }
+            return count;
+        });
+    }
+
+    public static List<Lotto> inputManualLotto(int manualCount) {
+        return input("수동으로 구매할 번호를 입력해 주세요.", () -> {
+            List<Lotto> manualLottos = new ArrayList<>();
+                for (int i = 0; i < manualCount; i++) {
+                    String line = sc.nextLine();
+                    List<Integer> numbers = LottoParser.parseWinningNumbers(line);
+                    manualLottos.add(Lotto.from(numbers));
+                }
+                return manualLottos;
+            }
+        );
     }
 
     public static WinningLotto inputWinningLotto() {
