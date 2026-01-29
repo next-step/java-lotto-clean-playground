@@ -21,7 +21,11 @@ public enum LottoRank {
         this.description = description;
     }
 
-    public static LottoRank valueOf(int matchCount) {
+    public static LottoRank valueOf(int matchCount, boolean matchBonus) {
+        if (matchCount == 5 && matchBonus) {
+            return SECOND;
+        }
+
         return Arrays.stream(values())
             .filter(rank -> rank.matchCount == matchCount)
             .findFirst()
