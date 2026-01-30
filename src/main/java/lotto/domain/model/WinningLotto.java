@@ -26,4 +26,10 @@ public class WinningLotto {
             throw new IllegalArgumentException("보너스 볼 번호는 기존 로또 번호와 중복될 수 없습니다.");
         }
     }
+
+    public LottoRank judge(Lotto playerLotto) {
+        int matchCount = playerLotto.countMatch(this.winningLotto);
+        boolean matchBonus = playerLotto.contains(this.bonusNumber);
+        return LottoRank.valueOf(matchCount, matchBonus);
+    }
 }

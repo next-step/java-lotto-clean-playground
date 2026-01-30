@@ -29,6 +29,13 @@ public class WinningStatistics {
         return statistics.get(rank);
     }
 
+    public static void calculateResults(Lottos lottos, WinningLotto winningLotto, WinningStatistics statistics) {
+        lottos.getValues().forEach(lotto -> {
+            LottoRank rank = winningLotto.judge(lotto);
+            statistics.addResult(rank);
+        });
+    }
+
     public double calculateProfitRate() {
         long totalPrize = 0;
         for (LottoRank rank : statistics.keySet()) {

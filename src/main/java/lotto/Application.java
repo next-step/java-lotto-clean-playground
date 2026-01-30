@@ -1,13 +1,14 @@
 package lotto;
 
+import static lotto.domain.model.WinningStatistics.calculateResults;
+
 import java.util.ArrayList;
 import java.util.List;
-import lotto.domain.model.Judge;
-import lotto.domain.model.Lotto;
-import lotto.domain.model.Money;
 import lotto.domain.generator.RandomLottoGenerator;
+import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoMachine;
 import lotto.domain.model.Lottos;
+import lotto.domain.model.Money;
 import lotto.domain.model.WinningLotto;
 import lotto.domain.model.WinningStatistics;
 import lotto.view.InputView;
@@ -42,7 +43,7 @@ public class Application {
 
         // 결과 판단
         WinningStatistics statistics = new WinningStatistics(purchaseAmount);
-        Judge.calculateResults(totalLottos, winningLotto, statistics);
+        calculateResults(totalLottos, winningLotto, statistics);
 
         // 결과 출력
         OutputView.printResult(statistics);
