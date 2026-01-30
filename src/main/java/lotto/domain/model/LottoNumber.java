@@ -1,20 +1,38 @@
 package lotto.domain.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LottoNumber {
 
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+
+    private static final Map<Integer, LottoNumber> CACHE = new HashMap<>();
+
+    static {
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
+            CACHE.put(i, new LottoNumber(i));
+        }
+    }
+
     private final int number;
 
-    public LottoNumber(int number) {
+    private LottoNumber(int number) {
         validate(number);
         this.number = number;
     }
 
-    private void validate(int number) {
-        if (number < 1 || number > 45) {
+    private static void validate(int number) {
+        if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
+    }
+
+    public static LottoNumber valueOf(int number) {
+        validate(number);
+        return CACHE.get(number);
     }
 
     @Override
