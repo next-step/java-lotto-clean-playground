@@ -30,7 +30,7 @@ public class OutputView {
             System.out.printf("%s - %d개\n", rank.getDescription(), statistics.getCount(rank));
         }
         double profit = statistics.calculateProfitRate();
-        System.out.print("총 수익률은 " + profit + "입니다.");
+        System.out.printf("총 수익률은 %.1f%% 입니다.", profit);
         if (profit < 1) {
             System.out.print("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
         }
