@@ -1,10 +1,12 @@
-package lotto.domain.model;
+package lotto.domain.service;
 
 import java.util.ArrayList;
 import lotto.domain.generator.LottoNumberGenerator;
 import lotto.domain.generator.RandomLottoGenerator;
 import java.util.List;
 import java.util.stream.IntStream;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.Lottos;
 
 public class LottoMachine {
 

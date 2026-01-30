@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoNumber;
-import lotto.domain.model.LottoParser;
+import lotto.domain.parser.LottoParser;
 import lotto.domain.model.Money;
 import lotto.domain.model.WinningLotto;
 

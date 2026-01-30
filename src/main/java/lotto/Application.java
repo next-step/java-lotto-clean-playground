@@ -1,16 +1,15 @@
 package lotto;
 
-import static lotto.domain.model.WinningStatistics.calculateResults;
+import static lotto.domain.service.WinningStatistics.calculateResults;
 
-import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.generator.RandomLottoGenerator;
 import lotto.domain.model.Lotto;
-import lotto.domain.model.LottoMachine;
+import lotto.domain.service.LottoMachine;
 import lotto.domain.model.Lottos;
 import lotto.domain.model.Money;
 import lotto.domain.model.WinningLotto;
-import lotto.domain.model.WinningStatistics;
+import lotto.domain.service.WinningStatistics;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 

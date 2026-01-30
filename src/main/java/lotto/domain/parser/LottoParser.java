@@ -1,4 +1,4 @@
-package lotto.domain.model;
+package lotto.domain.parser;
 
 import java.util.ArrayList;
 import java.util.List;

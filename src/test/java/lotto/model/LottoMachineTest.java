@@ -2,9 +2,8 @@ package lotto.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.stream.Stream;
-import lotto.domain.model.LottoMachine;
+import lotto.domain.service.LottoMachine;
 import lotto.domain.model.Lottos;
 import lotto.domain.model.LottoNumber;
 import org.junit.jupiter.api.DisplayName;

@@ -3,7 +3,7 @@ package lotto.view;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoRank;
 import lotto.domain.model.Lottos;
-import lotto.domain.model.WinningStatistics;
+import lotto.domain.service.WinningStatistics;
 
 public class OutputView {
 
