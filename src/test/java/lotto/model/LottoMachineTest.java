@@ -3,6 +3,7 @@ package lotto.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.stream.Stream;
 import lotto.domain.model.LottoMachine;
 import lotto.domain.model.Lottos;
 import lotto.domain.model.LottoNumber;
@@ -16,7 +17,11 @@ public class LottoMachineTest {
     void issue_Lottos() {
         // given
         int issueCount = 5;
-        LottoMachine lottoMachine = new LottoMachine(() -> List.of(1, 2, 3, 4, 5, 6));
+        LottoMachine lottoMachine = new LottoMachine(() ->
+            Stream.of(1, 2, 3, 4, 5, 6)
+                .map(LottoNumber::valueOf)
+                .toList()
+        );
 
         // when
         Lottos issuedLottos = lottoMachine.issue(issueCount);

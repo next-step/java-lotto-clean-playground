@@ -15,7 +15,7 @@ public class LottoNumberTest {
         int validNumber = 25;
 
         // when
-        LottoNumber lottoNumber = new LottoNumber(validNumber);
+        LottoNumber lottoNumber = LottoNumber.valueOf(validNumber);
 
         // then
         assert(lottoNumber.toString().equals("25"));
@@ -27,7 +27,7 @@ public class LottoNumberTest {
     void create_Invalid_LottoNumber(int invalidNumber) {
         // when & then
         try {
-            new LottoNumber(invalidNumber);
+            LottoNumber.valueOf(invalidNumber);
             assert(false); // 예외가 발생하지 않으면 실패
         } catch (IllegalArgumentException e) {
             assert(e.getMessage().equals("로또 번호는 1부터 45 사이의 숫자여야 합니다."));

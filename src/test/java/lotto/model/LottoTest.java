@@ -3,8 +3,10 @@ package lotto.model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.Arrays;
 import java.util.List;
 import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +16,7 @@ public class LottoTest {
     @DisplayName("로또 번호가 6개가 아니면 IllegalArgumentException이 발생한다.")
     void create_Invalid_Lotto_Size() {
         // given
-        List<Integer> invalidLottoNumbers = List.of(1, 2, 3, 4, 5); // 5개 숫자
-
+        List<LottoNumber> invalidLottoNumbers = createLottoNumbers(1, 2, 3, 4, 5);
         // when & then
         assertThatThrownBy(() -> {
             Lotto.from(invalidLottoNumbers);
@@ -27,8 +28,7 @@ public class LottoTest {
     @DisplayName("로또 번호가 6개일 때 정상 생성된다.")
     void create_Valid_Lotto_Size() {
         // given
-        List<Integer> validLottoNumbers = List.of(1, 2, 3, 4, 5, 6); // 6개 숫자
-
+        List<LottoNumber> validLottoNumbers = createLottoNumbers(1, 2, 3, 4, 5, 6);
         // when
         Lotto lotto = Lotto.from(validLottoNumbers);
 
@@ -40,12 +40,17 @@ public class LottoTest {
     @DisplayName("로또 번호가 중복되면 IllegalArgumentException이 발생한다.")
     void create_Duplicated_Lotto_Number() {
         // given
-        List<Integer> duplicatedLottoNumbers = List.of(1, 2, 3, 4, 5, 5);
-
+        List<LottoNumber> duplicatedLottoNumbers = createLottoNumbers(1, 2, 3, 4, 5, 5);
         assertThatThrownBy(() -> {
             Lotto.from(duplicatedLottoNumbers);
         }).isInstanceOf(IllegalArgumentException.class)
             .hasMessage("로또 번호는 중복될 수 없습니다.");
+    }
+
+    private List<LottoNumber> createLottoNumbers(int... numbers) {
+        return Arrays.stream(numbers)
+            .mapToObj(LottoNumber::valueOf)
+            .toList();
     }
 
 }

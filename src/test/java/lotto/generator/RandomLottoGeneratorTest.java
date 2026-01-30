@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import lotto.domain.generator.RandomLottoGenerator;
+import lotto.domain.model.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class RandomLottoGeneratorTest {
         RandomLottoGenerator generator = new RandomLottoGenerator();
 
         // when
-        List<Integer> lottoNumbers = generator.generateLottoNumbers();
+        List<LottoNumber> lottoNumbers = generator.generateLottoNumbers();
 
         // then
         assertThat(lottoNumbers.size()).isEqualTo(6);
