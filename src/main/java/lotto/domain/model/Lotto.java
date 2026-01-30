@@ -21,15 +21,12 @@ public class Lotto {
         }
     }
 
-    public static Lotto from(List<Integer> rawNumbers) {
-        validateDuplicate(rawNumbers);
-        List<LottoNumber> lottoNumbers = rawNumbers.stream()
-                .map(LottoNumber::new)
-                .toList();
-        return new Lotto(lottoNumbers);
+    public static Lotto from(List<LottoNumber> numbers) {
+        validateDuplicate(numbers);
+        return new Lotto(numbers);
     }
 
-    private static void validateDuplicate(List<Integer> rawNumbers) {
+    private static void validateDuplicate(List<LottoNumber> rawNumbers) {
         if (rawNumbers.size() != new HashSet<>(rawNumbers).size()) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
