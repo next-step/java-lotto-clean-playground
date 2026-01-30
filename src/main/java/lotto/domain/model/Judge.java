@@ -10,7 +10,7 @@ public class Judge {
         for (Lotto lotto : lottos.getValues()) {
             int matchCount = lotto.countMatch(winningLotto.getWinningLotto());
 
-            boolean matchBonus = lotto.getNumbers().contains(winningLotto.getBonusNumber());
+            boolean matchBonus = lotto.contains(winningLotto.getBonusNumber());
 
             LottoRank rank = LottoRank.valueOf(matchCount, matchBonus);
             statistics.addResult(rank);
