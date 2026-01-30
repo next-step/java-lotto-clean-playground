@@ -52,8 +52,13 @@ public class InputView {
             List<Lotto> manualLottos = new ArrayList<>();
                 for (int i = 0; i < manualCount; i++) {
                     String line = sc.nextLine();
-                    List<Integer> numbers = LottoParser.parseWinningNumbers(line);
-                    manualLottos.add(Lotto.from(numbers));
+                    List<Integer> rawNumbers = LottoParser.parseWinningNumbers(line);
+
+                    List<LottoNumber> lottoNumbers = rawNumbers.stream()
+                        .map(LottoNumber::valueOf)
+                        .toList();
+
+                    manualLottos.add(Lotto.from(lottoNumbers));
                 }
                 return manualLottos;
             }
@@ -62,11 +67,15 @@ public class InputView {
 
     public static WinningLotto inputWinningLotto() {
         Lotto winningNumbers = input("지난 주 당첨 번호를 입력해주세요.", () -> {
-            return Lotto.from(LottoParser.parseWinningNumbers(sc.nextLine()));
+            List<Integer> rawNumbers = LottoParser.parseWinningNumbers(sc.nextLine());
+            List<LottoNumber> lottoNumbers = rawNumbers.stream()
+                .map(LottoNumber::valueOf)
+                .toList();
+            return Lotto.from(lottoNumbers);
         });
 
         return input("보너스 볼을 입력해주세요", () -> {
-            LottoNumber bonusNumber = new LottoNumber(LottoParser.stringToInt(sc.nextLine()));
+            LottoNumber bonusNumber = LottoNumber.valueOf(LottoParser.stringToInt(sc.nextLine()));
             return new WinningLotto(winningNumbers, bonusNumber); // 생성자에서 중복 검사!
         });
     }
