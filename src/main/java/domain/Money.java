@@ -21,4 +21,8 @@ public class Money {
         if (amount < PRICE) throw new IllegalArgumentException("구입금액은 1000원 이상이어야 합니다.");
         if (amount % PRICE != 0) throw new IllegalArgumentException("구입금액은 1000원 단위여야 합니다.");
     }
+
+    public int amount() {
+        return amount;
+    }
 }

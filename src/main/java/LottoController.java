@@ -1,6 +1,4 @@
-import domain.LottoGenerator;
-import domain.LottoTicket;
-import domain.Money;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 import java.util.List;
@@ -20,7 +18,12 @@ public class LottoController {
         Money money = inputView.readMoney();
         int count = money.ticketCount();
         List<LottoTicket> tickets = generator.generate(count);
+
         outputView.printPurchased(count);
         outputView.printTickets(tickets);
+
+        WinningNumbers winning = inputView.readWinningNumbers();
+        LottoResult result = LottoResult.of(tickets, winning, money);
+        outputView.printResult(result);
     }
 }
