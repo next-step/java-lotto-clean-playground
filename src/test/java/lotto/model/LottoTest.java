@@ -47,6 +47,21 @@ public class LottoTest {
             .hasMessage("로또 번호는 중복될 수 없습니다.");
     }
 
+    @Test
+    @DisplayName("로또 번호에 특정 번호가 포함되어 있는지 확인한다.")
+    void contains_Specific_Number() {
+        // given
+        List<LottoNumber> numbers = createLottoNumbers(1, 2, 3, 4, 5, 6);
+        Lotto lotto = Lotto.from(numbers);
+
+        // when & then
+        assertThat(lotto.contains(LottoNumber.valueOf(1))).isTrue();
+        assertThat(lotto.contains(LottoNumber.valueOf(6))).isTrue();
+
+        assertThat(lotto.contains(LottoNumber.valueOf(7))).isFalse();
+        assertThat(lotto.contains(LottoNumber.valueOf(8))).isFalse();
+    }
+
     private List<LottoNumber> createLottoNumbers(int... numbers) {
         return Arrays.stream(numbers)
             .mapToObj(LottoNumber::valueOf)
