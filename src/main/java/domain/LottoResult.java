@@ -6,26 +6,37 @@ import java.util.Map;
 
 public class LottoResult {
     private final Map<Rank, Integer> counts;
+    private final long totalPrize;
     private final double profitRate;
 
-    private LottoResult(Map<Rank, Integer> counts, double profitRate) {
+    private LottoResult(Map<Rank, Integer> counts, long totalPrize, double profitRate) {
         this.counts = counts;
+        this.totalPrize = totalPrize;
         this.profitRate = profitRate;
     }
 
     public static LottoResult of(List<LottoTicket> tickets, WinningNumbers winning, Money money) {
         Map<Rank, Integer> counts = initCounts();
-        tickets.stream()
-                .map(t -> matchCount(t, winning))
-                .forEach(c -> Rank.from(c).ifPresent(r -> counts.put(r, counts.get(r) + 1)));
+
+        tickets.forEach(ticket -> {
+            int matchCount = matchCount(ticket, winning);
+            boolean bonusMatched = winning.bonusMatched(ticket);
+
+            Rank.from(matchCount, bonusMatched)
+                    .ifPresent(rank -> counts.put(rank, counts.get(rank) + 1));
+        });
 
         long totalPrize = totalPrize(counts);
         double profitRate = (double) totalPrize / money.amount();
-        return new LottoResult(counts, profitRate);
+        return new LottoResult(counts, totalPrize, profitRate);
     }
 
     public int countOf(Rank rank) {
         return counts.get(rank);
+    }
+
+    public long totalPrize() {
+        return totalPrize;
     }
 
     public double profitRate() {
@@ -37,6 +48,7 @@ public class LottoResult {
         counts.put(Rank.THREE, 0);
         counts.put(Rank.FOUR, 0);
         counts.put(Rank.FIVE, 0);
+        counts.put(Rank.BONUS, 0);
         counts.put(Rank.SIX, 0);
         return counts;
     }

@@ -19,7 +19,7 @@ class LottoGeneratorTest {
     class Generate {
 
         @Test
-        @DisplayName("요청한 개수만큼 티켓을 생성한다")
+        @DisplayName("요청한 개수만큼 티켓을 생성")
         void generatesAsManyAsRequested() {
             List<LottoTicket> tickets = generator.generate(5);
 
@@ -27,7 +27,7 @@ class LottoGeneratorTest {
         }
 
         @Test
-        @DisplayName("각 티켓은 6개 번호이며 중복이 없고 1~45 범위이며 오름차순 정렬이다")
+        @DisplayName("각 티켓은 6개 번호이며 중복이 없고 1~45 범위이며 오름차순 정렬")
         void generatedTicketRules() {
             List<LottoTicket> tickets = generator.generate(30);
 
