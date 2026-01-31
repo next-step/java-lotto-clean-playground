@@ -24,24 +24,24 @@ public class LottoNumber {
         this.number = number;
     }
 
+    public static LottoNumber valueOf(int number) {
+        validate(number);
+        return CACHE.get(number);
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
     private static void validate(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 
-    public static LottoNumber valueOf(int number) {
-        validate(number);
-        return CACHE.get(number);
-    }
-
     @Override
     public String toString() {
         return String.valueOf(number);
-    }
-
-    public int getNumber() {
-        return number;
     }
 
     @Override

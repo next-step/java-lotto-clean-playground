@@ -5,9 +5,7 @@ import java.util.List;
 
 public class LottoParser {
 
-    private LottoParser() {
-
-    }
+    private LottoParser() {}
 
     public static List<Integer> parseWinningNumbers(String string) {
         List<Integer> numbers = new ArrayList<>();

@@ -10,7 +10,13 @@ public class Money {
         validate(money);
         this.amount = money;
     }
+    public int calculateLottoCount() {
+        return amount / LOTTO_PRICE;
+    }
 
+    public int getAmount() {
+        return amount;
+    }
     private int parse(String input) {
         try {
             return Integer.parseInt(input);
@@ -36,12 +42,6 @@ public class Money {
         }
     }
 
-    public int calculateLottoCount() {
-        return amount / LOTTO_PRICE;
-    }
 
-    public int getAmount() {
-        return amount;
-    }
 
 }

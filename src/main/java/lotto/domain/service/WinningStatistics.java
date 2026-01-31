@@ -19,12 +19,6 @@ public class WinningStatistics {
         this.purchaseMoney = purchaseMoney;
     }
 
-    private void initDefaultValues() {
-        for (LottoRank rank : LottoRank.values()) {
-            statistics.put(rank, 0);
-        }
-    }
-
     public void addResult(LottoRank rank) {
         this.statistics.put(rank,  this.statistics.get(rank) + 1);
     }
@@ -46,5 +40,10 @@ public class WinningStatistics {
             totalPrize += (long) rank.getPrizeMoney() * statistics.get(rank);
         }
         return (double) totalPrize / purchaseMoney.getAmount();
+    }
+    private void initDefaultValues() {
+        for (LottoRank rank : LottoRank.values()) {
+            statistics.put(rank, 0);
+        }
     }
 }

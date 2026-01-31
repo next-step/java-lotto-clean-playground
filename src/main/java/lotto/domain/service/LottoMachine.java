@@ -26,6 +26,11 @@ public class LottoMachine {
 
         return new Lottos(combinedLottos);
     }
+    public Lottos issue(int count) {
+        return new Lottos(IntStream.range(0, count)
+            .mapToObj(i -> Lotto.from(generator.generateLottoNumbers()))
+            .toList());
+    }
 
     private int calculateAutoCount(int totalCount, List<Lotto> manualLottos) {
         int manualSize = manualLottos.size();
@@ -33,11 +38,5 @@ public class LottoMachine {
             throw new IllegalArgumentException("수동 구매 수가 총 구매 가능 수를 초과할 수 없습니다.");
         }
         return totalCount - manualSize;
-    }
-
-    public Lottos issue(int count) {
-        return new Lottos(IntStream.range(0, count)
-            .mapToObj(i -> Lotto.from(generator.generateLottoNumbers()))
-            .toList());
     }
 }
