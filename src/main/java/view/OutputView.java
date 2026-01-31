@@ -14,7 +14,7 @@ public class OutputView {
 
     public void printTickets(List<LottoTicket> tickets) {
         for (LottoTicket t : tickets) {
-            System.out.println(t);
+            System.out.println(t.numbers());
         }
         System.out.println();
     }

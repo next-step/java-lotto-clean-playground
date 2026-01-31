@@ -28,9 +28,4 @@ public class LottoTicket {
         Collections.sort(values);
         return List.copyOf(values);
     }
-
-    @Override
-    public String toString() {
-        return numbers().toString();
-    }
 }
