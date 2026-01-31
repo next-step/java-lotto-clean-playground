@@ -1,13 +1,14 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinningNumbers {
-    private final LottoNumbers numbers;
+    private final Lotto numbers;
     private final int bonusNumber;
 
     private WinningNumbers(List<Integer> numbers, int bonusNumber) {
-        this.numbers = new LottoNumbers(numbers);
+        this.numbers = new Lotto(toLottoNumbers(numbers));
         validateBonus(bonusNumber);
         this.bonusNumber = bonusNumber;
     }
@@ -16,19 +17,24 @@ public class WinningNumbers {
         return new WinningNumbers(numbers, bonusNumber);
     }
 
-    public boolean contains(int n) {
-        return numbers.contains(n);
+    public int matchCount(LottoTicket ticket) {
+        return ticket.lotto().matchCount(numbers);
     }
+
     public boolean bonusMatched(LottoTicket ticket) {
-        return ticket.numbers().contains(bonusNumber);
+        return ticket.hasBonus(bonusNumber);
     }
 
     private void validateBonus(int bonusNumber) {
-        if (bonusNumber < 1 || bonusNumber > 45) {
-            throw new IllegalArgumentException("보너스 번호는 1~45 범위여야 합니다.");
-        }
-        if (numbers.contains(bonusNumber)) {
+        LottoNumber bonus = LottoNumber.of(bonusNumber);
+        if (numbers.contains(bonus)) {
             throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
+    }
+
+    private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
+        List<LottoNumber> list = new ArrayList<>();
+        for (int n : numbers) list.add(LottoNumber.of(n));
+        return list;
     }
 }

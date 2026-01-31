@@ -19,7 +19,7 @@ public class LottoResult {
         Map<Rank, Integer> counts = initCounts();
 
         tickets.forEach(ticket -> {
-            int matchCount = matchCount(ticket, winning);
+            int matchCount = winning.matchCount(ticket);
             boolean bonusMatched = winning.bonusMatched(ticket);
 
             Rank.from(matchCount, bonusMatched)
@@ -51,10 +51,6 @@ public class LottoResult {
         counts.put(Rank.BONUS, 0);
         counts.put(Rank.SIX, 0);
         return counts;
-    }
-
-    private static int matchCount(LottoTicket ticket, WinningNumbers winning) {
-        return (int) ticket.numbers().stream().filter(winning::contains).count();
     }
 
     private static long totalPrize(Map<Rank, Integer> counts) {

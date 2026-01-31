@@ -7,14 +7,18 @@ import domain.Rank;
 import java.util.List;
 
 public class OutputView {
-    public void printPurchased(int count) {
+    public void printPurchased(int manualCount, int autoCount) {
         System.out.println();
-        System.out.println(count + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "장을 구매했습니다.");
     }
 
     public void printTickets(List<LottoTicket> tickets) {
-        tickets.forEach(System.out::println);
+        for (LottoTicket t : tickets) {
+            System.out.println(t);
+        }
+        System.out.println();
     }
+
     public void printResult(LottoResult result) {
         System.out.println();
         System.out.println("당첨 통계");

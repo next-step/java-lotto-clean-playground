@@ -1,6 +1,8 @@
 import domain.*;
 import view.InputView;
 import view.OutputView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
@@ -15,15 +17,28 @@ public class LottoController {
     }
 
     public void run() {
-        Money money = inputView.readMoney();
-        int count = money.ticketCount();
-        List<LottoTicket> tickets = generator.generate(count);
+        Money money = Money.from(inputView.readMoney());
+        int totalCount = money.ticketCount();
 
-        outputView.printPurchased(count);
-        outputView.printTickets(tickets);
+        int manualCount = inputView.readManualCount(totalCount);
+        List<LottoTicket> manualTickets = inputView.readManualTickets(manualCount);
+
+        int autoCount = totalCount - manualCount;
+        List<LottoTicket> autoTickets = generator.generate(autoCount);
+
+        List<LottoTicket> allTickets = merge(manualTickets, autoTickets);
+        outputView.printPurchased(manualCount, autoCount);
+        outputView.printTickets(allTickets);
 
         WinningNumbers winning = inputView.readWinningNumbers();
-        LottoResult result = LottoResult.of(tickets, winning, money);
+
+        LottoResult result = LottoResult.of(allTickets, winning, money);
         outputView.printResult(result);
+    }
+    private List<LottoTicket> merge(List<LottoTicket> manual, List<LottoTicket> autoTickets) {
+        List<LottoTicket> all = new ArrayList<>();
+        all.addAll(manual);
+        all.addAll(autoTickets);
+        return all;
     }
 }

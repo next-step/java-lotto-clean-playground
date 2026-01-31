@@ -3,27 +3,36 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class LottoGenerator {
+    private static final int MIN = 1;
+    private static final int MAX = 45;
 
     public List<LottoTicket> generate(int count) {
-        return Stream.generate(this::createTicket)
-                .limit(count)
-                .toList();
+        List<LottoTicket> tickets = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            tickets.add(createTicket());
+        }
+        return tickets;
     }
 
     private LottoTicket createTicket() {
         List<Integer> pool = createPool();
         Collections.shuffle(pool);
-        List<Integer> picked = pool.subList(0, LottoNumbers.SIZE).stream().sorted().toList();
-        return new LottoTicket(picked);
+
+        List<LottoNumber> picked = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            picked.add(LottoNumber.of(pool.get(i)));
+        }
+
+        return new LottoTicket(new Lotto(picked));
     }
 
     private List<Integer> createPool() {
         List<Integer> pool = new ArrayList<>();
-        IntStream.rangeClosed(LottoNumbers.MIN, LottoNumbers.MAX).forEach(pool::add);
+        for (int i = MIN; i <= MAX; i++) {
+            pool.add(i);
+        }
         return pool;
     }
 }
