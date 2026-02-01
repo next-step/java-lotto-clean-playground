@@ -24,9 +24,10 @@ public class LottoMachine {
         return manualLottosWrapper.addAll(autoLottos);
     }
     public Lottos issue(int count) {
-        return new Lottos(IntStream.range(0, count)
+        List<Lotto> issuedLottos = IntStream.range(0, count)
             .mapToObj(i -> Lotto.from(generator.generateLottoNumbers()))
-            .toList());
+            .toList();
+        return new Lottos(issuedLottos);
     }
 
     private int calculateAutoCount(int totalCount, List<Lotto> manualLottos) {
