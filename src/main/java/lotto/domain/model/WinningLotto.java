@@ -12,7 +12,7 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
     public LottoRank judge(Lotto playerLotto) {
-        int matchCount = playerLotto.countMatch(this.winningLotto);
+        int matchCount = playerLotto.countMatchingNumber(this.winningLotto);
         boolean matchBonus = playerLotto.contains(this.bonusNumber);
         return LottoRank.valueOf(matchCount, matchBonus);
     }
