@@ -1,6 +1,8 @@
 package lotto.view;
 
+import java.util.List;
 import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoNumber;
 import lotto.domain.model.LottoRank;
 import lotto.domain.model.Lottos;
 import lotto.domain.service.WinningStatistics;
@@ -16,7 +18,10 @@ public class OutputView {
 
     public static void printLottos(Lottos lottos) {
         for (Lotto lotto : lottos.getValues()) {
-            System.out.println(lotto.getNumbers()); // [1, 2, 3, 4, 5, 6] 형태
+            List<Integer> numbers = lotto.getNumbers().stream()
+                    .map(LottoNumber::getNumber)
+                        .toList();
+            System.out.println(numbers);
         }
         System.out.println();
     }
