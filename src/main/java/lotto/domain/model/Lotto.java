@@ -21,10 +21,11 @@ public class Lotto {
     }
 
     public int countMatchingNumber(Lotto other) {
-        return (int) other.getNumbers().stream()
-            .filter(this.getNumbers()::contains)
+        return (int) lottoNumbers.stream()
+            .filter(other::contains)
             .count();
     }
+
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
     }
