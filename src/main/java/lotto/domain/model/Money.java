@@ -31,7 +31,7 @@ public class Money {
     }
 
     private void validateUnit(int money) {
-        if (money % 1000 != 0) {
+        if (money % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("금액은 1000원 단위로 입력 가능합니다.");
         }
     }
