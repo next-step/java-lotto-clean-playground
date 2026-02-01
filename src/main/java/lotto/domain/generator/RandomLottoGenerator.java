@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
+import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoNumber;
 
 public class RandomLottoGenerator implements LottoNumberGenerator {
@@ -15,6 +16,6 @@ public class RandomLottoGenerator implements LottoNumberGenerator {
     public List<LottoNumber> generateLottoNumbers() {
         List<LottoNumber> shuffledNumbers = new ArrayList<>(LOTTO_NUMBER_POOL);
         Collections.shuffle(shuffledNumbers);
-        return shuffledNumbers.subList(0, 6);
+        return shuffledNumbers.subList(0, Lotto.LOTTO_SIZE);
     }
 }
