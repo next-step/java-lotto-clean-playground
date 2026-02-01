@@ -14,8 +14,7 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    private InputView() { // private 생성자를 만들어 외부에서 생성자 호출 방지
-    }
+    private InputView() {}
 
     private static <T> T input(String message, Supplier<T> supplier) {
         while (true) {
