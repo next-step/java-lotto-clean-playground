@@ -18,13 +18,10 @@ public class LottoMachine {
 
     public Lottos issueWithManual(int totalCount, List<Lotto> manualLottos) {
         int autoCount = calculateAutoCount(totalCount, manualLottos);
-
         Lottos autoLottos = issue(autoCount);
 
-        List<Lotto> combinedLottos = new ArrayList<>(manualLottos);
-        combinedLottos.addAll(autoLottos.getValues());
-
-        return new Lottos(combinedLottos);
+        Lottos manualLottosWrapper = new Lottos(manualLottos);
+        return manualLottosWrapper.addAll(autoLottos);
     }
     public Lottos issue(int count) {
         return new Lottos(IntStream.range(0, count)

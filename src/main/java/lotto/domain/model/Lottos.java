@@ -1,5 +1,6 @@
 package lotto.domain.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,12 @@ public class Lottos {
 
     public int size() {
         return lottos.size();
+    }
+
+    public Lottos addAll(Lottos other) {
+        List<Lotto> combined = new ArrayList<>(this.lottos);
+        combined.addAll(other.lottos);
+        return new Lottos(combined);
     }
 
     @Override
