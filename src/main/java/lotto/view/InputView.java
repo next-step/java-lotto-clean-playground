@@ -75,7 +75,7 @@ public class InputView {
 
         return input("보너스 볼을 입력해주세요", () -> {
             LottoNumber bonusNumber = LottoNumber.valueOf(LottoParser.stringToInt(sc.nextLine()));
-            return new WinningLotto(winningNumbers, bonusNumber); // 생성자에서 중복 검사!
+            return WinningLotto.from(winningNumbers, bonusNumber); // 생성자에서 중복 검사!
         });
     }
 }

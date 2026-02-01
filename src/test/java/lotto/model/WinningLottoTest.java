@@ -22,7 +22,7 @@ public class WinningLottoTest {
         LottoNumber bonusNumber = LottoNumber.valueOf(1); // 중복된 번호
 
         // when & then
-        assertThatThrownBy(() -> new WinningLotto(winningNumbers, bonusNumber))
+        assertThatThrownBy(() -> WinningLotto.from(winningNumbers, bonusNumber))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("보너스 볼 번호는 기존 로또 번호와 중복될 수 없습니다.");
     }
@@ -33,7 +33,7 @@ public class WinningLottoTest {
         // given
         Lotto winningNumbers = Lotto.from(createLottoNumbers(1, 2, 3, 4, 5, 6));
         LottoNumber bonusNumber = LottoNumber.valueOf(7);
-        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+        WinningLotto winningLotto = WinningLotto.from(winningNumbers, bonusNumber);
 
         Lotto playerLotto = Lotto.from(createLottoNumbers(1, 2, 3, 4, 5, 7)); // 5개 일치 + 보너스 일치
 
