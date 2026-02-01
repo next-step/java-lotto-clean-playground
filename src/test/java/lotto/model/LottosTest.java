@@ -22,7 +22,7 @@ public class LottosTest {
         Lottos lottos = new Lottos(List.of(lotto1, lotto2));
 
         // when & then
-        assertThat(lottos.size()).isEqualTo(2);
+        assertThat(lottos.getValues()).hasSize(2);
     }
 
     @Test

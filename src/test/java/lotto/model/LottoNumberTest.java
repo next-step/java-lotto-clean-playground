@@ -1,6 +1,7 @@
 package lotto.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import lotto.domain.model.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ public class LottoNumberTest {
         LottoNumber lottoNumber = LottoNumber.valueOf(validNumber);
 
         // then
-        assert(lottoNumber.toString().equals("25"));
+        assertThat(lottoNumber.getNumber()).isEqualTo(25);
     }
 
     @ParameterizedTest
@@ -28,12 +29,9 @@ public class LottoNumberTest {
     @DisplayName("로또 번호에 1보다 작거나 45보다 큰 값이 들어가면 IllegalArgumentException이 발생한다.")
     void create_Invalid_LottoNumber(int invalidNumber) {
         // when & then
-        try {
-            LottoNumber.valueOf(invalidNumber);
-            assert(false); // 예외가 발생하지 않으면 실패
-        } catch (IllegalArgumentException e) {
-            assert(e.getMessage().equals("로또 번호는 1부터 45 사이의 숫자여야 합니다."));
-        }
+        assertThatThrownBy(() -> LottoNumber.valueOf(invalidNumber))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
 
     @Test

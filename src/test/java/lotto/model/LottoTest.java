@@ -33,7 +33,7 @@ public class LottoTest {
         Lotto lotto = Lotto.from(validLottoNumbers);
 
         // then
-        assertThat(lotto.getNumbers().size()).isEqualTo(6);
+        assertThat(lotto.getNumbers()).hasSize(6);
     }
 
     @Test
