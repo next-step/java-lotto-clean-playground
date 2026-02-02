@@ -1,7 +1,5 @@
 package domain.lotto;
 
-import static domain.lotto.LottoNumber.MAX_LOTTO_NUMBER;
-import static domain.lotto.LottoNumber.MIN_LOTTO_NUMBER;
 import static domain.lotto.LottoNumbers.SIZE;
 
 import java.util.ArrayList;
@@ -13,19 +11,22 @@ public class LottoNumberGenerator {
 
     private final List<Integer> numbers;
 
-    public LottoNumberGenerator() {
+    public LottoNumberGenerator(int minLottoNumber, int maxLottoNumber) {
         this.numbers = new ArrayList<>();
-        for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
+        for (int i = minLottoNumber; i <= maxLottoNumber; i++) {
             numbers.add(i);
         }
     }
 
     public LottoNumbers generate() {
-        Collections.shuffle(numbers);
-        List<LottoNumber> lottoNumbers = numbers.stream()
+        List<Integer> shuffled = new ArrayList<>(numbers);
+        Collections.shuffle(shuffled);
+
+        List<LottoNumber> lottoNumbers = shuffled.stream()
                 .limit(SIZE)
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
+
         return new LottoNumbers(lottoNumbers);
     }
 }

@@ -20,11 +20,6 @@ public class LottoFactory {
         return new Lotto(lottoNumbers);
     }
 
-    public Lotto createAutoLotto() {
-        LottoNumbers lottoNumbers = lottoNumberGenerator.generate();
-        return new Lotto(lottoNumbers);
-    }
-
     public Lottos createLottos(List<String> manualNumbers, int autoCount) {
         List<Lotto> allLottos = new ArrayList<>();
 
@@ -37,5 +32,10 @@ public class LottoFactory {
         }
 
         return new Lottos(allLottos);
+    }
+
+    private Lotto createAutoLotto() {
+        LottoNumbers lottoNumbers = lottoNumberGenerator.generate();
+        return new Lotto(lottoNumbers);
     }
 }

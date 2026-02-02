@@ -1,8 +1,10 @@
 package domain.lotto;
 
+import domain.purchase.Money;
+
 public final class Lotto {
 
-    public static final int PRICE = 1000;
+    public static final Money PRICE = Money.won(1000);
 
     private final LottoNumbers lottoNumbers;
 

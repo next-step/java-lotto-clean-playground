@@ -2,9 +2,10 @@ package domain.purchase;
 
 public class PurchaseCalculator {
 
-    private final Money LOTTO_PRICE = Money.won(1000);
+    private PurchaseCalculator() {
+    }
 
-    public int calculateLottoCount(Money purchaseAmount) {
-        return (int) purchaseAmount.divideBy(LOTTO_PRICE);
+    public static int calculateLottoCount(Money purchaseAmount, Money lottoPrice) {
+        return (int) purchaseAmount.divideBy(lottoPrice);
     }
 }

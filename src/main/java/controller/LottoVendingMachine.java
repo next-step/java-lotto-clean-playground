@@ -19,19 +19,18 @@ public class LottoVendingMachine {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final PurchaseCalculator purchaseCalculator;
     private final LottoFactory lottoFactory;
 
     public LottoVendingMachine(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.purchaseCalculator = new PurchaseCalculator();
-        this.lottoFactory = new LottoFactory(new LottoNumberGenerator());
+        this.lottoFactory = new LottoFactory(new LottoNumberGenerator(
+                LottoNumber.MIN_LOTTO_NUMBER, LottoNumber.MAX_LOTTO_NUMBER));
     }
 
     public void run() {
         int purchaseAmount = inputPurchaseAmount();
-        int totalLottoCount = purchaseCalculator.calculateLottoCount(Money.won(purchaseAmount));
+        int totalLottoCount = PurchaseCalculator.calculateLottoCount(Money.won(purchaseAmount), Lotto.PRICE);
 
         int manualCount = inputManualLottoCount();
         List<String> manualNumbers = inputManualLottoNumbers(manualCount);
