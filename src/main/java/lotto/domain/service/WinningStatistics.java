@@ -19,18 +19,14 @@ public class WinningStatistics {
         this.purchaseMoney = purchaseMoney;
     }
 
-    public void addResult(LottoRank rank) {
-        this.statistics.put(rank,  this.statistics.get(rank) + 1);
-    }
-
     public int getCount(LottoRank rank) {
         return statistics.get(rank);
     }
 
-    public static void calculateResults(Lottos lottos, WinningLotto winningLotto, WinningStatistics statistics) {
+    public void calculateResults(Lottos lottos, WinningLotto winningLotto) {
         lottos.getValues().forEach(lotto -> {
             LottoRank rank = winningLotto.judge(lotto);
-            statistics.addResult(rank);
+            addResult(rank);
         });
     }
 
@@ -45,5 +41,9 @@ public class WinningStatistics {
         for (LottoRank rank : LottoRank.values()) {
             statistics.put(rank, 0);
         }
+    }
+
+    private void addResult(LottoRank rank) {
+        this.statistics.put(rank,  this.statistics.get(rank) + 1);
     }
 }
