@@ -41,7 +41,4 @@ public class Money {
             throw new IllegalArgumentException("금액은 1000원 이상부터 가능합니다.");
         }
     }
-
-
-
 }
