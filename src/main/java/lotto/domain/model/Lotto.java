@@ -16,7 +16,6 @@ public class Lotto {
     }
 
     private Lotto(List<LottoNumber> lottoNumbers) {
-        validateSize(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
     }
 
