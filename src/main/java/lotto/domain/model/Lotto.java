@@ -11,7 +11,7 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public static Lotto from(List<LottoNumber> numbers) {
-        validateDuplicate(numbers);
+        validate(numbers);
         return new Lotto(numbers);
     }
 
@@ -32,7 +32,12 @@ public class Lotto {
     public List<LottoNumber> getNumbers() {
         return lottoNumbers;
     }
-    private void validateSize(List<LottoNumber> lottoNumbers) {
+
+    private static void validate(List<LottoNumber> lottoNumbers) {
+        validateSize(lottoNumbers);
+        validateDuplicate(lottoNumbers);
+    }
+    private static void validateSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
