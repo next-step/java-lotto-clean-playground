@@ -6,7 +6,7 @@ public class WinningLotto {
 
     private final LottoNumber bonusNumber;
 
-    public static WinningLotto from(Lotto winningLotto, LottoNumber bonusNumber) {
+    public static WinningLotto of(Lotto winningLotto, LottoNumber bonusNumber) {
         validate(winningLotto, bonusNumber);
         return new WinningLotto(winningLotto, bonusNumber);
     }
