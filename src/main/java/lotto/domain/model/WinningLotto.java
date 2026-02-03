@@ -12,7 +12,6 @@ public class WinningLotto {
     }
 
     private WinningLotto(Lotto winningLotto, LottoNumber bonusNumber) {
-        validate(winningLotto, bonusNumber);
         this.winningLotto = winningLotto;
         this.bonusNumber = bonusNumber;
     }
