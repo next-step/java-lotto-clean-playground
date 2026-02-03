@@ -24,8 +24,7 @@ public class LottoVendingMachine {
     public LottoVendingMachine(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.lottoFactory = new LottoFactory(new LottoNumberGenerator(
-                LottoNumber.MIN_LOTTO_NUMBER, LottoNumber.MAX_LOTTO_NUMBER));
+        this.lottoFactory = new LottoFactory(new LottoNumberGenerator());
     }
 
     public void run() {

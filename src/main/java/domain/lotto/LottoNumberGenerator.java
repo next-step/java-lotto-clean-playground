@@ -9,17 +9,10 @@ import java.util.stream.Collectors;
 
 public class LottoNumberGenerator {
 
-    private final List<Integer> numbers;
-
-    public LottoNumberGenerator(int minLottoNumber, int maxLottoNumber) {
-        this.numbers = new ArrayList<>();
-        for (int i = minLottoNumber; i <= maxLottoNumber; i++) {
-            numbers.add(i);
-        }
-    }
+    private static final List<Integer> LOTTO_NUMBER_POOL = createLottoNumberPool();
 
     public LottoNumbers generate() {
-        List<Integer> shuffled = new ArrayList<>(numbers);
+        List<Integer> shuffled = new ArrayList<>(LOTTO_NUMBER_POOL);
         Collections.shuffle(shuffled);
 
         List<LottoNumber> lottoNumbers = shuffled.stream()
@@ -28,5 +21,13 @@ public class LottoNumberGenerator {
                 .collect(Collectors.toList());
 
         return new LottoNumbers(lottoNumbers);
+    }
+
+    private static List<Integer> createLottoNumberPool() {
+        List<Integer> lottoNumberPool = new ArrayList<>();
+        for (int i = LottoNumber.MIN_LOTTO_NUMBER; i < LottoNumber.MAX_LOTTO_NUMBER; i++) {
+            lottoNumberPool.add(i);
+        }
+        return List.copyOf(lottoNumberPool);
     }
 }
