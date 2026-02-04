@@ -1,7 +1,8 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class Lotto {
     private static final int SIZE = 6;
@@ -39,11 +40,9 @@ public final class Lotto {
     }
 
     private boolean hasDuplicate(List<LottoNumber> numbers) {
-        List<LottoNumber> seen = new ArrayList<>();
+        Set<LottoNumber> seen = new HashSet<>();
         for (LottoNumber n : numbers) {
-            if (seen.contains(n))
-                return true;
-            seen.add(n);
+            if (!seen.add(n)) return true;
         }
         return false;
     }
