@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public final class LottoGenerator {
+    private final List<Integer> basePool = createBasePool();
 
     public List<LottoTicket> generate(int count) {
         List<LottoTicket> tickets = new ArrayList<>();
@@ -15,7 +16,7 @@ public final class LottoGenerator {
     }
 
     private LottoTicket createTicket() {
-        List<Integer> pool = createPool();
+        List<Integer> pool = new ArrayList<>(basePool);
         Collections.shuffle(pool);
 
         List<LottoNumber> picked = new ArrayList<>();
@@ -26,7 +27,7 @@ public final class LottoGenerator {
         return new LottoTicket(new Lotto(picked));
     }
 
-    private List<Integer> createPool() {
+    private List<Integer> createBasePool() {
         List<Integer> pool = new ArrayList<>();
         for (int i = LottoNumber.min(); i <= LottoNumber.max(); i++) {
             pool.add(i);
