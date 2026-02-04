@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 public final class LottoGenerator {
-    private static final int MIN = 1;
-    private static final int MAX = 45;
 
     public List<LottoTicket> generate(int count) {
         List<LottoTicket> tickets = new ArrayList<>();
@@ -30,7 +28,7 @@ public final class LottoGenerator {
 
     private List<Integer> createPool() {
         List<Integer> pool = new ArrayList<>();
-        for (int i = MIN; i <= MAX; i++) {
+        for (int i = LottoNumber.min(); i <= LottoNumber.max(); i++) {
             pool.add(i);
         }
         return pool;

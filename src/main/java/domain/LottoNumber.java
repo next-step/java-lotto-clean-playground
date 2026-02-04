@@ -6,6 +6,9 @@ public final class LottoNumber {
     private static final int MIN = 1;
     private static final int MAX = 45;
 
+    public static int min() { return MIN; }
+    public static int max() { return MAX; }
+
     private final int value;
 
     private LottoNumber(int value) {
