@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DisplayName("Lotto 테스트")
 class LottoTest {
 
     private void ticket(int... nums) {

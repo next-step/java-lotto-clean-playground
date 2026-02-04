@@ -98,7 +98,5 @@ class LottoResultTest {
             assertThat(result.countOf(Rank.FOUR)).isZero();
             assertThat(result.countOf(Rank.SIX)).isZero();
         }
-
     }
-
 }

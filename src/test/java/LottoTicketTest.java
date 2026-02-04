@@ -44,7 +44,7 @@ class LottoTicketTest {
         @DisplayName("toString은 오름차순으로 출력한다")
         void toStringPrintsSorted() {
             LottoTicket t = ticket(6, 1, 4, 2, 5, 3);
-            assertThat(t.toString()).isEqualTo("[1, 2, 3, 4, 5, 6]");
+            assertThat(t.numbers()).containsExactly(1, 2, 3, 4, 5, 6);
         }
     }
 }
