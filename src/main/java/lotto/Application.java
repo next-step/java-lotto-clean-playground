@@ -14,29 +14,33 @@ import lotto.view.OutputView;
 public class Application {
 
     public static void main(String[] args) {
-        // 구입 금액 입력
         Money purchaseAmount = InputView.inputMoney();
 
-        int maxPossibleCount = purchaseAmount.calculateLottoCount();
-        int manualCount = InputView.inputManualCount(maxPossibleCount);
-
-        // 수동 구매
-        List<Lotto> manualLottos = InputView.inputManualLotto(manualCount);
-
-        LottoMachine lottoMachine = new LottoMachine(new RandomLottoGenerator());
-
-        Lottos totalLottos = lottoMachine.issueWithManual(maxPossibleCount, manualLottos);
-
-        int autoCount = maxPossibleCount - manualCount;
-        OutputView.print(manualCount, autoCount);
-        OutputView.printLottos(totalLottos);
+        Lottos totalLottos = issueAllLottos(purchaseAmount);
 
         WinningLotto winningLotto = InputView.inputWinningLotto();
-
-        WinningStatistics statistics = new WinningStatistics(purchaseAmount);
-        statistics.calculateResults(totalLottos, winningLotto);
+        WinningStatistics statistics = recordStatistics(purchaseAmount, totalLottos, winningLotto);
 
         OutputView.printResult(statistics);
+    }
+
+    private static Lottos issueAllLottos(Money money) {
+        int maxCount = money.calculateLottoCount();
+        int manualCount = InputView.inputManualCount(maxCount);
+        List<Lotto> manualLottos = InputView.inputManualLotto(manualCount);
+
+        Lottos totalLottos = new LottoMachine(new RandomLottoGenerator())
+            .issueWithManual(maxCount, manualLottos);
+
+        OutputView.print(manualCount, maxCount - manualCount);
+        OutputView.printLottos(totalLottos);
+        return totalLottos;
+    }
+
+    private static WinningStatistics recordStatistics(Money money, Lottos lottos, WinningLotto winningLotto) {
+        WinningStatistics statistics = new WinningStatistics(money);
+        statistics.calculateResults(lottos, winningLotto);
+        return statistics;
     }
 
 }

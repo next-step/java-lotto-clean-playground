@@ -5,9 +5,11 @@ import java.util.List;
 
 public class LottoParser {
 
+    private static final String NOT_NUMBER_ERROR = "숫자만 입력 가능합니다.";
+
     private LottoParser() {}
 
-    public static List<Integer> parseWinningNumbers(String string) {
+    public static List<Integer> parseNumbers(String string) {
         List<Integer> numbers = new ArrayList<>();
         try {
             String[] stringNumbers = string.split(",");
@@ -16,16 +18,16 @@ public class LottoParser {
                 numbers.add(number);
             }
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+            throw new IllegalArgumentException(NOT_NUMBER_ERROR);
         }
         return numbers;
     }
 
-    public static int stringToInt(String string) {
+    public static int parseToInt(String string) {
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+            throw new IllegalArgumentException(NOT_NUMBER_ERROR);
         }
     }
 }
