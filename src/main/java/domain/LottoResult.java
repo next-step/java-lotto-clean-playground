@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class LottoResult {
+public final class LottoResult {
     private final Map<Rank, Integer> counts;
     private final long totalPrize;
     private final double profitRate;

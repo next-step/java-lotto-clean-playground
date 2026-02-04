@@ -5,7 +5,7 @@ import view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoController {
+public final class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
     private final LottoGenerator generator;

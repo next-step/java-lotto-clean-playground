@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class InputView {
+public final class InputView {
     private final Scanner scanner;
 
     public InputView(Scanner scanner) {

@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lotto {
+public final class Lotto {
     private static final int SIZE = 6;
 
     private final List<LottoNumber> numbers;

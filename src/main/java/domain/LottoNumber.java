@@ -3,7 +3,7 @@ package domain;
 
 import java.util.Objects;
 
-public class LottoNumber {
+public final class LottoNumber {
     private static final int MIN = 1;
     private static final int MAX = 45;
 
