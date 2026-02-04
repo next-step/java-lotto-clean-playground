@@ -45,11 +45,9 @@ public final class LottoResult {
 
     private static Map<Rank, Integer> initCounts() {
         Map<Rank, Integer> counts = new EnumMap<>(Rank.class);
-        counts.put(Rank.THREE, 0);
-        counts.put(Rank.FOUR, 0);
-        counts.put(Rank.FIVE, 0);
-        counts.put(Rank.BONUS, 0);
-        counts.put(Rank.SIX, 0);
+        for (Rank rank : Rank.values()) {
+            counts.put(rank, 0);
+        }
         return counts;
     }
 
