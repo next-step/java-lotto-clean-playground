@@ -28,6 +28,7 @@ public class Lotto {
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
     }
+
     public List<LottoNumber> getNumbers() {
         return lottoNumbers;
     }
@@ -36,16 +37,19 @@ public class Lotto {
         validateSize(lottoNumbers);
         validateDuplicate(lottoNumbers);
     }
+
     private static void validateSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
+
     private static void validateDuplicate(List<LottoNumber> rawNumbers) {
         if (rawNumbers.size() != new HashSet<>(rawNumbers).size()) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
