@@ -16,19 +16,28 @@ public final class LottoResult {
     }
 
     public static LottoResult of(List<LottoTicket> tickets, WinningNumbers winning, Money money) {
+        Map<Rank, Integer> counts = countRanks(tickets, winning);
+        long totalPrize = totalPrize(counts);
+        double profitRate = profitRate(totalPrize, money);
+        return new LottoResult(counts, totalPrize, profitRate);
+    }
+
+    private static Map<Rank, Integer> countRanks(List<LottoTicket> tickets, WinningNumbers winning) {
         Map<Rank, Integer> counts = initCounts();
 
-        tickets.forEach(ticket -> {
+        for (LottoTicket ticket : tickets) {
             int matchCount = winning.matchCount(ticket);
             boolean bonusMatched = winning.bonusMatched(ticket);
 
             Rank.from(matchCount, bonusMatched)
                     .ifPresent(rank -> counts.put(rank, counts.get(rank) + 1));
-        });
+        }
 
-        long totalPrize = totalPrize(counts);
-        double profitRate = (double) totalPrize / money.amount();
-        return new LottoResult(counts, totalPrize, profitRate);
+        return counts;
+    }
+
+    private static double profitRate(long totalPrize, Money money) {
+        return (double) totalPrize / money.amount();
     }
 
     public int countOf(Rank rank) {
