@@ -11,12 +11,11 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public static Lotto from(List<LottoNumber> numbers) {
-        validateDuplicate(numbers);
+        validate(numbers);
         return new Lotto(numbers);
     }
 
     private Lotto(List<LottoNumber> lottoNumbers) {
-        validateSize(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
     }
 
@@ -29,19 +28,28 @@ public class Lotto {
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
     }
+
     public List<LottoNumber> getNumbers() {
         return lottoNumbers;
     }
-    private void validateSize(List<LottoNumber> lottoNumbers) {
+
+    private static void validate(List<LottoNumber> lottoNumbers) {
+        validateSize(lottoNumbers);
+        validateDuplicate(lottoNumbers);
+    }
+
+    private static void validateSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
+
     private static void validateDuplicate(List<LottoNumber> rawNumbers) {
         if (rawNumbers.size() != new HashSet<>(rawNumbers).size()) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
