@@ -31,12 +31,12 @@ public class WinningStatistics {
     }
 
     public double calculateProfitRate() {
-        long totalPrize = 0;
-        for (LottoRank rank : statistics.keySet()) {
-            totalPrize += (long) rank.getPrizeMoney() * statistics.get(rank);
-        }
+        long totalPrize = statistics.entrySet().stream()
+            .mapToLong(entry -> (long) entry.getKey().getPrizeMoney() * entry.getValue())
+            .sum();
         return (double) totalPrize / purchaseMoney.getAmount();
     }
+
     private void initDefaultValues() {
         for (LottoRank rank : LottoRank.values()) {
             statistics.put(rank, 0);
