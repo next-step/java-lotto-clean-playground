@@ -14,6 +14,7 @@ public class LottoController {
     public void run() {
         int amount = inputView.readAmount();
         Lottos lottos = lottoShop.purchase(amount);
-        outputView.printLottos(lottos);
+        outputView.printResultHeader(lottos.size());
+        outputView.printLottos(lottos.toNumberLists());
     }
 }

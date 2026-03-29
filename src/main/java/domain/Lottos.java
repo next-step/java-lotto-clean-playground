@@ -18,4 +18,10 @@ public class Lottos {
     public int size() {
         return lottos.size();
     }
+
+    public List<List<Integer>> toNumberLists() {
+        return lottos.stream()
+                .map(Lotto::getNumbers)
+                .toList();
+    }
 }
