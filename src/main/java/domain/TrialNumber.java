@@ -23,5 +23,8 @@ public class TrialNumber {
 
     public int getTrialNumber() {
         return trialCount;
+    }public int getPurchaseAmount() {
+        return purchaseAmount;
     }
+
 }
