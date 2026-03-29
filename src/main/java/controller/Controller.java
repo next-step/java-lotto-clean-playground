@@ -7,6 +7,8 @@ import domain.TrialNumber;
 import domain.RandomLottoNumberGenerator;
 import domain.LottoNumberGenerator;
 
+import java.util.List;
+
 public class Controller {
     public void run(){
         // [1] 구입 금액을 입력 받는다.
@@ -23,6 +25,7 @@ public class Controller {
         LottoNumber lottoNumber = new LottoNumber(trialNumber.getTrialNumber(), generator);
         OutputView.printLottos(lottoNumber);
         // [5] 지난주 당첨 번호 입력 받기
+        List<Integer> winningNumber = InputView.inputWinningNumber();
 
         // [6] 당첨번호와 로또 번호 비교해서 결과 탐색하기
 
