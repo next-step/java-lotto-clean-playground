@@ -10,7 +10,7 @@ public class RandomNumberGenerator implements NumberGenerator {
     private static final int LOTTO_SIZE = 6;
 
     @Override
-    public List<Integer> generator() {
+    public List<Integer> generate() {
         List<Integer> lottoNumbers = new ArrayList<>();
 
         for (int i = LOTTO_START_NUMBER; i <= LOTTO_END_NUMBER; i++) {

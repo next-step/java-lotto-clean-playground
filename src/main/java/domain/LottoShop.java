@@ -19,7 +19,7 @@ public class LottoShop {
     private List<Lotto> createLottos(int amount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < calculateCount(amount); i++) {
-            lottos.add(new Lotto(numberGenerator.generator()));
+            lottos.add(new Lotto(numberGenerator.generate()));
         }
         return lottos;
     }
