@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 public class InputView {
     public static final Scanner SCANNER = new Scanner(System.in);
     public static int inputPurchaseMoney(){
-        int purchaseMoneny = SCANNER.nextInt();
-        return purchaseMoneny;
+        String input = SCANNER.nextLine();
+        return Integer.parseInt(input.trim());
     }
     public static List<Integer> inputWinningNumber() {
         String winningNumber = SCANNER.nextLine();
