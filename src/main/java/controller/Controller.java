@@ -20,8 +20,10 @@ public class Controller {
         // [3] 시도 횟수 만큼 랜덤 로또 생성;
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
         LottoNumber lottoNumber = new LottoNumber(trialNumber.getTrialNumber(), generator);
-        OutputView.printLottos(lottoNumber);
+        int trialCount = trialNumber.getTrialNumber();
+        OutputView.printLottos(lottoNumber,trialCount);
         // [4] 지난주 당첨 번호 입력 받기
+        OutputView.printInputWinningNumber();
         List<Integer> winningNumbers = InputView.inputWinningNumber();
         // [5] 당첨번호와 로또 번호 비교해서 결과 탐색하기
         CalculateLottoNumber statisticsResult = new CalculateLottoNumber(lottoNumber, winningNumbers);
