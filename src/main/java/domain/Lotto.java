@@ -29,7 +29,7 @@ public class Lotto {
 
     private void validateDuplicate(List<Integer> numbers) {
         long distinctCount = numbers.stream().distinct().count();
-        if(distinctCount != LOTTO_SIZE){
+        if (distinctCount != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
