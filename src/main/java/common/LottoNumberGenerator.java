@@ -1,9 +1,8 @@
 package common;
 
-import constants.LOTTO_SETTINGS;
+import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +12,9 @@ public class LottoNumberGenerator implements NumberGenerator {
     private final List<Integer> numbers;
     private int index = 0;
 
-    LottoNumberGenerator() {
+    public LottoNumberGenerator() {
         this.numbers = new ArrayList<Integer>();
-        for (int i = LOTTO_SETTINGS.LOTTO_MINIMUM_NUMBER; i <= LOTTO_SETTINGS.LOTTO_MAXIMUM_NUMBER; i++) {
+        for (int i = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER; i <= LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER; i++) {
             numbers.add(i);
         }
 
@@ -24,7 +23,7 @@ public class LottoNumberGenerator implements NumberGenerator {
 
     @Override
     public int generateNumber() {
-        if (index >= min(LOTTO_SETTINGS.LOTTO_SIZE, LOTTO_SETTINGS.LOTTO_RANGE)) {
+        if (index >= min(LottoSettingsConstants.LOTTO_SIZE, LottoSettingsConstants.LOTTO_RANGE)) {
             index = 0;
             Collections.shuffle(numbers);
         }

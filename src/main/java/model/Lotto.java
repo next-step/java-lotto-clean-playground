@@ -1,9 +1,16 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public record Lotto(List<Integer> numbers) {
-//    public int compare(List<Integer> otherNumbers) {
-//        return otherNumbers.stream().filter(numbers::contains).toList().size();
-//    }
+public class Lotto {
+    private List<Integer> numbers;
+
+    public Lotto(List<Integer> numbers) {
+        this.numbers = new ArrayList<>(numbers);
+    }
+
+    public List<Integer> getNumbers() {
+        return List.copyOf(this.numbers);
+    }
 }
