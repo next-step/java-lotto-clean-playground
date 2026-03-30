@@ -1,6 +1,9 @@
 package domain;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Lottos {
     private final List<Lotto> lottos;
@@ -23,10 +26,6 @@ public class Lottos {
         return matchingCounts;
     }
 
-    public List<Lotto> getLottos() {
-        return List.copyOf(lottos);
-    }
-
     public int getLottoQuantity() {
         return lottos.size();
     }
@@ -34,5 +33,9 @@ public class Lottos {
     private void updateCount(Map<LottoRank, Integer> matchingCounts, int count) {
         LottoRank rank = LottoRank.getLottoRank(count);
         matchingCounts.put(rank, matchingCounts.get(rank) + 1);
+    }
+
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 }
