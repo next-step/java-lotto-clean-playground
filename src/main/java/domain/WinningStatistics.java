@@ -34,6 +34,6 @@ public class WinningStatistics {
     }
 
     public double calculateProfitRate(PurchaseAmount purchaseAmount) {
-        return (double) calculateTotalPrize() / purchaseAmount.getAmount();
+        return (double) calculateTotalPrize() / purchaseAmount.amount();
     }
 }

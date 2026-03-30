@@ -10,7 +10,7 @@ public class TestNumberGenerator implements NumberGenerator {
     }
 
     @Override
-    public List<Integer> generate() {
+    public List<LottoNumber> generate() {
         return numbers;
     }
 }

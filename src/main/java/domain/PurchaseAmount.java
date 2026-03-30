@@ -1,12 +1,10 @@
 package domain;
 
-public class PurchaseAmount {
+public record PurchaseAmount(int amount) {
     private static final int LOTTO_PRICE = 1000;
-    private final int amount;
 
-    public PurchaseAmount(int amount) {
+    public PurchaseAmount {
         validateAmount(amount);
-        this.amount = amount;
     }
 
     private void validateAmount(int amount) {
@@ -20,9 +18,5 @@ public class PurchaseAmount {
 
     public int calculateLottoCount() {
         return amount / LOTTO_PRICE;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 }

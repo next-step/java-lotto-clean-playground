@@ -16,7 +16,7 @@ public class Lottos {
 
     public List<List<Integer>> toNumberLists() {
         return lottos.stream()
-                .map(Lotto::getNumbers)
+                .map(this::toNumbers)
                 .toList();
     }
 
@@ -27,6 +27,13 @@ public class Lottos {
         }
         return winningStatistics;
     }
+
+    private List<Integer> toNumbers(Lotto lotto) {
+        return lotto.getNumbers().stream()
+                .map(LottoNumber::number)
+                .toList();
+    }
+
 
     private Rank findRank(Lotto lotto, Lotto winningLotto) {
         return Rank.from(lotto.countMatch(winningLotto));

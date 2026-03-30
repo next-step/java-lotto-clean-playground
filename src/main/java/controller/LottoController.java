@@ -17,10 +17,19 @@ public class LottoController {
         Lottos lottos = lottoShop.purchase(purchaseAmount);
         outputView.printResultHeader(lottos.size());
         outputView.printLottos(lottos.toNumberLists());
-        Lotto winningLotto = new Lotto(inputView.readWinningNumbers());
+
+        List<Integer> winningNumbers = inputView.readWinningNumbers();
+        Lotto winningLotto = new Lotto(toLottoNumbers(winningNumbers));
+
         WinningStatistics winningStatistics = lottos.createWinningStatistics(winningLotto);
         outputView.printWinningStatistics(createWinningResults(winningStatistics));
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
+    }
+
+    private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
     }
 
     private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
