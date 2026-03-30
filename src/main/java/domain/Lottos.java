@@ -1,36 +1,38 @@
 package domain;
 
-import java.util.List;
+import java.util.*;
 
 public class Lottos {
-    private static final int MIN_LOTTO_COUNT = 1;
-    private static final int LOTTO_PRICE = 1000;
-
     private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> lottoList, int purchaseAmount) {
-        validateUnit(purchaseAmount);
-        validateLottoCount(purchaseAmount);
+    public Lottos(List<Lotto> lottoList) {
         this.lottos = List.copyOf(lottoList);
     }
 
-    public List<Integer> calculateMatchCounts(List<Integer> winningNumbers) {
-        return lottos.stream()
-                .map(lotto -> lotto.countMatchingNumbers(winningNumbers))
-                .toList();
+    public Map<LottoRank, Integer> calculateMatchCounts(List<Integer> winningNumbers) {
+        Map<LottoRank, Integer> matchingCounts = new LinkedHashMap<>();
+
+        Arrays.stream(LottoRank.values())
+                .forEach(rank -> matchingCounts.put(rank, 0));
+
+        for (Lotto lotto : lottos) {
+            int count = lotto.countMatchingNumbers(winningNumbers);
+            updateCount(matchingCounts, count);
+        }
+
+        return matchingCounts;
     }
 
-    private void validateLottoCount(int purchaseAmount) {
-        if (purchaseAmount < MIN_LOTTO_COUNT * LOTTO_PRICE) {
-            throw new IllegalArgumentException(
-                    String.format("로또는 최소 %d장 이상 구매할 수 있습니다.", MIN_LOTTO_COUNT)
-            );
-        }
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 
-    private void validateUnit(int purchaseAmount) {
-        if (purchaseAmount % LOTTO_PRICE > 0) {
-            throw new IllegalArgumentException("로또는 천 원 단위로 구매 가능합니다.");
-        }
+    public int getLottoQuantity() {
+        return lottos.size();
+    }
+
+    private void updateCount(Map<LottoRank, Integer> matchingCounts, int count) {
+        LottoRank rank = LottoRank.getLottoRank(count);
+        matchingCounts.put(rank, matchingCounts.get(rank) + 1);
     }
 }
