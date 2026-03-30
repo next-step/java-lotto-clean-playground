@@ -7,7 +7,7 @@ import java.util.Map;
 public class CalculateLottoNumber {
     private final Map<Rank, Integer> matchResults;
 
-    public CalculateLottoNumber(LottoNumber lottoNumber, List<Integer> winningNumbers) {
+    public CalculateLottoNumber(LottoTickets lottoNumber, List<Integer> winningNumbers) {
         this.matchResults = new EnumMap<>(Rank.class);
         initResults();
         calculate(lottoNumber.getLottoNumber(), winningNumbers);
@@ -43,7 +43,6 @@ public class CalculateLottoNumber {
             totalPrize += (long) entry.getKey().getPrizeMoney() * entry.getValue();
         }
         double rawProfitRate = (double) totalPrize / purchaseAmount;
-        // 요구사항 예시에 맞춰 소수점 셋째 자리에서 강제 버림 처리하여 오차 없는 결과 도출
         return Math.floor(rawProfitRate * 100) / 100.0;
     }
 
