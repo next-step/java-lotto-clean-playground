@@ -19,3 +19,4 @@ public class LottoTickets {
         return Collections.unmodifiableList(lottoNumber);
     }
 }
+
