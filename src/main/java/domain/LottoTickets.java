@@ -5,18 +5,18 @@ import java.util.List;
 
 public class LottoTickets {
 
-    private final List<Lotto> lottoNumber;
+    private final List<Lotto> lottoTickets;
 
     public LottoTickets(int trialCount, LottoNumberGenerator generator) {
         List<Lotto> generatedLottoNumber = new ArrayList<>();
         for (int i = 0; i < trialCount; i++) {
             generatedLottoNumber.add(new Lotto(generator.generate()));
         }
-        this.lottoNumber = generatedLottoNumber;
+        this.lottoTickets = generatedLottoNumber;
     }
 
     public List<Lotto> getLottoNumber() {
-        return Collections.unmodifiableList(lottoNumber);
+        return Collections.unmodifiableList(lottoTickets);
     }
 }
 
