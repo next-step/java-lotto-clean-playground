@@ -6,10 +6,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 public class LottoBatch {
+    private final List<Integer> WINNING_COUNT = List.of(3,4,5,6);
+    private final List<Integer> WINNING_PRICE = List.of(
+            LottoSettingsConstants.THREE_MATCH_PRICE,
+            LottoSettingsConstants.FOUR_MATCH_PRICE,
+            LottoSettingsConstants.FIVE_MATCH_PRICE,
+            LottoSettingsConstants.SIX_MATCH_PRICE
+    );
     List<Lotto> lottos;
 
     public LottoBatch(List<Lotto> lottos) {
@@ -32,6 +37,20 @@ public class LottoBatch {
         }
 
         return result;
+    }
+
+    public double getReturnRatio(List<Integer> winningNumbers) {
+        List<Integer> result = this.getMatchCountPerLotto(winningNumbers);
+
+        double earnResult = 0.0;
+        for (int i = 0; i < WINNING_COUNT.size(); i++) {
+            int currentCount = WINNING_COUNT.get(i);
+            int totalCount = result.stream().filter(matchCount -> currentCount == matchCount).toList().size();
+
+            earnResult += totalCount * WINNING_PRICE.get(i);
+        }
+
+        return earnResult / (LottoSettingsConstants.LOTTO_PRICE * this.lottos.size());
     }
 
     private int countMatches(List<Integer> lottoNumber, List<Integer> winningNumber) {

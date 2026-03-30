@@ -3,7 +3,6 @@ package controller;
 import common.NumberGenerator;
 import common.TestNumberGenerator;
 import constants.LottoSettingsConstants;
-import model.Lotto;
 import model.LottoBatch;
 import model.LottoFactory;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +16,7 @@ import java.util.Scanner;
 
 class LottoPurchaseControllerTest {
     @Test
-    @DisplayName("통합 테스트")
+    @DisplayName("로또 구매 통합 테스트")
     void purchase_calls_intended_functions() {
         // given
         LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());

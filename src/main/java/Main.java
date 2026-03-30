@@ -1,6 +1,7 @@
 import common.LottoNumberGenerator;
 import common.NumberGenerator;
 import controller.LottoPurchaseController;
+import controller.LottoResultCalculatorController;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoFactory;
@@ -23,5 +24,8 @@ public class Main {
         );
 
         lottoPurchaseController.purchase();
+
+        LottoResultCalculatorController lottoResultCalculatorController = new LottoResultCalculatorController(lottoBatch, inputView, outputView);
+        lottoResultCalculatorController.calculate();
     }
 }

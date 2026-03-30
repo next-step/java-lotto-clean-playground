@@ -16,10 +16,12 @@ public class InputView {
 
     public int getUserCashInput() {
         System.out.println(ScriptConstants.INPUT_CASH_SCRIPT);
-        return scanner.nextInt();
+        String userInput = scanner.nextLine();
+        return Integer.parseInt(userInput);
     }
 
     public List<Integer> getWinningNumbers() {
+        System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
         List<String> userInputs = parseByDelimiter(scanner.nextLine());
         List<Integer> result = new ArrayList<>();
 

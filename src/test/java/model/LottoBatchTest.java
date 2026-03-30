@@ -1,5 +1,6 @@
 package model;
 
+import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,5 +42,22 @@ class LottoBatchTest {
 
         Assertions.assertEquals(2, result.size());
         Assertions.assertEquals(List.of(6, 3), result);
+        }
+
+    @Test
+    void testGetReturnRatio() {
+        //given
+        List<Lotto> lottoList = new ArrayList<>();
+        lottoList.add(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
+        lottoList.add(new Lotto(List.of(10, 11, 12, 13, 14, 15)));
+        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,6));
+        LottoBatch lottoBatch = new LottoBatch(lottoList);
+
+        //when
+        double returnRatio = lottoBatch.getReturnRatio(winningNumbers);
+
+        //then
+        double correctRatio = (1.0 * LottoSettingsConstants.THREE_MATCH_PRICE)/(LottoSettingsConstants.LOTTO_PRICE * 2);
+        Assertions.assertEquals(correctRatio, returnRatio);
     }
 }
