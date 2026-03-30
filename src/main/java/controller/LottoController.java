@@ -13,14 +13,14 @@ public class LottoController {
     private final LottoShop lottoShop = new LottoShop(new RandomNumberGenerator());
 
     public void run() {
-        int amount = inputView.readAmount();
-        Lottos lottos = lottoShop.purchase(amount);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readAmount());
+        Lottos lottos = lottoShop.purchase(purchaseAmount);
         outputView.printResultHeader(lottos.size());
         outputView.printLottos(lottos.toNumberLists());
         Lotto winningLotto = new Lotto(inputView.readWinningNumbers());
         WinningStatistics winningStatistics = lottos.createWinningStatistics(winningLotto);
         outputView.printWinningStatistics(createWinningResults(winningStatistics));
-        outputView.printProfitRate(winningStatistics.calculateProfitRate(amount));
+        outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
     }
 
     private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {

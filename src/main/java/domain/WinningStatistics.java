@@ -33,7 +33,7 @@ public class WinningStatistics {
                 .sum();
     }
 
-    public double calculateProfitRate(int amount) {
-        return (double) calculateTotalPrize() / amount;
+    public double calculateProfitRate(PurchaseAmount purchaseAmount) {
+        return (double) calculateTotalPrize() / purchaseAmount.getAmount();
     }
 }
