@@ -1,5 +1,7 @@
 package domain;
 
+import generator.NumberGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 

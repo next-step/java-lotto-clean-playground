@@ -1,5 +1,7 @@
 package domain;
 
+import generator.NumberGenerator;
+import generator.TestNumberGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

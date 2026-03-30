@@ -2,6 +2,7 @@ package controller;
 
 import domain.*;
 import dto.WinningResult;
+import generator.RandomNumberGenerator;
 import view.InputView;
 import view.OutputView;
 

@@ -1,4 +1,6 @@
-package domain;
+package generator;
+
+import domain.LottoNumber;
 
 import java.util.List;
 
