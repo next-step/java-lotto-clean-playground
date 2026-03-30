@@ -35,10 +35,12 @@ public class LottoController {
         List<Integer> winnings = repeatUntilSuccessWinningLottos();
 
         outputView.printStatisticHeader();
-        Map<LottoRank, Integer> matchingCount = lottos.calculateMatchCounts(winnings);
-        outputView.printElements(generateMatchStatus(matchingCount));
+        Map<LottoRank, Integer> matchingCounts = lottos.calculateMatchCounts(winnings);
+        matchingCounts.entrySet().stream()
+                .filter(entry -> entry.getKey() != LottoRank.MISS)
+                .forEach(this::showRankStatistic);
 
-        outputView.printResult(generateProfitResult(matchingCount, purchaseAmount));
+        outputView.printResult(calculateProfitRate(matchingCounts, purchaseAmount));
     }
 
     private List<Lotto> getnerateLottos(int purchaseAmount) {
@@ -79,30 +81,17 @@ public class LottoController {
                 .collect(Collectors.toList());
     }
 
-    private List<String> generateMatchStatus(Map<LottoRank, Integer> matchingCounts) {
-        return matchingCounts.entrySet().stream()
-                .filter(entry -> entry.getKey() != LottoRank.MISS)
-                .map(this::formatRankResult)
-                .toList();
-    }
-
-    private String formatRankResult(Map.Entry<LottoRank, Integer> entry) {
+    private void showRankStatistic(Map.Entry<LottoRank, Integer> entry) {
         LottoRank lottoRank = entry.getKey();
-        return String.format("%d개 일치 (%d원)- %d개", lottoRank.getMatchCount(), lottoRank.getPrice(), entry.getValue());
+        outputView.printStatistics(lottoRank.getMatchCount(), lottoRank.getPrice(), entry.getValue());
     }
 
-    private String generateProfitResult(Map<LottoRank, Integer> matchingCount, int purchaseAmount) {
+    private double calculateProfitRate(Map<LottoRank, Integer> matchingCount, int purchaseAmount) {
         long totalProfit = matchingCount.entrySet().stream()
                 .mapToLong(entry ->
                         (long) entry.getKey().getPrice() * entry.getValue()
                 )
                 .sum();
-        double rateProfit = (double) totalProfit / (purchaseAmount * 1000);
-        String profitResult = String.format("총 수익율은 %.2f입니다.", rateProfit);
-        String status = "(기준이 1이기 때문에 결과적으로 손해라는 의미임)";
-        if (rateProfit >= 1) {
-            status = "(기준이 1이기 때문에 결과적으로 이득이라는 의미임)";
-        }
-        return profitResult + status;
+        return (double) totalProfit / (purchaseAmount * 1000);
     }
 }
