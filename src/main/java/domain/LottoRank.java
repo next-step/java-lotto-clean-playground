@@ -3,10 +3,10 @@ package domain;
 import java.util.Arrays;
 
 public enum LottoRank {
-    FOURTH(3, 5_000),
-    THIRD(4, 50_000),
-    SECOND(5, 1_500_00),
-    FIRST(6, 2_000_000_000),
+    THREE_MATCHED(3, 5_000),
+    FOUR_MATCHED(4, 50_000),
+    FIVE_MATCHED(5, 1_500_00),
+    SIX_MATCHED(6, 2_000_000_000),
     MISS(0, 0);
 
     private final int matchCount;
