@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Lotto;
 import domain.LottoShop;
 import domain.Lottos;
 import domain.RandomNumberGenerator;
@@ -16,5 +17,6 @@ public class LottoController {
         Lottos lottos = lottoShop.purchase(amount);
         outputView.printResultHeader(lottos.size());
         outputView.printLottos(lottos.toNumberLists());
+        Lotto winningLotto = new Lotto(inputView.readWinningNumbers());
     }
 }
