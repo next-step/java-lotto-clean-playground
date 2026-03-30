@@ -3,7 +3,7 @@ package controller;
 import domain.Lotto;
 import domain.LottoRank;
 import domain.Lottos;
-import domain.NumbersGenerator;
+import util.NumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
