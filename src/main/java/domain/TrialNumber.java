@@ -8,6 +8,7 @@ public class TrialNumber {
 
     public TrialNumber(int purchaseAmount){
         this.purchaseAmount = purchaseAmount;
+        validateAmount(purchaseAmount);
         this.trialCount = purchaseAmount / LOTTO_PRICE;
 
     }
