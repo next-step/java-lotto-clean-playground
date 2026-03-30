@@ -1,5 +1,7 @@
 package view;
 
+import dto.WinningResult;
+
 import java.util.List;
 
 public class OutputView {
@@ -12,5 +14,26 @@ public class OutputView {
         for (List<Integer> numbers : lottoNumbers) {
             System.out.println(numbers);
         }
+    }
+
+    public void printWinningStatistics(List<WinningResult> winningResults) {
+        printStatisticsHeader();
+        printRankCount(winningResults);
+    }
+
+    private void printStatisticsHeader() {
+        System.out.println();
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+    }
+
+    private void printRankCount(List<WinningResult> winningResults) {
+        for (WinningResult winningResult : winningResults) {
+            System.out.println(winningResult.matchCount() + "개 일치" + " (" + winningResult.prizeMoney() + "원)-" + winningResult.count() + "개");
+        }
+    }
+
+    public void printProfitRate(double profitRate) {
+        System.out.println("총 수익률은 " + String.format("%.2f", profitRate) + "입니다.");
     }
 }

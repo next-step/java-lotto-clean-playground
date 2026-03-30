@@ -26,4 +26,14 @@ public class WinningStatistics {
     public int countOf(Rank rank) {
         return statistics.get(rank);
     }
+
+    public long calculateTotalPrize() {
+        return statistics.entrySet().stream()
+                .mapToLong(entry -> (long) entry.getKey().getPrizeMoney() * entry.getValue())
+                .sum();
+    }
+
+    public double calculateProfitRate(int amount) {
+        return (double) calculateTotalPrize() / amount;
+    }
 }

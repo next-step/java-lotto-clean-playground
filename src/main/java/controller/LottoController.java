@@ -1,8 +1,11 @@
 package controller;
 
 import domain.*;
+import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class LottoController {
     private final InputView inputView = new InputView();
@@ -16,5 +19,20 @@ public class LottoController {
         outputView.printLottos(lottos.toNumberLists());
         Lotto winningLotto = new Lotto(inputView.readWinningNumbers());
         WinningStatistics winningStatistics = lottos.createWinningStatistics(winningLotto);
+        outputView.printWinningStatistics(createWinningResults(winningStatistics));
+        outputView.printProfitRate(winningStatistics.calculateProfitRate(amount));
+    }
+
+    private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
+        return List.of(
+                createWinningResult(winningStatistics, Rank.THREE_MATCH),
+                createWinningResult(winningStatistics, Rank.FOUR_MATCH),
+                createWinningResult(winningStatistics, Rank.FIVE_MATCH),
+                createWinningResult(winningStatistics, Rank.SIX_MATCH)
+        );
+    }
+
+    private WinningResult createWinningResult(WinningStatistics winningStatistics, Rank rank) {
+        return new WinningResult(rank.getMatchCount(), rank.getPrizeMoney(), winningStatistics.countOf(rank));
     }
 }
