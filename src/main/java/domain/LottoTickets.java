@@ -3,16 +3,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoNumber {
+public class LottoTickets {
 
     private final List<Lotto> lottoNumber;
 
-    public LottoNumber(int trialCount, LottoNumberGenerator generator) {
-        List<Lotto> generatedLottos = new ArrayList<>();
+    public LottoTickets(int trialCount, LottoNumberGenerator generator) {
+        List<Lotto> generatedLottoNumber = new ArrayList<>();
         for (int i = 0; i < trialCount; i++) {
-            generatedLottos.add(new Lotto(generator.generate()));
+            generatedLottoNumber.add(new Lotto(generator.generate()));
         }
-        this.lottoNumber = generatedLottos;
+        this.lottoNumber = generatedLottoNumber;
     }
 
     public List<Lotto> getLottoNumber() {

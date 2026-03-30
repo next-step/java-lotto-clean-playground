@@ -1,6 +1,6 @@
 package controller;
 
-import domain.LottoNumber;
+import domain.LottoTickets;
 import domain.CalculateLottoNumber;
 import view.OutputView;
 import view.InputView;
@@ -19,9 +19,9 @@ public class Controller {
         TrialNumber trialNumber = new TrialNumber(purchaseNumber);
         // [3] 시도 횟수 만큼 랜덤 로또 생성;
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoNumber lottoNumber = new LottoNumber(trialNumber.getTrialNumber(), generator);
+        LottoTickets lottoNumber = new LottoTickets(trialNumber.getTrialNumber(), generator);
         int trialCount = trialNumber.getTrialNumber();
-        OutputView.printLottos(lottoNumber,trialCount);
+        OutputView.printLottoNumber(lottoNumber,trialCount);
         // [4] 지난주 당첨 번호 입력 받기
         OutputView.printInputWinningNumber();
         List<Integer> winningNumbers = InputView.inputWinningNumber();

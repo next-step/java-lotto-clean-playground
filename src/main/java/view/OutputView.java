@@ -1,7 +1,7 @@
 package view;
 import domain.CalculateLottoNumber;
 import domain.Lotto;
-import domain.LottoNumber;
+import domain.LottoTickets;
 import domain.Rank;
 
 
@@ -17,7 +17,7 @@ public class OutputView {
         System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
     }
 
-    public static void printLottos(LottoNumber lottoNumber,int count) {
+    public static void printLottoNumber(LottoTickets lottoNumber, int count) {
         System.out.println("\n" + count + "개를 구매했습니다.");
         for (Lotto lotto : lottoNumber.getLottoNumber()) {
             System.out.println(lotto.getNumbers());
