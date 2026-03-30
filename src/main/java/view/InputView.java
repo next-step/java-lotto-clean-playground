@@ -4,8 +4,10 @@ import constants.ErrorMessageConstants;
 import constants.ScriptConstants;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class InputView {
     private final String NUMBER_DELIMITER = ",";
@@ -17,7 +19,11 @@ public class InputView {
     public int getUserCashInput() {
         System.out.println(ScriptConstants.INPUT_CASH_SCRIPT);
         String userInput = scanner.nextLine();
-        return Integer.parseInt(userInput);
+        try {
+            return Integer.parseInt(userInput.strip());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(ErrorMessageConstants.NOT_A_SINGLE_NUMBER);
+        }
     }
 
     public List<Integer> getWinningNumbers() {
@@ -50,5 +56,4 @@ public class InputView {
             throw new IllegalArgumentException(ErrorMessageConstants.NOT_A_NUMBER);
         }
     }
-
 }

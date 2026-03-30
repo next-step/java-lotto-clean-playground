@@ -1,5 +1,6 @@
 package model;
 
+import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,14 +51,73 @@ class LottoBatchTest {
         List<Lotto> lottoList = new ArrayList<>();
         lottoList.add(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
         lottoList.add(new Lotto(List.of(10, 11, 12, 13, 14, 15)));
-        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,6));
+        List<Integer> winningNumbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
         LottoBatch lottoBatch = new LottoBatch(lottoList);
 
         //when
         double returnRatio = lottoBatch.getReturnRatio(winningNumbers);
 
         //then
-        double correctRatio = (1.0 * LottoSettingsConstants.THREE_MATCH_PRICE)/(LottoSettingsConstants.LOTTO_PRICE * 2);
+        double correctRatio = (double) LottoSettingsConstants.THREE_MATCH_PRICE / (LottoSettingsConstants.LOTTO_PRICE * 2);
         Assertions.assertEquals(correctRatio, returnRatio);
+    }
+
+    @Test
+    void testGetMatchCountPerLottoWithTooFewNumbers() {
+        //given
+        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        List<Integer> winningNumbers = new ArrayList<>();
+
+        for (int i = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER; i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER + LottoSettingsConstants.LOTTO_SIZE - 1; i++ ){
+            winningNumbers.add(i);
+        }
+
+        //when
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> lottoBatch.getReturnRatio(winningNumbers));
+        Assertions.assertEquals(ErrorMessageConstants.NUMBER_TOO_LITTLE, exception.getMessage());
+    }
+
+    @Test
+    void testGetMatchCountPerLottoWithTooManyNumbers() {
+        //given
+        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        List<Integer> winningNumbers = new ArrayList<>();
+        for (int i = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER; i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER + LottoSettingsConstants.LOTTO_SIZE + 1; i++ ){
+            winningNumbers.add(i);
+        }
+
+        //when & then
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> lottoBatch.getReturnRatio(winningNumbers));
+        Assertions.assertEquals(ErrorMessageConstants.NUMBER_TOO_MANY, exception.getMessage());
+    }
+
+    @Test
+    void testGetMatchCountPerLottoWithNumbersOutOfRange() {
+        //given
+        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        List<Integer> winningNumbers = new ArrayList<>();
+        int lottoMinimum = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER;
+        for (int i = lottoMinimum - 1; i < lottoMinimum - 1 + LottoSettingsConstants.LOTTO_SIZE; i++ ){
+            winningNumbers.add(i);
+        }
+
+        //when & then
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> lottoBatch.getReturnRatio(winningNumbers));
+        Assertions.assertEquals(ErrorMessageConstants.NUMBER_OUT_OF_RANGE, exception.getMessage());
+    }
+
+    @Test
+    void testGetMatchCountPerLottoWithNumberDuplicates() {
+        //given
+        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        List<Integer> winningNumbers = new ArrayList<>();
+
+        for (int i = 0; i <LottoSettingsConstants.LOTTO_SIZE; i++ ){
+            winningNumbers.add(LottoSettingsConstants.LOTTO_MINIMUM_NUMBER);
+        }
+
+        //when & then
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> lottoBatch.getReturnRatio(winningNumbers));
+        Assertions.assertEquals(ErrorMessageConstants.NO_DUPLICATES_ALLOWED, exception.getMessage());
     }
 }

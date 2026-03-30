@@ -1,5 +1,6 @@
 package model;
 
+import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class LottoBatch {
     }
 
     public List<Integer> getMatchCountPerLotto(List<Integer> winningNumbers) {
+        this.checkIfNumbersAreValid(winningNumbers);
         List<Integer> result = new ArrayList<>();
 
         for (Lotto lotto : this.lottos) {
@@ -40,6 +42,7 @@ public class LottoBatch {
     }
 
     public double getReturnRatio(List<Integer> winningNumbers) {
+        this.checkIfNumbersAreValid(winningNumbers);
         List<Integer> result = this.getMatchCountPerLotto(winningNumbers);
 
         double earnResult = 0.0;
@@ -53,12 +56,49 @@ public class LottoBatch {
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * this.lottos.size());
     }
 
-    private int countMatches(List<Integer> lottoNumber, List<Integer> winningNumber) {
+    private int countMatches(List<Integer> lottoNumber, List<Integer> winningNumbers) {
+        this.checkIfNumbersAreValid(winningNumbers);
         Set<Integer> lottoNumberSet = new HashSet<>(lottoNumber);
-        Set<Integer>  winningNumberSet = new HashSet<>(winningNumber);
+        Set<Integer>  winningNumberSet = new HashSet<>(winningNumbers);
         lottoNumberSet.retainAll(winningNumberSet);
-        // check if winning nubmer is valid
 
         return lottoNumberSet.size();
+    }
+
+    private void checkIfNumbersAreValid(List<Integer> numbers) {
+        this.checkIfDuplicateExist(numbers);
+        this.checkIfNotEnoughNumbers(numbers);
+        this.checkIfTooManyNumbers(numbers);
+        this.checkIfNumbersAreInRange(numbers);
+    }
+
+    private void checkIfNumbersAreInRange(List<Integer> numbers){
+        List<Integer> notInRange = numbers.stream().filter(
+                i-> i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || i >LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER
+        ).toList();
+
+        if (!notInRange.isEmpty()) {
+            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_OUT_OF_RANGE);
+        }
+    }
+
+    private void checkIfNotEnoughNumbers(List<Integer> numbers){
+        if (numbers.size() < LottoSettingsConstants.LOTTO_SIZE) {
+            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_TOO_LITTLE);
+        }
+    }
+
+    private void checkIfTooManyNumbers(List<Integer> numbers){
+        if (numbers.size() > LottoSettingsConstants.LOTTO_SIZE) {
+            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_TOO_MANY);
+        }
+    }
+
+    protected void checkIfDuplicateExist(List<Integer> numbers) {
+        Set<Integer> test = new HashSet<>(numbers);
+
+        if (test.size() != numbers.size()) {
+            throw new IllegalArgumentException(ErrorMessageConstants.NO_DUPLICATES_ALLOWED);
+        }
     }
 }
