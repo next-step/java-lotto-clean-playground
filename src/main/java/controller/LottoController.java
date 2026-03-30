@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoShop;
-import domain.Lottos;
-import domain.RandomNumberGenerator;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -18,5 +15,6 @@ public class LottoController {
         outputView.printResultHeader(lottos.size());
         outputView.printLottos(lottos.toNumberLists());
         Lotto winningLotto = new Lotto(inputView.readWinningNumbers());
+        WinningStatistics winningStatistics = lottos.createWinningStatistics(winningLotto);
     }
 }
