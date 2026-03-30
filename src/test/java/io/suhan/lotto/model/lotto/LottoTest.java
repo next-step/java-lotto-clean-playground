@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 public class LottoTest {
     @Test
     void 로또는_6개의_숫자를_가진다() {
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
 
         assertThat(lotto.getNumbers()).hasSize(Lotto.LOTTO_SIZE);
     }
 
     @Test
     void 로또는_중복된_숫자를_가질_수_없다() {
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.createLotto(LottoType.AUTOMATIC);
 
         assertThat(lotto.getNumbers()).doesNotHaveDuplicates();
     }

@@ -2,6 +2,7 @@ package io.suhan.lotto.model;
 
 import io.suhan.lotto.model.lotto.Lotto;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NumberPool {
@@ -39,6 +40,6 @@ public class NumberPool {
     }
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return Collections.unmodifiableList(numbers);
     }
 }

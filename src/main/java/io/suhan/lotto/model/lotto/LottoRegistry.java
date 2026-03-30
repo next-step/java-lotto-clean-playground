@@ -1,6 +1,7 @@
 package io.suhan.lotto.model.lotto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoRegistry {
@@ -15,6 +16,6 @@ public class LottoRegistry {
     }
 
     public List<Lotto> getLottos() {
-        return lottos;
+        return Collections.unmodifiableList(lottos);
     }
 }

@@ -12,15 +12,22 @@ import org.junit.jupiter.api.Test;
 public class LottoNumberTest {
     @Test
     void 유효한_번호를_생성할_수_있다() {
-        LottoNumber number = new LottoNumber(Lotto.LOTTO_NUMBER_MIN);
+        // given
+        int validNumber = Lotto.LOTTO_NUMBER_MIN;
 
-        assertThat(Lotto.LOTTO_NUMBER_MIN).isEqualTo(number.getValue());
+        // when
+        LottoNumber lottoNumber = new LottoNumber(validNumber);
+
+        // then
+        assertThat(lottoNumber.value()).isEqualTo(validNumber);
     }
 
     @Test
     void 번호는_범위를_벗어날_수_없다() {
+        // given
         String expectedMessage = "로또 번호는 " + Lotto.LOTTO_NUMBER_MIN + "~" + Lotto.LOTTO_NUMBER_MAX + " 사이여야 합니다.";
 
+        // when and then
         SoftAssertions.assertSoftly((softly) -> {
             softly.assertThatThrownBy(() -> new LottoNumber(Lotto.LOTTO_NUMBER_MIN - 1))
                     .isInstanceOf(IllegalArgumentException.class)
