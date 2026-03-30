@@ -7,4 +7,5 @@ public class ErrorMessageConstants {
     public static String NO_DUPLICATES_ALLOWED = "중복되는 로또 숫자를 넣으면 안됩니다.";
     public static String NUMBER_TOO_LITTLE= "숫자 갯수가 1개의 로또 숫자 갯수보다 작습니다.";
     public static String NUMBER_TOO_MANY= "숫자 갯수가 1개의 로또 숫자 갯수보다 큽니다.";
+    public static String PRICE_TOO_LOW= "최소한 1개의 로또를 구매할 수 있는 구입금액을 넣어주세요";
 }

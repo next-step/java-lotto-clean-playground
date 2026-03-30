@@ -1,5 +1,6 @@
 package controller;
 
+import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 import dto.LottoDto;
 import model.Lotto;
@@ -9,6 +10,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.function.LongToDoubleFunction;
 
 public class LottoPurchaseController {
     private final LottoBatch lottoBatch;
@@ -30,6 +32,7 @@ public class LottoPurchaseController {
 
     public void purchase() {
         int userCashInput = inputView.getUserCashInput();
+        checkPriceHigherThanSingleLottoPrice(userCashInput);
 
         int lottoCount = userCashInput/ LottoSettingsConstants.LOTTO_PRICE;
         for (int i = 0; i < lottoCount; i++) {
@@ -49,5 +52,11 @@ public class LottoPurchaseController {
 
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {
         return new LottoDto(lotto.getNumbers());
+    }
+
+    protected void checkPriceHigherThanSingleLottoPrice(int price) {
+       if (price < LottoSettingsConstants.LOTTO_PRICE){
+           throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
+       }
     }
 }

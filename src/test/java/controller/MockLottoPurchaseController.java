@@ -10,6 +10,7 @@ import view.OutputView;
 class MockLottoPurchaseController extends LottoPurchaseController {
     int getLottoCallCount = 0;
     int wrapLottoIntoDtoCallCount = 0;
+    boolean checkPriceHigherThanSingleLottoPriceCalled= false;
 
     public MockLottoPurchaseController(
             LottoBatch lottoBatch,
@@ -29,5 +30,11 @@ class MockLottoPurchaseController extends LottoPurchaseController {
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {
         wrapLottoIntoDtoCallCount++;
         return super.wrapLottoIntoDto(lotto);
+    }
+
+    @Override
+    protected void checkPriceHigherThanSingleLottoPrice(int price) {
+        checkPriceHigherThanSingleLottoPriceCalled = true;
+        super.checkPriceHigherThanSingleLottoPrice(price);
     }
 }

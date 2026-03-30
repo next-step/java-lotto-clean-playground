@@ -37,10 +37,11 @@ class LottoPurchaseControllerTest {
         controller.purchase();
 
         // then
+        Assertions.assertTrue(outputView.printPurchaseResultCalled);
         Assertions.assertTrue(inputView.getUserCashInputCalled);
         Assertions.assertEquals(2, controller.getLottoCallCount);
         Assertions.assertEquals(2, controller.wrapLottoIntoDtoCallCount);
-        Assertions.assertTrue(outputView.printPurchaseResultCalled);
+        Assertions.assertTrue(controller.checkPriceHigherThanSingleLottoPriceCalled);
 
     }
 }
