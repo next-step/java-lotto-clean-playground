@@ -24,8 +24,17 @@ public class OutputView {
         System.out.println("---");
     }
 
-    public void printResult(String result) {
-        System.out.println(result);
+    public void printStatistics(int num1, int num2, int num3) {
+        System.out.printf("%d개 일치 (%d원)- %d개\n", num1, num2, num3);
+    }
+
+    public void printResult(double value) {
+        String result = String.format("총 수익율은 %.2f입니다.", value);
+        String status = "(기준이 1이기 때문에 결과적으로 손해라는 의미임)";
+        if (value >= 1) {
+            status = "(기준이 1이기 때문에 결과적으로 이득이라는 의미임)";
+        }
+        System.out.println(result + status);
     }
 
     public void printErrorMessage(String errorMessage) {
