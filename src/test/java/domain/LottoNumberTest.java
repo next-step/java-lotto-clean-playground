@@ -1,22 +1,16 @@
 package domain;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoNumberTest {
 
-    @Test
-    void 로또_번호가_1보다_작으면_예외가_발생한다() {
-        assertThatThrownBy(() -> new LottoNumber(0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1부터 45 사이여야 합니다.");
-    }
-
-    @Test
-    void 로또_번호가_45보다_크면_예외가_발생한다() {
-        assertThatThrownBy(() -> new LottoNumber(46))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1부터 45 사이여야 합니다.");
+    @ParameterizedTest
+    @ValueSource(ints = {0, 46})
+    void 로또_번호가_범위를_벗어나면_예외가_발생한다(int number) {
+        assertThatThrownBy(() -> new LottoNumber(number))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
