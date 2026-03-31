@@ -1,6 +1,6 @@
 package domain;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
@@ -9,11 +9,11 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
-        this.numbers = Collections.unmodifiableList(numbers);
+        this.numbers = new ArrayList<>(numbers);
     }
 
     public List<LottoNumber> getNumbers() {
-        return numbers;
+        return List.copyOf(numbers);
     }
 
     public int countMatch(Lotto winningLotto) {
