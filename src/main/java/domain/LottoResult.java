@@ -7,10 +7,11 @@ import java.util.Map;
 public class LottoResult {
     private final Map<Rank, Integer> matchResults;
 
-    public LottoResult(LottoTickets lottoNumber, Lotto winningNumbers) {
+    // List<Lotto> 대신 단일 Lotto 객체를 받도록 생성자 시그니처 수정
+    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto) {
         this.matchResults = new EnumMap<>(Rank.class);
         initResults();
-        calculate(lottoNumber.getLottoNumber(), winningNumbers.getNumbers());
+        calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers());
     }
 
     private void initResults() {
