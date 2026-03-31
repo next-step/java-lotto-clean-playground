@@ -14,16 +14,16 @@ public class LottosTest {
     void 로또_번호_개수가_6개가_아니라면_예외가_발생한다() {
         //given
         List<LottoNumber> threeMatched = Stream.of(1, 2, 3, 45, 44, 43)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         List<LottoNumber> fourMatched = Stream.of(1, 2, 3, 4, 45, 44)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         List<LottoNumber> fiveMatched = Stream.of(1, 2, 3, 4, 5, 45)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         List<LottoNumber> sixMatched = Stream.of(1, 2, 3, 4, 5, 6)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         List<Lotto> lottoList = List.of(
                 new Lotto(threeMatched),
@@ -33,7 +33,7 @@ public class LottosTest {
         );
         Lottos lottos = new Lottos(lottoList);
         List<LottoNumber> winningNumbers = Stream.of(1, 2, 3, 4, 5, 6)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
 
         //when

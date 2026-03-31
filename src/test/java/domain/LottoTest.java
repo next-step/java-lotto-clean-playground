@@ -18,11 +18,11 @@ public class LottoTest {
     void 정상적인_입력에_대해_로또가_성공적으로_생성된다() {
         //given
         List<LottoNumber> validNumbers = Stream.of(45, 2, 18, 7, 9, 6)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         LottoStatus expectedNumbers = new LottoStatus(
                 Stream.of(2, 6, 7, 9, 18, 45)
-                        .map(LottoNumber::new)
+                        .map(LottoNumber::valueOf)
                         .toList()
         );
         //when
@@ -36,9 +36,11 @@ public class LottoTest {
     void 로또_당첨_번호를_계산한다() {
         //given
         Lotto lotto = new Lotto(Stream.of(45, 2, 18, 7, 9, 6)
-                .map(LottoNumber::new).toList());
+                .map(LottoNumber::valueOf)
+                .toList());
         List<LottoNumber> winningNumbers = Stream.of(2, 6, 7, 13, 14, 15)
-                .map(LottoNumber::new).toList();
+                .map(LottoNumber::valueOf)
+                .toList();
         //when
         int matchCount = lotto.countMatchingNumbers(winningNumbers);
         //then
@@ -51,7 +53,8 @@ public class LottoTest {
     void 로또_번호_개수가_6개가_아니라면_예외가_발생한다(int num) {
         //given
         List<LottoNumber> invalidSizedNumbers = IntStream.rangeClosed(1, num)
-                .mapToObj(LottoNumber::new).toList();
+                .mapToObj(LottoNumber::valueOf)
+                .toList();
         //when
         IllegalArgumentException e = Assertions.assertThrows(
                 IllegalArgumentException.class,
@@ -66,7 +69,7 @@ public class LottoTest {
     void 로또에_중복된_숫자가_존재하면_예외가_발생한다() {
         //given
         List<LottoNumber> duplicateNumbers = Stream.of(1, 2, 3, 4, 5, 1)
-                .map(LottoNumber::new)
+                .map(LottoNumber::valueOf)
                 .toList();
         //when
         IllegalArgumentException e = Assertions.assertThrows(

@@ -32,7 +32,7 @@ public class Validator {
         try {
             return strings.stream()
                     .map(Integer::parseInt)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::valueOf)
                     .toList();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT.getMessage());
