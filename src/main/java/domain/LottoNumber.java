@@ -13,17 +13,20 @@ public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
 
     public static final List<LottoNumber> CACHE = IntStream.rangeClosed(LOTTO_MIN_RANGE, LOTTO_MAX_RANGE)
-            .mapToObj(LottoNumber::new)
+            .mapToObj(LottoNumber::valueOf)
             .toList();
 
-    public LottoNumber(int number) {
+     private LottoNumber(int number) {
         validateRange(number);
         this.number = number;
     }
 
+    public static LottoNumber valueOf(int number) {
+        validateRange(number);
+        return CACHE.get(number - 1);
+    }
 
-
-    private void validateRange(int number) {
+    private static void validateRange(int number) {
         if (number < 1 || number > 45) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_RANGE.getMessage());
         }
