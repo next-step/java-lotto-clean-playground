@@ -1,8 +1,9 @@
 package controller;
 
 import domain.Lotto;
-import domain.LottoRank;
 import domain.Lottos;
+import domain.LottoWinningResult;
+import dto.LottoStatus;
 import util.NumbersGenerator;
 import view.InputView;
 import view.OutputView;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class LottoController {
     private final InputView inputView;
@@ -26,29 +26,35 @@ public class LottoController {
     }
 
     public void run() {
-        int purchaseAmount = repeatUntilSuccessAmount();
-        Lottos lottos = new Lottos(getnerateLottos(purchaseAmount));
+        Lottos lottos = buyLottos();
 
-        outputView.printQuantity(lottos.getLottoQuantity());
-        outputView.printElements(generateLottoStatus(lottos.getLottos()));
+        List<Integer> winningLotto = readWinningLotto();
 
-        List<Integer> winnings = repeatUntilSuccessWinningLottos();
-
-        outputView.printStatisticHeader();
-        Map<LottoRank, Integer> matchingCounts = lottos.calculateMatchCounts(winnings);
-        matchingCounts.entrySet().stream()
-                .filter(entry -> entry.getKey() != LottoRank.MISS)
-                .forEach(this::showRankStatistic);
-
-        outputView.printResult(calculateProfitRate(matchingCounts, purchaseAmount));
+        showResultStatistics(lottos, winningLotto);
     }
 
-    private List<Lotto> getnerateLottos(int purchaseAmount) {
-        List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < purchaseAmount; i++) {
-            lottoList.add(new Lotto(numbersGenerator.generate()));
-        }
-        return lottoList;
+    private Lottos buyLottos() {
+        int purchaseAmount = readAmount();
+        Lottos lottos = new Lottos(getnerateLottos(purchaseAmount));
+
+        outputView.printQuantity(lottos.quantity());
+        outputView.printElements(lottos.toStatus().stream()
+                .map(LottoStatus::toString)
+                .toList());
+        return lottos;
+    }
+
+    private void showResultStatistics(Lottos lottos, List<Integer> winningLotto) {
+        outputView.printStatisticHeader();
+        LottoWinningResult winningResult = new LottoWinningResult(lottos.calculateMatchCounts(winningLotto));
+        winningResult.getLottoStatistics().entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(entry -> outputView.printStatistics(
+                        entry.getKey().getMatchCount(),
+                        entry.getKey().getPrice(),
+                        entry.getValue()
+                ));
+        outputView.printResult(winningResult.getLottoProfitRate(lottos.quantity()));
     }
 
     private <T> T repeatUntilSuccess(Supplier<T> callBack) {
@@ -61,37 +67,25 @@ public class LottoController {
         }
     }
 
-    private int repeatUntilSuccessAmount() {
+    private int readAmount() {
         return repeatUntilSuccess(() -> {
             outputView.printStartGuide();
             return validator.validatePriceInput(inputView.readInput());
         });
     }
 
-    private List<Integer> repeatUntilSuccessWinningLottos() {
+    private List<Integer> readWinningLotto() {
         return repeatUntilSuccess(() -> {
             outputView.printPrompt();
             return validator.validateLastWinningsInput(inputView.readInput());
         });
     }
 
-    private List<String> generateLottoStatus(List<Lotto> lottoList) {
-        return lottoList.stream()
-                .map(lotto -> lotto.lottoNumbers().toString())
-                .collect(Collectors.toList());
-    }
-
-    private void showRankStatistic(Map.Entry<LottoRank, Integer> entry) {
-        LottoRank lottoRank = entry.getKey();
-        outputView.printStatistics(lottoRank.getMatchCount(), lottoRank.getPrice(), entry.getValue());
-    }
-
-    private double calculateProfitRate(Map<LottoRank, Integer> matchingCount, int purchaseAmount) {
-        long totalProfit = matchingCount.entrySet().stream()
-                .mapToLong(entry ->
-                        (long) entry.getKey().getPrice() * entry.getValue()
-                )
-                .sum();
-        return (double) totalProfit / (purchaseAmount * 1000);
+    private List<Lotto> getnerateLottos(int purchaseAmount) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (int i = 0; i < purchaseAmount; i++) {
+            lottoList.add(new Lotto(numbersGenerator.generate()));
+        }
+        return lottoList;
     }
 }
