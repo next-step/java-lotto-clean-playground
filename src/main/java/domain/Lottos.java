@@ -28,13 +28,13 @@ public class Lottos {
         return Map.copyOf(matchingCounts);
     }
 
-    public int quantity() {
+    public int getQuantity() {
         return lottos.size();
     }
 
     public List<LottoStatus> toStatus() {
         return lottos.stream()
-                .map(Lotto::numbers)
+                .map(Lotto::getLottoStatus)
                 .toList();
     }
 

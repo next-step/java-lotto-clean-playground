@@ -17,7 +17,7 @@ public class Lotto {
                 .toList();
     }
 
-    public LottoStatus numbers() {
+    public LottoStatus getLottoStatus() {
         return new LottoStatus(numbers);
     }
 

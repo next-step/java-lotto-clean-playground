@@ -28,7 +28,7 @@ public class LottoTest {
         //when
         Lotto lotto = new Lotto(validNumbers);
         //then
-        assertThat(lotto.numbers())
+        assertThat(lotto.getLottoStatus())
                 .isEqualTo(expectedNumbers);
     }
 

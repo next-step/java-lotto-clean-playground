@@ -39,7 +39,7 @@ public class LottoController {
         int purchaseAmount = readAmount();
         Lottos lottos = new Lottos(getnerateLottos(purchaseAmount));
 
-        outputView.printQuantity(lottos.quantity());
+        outputView.printQuantity(lottos.getQuantity());
         outputView.printElements(lottos.toStatus().stream()
                 .map(LottoStatus::toString)
                 .toList());
@@ -56,7 +56,7 @@ public class LottoController {
                         entry.getKey().getPrice(),
                         entry.getValue()
                 ));
-        outputView.printResult(winningResult.getLottoProfitRate(lottos.quantity()));
+        outputView.printResult(winningResult.getLottoProfitRate(lottos.getQuantity()));
     }
 
     private <T> T repeatUntilSuccess(Supplier<T> callBack) {
