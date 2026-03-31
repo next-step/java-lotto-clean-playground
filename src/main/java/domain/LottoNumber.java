@@ -13,7 +13,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
 
     public static final List<LottoNumber> CACHE = IntStream.rangeClosed(LOTTO_MIN_RANGE, LOTTO_MAX_RANGE)
-            .mapToObj(LottoNumber::valueOf)
+            .mapToObj(LottoNumber::new)
             .toList();
 
      private LottoNumber(int number) {
