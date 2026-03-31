@@ -28,7 +28,7 @@ public class LottoController {
         List<Integer> winningNumbers = inputView.readWinningNumbers();
         Lotto winningLotto = new Lotto(toLottoNumbers(winningNumbers));
 
-        WinningStatistics winningStatistics = lottos.createWinningStatistics(winningLotto);
+        WinningStatistics winningStatistics = WinningStatistics.from(lottos, winningLotto);
 
         outputView.printWinningStatistics(createWinningResults(winningStatistics));
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));

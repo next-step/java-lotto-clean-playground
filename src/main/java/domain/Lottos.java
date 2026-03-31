@@ -2,12 +2,17 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
         this.lottos = new ArrayList<>(lottos);
+    }
+
+    public Stream<Lotto> stream() {
+        return lottos.stream();
     }
 
     public int size() {
@@ -20,22 +25,9 @@ public class Lottos {
                 .toList();
     }
 
-    public WinningStatistics createWinningStatistics(Lotto winningLotto) {
-        WinningStatistics winningStatistics = new WinningStatistics();
-        for (Lotto lotto : lottos) {
-            winningStatistics.add(findRank(lotto, winningLotto));
-        }
-        return winningStatistics;
-    }
-
     private List<Integer> toNumbers(Lotto lotto) {
         return lotto.getNumbers().stream()
                 .map(LottoNumber::number)
                 .toList();
-    }
-
-
-    private Rank findRank(Lotto lotto, Lotto winningLotto) {
-        return Rank.from(lotto.countMatch(winningLotto));
     }
 }

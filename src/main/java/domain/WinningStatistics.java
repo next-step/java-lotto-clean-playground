@@ -11,13 +11,23 @@ public class WinningStatistics {
         initialize();
     }
 
+    public static WinningStatistics from(Lottos lottos, Lotto winningLotto) {
+        WinningStatistics statistics = new WinningStatistics();
+
+        lottos.stream()
+                .map(lotto -> Rank.from(lotto.countMatch(winningLotto)))
+                .forEach(statistics::add);
+
+        return statistics;
+    }
+
     private void initialize() {
         for (Rank rank : Rank.values()) {
             statistics.put(rank, 0);
         }
     }
 
-    public void add(Rank rank) {
+    private void add(Rank rank) {
         int rankCount = statistics.get(rank);
         rankCount++;
         statistics.put(rank, rankCount);
