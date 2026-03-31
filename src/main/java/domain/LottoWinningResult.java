@@ -14,7 +14,7 @@ public class LottoWinningResult {
 
     public BigDecimal getLottoProfitRate(int purchaseAmount) {
         BigDecimal totalProfit = matchingCounts.entrySet().stream()
-                .map(entry ->  BigDecimal.valueOf(entry.getKey().getPrice())
+                .map(entry -> BigDecimal.valueOf(entry.getKey().getPrice())
                         .multiply(BigDecimal.valueOf(entry.getValue())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 

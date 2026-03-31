@@ -2,8 +2,8 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoNumber;
-import domain.Lottos;
 import domain.LottoWinningResult;
+import domain.Lottos;
 import dto.LottoStatus;
 import util.NumbersGenerator;
 import view.InputView;

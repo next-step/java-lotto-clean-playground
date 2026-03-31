@@ -16,7 +16,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
             .mapToObj(LottoNumber::new)
             .toList();
 
-     private LottoNumber(int number) {
+    private LottoNumber(int number) {
         validateRange(number);
         this.number = number;
     }

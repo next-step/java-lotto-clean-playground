@@ -23,7 +23,7 @@ public class Lotto {
 
     public int countMatchingNumbers(List<LottoNumber> winningNumbers) {
         try {
-            return  Math.toIntExact(numbers.stream()
+            return Math.toIntExact(numbers.stream()
                     .filter(winningNumbers::contains)
                     .count());
         } catch (ArithmeticException e) {
