@@ -1,5 +1,7 @@
 package domain;
 
+import dto.LottoStatus;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,19 +25,21 @@ public class Lottos {
             updateCount(matchingCounts, count);
         }
 
-        return matchingCounts;
+        return Map.copyOf(matchingCounts);
     }
 
-    public int getLottoQuantity() {
+    public int quantity() {
         return lottos.size();
+    }
+
+    public List<LottoStatus> toStatus() {
+        return lottos.stream()
+                .map(Lotto::numbers)
+                .toList();
     }
 
     private void updateCount(Map<LottoRank, Integer> matchingCounts, int count) {
         LottoRank rank = LottoRank.getLottoRank(count);
         matchingCounts.put(rank, matchingCounts.get(rank) + 1);
-    }
-
-    public List<Lotto> getLottos() {
-        return List.copyOf(lottos);
     }
 }
