@@ -1,8 +1,10 @@
 package dto;
 
+import domain.LottoNumber;
+
 import java.util.List;
 
-public record LottoStatus(List<Integer> lottoNumbers) {
+public record LottoStatus(List<LottoNumber> lottoNumbers) {
     public LottoStatus {
         lottoNumbers = List.copyOf(lottoNumbers);
     }

@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.Lottos;
 import domain.LottoWinningResult;
 import dto.LottoStatus;
@@ -16,10 +17,10 @@ import java.util.function.Supplier;
 public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
-    private final NumbersGenerator numbersGenerator;
+    private final NumbersGenerator<LottoNumber> numbersGenerator;
     private final Validator validator = new Validator();
 
-    public LottoController(InputView inputView, OutputView outputView, NumbersGenerator numbersGenerator) {
+    public LottoController(InputView inputView, OutputView outputView, NumbersGenerator<LottoNumber> numbersGenerator) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.numbersGenerator = numbersGenerator;
@@ -28,7 +29,7 @@ public class LottoController {
     public void run() {
         Lottos lottos = buyLottos();
 
-        List<Integer> winningLotto = readWinningLotto();
+        List<LottoNumber> winningLotto = readWinningLotto();
 
         showResultStatistics(lottos, winningLotto);
     }
@@ -44,7 +45,7 @@ public class LottoController {
         return lottos;
     }
 
-    private void showResultStatistics(Lottos lottos, List<Integer> winningLotto) {
+    private void showResultStatistics(Lottos lottos, List<LottoNumber> winningLotto) {
         outputView.printStatisticHeader();
         LottoWinningResult winningResult = new LottoWinningResult(lottos.calculateMatchCounts(winningLotto));
         winningResult.getLottoStatistics().entrySet().stream()
@@ -74,7 +75,7 @@ public class LottoController {
         });
     }
 
-    private List<Integer> readWinningLotto() {
+    private List<LottoNumber> readWinningLotto() {
         return repeatUntilSuccess(() -> {
             outputView.printPrompt();
             return validator.validateLastWinningsInput(inputView.readInput());

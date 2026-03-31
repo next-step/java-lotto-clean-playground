@@ -6,11 +6,10 @@ import dto.LottoStatus;
 import java.util.List;
 
 public class Lotto {
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> lottoNumbers) {
+    public Lotto(List<LottoNumber> lottoNumbers) {
         validateLottoLength(lottoNumbers);
-        validateLottoRange(lottoNumbers);
         validateNoDuplicateNumber(lottoNumbers);
 
         numbers = lottoNumbers.stream()
@@ -22,27 +21,19 @@ public class Lotto {
         return new LottoStatus(numbers);
     }
 
-    public int countMatchingNumbers(List<Integer> winningNumbers) {
+    public int countMatchingNumbers(List<LottoNumber> winningNumbers) {
         return (int) numbers.stream()
                 .filter(winningNumbers::contains)
                 .count();
     }
 
-    private void validateLottoLength(List<Integer> lottoNumbers) {
+    private void validateLottoLength(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != 6) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_COUNT.getMessage());
         }
     }
 
-    private void validateLottoRange(List<Integer> lottoNumbers) {
-        boolean isValidRange = lottoNumbers.stream()
-                .allMatch(num -> num >= 1 && num <= 45);
-        if (!isValidRange) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_RANGE.getMessage());
-        }
-    }
-
-    private void validateNoDuplicateNumber(List<Integer> lottoNumbers) {
+    private void validateNoDuplicateNumber(List<LottoNumber> lottoNumbers) {
         long uniqueCount = lottoNumbers.stream().distinct().count();
         if (uniqueCount != 6) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DUPLICATE_NUMBER.getMessage());

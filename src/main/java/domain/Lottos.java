@@ -14,7 +14,7 @@ public class Lottos {
         this.lottos = List.copyOf(lottoList);
     }
 
-    public Map<LottoRank, Integer> calculateMatchCounts(List<Integer> winningNumbers) {
+    public Map<LottoRank, Integer> calculateMatchCounts(List<LottoNumber> winningNumbers) {
         Map<LottoRank, Integer> matchingCounts = new LinkedHashMap<>();
 
         Arrays.stream(LottoRank.values())

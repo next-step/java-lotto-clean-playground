@@ -2,6 +2,7 @@ package controller;
 
 import constant.ErrorMessage;
 import domain.Lotto;
+import domain.LottoNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +11,11 @@ public class Validator {
     private static final int MIN_LOTTO_COUNT = 1;
     private static final int LOTTO_PRICE = 1000;
 
-    public List<Integer> validateLastWinningsInput(String input) {
+    public List<LottoNumber> validateLastWinningsInput(String input) {
         List<String> strings = Arrays.stream(input.split(","))
                 .map(String::trim)
                 .toList();
-        List<Integer> winnings = validateWinningsInputIntegrity(strings);
+        List<LottoNumber> winnings = validateWinningsInputIntegrity(strings);
         new Lotto(winnings);
 
         return winnings;
@@ -27,10 +28,11 @@ public class Validator {
         return purchaseAmount;
     }
 
-    private List<Integer> validateWinningsInputIntegrity(List<String> strings) {
+    private List<LottoNumber> validateWinningsInputIntegrity(List<String> strings) {
         try {
             return strings.stream()
                     .map(Integer::parseInt)
+                    .map(LottoNumber::new)
                     .toList();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT.getMessage());
