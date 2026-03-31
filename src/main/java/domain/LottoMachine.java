@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-// List<Lotto> 생성을 전담하는 팩토리(발행) 객체
 public class LottoMachine {
     private final LottoNumberGenerator generator;
 
