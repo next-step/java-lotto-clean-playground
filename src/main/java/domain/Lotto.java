@@ -26,6 +26,7 @@ public class Lotto {
         }
     }
 
+
     private void validateRange(List<Integer> lottoNumber) {
         for (Integer number : lottoNumber) {
             if (number < MIN_NUMBER || number > MAX_NUMBER) {

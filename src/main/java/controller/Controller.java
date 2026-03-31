@@ -1,8 +1,8 @@
 package controller;
 
 import domain.*;
-import view.OutputView;
 import view.InputView;
+import view.OutputView;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -17,7 +17,6 @@ public class Controller {
         });
 
         int trialCount = trialNumber.getTrialNumber();
-
         // [3] 로또 머신을 통한 로또 발행 및 티켓 관리 객체 초기화
         LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
         List<Lotto> generatedLottos = lottoMachine.issue(trialCount);

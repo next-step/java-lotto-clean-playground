@@ -22,17 +22,13 @@ class TrialNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {0, -1000})
     void createTrialNumber_ZeroOrNegative(int invalidAmount) {
-        assertThatThrownBy(() -> new TrialNumber(invalidAmount))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 구입 금액은 0보다 커야 합니다.");
+        assertThatThrownBy(() -> new TrialNumber(invalidAmount)).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 구입 금액은 0보다 커야 합니다.");
     }
 
     @DisplayName("구입 금액이 1000원 단위가 아닐 경우 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(ints = {1500, 100})
     void createTrialNumber_NotDivisibleBy1000(int invalidAmount) {
-        assertThatThrownBy(() -> new TrialNumber(invalidAmount))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+        assertThatThrownBy(() -> new TrialNumber(invalidAmount)).isInstanceOf(IllegalArgumentException.class).hasMessage("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
     }
 }
