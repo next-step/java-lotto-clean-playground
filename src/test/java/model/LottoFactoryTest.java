@@ -4,6 +4,7 @@ import common.NumberGenerator;
 import common.TestNumberGenerator;
 import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ class LottoFactoryTest {
     LottoFactory lottoFactory;
 
     @Test
+    @DisplayName("로또 생성")
     void testGenerateLotto() {
         //given tesetList = {1,1,2,3,4,5,6}
         List<Integer> testList = new ArrayList<>();

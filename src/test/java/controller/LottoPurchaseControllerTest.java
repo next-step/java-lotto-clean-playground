@@ -8,7 +8,6 @@ import controller.mock.MockLottoFactory;
 import controller.mock.MockLottoPurchaseController;
 import controller.mock.MockOutputView;
 import model.LottoBatch;
-import model.LottoFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import java.util.Scanner;
 
 class LottoPurchaseControllerTest {
     @Test
-    @DisplayName("로또 구매 통합 테스트")
+    @DisplayName("통합 테스트: 로또 구매")
     void purchase_calls_intended_functions() {
         // given
         LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());

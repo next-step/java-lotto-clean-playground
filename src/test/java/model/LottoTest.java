@@ -3,6 +3,7 @@ package model;
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class LottoTest {
     @Test
+    @DisplayName("로또 번호 너무 적은직 검증")
     void testGetMatchCountPerLottoWithTooFewNumbers() {
         //given
         List<Integer> winningNumbers = new ArrayList<>();
@@ -24,6 +26,7 @@ public class LottoTest {
     }
 
     @Test
+    @DisplayName("로또 번호 너무 많은지 검증")
     void testGetMatchCountPerLottoWithTooManyNumbers() {
         //given
         LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
@@ -38,6 +41,7 @@ public class LottoTest {
     }
 
     @Test
+    @DisplayName("로또 번호가 적절한 범위 내에 있는지 검증")
     void testGetMatchCountPerLottoWithNumbersOutOfRange() {
         //given
         LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
@@ -53,6 +57,7 @@ public class LottoTest {
     }
 
     @Test
+    @DisplayName("로또 번호에 중복이 있는지 검증")
     void testGetMatchCountPerLottoWithNumberDuplicates() {
         //given
         LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
