@@ -10,7 +10,6 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
-import java.util.function.LongToDoubleFunction;
 
 public class LottoPurchaseController {
     private final LottoBatch lottoBatch;

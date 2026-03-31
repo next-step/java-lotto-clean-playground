@@ -3,18 +3,11 @@ package view;
 import constants.LottoSettingsConstants;
 import constants.ScriptConstants;
 import dto.LottoDto;
-import model.Lotto;
+import model.LottoResult;
 
 import java.util.List;
 
 public class OutputView {
-    private final List<Integer> WINNING_COUNT = List.of(3,4,5,6);
-    private final List<Integer> WINNING_PRICE = List.of(
-            LottoSettingsConstants.THREE_MATCH_PRICE,
-            LottoSettingsConstants.FOUR_MATCH_PRICE,
-            LottoSettingsConstants.FIVE_MATCH_PRICE,
-            LottoSettingsConstants.SIX_MATCH_PRICE
-            );
 
     public void printPurchaseResult(List<LottoDto> lottoDtoList) {
         System.out.println();
@@ -26,16 +19,15 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printStats(List<Integer> matchCountPerLotto) {
+    public void printStats(List<LottoResult> matchCountPerLotto) {
+        List<LottoResult> WINNING_RESULT = List.of(LottoResult.THREE, LottoResult.FOUR, LottoResult.FIVE, LottoResult.SIX);
+
         System.out.println(ScriptConstants.OUTPUT_STAT_HEADER_SCRIPT);
 
-        for (int i = 0; i < WINNING_COUNT.size(); i++){
-            int currentCount = WINNING_COUNT.get(i);
-            int currentPrice = WINNING_PRICE.get(i);
-            int totalCount = matchCountPerLotto.stream()
-                    .filter(matchCount -> currentCount == matchCount).toList().size();
+        for (LottoResult currentResult : WINNING_RESULT) {
+            int resultCount = (int) matchCountPerLotto.stream().filter(result -> currentResult == result).count();
 
-            System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentCount, currentPrice, totalCount);
+            System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentResult.matchCount, currentResult.reward, resultCount);
             System.out.println();
         }
         System.out.println();

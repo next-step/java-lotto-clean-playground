@@ -9,6 +9,7 @@ public class LottoSettingsConstants {
 
 
     // result
+    public static final int NO_WIN = 0;
     public static final int THREE_MATCH_PRICE = 5000;
     public static final int FOUR_MATCH_PRICE= 50000;
     public static final int FIVE_MATCH_PRICE = 1500000;

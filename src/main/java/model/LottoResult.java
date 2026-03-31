@@ -17,8 +17,9 @@ public enum LottoResult {
     FIVE(5, LottoSettingsConstants.FIVE_MATCH_PRICE),
     SIX(6, LottoSettingsConstants.SIX_MATCH_PRICE);
 
-    int matchCount;
-    int reward;
+    public final int matchCount;
+    public final int reward;
+
     LottoResult(int matchCount, int reward) {
         this.matchCount = matchCount;
         this.reward= reward;
@@ -26,7 +27,7 @@ public enum LottoResult {
 
     public static LottoResult calculateResult(List<Integer> winningNumbers, Lotto lotto) {
         Set<Integer> lottoNumbers= new HashSet<>(lotto.getNumbers());
-        Set<Integer>  winningNumberSet = new HashSet<>(winningNumbers);
+        Set<Integer> winningNumberSet = new HashSet<>(winningNumbers);
         lottoNumbers.retainAll(winningNumberSet);
 
         return Arrays.stream(values())

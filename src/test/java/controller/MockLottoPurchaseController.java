@@ -4,13 +4,16 @@ import dto.LottoDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoFactory;
+import model.LottoResult;
 import view.InputView;
 import view.OutputView;
 
+import java.util.List;
+
 class MockLottoPurchaseController extends LottoPurchaseController {
-    int getLottoCallCount = 0;
-    int wrapLottoIntoDtoCallCount = 0;
-    boolean checkPriceHigherThanSingleLottoPriceCalled= false;
+    public int getLottoCallCount = 0;
+    public int wrapLottoIntoDtoCallCount = 0;
+    public boolean checkPriceHigherThanSingleLottoPriceCalled= false;
 
     public MockLottoPurchaseController(
             LottoBatch lottoBatch,

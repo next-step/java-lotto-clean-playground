@@ -1,9 +1,13 @@
 package controller;
 
+import constants.LottoSettingsConstants;
+import model.Lotto;
 import model.LottoBatch;
+import model.LottoResult;
 import view.InputView;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoResultCalculatorController {
@@ -20,9 +24,30 @@ public class LottoResultCalculatorController {
     public void calculate() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
 
-        List<Integer> matchCountPerLotto = this.lottoBatch.getMatchCountPerLotto(winningNumbers);
+        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winningNumbers);
         this.outputView.printStats(matchCountPerLotto);
-        this.outputView.printReturnRatio(lottoBatch.getReturnRatio(winningNumbers));
+        this.outputView.printReturnRatio(getReturnRatio(winningNumbers));
     }
 
+    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
+        Lotto.checkIfNumbersAreValid(winningNumbers);
+        List<LottoResult> result = new ArrayList<>();
+
+        for (Lotto lotto : lottoBatch.getAllLotto()) {
+            result.add(LottoResult.calculateResult(winningNumbers, lotto));
+        }
+
+        return result;
+    }
+
+    protected double getReturnRatio(List<Integer> winningNumbers) {
+        List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers);
+
+        double earnResult = 0.0;
+        for (LottoResult lottoResult : result) {
+            earnResult += lottoResult.reward;
+        }
+
+        return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());
+    }
 }

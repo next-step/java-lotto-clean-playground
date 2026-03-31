@@ -1,6 +1,7 @@
 package controller;
 
 import dto.LottoDto;
+import model.LottoResult;
 import view.OutputView;
 
 import java.util.List;
@@ -17,7 +18,7 @@ class MockOutputView extends OutputView {
     }
 
     @Override
-    public void printStats(List<Integer> matchCountPerLotto) {
+    public void printStats(List<LottoResult> matchCountPerLotto) {
         printStatsCalled = true;
         super.printStats(matchCountPerLotto);
     }
