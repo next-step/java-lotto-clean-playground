@@ -9,6 +9,7 @@ import view.OutputView;
 import java.util.List;
 
 public class MockLottoResultCalculatorController extends LottoResultCalculatorController {
+    public List<LottoResult> mockMatchCountPerLotto;
 
     public MockLottoResultCalculatorController(LottoBatch lottoBatch, InputView inputView, OutputView outputView) {
         super(lottoBatch, inputView, outputView);
@@ -16,7 +17,8 @@ public class MockLottoResultCalculatorController extends LottoResultCalculatorCo
 
     @Override
     public List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
-        return super.getMatchCountPerLotto(winningNumbers);
+        this.mockMatchCountPerLotto = super.getMatchCountPerLotto(winningNumbers);
+        return this.mockMatchCountPerLotto;
     }
 
     @Override

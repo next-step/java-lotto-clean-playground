@@ -2,6 +2,7 @@ package model;
 
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
+import controller.mock.MockLottoResultCalculatorController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,5 +71,19 @@ public class LottoTest {
         //when & then
         Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> Lotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NO_DUPLICATES_ALLOWED, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("로또별 당첨 유형 계산")
+    void testGetLottoResult(){
+        //given
+        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
+
+        //when
+        LottoResult lottoResult = lotto.calculateLottoResult(winningNumbers);
+
+        //then
+        Assertions.assertEquals(LottoResult.THREE, lottoResult);
     }
 }

@@ -24,15 +24,4 @@ public enum LottoResult {
         this.matchCount = matchCount;
         this.reward= reward;
     }
-
-    public static LottoResult calculateResult(List<Integer> winningNumbers, Lotto lotto) {
-        Set<Integer> lottoNumbers= new HashSet<>(lotto.getNumbers());
-        Set<Integer> winningNumberSet = new HashSet<>(winningNumbers);
-        lottoNumbers.retainAll(winningNumberSet);
-
-        return Arrays.stream(values())
-                .filter(result->lottoNumbers.size() == result.matchCount)
-                .findFirst()
-                .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
-    }
 }

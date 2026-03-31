@@ -45,7 +45,7 @@ public class LottoResultCalculatorController {
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(LottoResult.calculateResult(winningNumbers, lotto));
+            result.add(lotto.calculateLottoResult(winningNumbers));
         }
 
         return result;

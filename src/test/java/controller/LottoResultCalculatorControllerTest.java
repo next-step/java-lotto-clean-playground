@@ -2,6 +2,7 @@ package controller;
 
 import constants.LottoSettingsConstants;
 import controller.mock.MockInputView;
+import controller.mock.MockLottoFactory;
 import controller.mock.MockLottoResultCalculatorController;
 import controller.mock.MockOutputView;
 import model.Lotto;
@@ -44,7 +45,7 @@ class LottoResultCalculatorControllerTest {
     @DisplayName("통합 테스트: 결과 계산")
     void calculate_calls_intended_functions() {
         // given
-        LottoResultCalculatorController controller = new LottoResultCalculatorController(lottoBatch, inputView, outputView);
+        MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
 
         // when
         controller.calculate();
@@ -53,20 +54,7 @@ class LottoResultCalculatorControllerTest {
         Assertions.assertTrue(inputView.getWinningNumbersCalled);
         Assertions.assertTrue(outputView.printStatsCalled);
         Assertions.assertTrue(outputView.printReturnRatioCalled);
-    }
-
-    @Test
-    @DisplayName("로또별 당첨 유형 계산")
-    void testGetMatchCountPerLotto(){
-        //given
-        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
-        MockLottoResultCalculatorController controller = new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
-
-        //when
-        List<LottoResult> matchCountPerLotto = controller.getMatchCountPerLotto(winningNumbers);
-
-        //then
-        Assertions.assertEquals(matchCountPerLotto, List.of(LottoResult.THREE, LottoResult.SIX));
+        Assertions.assertEquals(List.of(LottoResult.THREE, LottoResult.SIX), controller.mockMatchCountPerLotto);
     }
 
     @Test
