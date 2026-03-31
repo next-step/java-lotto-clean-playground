@@ -6,25 +6,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class RandomNumberGenerator implements NumberGenerator {
     private static final int LOTTO_START_NUMBER = 1;
     private static final int LOTTO_END_NUMBER = 45;
     private static final int LOTTO_SIZE = 6;
+    private static final List<LottoNumber> LOTTO_NUMBERS = createLottoNumbers();
 
     @Override
     public List<LottoNumber> generate() {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-
-        for (int i = LOTTO_START_NUMBER; i <= LOTTO_END_NUMBER; i++) {
-            lottoNumbers.add(new LottoNumber(i));
-        }
-
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LOTTO_NUMBERS);
         Collections.shuffle(lottoNumbers);
 
         return lottoNumbers.subList(0, LOTTO_SIZE)
                 .stream()
                 .sorted(Comparator.comparingInt(LottoNumber::number))
+                .toList();
+    }
+
+    private static List<LottoNumber> createLottoNumbers() {
+        return IntStream.rangeClosed(LOTTO_START_NUMBER, LOTTO_END_NUMBER)
+                .mapToObj(LottoNumber::new)
                 .toList();
     }
 }
