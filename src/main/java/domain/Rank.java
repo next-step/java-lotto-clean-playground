@@ -1,6 +1,8 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum Rank {
     NONE(0, 0),
@@ -22,6 +24,12 @@ public enum Rank {
                 .filter(rank -> rank.matchCount == matchCount)
                 .findFirst()
                 .orElse(NONE);
+    }
+
+    public static List<Rank> getWinningRanks() {
+        return Arrays.stream(values())
+                .filter(rank -> rank != NONE)
+                .collect(Collectors.toList());
     }
 
     public int getPrizeMoney() {
