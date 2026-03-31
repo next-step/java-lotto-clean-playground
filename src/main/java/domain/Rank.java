@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Rank {
     THREE_MATCH(3, 5000),
     FOUR_MATCH(4, 50000),
@@ -16,19 +18,10 @@ public enum Rank {
     }
 
     public static Rank from(int matchCount) {
-        if (matchCount == 6) {
-            return SIX_MATCH;
-        }
-        if (matchCount == 5) {
-            return FIVE_MATCH;
-        }
-        if (matchCount == 4) {
-            return FOUR_MATCH;
-        }
-        if (matchCount == 3) {
-            return THREE_MATCH;
-        }
-        return MISS;
+        return Arrays.stream(values())
+                .filter(rank -> rank.matchCount == matchCount)
+                .findFirst()
+                .orElse(MISS);
     }
 
     public int getPrizeMoney() {
