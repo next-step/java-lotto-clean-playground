@@ -13,8 +13,4 @@ public class Lotto {
     public List<Integer> getNumbers() {
         return List.copyOf(this.numbers);
     }
-
-    public Lotto clone() {
-        return new Lotto(this.getNumbers());
-    }
 }
