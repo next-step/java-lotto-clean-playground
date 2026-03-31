@@ -23,5 +23,4 @@ public class LottoFactory {
 
         return new Lotto(result.stream().toList());
     }
-
 }
