@@ -22,9 +22,13 @@ public class Lotto {
     }
 
     public int countMatchingNumbers(List<LottoNumber> winningNumbers) {
-        return (int) numbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
+        try {
+            return  Math.toIntExact(numbers.stream()
+                    .filter(winningNumbers::contains)
+                    .count());
+        } catch (ArithmeticException e) {
+            throw new IllegalArgumentException(ErrorMessage.OVERFLOW.getMessage());
+        }
     }
 
     private void validateLottoLength(List<LottoNumber> lottoNumbers) {
