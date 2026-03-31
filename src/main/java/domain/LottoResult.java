@@ -29,13 +29,9 @@ public class LottoResult {
     }
 
     private int countMatch(List<Integer> lottoNumber, List<Integer> winningNumbers) {
-        int count = 0;
-        for (Integer number : lottoNumber) {
-            if (winningNumbers.contains(number)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) lottoNumber.stream()
+                .filter(winningNumbers::contains)
+                .count();
     }
 
     public double calculateProfitRate(int purchaseAmount) {
