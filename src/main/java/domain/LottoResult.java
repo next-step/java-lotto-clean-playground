@@ -4,13 +4,13 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class CalculateLottoNumber {
+public class LottoResult {
     private final Map<Rank, Integer> matchResults;
 
-    public CalculateLottoNumber(LottoTickets lottoNumber, List<Integer> winningNumbers) {
+    public LottoResult(LottoTickets lottoNumber, Lotto winningNumbers) {
         this.matchResults = new EnumMap<>(Rank.class);
         initResults();
-        calculate(lottoNumber.getLottoNumber(), winningNumbers);
+        calculate(lottoNumber.getLottoNumber(), winningNumbers.getNumbers());
     }
 
     private void initResults() {

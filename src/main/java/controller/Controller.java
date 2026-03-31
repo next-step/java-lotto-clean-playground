@@ -1,13 +1,9 @@
 package controller;
 
-import domain.LottoTickets;
-import domain.CalculateLottoNumber;
+import domain.*;
 import view.OutputView;
 import view.InputView;
-import domain.TrialNumber;
-import domain.RandomLottoNumberGenerator;
-import domain.LottoNumberGenerator;
-
+import domain.Lotto;
 import java.util.List;
 
 public class Controller {
@@ -19,17 +15,18 @@ public class Controller {
         TrialNumber trialNumber = new TrialNumber(purchaseNumber);
         // [3] 시도 횟수 만큼 랜덤 로또 생성;
         LottoNumberGenerator generator = new RandomLottoNumberGenerator();
-        LottoTickets lottoNumber = new LottoTickets(trialNumber.getTrialNumber(), generator);
         int trialCount = trialNumber.getTrialNumber();
+        LottoTickets lottoNumber = new LottoTickets(trialCount, generator);
         OutputView.printLottoNumber(lottoNumber,trialCount);
         // [4] 지난주 당첨 번호 입력 받기
         OutputView.printInputWinningNumber();
-        List<Integer> winningNumbers = InputView.inputWinningNumber();
+        List<Integer> inputWinningNumbers = InputView.inputWinningNumber();
+        Lotto winningNumbers = new Lotto(inputWinningNumbers);
         // [5] 당첨번호와 로또 번호 비교해서 결과 탐색하기
-        CalculateLottoNumber statisticsResult = new CalculateLottoNumber(lottoNumber, winningNumbers);
+        LottoResult statisticsResult = new LottoResult(lottoNumber, winningNumbers);
         // [6] 결과 출력하기
-        int PurchaseAmount = trialNumber.getPurchaseAmount();
-        OutputView.printWinningStatistics(statisticsResult, PurchaseAmount);
+        int purchaseAmount = trialNumber.getPurchaseAmount();
+        OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
     }
 }
 

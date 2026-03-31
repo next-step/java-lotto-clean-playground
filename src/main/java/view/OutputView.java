@@ -1,5 +1,5 @@
 package view;
-import domain.CalculateLottoNumber;
+import domain.LottoResult;
 import domain.Lotto;
 import domain.LottoTickets;
 import domain.Rank;
@@ -24,7 +24,7 @@ public class OutputView {
         }
 
     }
-    public static void printWinningStatistics(CalculateLottoNumber result, int purchaseAmount) {
+    public static void printWinningStatistics(LottoResult result, int purchaseAmount) {
         System.out.println("\n당첨 통계\n---------");
 
         for (Rank rank : Rank.values()) {
