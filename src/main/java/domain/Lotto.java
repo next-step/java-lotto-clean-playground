@@ -1,22 +1,29 @@
 package domain;
 
 import constant.ErrorMessage;
+import dto.LottoStatus;
 
 import java.util.List;
 
-public record Lotto(List<Integer> lottoNumbers) {
-    public Lotto {
-        lottoNumbers = lottoNumbers.stream()
-                .sorted()
-                .toList();
+public class Lotto {
+    private final List<Integer> numbers;
 
+    public Lotto(List<Integer> lottoNumbers) {
         validateLottoLength(lottoNumbers);
         validateLottoRange(lottoNumbers);
         validateNoDuplicateNumber(lottoNumbers);
+
+        numbers = lottoNumbers.stream()
+                .sorted()
+                .toList();
+    }
+
+    public LottoStatus numbers() {
+        return new LottoStatus(numbers);
     }
 
     public int countMatchingNumbers(List<Integer> winningNumbers) {
-        return (int) lottoNumbers.stream()
+        return (int) numbers.stream()
                 .filter(winningNumbers::contains)
                 .count();
     }
