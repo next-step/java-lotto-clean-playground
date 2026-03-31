@@ -6,9 +6,9 @@ public class TrialNumber {
     private final int trialCount;
     private final int purchaseAmount;
 
-    public TrialNumber(int purchaseAmount){
-        this.purchaseAmount = purchaseAmount;
+    public TrialNumber(int purchaseAmount) {
         validateAmount(purchaseAmount);
+        this.purchaseAmount = purchaseAmount;
         this.trialCount = purchaseAmount / LOTTO_PRICE;
 
     }
@@ -24,7 +24,9 @@ public class TrialNumber {
 
     public int getTrialNumber() {
         return trialCount;
-    }public int getPurchaseAmount() {
+    }
+
+    public int getPurchaseAmount() {
         return purchaseAmount;
     }
 
