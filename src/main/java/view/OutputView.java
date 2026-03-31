@@ -1,5 +1,6 @@
 package view;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OutputView {
@@ -28,10 +29,10 @@ public class OutputView {
         System.out.printf("%d개 일치 (%d원)- %d개\n", num1, num2, num3);
     }
 
-    public void printResult(double value) {
+    public void printResult(BigDecimal value) {
         String result = String.format("총 수익율은 %.2f입니다.", value);
         String status = "(기준이 1이기 때문에 결과적으로 손해라는 의미임)";
-        if (value >= 1) {
+        if (value.compareTo(BigDecimal.valueOf(1)) >= 1) {
             status = "(기준이 1이기 때문에 결과적으로 이득이라는 의미임)";
         }
         System.out.println(result + status);
