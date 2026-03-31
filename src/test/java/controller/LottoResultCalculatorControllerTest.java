@@ -1,6 +1,9 @@
 package controller;
 
 import constants.LottoSettingsConstants;
+import controller.mock.MockInputView;
+import controller.mock.MockLottoResultCalculatorController;
+import controller.mock.MockOutputView;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
@@ -77,7 +80,8 @@ class LottoResultCalculatorControllerTest {
         double returnRatio = controller.getReturnRatio(winningNumbers);
 
         // then
-        double expectedRatio = ((double) LottoResult.THREE.reward + LottoResult.SIX.reward) / (2 * LottoSettingsConstants.LOTTO_PRICE);
+        double expectedRatio = ((double) LottoResult.THREE.reward + LottoResult.SIX.reward)
+                / (this.lottoBatch.getLottoCount() * LottoSettingsConstants.LOTTO_PRICE);
         Assertions.assertEquals(returnRatio, expectedRatio);
     }
 }

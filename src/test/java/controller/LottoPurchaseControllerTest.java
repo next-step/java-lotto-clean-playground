@@ -3,6 +3,10 @@ package controller;
 import common.NumberGenerator;
 import common.TestNumberGenerator;
 import constants.LottoSettingsConstants;
+import controller.mock.MockInputView;
+import controller.mock.MockLottoFactory;
+import controller.mock.MockLottoPurchaseController;
+import controller.mock.MockOutputView;
 import model.LottoBatch;
 import model.LottoFactory;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +29,7 @@ class LottoPurchaseControllerTest {
             testNumbers.add(i);
         }
         NumberGenerator testNumberGenerator = new TestNumberGenerator(testNumbers);
-        LottoFactory lottoFactory = new LottoFactory(testNumberGenerator);
+        MockLottoFactory lottoFactory = new MockLottoFactory(testNumberGenerator);
 
         int testPrice = LottoSettingsConstants.LOTTO_PRICE * 2;
         Scanner scanner = new Scanner(new ByteArrayInputStream(Integer.toString(testPrice).getBytes()));
@@ -39,7 +43,7 @@ class LottoPurchaseControllerTest {
         // then
         Assertions.assertTrue(outputView.printPurchaseResultCalled);
         Assertions.assertTrue(inputView.getUserCashInputCalled);
-        Assertions.assertEquals(2, controller.getLottoCallCount);
+        Assertions.assertEquals(2, lottoFactory.generateLottoCalledCount);
         Assertions.assertEquals(2, controller.wrapLottoIntoDtoCallCount);
         Assertions.assertTrue(controller.checkPriceHigherThanSingleLottoPriceCalled);
 

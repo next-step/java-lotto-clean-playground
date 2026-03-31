@@ -1,13 +1,13 @@
-package controller;
+package controller.mock;
 
 import view.InputView;
 
 import java.util.List;
 import java.util.Scanner;
 
-class MockInputView extends InputView {
-    boolean getUserCashInputCalled = false;
-    boolean getWinningNumbersCalled = false;
+public class MockInputView extends InputView {
+    public boolean getUserCashInputCalled = false;
+    public boolean getWinningNumbersCalled = false;
 
     public MockInputView(Scanner scanner) {
         super(scanner);

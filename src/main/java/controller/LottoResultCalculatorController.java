@@ -29,17 +29,6 @@ public class LottoResultCalculatorController {
         this.outputView.printReturnRatio(getReturnRatio(winningNumbers));
     }
 
-    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
-        Lotto.checkIfNumbersAreValid(winningNumbers);
-        List<LottoResult> result = new ArrayList<>();
-
-        for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(LottoResult.calculateResult(winningNumbers, lotto));
-        }
-
-        return result;
-    }
-
     protected double getReturnRatio(List<Integer> winningNumbers) {
         List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers);
 
@@ -49,5 +38,16 @@ public class LottoResultCalculatorController {
         }
 
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());
+    }
+
+    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
+        Lotto.checkIfNumbersAreValid(winningNumbers);
+        List<LottoResult> result = new ArrayList<>();
+
+        for (Lotto lotto : lottoBatch.getAllLotto()) {
+            result.add(LottoResult.calculateResult(winningNumbers, lotto));
+        }
+
+        return result;
     }
 }

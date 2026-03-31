@@ -1,11 +1,6 @@
 package model;
 
-import constants.ErrorMessageConstants;
-import constants.LottoSettingsConstants;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class LottoBatch {
     private final List<Lotto> lottos;

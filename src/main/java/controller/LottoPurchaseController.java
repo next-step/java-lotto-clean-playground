@@ -33,10 +33,7 @@ public class LottoPurchaseController {
         int userCashInput = inputView.getUserCashInput();
         checkPriceHigherThanSingleLottoPrice(userCashInput);
 
-        int lottoCount = userCashInput/ LottoSettingsConstants.LOTTO_PRICE;
-        for (int i = 0; i < lottoCount; i++) {
-            getLotto();
-        }
+        generateLottoByPrice(userCashInput);
 
         List<LottoDto> lottoDtos = lottoBatch.getAllLotto().stream()
                 .map(this::wrapLottoIntoDto).toList();
@@ -44,9 +41,12 @@ public class LottoPurchaseController {
         outputView.printPurchaseResult(lottoDtos);
     }
 
-    protected void getLotto() {
-        Lotto lotto = this.lottoFactory.generateLotto();
-        this.lottoBatch.add(lotto);
+    protected void generateLottoByPrice(int userCashInput) {
+        int lottoCount = userCashInput / LottoSettingsConstants.LOTTO_PRICE;
+        for (int i = 0; i < lottoCount; i++) {
+            Lotto lotto = this.lottoFactory.generateLotto();
+            this.lottoBatch.add(lotto);
+        }
     }
 
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {

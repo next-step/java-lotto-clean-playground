@@ -1,4 +1,4 @@
-package controller;
+package controller.mock;
 
 import dto.LottoDto;
 import model.LottoResult;
@@ -6,10 +6,10 @@ import view.OutputView;
 
 import java.util.List;
 
-class MockOutputView extends OutputView {
-    boolean printPurchaseResultCalled = false;
-    boolean printStatsCalled = false;
-    boolean printReturnRatioCalled = false;
+public class MockOutputView extends OutputView {
+    public boolean printPurchaseResultCalled = false;
+    public boolean printStatsCalled = false;
+    public boolean printReturnRatioCalled = false;
 
     @Override
     public void printPurchaseResult(List<LottoDto> lottoDtoList) {

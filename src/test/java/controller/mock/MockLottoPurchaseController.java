@@ -1,16 +1,14 @@
-package controller;
+package controller.mock;
 
+import controller.LottoPurchaseController;
 import dto.LottoDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoFactory;
-import model.LottoResult;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
-
-class MockLottoPurchaseController extends LottoPurchaseController {
+public class MockLottoPurchaseController extends LottoPurchaseController {
     public int getLottoCallCount = 0;
     public int wrapLottoIntoDtoCallCount = 0;
     public boolean checkPriceHigherThanSingleLottoPriceCalled= false;
@@ -24,9 +22,9 @@ class MockLottoPurchaseController extends LottoPurchaseController {
     }
 
     @Override
-    protected void getLotto() {
+    protected void generateLottoByPrice(int userCashInput) {
         getLottoCallCount++;
-        super.getLotto();
+        super.generateLottoByPrice(userCashInput);
     }
 
     @Override
