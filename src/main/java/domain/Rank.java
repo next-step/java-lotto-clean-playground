@@ -24,6 +24,10 @@ public enum Rank {
                 .orElse(MISS);
     }
 
+    public boolean isWinning() {
+        return this != MISS;
+    }
+
     public int getPrizeMoney() {
         return prizeMoney;
     }

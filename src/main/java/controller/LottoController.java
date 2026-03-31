@@ -1,7 +1,6 @@
 package controller;
 
 import domain.*;
-import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
 
@@ -30,7 +29,7 @@ public class LottoController {
 
         WinningStatistics winningStatistics = WinningStatistics.from(lottos, winningLotto);
 
-        outputView.printWinningStatistics(createWinningResults(winningStatistics));
+        outputView.printWinningStatistics(winningStatistics.winningResults());
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
     }
 
@@ -38,18 +37,5 @@ public class LottoController {
         return numbers.stream()
                 .map(LottoNumber::new)
                 .toList();
-    }
-
-    private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
-        return List.of(
-                createWinningResult(winningStatistics, Rank.THREE_MATCH),
-                createWinningResult(winningStatistics, Rank.FOUR_MATCH),
-                createWinningResult(winningStatistics, Rank.FIVE_MATCH),
-                createWinningResult(winningStatistics, Rank.SIX_MATCH)
-        );
-    }
-
-    private WinningResult createWinningResult(WinningStatistics winningStatistics, Rank rank) {
-        return new WinningResult(rank.getMatchCount(), rank.getPrizeMoney(), winningStatistics.countOf(rank));
     }
 }
