@@ -1,4 +1,5 @@
 import controller.LottoController;
+import controller.Validator;
 import util.LottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
@@ -9,7 +10,8 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
         LottoNumbersGenerator lottoNumbersGenerator = new LottoNumbersGenerator();
-        LottoController lottoController = new LottoController(inputView, outputView, lottoNumbersGenerator);
+        Validator validator = new Validator();
+        LottoController lottoController = new LottoController(inputView, outputView, lottoNumbersGenerator, validator);
 
         lottoController.run();
     }

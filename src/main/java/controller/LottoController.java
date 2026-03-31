@@ -18,12 +18,13 @@ public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
     private final NumbersGenerator<LottoNumber> numbersGenerator;
-    private final Validator validator = new Validator();
+    private final Validator validator;
 
-    public LottoController(InputView inputView, OutputView outputView, NumbersGenerator<LottoNumber> numbersGenerator) {
+    public LottoController(InputView inputView, OutputView outputView, NumbersGenerator<LottoNumber> numbersGenerator, Validator validator) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.numbersGenerator = numbersGenerator;
+        this.validator = validator;
     }
 
     public void run() {
