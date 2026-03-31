@@ -4,7 +4,6 @@ import domain.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -17,12 +16,10 @@ public class RandomNumberGenerator implements NumberGenerator {
     @Override
     public List<LottoNumber> generate() {
         List<LottoNumber> lottoNumbers = new ArrayList<>(LOTTO_NUMBERS);
+
         Collections.shuffle(lottoNumbers);
 
-        return lottoNumbers.subList(0, LOTTO_SIZE)
-                .stream()
-                .sorted(Comparator.comparingInt(LottoNumber::number))
-                .toList();
+        return new ArrayList<>(lottoNumbers.subList(0, LOTTO_SIZE));
     }
 
     private static List<LottoNumber> createLottoNumbers() {

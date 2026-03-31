@@ -12,13 +12,19 @@ public class OutputView {
 
     public void printLottos(List<List<Integer>> lottoNumbers) {
         for (List<Integer> numbers : lottoNumbers) {
-            System.out.println(numbers);
+            System.out.println(sortLotto(numbers));
         }
     }
 
     public void printWinningStatistics(List<WinningResult> winningResults) {
         printStatisticsHeader();
         printRankCount(winningResults);
+    }
+
+    private List<Integer> sortLotto(List<Integer> lotto) {
+        return lotto.stream()
+                .sorted()
+                .toList();
     }
 
     private void printStatisticsHeader() {
