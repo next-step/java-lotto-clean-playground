@@ -2,16 +2,21 @@ package controller;
 
 import domain.*;
 import dto.WinningResult;
-import generator.RandomNumberGenerator;
 import view.InputView;
 import view.OutputView;
 
 import java.util.List;
 
 public class LottoController {
-    private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
-    private final LottoShop lottoShop = new LottoShop(new RandomNumberGenerator());
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final LottoShop lottoShop;
+
+    public LottoController(InputView inputView, OutputView outputView, LottoShop lottoShop) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.lottoShop = lottoShop;
+    }
 
     public void run() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readAmount());
