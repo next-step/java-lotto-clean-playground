@@ -23,11 +23,20 @@ public class RandomLottoGenerator {
         return numbers;
     }
 
-    public List<Integer> generate(){
+    public Lotto generate(){
         Collections.shuffle(seedNumbers);
         List<Integer> LottoNumbers = new ArrayList<>(seedNumbers.subList(0,LOTTO_SIZE));
         Collections.sort(LottoNumbers);
 
-        return LottoNumbers;
+        return parseLN(LottoNumbers);
+    }
+
+    public Lotto parseLN(List<Integer> LottoNumbers){
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for(Integer number : LottoNumbers){
+            lottoNumbers.add(new LottoNumber(number));
+        }
+
+        return new Lotto(lottoNumbers);
     }
 }
