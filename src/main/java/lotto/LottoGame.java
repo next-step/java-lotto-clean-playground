@@ -48,14 +48,18 @@ public class LottoGame {
     }
 
     private void calculateResult(LottoTickets tickets, Lotto winningLotto, int money) {
-        Map<Rank, Long> result = tickets.getTickets().stream()
-                .map(ticket -> Rank.valueOf(ticket.countMatch(winningLotto)))
-                .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
+        Map<Rank, Long> result = tickets.matchAll(winningLotto);
 
-        long totalPrize = result.entrySet().stream()
-                .mapToLong(entry -> entry.getKey().getWinningMoney() * entry.getValue())
-                .sum();
+        long totalPrize = calculateTotalPrize(result);
 
         OutputView.printStatistics(result, (double) totalPrize / money);
     }
+
+    private long calculateTotalPrize(Map<Rank, Long> result) {
+        return result.entrySet().stream()
+                .mapToLong(entry -> entry.getKey().getWinningMoney() * entry.getValue())
+                .sum();
+    }
+
+
 }

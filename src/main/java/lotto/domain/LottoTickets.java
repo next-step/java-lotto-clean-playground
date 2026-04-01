@@ -1,12 +1,20 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoTickets {
     private final List<Lotto> tickets;
 
     public LottoTickets(List<Lotto> tickets) {
         this.tickets = tickets;
+    }
+
+    public Map<Rank, Long> matchAll(Lotto winningLotto) {
+        return tickets.stream()
+                .map(ticket -> Rank.valueOf(ticket.countMatch(winningLotto)))
+                .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
     }
 
     public List<Lotto> getTickets() {
