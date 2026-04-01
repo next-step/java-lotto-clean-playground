@@ -1,7 +1,7 @@
-import controller.Lotto;
+import controller.LottoController;
 
 public class Application {
-    private static final Lotto lotto = new Lotto();
+    private static final LottoController lotto = new LottoController();
     public static void main(String[] args) {
         lotto.run();
     }

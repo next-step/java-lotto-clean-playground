@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WinningLotto {
-    private static final int WINNING_CASE_COUNT = 4;
 
     public HashMap<MatchResult, Integer> getMatchResult(ArrayList<ArrayList<Integer>> allLottos, ArrayList<Integer> winningNumbers) {
 
@@ -24,8 +23,7 @@ public class WinningLotto {
 
             for(MatchResult result: MatchResult.values()) {
                 if(singleEqualCount == result.getMatchCount()) {
-                    int originalCount = resultMap.get(result);
-                    resultMap.put(result, originalCount + 1);
+                    resultMap.put(result, resultMap.get(result) + 1);
                 }
             }
         }
@@ -40,7 +38,6 @@ public class WinningLotto {
             totalReward += result.getMatchReward() * resultMap.get(result);
         }
 
-        // TODO: 수익률 계산 로직 이상함
         return totalReward / purchaseAmount;
     }
 }
