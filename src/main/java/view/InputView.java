@@ -9,7 +9,9 @@ public class InputView {
 
     public int getPurchaseAmount() {
         System.out.println("구입 금액을 입력해 주세요.");
-        return scanner.nextInt();
+        int amount = scanner.nextInt();
+        scanner.nextLine();
+        return amount;
     }
 
     public ArrayList<Integer> getWinningNumbers () {
