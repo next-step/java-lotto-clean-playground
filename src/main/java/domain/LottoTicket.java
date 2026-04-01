@@ -1,6 +1,6 @@
 package domain;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class LottoTicket {
 
     public LottoTicket(List<Integer> ticket) {
         validate(ticket);
-        ticket.sort(Comparator.naturalOrder());
+        Collections.sort(ticket);
         this.ticket = ticket;
     }
 
@@ -21,6 +21,14 @@ public class LottoTicket {
         if (ticketSet.size() != length) {
             throw new RuntimeException();
         }
+    }
+
+    public Integer getResult(LottoTicket winnerTicket) {
+        Integer count = 0;
+        for (Integer number : winnerTicket.getTicket()) {
+            count += Boolean.compare(ticket.contains(number), false);
+        }
+        return count;
     }
 
     public List<Integer> getTicket() {

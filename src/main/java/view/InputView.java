@@ -1,11 +1,25 @@
 package view;
 
+import domain.LottoTicket;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class InputView {
-    public int inputPrice() {
-        Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public InputView() {
+        scanner = new Scanner(System.in);
+    }
+
+    public Integer inputPrice() {
         System.out.println("구입 금액을 입력해 주세요.");
-        return scanner.nextInt();
+        return Integer.valueOf(scanner.nextLine());
+    }
+
+    public LottoTicket getWinnerTicket() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        return new LottoTicket(
+                Arrays.stream(scanner.nextLine().split(", ")).map(Integer::valueOf).collect(Collectors.toList()));
     }
 }
