@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class LottoTickets {
     public Map<Rank, Long> matchAll(Lotto winningLotto) {
         return tickets.stream()
                 .map(ticket -> Rank.valueOf(ticket.countMatch(winningLotto)))
-                .collect(Collectors.groupingBy(rank -> rank, Collectors.counting()));
+                .collect(Collectors.groupingBy(rank -> rank, () -> new EnumMap<>(Rank.class), Collectors.counting()));
     }
 
     public List<Lotto> getTickets() {
