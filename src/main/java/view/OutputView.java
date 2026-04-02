@@ -2,9 +2,11 @@ package view;
 
 import constants.ScriptConstants;
 import dto.LottoDto;
+import dto.LottoResultDto;
 import model.LottoResult;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -18,14 +20,12 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printStats(List<LottoResult> matchCountPerLotto) {
-        List<LottoResult> WINNING_RESULT = List.of(LottoResult.THREE, LottoResult.FOUR, LottoResult.FIVE, LottoResult.SIX);
-
+    public void printStats(LottoResultDto lottoResultDto) {
         System.out.println(ScriptConstants.OUTPUT_STAT_HEADER_SCRIPT);
 
-        for (LottoResult currentResult : WINNING_RESULT) {
-            int resultCount = (int) matchCountPerLotto.stream().filter(result -> currentResult == result).count();
-
+        for (Map.Entry<LottoResult, Integer> result : lottoResultDto.lottoResults().entrySet()) {
+            LottoResult currentResult = result.getKey();
+            Integer resultCount= result.getValue();
             System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentResult.getMatchCount(), currentResult.getReward(), resultCount);
             System.out.println();
         }

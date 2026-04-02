@@ -1,5 +1,11 @@
 package constants;
 
+import model.Lotto;
+import model.LottoResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class LottoSettingsConstants {
     public static final int LOTTO_SIZE = 6;
     public static final int LOTTO_MINIMUM_NUMBER = 1;
@@ -14,4 +20,5 @@ public class LottoSettingsConstants {
     public static final int FOUR_MATCH_PRICE= 50000;
     public static final int FIVE_MATCH_PRICE = 1500000;
     public static final int SIX_MATCH_PRICE = 2000000000;
+    public static final List<LottoResult> WINNING_LOTTO_RESULT = new ArrayList<>(List.of(LottoResult.THREE, LottoResult.FOUR, LottoResult.FIVE, LottoResult.SIX));
 }
