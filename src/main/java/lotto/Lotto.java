@@ -12,10 +12,17 @@ public record Lotto(List<LottoNumber> numbers) {
         checkDuplicateNumbers(numbers);
     }
 
-    private static void checkDuplicateNumbers(List<LottoNumber> numbers) {
+    private void checkDuplicateNumbers(List<LottoNumber> numbers) {
         if (new HashSet<>(numbers).size() != numbers.size()) {
             throw new LottoException.DuplicateNumber();
         }
+    }
+
+    public void printToConsole() {
+        List<String> numberString = numbers.stream()
+                .map(LottoNumber::toString)
+                .toList();
+        System.out.println("[" + String.join(", ", numberString) + "]");
     }
 
 
