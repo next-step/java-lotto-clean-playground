@@ -22,7 +22,6 @@ public class InputView {
         return Arrays.stream(input.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .sorted()
                 .toList();
     }
 }
