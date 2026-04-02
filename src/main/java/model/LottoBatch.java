@@ -13,6 +13,10 @@ public class LottoBatch {
         this.lottos.add(lotto);
     }
 
+    public void add(List<Lotto> lottos) {
+        this.lottos.addAll(lottos);
+    }
+
     public List<Lotto> getAllLotto() {
         return List.copyOf(this.lottos);
     }

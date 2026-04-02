@@ -31,31 +31,16 @@ public class LottoPurchaseController {
 
     public void purchase() {
         int userCashInput = inputView.getUserCashInput();
-        checkPriceHigherThanSingleLottoPrice(userCashInput);
 
-        generateLottoByPrice(userCashInput);
-
+        List<Lotto> boughtLottos = lottoFactory.generateLottoByPrice(userCashInput);
+        lottoBatch.add(boughtLottos);
         List<LottoDto> lottoDtos = lottoBatch.getAllLotto().stream()
                 .map(this::wrapLottoIntoDto).toList();
 
         outputView.printPurchaseResult(lottoDtos);
     }
 
-    protected void generateLottoByPrice(int userCashInput) {
-        int lottoCount = userCashInput / LottoSettingsConstants.LOTTO_PRICE;
-        for (int i = 0; i < lottoCount; i++) {
-            Lotto lotto = this.lottoFactory.generateLotto();
-            this.lottoBatch.add(lotto);
-        }
-    }
-
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {
         return new LottoDto(lotto.getNumbers());
-    }
-
-    protected void checkPriceHigherThanSingleLottoPrice(int price) {
-       if (price < LottoSettingsConstants.LOTTO_PRICE){
-           throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
-       }
     }
 }
