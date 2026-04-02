@@ -2,10 +2,11 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class WinningLotto {
 
-    public HashMap<MatchResult, Integer> getMatchResult(ArrayList<ArrayList<Integer>> allLottos, ArrayList<Integer> winningNumbers) {
+    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<Integer> winningNumbers) {
 
         HashMap<MatchResult, Integer> resultMap = new HashMap<>();
 
@@ -13,10 +14,10 @@ public class WinningLotto {
             resultMap.put(result, 0);
         }
 
-        for(ArrayList<Integer> singleLotto: allLottos) {
+        for(Lotto singleLotto: allLottos) {
             int singleEqualCount = 0;
             for (Integer number : winningNumbers) {
-                if (singleLotto.contains(number)) {
+                if (singleLotto.getNumbers().contains(number)) {
                     singleEqualCount += 1;
                 }
             }

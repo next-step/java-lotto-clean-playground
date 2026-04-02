@@ -9,20 +9,19 @@ import java.util.List;
 
 public class ResultView {
 
-    Lotto lotto = new Lotto();
     WinningLotto winningLotto = new WinningLotto();
 
-    public void printAllLottos (final int purchaseAmount, ArrayList<ArrayList<Integer>> allLottos) {
-        int lottoCount = lotto.getLottoCount(purchaseAmount);
+    public void printAllLottos (List<Lotto> allLottos) {
+        int lottoCount = allLottos.size();
 
         System.out.println(lottoCount + "개를 구매했습니다.");
 
-        for(List<Integer> lotto: allLottos) {
-              System.out.println(lotto.toString());
+        for(Lotto lotto: allLottos) {
+              System.out.println(lotto.getNumbers().toString());
         }
     }
 
-    public void printWinningLottoStatistics (final int purchaseAmount, ArrayList<Integer> winningNumbers, ArrayList<ArrayList<Integer>> allLottos) {
+    public void printWinningLottoStatistics (final int purchaseAmount, List<Integer> winningNumbers, List<Lotto> allLottos) {
         HashMap<MatchResult, Integer> resultMap = winningLotto.getMatchResult(allLottos, winningNumbers);
 
         System.out.println("당첨 통계");

@@ -1,8 +1,10 @@
 package controller;
+import domain.Lotto;
+import domain.Lottos;
 import view.InputView;
 import view.ResultView;
-import domain.Lotto;
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class LottoController {
     InputView inputView = new InputView();
@@ -10,10 +12,11 @@ public class LottoController {
     Lotto lotto = new Lotto();
     public void run() {
         int purchaseAmount = inputView.getPurchaseAmount();
-        ArrayList<ArrayList<Integer>> allLottos = lotto.getAllLottos(purchaseAmount);
-        resultView.printAllLottos(purchaseAmount,allLottos);
+        Lottos lottos = new Lottos(purchaseAmount);
+        List<Lotto> allLottos = lottos.getLottos();
+        resultView.printAllLottos(allLottos);
 
-        ArrayList<Integer> winnigNumbers = inputView.getWinningNumbers();
+        List<Integer> winnigNumbers = inputView.getWinningNumbers();
         resultView.printWinningLottoStatistics(purchaseAmount, winnigNumbers, allLottos);
     }
 }

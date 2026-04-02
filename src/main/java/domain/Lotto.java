@@ -6,30 +6,16 @@ import java.util.List;
 
 public class Lotto {
 
-    private static final int PRICE = 1000;
     private static final int LOTTO_UPPER_BOUND = 45;
 
-    public int getLottoCount(final int purchaseAmount) {
-        return purchaseAmount / PRICE;
+    private final List<Integer> numbers;
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
-    public ArrayList<ArrayList<Integer>> getAllLottos(final int purchaseAmount) {
-        int lottoCount = getLottoCount(purchaseAmount);
-        ArrayList<ArrayList<Integer>> allLottos = new ArrayList<>();
-
-        for(int i = 0 ; i < lottoCount; i++) {
-            ArrayList<Integer> singleLotto = getSingleLotto();
-            allLottos.add(i, singleLotto);
-        }
-
-        return allLottos;
-    }
-    private ArrayList<Integer> generateLottoNumbersArray() {
-        ArrayList<Integer> lottoNumbers = new ArrayList<>(45);
-        for(int i = 0 ; i < LOTTO_UPPER_BOUND ; i++) {
-            lottoNumbers.add(i, i + 1);
-        }
-        return lottoNumbers;
+    public Lotto() {
+        this.numbers = getSingleLotto();
     }
 
     private ArrayList<Integer> getSingleLotto() {
@@ -38,5 +24,13 @@ public class Lotto {
         List<Integer> subNumbers = lottoNumbers.subList(0, 6);
         Collections.sort(subNumbers);
         return new ArrayList<>(subNumbers);
+    }
+
+    private ArrayList<Integer> generateLottoNumbersArray() {
+        ArrayList<Integer> lottoNumbers = new ArrayList<>(LOTTO_UPPER_BOUND);
+        for(int i = 0 ; i < LOTTO_UPPER_BOUND ; i++) {
+            lottoNumbers.add(i, i + 1);
+        }
+        return lottoNumbers;
     }
 }
