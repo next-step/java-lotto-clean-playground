@@ -12,14 +12,14 @@ public class Lotto {
         this.numbers = new ArrayList<>(numbers);
     }
 
-    public List<LottoNumber> getNumbers() {
-        return List.copyOf(numbers);
-    }
-
     public int countMatch(Lotto winningLotto) {
         return (int) numbers.stream()
                 .filter(winningLotto::contains)
                 .count();
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return List.copyOf(numbers);
     }
 
     private boolean contains(LottoNumber lottoNumber) {
