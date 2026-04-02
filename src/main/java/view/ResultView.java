@@ -40,7 +40,6 @@ public class ResultView {
         }
 
         double profitRate = winningLotto.getLottoProfitRate(resultMap, purchaseAmount);
-        // TODO: 여기 이상함!!!
         System.out.println("총 수익률은 " + String.format("%.2f", profitRate) + "입니다.");
     }
 }
