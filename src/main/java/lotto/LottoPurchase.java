@@ -22,6 +22,10 @@ public class LottoPurchase {
         return new LottoReceipt(lottoRows);
     }
 
+    public int getNumberOfLotto() {
+        return lottoRows.size();
+    }
+
     public int getChange() {
         return change;
     }
