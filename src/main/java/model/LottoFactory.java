@@ -3,6 +3,7 @@ package model;
 import common.NumberGenerator;
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
+import util.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,14 +28,8 @@ public class LottoFactory {
         return new Lotto(result.stream().toList());
     }
 
-    protected void checkPriceHigherThanSingleLottoPrice(int price) {
-       if (price < LottoSettingsConstants.LOTTO_PRICE){
-           throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
-       }
-    }
-
     public List<Lotto> generateLottoByPrice(int userCashInput) {
-        checkPriceHigherThanSingleLottoPrice(userCashInput);
+       ValidateLotto.checkPriceHigherThanSingleLottoPrice(userCashInput);
 
         int lottoCount = userCashInput / LottoSettingsConstants.LOTTO_PRICE;
         List<Lotto> result = new ArrayList<Lotto>();

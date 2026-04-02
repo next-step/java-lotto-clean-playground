@@ -6,6 +6,7 @@ import controller.mock.MockLottoResultCalculatorController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import util.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class LottoTest {
         }
 
         //when
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> Lotto.checkIfNumbersAreValid(winningNumbers));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> ValidateLotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NUMBER_TOO_LITTLE, exception.getMessage());
     }
 
@@ -37,7 +38,7 @@ public class LottoTest {
         }
 
         //when & then
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> Lotto.checkIfNumbersAreValid(winningNumbers));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> ValidateLotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NUMBER_TOO_MANY, exception.getMessage());
     }
 
@@ -53,7 +54,7 @@ public class LottoTest {
         }
 
         //when & then
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> Lotto.checkIfNumbersAreValid(winningNumbers));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> ValidateLotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NUMBER_OUT_OF_RANGE, exception.getMessage());
     }
 
@@ -69,7 +70,7 @@ public class LottoTest {
         }
 
         //when & then
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> Lotto.checkIfNumbersAreValid(winningNumbers));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> ValidateLotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NO_DUPLICATES_ALLOWED, exception.getMessage());
     }
 

@@ -2,6 +2,7 @@ package model;
 
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
+import util.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        checkIfNumbersAreValid(numbers);
+       ValidateLotto.checkIfNumbersAreValid(numbers);
         this.numbers = new ArrayList<>(numbers);
     }
 
@@ -30,42 +31,5 @@ public class Lotto {
                 .filter(result->lottoNumbers.size() == result.matchCount)
                 .findFirst()
                 .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
-    }
-
-    public static void checkIfNumbersAreValid(List<Integer> numbers) {
-        checkIfDuplicateExist(numbers);
-        checkIfNotEnoughNumbers(numbers);
-        checkIfTooManyNumbers(numbers);
-        checkIfNumbersAreInRange(numbers);
-    }
-
-    private static void checkIfNumbersAreInRange(List<Integer> numbers){
-        List<Integer> notInRange = numbers.stream().filter(
-                i-> i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || i >LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER
-        ).toList();
-
-        if (!notInRange.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_OUT_OF_RANGE);
-        }
-    }
-
-    private static void checkIfNotEnoughNumbers(List<Integer> numbers){
-        if (numbers.size() < LottoSettingsConstants.LOTTO_SIZE) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_TOO_LITTLE);
-        }
-    }
-
-    private static void checkIfTooManyNumbers(List<Integer> numbers){
-        if (numbers.size() > LottoSettingsConstants.LOTTO_SIZE) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_TOO_MANY);
-        }
-    }
-
-    protected static void checkIfDuplicateExist(List<Integer> numbers) {
-        Set<Integer> test = new HashSet<>(numbers);
-
-        if (test.size() != numbers.size()) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NO_DUPLICATES_ALLOWED);
-        }
     }
 }
