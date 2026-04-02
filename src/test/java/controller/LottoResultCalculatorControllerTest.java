@@ -33,8 +33,8 @@ class LottoResultCalculatorControllerTest {
     void setupTest() {
         this.lottoList = new ArrayList<>();
         this.lottoBatch = new LottoBatch();
-        lottoBatch.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         lottoBatch.add(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
+        lottoBatch.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
 
         this.testWinningNumbers = "1, 2, 3, 4, 5, 6";
         this.scanner = new Scanner(new ByteArrayInputStream(testWinningNumbers.getBytes()));
