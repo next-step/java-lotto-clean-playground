@@ -1,5 +1,6 @@
-package common;
+package model;
 
+import common.NumberGenerator;
 import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
