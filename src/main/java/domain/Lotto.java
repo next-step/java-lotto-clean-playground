@@ -1,12 +1,9 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
-
-    private static final int LOTTO_UPPER_BOUND = 45;
 
     private final List<Integer> numbers;
 
@@ -14,23 +11,21 @@ public class Lotto {
         return numbers;
     }
 
-    public Lotto() {
-        this.numbers = getSingleLotto();
+    public Lotto(List<Integer> numbers) {
+        validateSize(numbers);
+        validateDuplicate(numbers);
+        this.numbers = numbers;
     }
 
-    private ArrayList<Integer> getSingleLotto() {
-        ArrayList<Integer> lottoNumbers = generateLottoNumbersArray();
-        Collections.shuffle(lottoNumbers);
-        List<Integer> subNumbers = lottoNumbers.subList(0, 6);
-        Collections.sort(subNumbers);
-        return new ArrayList<>(subNumbers);
-    }
-
-    private ArrayList<Integer> generateLottoNumbersArray() {
-        ArrayList<Integer> lottoNumbers = new ArrayList<>(LOTTO_UPPER_BOUND);
-        for(int i = 0 ; i < LOTTO_UPPER_BOUND ; i++) {
-            lottoNumbers.add(i, i + 1);
+    private void validateSize(List<Integer> numbers) {
+        if (numbers.size() != 6) {
+            throw new IllegalArgumentException("당첨 숫자는 6개여야 해요.");
         }
-        return lottoNumbers;
+    }
+
+    private void validateDuplicate(List<Integer> numbers) {
+        if (new HashSet<>(numbers).size() != numbers.size()) {
+            throw new IllegalArgumentException("당첨 숫자에는 중복된 값이 들어올 수 없어요.");
+        }
     }
 }

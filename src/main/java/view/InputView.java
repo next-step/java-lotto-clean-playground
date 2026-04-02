@@ -39,8 +39,6 @@ public class InputView {
             System.exit(-1);
         }
 
-
-
         return winningNumbers;
     }
 }
