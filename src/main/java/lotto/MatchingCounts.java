@@ -11,7 +11,7 @@ public class MatchingCounts {
     }
 
     public int getCount(LottoResult result) {
-        return numberCounts.get(result);
+        return numberCounts.getOrDefault(result, 0);
     }
 
     public int getSumOfReturn() {
