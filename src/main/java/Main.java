@@ -1,4 +1,4 @@
-import common.LottoNumberGenerator;
+import model.LottoNumberGenerator;
 import common.NumberGenerator;
 import controller.LottoPurchaseController;
 import controller.LottoResultCalculatorController;
