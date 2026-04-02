@@ -68,7 +68,7 @@ class LottoResultCalculatorControllerTest {
         double returnRatio = controller.getReturnRatio(winningNumbers);
 
         // then
-        double expectedRatio = ((double) LottoResult.THREE.reward + LottoResult.SIX.reward)
+        double expectedRatio = ((double) LottoResult.THREE.getReward()+ LottoResult.SIX.getReward())
                 / (this.lottoBatch.getLottoCount() * LottoSettingsConstants.LOTTO_PRICE);
         Assertions.assertEquals(returnRatio, expectedRatio);
     }

@@ -35,7 +35,7 @@ public class LottoResultCalculatorController {
 
         double earnResult = 0.0;
         for (LottoResult lottoResult : result) {
-            earnResult += lottoResult.reward;
+            earnResult += lottoResult.getReward();
         }
 
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());

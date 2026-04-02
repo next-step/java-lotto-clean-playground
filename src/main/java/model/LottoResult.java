@@ -11,11 +11,20 @@ public enum LottoResult {
     FIVE(5, LottoSettingsConstants.FIVE_MATCH_PRICE),
     SIX(6, LottoSettingsConstants.SIX_MATCH_PRICE);
 
-    public final int matchCount;
-    public final int reward;
+    private final int matchCount;
+    private final int reward;
 
     LottoResult(int matchCount, int reward) {
         this.matchCount = matchCount;
         this.reward= reward;
     }
+    
+    public int getReward() {
+        return reward;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
 }

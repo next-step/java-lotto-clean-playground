@@ -26,7 +26,7 @@ public class OutputView {
         for (LottoResult currentResult : WINNING_RESULT) {
             int resultCount = (int) matchCountPerLotto.stream().filter(result -> currentResult == result).count();
 
-            System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentResult.matchCount, currentResult.reward, resultCount);
+            System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentResult.getMatchCount(), currentResult.getReward(), resultCount);
             System.out.println();
         }
         System.out.println();

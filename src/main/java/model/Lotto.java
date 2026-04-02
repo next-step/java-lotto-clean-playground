@@ -28,7 +28,7 @@ public class Lotto {
         lottoNumbers.retainAll(winningNumberSet);
 
         return Arrays.stream(LottoResult.values())
-                .filter(result->lottoNumbers.size() == result.matchCount)
+                .filter(result->lottoNumbers.size() == result.getMatchCount())
                 .findFirst()
                 .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
     }
