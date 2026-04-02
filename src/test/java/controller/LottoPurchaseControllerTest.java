@@ -22,7 +22,7 @@ class LottoPurchaseControllerTest {
     @DisplayName("통합 테스트: 로또 구매")
     void purchase_calls_intended_functions() {
         // given
-        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        LottoBatch lottoBatch = new LottoBatch();
         List<Integer> testNumbers = new ArrayList<>();
         for (int i = 1; i <= LottoSettingsConstants.LOTTO_SIZE * 2; i++) {
             testNumbers.add(i);

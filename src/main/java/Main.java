@@ -2,18 +2,16 @@ import model.LottoNumberGenerator;
 import common.NumberGenerator;
 import controller.LottoPurchaseController;
 import controller.LottoResultCalculatorController;
-import model.Lotto;
 import model.LottoBatch;
 import model.LottoFactory;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        LottoBatch lottoBatch = new LottoBatch(new ArrayList<Lotto>());
+        LottoBatch lottoBatch = new LottoBatch();
         NumberGenerator numberGenerator = new LottoNumberGenerator();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
         InputView inputView = new InputView(new Scanner(System.in));

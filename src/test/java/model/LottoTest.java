@@ -30,7 +30,7 @@ public class LottoTest {
     @DisplayName("로또 번호 너무 많은지 검증")
     void testGetMatchCountPerLottoWithTooManyNumbers() {
         //given
-        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        LottoBatch lottoBatch = new LottoBatch();
         List<Integer> winningNumbers = new ArrayList<>();
         for (int i = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER; i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER + LottoSettingsConstants.LOTTO_SIZE + 1; i++ ){
             winningNumbers.add(i);
@@ -45,7 +45,7 @@ public class LottoTest {
     @DisplayName("로또 번호가 적절한 범위 내에 있는지 검증")
     void testGetMatchCountPerLottoWithNumbersOutOfRange() {
         //given
-        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        LottoBatch lottoBatch = new LottoBatch();
         List<Integer> winningNumbers = new ArrayList<>();
         int lottoMinimum = LottoSettingsConstants.LOTTO_MINIMUM_NUMBER;
         for (int i = lottoMinimum - 1; i < lottoMinimum - 1 + LottoSettingsConstants.LOTTO_SIZE; i++ ){
@@ -61,7 +61,7 @@ public class LottoTest {
     @DisplayName("로또 번호에 중복이 있는지 검증")
     void testGetMatchCountPerLottoWithNumberDuplicates() {
         //given
-        LottoBatch lottoBatch = new LottoBatch(new ArrayList<>());
+        LottoBatch lottoBatch = new LottoBatch();
         List<Integer> winningNumbers = new ArrayList<>();
 
         for (int i = 0; i <LottoSettingsConstants.LOTTO_SIZE; i++ ){

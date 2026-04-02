@@ -1,12 +1,13 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoBatch {
     private final List<Lotto> lottos;
 
-    public LottoBatch(List<Lotto> lottos) {
-        this.lottos = lottos;
+    public LottoBatch() {
+        this.lottos = new ArrayList<>();
     }
 
     public void add(Lotto lotto) {
