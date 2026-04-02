@@ -2,17 +2,12 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
         this.lottos = new ArrayList<>(lottos);
-    }
-
-    public Stream<Lotto> stream() {
-        return lottos.stream();
     }
 
     public int size() {
@@ -23,6 +18,10 @@ public class Lottos {
         return lottos.stream()
                 .map(this::toNumbers)
                 .toList();
+    }
+
+    public List<Lotto> lottoToList() {
+        return new ArrayList<>(lottos);
     }
 
     private List<Integer> toNumbers(Lotto lotto) {

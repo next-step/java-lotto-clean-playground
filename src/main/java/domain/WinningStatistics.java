@@ -18,7 +18,7 @@ public class WinningStatistics {
     public static WinningStatistics from(Lottos lottos, Lotto winningLotto) {
         WinningStatistics statistics = new WinningStatistics();
 
-        lottos.stream()
+        lottos.lottoToList().stream()
                 .map(lotto -> Rank.from(lotto.countMatch(winningLotto)))
                 .forEach(statistics::add);
 
