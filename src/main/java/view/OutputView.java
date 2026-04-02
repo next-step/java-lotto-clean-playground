@@ -1,6 +1,5 @@
 package view;
 
-import constants.LottoSettingsConstants;
 import constants.ScriptConstants;
 import dto.LottoDto;
 import model.LottoResult;

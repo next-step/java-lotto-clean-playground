@@ -4,10 +4,8 @@ import constants.ErrorMessageConstants;
 import constants.ScriptConstants;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class InputView {
     private final String NUMBER_DELIMITER = ",";
