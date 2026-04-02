@@ -57,7 +57,7 @@ public class LottoResultCalculatorController {
 
     protected LottoResultDto wrapLottoIntoDto (List<LottoResult> lottoResults) {
         Map<LottoResult, Integer> result = new LinkedHashMap<>();
-        for (LottoResult winningLotto: LottoSettingsConstants.WINNING_LOTTO_RESULT) {
+        for (LottoResult winningLotto: LottoSettingsConstants.WINNING_LOTTO_RESULT_ASCENDING_ORDER) {
             result.put(winningLotto, 0);
         }
 

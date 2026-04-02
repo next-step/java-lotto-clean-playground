@@ -1,6 +1,7 @@
 package controller.mock;
 
 import controller.LottoResultCalculatorController;
+import dto.LottoResultDto;
 import model.LottoBatch;
 import model.LottoResult;
 import view.InputView;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class MockLottoResultCalculatorController extends LottoResultCalculatorController {
     public List<LottoResult> mockMatchCountPerLotto;
+    public boolean wrapLottoIntoDtoCalled = false;
 
     public MockLottoResultCalculatorController(LottoBatch lottoBatch, InputView inputView, OutputView outputView) {
         super(lottoBatch, inputView, outputView);
@@ -24,5 +26,11 @@ public class MockLottoResultCalculatorController extends LottoResultCalculatorCo
     @Override
     public double getReturnRatio(List<Integer> winningNumbers) {
         return super.getReturnRatio(winningNumbers);
+    }
+
+    @Override
+    public LottoResultDto wrapLottoIntoDto(List<LottoResult> lottoResults) {
+        wrapLottoIntoDtoCalled = true;
+        return super.wrapLottoIntoDto(lottoResults);
     }
 }

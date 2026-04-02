@@ -2,9 +2,9 @@ package controller;
 
 import constants.LottoSettingsConstants;
 import controller.mock.MockInputView;
-import controller.mock.MockLottoFactory;
 import controller.mock.MockLottoResultCalculatorController;
 import controller.mock.MockOutputView;
+import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -54,6 +55,7 @@ class LottoResultCalculatorControllerTest {
         Assertions.assertTrue(inputView.getWinningNumbersCalled);
         Assertions.assertTrue(outputView.printStatsCalled);
         Assertions.assertTrue(outputView.printReturnRatioCalled);
+        Assertions.assertTrue(controller.wrapLottoIntoDtoCalled);
         Assertions.assertEquals(List.of(LottoResult.THREE, LottoResult.SIX), controller.mockMatchCountPerLotto);
     }
 
@@ -71,5 +73,26 @@ class LottoResultCalculatorControllerTest {
         double expectedRatio = ((double) LottoResult.THREE.getReward()+ LottoResult.SIX.getReward())
                 / (this.lottoBatch.getLottoCount() * LottoSettingsConstants.LOTTO_PRICE);
         Assertions.assertEquals(returnRatio, expectedRatio);
+    }
+
+
+    @Test
+    @DisplayName("List<LottoResult>를 LottoResultDto 출력순으로 포장한다.")
+    void testWrapLottoResultIntoDto() {
+        // given
+        List<LottoResult> testResult= new ArrayList<>(List.of(LottoResult.SIX, LottoResult.FIVE, LottoResult.FOUR, LottoResult.THREE));
+        MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
+
+        //when
+        LottoResultDto resultDto = controller.wrapLottoIntoDto(testResult);
+
+        // then
+        List<LottoResult> resultDtoOrder = new LinkedList<>(resultDto.lottoResults().keySet());
+        Assertions.assertEquals(LottoSettingsConstants.WINNING_LOTTO_RESULT_ASCENDING_ORDER.size(), resultDtoOrder.size());
+        for (int i = 0; i < LottoSettingsConstants.WINNING_LOTTO_RESULT_ASCENDING_ORDER.size(); i++){
+            Assertions.assertEquals(LottoSettingsConstants.WINNING_LOTTO_RESULT_ASCENDING_ORDER.get(i), resultDtoOrder.get(i));
+            LottoResult currentKey = resultDtoOrder.get(i);
+            Assertions.assertEquals(1, resultDto.lottoResults().get(currentKey));
+        }
     }
 }
