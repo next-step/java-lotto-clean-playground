@@ -1,11 +1,8 @@
 package model;
 
-import constants.ErrorMessageConstants;
-import constants.LottoSettingsConstants;
-import util.ValidateLotto;
+import common.ValidateLotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,14 +19,11 @@ public class Lotto {
         return List.copyOf(this.numbers);
     }
 
-    public LottoResult calculateLottoResult(List<Integer> winningNumbers) {
+    public LottoResult compareWithWinningNumbers(List<Integer> winningNumbers) {
         Set<Integer> lottoNumbers= new HashSet<>(this.numbers);
         Set<Integer> winningNumberSet = new HashSet<>(winningNumbers);
         lottoNumbers.retainAll(winningNumberSet);
 
-        return Arrays.stream(LottoResult.values())
-                .filter(result->lottoNumbers.size() == result.getMatchCount())
-                .findFirst()
-                .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
+        return LottoResult.calculateLottoResult(lottoNumbers.size());
     }
 }

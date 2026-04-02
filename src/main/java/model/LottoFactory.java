@@ -1,9 +1,8 @@
 package model;
 
 import common.NumberGenerator;
-import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
-import util.ValidateLotto;
+import common.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.HashSet;

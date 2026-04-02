@@ -4,7 +4,7 @@ import constants.LottoSettingsConstants;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
-import util.ValidateLotto;
+import common.ValidateLotto;
 import view.InputView;
 import view.OutputView;
 
@@ -46,7 +46,7 @@ public class LottoResultCalculatorController {
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(lotto.calculateLottoResult(winningNumbers));
+            result.add(lotto.compareWithWinningNumbers(winningNumbers));
         }
 
         return result;

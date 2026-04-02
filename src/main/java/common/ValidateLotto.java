@@ -1,4 +1,4 @@
-package util;
+package common;
 
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;

@@ -2,11 +2,10 @@ package model;
 
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
-import controller.mock.MockLottoResultCalculatorController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import util.ValidateLotto;
+import common.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +81,7 @@ public class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
 
         //when
-        LottoResult lottoResult = lotto.calculateLottoResult(winningNumbers);
+        LottoResult lottoResult = lotto.compareWithWinningNumbers(winningNumbers);
 
         //then
         Assertions.assertEquals(LottoResult.THREE, lottoResult);

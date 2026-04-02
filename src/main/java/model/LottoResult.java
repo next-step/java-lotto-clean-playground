@@ -1,6 +1,9 @@
 package model;
 
+import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
+
+import java.util.Arrays;
 
 public enum LottoResult {
     NO_MATCH(0, LottoSettingsConstants.NO_WIN),
@@ -18,13 +21,20 @@ public enum LottoResult {
         this.matchCount = matchCount;
         this.reward= reward;
     }
-    
+
     public int getReward() {
         return reward;
     }
 
     public int getMatchCount() {
         return matchCount;
+    }
+
+    public static LottoResult calculateLottoResult(int i) {
+        return Arrays.stream(LottoResult.values())
+                .filter(result-> i == result.matchCount)
+                .findFirst()
+                .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
     }
 
 }
