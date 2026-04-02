@@ -16,6 +16,7 @@ public class LottoMaker {
     public Lotto makeLotto() {
         Collections.shuffle(container);
         List<LottoNumber> numbers = new ArrayList<>(container.subList(0, 6));
+        Collections.sort(numbers);
         return new Lotto(numbers);
     }
 }
