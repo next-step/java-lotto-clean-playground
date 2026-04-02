@@ -10,16 +10,20 @@ public class Main {
 
         System.out.println("구입금액을 입력해 주세요.");
         int totalPrice = scanner.nextInt();
-
         System.out.println();
-        purchaseAndPrintLotto(totalPrice);
+
+        LottoPurchase purchase = purchaseAndPrintLotto(totalPrice);
+        LottoReceipt receipt = printReceipt(purchase);
+
     }
 
-    private static void purchaseAndPrintLotto(int totalPrice) {
+    private static LottoPurchase purchaseAndPrintLotto(int totalPrice) {
         LottoPurchase purchase = new LottoPurchase(totalPrice, LOTTO_MAKER);
-
         System.out.println(purchase.getNumberOfLotto() + "개를 구매했습니다.");
+        return purchase;
+    }
 
+    private static LottoReceipt printReceipt(LottoPurchase purchase) {
         LottoReceipt receipt = purchase.printReceipt();
         receipt.printToConsole();
 
@@ -27,5 +31,9 @@ public class Main {
         if (change != 0) {
             System.out.println(change + "원이 남았습니다.");
         }
+
+        return receipt;
     }
+
+    private static
 }
