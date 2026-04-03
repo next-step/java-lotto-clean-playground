@@ -28,11 +28,13 @@ public class Lotto {
 
 
     private void validateRange(List<Integer> lottoNumber) {
-        for (Integer number : lottoNumber) {
-            if (number < MIN_NUMBER || number > MAX_NUMBER) {
-                throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
-            }
+        if (lottoNumber.stream().anyMatch(this::isOutOfRange)) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
+    }
+
+    private boolean isOutOfRange(int number) {
+        return number < MIN_NUMBER || number > MAX_NUMBER;
     }
 
     public List<Integer> getNumbers() {
