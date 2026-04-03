@@ -51,7 +51,6 @@ public class Controller {
         OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
     }
 
-    // Depth 1을 맞추기 위한 재귀 활용 (StackOverflow 위험 내포)
     private <T> T retry(Supplier<T> supplier) {
         try {
             return supplier.get();
