@@ -1,13 +1,13 @@
 package domain;
 
-import java.util.LinkedHashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoCalculator {
     private final Map<Rank, Integer> result;
 
     public LottoCalculator() {
-        result = new LinkedHashMap<>();
+        result = new EnumMap<>(Rank.class);
         for (Rank rank : Rank.values()) {
             result.put(rank, 0);
         }
