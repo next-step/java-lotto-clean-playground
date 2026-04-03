@@ -11,7 +11,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public void validatorLotto(List<LottoNumber> numbers) {
+    private void validatorLotto(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 숫자 개수가 " + LOTTO_SIZE + "개여야 합니다.");
         }
@@ -19,10 +19,9 @@ public class Lotto {
         if (distinctCount != numbers.size()) {
             throw new IllegalArgumentException("중복된 로또 숫자가 존재합니다.");
         }
-
     }
 
-    public List<LottoNumber> getLotto() {
+    public List<LottoNumber> getNumbers() {
         return numbers;
     }
 

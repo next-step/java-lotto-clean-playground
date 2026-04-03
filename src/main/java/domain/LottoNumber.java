@@ -10,7 +10,7 @@ public class LottoNumber {
         this.number = number;
     }
 
-    public void validatorNumber(int number) {
+    private void validatorNumber(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호가 범위를 벗어났습니다.");
         }
@@ -21,7 +21,6 @@ public class LottoNumber {
     }
 
     @Override
-
     public String toString() {
         return String.valueOf(number);
     }
