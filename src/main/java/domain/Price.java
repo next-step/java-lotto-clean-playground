@@ -1,6 +1,8 @@
 package domain;
 
 public class Price {
+    public static final int priceOfOneLotto = 1000;
+
     private final int price;
 
     public Price(int price) {
@@ -9,7 +11,7 @@ public class Price {
     }
 
     public int getBuyableLottoCount() {
-        return price / 1000;
+        return price / priceOfOneLotto;
     }
 
     public double calculateProfitRate(int totalProfit) {
@@ -18,13 +20,13 @@ public class Price {
 
     private void validatePrice(int price) {
         if (price < 0) {
-            throw new IllegalArgumentException("잘못된 입력입니다.");
+            throw new IllegalArgumentException("돈은 음수일 수 없습니다.");
         }
-        if (price < 1000) {
+        if (price < priceOfOneLotto) {
             throw new IllegalArgumentException("돈이 부족합니다.");
         }
-        if (price % 1000 != 0) {
-            throw new IllegalArgumentException("돈이 1000원 단위여야 합니다.");
+        if (price % priceOfOneLotto != 0) {
+            throw new IllegalArgumentException("돈이 " + priceOfOneLotto + "원 단위여야 합니다.");
         }
     }
 }
