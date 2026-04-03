@@ -1,5 +1,6 @@
 import domain.Lotto;
 import domain.LottoCalculator;
+import domain.LottoNumber;
 import domain.Lottos;
 import domain.Money;
 import domain.RandomLottoGenerator;
@@ -10,45 +11,77 @@ import view.InputView;
 import view.ResultView;
 
 public class Application {
-    InputView inputView = new InputView();
-    ResultView resultView = new ResultView();
-    RandomLottoGenerator random = new RandomLottoGenerator();
+    private final InputView inputView = new InputView();
+    private final ResultView resultView = new ResultView();
+    private final RandomLottoGenerator random = new RandomLottoGenerator();
 
     public void run() {
-        final int amount = inputView.getMoney(); //돈 받기
-        Money money = new Money(amount); // 돈 저장
-        final int number = money.getNumber(); // 로또 뽑는 횟수
+        Money money = getValidMoney();
+        final int number = money.getNumber();
+
         resultView.printPurchaseCount(number);
         Lottos lottos = purchaseLotto(number);
-        Lotto winnerNumbers = inputView.getWinnerNumbers(); //당첨번호 로또 입력
-        LottoCalculator calculator = calculatorResult(lottos, winnerNumbers); //당첨 결과 계산
+
+        Lotto winnerNumbers = getValidWinnerNumbers();
+
+        LottoCalculator calculator = lottos.matchAll(winnerNumbers);
+
         printStatistics(calculator, money);
-        //최종 통계 및 수익률 출력
     }
 
+    private Money getValidMoney() {
+        while (true) {
+            try {
+                return new Money(inputView.getMoney());
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
+    }
+
+    private Lotto getValidWinnerNumbers() {
+        while (true) {
+            try {
+                String input = inputView.getWinnerNumbers();
+                return parseToLotto(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
+    }
+
+    private Lotto parseToLotto(String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("입력값이 비어 있습니다.");
+        }
+        String[] tokens = input.split(",");
+        List<LottoNumber> winningNumbers = new ArrayList<>();
+        try {
+            for (String token : tokens) {
+                winningNumbers.add(new LottoNumber(Integer.parseInt(token.trim())));
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("로또 번호는 숫자여야 합니다.");
+        }
+        return new Lotto(winningNumbers);
+    }
 
     public Lottos purchaseLotto(int count) {
         List<Lotto> purchased = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Lotto lotto = random.generate();
-            printLotto(lotto);
+            printLottoAdapter(lotto);
             purchased.add(lotto);
         }
         return new Lottos(purchased);
     }
 
-    public void printLotto(Lotto lotto) {
-        resultView.printLottoNumbers(lotto);
-    }
-
-    private LottoCalculator calculatorResult(Lottos lottos, Lotto winnerNumbers) {
-        LottoCalculator calculator = new LottoCalculator();
-        for (Lotto lotto : lottos.getLottos()) {
-            int matchCount = lotto.getMatchNumbers(winnerNumbers);
-            Rank rank = Rank.MISS.valueOf(matchCount);
-            calculator.valueAdd(rank);
+    private void printLottoAdapter(Lotto lotto) {
+        List<Integer> rawNumbers = new ArrayList<>();
+        for (LottoNumber num : lotto.getNumbers()) {
+            rawNumbers.add(num.getNumber());
         }
-        return calculator;
+        resultView.printLottoNumbers(rawNumbers);
     }
 
     public void printStatistics(LottoCalculator calculator, Money money) {
@@ -70,6 +103,4 @@ public class Application {
         Application lotto = new Application();
         lotto.run();
     }
-
-
 }
