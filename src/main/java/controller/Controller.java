@@ -1,13 +1,8 @@
 package controller;
 
+import domain.*;
 import view.InputView;
 import view.OutputView;
-import domain.Lotto;
-import domain.TrialNumber;
-import domain.LottoResult;
-import domain.RandomLottoNumberGenerator;
-import domain.LottoMachine;
-import domain.LottoTickets;
 
 import java.util.List;
 import java.util.function.Supplier;

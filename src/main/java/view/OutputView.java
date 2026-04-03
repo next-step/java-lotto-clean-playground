@@ -1,6 +1,7 @@
 package view;
-import domain.LottoResult;
+
 import domain.Lotto;
+import domain.LottoResult;
 import domain.LottoTickets;
 import domain.Rank;
 
@@ -11,10 +12,11 @@ public class OutputView {
     public static final String PURCHASE_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
     public static final String LAST_WEEK_WINNING_NUMBER_MESSAGE = "지난 주 당첨 번호를 입력해 주세요.";
 
-    public static void printInputPurchaseAmount(){
+    public static void printInputPurchaseAmount() {
         System.out.println("\n" + PURCHASE_AMOUNT_MESSAGE);
     }
-    public static void printInputWinningNumber(){
+
+    public static void printInputWinningNumber() {
 
         System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
     }
@@ -26,6 +28,7 @@ public class OutputView {
         }
 
     }
+
     public static void printWinningStatistics(LottoResult result, int purchaseAmount) {
         System.out.println("\n당첨 통계\n---------");
         System.out.print(generateRanksString(result));
