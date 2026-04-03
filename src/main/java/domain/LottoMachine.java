@@ -2,6 +2,8 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoMachine {
     private final LottoNumberGenerator generator;
@@ -11,10 +13,8 @@ public class LottoMachine {
     }
 
     public List<Lotto> issue(int trialCount) {
-        List<Lotto> generatedLottos = new ArrayList<>();
-        for (int i = 0; i < trialCount; i++) {
-            generatedLottos.add(new Lotto(generator.generate()));
-        }
-        return generatedLottos;
+        return IntStream.range(0, trialCount)
+                .mapToObj(i -> new Lotto(generator.generate()))
+                .collect(Collectors.toList());
     }
 }
