@@ -24,7 +24,7 @@ public class InputView {
         return new LottoTicket(
                 Arrays.stream(scanner.nextLine().split(", "))
                         .map(Integer::parseInt)
-                        .map(LottoNumber::new)
+                        .map(LottoNumber::valueOf)
                         .collect(Collectors.toList())
         );
     }

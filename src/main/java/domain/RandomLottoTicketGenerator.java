@@ -12,7 +12,7 @@ public class RandomLottoTicketGenerator implements LottoTicketGenerator {
     public LottoTicket generate() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
         for (int i = LOWER_BOUND; i < UPPER_BOUND; i++) {
-            lottoNumberList.add(new LottoNumber(i));
+            lottoNumberList.add(LottoNumber.valueOf(i));
         }
         Collections.shuffle(lottoNumberList);
         return new LottoTicket(lottoNumberList.subList(0, 6));
