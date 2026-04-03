@@ -3,6 +3,7 @@ import domain.Lotto;
 import domain.LottoResult;
 import domain.LottoTicket;
 import domain.LottoTicketGenerator;
+import domain.Price;
 import domain.RandomLottoTicketGenerator;
 import view.InputView;
 import view.OutputView;
@@ -14,7 +15,7 @@ public class Application {
         LottoTicketGenerator lottoTicketGenerator = new RandomLottoTicketGenerator();
         Cashier cashier = new Cashier(lottoTicketGenerator);
 
-        int price = inputView.inputPrice();
+        Price price = inputView.inputPrice();
         Lotto lotto = cashier.generateTickets(price);
         outputView.showLottoTickets(lotto);
 
