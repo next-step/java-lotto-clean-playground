@@ -3,8 +3,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 public class RandomLottoNumberGenerator implements LottoNumberGenerator {
+
 
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
