@@ -1,18 +1,13 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Cashier {
-    public static final int THREE_CORRECT = 3;
-    public static final int FOUR_CORRECT = 4;
-    public static final int FIVE_CORRECT = 5;
-    public static final int SIX_CORRECT = 6;
-    private final NumberListGenerator numberListGenerator;
+    private final LottoTicketGenerator lottoTicketGenerator;
 
-    public Cashier(NumberListGenerator numberListGenerator) {
-        this.numberListGenerator = numberListGenerator;
+    public Cashier(LottoTicketGenerator lottoTicketGenerator) {
+        this.lottoTicketGenerator = lottoTicketGenerator;
     }
 
     public Lotto generateTickets(int price) {
@@ -20,27 +15,16 @@ public class Cashier {
         int numberOfTickets = calculateNumberOfTickets(price);
         List<LottoTicket> generatedTickets = new ArrayList<>();
         for (int i = 0; i < numberOfTickets; i++) {
-            generatedTickets.add(new LottoTicket(numberListGenerator.generate()));
+            generatedTickets.add(lottoTicketGenerator.generate());
         }
-
         return new Lotto(generatedTickets);
     }
 
-    public LottoResult getResults(Lotto lotto, LottoTicket winnerTicket) {
-        List<Integer> results = lotto.getResults(winnerTicket);
-        return new LottoResult(
-                Collections.frequency(results, THREE_CORRECT),
-                Collections.frequency(results, FOUR_CORRECT),
-                Collections.frequency(results, FIVE_CORRECT),
-                Collections.frequency(results, SIX_CORRECT)
-        );
-    }
-
     public Double getProfitRate(LottoResult result, int price) {
-        int totalProfit = 5000 * result.getThreeCorrectCount()
-                + 50000 * result.getFourCorrectCount()
-                + 1500000 * result.getFiveCorrectCount()
-                + 2000000000 * result.getSixCorrectCount();
+        int totalProfit = 5000 * result.threeCorrectCount()
+                + 50000 * result.fourCorrectCount()
+                + 1500000 * result.fiveCorrectCount()
+                + 2000000000 * result.sixCorrectCount();
 
         return (double) totalProfit / price;
     }

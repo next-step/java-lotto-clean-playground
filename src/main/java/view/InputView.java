@@ -1,5 +1,6 @@
 package view;
 
+import domain.LottoNumber;
 import domain.LottoTicket;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -20,6 +21,10 @@ public class InputView {
     public LottoTicket getWinnerTicket() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return new LottoTicket(
-                Arrays.stream(scanner.nextLine().split(", ")).map(Integer::valueOf).collect(Collectors.toList()));
+                Arrays.stream(scanner.nextLine().split(", "))
+                        .map(Integer::parseInt)
+                        .map(LottoNumber::new)
+                        .collect(Collectors.toList())
+        );
     }
 }

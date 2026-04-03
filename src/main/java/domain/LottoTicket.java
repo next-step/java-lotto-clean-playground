@@ -7,31 +7,31 @@ import java.util.Set;
 
 
 public class LottoTicket {
-    private final List<Integer> ticket;
+    private final List<LottoNumber> lottoNumbers;
 
-    public LottoTicket(List<Integer> ticket) {
-        validate(ticket);
-        Collections.sort(ticket);
-        this.ticket = ticket;
+    public LottoTicket(List<LottoNumber> lottoNumbers) {
+        validate(lottoNumbers);
+        Collections.sort(lottoNumbers);
+        this.lottoNumbers = lottoNumbers;
     }
 
-    static private void validate(List<Integer> ticket) {
-        int length = ticket.size();
-        Set<Integer> ticketSet = new HashSet<>(ticket);
+    static private void validate(List<LottoNumber> lottoNumbers) {
+        int length = lottoNumbers.size();
+        Set<LottoNumber> ticketSet = new HashSet<>(lottoNumbers);
         if (ticketSet.size() != length) {
             throw new RuntimeException();
         }
     }
 
-    public int getResult(LottoTicket winnerTicket) {
+    public int getCorrectCount(LottoTicket winnerTicket) {
         int count = 0;
-        for (int number : winnerTicket.getTicket()) {
-            count += Boolean.compare(ticket.contains(number), false);
+        for (LottoNumber number : winnerTicket.lottoNumbers) {
+            count += Boolean.compare(lottoNumbers.contains(number), false);
         }
         return count;
     }
 
-    public List<Integer> getTicket() {
-        return ticket;
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
     }
 }
