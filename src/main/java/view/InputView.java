@@ -12,9 +12,9 @@ public class InputView {
         scanner = new Scanner(System.in);
     }
 
-    public Integer inputPrice() {
+    public int inputPrice() {
         System.out.println("구입 금액을 입력해 주세요.");
-        return Integer.valueOf(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public LottoTicket getWinnerTicket() {

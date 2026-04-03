@@ -8,7 +8,7 @@ import view.InputView;
 import view.OutputView;
 
 public class Application {
-    public static final Integer TICKET_LENGTH = 6;
+    public static final int TICKET_LENGTH = 6;
 
     public static void main(String[] args) {
         InputView inputView = new InputView();
@@ -16,7 +16,7 @@ public class Application {
         NumberListGenerator numberListGenerator = new RandomNumberListGenerator(TICKET_LENGTH);
         Cashier cashier = new Cashier(numberListGenerator);
 
-        Integer price = inputView.inputPrice();
+        int price = inputView.inputPrice();
         Lotto lotto = cashier.generateTickets(price);
         outputView.showLottoTickets(lotto);
 

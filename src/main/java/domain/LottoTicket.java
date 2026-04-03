@@ -23,9 +23,9 @@ public class LottoTicket {
         }
     }
 
-    public Integer getResult(LottoTicket winnerTicket) {
-        Integer count = 0;
-        for (Integer number : winnerTicket.getTicket()) {
+    public int getResult(LottoTicket winnerTicket) {
+        int count = 0;
+        for (int number : winnerTicket.getTicket()) {
             count += Boolean.compare(ticket.contains(number), false);
         }
         return count;

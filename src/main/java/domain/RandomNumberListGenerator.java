@@ -1,21 +1,23 @@
 package domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RandomNumberListGenerator implements NumberListGenerator {
-    private static final Integer UPPER_BOUND = 46;
-    private static final Integer LOWER_BOUND = 1;
+    private static final int UPPER_BOUND = 46;
+    private static final int LOWER_BOUND = 1;
 
-    private final Integer length;
+    private final int length;
 
-    public RandomNumberListGenerator(final Integer length) {
+    public RandomNumberListGenerator(final int length) {
         this.length = length;
     }
 
     @Override
     public List<Integer> generate() {
         List<Integer> numberList = new ArrayList<>();
-        for (Integer i = LOWER_BOUND; i < UPPER_BOUND; i++) {
+        for (int i = LOWER_BOUND; i < UPPER_BOUND; i++) {
             numberList.add(i);
         }
         Collections.shuffle(numberList);

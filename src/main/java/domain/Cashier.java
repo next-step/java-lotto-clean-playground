@@ -5,21 +5,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class Cashier {
-    public static final Integer THREE_CORRECT = 3;
-    public static final Integer FOUR_CORRECT = 4;
-    public static final Integer FIVE_CORRECT = 5;
-    public static final Integer SIX_CORRECT = 6;
+    public static final int THREE_CORRECT = 3;
+    public static final int FOUR_CORRECT = 4;
+    public static final int FIVE_CORRECT = 5;
+    public static final int SIX_CORRECT = 6;
     private final NumberListGenerator numberListGenerator;
 
     public Cashier(NumberListGenerator numberListGenerator) {
         this.numberListGenerator = numberListGenerator;
     }
 
-    public Lotto generateTickets(Integer price) {
+    public Lotto generateTickets(int price) {
         validatePrice(price);
-        Integer numberOfTickets = calculateNumberOfTickets(price);
+        int numberOfTickets = calculateNumberOfTickets(price);
         List<LottoTicket> generatedTickets = new ArrayList<>();
-        for (Integer i = 0; i < numberOfTickets; i++) {
+        for (int i = 0; i < numberOfTickets; i++) {
             generatedTickets.add(new LottoTicket(numberListGenerator.generate()));
         }
 
@@ -36,16 +36,16 @@ public class Cashier {
         );
     }
 
-    public Double getProfitRate(LottoResult result, Integer price) {
-        Integer totalProfit = 5000 * result.getThreeCorrectCount()
+    public Double getProfitRate(LottoResult result, int price) {
+        int totalProfit = 5000 * result.getThreeCorrectCount()
                 + 50000 * result.getFourCorrectCount()
                 + 1500000 * result.getFiveCorrectCount()
                 + 2000000000 * result.getSixCorrectCount();
 
-        return totalProfit.doubleValue() / price;
+        return (double) totalProfit / price;
     }
 
-    private void validatePrice(Integer price) {
+    private void validatePrice(int price) {
         if (price < 0) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
@@ -57,7 +57,7 @@ public class Cashier {
         }
     }
 
-    private Integer calculateNumberOfTickets(Integer price) {
+    private int calculateNumberOfTickets(int price) {
         return price / 1000;
     }
 }
