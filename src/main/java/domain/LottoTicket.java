@@ -1,37 +1,66 @@
 package domain;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import domain.wrappers.CorrectCount;
+import exception.EmptyTicketException;
+import exception.NullTicketException;
+import exception.WrongNumberInTicketException;
+import exception.WrongSizeTicketException;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class LottoTicket {
+    private static final int TICKET_LENGTH = 6;
+
     private final List<Integer> ticket;
 
     public LottoTicket(List<Integer> ticket) {
-        validate(ticket);
-        Collections.sort(ticket);
-        this.ticket = ticket;
-    }
+        validateTicket(ticket.stream().distinct().toList());
 
-    static private void validate(List<Integer> ticket) {
-        int length = ticket.size();
-        Set<Integer> ticketSet = new HashSet<>(ticket);
-        if (ticketSet.size() != length) {
-            throw new RuntimeException();
-        }
-    }
+        List<Integer> mutableTicket = new ArrayList<>(ticket);
+        mutableTicket.sort(Comparator.naturalOrder());
 
-    public Integer getResult(LottoTicket winnerTicket) {
-        Integer count = 0;
-        for (Integer number : winnerTicket.getTicket()) {
-            count += Boolean.compare(ticket.contains(number), false);
-        }
-        return count;
+        validateTicketNumbers(mutableTicket);
+
+        this.ticket = mutableTicket;
     }
 
     public List<Integer> getTicket() {
         return ticket;
     }
+
+    public CorrectCount calculateCorrectCount(LottoTicket winnerTicket) {
+        int correctCount = 0;
+
+        for (int lottoNumber : winnerTicket.ticket) {
+            if (ticket.contains(lottoNumber)) {
+                correctCount++;
+            }
+        }
+
+        return new CorrectCount(correctCount);
+    }
+
+    private void validateTicket(List<Integer> ticket) {
+        if (ticket == null) {
+            throw new NullTicketException("ticket is null");
+        }
+
+        if (ticket.isEmpty()) {
+            throw new EmptyTicketException("ticket is empty");
+        }
+
+        if (ticket.size() != TICKET_LENGTH) {
+            throw new WrongSizeTicketException("ticket size should have " +  TICKET_LENGTH + " numbers");
+        }
+    }
+
+    private void validateTicketNumbers(List<Integer> ticket) {
+        if (ticket.get(0) < 1 || ticket.get(TICKET_LENGTH - 1) > 45) {
+            throw new WrongNumberInTicketException("wrong number in ticket");
+        }
+    }
+
+
 }

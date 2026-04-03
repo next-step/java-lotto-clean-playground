@@ -1,28 +1,39 @@
 package domain;
 
+import domain.wrappers.LottoResult;
+import domain.wrappers.TicketCount;
+import number_generator.wrappers.NumberCount;
+import number_generator.NumberListGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
-    private final List<LottoTicket> tickets;
+    public static final int TICKET_LENGTH = 6;
 
-    public Lotto(List<LottoTicket> tickets) {
-        this.tickets = tickets;
+    private final List<LottoTicket> lottoTickets;
+
+    public Lotto() {
+        this.lottoTickets = new ArrayList<>();
     }
 
-    public List<Integer> getResults(LottoTicket winnerTicket) {
-        List<Integer> results = new ArrayList<>();
-        for (LottoTicket ticket : tickets) {
-            results.add(ticket.getResult(winnerTicket));
+    public List<LottoTicket> getLottoTickets() {
+        return lottoTickets;
+    }
+
+    public void createRandomTickets(TicketCount ticketCount, NumberListGenerator numberListGenerator) {
+        for (int i = 0; i < ticketCount.getValue(); i++) {
+            lottoTickets.add(new LottoTicket(numberListGenerator.generate(new NumberCount(TICKET_LENGTH))));
         }
-        return results;
     }
 
-    public List<LottoTicket> getTickets() {
-        return tickets;
-    }
+    public LottoResult createLottoResult(LottoTicket winnerTicket) {
+        List<Integer> correctCounts = new ArrayList<>();
 
-    public int getNumberOfTickets() {
-        return tickets.size();
+        for (LottoTicket lottoTicket : lottoTickets) {
+            correctCounts.add(lottoTicket.calculateCorrectCount(winnerTicket).getValue());
+        }
+
+        return new LottoResult(correctCounts);
     }
 }

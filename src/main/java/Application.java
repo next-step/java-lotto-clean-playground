@@ -1,27 +1,23 @@
-import domain.Cashier;
+import domain.wrappers.TicketCount;
+import number_generator.NumberListGenerator;
+import number_generator.RandomLottoNumberListGenerator;
 import domain.Lotto;
-import domain.LottoResult;
-import domain.LottoTicket;
-import domain.NumberListGenerator;
-import domain.RandomNumberListGenerator;
+import domain.wrappers.LottoResult;
 import view.InputView;
 import view.OutputView;
 
 public class Application {
-    public static final Integer TICKET_LENGTH = 6;
-
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
-        NumberListGenerator numberListGenerator = new RandomNumberListGenerator(TICKET_LENGTH);
-        Cashier cashier = new Cashier(numberListGenerator);
 
-        Integer price = inputView.inputPrice();
-        Lotto lotto = cashier.generateTickets(price);
+        Lotto lotto = new Lotto();
+        NumberListGenerator randomLottoNumberListGenerator = new RandomLottoNumberListGenerator();
+        TicketCount ticketCount = new TicketCount(inputView.readLottoPayment());
+
+        lotto.createRandomTickets(ticketCount, randomLottoNumberListGenerator);
         outputView.showLottoTickets(lotto);
-
-        LottoTicket winnerTicket = inputView.getWinnerTicket();
-        LottoResult result = cashier.getResults(lotto, winnerTicket);
-        outputView.showLottoResults(result, cashier.getProfitRate(result, price));
+        LottoResult result = lotto.createLottoResult(inputView.readWinnerTicket());
+        outputView.showLottoResults(ticketCount, result);
     }
 }
