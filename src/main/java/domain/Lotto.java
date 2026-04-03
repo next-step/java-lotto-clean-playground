@@ -29,11 +29,12 @@ public class Lotto {
         );
     }
 
-    public List<LottoTicket> getTickets() {
-        return tickets;
-    }
-
     public int getNumberOfTickets() {
         return tickets.size();
+    }
+
+    @Override
+    public String toString() {
+        return String.join("\n", tickets.stream().map(LottoTicket::toString).toList());
     }
 }

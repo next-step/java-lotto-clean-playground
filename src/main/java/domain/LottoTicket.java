@@ -15,7 +15,7 @@ public class LottoTicket {
         this.lottoNumbers = lottoNumbers;
     }
 
-    static private void validate(List<LottoNumber> lottoNumbers) {
+    private static void validate(List<LottoNumber> lottoNumbers) {
         int length = lottoNumbers.size();
         Set<LottoNumber> ticketSet = new HashSet<>(lottoNumbers);
         if (ticketSet.size() != length) {
@@ -31,7 +31,8 @@ public class LottoTicket {
         return count;
     }
 
-    public List<LottoNumber> getLottoNumbers() {
-        return lottoNumbers;
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 }

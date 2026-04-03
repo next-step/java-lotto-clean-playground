@@ -1,10 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoNumber;
 import domain.LottoResult;
-import domain.LottoTicket;
-import java.util.List;
 
 public class OutputView {
     public void showLottoResults(LottoResult result, Double profitRate) {
@@ -36,14 +33,7 @@ public class OutputView {
     public void showLottoTickets(Lotto lotto) {
         System.out.println();
         System.out.println(lotto.getNumberOfTickets() + "개를 구매했습니다.");
-        for (LottoTicket lottoTicket : lotto.getTickets()) {
-            showLottoTicket(lottoTicket);
-        }
+        System.out.println(lotto);
         System.out.println();
-    }
-
-    private void showLottoTicket(LottoTicket lottoTicket) {
-        List<LottoNumber> ticket = lottoTicket.getLottoNumbers();
-        System.out.println(ticket);
     }
 }
