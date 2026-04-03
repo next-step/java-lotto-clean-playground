@@ -4,6 +4,8 @@ import domain.Lotto;
 import domain.LottoTickets;
 import domain.Rank;
 
+import java.util.stream.Collectors;
+
 
 public class OutputView {
     public static final String PURCHASE_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
@@ -26,14 +28,23 @@ public class OutputView {
     }
     public static void printWinningStatistics(LottoResult result, int purchaseAmount) {
         System.out.println("\n당첨 통계\n---------");
-        for (Rank rank : Rank.getWinningRanks()) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n",
-                    rank.getMatchCount(),
-                    rank.getPrizeMoney(),
-                    result.getRankCount(rank));
-        }
+        System.out.print(generateRanksString(result));
+
         double profitRate = result.calculateProfitRate(purchaseAmount);
         System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n", profitRate);
+    }
+
+    private static String generateRanksString(LottoResult result) {
+        return Rank.getWinningRanks().stream()
+                .map(rank -> String.format("%d개 일치 (%d원)- %d개\n",
+                        rank.getMatchCount(),
+                        rank.getPrizeMoney(),
+                        result.getRankCount(rank)))
+                .collect(Collectors.joining());
+    }
+
+    public static void printErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
 
