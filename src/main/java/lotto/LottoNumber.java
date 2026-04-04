@@ -18,8 +18,7 @@ public record LottoNumber(int number) implements Comparable<LottoNumber> {
         return Integer.compare(number, other.number);
     }
 
-    @Override
-    public String toString() {
+    public String format() {
         return Integer.toString(number);
     }
 }

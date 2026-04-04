@@ -21,10 +21,12 @@ public record Lotto(List<LottoNumber> numbers) {
     }
 
     public void printToConsole() {
-        List<String> numberString = numbers.stream()
-                .map(LottoNumber::toString)
+        List<String> formattedNumbers = numbers.stream()
+                .map(LottoNumber::format)
                 .toList();
-        System.out.println("[" + String.join(", ", numberString) + "]");
+
+        String numbersString = String.join(", ", formattedNumbers);
+        System.out.println("[" + numbersString + "]");
     }
 
     public static class LottoException extends RuntimeException {
