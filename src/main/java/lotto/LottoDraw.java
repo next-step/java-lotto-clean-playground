@@ -49,8 +49,8 @@ public class LottoDraw {
         return counts.getCount(result);
     }
 
-    public float getRateOfReturn() {
+    public Rate getRateOfReturn() {
         int sumOfReturn = counts.getSumOfReturn();
-        return (float) sumOfReturn / receipt.totalPrice();
+        return new Rate((float) sumOfReturn / receipt.totalPrice());
     }
 }
