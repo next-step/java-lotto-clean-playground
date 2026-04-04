@@ -9,9 +9,16 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int totalPrice;
 
         System.out.println("구입금액을 입력해 주세요.");
-        int totalPrice = Integer.parseInt(scanner.nextLine());
+
+        try{
+            totalPrice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e){
+            totalPrice = 0;
+        }
+
         System.out.println();
 
         LottoPurchase purchase = purchaseAndPrintLotto(totalPrice);
