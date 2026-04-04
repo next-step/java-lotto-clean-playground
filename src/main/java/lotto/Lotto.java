@@ -4,8 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 
 public record Lotto(List<LottoNumber> numbers) {
+    public static final int NUMBER_COUNT = 6;
+
     public Lotto {
-        if (numbers.size() != 6) {
+        if (numbers.size() != NUMBER_COUNT) {
             throw new LottoException.WrongNumberCount();
         }
 
