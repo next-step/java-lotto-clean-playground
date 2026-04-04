@@ -45,7 +45,6 @@ public class LottoDraw {
         };
     }
 
-
     public int getCount(LottoResult result) {
         return counts.getCount(result);
     }

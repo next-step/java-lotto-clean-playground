@@ -25,7 +25,6 @@ public record Lotto(List<LottoNumber> numbers) {
         System.out.println("[" + String.join(", ", numberString) + "]");
     }
 
-
     public static class LottoException extends RuntimeException {
         public LottoException(String message) {
             super(message);
@@ -43,6 +42,4 @@ public record Lotto(List<LottoNumber> numbers) {
             }
         }
     }
-
-
 }
