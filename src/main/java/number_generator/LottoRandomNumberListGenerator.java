@@ -1,7 +1,6 @@
 package number_generator;
 
 import domain.LottoConstants;
-import number_generator.wrappers.NumberCount;
 
 import java.util.*;
 
