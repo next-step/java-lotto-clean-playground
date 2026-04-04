@@ -7,9 +7,13 @@ public enum LottoResult {
     FIVE(1_500_000),
     SIX(2_000_000_000);
 
-    public final int reward;
+    private final int reward;
 
     LottoResult(int reward) {
         this.reward = reward;
+    }
+
+    public int getReward(){
+        return reward;
     }
 }

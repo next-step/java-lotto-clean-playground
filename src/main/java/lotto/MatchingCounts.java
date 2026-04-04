@@ -20,7 +20,7 @@ public class MatchingCounts {
         for (Map.Entry<LottoResult, Integer> entry : numberCounts.entrySet()) {
             LottoResult result = entry.getKey();
             int count = entry.getValue();
-            sum += result.reward * count;
+            sum += result.getReward() * count;
         }
 
         return sum;

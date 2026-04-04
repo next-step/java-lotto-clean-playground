@@ -60,10 +60,10 @@ public class Main {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        System.out.println("3개 일치 (5000원)- " + draw.getCount(LottoResult.THREE));
-        System.out.println("4개 일치 (50000원)- " + draw.getCount(LottoResult.FOUR));
-        System.out.println("5개 일치 (1500000원)- " + draw.getCount(LottoResult.FIVE));
-        System.out.println("6개 일치 (2000000000원)- " + draw.getCount(LottoResult.SIX));
+        System.out.println("3개 일치 (" + LottoResult.THREE.getReward() + "원)- " + draw.getCount(LottoResult.THREE));
+        System.out.println("4개 일치 (" + LottoResult.FOUR.getReward() + "원)- " + draw.getCount(LottoResult.FOUR));
+        System.out.println("5개 일치 (" + LottoResult.FIVE.getReward() + "원)- " + draw.getCount(LottoResult.FIVE));
+        System.out.println("6개 일치 (" + LottoResult.SIX.getReward() + "원)- " + draw.getCount(LottoResult.SIX));
 
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");
     }
