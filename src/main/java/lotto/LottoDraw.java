@@ -31,14 +31,27 @@ public class LottoDraw {
         numbers.retainAll(lottoRow.numbers());
 
         int matchingCount = numbers.size();
-        return switch (matchingCount) {
-            case 0, 1, 2 -> LottoResult.NONE;
-            case 3 -> LottoResult.THREE;
-            case 4 -> LottoResult.FOUR;
-            case 5 -> LottoResult.FIVE;
-            case 6 -> LottoResult.SIX;
-            default -> throw new IllegalStateException("나올 수 없는 경우입니다.: " + matchingCount);
-        };
+
+        if (matchingCount == 1 || matchingCount == 2){
+            return LottoResult.NONE;
+        }
+        if (matchingCount == 0){
+            return LottoResult.NONE;
+        }
+        if (matchingCount == 3){
+            return LottoResult.THREE;
+        }
+        if (matchingCount == 4){
+            return LottoResult.FOUR;
+        }
+        if (matchingCount == 5){
+            return LottoResult.FIVE;
+        }
+        if (matchingCount == 6){
+            return LottoResult.SIX;
+        }
+        throw new IllegalStateException("나올 수 없는 경우입니다.: " + matchingCount);
+
     }
 
 
