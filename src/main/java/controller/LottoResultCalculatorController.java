@@ -62,7 +62,9 @@ public class LottoResultCalculatorController {
         }
 
         for (LottoResult lottoResult : lottoResults) {
-            result.put(lottoResult, result.get(lottoResult) + 1);
+            if(result.get(lottoResult) != null) {
+                result.put(lottoResult, result.get(lottoResult) + 1);
+            }
         }
 
         return new LottoResultDto(result);
