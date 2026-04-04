@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int totalPrice;
 
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println("구입금액을 입력해 주세요. (숫자가 아닌 경우 0으로 간주)");
 
         try{
             totalPrice = Integer.parseInt(scanner.nextLine());
