@@ -10,8 +10,8 @@ public class Price {
         this.price = price;
     }
 
-    public int getBuyableLottoCount() {
-        return price / priceOfOneLotto;
+    public Count getBuyableLottoCount() {
+        return new Count(price / priceOfOneLotto);
     }
 
     public double calculateProfitRate(int totalProfit) {

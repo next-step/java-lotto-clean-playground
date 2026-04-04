@@ -13,7 +13,7 @@ public class OutputView {
     public void showLottoStatistics(LottoResult result) {
         System.out.println("\n당첨 통계\n---------");
         for (LottoRank lottoRank : LottoRank.values()) {
-            System.out.println(lottoRank.getMatchingNumberCount() + "개 일치 (" + lottoRank.getPrizeMoney() + "원)- " + result.getMatchCount(lottoRank));
+            System.out.println(lottoRank.getMatchingNumberCount() + "개 일치 (" + lottoRank.getPrizeMoney() + "원)- " + result.getMatchCount(lottoRank) + "개");
         }
     }
 

@@ -23,12 +23,12 @@ public class LottoTicket {
         }
     }
 
-    public int getMatchCount(LottoTicket winnerTicket) {
+    public Count getMatchCount(LottoTicket winnerTicket) {
         int matchCount = 0;
         for (LottoNumber number : winnerTicket.lottoNumbers) {
             matchCount += Boolean.compare(lottoNumbers.contains(number), false);
         }
-        return matchCount;
+        return new Count(matchCount);
     }
 
     @Override
