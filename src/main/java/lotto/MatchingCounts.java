@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class MatchingCounts {
-    final Map<LottoResult, Integer> numberCounts = new EnumMap<>(LottoResult.class);
+    private final Map<LottoResult, Integer> numberCounts = new EnumMap<>(LottoResult.class);
 
     public void countLottoResult(LottoResult result) {
         numberCounts.put(result, numberCounts.getOrDefault(result, 0) + 1);

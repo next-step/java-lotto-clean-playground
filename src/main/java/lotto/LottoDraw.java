@@ -6,7 +6,7 @@ import java.util.Set;
 public class LottoDraw {
     private final Lotto drawnLotto;
     private final LottoReceipt receipt;
-    final MatchingCounts counts;
+    private final MatchingCounts counts;
 
     /**
      * @param drawnLotto 정식 추첨을 통해 뽑힌 일련의 로또 번호이다.
