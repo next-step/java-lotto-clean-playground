@@ -1,7 +1,5 @@
 package controller;
 
-import constants.ErrorMessageConstants;
-import constants.LottoSettingsConstants;
 import dto.LottoDto;
 import model.Lotto;
 import model.LottoBatch;
@@ -33,7 +31,7 @@ public class LottoPurchaseController {
         int userCashInput = inputView.getUserCashInput();
 
         List<Lotto> boughtLottos = lottoFactory.generateLottoByPrice(userCashInput);
-        lottoBatch.add(boughtLottos);
+        lottoBatch.addAll(boughtLottos);
         List<LottoDto> lottoDtos = lottoBatch.getAllLotto().stream()
                 .map(this::wrapLottoIntoDto).toList();
 

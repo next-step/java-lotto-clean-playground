@@ -14,7 +14,7 @@ public class LottoBatch {
         this.lottos.add(lotto);
     }
 
-    public void add(List<Lotto> lottos) {
+    public void addAll(List<Lotto> lottos) {
         this.lottos.addAll(lottos);
     }
 

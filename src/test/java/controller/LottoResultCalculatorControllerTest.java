@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Scanner;
 
 class LottoResultCalculatorControllerTest {
-    List<Lotto> lottoList;
     LottoBatch lottoBatch;
 
     String testWinningNumbers;
@@ -31,7 +30,6 @@ class LottoResultCalculatorControllerTest {
 
     @BeforeEach
     void setupTest() {
-        this.lottoList = new ArrayList<>();
         this.lottoBatch = new LottoBatch();
         lottoBatch.add(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
         lottoBatch.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
