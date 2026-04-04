@@ -18,13 +18,6 @@ public record Lotto(List<LottoNumber> numbers) {
         }
     }
 
-    public void printToConsole() {
-        List<String> numberString = numbers.stream()
-                .map(LottoNumber::toString)
-                .toList();
-        System.out.println("[" + String.join(", ", numberString) + "]");
-    }
-
 
     public static class LottoException extends RuntimeException {
         public LottoException(String message) {

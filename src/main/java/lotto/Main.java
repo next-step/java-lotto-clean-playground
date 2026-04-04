@@ -2,10 +2,10 @@ package lotto;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Main {
     private static final LottoMaker LOTTO_MAKER = new LottoMaker();
+    private static final LottoParser LOTTO_PARSER = new LottoParser();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,11 +22,13 @@ public class Main {
         System.out.println();
 
         LottoPurchase purchase = purchaseAndPrintLotto(totalPrice);
-        LottoReceipt receipt = printReceipt(purchase);
+        LottoReceipt receipt = purchase.printReceipt();
+        displayReceipt(receipt);
+        displayChange(purchase.getChange());
 
         System.out.println();
         System.out.println("지난주 당첨 번호를 입력해 주세요.");
-        Lotto drawnLotto = parseDrawnLotto(scanner.nextLine());
+        Lotto drawnLotto = LOTTO_PARSER.parse(scanner.nextLine());
 
         LottoDraw draw = new LottoDraw(drawnLotto, receipt);
         System.out.println();
@@ -39,26 +41,19 @@ public class Main {
         return purchase;
     }
 
-    private static LottoReceipt printReceipt(LottoPurchase purchase) {
-        LottoReceipt receipt = purchase.printReceipt();
-        receipt.printToConsole();
+    private static void displayReceipt(LottoReceipt receipt) {
+        for (Lotto lotto : receipt.lottoRows()) {
+            List<String> nums = lotto.numbers().stream()
+                    .map(LottoNumber::toString)
+                    .toList();
+            System.out.println("[" + String.join(", ", nums) + "]");
+        }
+    }
 
-        int change = purchase.getChange();
+    private static void displayChange(int change) {
         if (change != 0) {
             System.out.println(change + "원이 남았습니다.");
         }
-
-        return receipt;
-    }
-
-    private static Lotto parseDrawnLotto(String line) {
-        List<LottoNumber> numbers = Stream.of(line.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .map(LottoNumber::new)
-                .toList();
-
-        return new Lotto(numbers);
     }
 
     private static void printResult(LottoDraw draw) {
