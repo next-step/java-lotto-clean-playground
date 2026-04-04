@@ -7,6 +7,7 @@ import java.util.List;
 public class RandomLottoTicketGenerator implements LottoTicketGenerator {
     private static final int UPPER_BOUND = 46;
     private static final int LOWER_BOUND = 1;
+    private static final int TICKET_LENGTH = 6;
 
     @Override
     public LottoTicket generate() {
@@ -15,6 +16,6 @@ public class RandomLottoTicketGenerator implements LottoTicketGenerator {
             lottoNumberList.add(LottoNumber.valueOf(i));
         }
         Collections.shuffle(lottoNumberList);
-        return new LottoTicket(lottoNumberList.subList(0, 6));
+        return new LottoTicket(lottoNumberList.subList(0, TICKET_LENGTH));
     }
 }
