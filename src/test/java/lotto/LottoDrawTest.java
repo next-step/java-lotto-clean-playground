@@ -52,7 +52,7 @@ public class LottoDrawTest {
     }
 
     @Test
-    void 개수가_() {
+    void 숫자가_2개_이하로_일치하면_돈은_없다() {
         Lotto drawn = createLotto(5, 10, 15, 20, 25, 30);
         LottoReceipt receipt = createReceipt(
                 createLotto(1, 2, 3, 4, 6, 7), // 0개
@@ -60,8 +60,12 @@ public class LottoDrawTest {
                 createLotto(5, 10, 11, 12, 24, 35) // 2개
         );
 
-        assertThat(lottoDrawNumberCounts(new LottoDraw(drawn, receipt)))
+        LottoDraw draw = new LottoDraw(drawn, receipt);
+
+        assertThat(lottoDrawNumberCounts(draw))
                 .isEqualTo(Collections.singletonMap(LottoResult.NONE, 3));
+        assertThat(draw.getRateOfReturn().value())
+                .isEqualTo(0f);
     }
 
     private Lotto createLotto(int... numbers) {
