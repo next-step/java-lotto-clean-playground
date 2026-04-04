@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoRank;
 import domain.LottoResult;
 
 public class OutputView {
@@ -11,10 +12,9 @@ public class OutputView {
 
     public void showLottoStatistics(LottoResult result) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.println("3개 일치 (5000원)- " + result.threeCorrectCount() + "개");
-        System.out.println("4개 일치 (50000원)- " + result.fourCorrectCount() + "개");
-        System.out.println("5개 일치 (1500000원)- " + result.fiveCorrectCount() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + result.sixCorrectCount() + "개");
+        for (LottoRank lottoRank : LottoRank.values()) {
+            System.out.println(lottoRank.getMatchingNumberCount() + "개 일치 (" + lottoRank.getPrizeMoney() + "원)- " + result.getMatchCount(lottoRank));
+        }
     }
 
     public void showProfitRate(Double profitRate) {

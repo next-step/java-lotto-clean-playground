@@ -20,11 +20,10 @@ public class Cashier {
     }
 
     public double getProfitRate(LottoResult result, Price price) {
-        int totalProfit = 5000 * result.threeCorrectCount()
-                + 50000 * result.fourCorrectCount()
-                + 1500000 * result.fiveCorrectCount()
-                + 2000000000 * result.sixCorrectCount();
-
+        int totalProfit = 0;
+        for (LottoRank lottoRank : LottoRank.values()) {
+            totalProfit += lottoRank.getPrizeMoney() * result.getMatchCount(lottoRank);
+        }
         return price.calculateProfitRate(totalProfit);
     }
 }
