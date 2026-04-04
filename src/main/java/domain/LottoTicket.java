@@ -1,66 +1,59 @@
 package domain;
 
 import domain.wrappers.CorrectCount;
+import exception.DuplicateNumbersException;
 import exception.EmptyTicketException;
-import exception.NullTicketException;
-import exception.WrongNumberInTicketException;
-import exception.WrongSizeTicketException;
+import exception.WrongTicketLengthException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static domain.LottoConstants.TICKET_LENGTH;
+
 public class LottoTicket {
-    private static final int TICKET_LENGTH = 6;
+    private final List<LottoNumber> ticket;
 
-    private final List<Integer> ticket;
+    public LottoTicket(List<LottoNumber> ticket) {
+        validateTicket(ticket);
+        List<Integer> mutableNumberList = new ArrayList<>(ticket.stream().map(LottoNumber::getNumber).toList());
 
-    public LottoTicket(List<Integer> ticket) {
-        validateTicket(ticket.stream().distinct().toList());
+        mutableNumberList.sort(Comparator.naturalOrder());
 
-        List<Integer> mutableTicket = new ArrayList<>(ticket);
-        mutableTicket.sort(Comparator.naturalOrder());
-
-        validateTicketNumbers(mutableTicket);
-
-        this.ticket = mutableTicket;
+        this.ticket = mutableNumberList.stream().map(LottoNumber::new).toList();
     }
 
-    public List<Integer> getTicket() {
-        return ticket;
+    public List<LottoNumber> getTicket() {
+        return new ArrayList<>(ticket);
     }
 
     public CorrectCount calculateCorrectCount(LottoTicket winnerTicket) {
         int correctCount = 0;
-
-        for (int lottoNumber : winnerTicket.ticket) {
-            if (ticket.contains(lottoNumber)) {
-                correctCount++;
-            }
-        }
+        List<Integer> ticketNumberList = ticket.stream().map(LottoNumber::getNumber).toList();
+        correctCount += (int) winnerTicket
+                .getTicket()
+                .stream()
+                .map(LottoNumber::getNumber)
+                .filter(ticketNumberList::contains)
+                .count();
 
         return new CorrectCount(correctCount);
     }
 
-    private void validateTicket(List<Integer> ticket) {
-        if (ticket == null) {
-            throw new NullTicketException("ticket is null");
-        }
-
+    private void validateTicket(List<LottoNumber> ticket) {
         if (ticket.isEmpty()) {
             throw new EmptyTicketException("ticket is empty");
         }
 
-        if (ticket.size() != TICKET_LENGTH) {
-            throw new WrongSizeTicketException("ticket size should have " +  TICKET_LENGTH + " numbers");
+        int ticketLength = ticket.size();
+        int actualTicketLength = ticket.stream().map(LottoNumber::getNumber).distinct().toList().size();
+
+        if (ticketLength != actualTicketLength) {
+            throw new DuplicateNumbersException("duplicate numbers are not allowed in ticket");
+        }
+
+        if (ticketLength != TICKET_LENGTH) {
+            throw new WrongTicketLengthException("ticket should have " +  TICKET_LENGTH + " numbers");
         }
     }
-
-    private void validateTicketNumbers(List<Integer> ticket) {
-        if (ticket.get(0) < 1 || ticket.get(TICKET_LENGTH - 1) > 45) {
-            throw new WrongNumberInTicketException("wrong number in ticket");
-        }
-    }
-
-
 }

@@ -1,5 +1,6 @@
 package view;
 
+import domain.LottoNumber;
 import domain.LottoTicket;
 import domain.wrappers.LottoPayment;
 
@@ -7,8 +8,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class InputView {
-    public static final int TICKET_LENGTH = 6;
-
     private final Scanner scanner;
 
     public InputView() {
@@ -29,6 +28,7 @@ public class InputView {
                 Arrays.stream(scanner.nextLine().split(","))
                         .map(String::trim)
                         .map(Integer::parseInt)
+                        .map(LottoNumber::new)
                         .toList()
         );
     }
