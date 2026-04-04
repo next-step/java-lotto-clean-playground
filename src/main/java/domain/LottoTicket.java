@@ -7,6 +7,8 @@ import java.util.Set;
 
 
 public class LottoTicket {
+    private static final int TICKET_LENGTH = 6;
+
     private final List<LottoNumber> lottoNumbers;
 
     public LottoTicket(List<LottoNumber> lottoNumbers) {
@@ -17,9 +19,12 @@ public class LottoTicket {
 
     private static void validate(List<LottoNumber> lottoNumbers) {
         int length = lottoNumbers.size();
+        if(length != TICKET_LENGTH) {
+            throw new IllegalArgumentException("로또 티켓의 숫자는 " + TICKET_LENGTH + "개여야 합니다.");
+        }
         Set<LottoNumber> ticketSet = new HashSet<>(lottoNumbers);
         if (ticketSet.size() != length) {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("로또 티켓의 숫자는 중복될 수 없습니다.");
         }
     }
 
