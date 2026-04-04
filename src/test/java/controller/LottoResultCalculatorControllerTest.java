@@ -41,7 +41,7 @@ class LottoResultCalculatorControllerTest {
     }
 
     @Test
-    @DisplayName("통합 테스트: 결과 계산")
+    @DisplayName("결과 계산 컨트롤러")
     void calculate_calls_intended_functions() {
         // given
         MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);

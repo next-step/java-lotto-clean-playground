@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 class LottoPurchaseControllerTest {
     @Test
-    @DisplayName("통합 테스트: 로또 구매")
+    @DisplayName("로또 구매 컨트롤러 테스트")
     void purchase_calls_intended_functions() {
         // given
         LottoBatch lottoBatch = new LottoBatch();
