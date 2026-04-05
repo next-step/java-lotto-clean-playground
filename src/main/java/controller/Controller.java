@@ -60,7 +60,7 @@ public class Controller {
 
 
     private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber,LottoTickets manualLottoTickets) {
-        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto, bonusNumber);
+        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto, bonusNumber,manualLottoTickets);
         int purchaseAmount = trialNumber.getPurchaseAmount();
         OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
     }

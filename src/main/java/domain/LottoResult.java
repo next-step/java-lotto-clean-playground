@@ -8,11 +8,11 @@ public class LottoResult {
     private final Map<Rank, Integer> matchResults;
     private final int bonusNumber;
 
-    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber) {
+    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber,LottoTickets manualLottoTickets) {
         this.matchResults = new EnumMap<>(Rank.class);
         this.bonusNumber = bonusNumber;
         initResults();
-        calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers(), this.bonusNumber);
+        calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers(), this.bonusNumber, manualLottoTickets.getLottoNumber());
     }
 
     private void initResults() {
@@ -21,8 +21,10 @@ public class LottoResult {
         }
     }
 
-    private void calculate(List<Lotto> lottoNumber, List<Integer> winningNumbers, int bonusNumber) {
+    private void calculate(List<Lotto> lottoNumber, List<Integer> winningNumbers, int bonusNumber,List<Lotto> manullottoNumber) {
         lottoNumber.forEach(lotto -> updateMatchResult(lotto, winningNumbers, bonusNumber));
+        manullottoNumber.forEach(lotto -> updateMatchResult(lotto, winningNumbers, bonusNumber));
+
     }
 
     private void updateMatchResult(Lotto lotto, List<Integer> winningNumbers, int bonusNumber) {
