@@ -1,4 +1,5 @@
 package controller;
+
 import domain.Lotto;
 import domain.Lottos;
 import view.ErrorView;
@@ -8,10 +9,15 @@ import view.ResultView;
 import java.util.List;
 
 public class LottoController {
+    private final InputView inputView;
+    private final ResultView resultView;
+    private final ErrorView errorView;
 
-    InputView inputView = new InputView();
-    ResultView resultView = new ResultView();
-    ErrorView errorView = new ErrorView();
+    public LottoController(InputView inputView, ResultView resultView, ErrorView errorView) {
+        this.inputView = inputView;
+        this.resultView = resultView;
+        this.errorView = errorView;
+    }
 
     public void run() {
         int purchaseAmount = inputView.getPurchaseAmount();
