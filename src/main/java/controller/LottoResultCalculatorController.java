@@ -5,7 +5,7 @@ import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
-import common.ValidateLotto;
+import model.WinCondition;
 import view.InputView;
 import view.OutputView;
 
@@ -28,14 +28,15 @@ public class LottoResultCalculatorController {
     public void calculate() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
         int bonusNumber = this.inputView.getBonusNumber();
+        WinCondition winCondition = new WinCondition(winningNumbers, bonusNumber);
 
-        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winningNumbers, bonusNumber);
+        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winCondition);
         this.outputView.printAllStats(wrapLottoIntoDto(matchCountPerLotto));
-        this.outputView.printReturnRatio(getReturnRatio(winningNumbers, bonusNumber));
+        this.outputView.printReturnRatio(getReturnRatio(winCondition));
     }
 
-    protected double getReturnRatio(List<Integer> winningNumbers, int bonusNumber) {
-        List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers, bonusNumber);
+    protected double getReturnRatio(WinCondition winCondition) {
+        List<LottoResult> result = this.getMatchCountPerLotto(winCondition);
 
         double earnResult = 0.0;
         for (LottoResult lottoResult : result) {
@@ -45,13 +46,11 @@ public class LottoResultCalculatorController {
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());
     }
 
-    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers, int bonusNumber) {
-        ValidateLotto.checkIfNumbersAreValid(winningNumbers);
-        ValidateLotto.checkBonusBall(bonusNumber);
+    protected List<LottoResult> getMatchCountPerLotto(WinCondition winCondition) {
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(lotto.compareWithWinningNumbers(winningNumbers, bonusNumber));
+            result.add(lotto.compareWithWinCondition(winCondition));
         }
 
         return result;

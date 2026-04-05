@@ -15,7 +15,7 @@ public class ValidateLotto {
         checkIfNumbersAreInRange(numbers);
     }
 
-    private static void checkIfNumbersAreInRange(List<Integer> numbers){
+    public static void checkIfNumbersAreInRange(List<Integer> numbers){
         List<Integer> notInRange = numbers.stream().filter(
                 i-> i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || i > LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER
         ).toList();
@@ -49,9 +49,5 @@ public class ValidateLotto {
        if (price < LottoSettingsConstants.LOTTO_PRICE){
            throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
        }
-    }
-
-    public static void checkBonusBall(int ballNumber) {
-        checkIfNumbersAreInRange(List.of(ballNumber));
     }
 }

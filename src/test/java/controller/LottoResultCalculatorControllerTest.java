@@ -8,11 +8,13 @@ import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
+import model.WinCondition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -64,10 +66,11 @@ class LottoResultCalculatorControllerTest {
         lottoBatch.add(new Lotto(List.of(1,2,3,7,11,12)));
         List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
         int bonusNumber = 7;
+        WinCondition winCondition = new WinCondition(winningNumbers, bonusNumber);
         MockLottoResultCalculatorController controller = new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
 
         //when
-        double returnRatio = controller.getReturnRatio(winningNumbers, bonusNumber);
+        double returnRatio = controller.getReturnRatio(winCondition);
 
         // then
         double expectedRatio = ((double) LottoResult.THREE.getReward()+ LottoResult.SIX.getReward() + LottoResult.FIVE_WITH_BONUS.getReward())

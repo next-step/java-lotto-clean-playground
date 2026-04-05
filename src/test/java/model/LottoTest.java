@@ -78,11 +78,12 @@ public class LottoTest {
     void testGetLottoResult(){
         //given
         List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
         int bonusBall = 11;
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
+        WinCondition winCondition = new WinCondition(winningNumbers, bonusBall);
 
         //when
-        LottoResult lottoResult = lotto.compareWithWinningNumbers(winningNumbers, bonusBall);
+        LottoResult lottoResult = lotto.compareWithWinCondition(winCondition);
 
         //then
         Assertions.assertEquals(LottoResult.THREE, lottoResult);

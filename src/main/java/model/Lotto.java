@@ -20,11 +20,11 @@ public class Lotto {
         return List.copyOf(this.numbers);
     }
 
-    public LottoResult compareWithWinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
+    public LottoResult compareWithWinCondition(WinCondition winCondition) {
         Set<Integer> lottoNumbers= new HashSet<>(this.numbers);
-        Set<Integer> winningNumberSet = new HashSet<>(winningNumbers);
+        Set<Integer> winningNumberSet = new HashSet<>(winCondition.numbers());
         lottoNumbers.retainAll(winningNumberSet);
 
-        return LottoResult.calculateLottoResult(lottoNumbers.size(), Collections.frequency(this.numbers, bonusNumber));
+        return LottoResult.calculateLottoResult(lottoNumbers.size(), Collections.frequency(this.numbers, winCondition.bonusNumber()));
     }
 }

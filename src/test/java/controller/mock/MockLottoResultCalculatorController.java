@@ -4,9 +4,11 @@ import controller.LottoResultCalculatorController;
 import dto.LottoResultDto;
 import model.LottoBatch;
 import model.LottoResult;
+import model.WinCondition;
 import view.InputView;
 import view.OutputView;
 
+import javax.swing.*;
 import java.util.List;
 
 public class MockLottoResultCalculatorController extends LottoResultCalculatorController {
@@ -18,14 +20,14 @@ public class MockLottoResultCalculatorController extends LottoResultCalculatorCo
     }
 
     @Override
-    public List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers, int bonusNumber) {
-        this.mockMatchCountPerLotto = super.getMatchCountPerLotto(winningNumbers, bonusNumber);
+    public List<LottoResult> getMatchCountPerLotto(WinCondition winCondition) {
+        this.mockMatchCountPerLotto = super.getMatchCountPerLotto(winCondition);
         return this.mockMatchCountPerLotto;
     }
 
     @Override
-    public double getReturnRatio(List<Integer> winningNumbers, int bonusNumber) {
-        return super.getReturnRatio(winningNumbers, bonusNumber);
+    public double getReturnRatio(WinCondition winCondition) {
+        return super.getReturnRatio(winCondition);
     }
 
     @Override
