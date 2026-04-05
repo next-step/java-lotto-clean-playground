@@ -1,10 +1,6 @@
 package domain;
 
-import dto.WinningResult;
-
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class WinningStatistics {
@@ -35,21 +31,6 @@ public class WinningStatistics {
         int rankCount = statistics.get(rank);
         rankCount++;
         statistics.put(rank, rankCount);
-    }
-
-    public List<WinningResult> winningResults() {
-        return Arrays.stream(Rank.values())
-                .filter(Rank::isWinning)
-                .map(this::toWinningResult)
-                .toList();
-    }
-
-    private WinningResult toWinningResult(Rank rank) {
-        return new WinningResult(
-                rank.getMatchCount(),
-                rank.getPrizeMoney(),
-                statistics.get(rank)
-        );
     }
 
     public int countOf(Rank rank) {
