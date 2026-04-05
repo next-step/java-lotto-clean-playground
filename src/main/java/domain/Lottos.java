@@ -21,23 +21,23 @@ public class Lottos {
     private List<Lotto> generateLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
-            List<Integer> numbers = getSingleLotto();
-            lottos.add(new Lotto(numbers));
+            Lotto lotto = getSingleLotto();
+            lottos.add(lotto);
         }
         return lottos;
     }
 
-    private ArrayList<Integer> getSingleLotto() {
+    private Lotto getSingleLotto() {
         ArrayList<Integer> lottoNumbers = generateLottoNumbersArray();
         Collections.shuffle(lottoNumbers);
         List<Integer> subNumbers = lottoNumbers.subList(0, 6);
         Collections.sort(subNumbers);
-        return new ArrayList<>(subNumbers);
+        return new Lotto(subNumbers);
     }
 
     private ArrayList<Integer> generateLottoNumbersArray() {
         ArrayList<Integer> lottoNumbers = new ArrayList<>(LOTTO_UPPER_BOUND);
-        for(int i = 0 ; i < LOTTO_UPPER_BOUND ; i++) {
+        for (int i = 0; i < LOTTO_UPPER_BOUND; i++) {
             lottoNumbers.add(i, i + 1);
         }
         return lottoNumbers;
