@@ -29,7 +29,7 @@ public class IntegrationTest {
         numberGenerator = new LottoNumberGenerator();
         lottoFactory = new LottoFactory(numberGenerator);
 
-        String testWinningNumbers = "2000\n1, 2, 3, 4, 5, 6";
+        String testWinningNumbers = "2000\n1, 2, 3, 4, 5, 6\n7";
         inputView = new InputView(new Scanner(new ByteArrayInputStream(testWinningNumbers.getBytes())));
         outputView = new OutputView();
 

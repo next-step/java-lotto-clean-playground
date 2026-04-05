@@ -22,7 +22,7 @@ import java.util.Scanner;
 class LottoResultCalculatorControllerTest {
     LottoBatch lottoBatch;
 
-    String testWinningNumbers;
+    String testWinningNumbersAndBonusNumber;
     Scanner scanner;
     MockInputView inputView;
     MockOutputView outputView;
@@ -34,8 +34,8 @@ class LottoResultCalculatorControllerTest {
         lottoBatch.add(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
         lottoBatch.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
 
-        this.testWinningNumbers = "1, 2, 3, 4, 5, 6";
-        this.scanner = new Scanner(new ByteArrayInputStream(testWinningNumbers.getBytes()));
+        this.testWinningNumbersAndBonusNumber = "1, 2, 3, 4, 5, 6\n7";
+        this.scanner = new Scanner(new ByteArrayInputStream(testWinningNumbersAndBonusNumber.getBytes()));
         this.inputView = new MockInputView(scanner);
         this.outputView = new MockOutputView();
     }
@@ -61,14 +61,16 @@ class LottoResultCalculatorControllerTest {
     @DisplayName("로또 수익률 계산")
     void testGetReturnRate(){
         //given
+        lottoBatch.add(new Lotto(List.of(1,2,3,7,11,12)));
         List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
+        int bonusNumber = 7;
         MockLottoResultCalculatorController controller = new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
 
         //when
-        double returnRatio = controller.getReturnRatio(winningNumbers);
+        double returnRatio = controller.getReturnRatio(winningNumbers, bonusNumber);
 
         // then
-        double expectedRatio = ((double) LottoResult.THREE.getReward()+ LottoResult.SIX.getReward())
+        double expectedRatio = ((double) LottoResult.THREE.getReward()+ LottoResult.SIX.getReward() + LottoResult.FIVE_WITH_BONUS.getReward())
                 / (this.lottoBatch.getLottoCount() * LottoSettingsConstants.LOTTO_PRICE);
         Assertions.assertEquals(returnRatio, expectedRatio);
     }

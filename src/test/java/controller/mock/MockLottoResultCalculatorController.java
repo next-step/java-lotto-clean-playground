@@ -18,14 +18,14 @@ public class MockLottoResultCalculatorController extends LottoResultCalculatorCo
     }
 
     @Override
-    public List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
-        this.mockMatchCountPerLotto = super.getMatchCountPerLotto(winningNumbers);
+    public List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers, int bonusNumber) {
+        this.mockMatchCountPerLotto = super.getMatchCountPerLotto(winningNumbers, bonusNumber);
         return this.mockMatchCountPerLotto;
     }
 
     @Override
-    public double getReturnRatio(List<Integer> winningNumbers) {
-        return super.getReturnRatio(winningNumbers);
+    public double getReturnRatio(List<Integer> winningNumbers, int bonusNumber) {
+        return super.getReturnRatio(winningNumbers, bonusNumber);
     }
 
     @Override

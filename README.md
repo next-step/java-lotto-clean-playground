@@ -46,3 +46,6 @@
 - [x] OutputView 추가
   - [x] 출력 내용 수정
 - [ ] test 작성
+  - [x] bonusball로 인해 생긴 오류 수정
+  - [ ] bonusball 관련 test (범위)
+  - [ ] ENUM 관련 반환값 test 수정

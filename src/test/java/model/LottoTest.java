@@ -79,11 +79,14 @@ public class LottoTest {
         //given
         List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
         Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
+        int bonusBall = 11;
 
         //when
-        LottoResult lottoResult = lotto.compareWithWinningNumbers(winningNumbers);
+        LottoResult lottoResult = lotto.compareWithWinningNumbers(winningNumbers, bonusBall);
 
         //then
         Assertions.assertEquals(LottoResult.THREE, lottoResult);
     }
+
+    // TODO: 2등 산출 테스스
 }
