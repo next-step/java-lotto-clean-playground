@@ -35,7 +35,7 @@ public class OutputView {
 
     private void printRankCount(List<WinningResult> winningResults) {
         for (WinningResult winningResult : winningResults) {
-            System.out.println(winningResult.matchCount() + "개 일치" + " (" + winningResult.prizeMoney() + "원)-" + winningResult.count() + "개");
+            System.out.println(winningResult.message() + " - " + winningResult.count() + "개");
         }
     }
 

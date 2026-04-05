@@ -5,6 +5,7 @@ import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class LottoController {
@@ -26,7 +27,8 @@ public class LottoController {
         outputView.printLottos(lottos.toNumberLists());
 
         List<Integer> winningNumbers = inputView.readWinningNumbers();
-        Lotto winningLotto = new Lotto(toLottoNumbers(winningNumbers));
+        BonusBall bonusBall = new BonusBall(new LottoNumber(inputView.readBonusBall()));
+        WinningLotto winningLotto = new WinningLotto(new Lotto(toLottoNumbers(winningNumbers)), bonusBall);
 
         WinningStatistics winningStatistics = WinningStatistics.from(lottos, winningLotto);
 
@@ -41,15 +43,14 @@ public class LottoController {
     }
 
     private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
-        return List.of(
-                createWinningResult(winningStatistics, Rank.THREE_MATCH),
-                createWinningResult(winningStatistics, Rank.FOUR_MATCH),
-                createWinningResult(winningStatistics, Rank.FIVE_MATCH),
-                createWinningResult(winningStatistics, Rank.SIX_MATCH)
-        );
+        return Arrays.stream(Rank.values())
+                .filter(Rank::isWinning)
+                .map(rank -> createWinningResult(winningStatistics, rank))
+                .toList();
     }
 
+
     private WinningResult createWinningResult(WinningStatistics winningStatistics, Rank rank) {
-        return new WinningResult(rank.getMatchCount(), rank.getPrizeMoney(), winningStatistics.countOf(rank));
+        return WinningResult.from(rank, winningStatistics.countOf(rank));
     }
 }

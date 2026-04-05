@@ -18,6 +18,11 @@ public class InputView {
         return parseWinningNumbers(input);
     }
 
+    public int readBonusBall() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     private List<Integer> parseWinningNumbers(String input) {
         return Arrays.stream(input.split(","))
                 .map(String::trim)

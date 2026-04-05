@@ -22,7 +22,7 @@ public class Lotto {
         return List.copyOf(numbers);
     }
 
-    private boolean contains(LottoNumber lottoNumber) {
+    public boolean contains(LottoNumber lottoNumber) {
         return numbers.contains(lottoNumber);
     }
 
