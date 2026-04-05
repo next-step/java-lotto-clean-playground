@@ -44,10 +44,4 @@ public class ValidateLotto {
             throw new IllegalArgumentException(ErrorMessageConstants.NO_DUPLICATES_ALLOWED);
         }
     }
-
-    public static void checkPriceHigherThanSingleLottoPrice(int price) {
-       if (price < LottoSettingsConstants.LOTTO_PRICE){
-           throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
-       }
-    }
 }

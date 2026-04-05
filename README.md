@@ -58,8 +58,8 @@
 - [x] InputView 수정
   - [x] 사용자에게 수동 구매 갯수 입력 받기 구현
   - [x] 사용자에게 로또 입력 받기 구현
-- [ ] LottoFactory 수정
-  - [ ] List<Integer>로 로또 생성 구현
-- [ ] LottoPurchaseController 수정
+- [x] LottoFactory 수정
+  - [x] List<Integer>로 로또 생성 구현
+- [x] LottoPurchaseController 수정
 - [ ] OutputView 수정
   - [ ] `printPurchaseResult` 문구 수정
