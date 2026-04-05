@@ -23,7 +23,7 @@ class InputViewTest {
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, inputView::getUserCashInput);
 
         // then
-        Assertions.assertEquals(ErrorMessageConstants.NOT_A_SINGLE_NUMBER, exception.getMessage());
+        Assertions.assertEquals(ErrorMessageConstants.NOT_A_NUMBER, exception.getMessage());
     }
 
     @Test

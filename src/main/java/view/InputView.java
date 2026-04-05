@@ -17,29 +17,44 @@ public class InputView {
     public int getUserCashInput() {
         System.out.println(ScriptConstants.INPUT_CASH_SCRIPT);
         String userInput = scanner.nextLine();
-        try {
-            return Integer.parseInt(userInput.strip());
-        } catch (Exception e) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NOT_A_SINGLE_NUMBER);
-        }
+        return convertStringToInteger(userInput);
     }
 
     public List<Integer> getWinningNumbers() {
         System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
-        List<String> userInputs = parseByDelimiter(scanner.nextLine());
-        List<Integer> result = new ArrayList<>();
+        return this.parseUserInputIntoLottoNumbers(scanner.nextLine());
+    }
 
-        for (String userInput: userInputs) {
-            result.add(this.convertStringToInteger(userInput));
+    public int getManualPurchaseCount() {
+        // TODO : write script
+        System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
+        String userInputs = scanner.nextLine();
+        return convertStringToInteger(userInputs);
+    }
+
+    public List<List<Integer>> getManuallyPurchasedLottoNumbers(int count) {
+        // TODO : write script
+        System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < count; i ++) {
+            String userInput = scanner.nextLine();
+            List<Integer> userInputAsLottoNumber = this.parseUserInputIntoLottoNumbers(userInput);
+            result.add(userInputAsLottoNumber);
         }
-
+        
         return result;
     }
 
-    public Integer getBonusNumber() {
-        System.out.println(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
-        String userInput = scanner.nextLine();
-        return convertStringToInteger(userInput);
+    protected List<Integer> parseUserInputIntoLottoNumbers(String userInput) {
+        List<String> userInputParsed = parseByDelimiter(userInput);
+        List<Integer> result = new ArrayList<>();
+
+        for (String currentToken: userInputParsed) {
+            result.add(this.convertStringToInteger(currentToken));
+        }
+
+        return result;
     }
 
     protected List<String> parseByDelimiter(String userInput) {
@@ -51,6 +66,12 @@ public class InputView {
         }
 
         return result;
+    }
+
+    public Integer getBonusNumber() {
+        System.out.println(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
+        String userInput = scanner.nextLine();
+        return convertStringToInteger(userInput);
     }
 
     protected int convertStringToInteger(String stringToConvert) {
