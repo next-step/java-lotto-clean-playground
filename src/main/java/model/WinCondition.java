@@ -25,7 +25,7 @@ public record WinCondition(List<Integer> numbers, int bonusNumber) {
     }
 
     private void checkIfNumberInRange(int ballNumber){
-        ValidateLotto.checkIfNumbersAreInRange(List.of(ballNumber));
+        ValidateLotto.checkIfNumbersAreInLottoNumberRange(List.of(ballNumber));
     }
 
     private void checkIfBonusNumberIsInNumbers(int ballNumber, List<Integer> numbers){

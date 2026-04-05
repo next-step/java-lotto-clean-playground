@@ -32,7 +32,7 @@ public class LottoPurchaseController {
     public void purchase() {
         int userCashInput = inputView.getUserCashInput();
         int manualPurchaseCount = inputView.getManualPurchaseCount();
-        ValidatePurchase.validatePurchase(userCashInput, manualPurchaseCount);
+        ValidatePurchase.checkIfPurchaseInfoIsValid(userCashInput, manualPurchaseCount);
 
         purchaseLottosManually(manualPurchaseCount);
         purchaseGeneratedLottos(userCashInput - manualPurchaseCount * LottoSettingsConstants.LOTTO_PRICE);

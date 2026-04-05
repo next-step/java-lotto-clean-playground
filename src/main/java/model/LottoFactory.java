@@ -1,9 +1,7 @@
 package model;
 
 import common.NumberGenerator;
-import common.ValidatePurchase;
 import constants.LottoSettingsConstants;
-import common.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.HashSet;

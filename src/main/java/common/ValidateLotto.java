@@ -12,10 +12,10 @@ public class ValidateLotto {
         checkIfDuplicateExist(numbers);
         checkIfNotEnoughNumbers(numbers);
         checkIfTooManyNumbers(numbers);
-        checkIfNumbersAreInRange(numbers);
+        checkIfNumbersAreInLottoNumberRange(numbers);
     }
 
-    public static void checkIfNumbersAreInRange(List<Integer> numbers){
+    public static void checkIfNumbersAreInLottoNumberRange(List<Integer> numbers){
         List<Integer> notInRange = numbers.stream().filter(
                 i-> i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || i > LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER
         ).toList();
