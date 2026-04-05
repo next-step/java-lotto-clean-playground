@@ -12,9 +12,9 @@ public class MockOutputView extends OutputView {
     public boolean printReturnRatioCalled = false;
 
     @Override
-    public void printPurchaseResult(List<LottoDto> lottoDtoList) {
+    public void printPurchaseResult(List<LottoDto> lottoDtoList, int manuallyPurchasedCount) {
         printPurchaseResultCalled = true;
-        super.printPurchaseResult(lottoDtoList);
+        super.printPurchaseResult(lottoDtoList, manuallyPurchasedCount);
     }
 
     @Override

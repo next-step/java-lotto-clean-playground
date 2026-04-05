@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printPurchaseResult(List<LottoDto> lottoDtoList) {
+    public void printPurchaseResult(List<LottoDto> lottoDtoList, int manuallyPurchasedCount) {
         System.out.println();
-        System.out.printf(ScriptConstants.OUTPUT_PURCHASE_SCRIPT, lottoDtoList.size());
+        System.out.printf(ScriptConstants.OUTPUT_PURCHASE_SCRIPT, manuallyPurchasedCount, lottoDtoList.size() - manuallyPurchasedCount);
         System.out.println();
         for (LottoDto lottoDto: lottoDtoList) {
             System.out.println(lottoDto.numbers().toString());

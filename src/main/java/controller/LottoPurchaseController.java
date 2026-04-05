@@ -39,7 +39,7 @@ public class LottoPurchaseController {
         List<LottoDto> lottoDtos = lottoBatch.getAllLotto().stream()
                     .map(this::wrapLottoIntoDto).toList();
 
-        outputView.printPurchaseResult(lottoDtos);
+        outputView.printPurchaseResult(lottoDtos, manualPurchaseCount);
     }
 
     private void purchaseLottosManually(int manualPurchaseCount) {

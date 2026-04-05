@@ -61,5 +61,5 @@
 - [x] LottoFactory 수정
   - [x] List<Integer>로 로또 생성 구현
 - [x] LottoPurchaseController 수정
-- [ ] OutputView 수정
-  - [ ] `printPurchaseResult` 문구 수정
+- [x] OutputView 수정
+  - [x] `printPurchaseResult` 문구 수정
