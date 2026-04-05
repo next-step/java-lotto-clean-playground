@@ -52,6 +52,7 @@ class LottoResultCalculatorControllerTest {
 
         // then
         Assertions.assertTrue(inputView.getWinningNumbersCalled);
+        Assertions.assertEquals(1, inputView.getSingleIntegerFromUserAfterShowingAScriptCalledCount);
         Assertions.assertTrue(outputView.printStatsCalled);
         Assertions.assertTrue(outputView.printReturnRatioCalled);
         Assertions.assertTrue(controller.wrapLottoIntoDtoCalled);
