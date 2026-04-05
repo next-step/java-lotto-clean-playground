@@ -13,14 +13,16 @@ public class Controller {
     public void run() {
         TrialNumber trialNumber = getTrialNumber();
 
-        int manualLottoNumberTrialCount = getManualLottoNumberTrialCount(); // 수동으로 받을 로또 번호
-        List<Lotto> manualPurchaseLotto = getManualLottoNumber(manualLottoNumberTrialCount);// 수동으로 로또 번호 받을 티켓
+        int manualLottoNumberTrialCount = getManualLottoNumberTrialCount();
+        List<Lotto> manualPurchaseLotto = getManualLottoNumber(manualLottoNumberTrialCount);
 
         LottoTickets manualLottoTickets = new LottoTickets(manualPurchaseLotto);
         LottoTickets lottoTickets = issueLottoTickets(trialNumber);
 
         Lotto winningLotto = getWinningLotto();
         int bonusNumber = getBonusNumber();
+        validateBonusNumber(winningLotto,bonusNumber);
+
         calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, bonusNumber,manualLottoTickets);
     }
 
@@ -81,7 +83,6 @@ public class Controller {
         });
     }
 
-
     private void validateBonusNumber(Lotto winningLotto, int bonusNumber) {
         if (bonusNumber < 1 || bonusNumber > 45) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
@@ -90,7 +91,6 @@ public class Controller {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }
-
 
 
     private <T> T retry(Supplier<T> supplier) {
