@@ -30,6 +30,9 @@ public class InputView {
         String[] numbersArr = numbers.split(",");
 
         for (String number : numbersArr) {
+            if (Integer.parseInt(number) < 0) {
+                throw new IllegalArgumentException("당첨번호는 음수일 수 없어요!");
+            }
             winningNumbers.add(Integer.parseInt(number.trim()));
         }
 
