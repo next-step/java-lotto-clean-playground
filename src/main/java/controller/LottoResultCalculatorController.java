@@ -47,6 +47,7 @@ public class LottoResultCalculatorController {
 
     protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers, int bonusNumber) {
         ValidateLotto.checkIfNumbersAreValid(winningNumbers);
+        ValidateLotto.checkBonusBall(bonusNumber);
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : lottoBatch.getAllLotto()) {

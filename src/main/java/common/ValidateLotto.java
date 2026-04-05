@@ -50,4 +50,8 @@ public class ValidateLotto {
            throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
        }
     }
+
+    public static void checkBonusBall(int ballNumber) {
+        checkIfNumbersAreInRange(List.of(ballNumber));
+    }
 }
