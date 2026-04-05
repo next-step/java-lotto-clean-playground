@@ -36,6 +36,12 @@ public class InputView {
         return result;
     }
 
+    public Integer getBonusNumber() {
+        System.out.println(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
+        String userInput = scanner.nextLine();
+        return convertStringToInteger(userInput);
+    }
+
     protected List<String> parseByDelimiter(String userInput) {
         List<String> result = new ArrayList<String>();
 

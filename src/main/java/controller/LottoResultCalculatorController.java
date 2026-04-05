@@ -27,14 +27,15 @@ public class LottoResultCalculatorController {
 
     public void calculate() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
+        int bonusNumber = this.inputView.getBonusNumber();
 
-        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winningNumbers);
-        this.outputView.printStats(wrapLottoIntoDto(matchCountPerLotto));
-        this.outputView.printReturnRatio(getReturnRatio(winningNumbers));
+        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winningNumbers, bonusNumber);
+        this.outputView.printAllStats(wrapLottoIntoDto(matchCountPerLotto));
+        this.outputView.printReturnRatio(getReturnRatio(winningNumbers, bonusNumber));
     }
 
-    protected double getReturnRatio(List<Integer> winningNumbers) {
-        List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers);
+    protected double getReturnRatio(List<Integer> winningNumbers, int bonusNumber) {
+        List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers, bonusNumber);
 
         double earnResult = 0.0;
         for (LottoResult lottoResult : result) {
@@ -44,12 +45,12 @@ public class LottoResultCalculatorController {
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());
     }
 
-    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
+    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers, int bonusNumber) {
         ValidateLotto.checkIfNumbersAreValid(winningNumbers);
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(lotto.compareWithWinningNumbers(winningNumbers));
+            result.add(lotto.compareWithWinningNumbers(winningNumbers, bonusNumber));
         }
 
         return result;

@@ -18,6 +18,8 @@ public class LottoSettingsConstants {
     public static final int THREE_MATCH_PRICE = 5000;
     public static final int FOUR_MATCH_PRICE= 50000;
     public static final int FIVE_MATCH_PRICE = 1500000;
+    public static final int FIVE_WITH_BONUS_MATCH_PRICE = 30000000;
     public static final int SIX_MATCH_PRICE = 2000000000;
-    public static final List<LottoResult> WINNING_LOTTO_RESULT_ASCENDING_ORDER = new ArrayList<>(List.of(LottoResult.THREE, LottoResult.FOUR, LottoResult.FIVE, LottoResult.SIX));
+    public static final List<LottoResult> WINNING_LOTTO_RESULT_ASCENDING_ORDER = new ArrayList<>(List.of(
+            LottoResult.THREE, LottoResult.FOUR, LottoResult.FIVE, LottoResult.FIVE_WITH_BONUS, LottoResult.SIX));
 }

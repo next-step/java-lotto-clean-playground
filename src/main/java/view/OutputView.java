@@ -20,15 +20,24 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printStats(LottoResultDto lottoResultDto) {
+    public void printAllStats(LottoResultDto lottoResultDto) {
         System.out.println(ScriptConstants.OUTPUT_STAT_HEADER_SCRIPT);
 
         for (Map.Entry<LottoResult, Integer> result : lottoResultDto.lottoResults().entrySet()) {
             LottoResult currentResult = result.getKey();
             Integer resultCount= result.getValue();
-            System.out.printf(ScriptConstants.OUTPUT_STAT_SCRIPT, currentResult.getMatchCount(), currentResult.getReward(), resultCount);
-            System.out.println();
+            printSingleStats(currentResult, resultCount);
         }
+        System.out.println();
+    }
+
+    private void printSingleStats (LottoResult lottoResult, int resultCount) {
+        if (lottoResult == LottoResult.FIVE_WITH_BONUS ) {
+            System.out.printf(ScriptConstants.OUTPUT_SECOND_PLACE_STAT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
+            System.out.println();
+            return;
+        }
+        System.out.printf(ScriptConstants.OUTPUT_BASIC_LOTTO_RESULT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
         System.out.println();
     }
 

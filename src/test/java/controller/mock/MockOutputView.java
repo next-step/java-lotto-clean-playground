@@ -18,9 +18,9 @@ public class MockOutputView extends OutputView {
     }
 
     @Override
-    public void printStats(LottoResultDto matchCountPerLotto) {
+    public void printAllStats(LottoResultDto matchCountPerLotto) {
         printStatsCalled = true;
-        super.printStats(matchCountPerLotto);
+        super.printAllStats(matchCountPerLotto);
     }
 
     @Override
