@@ -12,7 +12,8 @@ public class Controller {
         TrialNumber trialNumber = getTrialNumber();
         LottoTickets lottoTickets = issueLottoTickets(trialNumber);
         Lotto winningLotto = getWinningLotto();
-        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto);
+        int BounusNumber = getBounusNumber();
+        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, BounusNumber);
     }
 
     private TrialNumber getTrialNumber() {
@@ -40,10 +41,17 @@ public class Controller {
         });
     }
 
-    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto) {
-        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto);
+    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int BounusNumber) {
+        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto,BounusNumber);
         int purchaseAmount = trialNumber.getPurchaseAmount();
         OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
+    }
+    private int getBounusNumber(){
+        return retry(() -> {
+            OutputView.printBounusNumber();
+            int BonusNumber = InputView.inputBounusNumber();
+            return BonusNumber;
+        });
     }
 
     private <T> T retry(Supplier<T> supplier) {

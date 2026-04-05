@@ -6,11 +6,14 @@ import java.util.Map;
 
 public class LottoResult {
     private final Map<Rank, Integer> matchResults;
+    private int bounusNumber;
 
-    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto) {
+    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto, int bounusNumber) {
         this.matchResults = new EnumMap<>(Rank.class);
+        this.bounusNumber = bounusNumber;
         initResults();
         calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers());
+
     }
 
     private void initResults() {
