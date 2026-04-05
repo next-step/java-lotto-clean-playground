@@ -9,28 +9,53 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoResultTest {
 
-    @DisplayName("당첨 번호와 로또 번호를 비교하여 올바른 수익률을 계산한다.")
+    @DisplayName("자동과 수동 로또 티켓의 당첨 결과를 합산하여 정확히 계산한다.")
+    @Test
+    void calculate() {
+        // given
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        int bonusNumber = 7;
+
+        Lotto autoLotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6)); // SIX
+        Lotto autoLotto2 = new Lotto(List.of(1, 2, 3, 10, 11, 12)); // THREE
+        LottoTickets autoTickets = new LottoTickets(List.of(autoLotto1, autoLotto2));
+
+        Lotto manualLotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 7)); // FIVE_BONUS
+        Lotto manualLotto2 = new Lotto(List.of(10, 11, 12, 13, 14, 15)); // NONE
+        LottoTickets manualTickets = new LottoTickets(List.of(manualLotto1, manualLotto2));
+
+        // when
+        LottoResult lottoResult = new LottoResult(autoTickets, winningLotto, bonusNumber, manualTickets);
+
+        // then
+        assertThat(lottoResult.getRankCount(Rank.SIX)).isEqualTo(1);
+        assertThat(lottoResult.getRankCount(Rank.FIVE_BONUS)).isEqualTo(1);
+        assertThat(lottoResult.getRankCount(Rank.FIVE)).isEqualTo(0);
+        assertThat(lottoResult.getRankCount(Rank.THREE)).isEqualTo(1);
+        assertThat(lottoResult.getRankCount(Rank.NONE)).isEqualTo(1);
+    }
+
+    @DisplayName("총 구입 금액과 당첨금을 바탕으로 수익률을 소수점 둘째 자리 아래로 내림하여 계산한다.")
     @Test
     void calculateProfitRate() {
         // given
         Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        int bonusNumber = 7;
 
-        Lotto lotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6)); // 1등 (2,000,000,000)
-        Lotto lotto2 = new Lotto(List.of(1, 2, 3, 10, 11, 12)); // 5등 (5,000)
-        Lotto lotto3 = new Lotto(List.of(10, 11, 12, 13, 14, 15)); // 꽝 (0)
+        Lotto autoLotto = new Lotto(List.of(1, 2, 3, 10, 11, 12)); // THREE (5,000원)
+        LottoTickets autoTickets = new LottoTickets(List.of(autoLotto));
 
-        LottoTickets tickets = new LottoTickets(List.of(lotto1, lotto2, lotto3));
-        int purchaseAmount = 3000;
+        Lotto manualLotto = new Lotto(List.of(10, 11, 12, 13, 14, 15)); // NONE (0원)
+        LottoTickets manualTickets = new LottoTickets(List.of(manualLotto));
+
+        LottoResult lottoResult = new LottoResult(autoTickets, winningLotto, bonusNumber, manualTickets);
+
+        int purchaseAmount = 8000;
 
         // when
-        LottoResult result = new LottoResult(tickets, winningLotto);
-        double profitRate = result.calculateProfitRate(purchaseAmount);
+        double profitRate = lottoResult.calculateProfitRate(purchaseAmount);
 
-        // then
-        // (2000000000 + 5000) / 3000 = 666668.333... -> 666668.33 (소수점 둘째자리 버림/반올림 처리 기준)
-        assertThat(profitRate).isEqualTo(666668.33);
-        assertThat(result.getRankCount(Rank.SIX)).isEqualTo(1);
-        assertThat(result.getRankCount(Rank.THREE)).isEqualTo(1);
-        assertThat(result.getRankCount(Rank.NONE)).isEqualTo(1);
+        // then (0.625 내림 -> 0.62)
+        assertThat(profitRate).isEqualTo(0.62);
     }
 }
