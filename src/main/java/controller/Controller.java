@@ -10,35 +10,51 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Controller {
+
     public void run() {
         TrialNumber trialNumber = getTrialNumber();
 
-        int manualLottoNumberTrialCount = getManualLottoNumberTrialCount();
-        List<Lotto> manualPurchaseLotto = getManualLottoNumber(manualLottoNumberTrialCount);
+        int manualTrialCount = getManualTrialCount();
+        LottoTickets manualTickets = getManualLottoTickets(manualTrialCount);
 
-        LottoTickets manualLottoTickets = new LottoTickets(manualPurchaseLotto);
-        LottoTickets lottoTickets = issueLottoTickets(trialNumber);
+        int autoTrialCount = trialNumber.getTrialNumber() - manualTrialCount;
+        LottoTickets autoTickets = issueLottoTickets(autoTrialCount);
 
         Lotto winningLotto = getWinningLotto();
-        int bonusNumber = getBonusNumber();
-        validateBonusNumber(winningLotto,bonusNumber);
+        int bonusNumber = getBonusNumber(winningLotto);
 
-        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, bonusNumber,manualLottoTickets);
+        calculateAndPrintResults(trialNumber, autoTickets, winningLotto, bonusNumber, manualTickets);
     }
 
     private TrialNumber getTrialNumber() {
         return retry(() -> {
             OutputView.printInputPurchaseAmount();
-            int amount = InputView.inputPurchaseMoney();
-            return new TrialNumber(amount);
+            return new TrialNumber(InputView.inputPurchaseMoney());
         });
     }
 
-    private LottoTickets issueLottoTickets(TrialNumber trialNumber) {
-        int trialCount = trialNumber.getTrialNumber();
+    private int getManualTrialCount() {
+        return retry(() -> {
+            OutputView.printManualTrialCount();
+            return InputView.inputManualLottoNumberTrialCount();
+        });
+    }
+
+    private LottoTickets getManualLottoTickets(int trialCount) {
+        return retry(() -> {
+            OutputView.printManualLottoTickets();
+            List<Lotto> manualLottos = IntStream.range(0, trialCount)
+                    .mapToObj(i -> new Lotto(InputView.inputManualLottoNumber()))
+                    .collect(Collectors.toList());
+            return new LottoTickets(manualLottos);
+        });
+    }
+
+    private LottoTickets issueLottoTickets(int trialCount) {
         LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
         List<Lotto> generatedLottos = lottoMachine.issue(trialCount);
         LottoTickets lottoTickets = new LottoTickets(generatedLottos);
+
         OutputView.printLottoNumber(lottoTickets, trialCount);
         return lottoTickets;
     }
@@ -46,41 +62,22 @@ public class Controller {
     private Lotto getWinningLotto() {
         return retry(() -> {
             OutputView.printInputWinningNumber();
-            List<Integer> inputWinningNumbers = InputView.inputWinningNumber();
-            return new Lotto(inputWinningNumbers);
+            return new Lotto(InputView.inputWinningNumber());
         });
     }
 
-    private List<Lotto> getManualLottoNumber(int manualLottoNumberTrialCount) {
-        return retry(() -> {
-            OutputView.printManualLottoTickets();
-            return IntStream.range(0, manualLottoNumberTrialCount)
-                    .mapToObj(i -> new Lotto(InputView.inputManualLottoNumber()))
-                    .collect(Collectors.toList());
-        });
-    }
-
-
-    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber,LottoTickets manualLottoTickets) {
-        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto, bonusNumber,manualLottoTickets);
-        int purchaseAmount = trialNumber.getPurchaseAmount();
-        OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
-    }
-
-    private int getBonusNumber() {
+    private int getBonusNumber(Lotto winningLotto) {
         return retry(() -> {
             OutputView.printBonusNumber();
             int bonusNumber = InputView.inputBonusNumber();
+            validateBonusNumber(winningLotto, bonusNumber);
             return bonusNumber;
         });
     }
 
-    private int getManualLottoNumberTrialCount() {
-        return retry(() -> {
-            OutputView.printManualTrialCount();
-            int manualLottoNumberTrialCount = InputView.inputManualLottoNumberTrialCount();
-            return manualLottoNumberTrialCount;
-        });
+    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets autoTickets, Lotto winningLotto, int bonusNumber, LottoTickets manualTickets) {
+        LottoResult statisticsResult = new LottoResult(autoTickets, winningLotto, bonusNumber, manualTickets);
+        OutputView.printWinningStatistics(statisticsResult, trialNumber.getPurchaseAmount());
     }
 
     private void validateBonusNumber(Lotto winningLotto, int bonusNumber) {
@@ -91,7 +88,6 @@ public class Controller {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }
-
 
     private <T> T retry(Supplier<T> supplier) {
         try {
