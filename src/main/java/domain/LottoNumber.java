@@ -1,8 +1,8 @@
 package domain;
 
 public class LottoNumber {
-    private static final int MAX_NUMBER = 45;
-    private static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int MIN_NUMBER = 1;
     private final int number;
 
     public LottoNumber(int number) {
