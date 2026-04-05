@@ -2,7 +2,6 @@ package model;
 
 import common.ValidateLotto;
 import constants.ErrorMessageConstants;
-import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;

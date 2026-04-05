@@ -1,6 +1,5 @@
 package model;
 
-import common.ValidateLotto;
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
