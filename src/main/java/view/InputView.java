@@ -26,15 +26,14 @@ public class InputView {
     }
 
     public int getManualPurchaseCount() {
-        // TODO : write script
-        System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
+        System.out.println(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_COUNT_SCRIPT);
         String userInputs = scanner.nextLine();
         return convertStringToInteger(userInputs);
     }
 
     public List<List<Integer>> getManuallyPurchasedLottoNumbers(int count) {
         // TODO : write script
-        System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
+        System.out.println(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_LOTTO_SCRIPT);
         List<List<Integer>> result = new ArrayList<>();
 
         for (int i = 0; i < count; i ++) {
@@ -42,7 +41,7 @@ public class InputView {
             List<Integer> userInputAsLottoNumber = this.parseUserInputIntoLottoNumbers(userInput);
             result.add(userInputAsLottoNumber);
         }
-        
+
         return result;
     }
 
