@@ -33,6 +33,9 @@ public class LottoController {
         try {
             List<Integer> numbers = inputView.getWinningNumbers();
             return new Lotto(numbers);
+        } catch (NumberFormatException e) {
+            errorView.printErrorMessage("숫자만 입력해주세요!");
+            return getValidWinningLotto();
         } catch (IllegalArgumentException e) {
             errorView.printErrorMessage(e.getMessage());
             return getValidWinningLotto();

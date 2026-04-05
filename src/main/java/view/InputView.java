@@ -9,11 +9,11 @@ public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
     public int getPurchaseAmount() {
-        while(true) {
+        while (true) {
             System.out.println("구입 금액을 입력해 주세요.");
             int amount = scanner.nextInt();
 
-            if(amount >= 1000) {
+            if (amount >= 1000) {
                 scanner.nextLine();
                 return amount;
             }
@@ -21,22 +21,16 @@ public class InputView {
         }
     }
 
-    public List<Integer> getWinningNumbers () {
+    public List<Integer> getWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해주세요.");
 
         List<Integer> winningNumbers = new ArrayList<>();
 
-        try {
-            String numbers = scanner.nextLine();
-            String[] numbersArr = numbers.split(",");
+        String numbers = scanner.nextLine();
+        String[] numbersArr = numbers.split(",");
 
-            for (String number : numbersArr) {
-                winningNumbers.add(Integer.parseInt(number.trim()));
-            }
-
-        } catch (NumberFormatException e) {
-            System.out.println("숫자만 입력해주세요!");
-            System.exit(-1);
+        for (String number : numbersArr) {
+            winningNumbers.add(Integer.parseInt(number.trim()));
         }
 
         return winningNumbers;
