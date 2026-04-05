@@ -41,8 +41,9 @@ public class LottoTest {
         List<LottoNumber> winningNumbers = Stream.of(2, 6, 7, 13, 14, 15)
                 .map(LottoNumber::valueOf)
                 .toList();
+        Lotto winningLotto = new Lotto(winningNumbers);
         //when
-        int matchCount = lotto.countMatchingNumbers(winningNumbers);
+        int matchCount = lotto.countMatchingNumbers(winningLotto);
         //then
         assertThat(matchCount)
                 .isEqualTo(3);

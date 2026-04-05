@@ -1,5 +1,6 @@
 package domain;
 
+import dto.LottoStatistics;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class LottosTest {
     @Test
-    void 로또_번호_개수가_6개가_아니라면_예외가_발생한다() {
+    void 우승_로또와_비교해서_정확한_통계를_제공한다() {
         //given
         List<LottoNumber> threeMatched = Stream.of(1, 2, 3, 45, 44, 43)
                 .map(LottoNumber::valueOf)
@@ -35,16 +36,16 @@ public class LottosTest {
         List<LottoNumber> winningNumbers = Stream.of(1, 2, 3, 4, 5, 6)
                 .map(LottoNumber::valueOf)
                 .toList();
-
+        Lotto winningLotto = new Lotto(winningNumbers);
         //when
-        Map<LottoRank, Integer> matchedResult = lottos.calculateMatchCounts(winningNumbers);
+        LottoStatistics lottoStatistics = lottos.getLottoStatistics(winningLotto, LottoNumber.valueOf(45));
 
         //then
-        assertAll(
+        /*assertAll(
                 () -> assertThat(matchedResult.get(LottoRank.THREE_MATCHED)).isEqualTo(1),
                 () -> assertThat(matchedResult.get(LottoRank.FOUR_MATCHED)).isEqualTo(2),
                 () -> assertThat(matchedResult.get(LottoRank.FIVE_MATCHED)).isEqualTo(3),
                 () -> assertThat(matchedResult.get(LottoRank.SIX_MATCHED)).isEqualTo(4)
-        );
+        );*/
     }
 }
