@@ -12,8 +12,8 @@ public class Controller {
         TrialNumber trialNumber = getTrialNumber();
         LottoTickets lottoTickets = issueLottoTickets(trialNumber);
         Lotto winningLotto = getWinningLotto();
-        int BounusNumber = getBounusNumber();
-        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, BounusNumber);
+        int bonusNumber = getBonusNumber(winningLotto);
+        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, bonusNumber);
     }
 
     private TrialNumber getTrialNumber() {
@@ -41,17 +41,28 @@ public class Controller {
         });
     }
 
-    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int BounusNumber) {
-        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto,BounusNumber);
+    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber) {
+        LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto, bonusNumber);
         int purchaseAmount = trialNumber.getPurchaseAmount();
         OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
     }
-    private int getBounusNumber(){
+
+    private int getBonusNumber(Lotto winningLotto) {
         return retry(() -> {
-            OutputView.printBounusNumber();
-            int BonusNumber = InputView.inputBounusNumber();
-            return BonusNumber;
+            OutputView.printBonusNumber();
+            int bonusNumber = InputView.inputBonusNumber();
+            validateBonusNumber(winningLotto, bonusNumber);
+            return bonusNumber;
         });
+    }
+
+    private void validateBonusNumber(Lotto winningLotto, int bonusNumber) {
+        if (bonusNumber < 1 || bonusNumber > 45) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+        }
+        if (winningLotto.getNumbers().contains(bonusNumber)) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
     }
 
     private <T> T retry(Supplier<T> supplier) {

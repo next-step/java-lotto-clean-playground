@@ -12,13 +12,13 @@ public class InputView {
 
     public static int inputPurchaseMoney() {
         String input = SCANNER.nextLine().trim();
-        validatePurchaseMoneyFormat(input); // 파싱 전 String 상태로 형식 검증
+        validatePurchaseMoneyFormat(input);
         return parseInt(input);
     }
 
     public static List<Integer> inputWinningNumber() {
         String winningNumber = SCANNER.nextLine();
-        validateWinningNumberFormat(winningNumber); // 파싱 전 String 상태로 형식 검증
+        validateWinningNumberFormat(winningNumber);
         return parse(winningNumber);
     }
 
@@ -29,11 +29,9 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
-
-
-    public static int inputBounusNumber() {
-        String bonusNumber = SCANNER.nextLine();
-        validateBonusNumberFormat(bonusNumber); // 파싱 전 String 상태로 형식 검증
+    public static int inputBonusNumber() {
+        String bonusNumber = SCANNER.nextLine().trim();
+        validateBonusNumberFormat(bonusNumber);
         return parseInt(bonusNumber);
     }
 
@@ -44,14 +42,14 @@ public class InputView {
     }
 
     private static void validateWinningNumberFormat(String input) {
-        // 숫자, 쉼표, 공백 외의 문자가 포함되어 있는지 정규표현식으로 검사
         if (!input.matches("^[0-9,\\s]+$")) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자, 공백, 쉼표(,)만 포함할 수 있습니다.");
         }
     }
-    private static void validateBonusNumberFormat(String input){
+
+    private static void validateBonusNumberFormat(String input) {
         if (!input.matches("^[0-9]+$")) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자만 있어야합니다..");
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자만 입력해야 합니다.");
         }
     }
 }

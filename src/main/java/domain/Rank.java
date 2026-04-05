@@ -9,6 +9,7 @@ public enum Rank {
     THREE(3, 5000),
     FOUR(4, 50000),
     FIVE(5, 1500000),
+    FIVE_BONUS(5, 30000000),
     SIX(6, 2000000000);
 
     private final int matchCount;
@@ -19,9 +20,12 @@ public enum Rank {
         this.prizeMoney = prizeMoney;
     }
 
-    public static Rank valueOfMatchCount(int matchCount) {
+    public static Rank valueOf(int matchCount, boolean matchBonus) {
+        if (matchCount == 5 && matchBonus) {
+            return FIVE_BONUS;
+        }
         return Arrays.stream(values())
-                .filter(rank -> rank.matchCount == matchCount)
+                .filter(rank -> rank.matchCount == matchCount && rank != FIVE_BONUS)
                 .findFirst()
                 .orElse(NONE);
     }
@@ -30,6 +34,13 @@ public enum Rank {
         return Arrays.stream(values())
                 .filter(rank -> rank != NONE)
                 .collect(Collectors.toList());
+    }
+
+    public String getMessage() {
+        if (this == FIVE_BONUS) {
+            return matchCount + "개 일치, 보너스 볼 일치 (" + prizeMoney + "원)- ";
+        }
+        return matchCount + "개 일치 (" + prizeMoney + "원)- ";
     }
 
     public int getPrizeMoney() {

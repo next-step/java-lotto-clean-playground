@@ -6,14 +6,13 @@ import java.util.Map;
 
 public class LottoResult {
     private final Map<Rank, Integer> matchResults;
-    private int bounusNumber;
+    private final int bonusNumber;
 
-    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto, int bounusNumber) {
+    public LottoResult(LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber) {
         this.matchResults = new EnumMap<>(Rank.class);
-        this.bounusNumber = bounusNumber;
+        this.bonusNumber = bonusNumber;
         initResults();
-        calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers());
-
+        calculate(lottoTickets.getLottoNumber(), winningLotto.getNumbers(), this.bonusNumber);
     }
 
     private void initResults() {
@@ -22,12 +21,15 @@ public class LottoResult {
         }
     }
 
-    private void calculate(List<Lotto> lottoNumber, List<Integer> winningNumbers) {
-        for (Lotto lotto : lottoNumber) {
-            int matchCount = countMatch(lotto.getNumbers(), winningNumbers);
-            Rank rank = Rank.valueOfMatchCount(matchCount);
-            matchResults.put(rank, matchResults.get(rank) + 1);
-        }
+    private void calculate(List<Lotto> lottoNumber, List<Integer> winningNumbers, int bonusNumber) {
+        lottoNumber.forEach(lotto -> updateMatchResult(lotto, winningNumbers, bonusNumber));
+    }
+
+    private void updateMatchResult(Lotto lotto, List<Integer> winningNumbers, int bonusNumber) {
+        int matchCount = countMatch(lotto.getNumbers(), winningNumbers);
+        boolean matchBonus = lotto.getNumbers().contains(bonusNumber);
+        Rank rank = Rank.valueOf(matchCount, matchBonus);
+        matchResults.put(rank, matchResults.get(rank) + 1);
     }
 
     private int countMatch(List<Integer> lottoNumber, List<Integer> winningNumbers) {
