@@ -3,41 +3,46 @@ package domain;
 import java.util.List;
 
 public class Lotto {
-    public static final int LOTTO_SIZE = 6;
-    private final List<LottoNumber> numbers;
+    public static final int LOTTO_NUMBER_COUNT = 6;
+    private final List<LottoNumber> lottoNumbers;
 
-    public Lotto(List<LottoNumber> numbers) {
-        validatorLotto(numbers);
-        this.numbers = numbers;
+    public Lotto(List<LottoNumber> lottoNumbers) {
+        validate(lottoNumbers);
+        this.lottoNumbers = lottoNumbers;
     }
 
-    public void validatorLotto(List<LottoNumber> numbers) {
-        if (numbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("로또 숫자 개수가 " + LOTTO_SIZE + "개여야 합니다.");
+    private void validate(List<LottoNumber> numbers) {
+        validateSize(numbers);
+        validateDuplicate(numbers);
+    }
+
+    private void validateSize(List<LottoNumber> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 숫자 개수가 " + LOTTO_NUMBER_COUNT + "개여야 합니다.");
         }
-        long distinctCount = numbers.stream().distinct().count();
+    }
+
+    private void validateDuplicate(List<LottoNumber> numbers) {
+        long distinctCount = numbers.stream()
+                .distinct()
+                .count();
+
         if (distinctCount != numbers.size()) {
             throw new IllegalArgumentException("중복된 로또 숫자가 존재합니다.");
         }
-
     }
 
     public List<LottoNumber> getLotto() {
-        return numbers;
+        return lottoNumbers;
     }
 
-    public int getMatchNumbers(Lotto winnernumbers) {
-        int matchCount = 0;
-        for (LottoNumber number : numbers) {
-            matchCount += winnernumbers.contain(number);
-        }
-        return matchCount;
+    public int getMatchNumbers(Lotto winnerNumbers) {
+        return (int) lottoNumbers.stream()
+                .filter(winnerNumbers::contains)
+                .count();
     }
 
-    private int contain(LottoNumber number) {
-        if (numbers.contains(number)) {
-            return 1;
-        }
-        return 0;
+    public boolean contains(LottoNumber number) {
+        return lottoNumbers.contains(number);
     }
 }
