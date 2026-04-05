@@ -10,15 +10,12 @@ public class WinningLotto {
         HashMap<MatchResult, Integer> resultMap = new HashMap<>();
 
         for (Lotto singleLotto : allLottos) {
-            int singleEqualCount = 0;
-            for (Integer number : winningNumbers) {
-                singleEqualCount += singleLotto.getWinningNumberMatchCount(number);
-            }
+            int singleEqualCount = singleLotto.getWinningNumberMatchCount(winningNumbers);
 
-            for (MatchResult result : MatchResult.values()) {
-                if (singleEqualCount == result.getMatchCount()) {
-                    resultMap.put(result, resultMap.getOrDefault(result, 0) + 1);
-                }
+            MatchResult result = MatchResult.getResultByMatchCount(singleEqualCount);
+
+            if (result != MatchResult.MISS) {
+                resultMap.put(result, resultMap.getOrDefault(result, 0) + 1);
             }
         }
 

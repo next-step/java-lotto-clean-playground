@@ -17,11 +17,14 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public int getWinningNumberMatchCount(Integer number) {
+    public int getWinningNumberMatchCount(List<Integer> winningNumbers) {
         int matchCount = 0;
-        if (numbers.contains(number)) {
-            matchCount++;
+        for (Integer number : winningNumbers) {
+            if (numbers.contains(number)) {
+                matchCount++;
+            }
         }
+
         return matchCount;
     }
 
