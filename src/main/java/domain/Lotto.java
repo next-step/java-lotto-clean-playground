@@ -21,14 +21,18 @@ public class Lotto {
         return new LottoStatus(numbers);
     }
 
-    public int countMatchingNumbers(List<LottoNumber> winningNumbers) {
+    public int countMatchingNumbers(Lotto otherLotto) {
         try {
             return Math.toIntExact(numbers.stream()
-                    .filter(winningNumbers::contains)
+                    .filter(otherLotto::contains)
                     .count());
         } catch (ArithmeticException e) {
             throw new IllegalArgumentException(ErrorMessage.OVERFLOW.getMessage());
         }
+    }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
     }
 
     private void validateLottoLength(List<LottoNumber> lottoNumbers) {
