@@ -1,6 +1,7 @@
 package controller;
 
 import constants.LottoSettingsConstants;
+import constants.ScriptConstants;
 import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
@@ -27,7 +28,7 @@ public class LottoResultCalculatorController {
 
     public void calculate() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
-        int bonusNumber = this.inputView.getBonusNumber();
+        int bonusNumber = this.inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
         WinCondition winCondition = new WinCondition(winningNumbers, bonusNumber);
 
         List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winCondition);

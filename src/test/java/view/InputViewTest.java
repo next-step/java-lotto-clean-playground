@@ -1,6 +1,7 @@
 package view;
 
 import constants.ErrorMessageConstants;
+import constants.ScriptConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,9 @@ class InputViewTest {
         InputView inputView = new InputView(scanner);
 
         // when
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, inputView::getUserCashInput);
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class,()-> {
+            inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT);
+        });
 
         // then
         Assertions.assertEquals(ErrorMessageConstants.NOT_A_NUMBER, exception.getMessage());
@@ -34,6 +37,6 @@ class InputViewTest {
         InputView inputView = new InputView(scanner);
 
         // when
-        Assertions.assertDoesNotThrow(inputView::getUserCashInput);
+        Assertions.assertDoesNotThrow(() -> inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT));
     }
 }

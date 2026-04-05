@@ -1,5 +1,6 @@
 package controller.mock;
 
+import constants.ScriptConstants;
 import view.InputView;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public class MockInputView extends InputView {
     }
 
     @Override
-    public int getUserCashInput() {
+    public int getSingleIntegerFromUserAfterShowingAScript(String message) {
         getUserCashInputCalled = true;
-        return super.getUserCashInput();
+        return super.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT);
     }
 
     @Override

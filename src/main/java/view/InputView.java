@@ -14,16 +14,10 @@ public class InputView {
         this.scanner = scanner;
     }
 
-    public int getUserCashInput() {
-        System.out.println(ScriptConstants.INPUT_CASH_SCRIPT);
+    public int getSingleIntegerFromUserAfterShowingAScript(String script) {
+        System.out.println(script);
         String userInput = scanner.nextLine();
         return convertStringToInteger(userInput);
-    }
-
-    public int getManualPurchaseCount() {
-        System.out.println(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_COUNT_SCRIPT);
-        String userInputs = scanner.nextLine();
-        return convertStringToInteger(userInputs);
     }
 
     public List<List<Integer>> getManuallyPurchasedLottoNumbers(int count) {
@@ -42,12 +36,6 @@ public class InputView {
     public List<Integer> getWinningNumbers() {
         System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
         return this.parseUserInputIntoLottoNumbers(scanner.nextLine());
-    }
-
-    public Integer getBonusNumber() {
-        System.out.println(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
-        String userInput = scanner.nextLine();
-        return convertStringToInteger(userInput);
     }
 
     protected List<Integer> parseUserInputIntoLottoNumbers(String userInput) {

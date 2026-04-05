@@ -2,6 +2,7 @@ package controller;
 
 import common.ValidatePurchase;
 import constants.LottoSettingsConstants;
+import constants.ScriptConstants;
 import dto.LottoDto;
 import model.Lotto;
 import model.LottoBatch;
@@ -30,8 +31,8 @@ public class LottoPurchaseController {
     }
 
     public void purchase() {
-        int userCashInput = inputView.getUserCashInput();
-        int manualPurchaseCount = inputView.getManualPurchaseCount();
+        int userCashInput = inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT);
+        int manualPurchaseCount = inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_COUNT_SCRIPT);
         ValidatePurchase.checkIfPurchaseInfoIsValid(userCashInput, manualPurchaseCount);
 
         purchaseLottosManually(manualPurchaseCount);
