@@ -9,16 +9,15 @@ public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
     public int getPurchaseAmount() {
-        while (true) {
-            System.out.println("구입 금액을 입력해 주세요.");
-            int amount = scanner.nextInt();
+        System.out.println("구입 금액을 입력해 주세요.");
+        int amount = scanner.nextInt();
 
-            if (amount >= 1000) {
-                scanner.nextLine();
-                return amount;
-            }
-            System.out.println("구입 가격은 1000원 이상의 양수로 입력해주세요!");
+        if(amount < 1000) {
+            throw new IllegalArgumentException("구입 금액은 천원 이상의 양수값을 입력해주세요!")
         }
+        scanner.nextLine();
+
+        return amount;
     }
 
     public List<Integer> getWinningNumbers() {

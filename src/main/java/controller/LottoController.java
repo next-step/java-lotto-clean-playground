@@ -20,8 +20,9 @@ public class LottoController {
     }
 
     public void run() {
-        int purchaseAmount = inputView.getPurchaseAmount();
+        int purchaseAmount = getValidPurchaseAmount();
         Lottos lottos = new Lottos(purchaseAmount);
+
         List<Lotto> allLottos = lottos.getLottos();
         resultView.printAllLottos(allLottos);
 
@@ -39,6 +40,18 @@ public class LottoController {
         } catch (IllegalArgumentException e) {
             errorView.printErrorMessage(e.getMessage());
             return getValidWinningLotto();
+        }
+    }
+
+    private int getValidPurchaseAmount() {
+        try {
+            return inputView.getPurchaseAmount();
+        } catch (NumberFormatException e) {
+            errorView.printErrorMessage("숫자만 입력해주세요!");
+            return getValidPurchaseAmount();
+        } catch (IllegalArgumentException e) {
+            errorView.printErrorMessage(e.getMessage());
+            return getValidPurchaseAmount();
         }
     }
 }
