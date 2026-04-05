@@ -12,9 +12,7 @@ public class WinningLotto {
         for (Lotto singleLotto : allLottos) {
             int singleEqualCount = 0;
             for (Integer number : winningNumbers) {
-                if (singleLotto.getNumbers().contains(number)) {
-                    singleEqualCount += 1;
-                }
+                singleEqualCount += singleLotto.getWinningNumberMatchCount(number);
             }
 
             for (MatchResult result : MatchResult.values()) {

@@ -17,6 +17,14 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public int getWinningNumberMatchCount(Integer number) {
+        int matchCount = 0;
+        if (numbers.contains(number)) {
+            matchCount++;
+        }
+        return matchCount;
+    }
+
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("당첨 숫자는 6개여야 해요.");
