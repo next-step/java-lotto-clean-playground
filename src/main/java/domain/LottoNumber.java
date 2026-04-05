@@ -9,12 +9,11 @@ import java.util.stream.IntStream;
 public class LottoNumber implements Comparable<LottoNumber> {
     private static final int LOTTO_MIN_RANGE = 1;
     private static final int LOTTO_MAX_RANGE = 45;
-
-    private final int number;
-
     public static final List<LottoNumber> CACHE = IntStream.rangeClosed(LOTTO_MIN_RANGE, LOTTO_MAX_RANGE)
             .mapToObj(LottoNumber::new)
             .toList();
+
+    private final int number;
 
     private LottoNumber(int number) {
         validateRange(number);
@@ -44,8 +43,8 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     @Override
-    public int compareTo(LottoNumber o) {
-        return number - o.number;
+    public int compareTo(LottoNumber other) {
+        return number - other.number;
     }
 
     @Override
