@@ -5,12 +5,13 @@ import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public record WinCondition(List<Integer> numbers, int bonusNumber) {
     public WinCondition(List<Integer> numbers, int bonusNumber) {
         ValidateLotto.checkIfNumbersAreValid(numbers);
-        this.checkBonusBall(bonusNumber);
+        this.checkBonusBall(bonusNumber, numbers);
         this.numbers = new ArrayList<>(numbers);
         this.bonusNumber= bonusNumber;
     }
@@ -19,9 +20,18 @@ public record WinCondition(List<Integer> numbers, int bonusNumber) {
         return List.copyOf(this.numbers);
     }
 
-    private void checkBonusBall(int ballNumber) {
-        if (ballNumber < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || ballNumber > LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NUMBER_OUT_OF_RANGE);
+    private void checkBonusBall(int ballNumber, List<Integer> numbers) {
+        checkIfNumberInRange(ballNumber);
+        checkIfBonusNumberIsInNumbers(ballNumber, numbers);
+    }
+
+    private void checkIfNumberInRange(int ballNumber){
+        ValidateLotto.checkIfNumbersAreInRange(List.of(ballNumber));
+    }
+
+    private void checkIfBonusNumberIsInNumbers(int ballNumber, List<Integer> numbers){
+        if (Collections.frequency(numbers, ballNumber) > 0) {
+            throw new IllegalArgumentException(ErrorMessageConstants.BONUS_NUMBER_IN_WINNING_NUMBER);
         }
     }
 }
