@@ -11,13 +11,23 @@ public class OutputView {
     public static final String PURCHASE_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
     public static final String LAST_WEEK_WINNING_NUMBER_MESSAGE = "지난 주 당첨 번호를 입력해 주세요.";
     public static final String BONUS_NUMBER_MESSAGE = "보너스 볼을 입력해 주세요.";
-
+    private static final String MANUAL_TRIAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
+    private static final String MANUAL_LOTTO_TICKETS ="수동으로 구매할 번호를 입력해 주세요.";
     public static void printInputPurchaseAmount() {
         System.out.println("\n" + PURCHASE_AMOUNT_MESSAGE);
     }
 
     public static void printInputWinningNumber() {
         System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
+    }
+
+    public static void printManualLottoTickets() {
+        System.out.println("\n" + MANUAL_LOTTO_TICKETS);
+    }
+
+
+    public static void printManualTrialCount() {
+        System.out.println("\n" + MANUAL_TRIAL_COUNT);
     }
 
     public static void printLottoNumber(LottoTickets lottoNumber, int count) {

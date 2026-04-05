@@ -6,14 +6,22 @@ import view.OutputView;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Controller {
     public void run() {
         TrialNumber trialNumber = getTrialNumber();
+
+        int manualLottoNumberTrialCount = getManualLottoNumberTrialCount(); // 수동으로 받을 로또 번호
+        List<Lotto> manualPurchaseLotto = getManualLottoNumber(manualLottoNumberTrialCount);// 수동으로 로또 번호 받을 티켓
+
+        LottoTickets manualLottoTickets = new LottoTickets(manualPurchaseLotto);
         LottoTickets lottoTickets = issueLottoTickets(trialNumber);
+
         Lotto winningLotto = getWinningLotto();
-        int bonusNumber = getBonusNumber(winningLotto);
-        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, bonusNumber);
+        int bonusNumber = getBonusNumber();
+        calculateAndPrintResults(trialNumber, lottoTickets, winningLotto, bonusNumber,manualLottoTickets);
     }
 
     private TrialNumber getTrialNumber() {
@@ -41,20 +49,38 @@ public class Controller {
         });
     }
 
-    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber) {
+    private List<Lotto> getManualLottoNumber(int manualLottoNumberTrialCount) {
+        return retry(() -> {
+            OutputView.printManualLottoTickets();
+            return IntStream.range(0, manualLottoNumberTrialCount)
+                    .mapToObj(i -> new Lotto(InputView.inputManualLottoNumber()))
+                    .collect(Collectors.toList());
+        });
+    }
+
+
+    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets lottoTickets, Lotto winningLotto, int bonusNumber,LottoTickets manualLottoTickets) {
         LottoResult statisticsResult = new LottoResult(lottoTickets, winningLotto, bonusNumber);
         int purchaseAmount = trialNumber.getPurchaseAmount();
         OutputView.printWinningStatistics(statisticsResult, purchaseAmount);
     }
 
-    private int getBonusNumber(Lotto winningLotto) {
+    private int getBonusNumber() {
         return retry(() -> {
             OutputView.printBonusNumber();
             int bonusNumber = InputView.inputBonusNumber();
-            validateBonusNumber(winningLotto, bonusNumber);
             return bonusNumber;
         });
     }
+
+    private int getManualLottoNumberTrialCount() {
+        return retry(() -> {
+            OutputView.printManualTrialCount();
+            int manualLottoNumberTrialCount = InputView.inputManualLottoNumberTrialCount();
+            return manualLottoNumberTrialCount;
+        });
+    }
+
 
     private void validateBonusNumber(Lotto winningLotto, int bonusNumber) {
         if (bonusNumber < 1 || bonusNumber > 45) {
@@ -64,6 +90,8 @@ public class Controller {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }
+
+
 
     private <T> T retry(Supplier<T> supplier) {
         try {

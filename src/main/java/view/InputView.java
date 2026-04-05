@@ -28,11 +28,21 @@ public class InputView {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+    public static List<Integer> inputManualLottoNumber(){
+        String manualLottoNumber = SCANNER.nextLine();
+        validateManualLottoNumberFormat(manualLottoNumber);
+        return parse(manualLottoNumber);
+    }
 
     public static int inputBonusNumber() {
         String bonusNumber = SCANNER.nextLine().trim();
         validateBonusNumberFormat(bonusNumber);
         return parseInt(bonusNumber);
+    }
+    public static int inputManualLottoNumberTrialCount(){
+        String manualLottoNumberTrialCount = SCANNER.nextLine().trim();
+        validateManualLottoNumberTrialCount(manualLottoNumberTrialCount);
+        return parseInt(manualLottoNumberTrialCount);
     }
 
     private static void validatePurchaseMoneyFormat(String input) {
@@ -50,6 +60,16 @@ public class InputView {
     private static void validateBonusNumberFormat(String input) {
         if (!input.matches("^[0-9]+$")) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자만 입력해야 합니다.");
+        }
+    }
+    private static void validateManualLottoNumberTrialCount(String input){
+        if (!input.matches("^[0-9]+$")) {
+            throw new IllegalArgumentException("[ERROR] 수동 횟수 번호엔 숫자만 있어야 합니다.");
+        }
+    }
+    private static void validateManualLottoNumberFormat(String input){
+        if (!input.matches("^[0-9,\\s]+$")) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자, 공백, 쉼표(,)만 포함할 수 있습니다.");
         }
     }
 }
