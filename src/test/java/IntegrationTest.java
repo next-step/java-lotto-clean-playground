@@ -29,8 +29,8 @@ public class IntegrationTest {
         numberGenerator = new LottoNumberGenerator();
         lottoFactory = new LottoFactory(numberGenerator);
 
-        String testWinningNumbers = "2000\n1\n1,2,3,7,8,9\n1, 2, 3, 4, 5, 6\n7";
-        inputView = new InputView(new Scanner(new ByteArrayInputStream(testWinningNumbers.getBytes())));
+        String testInput = "2000\n1\n1,2,3,7,8,9\n1, 2, 3, 4, 5, 6\n7";
+        inputView = new InputView(new Scanner(new ByteArrayInputStream(testInput.getBytes())));
         outputView = new OutputView();
 
         lottoPurchaseController = new LottoPurchaseController(

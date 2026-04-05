@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MockInputView extends InputView {
-    public boolean getUserCashInputCalled = false;
+    public int getSingleIntegerFromUserAfterShowingAScriptCalledCount = 0;
+    public boolean getManuallyPurchasedLottoNumbers = false;
     public boolean getWinningNumbersCalled = false;
 
     public MockInputView(Scanner scanner) {
@@ -16,7 +17,7 @@ public class MockInputView extends InputView {
 
     @Override
     public int getSingleIntegerFromUserAfterShowingAScript(String message) {
-        getUserCashInputCalled = true;
+        getSingleIntegerFromUserAfterShowingAScriptCalledCount += 1;
         return super.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT);
     }
 
@@ -24,5 +25,11 @@ public class MockInputView extends InputView {
     public List<Integer> getWinningNumbers() {
         getWinningNumbersCalled = true;
         return super.getWinningNumbers();
+    }
+
+    @Override
+    public List<List<Integer>> getManuallyPurchasedLottoNumbers(int count) {
+        this.getManuallyPurchasedLottoNumbers = true;
+        return super.getManuallyPurchasedLottoNumbers(count);
     }
 }

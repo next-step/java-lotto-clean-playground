@@ -30,8 +30,8 @@ class LottoPurchaseControllerTest {
         NumberGenerator testNumberGenerator = new TestNumberGenerator(testNumbers);
         MockLottoFactory lottoFactory = new MockLottoFactory(testNumberGenerator);
 
-        int testPrice = LottoSettingsConstants.LOTTO_PRICE * 2;
-        Scanner scanner = new Scanner(new ByteArrayInputStream(Integer.toString(testPrice).getBytes()));
+        String testInput = "2000\n1\n1,2,3,7,8,9";
+        Scanner scanner = new Scanner(new ByteArrayInputStream(testInput.getBytes()));
         MockInputView inputView = new MockInputView(scanner);
         MockOutputView outputView = new MockOutputView();
         MockLottoPurchaseController controller = new MockLottoPurchaseController(lottoBatch, lottoFactory, inputView, outputView);
@@ -41,8 +41,9 @@ class LottoPurchaseControllerTest {
 
         // then
         Assertions.assertTrue(outputView.printPurchaseResultCalled);
-        Assertions.assertTrue(inputView.getUserCashInputCalled);
-        Assertions.assertEquals(2, lottoFactory.generateLottoCalledCount);
+        Assertions.assertTrue(inputView.getManuallyPurchasedLottoNumbers);
+        Assertions.assertEquals(2, inputView.getSingleIntegerFromUserAfterShowingAScriptCalledCount);
+        Assertions.assertEquals(1, lottoFactory.generateLottoCalledCount);
         Assertions.assertEquals(2, controller.wrapLottoIntoDtoCallCount);
     }
 }
