@@ -63,7 +63,7 @@ class LottoResultCalculatorControllerTest {
     @DisplayName("로또 수익률 계산")
     void testGetReturnRate(){
         //given
-        lottoBatch.add(new Lotto(List.of(1,2,3,7,11,12)));
+        lottoBatch.add(new Lotto(List.of(1,2,3,4,5,7)));
         List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
         int bonusNumber = 7;
         WinCondition winCondition = new WinCondition(winningNumbers, bonusNumber);
@@ -83,7 +83,7 @@ class LottoResultCalculatorControllerTest {
     @DisplayName("List<LottoResult>를 LottoResultDto 출력순으로 포장한다.")
     void testWrapLottoResultIntoDto() {
         // given
-        List<LottoResult> testResult= new ArrayList<>(List.of(LottoResult.SIX, LottoResult.FIVE, LottoResult.FOUR, LottoResult.THREE));
+        List<LottoResult> testResult= new ArrayList<>(List.of(LottoResult.SIX, LottoResult.FIVE, LottoResult.FIVE_WITH_BONUS, LottoResult.FOUR, LottoResult.THREE));
         MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
 
         //when

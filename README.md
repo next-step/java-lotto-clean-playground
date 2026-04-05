@@ -49,4 +49,4 @@
 - [ ] test 작성
   - [x] bonusball로 인해 생긴 오류 수정
   - [x] bonusball 관련 test (범위)
-  - [ ] ENUM 관련 반환값 test 수정
+  - [x] ENUM 관련 반환값 test 수정
