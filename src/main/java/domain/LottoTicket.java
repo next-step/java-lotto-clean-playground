@@ -29,15 +29,23 @@ public class LottoTicket {
 
     public CorrectCount calculateCorrectCount(LottoTicket winnerTicket) {
         int correctCount = 0;
-        List<Integer> ticketNumberList = ticket.stream().map(LottoNumber::getNumber).toList();
-        correctCount += (int) winnerTicket
-                .getTicket()
-                .stream()
-                .map(LottoNumber::getNumber)
-                .filter(ticketNumberList::contains)
-                .count();
+
+        for (LottoNumber winnerLottoNumber : winnerTicket.getTicket()) {
+            correctCount += Boolean.compare(hasWinnerNumber(ticket, winnerLottoNumber), false);
+        }
 
         return new CorrectCount(correctCount);
+    }
+
+    private boolean hasWinnerNumber(List<LottoNumber> ticket, LottoNumber winnerLottoNumber) {
+        List<Integer> ticketNumberList = ticket.stream().map(LottoNumber::getNumber).toList();
+        int winnerNumber = winnerLottoNumber.getNumber();
+
+        if (ticketNumberList.contains(winnerNumber)) {
+            return true;
+        }
+
+        return false;
     }
 
     private void validateTicket(List<LottoNumber> ticket) {

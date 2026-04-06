@@ -3,7 +3,6 @@ package domain;
 import domain.wrappers.LottoPayment;
 import domain.wrappers.LottoResult;
 import domain.wrappers.TicketCount;
-import number_generator.From1to6NumberListGenerator;
 import number_generator.LottoNumberListGenerator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,11 +29,21 @@ class LottoTicketBundleTest {
         LottoResult result = bundle.createLottoResult(winnerTicket);
 
         // Then
-        Assertions.assertThat(result.getThreeCorrectCount()).isEqualTo(expectedResult.get(0));
-        Assertions.assertThat(result.getFourCorrectCount()).isEqualTo(expectedResult.get(1));
-        Assertions.assertThat(result.getFiveCorrectCount()).isEqualTo(expectedResult.get(2));
-        Assertions.assertThat(result.getSixCorrectCount()).isEqualTo(expectedResult.get(3));
+        org.junit.jupiter.api.Assertions.assertAll(
+                () -> Assertions.assertThat(result.getThreeCorrectCount()).isEqualTo(expectedResult.get(0)),
+                () -> Assertions.assertThat(result.getFourCorrectCount()).isEqualTo(expectedResult.get(1)),
+                () -> Assertions.assertThat(result.getFiveCorrectCount()).isEqualTo(expectedResult.get(2)),
+                () -> Assertions.assertThat(result.getSixCorrectCount()).isEqualTo(expectedResult.get(3))
+        );
     }
+
+    private static class From1to6NumberListGenerator implements LottoNumberListGenerator {
+        @Override
+        public List<Integer> generate() {
+            return List.of(1, 2, 3, 4, 5, 6);
+        }
+    }
+
 
     private static Stream<Arguments> winnerTicketAndLottoResultMethodSource() {
         return Stream.of(
