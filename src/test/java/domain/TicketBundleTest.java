@@ -1,9 +1,11 @@
 package domain;
 
-import domain.wrappers.LottoPayment;
-import domain.wrappers.LottoResult;
-import domain.wrappers.TicketCount;
-import number_generator.LottoNumberListGenerator;
+import domain.lotto.Number;
+import domain.lotto.Ticket;
+import domain.lotto.TicketBundle;
+import domain.lotto.wrappers.Payment;
+import domain.lotto.wrappers.Result;
+import domain.lotto.wrappers.TicketCount;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,19 +15,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-class LottoTicketBundleTest {
+class TicketBundleTest {
 
     @DisplayName("당첨 번호 조합에 따라 3~6개 일치 당첨 횟수가 정확히 계산된다.")
     @ParameterizedTest
     @MethodSource("winnerTicketAndLottoResultMethodSource")
-    void lottoResulTest(List<LottoNumber> winnerNumbers, List<Integer> expectedResult) {
+    void lottoResulTest(List<Number> winnerNumbers, List<Integer> expectedResult) {
         // Given
-        LottoTicketBundle bundle = new LottoTicketBundle();
-        bundle.createRandomTickets(new TicketCount(new LottoPayment(1000)), () -> List.of(1, 2, 3, 4, 5, 6));
-        LottoTicket winnerTicket = new LottoTicket(winnerNumbers);
+        TicketBundle bundle = new TicketBundle();
+        bundle.createRandomTickets(new TicketCount(new Payment(1000)), (count, min, max) -> List.of(1, 2, 3, 4, 5, 6));
+        Ticket winnerTicket = new Ticket(winnerNumbers);
 
         // When
-        LottoResult result = bundle.createLottoResult(winnerTicket);
+        Result result = bundle.createResult(winnerTicket);
 
         // Then
         org.junit.jupiter.api.Assertions.assertAll(
@@ -39,19 +41,19 @@ class LottoTicketBundleTest {
     private static Stream<Arguments> winnerTicketAndLottoResultMethodSource() {
         return Stream.of(
                 Arguments.of(Stream.of(1, 2, 3, 40, 41, 42)
-                                .map(LottoNumber::new)
+                                .map(Number::new)
                                 .toList(),
                         List.of(1, 0, 0, 0)),
                 Arguments.of(Stream.of(1, 2, 3, 4, 41, 42)
-                                .map(LottoNumber::new)
+                                .map(Number::new)
                                 .toList(),
                         List.of(0, 1, 0, 0)),
                 Arguments.of(Stream.of(1, 2, 3, 4, 5, 42)
-                                .map(LottoNumber::new)
+                                .map(Number::new)
                                 .toList(),
                         List.of(0, 0, 1, 0)),
                 Arguments.of(Stream.of(1, 2, 3, 4, 5, 6)
-                                .map(LottoNumber::new)
+                                .map(Number::new)
                                 .toList(),
                         List.of(0, 0, 0, 1))
         );

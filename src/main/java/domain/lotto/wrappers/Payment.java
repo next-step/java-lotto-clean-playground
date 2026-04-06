@@ -1,12 +1,12 @@
-package domain.wrappers;
+package domain.lotto.wrappers;
 
-import exception.NoPaymentException;
-import exception.WrongPaymentException;
+import domain.lotto.exception.NoPaymentException;
+import domain.lotto.exception.WrongPaymentException;
 
-public class LottoPayment {
+public class Payment {
     private final int value;
 
-    public LottoPayment(int value) {
+    public Payment(int value) {
         validatePositive(value);
         validateMultipleOf1000(value);
         this.value = value;

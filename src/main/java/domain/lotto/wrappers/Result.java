@@ -1,11 +1,11 @@
-package domain.wrappers;
+package domain.lotto.wrappers;
 
 import java.util.Collections;
 import java.util.List;
 
-import static domain.LottoConstants.*;
+import static domain.lotto.Constants.*;
 
-public class LottoResult {
+public class Result {
     public static final int THREE_CORRECT = 3;
     public static final int FOUR_CORRECT = 4;
     public static final int FIVE_CORRECT = 5;
@@ -16,7 +16,7 @@ public class LottoResult {
     private final int fiveCorrectCount;
     private final int sixCorrectCount;
 
-    public LottoResult(List<CorrectCount> correctCounts) {
+    public Result(List<CorrectCount> correctCounts) {
         List<Integer> correctCountList = correctCounts.stream().map(CorrectCount::getValue).toList();
         this.threeCorrectCount = Collections.frequency(correctCountList, THREE_CORRECT);
         this.fourCorrectCount = Collections.frequency(correctCountList, FOUR_CORRECT);

@@ -1,4 +1,4 @@
-package domain.wrappers;
+package domain.lotto.wrappers;
 
 public class CorrectCount {
     private final int value;

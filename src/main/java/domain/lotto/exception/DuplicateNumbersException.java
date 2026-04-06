@@ -1,4 +1,4 @@
-package exception;
+package domain.lotto.exception;
 
 public class DuplicateNumbersException extends IllegalArgumentException {
     public DuplicateNumbersException(String message) {
