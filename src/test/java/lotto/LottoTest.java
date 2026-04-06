@@ -33,13 +33,14 @@ public class LottoTest {
     @DisplayName("중복된 숫자가 있으면 DuplicateNumber 예외가 발생한다.")
     @Test
     void createLottoWithDuplicateNumbers() {
-        List<LottoNumber> duplicateNumbers = new ArrayList<>();
-        duplicateNumbers.add(new LottoNumber(3));
-        duplicateNumbers.add(new LottoNumber(3));
-        duplicateNumbers.add(new LottoNumber(4));
-        duplicateNumbers.add(new LottoNumber(6));
-        duplicateNumbers.add(new LottoNumber(7));
-        duplicateNumbers.add(new LottoNumber(10));
+        List<LottoNumber> duplicateNumbers = List.of(
+                new LottoNumber(3),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(6),
+                new LottoNumber(7),
+                new LottoNumber(10)
+        );
 
 
         assertThatThrownBy(() -> new Lotto(duplicateNumbers))
