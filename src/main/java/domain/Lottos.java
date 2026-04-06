@@ -2,43 +2,43 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Lottos {
 
-    private static final int PRICE = 1000;
+    private static final int LOTTO_SIZE = 6;
     private static final int LOTTO_UPPER_BOUND = 45;
     private final List<Lotto> lottos;
 
-    public Lottos(final int purchaseAmount) {
-        this.lottos = generateLottos(purchaseAmount / PRICE);
+    public Lottos(final PurchaseAmount purchaseAmount) {
+        this.lottos = generateLottos(purchaseAmount.getLottoCount());
     }
 
     public List<Lotto> getLottos() {
-        return lottos;
+        return Collections.unmodifiableList(lottos);
     }
 
     private List<Lotto> generateLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
-            List<Integer> numbers = getSingleLotto();
-            lottos.add(new Lotto(numbers));
+            lottos.add(new Lotto(getSingleLotto()));
         }
         return lottos;
     }
 
-    private ArrayList<Integer> getSingleLotto() {
-        ArrayList<Integer> lottoNumbers = generateLottoNumbersArray();
+    private List<LottoNumber> getSingleLotto() {
+        List<LottoNumber> lottoNumbers = generateLottoNumbersArray();
         Collections.shuffle(lottoNumbers);
-        List<Integer> subNumbers = lottoNumbers.subList(0, 6);
-        Collections.sort(subNumbers);
-        return new ArrayList<>(subNumbers);
+        List<LottoNumber> subNumbers = new ArrayList<>(lottoNumbers.subList(0, LOTTO_SIZE));
+        subNumbers.sort(Comparator.comparingInt(LottoNumber::getNumber));
+        return subNumbers;
     }
 
-    private ArrayList<Integer> generateLottoNumbersArray() {
-        ArrayList<Integer> lottoNumbers = new ArrayList<>(LOTTO_UPPER_BOUND);
-        for(int i = 0 ; i < LOTTO_UPPER_BOUND ; i++) {
-            lottoNumbers.add(i, i + 1);
+    private List<LottoNumber> generateLottoNumbersArray() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for (int i = 1; i <= LOTTO_UPPER_BOUND; i++) {
+            lottoNumbers.add(new LottoNumber(i));
         }
         return lottoNumbers;
     }

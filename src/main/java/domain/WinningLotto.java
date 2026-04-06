@@ -5,7 +5,7 @@ import java.util.List;
 
 public class WinningLotto {
 
-    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<Integer> winningNumbers) {
+    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<LottoNumber> winningNumbers) {
 
         HashMap<MatchResult, Integer> resultMap = new HashMap<>();
 
@@ -15,7 +15,7 @@ public class WinningLotto {
 
         for(Lotto singleLotto: allLottos) {
             int singleEqualCount = 0;
-            for (Integer number : winningNumbers) {
+            for (LottoNumber number : winningNumbers) {
                 if (singleLotto.getNumbers().contains(number)) {
                     singleEqualCount += 1;
                 }

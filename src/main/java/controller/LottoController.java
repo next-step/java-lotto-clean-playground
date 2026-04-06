@@ -1,6 +1,8 @@
 package controller;
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.Lottos;
+import domain.PurchaseAmount;
 import view.ErrorView;
 import view.InputView;
 import view.ResultView;
@@ -14,18 +16,18 @@ public class LottoController {
     private final ErrorView errorView = new ErrorView();
 
     public void run() {
-        int purchaseAmount = inputView.getPurchaseAmount();
+        PurchaseAmount purchaseAmount = inputView.getPurchaseAmount();
         Lottos lottos = new Lottos(purchaseAmount);
         List<Lotto> allLottos = lottos.getLottos();
         resultView.printAllLottos(allLottos);
 
         Lotto winningLotto = getValidWinningLotto();
-        resultView.printWinningLottoStatistics(purchaseAmount, winningLotto.getNumbers(), allLottos);
+        resultView.printWinningLottoStatistics(purchaseAmount.getLottoCount(), winningLotto.getNumbers(), allLottos);
     }
 
     private Lotto getValidWinningLotto() {
         try {
-            List<Integer> numbers = inputView.getWinningNumbers();
+            List<LottoNumber> numbers = inputView.getWinningNumbers();
             return new Lotto(numbers);
         } catch (IllegalArgumentException e) {
             errorView.printErrorMessage(e.getMessage());

@@ -1,9 +1,9 @@
 package view;
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.MatchResult;
 import domain.WinningLotto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ResultView {
         }
     }
 
-    public void printWinningLottoStatistics (final int purchaseAmount, List<Integer> winningNumbers, List<Lotto> allLottos) {
+    public void printWinningLottoStatistics (final int purchaseAmount, List<LottoNumber> winningNumbers, List<Lotto> allLottos) {
         HashMap<MatchResult, Integer> resultMap = winningLotto.getMatchResult(allLottos, winningNumbers);
 
         System.out.println("당첨 통계");
