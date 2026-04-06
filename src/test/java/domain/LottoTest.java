@@ -35,7 +35,7 @@ public class LottoTest {
     @Test
     void 로또_당첨_번호를_계산한다() {
         //given
-        Lotto lotto = new Lotto(Stream.of(45, 2, 18, 7, 9, 6)
+        Lotto lotto = new Lotto(Stream.of(2, 6, 7, 9, 18, 45)
                 .map(LottoNumber::valueOf)
                 .toList());
         List<LottoNumber> winningNumbers = Stream.of(2, 6, 7, 13, 14, 15)
