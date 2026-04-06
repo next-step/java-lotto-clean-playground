@@ -32,7 +32,7 @@ public class Main {
 
         LottoDraw draw = new LottoDraw(drawnLotto, receipt);
         System.out.println();
-        printResult(draw);
+        displayResult(draw);
     }
 
     private static LottoPurchase purchaseAndPrintLotto(int totalPrice) {
@@ -56,7 +56,7 @@ public class Main {
         }
     }
 
-    private static void printResult(LottoDraw draw) {
+    private static void displayResult(LottoDraw draw) {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
