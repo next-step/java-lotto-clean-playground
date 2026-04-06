@@ -3,7 +3,7 @@ package domain.lotto;
 import domain.lotto.wrappers.CorrectCount;
 import domain.lotto.wrappers.Result;
 import domain.lotto.wrappers.TicketCount;
-import number_generator.Count;
+import number_generator.wrappers.Count;
 import number_generator.NumberListGenerator;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package number_generator;
+package number_generator.wrappers;
 
 public class Count {
     private final int value;

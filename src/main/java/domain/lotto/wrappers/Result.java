@@ -5,12 +5,9 @@ import domain.lotto.Rank;
 import java.util.Collections;
 import java.util.List;
 
-public class Result {
-    public static final int THREE_CORRECT = 3;
-    public static final int FOUR_CORRECT = 4;
-    public static final int FIVE_CORRECT = 5;
-    public static final int SIX_CORRECT = 6;
+import static domain.lotto.Rank.*;
 
+public class Result {
     private final int threeCorrectCount;
     private final int fourCorrectCount;
     private final int fiveCorrectCount;
@@ -18,10 +15,10 @@ public class Result {
 
     public Result(List<CorrectCount> correctCounts) {
         List<Integer> correctCountList = correctCounts.stream().map(CorrectCount::getValue).toList();
-        this.threeCorrectCount = Collections.frequency(correctCountList, THREE_CORRECT);
-        this.fourCorrectCount = Collections.frequency(correctCountList, FOUR_CORRECT);
-        this.fiveCorrectCount = Collections.frequency(correctCountList, FIVE_CORRECT);
-        this.sixCorrectCount = Collections.frequency(correctCountList, SIX_CORRECT);
+        this.threeCorrectCount = Collections.frequency(correctCountList, THREE_CORRECT.getCorrectCount());
+        this.fourCorrectCount = Collections.frequency(correctCountList, FOUR_CORRECT.getCorrectCount());
+        this.fiveCorrectCount = Collections.frequency(correctCountList, FIVE_CORRECT.getCorrectCount());
+        this.sixCorrectCount = Collections.frequency(correctCountList, SIX_CORRECT.getCorrectCount());
     }
 
     public int getThreeCorrectCount() {
@@ -42,10 +39,10 @@ public class Result {
 
     public ProfitRate calculateProfitRate(TicketCount ticketCount) {
         int expense = ticketCount.getValue() * Payment.TICKET_PRICE;
-        int income = Rank.THREE_CORRECT.getPrizeMoney() * this.threeCorrectCount
-                + Rank.FOUR_CORRECT.getPrizeMoney() * this.fourCorrectCount
-                + Rank.FIVE_CORRECT.getPrizeMoney() * this.fiveCorrectCount
-                + Rank.SIX_CORRECT.getPrizeMoney() * this.sixCorrectCount;
+        int income = THREE_CORRECT.getPrizeMoney() * this.threeCorrectCount
+                + FOUR_CORRECT.getPrizeMoney() * this.fourCorrectCount
+                + FIVE_CORRECT.getPrizeMoney() * this.fiveCorrectCount
+                + SIX_CORRECT.getPrizeMoney() * this.sixCorrectCount;
 
         return  new ProfitRate(expense, income);
     }

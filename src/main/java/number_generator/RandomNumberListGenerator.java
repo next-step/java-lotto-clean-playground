@@ -1,5 +1,7 @@
 package number_generator;
 
+import number_generator.wrappers.Count;
+
 import java.util.*;
 
 public class RandomNumberListGenerator implements NumberListGenerator {
