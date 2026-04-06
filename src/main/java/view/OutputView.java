@@ -30,8 +30,8 @@ public class OutputView {
         System.out.println("\n" + MANUAL_TRIAL_COUNT);
     }
 
-    public static void printLottoNumber(LottoTickets lottoNumber, int count) {
-        System.out.println("\n" + count + "개를 구매했습니다.");
+    public static void printLottoNumber(LottoTickets lottoNumber, int count, int manualCount) {
+        System.out.println("\n" + "수동으로 " + manualCount + "장, 자동으로 " + count + "개를 구매했습니다.");
         for (Lotto lotto : lottoNumber.getLottoNumber()) {
             System.out.println(lotto.getNumbers());
         }
