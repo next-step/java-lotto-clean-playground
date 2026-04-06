@@ -3,8 +3,8 @@ package controller;
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.Lottos;
-import dto.LottoStatistics;
 import domain.strategy.NumbersGenerator;
+import dto.LottoStatistics;
 import view.InputView;
 import view.OutputView;
 
