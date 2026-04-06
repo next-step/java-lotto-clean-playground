@@ -1,42 +1,26 @@
 package lotto;
 
 import lotto.domain.*;
-import lotto.view.InputView;
-import lotto.view.OutputView;
-
-import java.util.List;
+import lotto.view.*;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoGame {
-    private static final int LOTTO_PRICE = 1000;
-
     public void run() {
-        int money = Integer.parseInt(InputView.inputMoney());
-        LottoTickets tickets = purchase(money); //LottoTickets 타입의 tickets라는 변수를 만들고, purchase(money)의 결과를 넣는다
-        OutputView.printTickets(tickets);
+        int money = InputView.inputMoney();
+        int manualCount = InputView.inputManualCount();
 
-        Lotto winningLotto = askWinningLotto();
-        showResult(tickets, winningLotto, money);
-    }
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        List<Lotto> manualTickets = IntStream.range(0, manualCount)
+                .mapToObj(i -> Lotto.from(InputView.inputNumbers())).collect(Collectors.toList());
 
-    private LottoTickets purchase(int money) {
-        int count = money / LOTTO_PRICE;
-        OutputView.printTicketCount(count);
-        return LottoTickets.generate(count);
-    }
+        LottoTickets totalTickets = LottoTickets.createCombined(manualTickets, (money / 1000) - manualCount);
+        OutputView.printPurchaseSummary(manualCount, (money / 1000) - manualCount);
+        OutputView.printTickets(totalTickets);
 
-    private Lotto askWinningLotto() {
-        String input = InputView.inputWinningNumbers(); //문자열을 입력받음( winningLotto)
-        List<Integer> numbers = java.util.Arrays.stream(input.split(","))
-                .map(String::trim) //공백 제거
-                .map(Integer::parseInt) //숫자로 변환
-                .collect(java.util.stream.Collectors.toList()); //리스트로 변환
-        return Lotto.from(numbers); //Lotto 객체로 변환
-    }
-
-    private void showResult(LottoTickets tickets, Lotto winningLotto, int money) {
-        LottoResult lottoResult = new LottoResult(tickets.matchAll(winningLotto));
-        double yield = lottoResult.calculateYield(money);
-
-        OutputView.printStatistics(lottoResult.getResult(), yield);
+        WinningLotto winningLotto = new WinningLotto(Lotto.from(InputView.inputWinningNumbers()), new LottoNumber(InputView.inputBonusNumber()));
+        LottoResult result = new LottoResult(totalTickets.matchAll(winningLotto));
+        OutputView.printStatistics(result.getResult(), result.calculateYield(money));
     }
 }
