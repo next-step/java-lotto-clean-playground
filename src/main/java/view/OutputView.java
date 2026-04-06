@@ -13,11 +13,11 @@ public class OutputView {
     }
 
     public void printInputManualCount() {
-        System.out.println("수동으로 구매할 로또 수를 입력해주세요.");
+        System.out.println("\n수동으로 구매할 로또 수를 입력해주세요.");
     }
 
     public void printInputManualNumbers() {
-        System.out.println("수동으로 구매할 번호를 입력해주세요.");
+        System.out.println("\n수동으로 구매할 번호를 입력해주세요.");
     }
 
     public void printQuantity(int num1, int num2) {
