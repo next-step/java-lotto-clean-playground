@@ -16,10 +16,6 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public List<LottoNumber> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
-
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("당첨 숫자는 6개여야 해요.");
@@ -30,5 +26,9 @@ public class Lotto {
         if (new HashSet<>(numbers).size() != numbers.size()) {
             throw new IllegalArgumentException("당첨 숫자에는 중복된 값이 들어올 수 없어요.");
         }
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(numbers);
     }
 }
