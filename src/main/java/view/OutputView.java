@@ -6,8 +6,8 @@ import java.util.List;
 
 public class OutputView {
 
-    public void printResultHeader(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public void printResultHeader(int manualCount, int autoCount) {
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
     }
 
     public void printLottos(List<List<Integer>> lottoNumbers) {

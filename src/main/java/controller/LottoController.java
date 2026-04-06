@@ -25,7 +25,8 @@ public class LottoController {
         Lottos manualLottos = toLottos(inputView.readManualNumbers(manualCount));
         Lottos lottos = lottoShop.purchase(purchaseAmount, manualLottos);
 
-        outputView.printResultHeader(lottos.size());
+        int autoCount = lottos.size() - manualCount;
+        outputView.printResultHeader(manualCount, autoCount);
         outputView.printLottos(lottos.toNumberLists());
 
         List<Integer> winningNumbers = inputView.readWinningNumbers();
