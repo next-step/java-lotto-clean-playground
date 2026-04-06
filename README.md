@@ -43,7 +43,7 @@ src/main/java/racingcar
 ├── controller
 │   ├── Validator.java              # 입력 검증
 │   └── LottoController.java        # 게임 흐름 제어
-├── model
+├── domain
 │   ├── Lotto.java                  # 로또 단일 객체 (불변)
 │   ├── Lottos.java                 # 로또 일급 컬렉션 (통계 산출 책임)
 │   ├── LottoNumber.java            # 로또 번호 객체 (캐싱 및 검증)

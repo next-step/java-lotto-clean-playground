@@ -2,6 +2,7 @@ package view;
 
 import domain.LottoRank;
 import dto.LottoStatistics;
+import dto.LottoStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,8 +24,10 @@ public class OutputView {
         System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", num1, num2);
     }
 
-    public void printElements(List<String> elements) {
-        elements.forEach(System.out::println);
+    public void printElements(List<LottoStatus> lottoStatuses) {
+        lottoStatuses.stream()
+                .map(LottoStatus::toString)
+                .forEach(System.out::println);
     }
 
     public void printPrompt() {

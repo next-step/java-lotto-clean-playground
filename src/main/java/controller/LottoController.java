@@ -4,8 +4,7 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.Lottos;
 import dto.LottoStatistics;
-import dto.LottoStatus;
-import util.NumbersGenerator;
+import domain.strategy.NumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
@@ -43,9 +42,7 @@ public class LottoController {
         Lottos lottos = generateLottos(manualAmount, autoAmount);
 
         outputView.printQuantity(manualAmount, autoAmount);
-        outputView.printElements(lottos.toStatus().stream()
-                .map(LottoStatus::toString)
-                .toList());
+        outputView.printElements(lottos.toStatus());
         return lottos;
     }
 

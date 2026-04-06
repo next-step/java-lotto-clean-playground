@@ -1,6 +1,6 @@
 import controller.LottoController;
 import controller.Validator;
-import util.LottoNumbersGenerator;
+import domain.strategy.LottoNumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
