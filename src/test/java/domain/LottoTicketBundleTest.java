@@ -20,10 +20,9 @@ class LottoTicketBundleTest {
     @MethodSource("winnerTicketAndLottoResultMethodSource")
     void lottoResulTest(List<LottoNumber> winnerNumbers, List<Integer> expectedResult) {
         // Given
-        LottoNumberListGenerator from1to6NumberListGenerator = new From1to6NumberListGenerator();
         LottoTicketBundle bundle = new LottoTicketBundle();
-        bundle.createRandomTickets(new TicketCount(new LottoPayment(1000)), from1to6NumberListGenerator);
-        LottoTicket winnerTicket = new  LottoTicket(winnerNumbers);
+        bundle.createRandomTickets(new TicketCount(new LottoPayment(1000)), () -> List.of(1, 2, 3, 4, 5, 6));
+        LottoTicket winnerTicket = new LottoTicket(winnerNumbers);
 
         // When
         LottoResult result = bundle.createLottoResult(winnerTicket);
@@ -36,14 +35,6 @@ class LottoTicketBundleTest {
                 () -> Assertions.assertThat(result.getSixCorrectCount()).isEqualTo(expectedResult.get(3))
         );
     }
-
-    private static class From1to6NumberListGenerator implements LottoNumberListGenerator {
-        @Override
-        public List<Integer> generate() {
-            return List.of(1, 2, 3, 4, 5, 6);
-        }
-    }
-
 
     private static Stream<Arguments> winnerTicketAndLottoResultMethodSource() {
         return Stream.of(
