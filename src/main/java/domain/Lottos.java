@@ -17,8 +17,8 @@ public class Lottos {
         this.lottos = List.copyOf(lottoList);
     }
 
-    public LottoStatistics getLottoStatistics(Lotto winningLotto, LottoNumber lottoNumber) {
-        Map<LottoRank, Integer> matchingCounts = calculateMatchedCounts(winningLotto, lottoNumber);
+    public LottoStatistics getLottoStatistics(Lotto winningLotto, LottoNumber bonusNumber) {
+        Map<LottoRank, Integer> matchingCounts = calculateMatchedCounts(winningLotto, bonusNumber);
         BigDecimal profitRate = calculateProfitRate(matchingCounts);
 
         return new LottoStatistics(matchingCounts, profitRate);
