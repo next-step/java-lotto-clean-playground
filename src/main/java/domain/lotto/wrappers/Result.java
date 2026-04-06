@@ -1,9 +1,9 @@
 package domain.lotto.wrappers;
 
+import domain.lotto.Rank;
+
 import java.util.Collections;
 import java.util.List;
-
-import static domain.lotto.Constants.*;
 
 public class Result {
     public static final int THREE_CORRECT = 3;
@@ -41,11 +41,11 @@ public class Result {
     }
 
     public ProfitRate calculateProfitRate(TicketCount ticketCount) {
-        int expense = ticketCount.getValue() * PRICE_OF_ONE_TICKET;
-        int income = THREE_CORRECT_PRIZE_MONEY * this.threeCorrectCount
-                + FOUR_CORRECT_PRIZE_MONEY * this.fourCorrectCount
-                + FIVE_CORRECT_PRIZE_MONEY * this.fiveCorrectCount
-                + SIX_CORRECT_PRIZE_MONEY * this.sixCorrectCount;
+        int expense = ticketCount.getValue() * Payment.TICKET_PRICE;
+        int income = Rank.THREE_CORRECT.getPrizeMoney() * this.threeCorrectCount
+                + Rank.FOUR_CORRECT.getPrizeMoney() * this.fourCorrectCount
+                + Rank.FIVE_CORRECT.getPrizeMoney() * this.fiveCorrectCount
+                + Rank.SIX_CORRECT.getPrizeMoney() * this.sixCorrectCount;
 
         return  new ProfitRate(expense, income);
     }

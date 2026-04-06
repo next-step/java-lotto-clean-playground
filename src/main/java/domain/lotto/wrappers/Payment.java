@@ -4,11 +4,13 @@ import domain.lotto.exception.NoPaymentException;
 import domain.lotto.exception.WrongPaymentException;
 
 public class Payment {
+    public static final int TICKET_PRICE = 1000;
+
     private final int value;
 
     public Payment(int value) {
         validatePositive(value);
-        validateMultipleOf1000(value);
+        validateMultipleOfTicketPrice(value);
         this.value = value;
     }
 
@@ -22,9 +24,9 @@ public class Payment {
         }
     }
 
-    private void validateMultipleOf1000(int value) {
-        if (value % 1000 != 0) {
-            throw new WrongPaymentException("You should pay multiple of 1000.");
+    private void validateMultipleOfTicketPrice(int value) {
+        if (value % TICKET_PRICE != 0) {
+            throw new WrongPaymentException("You should pay multiple of ticket price.");
         }
     }
 }

@@ -1,12 +1,10 @@
 package domain.lotto.wrappers;
 
-import domain.lotto.Constants;
-
 public class TicketCount {
     private final int value;
 
     public TicketCount(Payment payment) {
-        this.value = payment.getValue() / Constants.PRICE_OF_ONE_TICKET;
+        this.value = payment.getValue() / Payment.TICKET_PRICE;
     }
 
     public int getValue() {

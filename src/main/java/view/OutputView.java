@@ -1,7 +1,7 @@
 package view;
 
-import domain.lotto.Constants;
 import domain.lotto.Number;
+import domain.lotto.Rank;
 import domain.lotto.Ticket;
 import domain.lotto.TicketBundle;
 import domain.lotto.wrappers.Result;
@@ -26,10 +26,10 @@ public class OutputView {
 
     public void showLottoStatistics(Result result) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.println("3개 일치 (" + Constants.THREE_CORRECT_PRIZE_MONEY + "원)- " + result.getThreeCorrectCount() + "개");
-        System.out.println("4개 일치 (" + Constants.FOUR_CORRECT_PRIZE_MONEY + "원)- " + result.getFourCorrectCount() + "개");
-        System.out.println("5개 일치 (" + Constants.FIVE_CORRECT_PRIZE_MONEY + "원)- " + result.getFiveCorrectCount() + "개");
-        System.out.println("6개 일치 (" + Constants.SIX_CORRECT_PRIZE_MONEY + "원)- " + result.getSixCorrectCount() + "개");
+        System.out.println("3개 일치 (" + Rank.THREE_CORRECT.getPrizeMoney() + "원)- " + result.getThreeCorrectCount() + "개");
+        System.out.println("4개 일치 (" + Rank.FOUR_CORRECT.getPrizeMoney() + "원)- " + result.getFourCorrectCount() + "개");
+        System.out.println("5개 일치 (" + Rank.FIVE_CORRECT.getPrizeMoney() + "원)- " + result.getFiveCorrectCount() + "개");
+        System.out.println("6개 일치 (" + Rank.SIX_CORRECT.getPrizeMoney() + "원)- " + result.getSixCorrectCount() + "개");
     }
 
     public void showProfitRate(TicketCount ticketCount, Result result) {

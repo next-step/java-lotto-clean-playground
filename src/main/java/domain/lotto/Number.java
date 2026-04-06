@@ -27,6 +27,9 @@ public class Number {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof Number)) {
+            throw new IllegalArgumentException("object must be an instance of Number");
+        }
         return number == ((Number) obj).number;
     }
 }
