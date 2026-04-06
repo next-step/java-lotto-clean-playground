@@ -1,45 +1,33 @@
 package view;
-import domain.Lotto;
-import domain.LottoNumber;
-import domain.MatchResult;
-import domain.WinningLotto;
 
-import java.util.HashMap;
+import domain.Lotto;
+import domain.Lottos;
+import domain.MatchResult;
+
 import java.util.List;
+import java.util.Map;
 
 public class ResultView {
 
-    WinningLotto winningLotto = new WinningLotto();
-
-    public void printAllLottos (List<Lotto> allLottos) {
-        int lottoCount = allLottos.size();
-
-        System.out.println(lottoCount + "개를 구매했습니다.");
-
-        for(Lotto lotto: allLottos) {
-              System.out.println(lotto.getNumbers().toString());
+    public void printAllLottos(List<Lotto> allLottos) {
+        System.out.println(allLottos.size() + "개를 구매했습니다.");
+        for (Lotto lotto : allLottos) {
+            System.out.println(lotto.getNumbers().toString());
         }
     }
 
-    public void printWinningLottoStatistics (final int purchaseAmount, List<LottoNumber> winningNumbers, List<Lotto> allLottos) {
-        HashMap<MatchResult, Integer> resultMap = winningLotto.getMatchResult(allLottos, winningNumbers);
+    public void printWinningLottoStatistics(int purchaseAmount, Lottos lottos, Lotto winningLotto) {
+        Map<MatchResult, Integer> resultMap = MatchResult.of(lottos, winningLotto);
 
         System.out.println("당첨 통계");
         System.out.println("-----------");
 
-        for (MatchResult result: MatchResult.values()) {
-            int matchStandardCount = result.getMatchCount();
-            if(matchStandardCount == 0) {
-                continue;
-            }
-
-            int matchUnitReward = result.getMatchReward();
-            int myMatchCount = resultMap.get(result);
-
-            System.out.println(matchStandardCount + "개 일치 (" + matchUnitReward + "원)- " + myMatchCount + "개");
+        for (MatchResult result : MatchResult.values()) {
+            if (result.getMatchCount() == 0) continue;
+            System.out.println(result.getMatchCount() + "개 일치 (" + result.getMatchReward() + "원)- " + resultMap.get(result) + "개");
         }
 
-        double profitRate = winningLotto.getLottoProfitRate(resultMap, purchaseAmount);
+        double profitRate = MatchResult.getProfitRate(resultMap, purchaseAmount);
         System.out.println("총 수익률은 " + String.format("%.2f", profitRate) + "입니다.");
     }
 }

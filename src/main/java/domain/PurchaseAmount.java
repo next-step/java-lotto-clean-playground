@@ -16,6 +16,10 @@ public class PurchaseAmount {
         }
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public int getLottoCount() {
         return amount / LOTTO_PRICE;
     }

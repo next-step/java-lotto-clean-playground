@@ -1,4 +1,5 @@
 package controller;
+
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.Lottos;
@@ -18,11 +19,10 @@ public class LottoController {
     public void run() {
         PurchaseAmount purchaseAmount = inputView.getPurchaseAmount();
         Lottos lottos = new Lottos(purchaseAmount);
-        List<Lotto> allLottos = lottos.getLottos();
-        resultView.printAllLottos(allLottos);
+        resultView.printAllLottos(lottos.getLottos());
 
         Lotto winningLotto = getValidWinningLotto();
-        resultView.printWinningLottoStatistics(purchaseAmount.getLottoCount(), winningLotto.getNumbers(), allLottos);
+        resultView.printWinningLottoStatistics(purchaseAmount.getAmount(), lottos, winningLotto);
     }
 
     private Lotto getValidWinningLotto() {
