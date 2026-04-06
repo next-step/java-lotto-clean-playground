@@ -32,13 +32,16 @@ public class OutputView {
     }
 
     private void printSingleStats (LottoResult lottoResult, int resultCount) {
-        if (lottoResult == LottoResult.FIVE_WITH_BONUS ) {
-            System.out.printf(ScriptConstants.OUTPUT_SECOND_PLACE_STAT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
-            System.out.println();
-            return;
+        switch (lottoResult) {
+            case FIVE_WITH_BONUS -> {
+                System.out.printf(ScriptConstants.OUTPUT_SECOND_PLACE_STAT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
+                System.out.println();
+            }
+            default -> {
+                System.out.printf(ScriptConstants.OUTPUT_BASIC_LOTTO_RESULT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
+                System.out.println();
+            }
         }
-        System.out.printf(ScriptConstants.OUTPUT_BASIC_LOTTO_RESULT_SCRIPT, lottoResult.getMatchCount(), lottoResult.getReward(), resultCount);
-        System.out.println();
     }
 
     public void printReturnRatio(double returnRatio) {
