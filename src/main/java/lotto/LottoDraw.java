@@ -32,29 +32,9 @@ public class LottoDraw {
 
         int matchingCount = numbers.size();
 
-        if (matchingCount == 1 || matchingCount == 2){
-            return LottoResult.NONE;
-        }
-        if (matchingCount == 0){
-            return LottoResult.NONE;
-        }
-        if (matchingCount == 3){
-            return LottoResult.THREE;
-        }
-        if (matchingCount == 4){
-            return LottoResult.FOUR;
-        }
-        if (matchingCount == 5){
-            return LottoResult.FIVE;
-        }
-        if (matchingCount == 6){
-            return LottoResult.SIX;
-        }
-        throw new IllegalStateException("나올 수 없는 경우입니다.: " + matchingCount);
-
+        return LottoResult.valueOf(matchingCount);
     }
-
-
+    
     public int getCount(LottoResult result) {
         return counts.getCount(result);
     }
