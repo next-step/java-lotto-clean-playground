@@ -19,7 +19,7 @@ class LottoShopTest {
         ));
         LottoShop lottoShop = new LottoShop(numberGenerator);
 
-        Lottos lottos = lottoShop.purchase(new PurchaseAmount(3000));
+        Lottos lottos = lottoShop.purchase(new PurchaseAmount(3000), manualLottos);
 
         assertThat(lottos.toNumberLists()).hasSize(3);
     }
@@ -33,7 +33,7 @@ class LottoShopTest {
         ));
         LottoShop lottoShop = new LottoShop(numberGenerator);
 
-        Lottos lottos = lottoShop.purchase(new PurchaseAmount(3000));
+        Lottos lottos = lottoShop.purchase(new PurchaseAmount(3000), manualLottos);
 
         assertThat(lottos.toNumberLists()).containsExactly(
                 List.of(1, 2, 3, 4, 5, 6),

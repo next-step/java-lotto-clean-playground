@@ -23,7 +23,7 @@ public class LottoController {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readAmount());
         int manualCount = inputView.readManualCount();
         Lottos manualLottos = toLottos(inputView.readManualNumbers(manualCount));
-        Lottos lottos = lottoShop.purchase(purchaseAmount);
+        Lottos lottos = lottoShop.purchase(purchaseAmount, manualLottos);
 
         outputView.printResultHeader(lottos.size());
         outputView.printLottos(lottos.toNumberLists());

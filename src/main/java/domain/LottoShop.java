@@ -12,15 +12,23 @@ public class LottoShop {
         this.numberGenerator = numberGenerator;
     }
 
-    public Lottos purchase(PurchaseAmount purchaseAmount) {
-        return new Lottos(createLottos(purchaseAmount));
+    public Lottos purchase(PurchaseAmount purchaseAmount, Lottos manualLottos) {
+        int autoLottoCount = purchaseAmount.calculateAutoLottoCount(manualLottos.size());
+        List<Lotto> autoLottos = createAutoLottos(autoLottoCount);
+        return new Lottos(mergeLottos(manualLottos.lottoToList(), autoLottos));
     }
 
-    private List<Lotto> createLottos(PurchaseAmount purchaseAmount) {
+    private List<Lotto> createAutoLottos(int autoLottoCount) {
         List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < purchaseAmount.calculateLottoCount(); i++) {
+        for (int i = 0; i < autoLottoCount; i++) {
             lottos.add(new Lotto(numberGenerator.generate()));
         }
         return lottos;
+    }
+
+    private List<Lotto> mergeLottos(List<Lotto> manualLottos, List<Lotto> autoLottos) {
+        List<Lotto> mergedLottos = new ArrayList<>(manualLottos);
+        mergedLottos.addAll(autoLottos);
+        return mergedLottos;
     }
 }
