@@ -5,7 +5,6 @@ import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class LottoController {
@@ -35,7 +34,7 @@ public class LottoController {
 
         WinningStatistics winningStatistics = WinningStatistics.from(lottos, winningLotto);
 
-        outputView.printWinningStatistics(createWinningResults(winningStatistics));
+        outputView.printWinningStatistics(WinningResult.from(winningStatistics));
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
     }
 
@@ -49,17 +48,5 @@ public class LottoController {
         return new Lotto(numbers.stream()
                 .map(LottoNumber::new)
                 .toList());
-    }
-
-    private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
-        return Arrays.stream(Rank.values())
-                .filter(Rank::isWinning)
-                .map(rank -> createWinningResult(winningStatistics, rank))
-                .toList();
-    }
-
-
-    private WinningResult createWinningResult(WinningStatistics winningStatistics, Rank rank) {
-        return WinningResult.from(rank, winningStatistics.countOf(rank));
     }
 }
