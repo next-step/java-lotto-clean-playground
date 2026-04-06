@@ -9,9 +9,9 @@ import java.util.List;
 
 public class LottoController {
 
-    InputView inputView = new InputView();
-    ResultView resultView = new ResultView();
-    ErrorView errorView = new ErrorView();
+    private final InputView inputView = new InputView();
+    private final ResultView resultView = new ResultView();
+    private final ErrorView errorView = new ErrorView();
 
     public void run() {
         int purchaseAmount = inputView.getPurchaseAmount();
