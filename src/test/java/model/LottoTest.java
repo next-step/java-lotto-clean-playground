@@ -88,6 +88,4 @@ public class LottoTest {
         //then
         Assertions.assertEquals(LottoResult.THREE, lottoResult);
     }
-
-    // TODO: 2등 산출 테스스
 }
