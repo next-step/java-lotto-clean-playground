@@ -9,11 +9,11 @@ public enum LottoResult {
     NO_MATCH(0, 0, LottoSettingsConstants.NO_WIN),
     ONE(1, 0, LottoSettingsConstants.NO_WIN),
     TWO(2, 0,LottoSettingsConstants.NO_WIN),
-    THREE(3, 0, LottoSettingsConstants.THREE_MATCH_PRICE),
-    FOUR(4, 0, LottoSettingsConstants.FOUR_MATCH_PRICE),
-    FIVE_WITH_BONUS(5, 1, LottoSettingsConstants.FIVE_WITH_BONUS_MATCH_PRICE),
-    FIVE(5, 0, LottoSettingsConstants.FIVE_MATCH_PRICE),
-    SIX(6, 0, LottoSettingsConstants.SIX_MATCH_PRICE);
+    THREE(3, 0, LottoSettingsConstants.THREE_MATCH_PRIZE),
+    FOUR(4, 0, LottoSettingsConstants.FOUR_MATCH_PRIZE),
+    FIVE_WITH_BONUS(5, 1, LottoSettingsConstants.FIVE_WITH_BONUS_MATCH_PRIZE),
+    FIVE(5, 0, LottoSettingsConstants.FIVE_MATCH_PRIZE),
+    SIX(6, 0, LottoSettingsConstants.SIX_MATCH_PRIZE);
 
     private final int matchCount;
     private final int bonusMatchCount;
