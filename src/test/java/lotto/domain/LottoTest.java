@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -15,19 +13,29 @@ class LottoTest {
 
     @Test
     void 로또_번호가_6개가_아니면_예외가_발생한다() {
-        // given
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-
-        assertThatThrownBy(() -> Lotto.from(numbers))
+        assertThatThrownBy(() -> Lotto.from(Arrays.asList(1, 2, 3, 4, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    void 당첨_번호와_몇_개의_번호가_일치하는지_계산한다() {
-        Lotto ticket = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
-        Lotto winningLotto = Lotto.from(Arrays.asList(1, 2, 3, 10, 11, 12));
+    void 로또_번호에_중복이_있으면_예외가_발생한다() {
+        assertThatThrownBy(() -> Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 5)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
-        int matchCount = ticket.countMatch(winningLotto);
-        assertThat(matchCount).isEqualTo(3);
+    @Test
+    void 당첨_번호와_일치하는_개수를_계산한다() {
+        Lotto lotto = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Lotto target = Lotto.from(Arrays.asList(1, 2, 3, 7, 8, 9));
+
+        assertThat(lotto.countMatch(target)).isEqualTo(3);
+    }
+
+    @Test
+    void 보너스_번호를_포함하고_있는지_확인한다() {
+        Lotto lotto = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
+        LottoNumber bonus = new LottoNumber(6);
+
+        assertThat(lotto.contains(bonus)).isTrue();
     }
 }
