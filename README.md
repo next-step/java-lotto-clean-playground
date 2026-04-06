@@ -69,3 +69,5 @@
 - [x] LottoPurchaseController 수정
 - [x] OutputView 수정
   - [x] `printPurchaseResult` 문구 수정
+# 5단계 - 리팩터링
+- 기존 프로그래밍 요구사항을 다시 한번 확인하고, 학습 테스트를 통해 학습한 내용을 반영한다.
