@@ -47,24 +47,19 @@ class LottoTicketBundleTest {
 
     private static Stream<Arguments> winnerTicketAndLottoResultMethodSource() {
         return Stream.of(
-                Arguments.of(List
-                                .of(1, 2, 3, 40, 41, 42)
-                                .stream()
+                Arguments.of(Stream.of(1, 2, 3, 40, 41, 42)
                                 .map(LottoNumber::new)
                                 .toList(),
                         List.of(1, 0, 0, 0)),
-                Arguments.of(List.of(1, 2, 3, 4, 41, 42)
-                                .stream()
+                Arguments.of(Stream.of(1, 2, 3, 4, 41, 42)
                                 .map(LottoNumber::new)
                                 .toList(),
                         List.of(0, 1, 0, 0)),
-                Arguments.of(List.of(1, 2, 3, 4, 5, 42)
-                                .stream()
+                Arguments.of(Stream.of(1, 2, 3, 4, 5, 42)
                                 .map(LottoNumber::new)
                                 .toList(),
                         List.of(0, 0, 1, 0)),
-                Arguments.of(List.of(1, 2, 3, 4, 5, 6)
-                                .stream()
+                Arguments.of(Stream.of(1, 2, 3, 4, 5, 6)
                                 .map(LottoNumber::new)
                                 .toList(),
                         List.of(0, 0, 0, 1))
