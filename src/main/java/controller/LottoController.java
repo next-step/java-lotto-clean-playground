@@ -21,6 +21,8 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readAmount());
+        int manualCount = inputView.readManualCount();
+        Lottos manualLottos = toLottos(inputView.readManualNumbers(manualCount));
         Lottos lottos = lottoShop.purchase(purchaseAmount);
 
         outputView.printResultHeader(lottos.size());
@@ -28,7 +30,7 @@ public class LottoController {
 
         List<Integer> winningNumbers = inputView.readWinningNumbers();
         BonusBall bonusBall = new BonusBall(new LottoNumber(inputView.readBonusBall()));
-        WinningLotto winningLotto = new WinningLotto(new Lotto(toLottoNumbers(winningNumbers)), bonusBall);
+        WinningLotto winningLotto = new WinningLotto(toLotto(winningNumbers), bonusBall);
 
         WinningStatistics winningStatistics = WinningStatistics.from(lottos, winningLotto);
 
@@ -36,10 +38,16 @@ public class LottoController {
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
     }
 
-    private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
-        return numbers.stream()
+    private Lottos toLottos(List<List<Integer>> numbers) {
+        return new Lottos(numbers.stream()
+                .map(this::toLotto)
+                .toList());
+    }
+
+    private Lotto toLotto(List<Integer> numbers) {
+        return new Lotto(numbers.stream()
                 .map(LottoNumber::new)
-                .toList();
+                .toList());
     }
 
     private List<WinningResult> createWinningResults(WinningStatistics winningStatistics) {
