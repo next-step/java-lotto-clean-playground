@@ -4,7 +4,6 @@ import dto.LottoStatistics;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,38 +13,39 @@ public class LottosTest {
     @Test
     void 우승_로또와_비교해서_정확한_통계를_제공한다() {
         //given
-        List<LottoNumber> threeMatched = Stream.of(1, 2, 3, 45, 44, 43)
-                .map(LottoNumber::valueOf)
-                .toList();
-        List<LottoNumber> fourMatched = Stream.of(1, 2, 3, 4, 45, 44)
-                .map(LottoNumber::valueOf)
-                .toList();
-        List<LottoNumber> fiveMatched = Stream.of(1, 2, 3, 4, 5, 45)
-                .map(LottoNumber::valueOf)
-                .toList();
-        List<LottoNumber> sixMatched = Stream.of(1, 2, 3, 4, 5, 6)
-                .map(LottoNumber::valueOf)
-                .toList();
+        List<LottoNumber> threeMatched = generateLottoList(1, 2, 3, 45, 44, 43);
+        List<LottoNumber> fourMatched = generateLottoList(1, 2, 3, 4, 45, 44);
+        List<LottoNumber> fiveMatched = generateLottoList(1, 2, 3, 4, 5, 45);
+        List<LottoNumber> sixMatched = generateLottoList(1, 2, 3, 4, 5, 6);
+        List<LottoNumber> bonusFiveMatched = generateLottoList(1, 2, 3, 4, 5, 40);
         List<Lotto> lottoList = List.of(
                 new Lotto(threeMatched),
                 new Lotto(fourMatched), new Lotto(fourMatched),
                 new Lotto(fiveMatched), new Lotto(fiveMatched), new Lotto(fiveMatched),
-                new Lotto(sixMatched), new Lotto(sixMatched), new Lotto(sixMatched), new Lotto(sixMatched)
+                new Lotto(bonusFiveMatched), new Lotto(bonusFiveMatched), new Lotto(bonusFiveMatched), new Lotto(bonusFiveMatched),
+                new Lotto(sixMatched), new Lotto(sixMatched), new Lotto(sixMatched), new Lotto(sixMatched), new Lotto(sixMatched)
         );
         Lottos lottos = new Lottos(lottoList);
-        List<LottoNumber> winningNumbers = Stream.of(1, 2, 3, 4, 5, 6)
-                .map(LottoNumber::valueOf)
-                .toList();
+
+        List<LottoNumber> winningNumbers = generateLottoList(1, 2, 3, 4, 5, 6);
         Lotto winningLotto = new Lotto(winningNumbers);
+        LottoNumber bonusNumber = LottoNumber.valueOf(40);
         //when
-        LottoStatistics lottoStatistics = lottos.getLottoStatistics(winningLotto, LottoNumber.valueOf(45));
+        LottoStatistics lottoStatistics = lottos.getLottoStatistics(winningLotto, bonusNumber);
 
         //then
-        /*assertAll(
-                () -> assertThat(matchedResult.get(LottoRank.THREE_MATCHED)).isEqualTo(1),
-                () -> assertThat(matchedResult.get(LottoRank.FOUR_MATCHED)).isEqualTo(2),
-                () -> assertThat(matchedResult.get(LottoRank.FIVE_MATCHED)).isEqualTo(3),
-                () -> assertThat(matchedResult.get(LottoRank.SIX_MATCHED)).isEqualTo(4)
-        );*/
+        assertAll(
+                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.THREE_MATCHED)).isEqualTo(1),
+                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.FOUR_MATCHED)).isEqualTo(2),
+                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.FIVE_MATCHED)).isEqualTo(3),
+                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.BONUS_FIVE_MATCHED)).isEqualTo(4),
+                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.SIX_MATCHED)).isEqualTo(5)
+        );
+    }
+
+    private List<LottoNumber> generateLottoList(int num1, int num2, int num3, int num4, int num5, int num6) {
+        return Stream.of(num1, num2, num3, num4, num5, num6)
+                .map(LottoNumber::valueOf)
+                .toList();
     }
 }
