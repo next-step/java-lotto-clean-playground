@@ -19,18 +19,26 @@ import java.util.stream.IntStream;
 public class Controller {
 
     public void run() {
+        // [1] 구입 금액을 입력 받는다.
         TrialNumber trialNumber = getTrialNumber();
-
+        // [2] 수기로 입력할 로또 갯수를 입력 받는다.
         int manualTrialCount = getManualTrialCount();
+        // [3] 수기로 입력 받을 로또 번호를 입력 받는다.
         LottoTickets manualTickets = getManualLottoTickets(manualTrialCount);
 
+        // [4] 자동으로 뽑을 로또 번호 = 총 구입 금액으로 만든 시도 회숫 - 수기로 입력 받을  로또 번호
         int autoTrialCount = trialNumber.getTrialNumber() - manualTrialCount;
-        LottoTickets autoTickets = issueLottoTickets(autoTrialCount);
-
+        // [5] 자동으로 로또 번호를 입력 받는다.
+        LottoTickets autoTickets = issueLottoTickets(autoTrialCount, manualTrialCount);
+        // [6] 지난주 로또 번호를 입력 받는다.
         Lotto winningLotto = getWinningLotto();
+        // [7] 보너스 번호를 입력 받는다.
         int bonusNumber = getBonusNumber(winningLotto);
+        // [8] 최종 결과를 계산한다.
+        LottoResult statisticsResult = calculateAndPrintResults(autoTickets, winningLotto, bonusNumber, manualTickets);
+        // [9] 최종 결과를 출력한다.
+        OutputView.printWinningStatistics(statisticsResult, trialNumber.getPurchaseAmount());
 
-        calculateAndPrintResults(trialNumber, autoTickets, winningLotto, bonusNumber, manualTickets);
     }
 
     private TrialNumber getTrialNumber() {
@@ -57,12 +65,12 @@ public class Controller {
         });
     }
 
-    private LottoTickets issueLottoTickets(int trialCount) {
+    private LottoTickets issueLottoTickets(int trialCount, int manualCount) {
         LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
         List<Lotto> generatedLottos = lottoMachine.issue(trialCount);
         LottoTickets lottoTickets = new LottoTickets(generatedLottos);
 
-        OutputView.printLottoNumber(lottoTickets, trialCount);
+        OutputView.printLottoNumber(lottoTickets, trialCount, manualCount);
         return lottoTickets;
     }
 
@@ -82,9 +90,9 @@ public class Controller {
         });
     }
 
-    private void calculateAndPrintResults(TrialNumber trialNumber, LottoTickets autoTickets, Lotto winningLotto, int bonusNumber, LottoTickets manualTickets) {
+    private LottoResult calculateAndPrintResults(LottoTickets autoTickets, Lotto winningLotto, int bonusNumber, LottoTickets manualTickets) {
         LottoResult statisticsResult = new LottoResult(autoTickets, winningLotto, bonusNumber, manualTickets);
-        OutputView.printWinningStatistics(statisticsResult, trialNumber.getPurchaseAmount());
+        return statisticsResult ;
     }
 
     private void validateBonusNumber(Lotto winningLotto, int bonusNumber) {
