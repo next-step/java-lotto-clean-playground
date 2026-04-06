@@ -15,10 +15,6 @@ public record WinCondition(List<Integer> numbers, int bonusNumber) {
         this.bonusNumber= bonusNumber;
     }
 
-    public List<Integer> numbers() {
-        return List.copyOf(this.numbers);
-    }
-
     private void checkBonusBall(int ballNumber, List<Integer> numbers) {
         checkIfNumberInRange(ballNumber);
         checkIfBonusNumberIsInNumbers(ballNumber, numbers);
@@ -33,4 +29,9 @@ public record WinCondition(List<Integer> numbers, int bonusNumber) {
             throw new IllegalArgumentException(ErrorMessageConstants.BONUS_NUMBER_IN_WINNING_NUMBER);
         }
     }
+
+    public List<Integer> numbers() {
+        return List.copyOf(this.numbers);
+    }
+
 }

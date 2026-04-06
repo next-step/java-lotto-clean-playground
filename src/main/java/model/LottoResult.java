@@ -25,19 +25,19 @@ public enum LottoResult {
         this.reward= reward;
     }
 
+    public static LottoResult calculateLottoResult(int matchCount, int bonusMatchCount) {
+        return Arrays.stream(LottoResult.values())
+                .filter(result-> matchCount == result.matchCount && bonusMatchCount >= result.bonusMatchCount)
+                .findFirst()
+                .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
+    }
+
     public int getReward() {
         return reward;
     }
 
     public int getMatchCount() {
         return matchCount;
-    }
-
-    public static LottoResult calculateLottoResult(int matchCount, int bonusMatchCount) {
-        return Arrays.stream(LottoResult.values())
-                .filter(result-> matchCount == result.matchCount && bonusMatchCount >= result.bonusMatchCount)
-                .findFirst()
-                .orElseThrow(()->new IllegalArgumentException(ErrorMessageConstants.NO_MATCHING_RESULT));
     }
 
 }

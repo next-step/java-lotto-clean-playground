@@ -26,16 +26,6 @@ public class LottoFactory {
         return result;
     }
 
-    public List<Lotto> mapToLottos(List<List<Integer>> numbers) {
-        List<Lotto> result = new ArrayList<>();
-
-        for (List<Integer> number: numbers) {
-            result.add(new Lotto(number));
-        }
-
-        return result;
-    }
-
     protected Lotto generateLotto(){
         Set<Integer> result = new HashSet<>();
 
@@ -45,5 +35,15 @@ public class LottoFactory {
         }
 
         return new Lotto(result.stream().toList());
+    }
+
+    public List<Lotto> mapToLottos(List<List<Integer>> numbers) {
+        List<Lotto> result = new ArrayList<>();
+
+        for (List<Integer> number: numbers) {
+            result.add(new Lotto(number));
+        }
+
+        return result;
     }
 }
