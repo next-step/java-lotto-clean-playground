@@ -14,7 +14,7 @@ class TrialNumberTest {
     @Test
     void createTrialNumber_ValidAmount() {
         TrialNumber trialNumber = new TrialNumber(14000);
-        assertThat(trialNumber.getTrialNumber()).isEqualTo(14);
+        assertThat(trialNumber.getTrialCount()).isEqualTo(14);
         assertThat(trialNumber.getPurchaseAmount()).isEqualTo(14000);
     }
 
