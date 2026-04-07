@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Lotto {
     private final List<LottoNumber> numbers;
 
     public List<LottoNumber> getNumbers() {
-        return numbers;
+        return Collections.unmodifiableList(numbers);
     }
 
     public Lotto(List<LottoNumber> numbers) {
