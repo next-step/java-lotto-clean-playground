@@ -18,7 +18,7 @@ public class LottoDraw {
     private MatchingCounts getNumberCount() {
         MatchingCounts counts = new MatchingCounts();
 
-        for (Lotto lottoRow : receipt.lottoRows()) {
+        for (Lotto lottoRow : receipt.lottos().getLottos()) {
             LottoResult result = getLottoResult(lottoRow);
             counts.countLottoResult(result);
         }
@@ -34,7 +34,7 @@ public class LottoDraw {
 
         return LottoResult.valueOf(matchingCount);
     }
-    
+
     public int getCount(LottoResult result) {
         return counts.getCount(result);
     }

@@ -1,7 +1,5 @@
 package lotto;
 
-import java.util.List;
+public record LottoReceipt(Lottos lottos, int totalPrice) {
 
-public record LottoReceipt(List<Lotto> lottoRows, int totalPrice) {
-    
 }

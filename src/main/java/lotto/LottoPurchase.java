@@ -1,12 +1,9 @@
 package lotto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LottoPurchase {
     private static final int LOTTO_PRICE = 1000;
 
-    private final List<Lotto> lottoRows = new ArrayList<>();
+    private final Lottos lottos;
     private final int totalPrice;
     private final int change;
 
@@ -16,17 +13,15 @@ public class LottoPurchase {
         int numberOfLotto = this.totalPrice / LOTTO_PRICE;
         change = totalPrice % LOTTO_PRICE;
 
-        for (int n = 0; n < numberOfLotto; n++) {
-            lottoRows.add(lottoMaker.makeLotto());
-        }
+        this.lottos = Lottos.from(numberOfLotto, lottoMaker);
     }
 
     public LottoReceipt printReceipt() {
-        return new LottoReceipt(lottoRows, totalPrice);
+        return new LottoReceipt(lottos, totalPrice);
     }
 
     public int getNumberOfLotto() {
-        return lottoRows.size();
+        return lottos.size();
     }
 
     public int getChange() {

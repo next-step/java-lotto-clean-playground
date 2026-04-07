@@ -13,9 +13,9 @@ public class Main {
 
         System.out.println("구입금액을 입력해 주세요. (ex. 1000) (숫자가 아닌 경우 0으로 간주)");
 
-        try{
+        try {
             totalPrice = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             totalPrice = 0;
         }
 
@@ -42,7 +42,7 @@ public class Main {
     }
 
     private static void displayReceipt(LottoReceipt receipt) {
-        for (Lotto lotto : receipt.lottoRows()) {
+        for (Lotto lotto : receipt.lottos().getLottos()) {
             List<String> nums = lotto.numbers().stream()
                     .map(LottoNumber::toString)
                     .toList();
