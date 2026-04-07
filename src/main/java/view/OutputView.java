@@ -13,6 +13,7 @@ public class OutputView {
     public static final String BONUS_NUMBER_MESSAGE = "보너스 볼을 입력해 주세요.";
     private static final String MANUAL_TRIAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
     private static final String MANUAL_LOTTO_TICKETS ="수동으로 구매할 번호를 입력해 주세요.";
+
     public static void printInputPurchaseAmount() {
         System.out.println("\n" + PURCHASE_AMOUNT_MESSAGE);
     }
@@ -24,7 +25,6 @@ public class OutputView {
     public static void printManualLottoTickets() {
         System.out.println("\n" + MANUAL_LOTTO_TICKETS);
     }
-
 
     public static void printManualTrialCount() {
         System.out.println("\n" + MANUAL_TRIAL_COUNT);
@@ -46,13 +46,21 @@ public class OutputView {
         System.out.print(generateRanksString(result));
 
         double profitRate = result.calculateProfitRate(purchaseAmount);
-        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n", profitRate);
+        double displayProfitRate = Math.floor(profitRate * 100) / 100.0;
+        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)\n", displayProfitRate);
     }
 
     private static String generateRanksString(LottoResult result) {
         return Rank.getWinningRanks().stream()
-                .map(rank -> rank.getMessage() + result.getRankCount(rank) + "개\n")
+                .map(rank -> formatRankMessage(rank) + result.getRankCount(rank) + "개\n")
                 .collect(Collectors.joining());
+    }
+
+    private static String formatRankMessage(Rank rank) {
+        if (rank == Rank.FIVE_BONUS) {
+            return rank.getMatchCount() + "개 일치, 보너스 볼 일치 (" + rank.getPrizeMoney() + "원)- ";
+        }
+        return rank.getMatchCount() + "개 일치 (" + rank.getPrizeMoney() + "원)- ";
     }
 
     public static void printErrorMessage(String errorMessage) {
