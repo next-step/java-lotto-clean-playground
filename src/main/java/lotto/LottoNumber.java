@@ -1,8 +1,8 @@
 package lotto;
 
 public record LottoNumber(int number) implements Comparable<LottoNumber> {
-    private static int MIN_NUMBER = 1;
-    private static int MAX_NUMBER = 45;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
 
     public LottoNumber {
         if (MIN_NUMBER > number) {
