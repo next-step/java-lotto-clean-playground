@@ -31,7 +31,7 @@ public class LottoResult {
     private void updateMatchResult(Lotto lotto, List<Integer> winningNumbers, int bonusNumber) {
         int matchCount = countMatch(lotto.getNumbers(), winningNumbers);
         boolean matchBonus = lotto.getNumbers().contains(bonusNumber);
-        Rank rank = Rank.valueOf(matchCount, matchBonus);
+        Rank rank = Rank.valueOfRank(matchCount, matchBonus);
         matchResults.put(rank, matchResults.get(rank) + INCREMENT_COUNT);
     }
 
