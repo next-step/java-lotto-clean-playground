@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WinningLotto {
 
-    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<Integer> winningNumbers) {
+    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<LottoNumber> winningNumbers) {
         HashMap<MatchResult, Integer> resultMap = new HashMap<>();
 
         for (Lotto singleLotto : allLottos) {
@@ -26,7 +26,7 @@ public class WinningLotto {
         double totalReward = 0;
 
         for (MatchResult result : MatchResult.values()) {
-            totalReward += result.getMatchReward() * resultMap.get(result);
+            totalReward += result.getMatchReward() * resultMap.getOrDefault(result, 0);
         }
 
         return totalReward / purchaseAmount;

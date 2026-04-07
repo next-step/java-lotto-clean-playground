@@ -2,19 +2,21 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Lottos {
 
     private static final int PRICE = 1000;
     private static final int LOTTO_UPPER_BOUND = 45;
-    private static final List<Integer> LOTTO_NUMBERS_CACHE = new ArrayList<>();
+    private static final int LOTTO_LOWER_BOUND = 1;
+    private static final List<LottoNumber> LOTTO_NUMBERS_CACHE = new ArrayList<>();
 
     private final List<Lotto> lottos;
 
     static {
-        for (int i = 0; i < LOTTO_UPPER_BOUND; i++) {
-            LOTTO_NUMBERS_CACHE.add(i, i + 1);
+        for (int i = LOTTO_LOWER_BOUND; i <= LOTTO_UPPER_BOUND; i++) {
+            LOTTO_NUMBERS_CACHE.add(new LottoNumber(i));
         }
     }
 
@@ -32,10 +34,10 @@ public class Lottos {
     }
 
     private Lotto getSingleLotto() {
-        List<Integer> lottoNumbers = new ArrayList<>(LOTTO_NUMBERS_CACHE);
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LOTTO_NUMBERS_CACHE);
         Collections.shuffle(lottoNumbers);
-        List<Integer> subNumbers = new ArrayList<>(lottoNumbers.subList(0, 6));
-        Collections.sort(subNumbers);
+        List<LottoNumber> subNumbers = new ArrayList<>(lottoNumbers.subList(0, 6));
+        subNumbers.sort(Comparator.comparingInt(LottoNumber::getNumber));
         return new Lotto(subNumbers);
     }
 

@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return numbers;
     }
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
         this.numbers = numbers;
     }
 
-    public int getWinningNumberMatchCount(List<Integer> winningNumbers) {
+    public int getWinningNumberMatchCount(List<LottoNumber> winningNumbers) {
         int matchCount = 0;
-        for (Integer number : winningNumbers) {
+        for (LottoNumber number : winningNumbers) {
             if (numbers.contains(number)) {
                 matchCount++;
             }
@@ -28,13 +28,13 @@ public class Lotto {
         return matchCount;
     }
 
-    private void validateSize(List<Integer> numbers) {
+    private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("당첨 숫자는 6개여야 해요.");
         }
     }
 
-    private void validateDuplicate(List<Integer> numbers) {
+    private void validateDuplicate(List<LottoNumber> numbers) {
         if (new HashSet<>(numbers).size() != numbers.size()) {
             throw new IllegalArgumentException("당첨 숫자에는 중복된 값이 들어올 수 없어요.");
         }

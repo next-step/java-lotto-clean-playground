@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.Lottos;
 import view.ErrorView;
 import view.InputView;
@@ -32,7 +33,7 @@ public class LottoController {
 
     private Lotto getValidWinningLotto() {
         try {
-            List<Integer> numbers = inputView.getWinningNumbers();
+            List<LottoNumber> numbers = inputView.getWinningNumbers();
             return new Lotto(numbers);
         } catch (NumberFormatException e) {
             errorView.printErrorMessage("숫자만 입력해주세요!");
