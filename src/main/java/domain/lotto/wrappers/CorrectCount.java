@@ -1,13 +1,29 @@
 package domain.lotto.wrappers;
 
 public class CorrectCount {
-    private final int value;
+    private final int correctCount;
 
-    public CorrectCount(int value) {
-        this.value = value;
+    private final boolean hasBonusNumber;
+
+    public CorrectCount(int correctCount, boolean hasBonusNumber) {
+        this.correctCount = correctCount;
+        this.hasBonusNumber = hasBonusNumber;
     }
 
-    public int getValue() {
-        return value;
+    public int getCorrectCount() {
+        return correctCount;
+    }
+
+    public boolean hasBonusNumber() {
+        return hasBonusNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CorrectCount)) {
+            throw new IllegalArgumentException("Argument should be CorrectCount");
+        }
+
+        return correctCount == ((CorrectCount)obj).correctCount;
     }
 }

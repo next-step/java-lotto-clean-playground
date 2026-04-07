@@ -1,7 +1,5 @@
 package domain.lotto.wrappers;
 
-import domain.lotto.Rank;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -11,15 +9,23 @@ public class Result {
     private final int threeCorrectCount;
     private final int fourCorrectCount;
     private final int fiveCorrectCount;
+    private final int fiveAndBonusCorrectCount;
     private final int sixCorrectCount;
 
     public Result(List<CorrectCount> correctCounts) {
-        List<Integer> correctCountList = correctCounts.stream().map(CorrectCount::getValue).toList();
-        this.threeCorrectCount = Collections.frequency(correctCountList, THREE_CORRECT.getCorrectCount());
-        this.fourCorrectCount = Collections.frequency(correctCountList, FOUR_CORRECT.getCorrectCount());
-        this.fiveCorrectCount = Collections.frequency(correctCountList, FIVE_CORRECT.getCorrectCount());
-        this.sixCorrectCount = Collections.frequency(correctCountList, SIX_CORRECT.getCorrectCount());
+        threeCorrectCount = Collections.frequency(correctCounts, new CorrectCount(THREE_CORRECT.getNumberOfCorrect(), false));
+        fourCorrectCount = Collections.frequency(correctCounts, new CorrectCount(FOUR_CORRECT.getNumberOfCorrect(), false));
+        sixCorrectCount = Collections.frequency(correctCounts, new CorrectCount(SIX_CORRECT.getNumberOfCorrect(), false));
+
+        List<CorrectCount> fiveCorrectCounts = correctCounts
+                .stream()
+                .filter(correctCount -> correctCount.getCorrectCount() == 5)
+                .toList();
+
+        fiveAndBonusCorrectCount = fiveCorrectCounts.stream().filter(CorrectCount::hasBonusNumber).toList().size();
+        fiveCorrectCount = fiveCorrectCounts.stream().filter(correctCount -> !correctCount.hasBonusNumber()).toList().size();
     }
+
 
     public int getThreeCorrectCount() {
         return threeCorrectCount;
@@ -33,6 +39,10 @@ public class Result {
         return fiveCorrectCount;
     }
 
+    public int getFiveAndBonusCorrectCount() {
+        return fiveAndBonusCorrectCount;
+    }
+
     public int getSixCorrectCount() {
         return sixCorrectCount;
     }
@@ -42,6 +52,7 @@ public class Result {
         int income = THREE_CORRECT.getPrizeMoney() * this.threeCorrectCount
                 + FOUR_CORRECT.getPrizeMoney() * this.fourCorrectCount
                 + FIVE_CORRECT.getPrizeMoney() * this.fiveCorrectCount
+                + FIVE_AND_BONUS_CORRECT.getPrizeMoney() * this.fiveAndBonusCorrectCount
                 + SIX_CORRECT.getPrizeMoney() * this.sixCorrectCount;
 
         return  new ProfitRate(expense, income);

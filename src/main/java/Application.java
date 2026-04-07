@@ -17,7 +17,7 @@ public class Application {
 
         ticketBundle.createRandomTickets(ticketCount, randomNumberListGenerator);
         outputView.showLottoTickets(ticketBundle);
-        Result result = ticketBundle.createResult(inputView.readWinnerTicket());
+        Result result = ticketBundle.createResult(inputView.readWinnerTicketPair());
         outputView.showLottoResults(ticketCount, result);
     }
 }

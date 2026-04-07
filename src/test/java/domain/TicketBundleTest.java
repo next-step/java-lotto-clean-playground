@@ -3,6 +3,7 @@ package domain;
 import domain.lotto.Number;
 import domain.lotto.Ticket;
 import domain.lotto.TicketBundle;
+import domain.lotto.WinnerTicketPair;
 import domain.lotto.wrappers.Payment;
 import domain.lotto.wrappers.Result;
 import domain.lotto.wrappers.TicketCount;
@@ -20,14 +21,15 @@ class TicketBundleTest {
     @DisplayName("당첨 번호 조합에 따라 3~6개 일치 당첨 횟수가 정확히 계산된다.")
     @ParameterizedTest
     @MethodSource("winnerTicketAndLottoResultMethodSource")
-    void lottoResulTest(List<Number> winnerNumbers, List<Integer> expectedResult) {
+    void lottoResulTest(List<Number> winnerNumbers, Number bonusBall, List<Integer> expectedResult) {
         // Given
         TicketBundle bundle = new TicketBundle();
         bundle.createRandomTickets(new TicketCount(new Payment(1000)), (count, min, max) -> List.of(1, 2, 3, 4, 5, 6));
         Ticket winnerTicket = new Ticket(winnerNumbers);
+        WinnerTicketPair winnerTicketPair = new WinnerTicketPair(winnerTicket, bonusBall);
 
         // When
-        Result result = bundle.createResult(winnerTicket);
+        Result result = bundle.createResult(winnerTicketPair);
 
         // Then
         org.junit.jupiter.api.Assertions.assertAll(

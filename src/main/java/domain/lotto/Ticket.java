@@ -12,7 +12,7 @@ import java.util.List;
 public class Ticket {
     public static final int TICKET_LENGTH = 6;
 
-    private final List<Number> ticket;
+    protected final List<Number> ticket;
 
     public Ticket(List<Number> ticket) {
         validateTicket(ticket);
@@ -27,14 +27,17 @@ public class Ticket {
         return new ArrayList<>(ticket);
     }
 
-    public CorrectCount calculateCorrectCount(Ticket winnerTicket) {
+    public CorrectCount createCorrectCount(WinnerTicketPair winnerTicketPair) {
         int correctCount = 0;
+        Number bonusNumber = winnerTicketPair.getBonusNumber();
 
-        for (Number winnerNumber : winnerTicket.getTicket()) {
+        for (Number winnerNumber : winnerTicketPair.getWinnerTicket().getTicket()) {
             correctCount += Boolean.compare(ticket.contains(winnerNumber), false);
         }
 
-        return new CorrectCount(correctCount);
+        boolean hasBonusNumber = ticket.contains(bonusNumber);
+
+        return new CorrectCount(correctCount,  hasBonusNumber);
     }
 
     private void validateTicket(List<Number> ticket) {

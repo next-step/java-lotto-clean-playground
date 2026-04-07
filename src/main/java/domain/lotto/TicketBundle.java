@@ -22,16 +22,17 @@ public class TicketBundle {
 
     public void createRandomTickets(TicketCount ticketCount, NumberListGenerator numberListGenerator) {
         Count count = new Count(Ticket.TICKET_LENGTH);
+
         for (int i = 0; i < ticketCount.getValue(); i++) {
             ticketBundle.add(new Ticket(numberListGenerator.generateDistinctSortedNumbers(count, Number.LOWER_BOUND, Number.UPPER_BOUND).stream().map(Number::new).toList()));
         }
     }
 
-    public Result createResult(Ticket winnerTicket) {
+    public Result createResult(WinnerTicketPair winnerTicketPair) {
         List<CorrectCount> correctCounts = new ArrayList<>();
 
         for (Ticket ticket : ticketBundle) {
-            correctCounts.add(new CorrectCount(ticket.calculateCorrectCount(winnerTicket).getValue()));
+            correctCounts.add(ticket.createCorrectCount(winnerTicketPair));
         }
 
         return new Result(correctCounts);

@@ -7,12 +7,12 @@ public enum Rank {
     FIVE_AND_BONUS_CORRECT(5, 1500000),
     SIX_CORRECT(6, 2000000000),;
 
-    private final int correctCount;
+    private final int numberOfCorrect;
 
     private final int prizeMoney;
 
-    Rank(int correctCount, int prizeMoney) {
-        this.correctCount = correctCount;
+    Rank(int numberOfCorrect, int prizeMoney) {
+        this.numberOfCorrect = numberOfCorrect;
         this.prizeMoney = prizeMoney;
     }
 
@@ -20,7 +20,7 @@ public enum Rank {
         return prizeMoney;
     }
 
-    public int getCorrectCount() {
-        return correctCount;
+    public int getNumberOfCorrect() {
+        return numberOfCorrect;
     }
 }

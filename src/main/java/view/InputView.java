@@ -2,6 +2,7 @@ package view;
 
 import domain.lotto.Number;
 import domain.lotto.Ticket;
+import domain.lotto.WinnerTicketPair;
 import domain.lotto.wrappers.Payment;
 
 import java.util.Arrays;
@@ -21,15 +22,19 @@ public class InputView {
         return payment;
     }
 
-    public Ticket readWinnerTicket() {
+    public WinnerTicketPair readWinnerTicketPair() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
-        return new Ticket(
-                Arrays.stream(scanner.nextLine().split(","))
-                        .map(String::trim)
-                        .map(Integer::parseInt)
-                        .map(Number::new)
-                        .toList()
-        );
+        Ticket winnerTicket = new Ticket(Arrays.stream(scanner.nextLine().split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .map(Number::new)
+                .toList());
+
+        System.out.println("보너스 볼을 입력해주세요.");
+
+        Number bonusBall = new Number(Integer.parseInt(scanner.nextLine()));
+
+        return new  WinnerTicketPair(winnerTicket, bonusBall);
     }
 }

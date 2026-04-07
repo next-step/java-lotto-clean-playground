@@ -30,6 +30,7 @@ public class Number {
         if (!(obj instanceof Number)) {
             throw new IllegalArgumentException("object must be an instance of Number");
         }
+
         return number == ((Number) obj).number;
     }
 }
