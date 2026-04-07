@@ -20,23 +20,14 @@ import java.util.stream.IntStream;
 public class Controller {
 
     public void run() {
-        // [1] 구입 금액을 입력 받는다.
         TrialNumber trialNumber = getTrialNumber();
-        // [2] 수기로 입력할 로또 갯수를 입력 받는다.
-        int manualTrialCount = getManualTrialCount(trialNumber.getTrialNumber());
-        // [3] 수기로 입력 받을 로또 번호를 입력 받는다.
+        int manualTrialCount = getManualTrialCount(trialNumber.getTrialCount());
         LottoTickets manualTickets = getManualLottoTickets(manualTrialCount);
-        // [4] 자동으로 생성할 로또 번호를 계산한다.
-        int autoTrialCount = trialNumber.getTrialNumber() - manualTrialCount;
-        // [5] 자동 로또 번호를 생성한다.
+        int autoTrialCount = trialNumber.getTrialCount() - manualTrialCount;
         LottoTickets autoTickets = issueLottoTickets(autoTrialCount, manualTrialCount);
-        // [6] 우승 로또 번호를 입력 받는다.
         Lotto winningLotto = getWinningLotto();
-        // [7] 보너스 번호를 입력받는다.
         int bonusNumber = getBonusNumber(winningLotto);
-        // [8] 로또 결과를 계산한다.
         LottoResult statisticsResult = calculateAndPrintResults(autoTickets, winningLotto, bonusNumber, manualTickets);
-        // [9] 최종 결과를 출력한다.
         OutputView.printWinningStatistics(statisticsResult, trialNumber.getPurchaseAmount());
     }
 
