@@ -23,7 +23,7 @@ class CashierTest {
         int actual = cashier.generateTickets(new Price(price)).getNumberOfTickets();
 
         // then
-        assertThat(new Count(actual)).isEqualTo(new Price(price).getBuyableLottoCount());
+        assertThat(actual).isEqualTo(new Price(price).getBuyableLottoCount());
     }
 
     @DisplayName("로또 결과와 가격으로 수익률을 계산한다.")
@@ -42,9 +42,9 @@ class CashierTest {
 
     private static Stream<Arguments> testGetProfitRate() {
         return Stream.of(
-                Arguments.arguments(new LottoResult(List.of(new Count(1), new Count(2), new Count(1), new Count(0))), new Price(10000), 160.5),
-                Arguments.arguments(new LottoResult(List.of(new Count(0), new Count(0), new Count(0), new Count(0))), new Price(10000), 0.0),
-                Arguments.arguments(new LottoResult(List.of(new Count(2), new Count(1), new Count(2), new Count(1))), new Price(10000), 200306.0)
+                Arguments.arguments(new LottoResult(List.of(1, 2, 1, 0)), new Price(10000), 160.5),
+                Arguments.arguments(new LottoResult(List.of(0, 0, 0, 0)), new Price(10000), 0.0),
+                Arguments.arguments(new LottoResult(List.of(2, 1, 2, 1)), new Price(10000), 200306.0)
         );
     }
 }

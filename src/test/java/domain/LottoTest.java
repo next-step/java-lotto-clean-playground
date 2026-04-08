@@ -38,14 +38,14 @@ public class LottoTest {
                                 new LottoTicket(Arrays.asList(LottoNumber.valueOf(11), LottoNumber.valueOf(21), LottoNumber.valueOf(31), LottoNumber.valueOf(41), LottoNumber.valueOf(15), LottoNumber.valueOf(16)))
                         ),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                        new LottoResult(List.of(new Count(1), new Count(1), new Count(1), new Count(1)))
+                        new LottoResult(List.of(1, 1, 1, 1))
                 ),
                 Arguments.arguments(
                         List.of(
                                 new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6)))
                         ),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                        new LottoResult(List.of(new Count(0), new Count(0), new Count(0), new Count(1)))
+                        new LottoResult(List.of(0, 0, 0, 1))
                 )
         );
     }

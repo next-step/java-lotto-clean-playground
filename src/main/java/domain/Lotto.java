@@ -12,13 +12,13 @@ public class Lotto {
     }
 
     public LottoResult getResults(LottoTicket winnerTicket) {
-        List<Count> matchCountOfEachTicket = new ArrayList<>();
+        List<Integer> matchCountOfEachTicket = new ArrayList<>();
         for (LottoTicket ticket : tickets) {
             matchCountOfEachTicket.add(ticket.getMatchCount(winnerTicket));
         }
-        List<Count> matchingTicketCounts = new ArrayList<>();
+        List<Integer> matchingTicketCounts = new ArrayList<>();
         for (LottoRank lottoRank: LottoRank.values()) {
-            matchingTicketCounts.add(new Count(Collections.frequency(matchCountOfEachTicket, lottoRank.getMatchingNumberCount())));
+            matchingTicketCounts.add(Collections.frequency(matchCountOfEachTicket, lottoRank.getMatchingNumberCount()));
         }
         return new LottoResult(matchingTicketCounts);
     }

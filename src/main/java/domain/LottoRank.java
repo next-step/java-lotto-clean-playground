@@ -1,20 +1,20 @@
 package domain;
 
 public enum LottoRank {
-    FIFTH(new Count(3), 5000),
-    FOURTH(new Count(4), 50000),
-    THIRD(new Count(5), 1500000),
-    FIRST(new Count(6),2000000000);
+    FIFTH(3, 5000),
+    FOURTH(4, 50000),
+    THIRD(5, 1500000),
+    FIRST(6,2000000000);
 
-    private final Count matchingNumberCount;
+    private final int matchingNumberCount;
     private final int prizeMoney;
 
-    LottoRank(Count matchingNumberCount, int prizeMoney) {
+    LottoRank(int matchingNumberCount, int prizeMoney) {
         this.matchingNumberCount = matchingNumberCount;
         this.prizeMoney = prizeMoney;
     }
 
-    public Count getMatchingNumberCount() {
+    public int getMatchingNumberCount() {
         return matchingNumberCount;
     }
 

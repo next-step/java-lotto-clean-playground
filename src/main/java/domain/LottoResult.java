@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LottoResult {
-    private final Map<LottoRank, Count> ticketCountOfEachRank;
+    private final Map<LottoRank, Integer> ticketCountOfEachRank;
 
-    public LottoResult(List<Count> matchingTicketCounts) {
+    public LottoResult(List<Integer> matchingTicketCounts) {
         validate(matchingTicketCounts);
         ticketCountOfEachRank = new HashMap<>();
         for(int i = 0; i < matchingTicketCounts.size(); i++) {
@@ -16,7 +16,7 @@ public class LottoResult {
         }
     }
 
-    private void validate(List<Count> matchingTicketCounts) {
+    private void validate(List<Integer> matchingTicketCounts) {
         if (matchingTicketCounts.size() != LottoRank.values().length) {
             throw new IllegalArgumentException("등수 종류의 수가 올바르지 않습니다.");
         }
@@ -39,7 +39,7 @@ public class LottoResult {
         return Objects.hash(ticketCountOfEachRank);
     }
 
-    public Count getMatchCount(LottoRank rank) {
+    public int getMatchCount(LottoRank rank) {
         return ticketCountOfEachRank.get(rank);
     }
 }
