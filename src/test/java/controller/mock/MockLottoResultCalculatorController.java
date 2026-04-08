@@ -13,6 +13,7 @@ import java.util.List;
 
 public class MockLottoResultCalculatorController extends LottoResultCalculatorController {
     public boolean wrapLottoIntoDtoCalled = false;
+    public boolean accceptWinCondtionCalled= false;
 
     public MockLottoResultCalculatorController(LottoBatch lottoBatch, InputView inputView, OutputView outputView) {
         super(lottoBatch, inputView, outputView);
@@ -22,5 +23,11 @@ public class MockLottoResultCalculatorController extends LottoResultCalculatorCo
     public LottoResultDto wrapLottoIntoDto(List<LottoResult> lottoResults) {
         wrapLottoIntoDtoCalled = true;
         return super.wrapLottoIntoDto(lottoResults);
+    }
+
+    @Override
+    protected WinCondition acceptWinCondition() {
+        accceptWinCondtionCalled = true;
+        return super.acceptWinCondition();
     }
 }
