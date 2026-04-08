@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 //자바는 integer의 비교 방법은 이미 알고 있지만, 우리는 LottoNumber을 객체로 만들어서
 //관리하고 있기 때문에, 비교 방법에 대해서 알려줘야 한다. > comparable<LottoNumber>
-public class LottoNumber implements Comparable<LottoNumber> {
+public final class LottoNumber implements Comparable<LottoNumber> {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
     private final int number;
