@@ -5,6 +5,7 @@ import domain.Lottos;
 import domain.Money;
 import domain.RandomLottoGenerator;
 import domain.Rank;
+import domain.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
 import view.InputView;
@@ -17,16 +18,30 @@ public class Application {
 
     public void run() {
         Money money = getValidMoney();
-        final int number = money.getNumber();
+        final int count = money.getNumber();
 
-        resultView.printPurchaseCount(number);
-        Lottos lottos = purchaseLotto(number);
+        resultView.printPurchaseCount(count);
+        Lottos lottos = purchaseLottos(count);
 
-        Lotto winnerNumbers = getValidWinnerNumbers();
+        Lotto winningNumbers = getValidWinnerNumbers();
+        LottoNumber bonusNumber = getValidBonusNumber();
 
-        LottoCalculator calculator = lottos.matchAll(winnerNumbers);
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+
+        LottoCalculator calculator = lottos.matchAll(winningLotto);
 
         printStatistics(calculator, money);
+    }
+
+    private LottoNumber getValidBonusNumber() {
+        while (true) {
+            try {
+                String input = inputView.getBonusNumber();
+                return new LottoNumber(Integer.parseInt(input.trim()));
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
     }
 
     private Money getValidMoney() {
@@ -66,7 +81,7 @@ public class Application {
         return new Lotto(winningNumbers);
     }
 
-    public Lottos purchaseLotto(int count) {
+    private Lottos purchaseLottos(int count) {
         List<Lotto> purchased = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Lotto lotto = random.generate();
@@ -88,11 +103,7 @@ public class Application {
         resultView.printStatics();
         for (Rank rank : Rank.values()) {
             if (rank != Rank.MISS) {
-                resultView.printWinningStatics(
-                        rank.getMatchnumbers(),
-                        rank.getPrizemoney(),
-                        calculator.getResult().get(rank)
-                );
+                resultView.printWinningStatics(rank, calculator.getResult().get(rank));
             }
         }
         double yield = calculator.calculateYield(money);
