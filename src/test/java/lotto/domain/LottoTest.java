@@ -35,7 +35,7 @@ class LottoTest {
     @Test
     void 보너스_번호를_포함하고_있는지_확인한다() {
         Lotto lotto = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
-        LottoNumber bonus = new LottoNumber(6);
+        LottoNumber bonus = LottoNumber.valueOf(6);
 
         assertThat(lotto.contains(bonus)).isTrue();
     }

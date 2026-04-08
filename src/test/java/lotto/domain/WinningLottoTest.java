@@ -14,7 +14,7 @@ class WinningLottoTest {
     void 번호_5개와_보너스_볼이_일치하면_2등이다() {
         // given
         Lotto winningNumbers = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
-        LottoNumber bonusNumber = new LottoNumber(7);
+        LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
         Lotto userLotto = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 7)); // 1~5 일치 + 보너스 7 일치
@@ -30,7 +30,7 @@ class WinningLottoTest {
     void 번호_5개만_일치하고_보너스_볼이_다르면_3등이다() {
         // given
         Lotto winningNumbers = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 6));
-        LottoNumber bonusNumber = new LottoNumber(7);
+        LottoNumber bonusNumber = LottoNumber.valueOf(7);
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
         Lotto userLotto = Lotto.from(Arrays.asList(1, 2, 3, 4, 5, 8)); // 1~5 일치, 8은 보너스 아님

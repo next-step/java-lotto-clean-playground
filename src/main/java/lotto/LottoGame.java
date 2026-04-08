@@ -19,7 +19,7 @@ public class LottoGame {
         OutputView.printPurchaseSummary(manualCount, (money / 1000) - manualCount);
         OutputView.printTickets(totalTickets);
 
-        WinningLotto winningLotto = new WinningLotto(Lotto.from(InputView.inputWinningNumbers()), new LottoNumber(InputView.inputBonusNumber()));
+        WinningLotto winningLotto = new WinningLotto(Lotto.from(InputView.inputWinningNumbers()), LottoNumber.valueOf(InputView.inputBonusNumber()));
         LottoResult result = new LottoResult(totalTickets.matchAll(winningLotto));
         OutputView.printStatistics(result.getResult(), result.calculateYield(money));
     }

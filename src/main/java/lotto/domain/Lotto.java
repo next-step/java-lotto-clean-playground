@@ -17,7 +17,7 @@ public class Lotto {
     }
 
     public static Lotto from(List<Integer> numbers) { // 객체로 관리해주는 메서드
-        return new Lotto(numbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
+        return new Lotto(numbers.stream().map(LottoNumber::valueOf).collect(Collectors.toList()));
     } // integer을 lottonumber 객체로 변환
 
     public static Lotto generateRandom() {
