@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomLottoTicketGenerator implements LottoTicketGenerator {
-    private static final int UPPER_BOUND = 46;
-    private static final int LOWER_BOUND = 1;
-    private static final int TICKET_LENGTH = 6;
+import static domain.LottoNumber.MIN_NUMBER;
+import static domain.LottoNumber.MAX_NUMBER;
+import static domain.LottoTicket.TICKET_LENGTH;
 
+public class RandomLottoTicketGenerator implements LottoTicketGenerator {
     @Override
     public LottoTicket generate() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
-        for (int i = LOWER_BOUND; i < UPPER_BOUND; i++) {
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
             lottoNumberList.add(LottoNumber.valueOf(i));
         }
         Collections.shuffle(lottoNumberList);
