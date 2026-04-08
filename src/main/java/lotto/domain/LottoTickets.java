@@ -13,8 +13,10 @@ public class LottoTickets {
     public static LottoTickets createCombined(List<Lotto> manualTickets, int autoCount) {
         //수동 로또 + 자동 로또를 합쳐서 전체 묶음을 만듦
         List<Lotto> total = new ArrayList<>(manualTickets); //total안에 먼저 수동로또 넣어두기
+        LottoNumberStrategy randomStrategy = new RandomLottoNumberStrategy();
+
         for (int i = 0; i < autoCount; i++) {
-            total.add(Lotto.generateRandom()); //자동로또 생성
+            total.add(Lotto.from(randomStrategy)); //자동로또 생성
         }
         return new LottoTickets(total);
     }

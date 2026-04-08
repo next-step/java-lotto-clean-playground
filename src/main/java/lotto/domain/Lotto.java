@@ -6,8 +6,6 @@ import java.util.stream.IntStream;
 
 public class Lotto {
     private static final int LOTTO_SIZE = 6;
-    private static final List<Integer> ALL_NUMBERS = IntStream.rangeClosed(1, 45).boxed().collect(Collectors.toList());
-    //1부터 45까지의 모든 number 가져오기
     private final List<LottoNumber> numbers;
 
     private Lotto(List<LottoNumber> numbers) {
@@ -20,11 +18,9 @@ public class Lotto {
         return new Lotto(numbers.stream().map(LottoNumber::valueOf).collect(Collectors.toList()));
     } // integer을 lottonumber 객체로 변환
 
-    public static Lotto generateRandom() {
-        List<Integer> shuffleNumbers = new ArrayList<>(ALL_NUMBERS);
-        Collections.shuffle(shuffleNumbers);
-        return from(shuffleNumbers.subList(0, LOTTO_SIZE));
-    } //all_numbers를 셔플해서 섞고, 로또 사이즈만큼의 숫자로 잘라서 객체로 변환해준다
+    public static Lotto from(LottoNumberStrategy strategy){
+        return from(strategy.generate());
+    }
 
     private void validate(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
