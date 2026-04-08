@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Lotto {
@@ -9,7 +10,7 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validate(numbers);
-        this.numbers = new ArrayList<>(numbers);
+        this.numbers = new ArrayList<>(sortNumbers(numbers));
     }
 
     public int countMatch(Lotto winningLotto) {
@@ -29,6 +30,12 @@ public class Lotto {
     private void validate(List<LottoNumber> numbers) {
         validateLottoSize(numbers);
         validateDuplicate(numbers);
+    }
+
+    private List<LottoNumber> sortNumbers(List<LottoNumber> numbers) {
+        return numbers.stream()
+                .sorted(Comparator.comparingInt(LottoNumber::number))
+                .toList();
     }
 
     private void validateLottoSize(List<LottoNumber> numbers) {
