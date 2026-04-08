@@ -11,14 +11,14 @@ public class Lotto {
         this.tickets = tickets;
     }
 
-    public LottoResult getResults(LottoTicket winnerTicket) {
-        List<Integer> matchCountOfEachTicket = new ArrayList<>();
+    public LottoResult getResults(LottoTicket winnerTicket, LottoNumber bonusNumber) {
+        List<LottoRank> lottoRankOfEachTicket = new ArrayList<>();
         for (LottoTicket ticket : tickets) {
-            matchCountOfEachTicket.add(ticket.getMatchCount(winnerTicket));
+            lottoRankOfEachTicket.add(ticket.getLottoRank(winnerTicket, bonusNumber));
         }
         List<Integer> matchingTicketCounts = new ArrayList<>();
         for (LottoRank lottoRank: LottoRank.values()) {
-            matchingTicketCounts.add(Collections.frequency(matchCountOfEachTicket, lottoRank.getMatchingNumberCount()));
+            matchingTicketCounts.add(Collections.frequency(lottoRankOfEachTicket, lottoRank));
         }
         return new LottoResult(matchingTicketCounts);
     }

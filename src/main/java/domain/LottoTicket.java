@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LottoTicket {
     public static final int TICKET_LENGTH = 6;
@@ -27,12 +24,26 @@ public class LottoTicket {
         }
     }
 
-    public int getMatchCount(LottoTicket winnerTicket) {
+    public LottoRank getLottoRank(LottoTicket winnerTicket, LottoNumber bonusNumber) {
+        int matchCount = getMatchCount(winnerTicket);
+        if (matchCount == LottoRank.FIRST.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FIRST.shouldMatchBonusBall()) != -1) return LottoRank.FIRST;
+        if (matchCount == LottoRank.SECOND.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.SECOND.shouldMatchBonusBall()) != -1) return LottoRank.SECOND;
+        if (matchCount == LottoRank.THIRD.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.THIRD.shouldMatchBonusBall()) != -1) return LottoRank.THIRD;
+        if (matchCount == LottoRank.FOURTH.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FOURTH.shouldMatchBonusBall()) != -1) return LottoRank.FOURTH;
+        if (matchCount == LottoRank.FIFTH.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FIFTH.shouldMatchBonusBall()) != -1) return LottoRank.FIFTH;
+        return null;
+    }
+
+    private int getMatchCount(LottoTicket winnerTicket) {
         int matchCount = 0;
         for (LottoNumber number : winnerTicket.lottoNumbers) {
             matchCount += Boolean.compare(lottoNumbers.contains(number), false);
         }
         return matchCount;
+    }
+
+    private boolean containsBonusNumber(LottoNumber bonusNumber) {
+        return lottoNumbers.contains(bonusNumber);
     }
 
     @Override

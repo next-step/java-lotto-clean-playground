@@ -1,10 +1,4 @@
-import domain.Cashier;
-import domain.Lotto;
-import domain.LottoResult;
-import domain.LottoTicket;
-import domain.LottoTicketGenerator;
-import domain.Price;
-import domain.RandomLottoTicketGenerator;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -19,8 +13,7 @@ public class Application {
         Lotto lotto = cashier.generateTickets(price);
         outputView.showLottoTickets(lotto);
 
-        LottoTicket winnerTicket = inputView.getWinnerTicket();
-        LottoResult result = lotto.getResults(winnerTicket);
+        LottoResult result = lotto.getResults(inputView.getWinnerTicket(), inputView.getBonusNumber());
         outputView.showLottoResults(result, cashier.getProfitRate(result, price));
     }
 }

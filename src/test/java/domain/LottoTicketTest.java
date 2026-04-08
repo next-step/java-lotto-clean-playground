@@ -59,33 +59,36 @@ public class LottoTicketTest {
         );
     }
 
-    @DisplayName("당첨 번호와 티켓 번호를 비교하여 일치하는 개수를 반환한다.")
+    @DisplayName("당첨 번호, 보너스 볼과 티켓 번호를 비교하여 등수를 반환하고, 등수가 없다면 null을 반환한다.")
     @ParameterizedTest
     @MethodSource
-    public void testGetMatchCount(LottoTicket lottoticket, LottoTicket winnerTicket, int expected) {
+    public void testGetLottoRank(LottoTicket lottoticket, LottoTicket winnerTicket, LottoNumber bonusNumber, LottoRank expected) {
         // when
-        int actual = lottoticket.getMatchCount(winnerTicket);
+        LottoRank actual = lottoticket.getLottoRank(winnerTicket, bonusNumber);
 
         // then
         assertThat(actual).isEqualTo(expected);
     }
 
-    private static Stream<Arguments> testGetMatchCount() {
+    private static Stream<Arguments> testGetLottoRank() {
         return Stream.of(
                 Arguments.arguments(
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                        6
+                        LottoNumber.valueOf(7),
+                        LottoRank.FIRST
                 ),
                 Arguments.arguments(
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(9))),
-                        3
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(5), LottoNumber.valueOf(6), LottoNumber.valueOf(7))),
+                        LottoNumber.valueOf(6),
+                        LottoRank.SECOND
                 ),
                 Arguments.arguments(
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(9), LottoNumber.valueOf(10), LottoNumber.valueOf(11), LottoNumber.valueOf(12))),
-                        0
+                        LottoNumber.valueOf(41),
+                        null
                 )
         );
     }
