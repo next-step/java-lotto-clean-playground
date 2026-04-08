@@ -26,18 +26,18 @@ public class LottoResultCalculatorController {
     }
 
     public void calculate() {
-        LottoFinanceStatsCalculator lottoFinanceStatsCalculator = generateLottoFinanceStatsCalculator();
-        this.outputView.printAllStats(wrapLottoIntoDto(lottoFinanceStatsCalculator.getLottoResults()));
-        this.outputView.printReturnRatio(lottoFinanceStatsCalculator.getReturnRatio());
+        LottoFinanceStatsCalculator lottoFinanceStatsCalculator = new LottoFinanceStatsCalculator(this.lottoBatch);
+        WinCondition winCondition = this.acceptWinCondition();
+
+        this.outputView.printAllStats(wrapLottoIntoDto(lottoFinanceStatsCalculator.getLottoResults(winCondition)));
+        this.outputView.printReturnRatio(lottoFinanceStatsCalculator.getReturnRatio(winCondition));
     }
 
-    protected LottoFinanceStatsCalculator generateLottoFinanceStatsCalculator() {
+    protected WinCondition acceptWinCondition() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
         int bonusNumber = this.inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
 
-        WinCondition winCondition = new WinCondition(winningNumbers, bonusNumber);
-
-        return new LottoFinanceStatsCalculator(this.lottoBatch, winCondition);
+        return new WinCondition(winningNumbers, bonusNumber);
     }
 
     protected LottoResultDto wrapLottoIntoDto (List<LottoResult> lottoResults) {

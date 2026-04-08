@@ -4,19 +4,16 @@ import constants.LottoSettingsConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 public class LottoFinanceStatsCalculator {
     private final LottoBatch lottoBatch;
-    private final WinCondition winCondition;
 
-    public LottoFinanceStatsCalculator(LottoBatch lottoBatch, WinCondition winCondition) {
+    public LottoFinanceStatsCalculator(LottoBatch lottoBatch) {
         this.lottoBatch = lottoBatch;
-        this.winCondition = winCondition;
     }
 
-    private double calculateReturnRatio() {
-        List<LottoResult> lottoResults = this.calculateMatchCountPerLotto();
+    private double calculateReturnRatio(WinCondition winCondition) {
+        List<LottoResult> lottoResults = this.calculateMatchCountPerLotto(winCondition);
 
         double earnResult = 0.0;
         for (LottoResult lottoResult : lottoResults) {
@@ -26,7 +23,7 @@ public class LottoFinanceStatsCalculator {
         return earnResult / (LottoSettingsConstants.LOTTO_PRICE * this.lottoBatch.getAllLotto().size());
     }
 
-    private List<LottoResult> calculateMatchCountPerLotto() {
+    private List<LottoResult> calculateMatchCountPerLotto(WinCondition winCondition) {
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : this.lottoBatch.getAllLotto()) {
@@ -36,11 +33,11 @@ public class LottoFinanceStatsCalculator {
         return result;
     }
 
-    public double getReturnRatio() {
-        return this.calculateReturnRatio();
+    public double getReturnRatio(WinCondition winCondition) {
+        return this.calculateReturnRatio(winCondition);
     }
 
-    public List<LottoResult> getLottoResults() {
-        return List.copyOf(this.calculateMatchCountPerLotto());
+    public List<LottoResult> getLottoResults(WinCondition winCondition) {
+        return List.copyOf(this.calculateMatchCountPerLotto(winCondition));
     }
 }
