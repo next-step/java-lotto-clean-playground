@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 public class LottoTicketTest {
     @DisplayName("로또 숫자 리스트의 길이가 6이고 중복이 없다면 예외가 발생하지 않는다.")
@@ -57,6 +56,37 @@ public class LottoTicketTest {
         return Stream.of(
                 Arguments.arguments(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(1), LottoNumber.valueOf(1), LottoNumber.valueOf(1), LottoNumber.valueOf(1), LottoNumber.valueOf(1))),
                 Arguments.arguments(Arrays.asList(LottoNumber.valueOf(45), LottoNumber.valueOf(45), LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4)))
+        );
+    }
+
+    @DisplayName("당첨 번호와 티켓 번호를 비교하여 일치하는 개수를 반환한다.")
+    @ParameterizedTest
+    @MethodSource
+    public void testGetMatchCount(LottoTicket lottoticket, LottoTicket winnerTicket, int expected) {
+        // when
+        int actual = lottoticket.getMatchCount(winnerTicket);
+
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> testGetMatchCount() {
+        return Stream.of(
+                Arguments.arguments(
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        6
+                ),
+                Arguments.arguments(
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(9))),
+                        3
+                ),
+                Arguments.arguments(
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(9), LottoNumber.valueOf(10), LottoNumber.valueOf(11), LottoNumber.valueOf(12))),
+                        0
+                )
         );
     }
 }
