@@ -8,7 +8,7 @@ import static domain.lotto.Rank.*;
 public class Result {
     private final int threeCorrectCount;
     private final int fourCorrectCount;
-    private final int fiveCorrectCount;
+    private final int fiveAndNoBonusCorrectCount;
     private final int fiveAndBonusCorrectCount;
     private final int sixCorrectCount;
 
@@ -23,7 +23,7 @@ public class Result {
                 .toList();
 
         fiveAndBonusCorrectCount = fiveCorrectCounts.stream().filter(CorrectCount::hasBonusNumber).toList().size();
-        fiveCorrectCount = fiveCorrectCounts.stream().filter(correctCount -> !correctCount.hasBonusNumber()).toList().size();
+        fiveAndNoBonusCorrectCount = fiveCorrectCounts.stream().filter(correctCount -> !correctCount.hasBonusNumber()).toList().size();
     }
 
 
@@ -35,8 +35,8 @@ public class Result {
         return fourCorrectCount;
     }
 
-    public int getFiveCorrectCount() {
-        return fiveCorrectCount;
+    public int getFiveAndNoBonusCorrectCount() {
+        return fiveAndNoBonusCorrectCount;
     }
 
     public int getFiveAndBonusCorrectCount() {
@@ -51,7 +51,7 @@ public class Result {
         int expense = ticketCount.getValue() * Payment.TICKET_PRICE;
         int income = THREE_CORRECT.getPrizeMoney() * this.threeCorrectCount
                 + FOUR_CORRECT.getPrizeMoney() * this.fourCorrectCount
-                + FIVE_CORRECT.getPrizeMoney() * this.fiveCorrectCount
+                + FIVE_CORRECT.getPrizeMoney() * this.fiveAndNoBonusCorrectCount
                 + FIVE_AND_BONUS_CORRECT.getPrizeMoney() * this.fiveAndBonusCorrectCount
                 + SIX_CORRECT.getPrizeMoney() * this.sixCorrectCount;
 

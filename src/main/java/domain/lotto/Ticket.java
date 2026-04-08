@@ -14,9 +14,9 @@ public class Ticket {
 
     protected final List<Number> ticket;
 
-    public Ticket(List<Number> ticket) {
-        validateTicket(ticket);
-        List<Integer> mutableNumberList = new ArrayList<>(ticket.stream().map(Number::getNumber).toList());
+    public Ticket(List<Number> numbers) {
+        validateTicket(numbers);
+        List<Integer> mutableNumberList = new ArrayList<>(numbers.stream().map(Number::getNumber).toList());
 
         mutableNumberList.sort(Comparator.naturalOrder());
 
@@ -27,11 +27,11 @@ public class Ticket {
         return new ArrayList<>(ticket);
     }
 
-    public CorrectCount createCorrectCount(WinnerTicketPair winnerTicketPair) {
+    public CorrectCount createCorrectCount(WinnerBalls winnerBalls) {
         int correctCount = 0;
-        Number bonusNumber = winnerTicketPair.getBonusNumber();
+        Number bonusNumber = winnerBalls.getBonusBall();
 
-        for (Number winnerNumber : winnerTicketPair.getWinnerTicket().getTicket()) {
+        for (Number winnerNumber : winnerBalls.getWinnerTicket().getTicket()) {
             correctCount += Boolean.compare(ticket.contains(winnerNumber), false);
         }
 

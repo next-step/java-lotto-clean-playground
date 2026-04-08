@@ -1,14 +1,14 @@
 package domain.lotto;
 
-public class WinnerTicketPair {
+public class WinnerBalls {
     private final Ticket winnerTicket;
 
-    private final Number bonusNumber;
+    private final Number bonusBall;
 
-    public WinnerTicketPair(Ticket winnerTicket, Number bonusNumber) {
+    public WinnerBalls(Ticket winnerTicket, Number bonusBall) {
         this.winnerTicket = winnerTicket;
-        validate(bonusNumber);
-        this.bonusNumber = bonusNumber;
+        validate(bonusBall);
+        this.bonusBall = bonusBall;
     }
 
     private void validate(Number bonusNumber) {
@@ -21,7 +21,7 @@ public class WinnerTicketPair {
         return new Ticket(winnerTicket.getTicket());
     }
 
-    public Number getBonusNumber() {
-        return new Number(bonusNumber.getNumber());
+    public Number getBonusBall() {
+        return new Number(bonusBall.getNumber());
     }
 }

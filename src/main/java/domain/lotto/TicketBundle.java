@@ -28,11 +28,11 @@ public class TicketBundle {
         }
     }
 
-    public Result createResult(WinnerTicketPair winnerTicketPair) {
+    public Result createResult(WinnerBalls winnerBalls) {
         List<CorrectCount> correctCounts = new ArrayList<>();
 
         for (Ticket ticket : ticketBundle) {
-            correctCounts.add(ticket.createCorrectCount(winnerTicketPair));
+            correctCounts.add(ticket.createCorrectCount(winnerBalls));
         }
 
         return new Result(correctCounts);

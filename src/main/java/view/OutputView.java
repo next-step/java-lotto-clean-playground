@@ -29,7 +29,7 @@ public class OutputView {
         System.out.println("\n당첨 통계\n---------");
         System.out.println("3개 일치 (" + THREE_CORRECT.getPrizeMoney() + "원)- " + result.getThreeCorrectCount() + "개");
         System.out.println("4개 일치 (" + FOUR_CORRECT.getPrizeMoney() + "원)- " + result.getFourCorrectCount() + "개");
-        System.out.println("5개 일치 (" + FIVE_CORRECT.getPrizeMoney() + "원)- " + result.getFiveCorrectCount() + "개");
+        System.out.println("5개 일치 (" + FIVE_CORRECT.getPrizeMoney() + "원)- " + result.getFiveAndNoBonusCorrectCount() + "개");
         System.out.println("5개 + 보너스볼 일치 (" + FIVE_AND_BONUS_CORRECT.getPrizeMoney() + "원)- " + result.getFiveAndBonusCorrectCount() + "개");
         System.out.println("6개 일치 (" + SIX_CORRECT.getPrizeMoney() + "원)- " + result.getSixCorrectCount() + "개");
     }
