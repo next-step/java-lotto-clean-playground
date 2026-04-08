@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CashierTest {
-    @DisplayName("1000원 당 하나의 로또 티켓을 발급한다.")
+    @DisplayName(" 입력 개수만큼 로또 티켓을 발급한다.")
     @ParameterizedTest
     @ValueSource(ints = {1000, 3000, 10000, 600000})
     public void testGenerateTickets(int price) {
@@ -20,7 +21,7 @@ class CashierTest {
         Cashier cashier = new Cashier(new RandomLottoTicketGenerator());
 
         // when
-        int actual = cashier.generateTickets(new Price(price)).getNumberOfTickets();
+        int actual = cashier.generateTickets(new Price(price), new ArrayList<>()).getNumberOfTickets();
         int expected = price / 1000;
 
         // then

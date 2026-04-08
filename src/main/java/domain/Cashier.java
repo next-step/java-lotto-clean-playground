@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cashier {
@@ -10,13 +9,12 @@ public class Cashier {
         this.lottoTicketGenerator = lottoTicketGenerator;
     }
 
-    public Lotto generateTickets(Price price) {
-        int ticketCount = price.getBuyableLottoCount();
-        List<LottoTicket> generatedTickets = new ArrayList<>();
+    public Lotto generateTickets(Price price, List<LottoTicket> manualTickets) {
+        int ticketCount = price.getBuyableLottoCount() - manualTickets.size();
         for (int i = 0; i < ticketCount; i++) {
-            generatedTickets.add(lottoTicketGenerator.generate());
+            manualTickets.add(lottoTicketGenerator.generate());
         }
-        return new Lotto(generatedTickets);
+        return new Lotto(manualTickets);
     }
 
     public double getProfitRate(LottoResult result, Price price) {

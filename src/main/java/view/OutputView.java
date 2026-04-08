@@ -3,6 +3,7 @@ package view;
 import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoResult;
+import domain.ManualTicketCount;
 
 public class OutputView {
     public void showLottoResults(LottoResult result, Double profitRate) {
@@ -30,9 +31,8 @@ public class OutputView {
         System.out.println("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
     }
 
-    public void showLottoTickets(Lotto lotto) {
-        System.out.println();
-        System.out.println(lotto.getNumberOfTickets() + "개를 구매했습니다.");
+    public void showLottoTickets(Lotto lotto, ManualTicketCount manualTicketCount) {
+        System.out.println("\n수동으로 " + manualTicketCount.getCount() + "장, 자동으로 " + (lotto.getNumberOfTickets() - manualTicketCount.getCount()) + "장을 구매했습니다.");
         System.out.println(lotto);
         System.out.println();
     }
