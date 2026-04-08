@@ -1,6 +1,14 @@
 package controller;
 
-import domain.*;
+import domain.BonusBall;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoShop;
+import domain.Lottos;
+import domain.ManualLottoCount;
+import domain.PurchaseAmount;
+import domain.WinningLotto;
+import domain.WinningStatistics;
 import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
