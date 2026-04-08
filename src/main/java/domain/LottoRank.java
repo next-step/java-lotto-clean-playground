@@ -14,7 +14,7 @@ public enum LottoRank {
     private final long price;
     private final boolean matchBonus;
 
-    LottoRank(int matchCount, int price, boolean matchBonus) {
+    LottoRank(int matchCount, long price, boolean matchBonus) {
         this.matchCount = matchCount;
         this.price = price;
         this.matchBonus = matchBonus;
