@@ -6,14 +6,14 @@ import constants.LottoSettingsConstants;
 import java.util.Arrays;
 
 public enum LottoResult {
-    NO_MATCH(0, 0, LottoSettingsConstants.NO_WIN),
-    ONE(1, 0, LottoSettingsConstants.NO_WIN),
-    TWO(2, 0,LottoSettingsConstants.NO_WIN),
-    THREE(3, 0, LottoSettingsConstants.THREE_MATCH_PRIZE),
-    FOUR(4, 0, LottoSettingsConstants.FOUR_MATCH_PRIZE),
-    FIVE_WITH_BONUS(5, 1, LottoSettingsConstants.FIVE_WITH_BONUS_MATCH_PRIZE),
-    FIVE(5, 0, LottoSettingsConstants.FIVE_MATCH_PRIZE),
-    SIX(6, 0, LottoSettingsConstants.SIX_MATCH_PRIZE);
+    NO_MATCH(0, 0, 0),
+    ONE(1, 0, 0),
+    TWO(2, 0,0),
+    THREE(3, 0, 5000),
+    FOUR(4, 0, 50000),
+    FIVE_WITH_BONUS(5, 1, 1500000),
+    FIVE(5, 0, 30000000),
+    SIX(6, 0, 2000000000);
 
     private final int matchCount;
     private final int bonusMatchCount;
