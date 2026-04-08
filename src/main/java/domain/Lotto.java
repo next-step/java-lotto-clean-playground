@@ -27,7 +27,7 @@ public class Lotto {
         return numbers.contains(lottoNumber);
     }
 
-    private void validate(List<LottoNumber> numbers) {
+    private static void validate(List<LottoNumber> numbers) {
         validateLottoSize(numbers);
         validateDuplicate(numbers);
     }
@@ -38,13 +38,13 @@ public class Lotto {
                 .toList();
     }
 
-    private void validateLottoSize(List<LottoNumber> numbers) {
+    private static void validateLottoSize(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 숫자의 갯수는 6개입니다.");
         }
     }
 
-    private void validateDuplicate(List<LottoNumber> numbers) {
+    private static void validateDuplicate(List<LottoNumber> numbers) {
         long distinctCount = numbers.stream().distinct().count();
         if (distinctCount != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
