@@ -32,7 +32,7 @@ class LottosTest {
         LottoCalculator calculator = lottos.matchAll(winningLotto);
 
         // then
-        assertThat(calculator.getResult().get(Rank.THREE)).isEqualTo(1); // 5등 1번
+        assertThat(calculator.getResult().get(Rank.FIFTH)).isEqualTo(1); // 5등 1번
         assertThat(calculator.getResult().get(Rank.MISS)).isEqualTo(1);  // 꼴등 1번
     }
 }
