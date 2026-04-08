@@ -20,7 +20,10 @@ public class LottoGame {
         OutputView.printTickets(totalTickets);
 
         WinningLotto winningLotto = new WinningLotto(Lotto.from(InputView.inputWinningNumbers()), LottoNumber.valueOf(InputView.inputBonusNumber()));
-        LottoResult result = new LottoResult(totalTickets.matchAll(winningLotto));
-        OutputView.printStatistics(result.getResult(), result.calculateYield(money));
+        Map<Rank, Long> rankResult = totalTickets.matchAll(winningLotto);
+        double yield = totalTickets.calculateYield(rankResult, money);
+
+        // 4. 출력
+        OutputView.printStatistics(rankResult, yield);
     }
 }

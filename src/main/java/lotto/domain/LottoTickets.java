@@ -33,4 +33,11 @@ public class LottoTickets {
         return Collections.unmodifiableList(tickets);
     }
 
+    public double calculateYield(Map<Rank, Long> result, int investment) {
+        long totalPrize = result.entrySet().stream()
+                .mapToLong(e -> (long) e.getKey().getWinningMoney() * e.getValue())
+                .sum();
+        return (double) totalPrize / investment;
+    }
+
 }
