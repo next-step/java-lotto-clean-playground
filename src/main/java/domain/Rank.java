@@ -1,34 +1,53 @@
 package domain;
 
 public enum Rank {
-    SIX(6, 2000000000),
-    FIVE(5, 1500000),
-    FOUR(4, 50000),
-    THREE(3, 5000),
+    FIRST(6, 2000000000),
+    SECOND(5,30000000),
+    THIRD(5, 1500000),
+    FOURTH(4, 50000),
+    FIFTH(3, 5000),
     MISS(0, 0);
 
-    private int matchnumbers;
-    private int prizemoney;
+    private final int matchNumbers;
+    private final int prizeMoney;
 
-    Rank(int matchnumbers, int prizemoney) {
-        this.matchnumbers = matchnumbers;
-        this.prizemoney = prizemoney;
+    Rank(int matchNumbers, int prizeMoney) {
+        this.matchNumbers = matchNumbers;
+        this.prizeMoney = prizeMoney;
     }
 
-    public static Rank valueOf(int matchnumbers) {
+    public static Rank valueOf(int matchNumbers, boolean matchBonus) {
+        if (matchNumbers == 5) {
+            return determineSecondOrThird(matchBonus);
+        }
+        return findGeneralRank(matchNumbers);
+    }
+
+    private static Rank determineSecondOrThird(boolean matchBonus) {
+        if (matchBonus) {
+            return SECOND;
+        }
+        return THIRD;
+    }
+
+    private static Rank findGeneralRank(int matchNumbers) {
         for (Rank rank : values()) {
-            if (rank.matchnumbers == matchnumbers) {
+            if (isGeneralRankMatched(rank, matchNumbers)) {
                 return rank;
             }
         }
         return MISS;
     }
 
+    private static boolean isGeneralRankMatched(Rank rank, int matchNumbers) {
+        return rank.matchNumbers == matchNumbers && rank != SECOND && rank != THIRD;
+    }
+
     public int getMatchnumbers() {
-        return matchnumbers;
+        return matchNumbers;
     }
 
     public int getPrizemoney() {
-        return prizemoney;
+        return prizeMoney;
     }
 }
