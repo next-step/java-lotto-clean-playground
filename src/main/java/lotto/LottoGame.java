@@ -9,21 +9,40 @@ import java.util.stream.IntStream;
 public class LottoGame {
     public void run() {
         int money = InputView.inputMoney();
+        LottoTickets tickets = purchaseTickets(money);
+        OutputView.printTickets(tickets);
+
+        WinningLotto winningLotto = askWinningLotto();
+        showResult(tickets, winningLotto, money);
+
+    }
+
+    private LottoTickets purchaseTickets(int money) {
         int manualCount = InputView.inputManualCount();
+        List<Lotto> manualLottos = inputManualLottos(manualCount);
 
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<Lotto> manualTickets = IntStream.range(0, manualCount)
-                .mapToObj(i -> Lotto.from(InputView.inputNumbers())).collect(Collectors.toList());
+        int autoCount = (money / 1000) - manualCount;
+        OutputView.printPurchaseSummary(manualCount, autoCount);
 
-        LottoTickets totalTickets = LottoTickets.createCombined(manualTickets, (money / 1000) - manualCount);
-        OutputView.printPurchaseSummary(manualCount, (money / 1000) - manualCount);
-        OutputView.printTickets(totalTickets);
+        return LottoTickets.createCombined(manualLottos, autoCount, new RandomLottoNumberStrategy());
+    }
 
-        WinningLotto winningLotto = new WinningLotto(Lotto.from(InputView.inputWinningNumbers()), LottoNumber.valueOf(InputView.inputBonusNumber()));
-        Map<Rank, Long> rankResult = totalTickets.matchAll(winningLotto);
-        double yield = totalTickets.calculateYield(rankResult, money);
+    private List<Lotto> inputManualLottos(int count) {
+        InputView.printManualInputMessage();
+        return IntStream.range(0, count)
+                .mapToObj(i -> Lotto.from(InputView.inputNumbers()))
+                .collect(Collectors.toList());
+    }
 
-        // 4. 출력
+    private WinningLotto askWinningLotto() {
+        Lotto winningNumbers = Lotto.from(InputView.inputWinningNumbers());
+        LottoNumber bonusNumber = LottoNumber.valueOf(InputView.inputBonusNumber());
+        return new WinningLotto(winningNumbers, bonusNumber);
+    }
+
+    private void showResult(LottoTickets tickets, WinningLotto winningLotto, int money) {
+        Map<Rank, Long> rankResult = tickets.matchAll(winningLotto);
+        double yield = tickets.calculateYield(rankResult, money);
         OutputView.printStatistics(rankResult, yield);
     }
 }
