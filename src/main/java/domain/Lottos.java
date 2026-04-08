@@ -9,11 +9,10 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public LottoCalculator matchAll(Lotto winnerNumbers) {
+    public LottoCalculator matchAll(WinningLotto winningLotto) {
         LottoCalculator calculator = new LottoCalculator();
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.getMatchNumbers(winnerNumbers);
-            Rank rank = Rank.valueOf(matchCount);
+            Rank rank = winningLotto.match(lotto);
             calculator.valueAdd(rank);
         }
         return calculator;
