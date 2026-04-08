@@ -15,9 +15,6 @@ public record WinningResult(String message, int count) {
     }
 
     private static WinningResult createMessage(Rank rank, int count) {
-        if (rank == Rank.FIVE_BONUS_MATCH) {
-            return new WinningResult("5개 일치, 보너스 볼 일치(" + rank.getPrizeMoney() + "원)", count);
-        }
-        return new WinningResult(rank.getMatchCount() + "개 일치 (" + rank.getPrizeMoney() + "원)", count);
+        return new WinningResult(rank.getDisplayName() + " (" + rank.getPrizeMoney() + "원)", count);
     }
 }
