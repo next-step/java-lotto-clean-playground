@@ -13,13 +13,16 @@ import java.util.List;
 import java.util.stream.Stream;
 
 class TicketBundleTest {
-    @DisplayName("당첨 번호 조합에 따라 3~6개 일치 당첨 횟수가 정확히 계산된다.")
+    @DisplayName("당첨 번호 조합에 따라 자동 구매 티켓의 3~6개 일치 당첨 횟수가 정확히 계산된다.")
     @ParameterizedTest
     @MethodSource("winnerTicketAndLottoResultMethodSource")
-    void lottoResulTest(List<Number> winnerNumbers, Number bonusBall, List<Integer> expectedResult) {
+    void lottoResultTest(List<Ball> winnerNumbers, Ball bonusBall, List<Integer> expectedResult) {
         // given
         TicketBundle bundle = new TicketBundle();
-        bundle.createRandomTickets(new TicketCount(new Payment(1000)), (count, min, max) -> List.of(1, 2, 3, 4, 5, 6));
+        TicketCount totalCount = new TicketCount(new Payment(1000));
+        TicketCount randomCount = totalCount;
+        TicketGenerator ticketGenerator = new TicketGenerator(new TicketCount(0), randomCount);
+        bundle.addTickets(ticketGenerator.createRandomTickets((count, min, max) -> List.of(1, 2, 3, 4, 5, 6)));
         Ticket winnerTicket = new Ticket(winnerNumbers);
         WinnerBalls winnerBalls = new WinnerBalls(winnerTicket, bonusBall);
 
@@ -39,29 +42,29 @@ class TicketBundleTest {
     private static Stream<Arguments> winnerTicketAndLottoResultMethodSource() {
         return Stream.of(
                 Arguments.of(Stream.of(40, 41, 42, 3, 2, 1)
-                                .map(Number::new)
+                                .map(Ball::new)
                                 .toList(),
-                        new Number(20),
+                        new Ball(20),
                         List.of(1, 0, 0, 0, 0)),
                 Arguments.of(Stream.of(40, 41, 4, 3, 2, 1)
-                                .map(Number::new)
+                                .map(Ball::new)
                                 .toList(),
-                        new Number(20),
+                        new Ball(20),
                         List.of(0, 1, 0, 0, 0)),
                 Arguments.of(Stream.of(40, 5, 4, 3, 2, 1)
-                                .map(Number::new)
+                                .map(Ball::new)
                                 .toList(),
-                        new Number(20),
+                        new Ball(20),
                         List.of(0, 0, 1, 0, 0)),
                 Arguments.of(Stream.of(40, 5, 4, 3, 2, 1)
-                                .map(Number::new)
+                                .map(Ball::new)
                                 .toList(),
-                        new Number(6),
+                        new Ball(6),
                         List.of(0, 0, 0, 1, 0)),
                 Arguments.of(Stream.of(6, 5, 4, 3, 2, 1)
-                                .map(Number::new)
+                                .map(Ball::new)
                                 .toList(),
-                        new Number(20),
+                        new Ball(20),
                         List.of(0, 0, 0, 0, 1))
         );
     }

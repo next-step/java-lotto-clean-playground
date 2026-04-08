@@ -12,41 +12,41 @@ import java.util.List;
 public class Ticket {
     public static final int TICKET_LENGTH = 6;
 
-    protected final List<Number> ticket;
+    protected final List<Ball> balls;
 
-    public Ticket(List<Number> numbers) {
-        validateTicket(numbers);
-        List<Integer> mutableNumberList = new ArrayList<>(numbers.stream().map(Number::getNumber).toList());
+    public Ticket(List<Ball> balls) {
+        validateTicket(balls);
+        List<Integer> mutableNumberList = new ArrayList<>(balls.stream().map(Ball::getNumber).toList());
 
         mutableNumberList.sort(Comparator.naturalOrder());
 
-        this.ticket = mutableNumberList.stream().map(Number::new).toList();
+        this.balls = mutableNumberList.stream().map(Ball::new).toList();
     }
 
-    public List<Number> getTicket() {
-        return new ArrayList<>(ticket);
+    public List<Ball> getBalls() {
+        return new ArrayList<>(balls);
     }
 
     public CorrectCount createCorrectCount(WinnerBalls winnerBalls) {
         int correctCount = 0;
-        Number bonusNumber = winnerBalls.getBonusBall();
+        Ball bonusBall = winnerBalls.getBonusBall();
 
-        for (Number winnerNumber : winnerBalls.getWinnerTicket().getTicket()) {
-            correctCount += Boolean.compare(ticket.contains(winnerNumber), false);
+        for (Ball winnerBall : winnerBalls.getWinnerTicket().getBalls()) {
+            correctCount += Boolean.compare(balls.contains(winnerBall), false);
         }
 
-        boolean hasBonusNumber = ticket.contains(bonusNumber);
+        boolean hasBonusNumber = balls.contains(bonusBall);
 
         return new CorrectCount(correctCount,  hasBonusNumber);
     }
 
-    private void validateTicket(List<Number> ticket) {
+    private void validateTicket(List<Ball> ticket) {
         if (ticket.isEmpty()) {
             throw new EmptyTicketException("ticket is empty");
         }
 
         int ticketLength = ticket.size();
-        int actualTicketLength = ticket.stream().map(Number::getNumber).distinct().toList().size();
+        int actualTicketLength = ticket.stream().map(Ball::getNumber).distinct().toList().size();
 
         if (ticketLength != actualTicketLength) {
             throw new DuplicateNumbersException("duplicate numbers are not allowed in ticket");

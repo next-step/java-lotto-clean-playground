@@ -1,3 +1,4 @@
+import domain.lotto.TicketGenerator;
 import domain.lotto.wrappers.TicketCount;
 import number_generator.NumberListGenerator;
 import number_generator.RandomNumberListGenerator;
@@ -12,12 +13,20 @@ public class Application {
         OutputView outputView = new OutputView();
 
         TicketBundle ticketBundle = new TicketBundle();
-        NumberListGenerator randomNumberListGenerator = new RandomNumberListGenerator();
-        TicketCount ticketCount = new TicketCount(inputView.readLottoPayment());
 
-        ticketBundle.createRandomTickets(ticketCount, randomNumberListGenerator);
-        outputView.showLottoTickets(ticketBundle);
-        Result result = ticketBundle.createResult(inputView.readWinnerTicketPair());
-        outputView.showLottoResults(ticketCount, result);
+        TicketCount totalTicketCount = new TicketCount(inputView.readPayment());
+        TicketCount manualTicketCount = inputView.readManualTicketCount();
+        TicketCount randomTicketCount = new TicketCount(totalTicketCount.getValue() - manualTicketCount.getValue());
+
+        TicketGenerator ticketGenerator = new TicketGenerator(manualTicketCount, randomTicketCount);
+        NumberListGenerator randomNumberListGenerator = new RandomNumberListGenerator();
+
+        ticketBundle.addTickets(ticketGenerator.createManualTickets(inputView.readManualTickets(manualTicketCount)));
+        ticketBundle.addTickets(ticketGenerator.createRandomTickets(randomNumberListGenerator));
+
+
+        outputView.showGeneratedTickets(ticketGenerator, ticketBundle);
+        Result result = ticketBundle.createResult(inputView.readWinnerBalls());
+        outputView.showResults(totalTicketCount, result);
     }
 }

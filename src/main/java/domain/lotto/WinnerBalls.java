@@ -3,25 +3,25 @@ package domain.lotto;
 public class WinnerBalls {
     private final Ticket winnerTicket;
 
-    private final Number bonusBall;
+    private final Ball bonusBall;
 
-    public WinnerBalls(Ticket winnerTicket, Number bonusBall) {
+    public WinnerBalls(Ticket winnerTicket, Ball bonusBall) {
         this.winnerTicket = winnerTicket;
         validate(bonusBall);
         this.bonusBall = bonusBall;
     }
 
-    private void validate(Number bonusNumber) {
-        if (winnerTicket.getTicket().contains(bonusNumber)) {
+    private void validate(Ball bonusBall) {
+        if (winnerTicket.getBalls().contains(bonusBall)) {
             throw new IllegalArgumentException("that number is already in the winner ticket");
         }
     }
 
     public Ticket getWinnerTicket() {
-        return new Ticket(winnerTicket.getTicket());
+        return new Ticket(winnerTicket.getBalls());
     }
 
-    public Number getBonusBall() {
-        return new Number(bonusBall.getNumber());
+    public Ball getBonusBall() {
+        return new Ball(bonusBall.getNumber());
     }
 }

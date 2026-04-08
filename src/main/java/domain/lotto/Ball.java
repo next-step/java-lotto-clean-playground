@@ -2,13 +2,13 @@ package domain.lotto;
 
 import domain.lotto.exception.WrongLottoNumberException;
 
-public class Number {
+public class Ball {
     public static final int UPPER_BOUND = 46;
     public static final int LOWER_BOUND = 1;
 
     private final int number;
 
-    public Number(int number) {
+    public Ball(int number) {
         validate(number);
         this.number = number;
     }
@@ -27,10 +27,10 @@ public class Number {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Number)) {
-            throw new IllegalArgumentException("object must be an instance of Number");
+        if (!(obj instanceof Ball)) {
+            throw new IllegalArgumentException("object must be an instance of Ball");
         }
 
-        return number == ((Number) obj).number;
+        return number == ((Ball) obj).number;
     }
 }
