@@ -47,12 +47,14 @@ public class LottoController {
     }
 
     private Lottos generateLottos(int manualAmount, int autoAmount) {
-        outputView.printInputManualNumbers();
         List<Lotto> totalLottos = new ArrayList<>();
-        List<Lotto> manualLottos = generateManualLottos(manualAmount);
-        List<Lotto> autoLottos = generateAutoLottos(autoAmount);
 
-        totalLottos.addAll(manualLottos);
+        if (manualAmount != 0) {
+            outputView.printInputManualNumbers();
+            List<Lotto> manualLottos = generateManualLottos(manualAmount);
+            totalLottos.addAll(manualLottos);
+        }
+        List<Lotto> autoLottos = generateAutoLottos(autoAmount);
         totalLottos.addAll(autoLottos);
 
         return new Lottos(totalLottos);
