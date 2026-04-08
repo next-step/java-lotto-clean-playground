@@ -30,7 +30,10 @@ public class Main {
         System.out.println("지난주 당첨 번호를 입력해 주세요.");
         Lotto drawnLotto = LOTTO_PARSER.parse(scanner.nextLine());
 
-        LottoDraw draw = new LottoDraw(drawnLotto, receipt);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(scanner.nextLine());
+
+        LottoDraw draw = new LottoDraw(drawnLotto, bonusNumber, receipt);
         System.out.println();
         displayResult(draw);
     }
@@ -63,6 +66,8 @@ public class Main {
         System.out.println("3개 일치 (" + LottoResult.THREE.getReward() + "원)- " + draw.getCount(LottoResult.THREE));
         System.out.println("4개 일치 (" + LottoResult.FOUR.getReward() + "원)- " + draw.getCount(LottoResult.FOUR));
         System.out.println("5개 일치 (" + LottoResult.FIVE.getReward() + "원)- " + draw.getCount(LottoResult.FIVE));
+        System.out.println(
+                "5개 일치, 보너스 볼 일치 (" + LottoResult.BONUS.getReward() + "원)- " + draw.getCount(LottoResult.BONUS));
         System.out.println("6개 일치 (" + LottoResult.SIX.getReward() + "원)- " + draw.getCount(LottoResult.SIX));
 
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");
