@@ -3,6 +3,7 @@ import domain.LottoCalculator;
 import domain.LottoNumber;
 import domain.Lottos;
 import domain.Money;
+import domain.PurchaseCount;
 import domain.RandomLottoGenerator;
 import domain.Rank;
 import domain.WinningLotto;
@@ -18,18 +19,15 @@ public class Application {
 
     public void run() {
         Money money = getValidMoney();
-        final int count = money.getNumber();
+        PurchaseCount count = getValidPurchaseCount(money.getNumber());
 
-        resultView.printPurchaseCount(count);
-        Lottos lottos = purchaseLottos(count);
+        resultView.printPurchaseCount(count.getManual(), count.getAuto());
 
-        Lotto winningNumbers = getValidWinnerNumbers();
-        LottoNumber bonusNumber = getValidBonusNumber();
+        Lottos lottos = purchaseAllLottos(count);
 
-        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+        WinningLotto winningLotto = getValidWinningLotto();
 
         LottoCalculator calculator = lottos.matchAll(winningLotto);
-
         printStatistics(calculator, money);
     }
 
@@ -48,6 +46,17 @@ public class Application {
         while (true) {
             try {
                 return new Money(inputView.getMoney());
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
+    }
+
+    private PurchaseCount getValidPurchaseCount(int totalCount) {
+        while (true) {
+            try {
+                int manualCount = inputView.getManualCount();
+                return new PurchaseCount(totalCount, manualCount);
             } catch (IllegalArgumentException e) {
                 System.out.println("[ERROR] " + e.getMessage());
             }
@@ -81,13 +90,10 @@ public class Application {
         return new Lotto(winningNumbers);
     }
 
-    private Lottos purchaseLottos(int count) {
+    private Lottos purchaseAllLottos(PurchaseCount count) {
         List<Lotto> purchased = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            Lotto lotto = random.generate();
-            printLottoAdapter(lotto);
-            purchased.add(lotto);
-        }
+        purchased.addAll(purchaseManual(count.getManual()));
+        purchased.addAll(purchaseAuto(count.getAuto()));
         return new Lottos(purchased);
     }
 
@@ -108,6 +114,35 @@ public class Application {
         }
         double yield = calculator.calculateYield(money);
         resultView.printYield(yield, yield >= 1.0);
+    }
+
+    private List<Lotto> purchaseManual(int manualCount) {
+        if (manualCount == 0) return new ArrayList<>();
+
+        List<String> inputs = inputView.getManualNumbers(manualCount);
+        List<Lotto> manuals = new ArrayList<>();
+        for (String input : inputs) {
+            Lotto lotto = parseToLotto(input);
+            printLottoAdapter(lotto);
+            manuals.add(lotto);
+        }
+        return manuals;
+    }
+
+    private List<Lotto> purchaseAuto(int autoCount) {
+        List<Lotto> autos = new ArrayList<>();
+        for (int i = 0; i < autoCount; i++) {
+            Lotto lotto = random.generate();
+            printLottoAdapter(lotto);
+            autos.add(lotto);
+        }
+        return autos;
+    }
+
+    private WinningLotto getValidWinningLotto() {
+        Lotto winningNumbers = getValidWinnerNumbers();
+        LottoNumber bonusNumber = getValidBonusNumber();
+        return new WinningLotto(winningNumbers, bonusNumber);
     }
 
     public static void main(String[] args) {
