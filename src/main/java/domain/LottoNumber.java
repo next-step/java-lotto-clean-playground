@@ -27,7 +27,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
         if (cachedNumber != null) {
             return cachedNumber;
         }
-        return new LottoNumber(number);
+        throw new IllegalArgumentException("로또 숫자가 범위를 벗어났습니다.");
     }
 
     private void validateNumber(int number) {
