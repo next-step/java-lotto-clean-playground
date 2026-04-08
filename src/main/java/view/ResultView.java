@@ -4,8 +4,8 @@ import domain.Rank;
 import java.util.List;
 
 public class ResultView {
-    public void printPurchaseCount(int count) {
-        System.out.println("\n" + count + "개를 구매했습니다.");
+    public void printPurchaseCount(int manual, int auto) {
+        System.out.println("\n수동으로 " + manual + "장, 자동으로 " + auto + "개를 구매했습니다.");
     }
 
     public void printLottoNumbers(List<Integer> numbers) {
