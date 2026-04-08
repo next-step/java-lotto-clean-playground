@@ -19,9 +19,10 @@ public enum Rank { //열거형. 정해진 값들만 쓰게 만드는 타입
     }
 
     public static Rank valueOf(int matchCount, boolean matchBonus) { //일치하는 수를 등수로 바꿔주는 함수
-        if (matchCount == 5) return matchBonus ? SECOND : THIRD;
+        if (matchCount == 5) return matchBonus ? SECOND : THIRD; //boolean matchBonus가 1이면 등수는 2등
         return Arrays.stream(values())
                 .filter(rank -> rank != SECOND && rank.matchCount == matchCount)
+                //SECOND 등수는 제외하고 rank.matchCount가 입력받은 matchCount와 같은 것만 남겨라
                 .findFirst()
                 .orElse(MISS);
     }

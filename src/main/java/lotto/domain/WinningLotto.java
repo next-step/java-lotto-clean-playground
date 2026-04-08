@@ -13,8 +13,8 @@ public class WinningLotto {
     }
 
     public Rank judge(Lotto userLotto) {
-        int matchCount = userLotto.countMatch(winningLotto);
-        boolean matchBonus = userLotto.contains(bonusNumber);
+        int matchCount = userLotto.countMatch(winningLotto); //winningLotto랑 몇개가 맞는지
+        boolean matchBonus = userLotto.contains(bonusNumber); //보너스넘버를 맞췄는지 안맞췄는지
         return Rank.valueOf(matchCount, matchBonus);
     }
 }
