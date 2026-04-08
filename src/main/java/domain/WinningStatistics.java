@@ -1,13 +1,13 @@
 package domain;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class WinningStatistics {
     private final Map<Rank, Integer> statistics;
 
     public WinningStatistics() {
-        statistics = new HashMap<>();
+        statistics = new EnumMap<>(Rank.class);
         initialize();
     }
 
