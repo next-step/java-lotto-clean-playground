@@ -21,9 +21,10 @@ class CashierTest {
 
         // when
         int actual = cashier.generateTickets(new Price(price)).getNumberOfTickets();
+        int expected = price / 1000;
 
         // then
-        assertThat(actual).isEqualTo(new Price(price).getBuyableLottoCount());
+        assertThat(actual).isEqualTo(expected);
     }
 
     @DisplayName("로또 결과와 가격으로 수익률을 계산한다.")
