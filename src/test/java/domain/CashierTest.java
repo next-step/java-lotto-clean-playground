@@ -15,7 +15,7 @@ class CashierTest {
     @DisplayName("1000원 당 하나의 로또 티켓을 발급한다.")
     @ParameterizedTest
     @ValueSource(ints = {1000, 3000, 10000, 600000})
-    public void TestGenerateTickets(int price) {
+    public void testGenerateTickets(int price) {
         // given
         Cashier cashier = new Cashier(new RandomLottoTicketGenerator());
 
