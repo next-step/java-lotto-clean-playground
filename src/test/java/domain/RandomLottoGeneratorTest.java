@@ -20,7 +20,11 @@ class RandomLottoGeneratorTest {
 
         //then
         assertThat(numbers).hasSize(6);
-        assertThat(numbers).isSorted();
+
+        // 정렬 확인
+        assertThat(numbers)
+                .extracting(LottoNumber::getNumber)
+                .isSorted();
     }
 
     @Test

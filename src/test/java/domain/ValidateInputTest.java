@@ -33,13 +33,14 @@ class ValidateInputTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1,2,3,4,5,6", "1,  2, 3", "a, b, c"})
-    @DisplayName("로또 번호 형식이 ', '로 구분된 숫자가 아니면 예외가 발생한다.")
+    @ValueSource(strings = {"a, b, c", "1, 2, 3.5", "1,,3", "1, ,3"})
+    @DisplayName("로또 번호 형식이 숫자가 아니거나 비어있으면 예외가 발생한다.")
     void validateLottoTest(String input) {
         //given //when //then
         assertThatThrownBy(() -> ValidateInput.validateLotto(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("로또 번호는 숫자여야 하며, 구분자는 ', '여야 합니다.");
+                .hasMessageContaining("로또 번호는 숫자여야 하며, 각 번호는 쉼표(,)로 구분되어야 합니다.");
+        // 클래스의 throw new IllegalArgumentException 메시지와 일치시켜야 함
     }
 
     @Test

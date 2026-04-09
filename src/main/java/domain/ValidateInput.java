@@ -14,10 +14,10 @@ public class ValidateInput {
     }
 
     public static void validateLotto(String input) {
-        String[] tokens = input.split(", ");
+        String[] tokens = input.split(",");
         for (String token : tokens) {
             if (isNotNumeric(token.trim())) {
-                throw new IllegalArgumentException("로또 번호는 숫자여야 하며, 구분자는 ', '여야 합니다.");
+                throw new IllegalArgumentException("로또 번호는 숫자여야 하며, 각 번호는 쉼표(,)로 구분되어야 합니다.");
             }
         }
     }
