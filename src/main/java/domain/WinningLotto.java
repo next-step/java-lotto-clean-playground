@@ -16,6 +16,12 @@ public class WinningLotto {
         }
     }
 
+    public MatchResult match(Lotto lotto) {
+        int matchCount = lotto.countMatch(winningLotto);
+        boolean bonusMatch = lotto.getNumbers().contains(bonusNumber);
+        return MatchResult.of(matchCount, bonusMatch);
+    }
+
     public Lotto getWinningLotto() {
         return winningLotto;
     }

@@ -20,7 +20,7 @@ public class LottoController {
         Lottos lottos = new Lottos(purchaseAmount);
         resultView.printAllLottos(lottos.getLottos());
 
-        Lotto winningLotto = getValidWinningLotto().getWinningLotto();
+        WinningLotto winningLotto = getValidWinningLotto();
         resultView.printWinningLottoStatistics(purchaseAmount.getAmount(), lottos, winningLotto);
     }
 

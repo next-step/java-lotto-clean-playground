@@ -4,6 +4,7 @@ import domain.Lotto;
 import domain.Lottos;
 import domain.MatchResult;
 
+import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class ResultView {
         }
     }
 
-    public void printWinningLottoStatistics(int purchaseAmount, Lottos lottos, Lotto winningLotto) {
+    public void printWinningLottoStatistics(int purchaseAmount, Lottos lottos, WinningLotto winningLotto) {
         Map<MatchResult, Integer> resultMap = MatchResult.of(lottos, winningLotto);
 
         System.out.println("당첨 통계");
