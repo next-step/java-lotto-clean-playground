@@ -1,7 +1,6 @@
 package domain;
 
 import constant.ErrorMessage;
-import dto.LottoStatus;
 
 import java.util.List;
 
@@ -17,8 +16,8 @@ public class Lotto {
                 .toList();
     }
 
-    public LottoStatus getLottoStatus() {
-        return new LottoStatus(numbers);
+    public List<LottoNumber> getLottoNumber() {
+        return List.copyOf(numbers);
     }
 
     public int countMatchingNumbers(Lotto otherLotto) {
