@@ -1,9 +1,9 @@
 package domain;
 
 public class ValidateInput {
-    public static void validateMoney(String input) {
+    public static void validateNumber(String input) {
         if (isNotNumeric(input)) {
-            throw new IllegalArgumentException("구입금액은 숫자여야 합니다.");
+            throw new IllegalArgumentException("입력값은 숫자여야 합니다.");
         }
     }
 
@@ -19,6 +19,18 @@ public class ValidateInput {
             if (isNotNumeric(token.trim())) {
                 throw new IllegalArgumentException("로또 번호는 숫자여야 하며, 구분자는 ', '여야 합니다.");
             }
+        }
+    }
+
+    public static void validateBonusNumber(Lotto numbers, LottoNumber bonusNumber) {
+        if (numbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 볼의 숫자가 지난 주 당첨 번호와 중복됩니다.");
+        }
+    }
+
+    public static void validateManualCount(int count, int manualCount) {
+        if (count < manualCount) {
+            throw new IllegalArgumentException("입력하신 수동 구매 횟수가 뽑을 수 있는 로또 수를 넘어섰습니다.");
         }
     }
 

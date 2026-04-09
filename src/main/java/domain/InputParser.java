@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseToLotto {
+public class InputParser {
     public static Lotto parseToLotto(String input) {
         String[] tokens = input.split(", ");
         List<LottoNumber> winningNumbers = new ArrayList<>();
@@ -13,5 +13,9 @@ public class ParseToLotto {
 
         }
         return new Lotto(winningNumbers);
+    }
+
+    public static LottoNumber parseToLottoNumber(String input) {
+        return new LottoNumber(Integer.parseInt(input));
     }
 }

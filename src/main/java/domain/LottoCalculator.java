@@ -20,7 +20,7 @@ public class LottoCalculator {
     public double calculateYield(Money money) {
         double totalPrize = 0;
         for (Rank rank : Rank.values()) {
-            totalPrize += rank.getPrizemoney() * result.get(rank);
+            totalPrize += rank.getPrizeMoney() * result.get(rank);
         }
         return totalPrize / money.getAmount();
     }
