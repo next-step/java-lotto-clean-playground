@@ -1,7 +1,6 @@
 package domain;
 
 import constant.ErrorMessage;
-import dto.LottoStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
