@@ -12,7 +12,7 @@ public class LottoPurchaseTest {
     void 시나리오_테스트() {
         LottoPurchase purchase = new LottoPurchase(12345, maker);
         assertThat(purchase.getChange()).isEqualTo(345);
-        assertThat(purchase.getNumberOfLotto()).isEqualTo(12);
+        assertThat(purchase.getLottoCount()).isEqualTo(12);
 
         LottoReceipt receipt = purchase.printReceipt();
         assertThat(receipt.lottoRows().size()).isEqualTo(12);

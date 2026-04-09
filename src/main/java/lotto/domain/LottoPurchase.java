@@ -2,36 +2,49 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import lotto.view.LottoPriceException;
 
 public class LottoPurchase {
     private static final int LOTTO_PRICE = 1000;
 
-    private final List<Lotto> lottoRows = new ArrayList<>();
     private final int totalPrice;
+    private final int lottoCount;
     private final int change;
+
+    private final LottoMaker lottoMaker;
+    private final List<Lotto> lottoRows = new ArrayList<>();
 
     public LottoPurchase(int totalPrice, LottoMaker lottoMaker) {
         this.totalPrice = totalPrice;
-
-        int numberOfLotto = totalPrice / LOTTO_PRICE;
+        lottoCount = totalPrice / LOTTO_PRICE;
         change = totalPrice % LOTTO_PRICE;
 
-        if (numberOfLotto < 1) {
-            throw new LottoPriceException.Illegal("로또를 1장은 사야 합니다.");
+        this.lottoMaker = lottoMaker;
+
+        if (lottoCount < 1) {
+            throw new LottoPurchaseException.IllegalCount("로또를 1장은 사야 합니다.");
+        }
+    }
+
+    public void purchaseManually(LottoNumbers numbers) {
+        if (lottoCount <= lottoRows.size()) {
+            throw new LottoPurchaseException.IllegalCount("지불한 금액보다 더 구입하려 합니다.");
         }
 
-        for (int n = 0; n < numberOfLotto; n++) {
-            lottoRows.add(lottoMaker.makeLotto());
-        }
+        Lotto lotto = new Lotto(numbers);
+        lottoRows.add(lotto);
     }
 
     public LottoReceipt printReceipt() {
+        while (lottoRows.size() < lottoCount) {
+            Lotto lotto = lottoMaker.makeLotto();
+            lottoRows.add(lotto);
+        }
+
         return new LottoReceipt(lottoRows, totalPrice);
     }
 
-    public int getNumberOfLotto() {
-        return lottoRows.size();
+    public int getLottoCount() {
+        return lottoCount;
     }
 
     public int getChange() {

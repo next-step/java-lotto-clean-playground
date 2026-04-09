@@ -33,6 +33,21 @@ public class ViewInput {
         }
     }
 
+    public int readManualLottoCount() {
+        String line = scanner.nextLine();
+        int manualLottoCount;
+        try {
+            manualLottoCount = Integer.parseInt(line);
+        } catch (RuntimeException e) {
+            throw new ViewInputException("횟수 파싱에 실패했습니다.", e);
+        }
+
+        if (manualLottoCount < 0) {
+            throw new ViewInputException("구매할 횟수는 양수여야 합니다.");
+        }
+        return manualLottoCount;
+    }
+
     public LottoNumbers readLottoNumbers() {
         String line = scanner.nextLine();
         try {
