@@ -9,6 +9,7 @@ public enum MatchResult {
     THREE(3, 5_000),
     MISS(0, 0);
 
+    private static final int BONUS_AVAILABLE_EQUAL_COUNT = 5;
     private final int matchCount;
     private final int matchReward;
 
@@ -18,7 +19,7 @@ public enum MatchResult {
     }
 
     public static MatchResult getResultByMatchCount(int singleEqualCount, boolean isBonusBallMatch) {
-        if (singleEqualCount == 5) {
+        if (singleEqualCount == BONUS_AVAILABLE_EQUAL_COUNT) {
             if (isBonusBallMatch) {
                 return FIVE_WITH_BONUS;
             }

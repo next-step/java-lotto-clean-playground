@@ -11,6 +11,12 @@ import java.util.List;
 
 public class ResultView {
 
+    private static final String MATCH_COUNT_MESSAGE = "개 일치";
+    private static final String MESSAGE_BEFORE_REWARD = "(";
+    private static final String MESSAGE_AFTER_REWARD = "원)- ";
+    private static final String MESSAGE_AFTER_COUNT = "개";
+
+
     WinningLotto winningLotto = new WinningLotto();
 
     public void printAllLottos(List<Lotto> allLottos) {
@@ -30,6 +36,11 @@ public class ResultView {
         System.out.println("-----------");
 
         for (MatchResult result : MatchResult.values()) {
+            String bonusMessage = "";
+
+            if (result == MatchResult.FIVE_WITH_BONUS) {
+                bonusMessage = ", 보너스 볼 일치";
+            }
             int matchStandardCount = result.getMatchCount();
             if (matchStandardCount == 0) {
                 continue;
@@ -38,7 +49,7 @@ public class ResultView {
             int matchUnitReward = result.getMatchReward();
             int myMatchCount = resultMap.getOrDefault(result, 0);
 
-            System.out.println(matchStandardCount + "개 일치 (" + matchUnitReward + "원)- " + myMatchCount + "개");
+            System.out.println(matchStandardCount + MATCH_COUNT_MESSAGE + bonusMessage + MESSAGE_BEFORE_REWARD + matchUnitReward + MESSAGE_AFTER_REWARD + myMatchCount + MESSAGE_AFTER_COUNT);
         }
 
         double profitRate = winningLotto.getLottoProfitRate(resultMap, purchaseAmount);
