@@ -3,9 +3,11 @@ package model;
 import constants.ErrorMessageConstants;
 import constants.LottoSettingsConstants;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinConditionTest {
@@ -14,9 +16,9 @@ public class WinConditionTest {
     void testBonusBallInRange() {
         // given
         int bonusBall = LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER + 1;
-        List<Integer> winningNumbers = List.of(1,2,3,4,5,6);
+        Lotto winningLotto = new Lotto(List.of(1,2,3,4,5,6));
         // when
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> new WinCondition(winningNumbers, bonusBall));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> new WinCondition(winningLotto, bonusBall));
 
         // then
         Assertions.assertEquals(ErrorMessageConstants.NUMBER_OUT_OF_RANGE, exception.getMessage());
@@ -27,12 +29,28 @@ public class WinConditionTest {
     void testBonusBallInWinningNumber() {
         // given
         int bonusBall = 1;
-        List<Integer> winningNumbers = List.of(1,2,3,4,5,6);
+        Lotto winningLotto = new Lotto(List.of(1,2,3,4,5,6));
 
         // when
-        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> new WinCondition(winningNumbers, bonusBall));
+        Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> new WinCondition(winningLotto, bonusBall));
 
         // then
         Assertions.assertEquals(ErrorMessageConstants.BONUS_NUMBER_IN_WINNING_NUMBER, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("로또별 당첨 유형 계산")
+    void testGetLottoResult(){
+        //given
+        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
+        int bonusBall = 11;
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
+        WinCondition winCondition = new WinCondition(new Lotto(winningNumbers), bonusBall);
+
+        //when
+        LottoResult lottoResult = winCondition.calculateLottoResultResult(lotto);
+
+        //then
+        Assertions.assertEquals(LottoResult.THREE, lottoResult);
     }
 }

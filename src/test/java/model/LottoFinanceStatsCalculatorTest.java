@@ -18,7 +18,7 @@ class LottoFinanceStatsCalculatorTest {
     @BeforeEach
     void setUp() {
         lottoBatch = new LottoBatch();
-        winCondition = new WinCondition(List.of(1, 2, 3, 4, 5, 6), 7);
+        winCondition = new WinCondition(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 7);
     }
 
     @Test

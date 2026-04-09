@@ -3,15 +3,17 @@ package model;
 import common.ValidateLotto;
 import constants.ErrorMessageConstants;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public record WinCondition(List<Integer> numbers, int bonusNumber) {
-    public WinCondition(List<Integer> numbers, int bonusNumber) {
-        ValidateLotto.checkIfNumbersAreValid(numbers);
-        this.checkBonusBall(bonusNumber, numbers);
-        this.numbers = new ArrayList<>(numbers);
+public class WinCondition {
+    private final Lotto winningLotto;
+    private final int bonusNumber;
+    public WinCondition(Lotto winningLotto, int bonusNumber) {
+        this.checkBonusBall(bonusNumber, winningLotto.numbers());
+        this.winningLotto= winningLotto;
         this.bonusNumber= bonusNumber;
     }
 
@@ -30,8 +32,12 @@ public record WinCondition(List<Integer> numbers, int bonusNumber) {
         }
     }
 
-    public List<Integer> numbers() {
-        return List.copyOf(this.numbers);
+    public LottoResult calculateLottoResultResult(Lotto lotto) {
+        Set<Integer> lottoNumbers= new HashSet<>(this.winningLotto.numbers());
+        Set<Integer> winningNumberSet = new HashSet<>(lotto.numbers());
+        lottoNumbers.retainAll(winningNumberSet);
+
+        return LottoResult.calculateLottoResult(lottoNumbers.size(), Collections.frequency(lotto.numbers(), this.bonusNumber));
     }
 
 }

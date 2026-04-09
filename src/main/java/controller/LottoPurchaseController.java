@@ -55,6 +55,6 @@ public class LottoPurchaseController {
     }
 
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {
-        return new LottoDto(lotto.getNumbers());
+        return new LottoDto(lotto.numbers());
     }
 }

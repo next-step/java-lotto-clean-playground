@@ -27,7 +27,7 @@ public class LottoFinanceStatsCalculator {
         List<LottoResult> result = new ArrayList<>();
 
         for (Lotto lotto : this.lottoBatch.getAllLotto()) {
-            result.add(lotto.compareWithWinCondition(winCondition));
+            result.add(winCondition.calculateLottoResultResult(lotto));
         }
 
         return result;

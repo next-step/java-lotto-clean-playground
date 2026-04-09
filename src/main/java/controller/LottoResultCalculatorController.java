@@ -3,6 +3,7 @@ package controller;
 import constants.LottoSettingsConstants;
 import constants.ScriptConstants;
 import dto.LottoResultDto;
+import model.Lotto;
 import model.LottoBatch;
 import model.LottoFinanceStatsCalculator;
 import model.LottoResult;
@@ -37,7 +38,7 @@ public class LottoResultCalculatorController {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
         int bonusNumber = this.inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
 
-        return new WinCondition(winningNumbers, bonusNumber);
+        return new WinCondition(new Lotto((winningNumbers)), bonusNumber);
     }
 
     protected LottoResultDto wrapLottoIntoDto (List<LottoResult> lottoResults) {
