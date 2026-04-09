@@ -37,4 +37,13 @@ public class InputView {
 
         return winningNumbers;
     }
+
+    public LottoNumber getBonusBall() {
+        System.out.println("보너스 볼을 입력해주세요.");
+
+        int bonusNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        return new LottoNumber(bonusNumber);
+    }
 }

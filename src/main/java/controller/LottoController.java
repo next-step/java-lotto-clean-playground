@@ -28,6 +28,8 @@ public class LottoController {
         resultView.printAllLottos(allLottos);
 
         Lotto winningLotto = getValidWinningLotto();
+        LottoNumber bonusBall = getValidateBonusBall();
+
         resultView.printWinningLottoStatistics(purchaseAmount, winningLotto.getNumbers(), allLottos);
     }
 
@@ -53,6 +55,15 @@ public class LottoController {
         } catch (IllegalArgumentException e) {
             errorView.printErrorMessage(e.getMessage());
             return getValidPurchaseAmount();
+        }
+    }
+
+    private LottoNumber getValidateBonusBall() {
+        try {
+            return inputView.getBonusBall();
+        } catch (IllegalArgumentException e) {
+            errorView.printErrorMessage(e.getMessage());
+            return getValidateBonusBall();
         }
     }
 }
