@@ -37,7 +37,7 @@ public class WinCondition {
         Set<Integer> winningNumberSet = new HashSet<>(lotto.numbers());
         lottoNumbers.retainAll(winningNumberSet);
 
-        return LottoResult.calculateLottoResult(lottoNumbers.size(), Collections.frequency(lotto.numbers(), this.bonusNumber));
+        return LottoResult.calculateLottoResult(lottoNumbers.size(), lotto.numbers().contains(this.bonusNumber));
     }
 
 }

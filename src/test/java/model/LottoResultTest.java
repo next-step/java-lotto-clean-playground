@@ -10,10 +10,10 @@ public class LottoResultTest {
     void testWhenNoBonusCount() {
         //given
         int matchCount = 5;
-        int matchBonusCount = 0;
+        boolean matchBonusExist= false;
 
         // when
-        LottoResult lottoResult = LottoResult.calculateLottoResult(matchCount, matchBonusCount);
+        LottoResult lottoResult = LottoResult.calculateLottoResult(matchCount, matchBonusExist);
 
         // then
         Assertions.assertEquals(LottoResult.FIVE, lottoResult);
@@ -24,10 +24,11 @@ public class LottoResultTest {
     void testWithBonusCount() {
         //given
         int matchCount = 5;
-        int matchBonusCount = 1;
+        boolean matchBonusExist= true;
+
 
         // when
-        LottoResult lottoResult = LottoResult.calculateLottoResult(matchCount, matchBonusCount);
+        LottoResult lottoResult = LottoResult.calculateLottoResult(matchCount, matchBonusExist);
 
         // then
         Assertions.assertEquals(LottoResult.FIVE_WITH_BONUS, lottoResult);
