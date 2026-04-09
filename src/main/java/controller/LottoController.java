@@ -26,8 +26,14 @@ public class LottoController {
 
     private WinningLotto getValidWinningLotto() {
        Lotto lotto = getValidLotto();
-       LottoNumber bonusNumber = getValidBounus(lotto);
-       return new WinningLotto(lotto, bonusNumber);
+       while (true) {
+           try {
+               LottoNumber bonus = getValidBonus(lotto);
+               return new WinningLotto(lotto, bonus);
+           } catch (IllegalArgumentException e) {
+               errorView.printErrorMessage(e.getMessage());
+           }
+       }
     }
 
     private Lotto getValidLotto() {
@@ -40,7 +46,7 @@ public class LottoController {
         }
     }
 
-    private LottoNumber getValidBounus(Lotto lotto) {
+    private LottoNumber getValidBonus(Lotto lotto) {
         while (true) {
             try {
                 LottoNumber bonusNumber = inputView.getBonusNumber();
