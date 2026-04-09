@@ -5,6 +5,7 @@ public enum LottoResult {
     THREE(3, 5_000),
     FOUR(4, 50_000),
     FIVE(5, 1_500_000),
+    BONUS(5, 30_000_000),
     SIX(6, 2_000_000_000);
 
     private final int matchingCount;
@@ -15,20 +16,29 @@ public enum LottoResult {
         this.reward = reward;
     }
 
-    public static LottoResult valueOf(int count) {
-        for (LottoResult result : values()) {
-            if (result.matchingCount == count) {
-                return result;
-            }
+    public static LottoResult valueOf(int matchingCount, boolean matchBonus) {
+        if (matchingCount == 6) {
+            return SIX;
         }
-        // 3개 미만은 모두 NONE으로 처리
-        if (count >= 0 && count < 3) {
+        if (matchingCount == 5 && matchBonus) {
+            return BONUS;
+        }
+        if (matchingCount == 5) {
+            return FIVE;
+        }
+        if (matchingCount == 4) {
+            return FOUR;
+        }
+        if (matchingCount == 3) {
+            return THREE;
+        }
+        if (matchingCount < 3 && matchingCount >= 0) {
             return NONE;
         }
-        throw new IllegalArgumentException("유효하지 않은 당첨 개수입니다: " + count);
+        throw new IllegalArgumentException("유효하지 않은 당첨 개수입니다: " + matchingCount);
     }
 
-    public int getReward(){
+    public int getReward() {
         return reward;
     }
 }
