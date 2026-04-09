@@ -5,6 +5,7 @@ import domain.LottoNumber;
 import domain.Lottos;
 import domain.PurchaseAmount;
 import domain.WinningLotto;
+import java.util.List;
 import view.ErrorView;
 import view.InputView;
 import view.ResultView;
@@ -17,23 +18,39 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = inputView.getPurchaseAmount();
-        Lottos lottos = new Lottos(purchaseAmount);
-        resultView.printAllLottos(lottos.getLottos());
+
+        int manualCount = getValidManualCount(purchaseAmount);
+        List<Lotto> manualLottos = inputView.getManualLottos(manualCount);
+
+        Lottos lottos = new Lottos(purchaseAmount, manualLottos);
+        resultView.printAllLottos(lottos.getLottos(), manualCount);
 
         WinningLotto winningLotto = getValidWinningLotto();
         resultView.printWinningLottoStatistics(purchaseAmount.getAmount(), lottos, winningLotto);
     }
 
+    private int getValidManualCount(PurchaseAmount purchaseAmount) {
+        while (true) {
+            try {
+                int manualCount = inputView.getManualCount();
+                purchaseAmount.validateManualCount(manualCount);
+                return manualCount;
+            } catch (IllegalArgumentException e) {
+                errorView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
     private WinningLotto getValidWinningLotto() {
-       Lotto lotto = getValidLotto();
-       while (true) {
-           try {
-               LottoNumber bonus = getValidBonus(lotto);
-               return new WinningLotto(lotto, bonus);
-           } catch (IllegalArgumentException e) {
-               errorView.printErrorMessage(e.getMessage());
-           }
-       }
+        Lotto lotto = getValidLotto();
+        while (true) {
+            try {
+                LottoNumber bonus = getValidBonus(lotto);
+                return new WinningLotto(lotto, bonus);
+            } catch (IllegalArgumentException e) {
+                errorView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 
     private Lotto getValidLotto() {
