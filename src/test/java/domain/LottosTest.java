@@ -3,7 +3,11 @@ package domain;
 import dto.LottoStatistics;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,21 +35,23 @@ public class LottosTest {
         Lotto winningLotto = new Lotto(winningNumbers);
         LottoNumber bonusNumber = LottoNumber.valueOf(40);
         //when
-        LottoStatistics lottoStatistics = lottos.getLottoStatistics(winningLotto, bonusNumber);
+        Map<LottoRank, Integer> matchedCount = lottos.calculateMatchedCounts(winningLotto, bonusNumber);
+        BigDecimal profitRate = lottos.calculateProfitRate(matchedCount);
+        LottoStatistics lottoStatistics = LottoStatistics.of(matchedCount, profitRate);
 
         //then
         assertAll(
-                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.THREE_MATCHED)).isEqualTo(1),
-                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.FOUR_MATCHED)).isEqualTo(2),
-                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.FIVE_MATCHED)).isEqualTo(3),
-                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.BONUS_FIVE_MATCHED)).isEqualTo(4),
-                () -> assertThat(lottoStatistics.matchCount().get(LottoRank.SIX_MATCHED)).isEqualTo(5)
+                () -> assertThat(lottoStatistics.matchedCount().get(LottoRank.THREE_MATCHED)).isEqualTo(1),
+                () -> assertThat(lottoStatistics.matchedCount().get(LottoRank.FOUR_MATCHED)).isEqualTo(2),
+                () -> assertThat(lottoStatistics.matchedCount().get(LottoRank.FIVE_MATCHED)).isEqualTo(3),
+                () -> assertThat(lottoStatistics.matchedCount().get(LottoRank.BONUS_FIVE_MATCHED)).isEqualTo(4),
+                () -> assertThat(lottoStatistics.matchedCount().get(LottoRank.SIX_MATCHED)).isEqualTo(5)
         );
     }
 
-    private List<LottoNumber> generateLottoList(int num1, int num2, int num3, int num4, int num5, int num6) {
-        return Stream.of(num1, num2, num3, num4, num5, num6)
-                .map(LottoNumber::valueOf)
+    private List<LottoNumber> generateLottoList(int... num) {
+        return Arrays.stream(num)
+                .mapToObj(LottoNumber::valueOf)
                 .toList();
     }
 }

@@ -20,15 +20,13 @@ public class LottoTest {
         List<LottoNumber> validNumbers = Stream.of(45, 2, 18, 7, 9, 6)
                 .map(LottoNumber::valueOf)
                 .toList();
-        LottoStatus expectedNumbers = new LottoStatus(
-                Stream.of(2, 6, 7, 9, 18, 45)
-                        .map(LottoNumber::valueOf)
-                        .toList()
-        );
+        List<LottoNumber> expectedNumbers = Stream.of(2, 6, 7, 9, 18, 45)
+                .map(LottoNumber::valueOf)
+                .toList();
         //when
         Lotto lotto = new Lotto(validNumbers);
         //then
-        assertThat(lotto.getLottoStatus())
+        assertThat(lotto.getLottoNumber())
                 .isEqualTo(expectedNumbers);
     }
 
