@@ -4,11 +4,10 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.Lottos;
 import domain.PurchaseAmount;
+import domain.WinningLotto;
 import view.ErrorView;
 import view.InputView;
 import view.ResultView;
-
-import java.util.List;
 
 public class LottoController {
 
@@ -21,17 +20,34 @@ public class LottoController {
         Lottos lottos = new Lottos(purchaseAmount);
         resultView.printAllLottos(lottos.getLottos());
 
-        Lotto winningLotto = getValidWinningLotto();
+        Lotto winningLotto = getValidWinningLotto().getWinningLotto();
         resultView.printWinningLottoStatistics(purchaseAmount.getAmount(), lottos, winningLotto);
     }
 
-    private Lotto getValidWinningLotto() {
-        try {
-            List<LottoNumber> numbers = inputView.getWinningNumbers();
-            return new Lotto(numbers);
-        } catch (IllegalArgumentException e) {
-            errorView.printErrorMessage(e.getMessage());
-            return getValidWinningLotto();
+    private WinningLotto getValidWinningLotto() {
+       Lotto lotto = getValidLotto();
+       LottoNumber bonusNumber = getValidBounus(lotto);
+       return new WinningLotto(lotto, bonusNumber);
+    }
+
+    private Lotto getValidLotto() {
+        while (true) {
+            try {
+                return new Lotto(inputView.getWinningNumbers());
+            } catch (IllegalArgumentException e) {
+                errorView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private LottoNumber getValidBounus(Lotto lotto) {
+        while (true) {
+            try {
+                LottoNumber bonusNumber = inputView.getBonusNumber();
+                return new WinningLotto(lotto, bonusNumber).getBonusNumber();
+            } catch (IllegalArgumentException e) {
+                errorView.printErrorMessage(e.getMessage());
+            }
         }
     }
 }

@@ -39,4 +39,16 @@ public class InputView {
             }
         }
     }
+
+    public LottoNumber getBonusNumber() {
+        while (true) {
+            try {
+                System.out.println("보너스 볼을 입력해주세요.");
+                int bonusNumber = Integer.parseInt(scanner.nextLine().trim());
+                return new LottoNumber(bonusNumber);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
