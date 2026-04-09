@@ -24,8 +24,8 @@ public class ResultView {
         System.out.println("-----------");
 
         for (MatchResult result : MatchResult.values()) {
-            if (result.getMatchCount() == 0) continue;
-            System.out.println(result.getMatchCount() + "개 일치 (" + result.getMatchReward() + "원)- " + resultMap.get(result) + "개");
+            if(result == MatchResult.MISS) continue;
+            System.out.println(result.getLabel() + " (" + result.getMatchReward() + "원)- " + resultMap.get(result) + "개");
         }
 
         double profitRate = MatchResult.getProfitRate(resultMap, purchaseAmount);
