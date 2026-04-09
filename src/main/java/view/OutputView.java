@@ -44,7 +44,7 @@ public class OutputView {
     }
 
     public void printStatistics(LottoStatistics lottoStatistics) {
-        lottoStatistics.matchCount().entrySet().stream()
+        lottoStatistics.matchedCount().entrySet().stream()
                 .filter(entry -> entry.getKey() != LottoRank.MISS)
                 .forEach(entry -> printMatchedResult(entry.getKey(), entry.getValue()));
     }
