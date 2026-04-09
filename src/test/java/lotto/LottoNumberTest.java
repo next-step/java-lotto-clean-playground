@@ -43,8 +43,7 @@ public class LottoNumberTest {
 
     @Test
     void 로또_번호는_문자열로_변환할_수_있다() {
-        assertThat(new LottoNumber(43))
-                .asString()
+        assertThat(new LottoNumber(43).format())
                 .isEqualTo("43");
     }
 }

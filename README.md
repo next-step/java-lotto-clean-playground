@@ -26,6 +26,10 @@
 
 ### 로또 [`Lotto`](src/main/java/lotto/Lotto.java)
 
+* 로또 숫자 목록이 있다.
+
+### 로또 숫자 목록 [`LottoNumbers`](src/main/java/lotto/LottoNumbers.java)
+
 * 총 6개의 로또 숫자가 있다.
 * 6개의 숫자가 겹치지 않는지 검증한다.
 * 6개의 숫자는 오름차순으로 정렬되어 있다.
@@ -34,7 +38,11 @@
 
 * 숫자는 1~45 사이의 값이다.
 
-### 로또 당첨 정보 [`LottoDraw`](src/main/java/lotto/LottoDraw.java)
+### 우승 로또 [`WinningLotto`](src/main/java/lotto/WinningLotto.java)
+
+* 로또 숫자 목록과, 보너스 숫자가 있다.
+
+### 로또 영수증 결과 [`LottoReceiptResult`](src/main/java/lotto/LottoReceiptResult.java)
 
 특정 로또 영수증에서 당첨된 개수가 어떻게 되는지에 대한 결과이다.
 
@@ -44,6 +52,7 @@
   3개 일치 (5000원) - n개
   4개 일치 (50000원) - n개
   5개 일치 (1500000원) - n개
+  6개 일치, 보너스 볼 일치 (30000000원) - n개
   6개 일치 (2000000000원) - n개
   ```
 * 수익률이 얼마인지 보여준다.

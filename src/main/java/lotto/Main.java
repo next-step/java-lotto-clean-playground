@@ -19,9 +19,9 @@ public class Main {
 
         System.out.println();
         System.out.println("지난주 당첨 번호를 입력해 주세요.");
-        Lotto drawnLotto = parseDrawnLotto(scanner.nextLine());
+        WinningLotto winningLotto = parseWinningLotto(scanner.nextLine(), scanner.nextLine());
 
-        LottoDraw draw = new LottoDraw(drawnLotto, receipt);
+        LottoReceiptResult draw = new LottoReceiptResult(winningLotto, receipt);
         System.out.println();
         printResult(draw);
     }
@@ -44,23 +44,36 @@ public class Main {
         return receipt;
     }
 
-    private static Lotto parseDrawnLotto(String line) {
+    private static WinningLotto parseWinningLotto(String lottoNumberLine, String bonusLine) {
+        LottoNumbers lottoNumbers = parseLottoNumbers(lottoNumberLine);
+        LottoNumber bonusNumber = parseBonusNumber(bonusLine);
+
+        return new WinningLotto(lottoNumbers, bonusNumber);
+    }
+
+    private static LottoNumbers parseLottoNumbers(String line) {
         List<LottoNumber> numbers = Stream.of(line.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
                 .toList();
 
-        return new Lotto(numbers);
+        return new LottoNumbers(numbers);
     }
 
-    private static void printResult(LottoDraw draw) {
+    private static LottoNumber parseBonusNumber(String line) {
+        int number = Integer.parseInt(line.trim());
+        return new LottoNumber(number);
+    }
+
+    private static void printResult(LottoReceiptResult draw) {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
         System.out.println("3개 일치 (5000원)- " + draw.getCount(LottoResult.THREE));
         System.out.println("4개 일치 (50000원)- " + draw.getCount(LottoResult.FOUR));
         System.out.println("5개 일치 (1500000원)- " + draw.getCount(LottoResult.FIVE));
+        System.out.println("5개 일치, 보너스 볼 일치 (30000000원)- " + draw.getCount(LottoResult.FIVE_BONUS));
         System.out.println("6개 일치 (2000000000원)- " + draw.getCount(LottoResult.SIX));
 
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");

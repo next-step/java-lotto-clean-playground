@@ -14,9 +14,14 @@ public class LottoMaker {
     }
 
     public Lotto makeLotto() {
-        Collections.shuffle(container);
-        List<LottoNumber> numbers = new ArrayList<>(container.subList(0, Lotto.NUMBER_COUNT));
-        Collections.sort(numbers);
+        LottoNumbers numbers = makeLottoNumbers();
         return new Lotto(numbers);
+    }
+
+    public LottoNumbers makeLottoNumbers() {
+        Collections.shuffle(container);
+        List<LottoNumber> numbers = new ArrayList<>(container.subList(0, LottoNumbers.NUMBER_COUNT));
+        Collections.sort(numbers);
+        return new LottoNumbers(numbers);
     }
 }

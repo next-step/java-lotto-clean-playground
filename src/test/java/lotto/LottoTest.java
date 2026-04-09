@@ -11,31 +11,27 @@ import org.junit.jupiter.api.Test;
 public class LottoTest {
     @Test
     void 로또를_생성할_수_있다() {
-        List<LottoNumber> numbers = createNumbers(1, 3, 6, 7, 13, 20);
-
-        assertThatCode(() -> new Lotto(numbers))
+        assertThatCode(() -> createNumbers(1, 3, 6, 7, 13, 20))
                 .doesNotThrowAnyException();
     }
 
     @Test
     void 로또_숫자는_6개여야_한다() {
-        List<LottoNumber> numbers = createNumbers(1, 3, 6, 7, 13);
-
-        assertThatThrownBy(() -> new Lotto(numbers))
-                .isInstanceOf(Lotto.LottoException.WrongNumberCount.class);
+        assertThatThrownBy(() -> createNumbers(1, 3, 6, 7, 13))
+                .isInstanceOf(LottoException.WrongNumberCount.class);
     }
 
     @Test
     void 로또_숫자는_중복되면_안된다() {
-        List<LottoNumber> numbers = createNumbers(1, 1, 6, 7, 13, 20);
-
-        assertThatThrownBy(() -> new Lotto(numbers))
-                .isInstanceOf(Lotto.LottoException.DuplicateNumber.class);
+        assertThatThrownBy(() -> createNumbers(1, 1, 6, 7, 13, 20))
+                .isInstanceOf(LottoException.DuplicateNumber.class);
     }
 
-    private List<LottoNumber> createNumbers(int... numbers) {
-        return Arrays.stream(numbers)
+    private LottoNumbers createNumbers(int... numbers) {
+        List<LottoNumber> numbersList = Arrays.stream(numbers)
                 .mapToObj(LottoNumber::new)
                 .toList();
+
+        return new LottoNumbers(numbersList);
     }
 }

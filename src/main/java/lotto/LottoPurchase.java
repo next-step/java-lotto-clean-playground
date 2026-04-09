@@ -13,7 +13,7 @@ public class LottoPurchase {
     public LottoPurchase(int totalPrice, LottoMaker lottoMaker) {
         this.totalPrice = totalPrice;
 
-        int numberOfLotto = this.totalPrice / LOTTO_PRICE;
+        int numberOfLotto = totalPrice / LOTTO_PRICE;
         change = totalPrice % LOTTO_PRICE;
 
         for (int n = 0; n < numberOfLotto; n++) {
