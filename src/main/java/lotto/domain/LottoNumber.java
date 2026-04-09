@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 public record LottoNumber(int number) implements Comparable<LottoNumber> {
     public static int MIN_NUMBER = 1;
