@@ -30,6 +30,10 @@ public class Lotto {
         return matchCount;
     }
 
+    public boolean isBonusBallMatch(LottoNumber bonusBall) {
+        return numbers.contains(bonusBall);
+    }
+
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("당첨 숫자는 6개여야 해요.");

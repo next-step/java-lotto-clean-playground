@@ -23,8 +23,8 @@ public class ResultView {
         }
     }
 
-    public void printWinningLottoStatistics(final int purchaseAmount, List<LottoNumber> winningNumbers, List<Lotto> allLottos) {
-        HashMap<MatchResult, Integer> resultMap = winningLotto.getMatchResult(allLottos, winningNumbers);
+    public void printWinningLottoStatistics(final int purchaseAmount, List<LottoNumber> winningNumbers, List<Lotto> allLottos, LottoNumber bonusBall) {
+        HashMap<MatchResult, Integer> resultMap = winningLotto.getMatchResult(allLottos, winningNumbers, bonusBall);
 
         System.out.println("당첨 통계");
         System.out.println("-----------");

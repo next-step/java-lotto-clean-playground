@@ -30,7 +30,7 @@ public class LottoController {
         Lotto winningLotto = getValidWinningLotto();
         LottoNumber bonusBall = getValidateBonusBall();
 
-        resultView.printWinningLottoStatistics(purchaseAmount, winningLotto.getNumbers(), allLottos);
+        resultView.printWinningLottoStatistics(purchaseAmount, winningLotto.getNumbers(), allLottos, bonusBall);
     }
 
     private Lotto getValidWinningLotto() {

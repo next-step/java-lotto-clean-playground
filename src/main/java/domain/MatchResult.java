@@ -1,10 +1,12 @@
 package domain;
 
 public enum MatchResult {
-    THREE(3, 5_000),
-    FOUR(4, 50_000),
-    FIVE(5, 1_500_000),
+
     SIX(6, 2_000_000_000),
+    FIVE_WITH_BONUS(5, 30_000_000),
+    FIVE(5, 1_500_000),
+    FOUR(4, 50_000),
+    THREE(3, 5_000),
     MISS(0, 0);
 
     private final int matchCount;
@@ -15,7 +17,13 @@ public enum MatchResult {
         this.matchReward = matchReward;
     }
 
-    public static MatchResult getResultByMatchCount(int singleEqualCount) {
+    public static MatchResult getResultByMatchCount(int singleEqualCount, boolean isBonusBallMatch) {
+        if (singleEqualCount == 5) {
+            if (isBonusBallMatch) {
+                return FIVE_WITH_BONUS;
+            }
+            return FIVE;
+        }
         for (MatchResult result : values()) {
             if (result.matchCount == singleEqualCount) {
                 return result;
