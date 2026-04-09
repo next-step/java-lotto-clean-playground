@@ -13,6 +13,12 @@ public class Lotto {
         this.numbers = new ArrayList<>(sortNumbers(numbers));
     }
 
+    public static Lotto from(List<Integer> numbers) {
+        return new Lotto(numbers.stream()
+                .map(LottoNumber::new)
+                .toList());
+    }
+
     public int countMatch(Lotto winningLotto) {
         return (int) numbers.stream()
                 .filter(winningLotto::contains)
