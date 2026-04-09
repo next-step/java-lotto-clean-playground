@@ -17,6 +17,8 @@ public class InputView {
                 System.out.println("구입 금액을 입력해 주세요.");
                 int amount = Integer.parseInt(scanner.nextLine().trim());
                 return new PurchaseAmount(amount);
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해 주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -56,6 +58,8 @@ public class InputView {
                     lottoNumbers.add(new LottoNumber(Integer.parseInt(number.trim())));
                 }
                 return new Lotto(lottoNumbers);
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해 주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -73,6 +77,8 @@ public class InputView {
                     winningNumbers.add(new LottoNumber(Integer.parseInt(number.trim())));
                 }
                 return winningNumbers;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해 주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -85,6 +91,8 @@ public class InputView {
                 System.out.println("보너스 볼을 입력해주세요.");
                 int bonusNumber = Integer.parseInt(scanner.nextLine().trim());
                 return new LottoNumber(bonusNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해 주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
