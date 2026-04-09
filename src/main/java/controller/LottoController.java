@@ -2,14 +2,18 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoNumber;
+import domain.LottoRank;
 import domain.Lottos;
 import domain.strategy.NumbersGenerator;
 import dto.LottoStatistics;
+import dto.LottoStatus;
 import view.InputView;
 import view.OutputView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class LottoController {
@@ -42,7 +46,10 @@ public class LottoController {
         Lottos lottos = generateLottos(manualAmount, autoAmount);
 
         outputView.printQuantity(manualAmount, autoAmount);
-        outputView.printElements(lottos.toStatus());
+        List<LottoStatus> lottoStatusList = lottos.getLottos().stream()
+                .map(LottoStatus::from)
+                .toList();
+        outputView.printElements(lottoStatusList);
         return lottos;
     }
 
@@ -78,7 +85,9 @@ public class LottoController {
 
     private void showResultStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
         outputView.printStatisticHeader();
-        LottoStatistics lottoStatistics = lottos.getLottoStatistics(winningLotto, bonusNumber);
+        Map<LottoRank, Integer> matchedCounts = lottos.calculateMatchedCounts(winningLotto, bonusNumber);
+        BigDecimal profitRate = lottos.calculateProfitRate(matchedCounts);
+        LottoStatistics lottoStatistics = LottoStatistics.of(matchedCounts, profitRate);
         outputView.printStatistics(lottoStatistics);
 
         outputView.printResult(lottoStatistics.profitRate());
