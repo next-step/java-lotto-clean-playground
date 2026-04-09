@@ -20,8 +20,8 @@ public class Lottos {
         }
     }
 
-    public Lottos(final int purchaseAmount) {
-        this.lottos = generateLottos(purchaseAmount / PRICE);
+    public Lottos(final int purchaseAmount, int manualPurchaseCount) {
+        this.lottos = generateLottos(purchaseAmount / PRICE - manualPurchaseCount);
     }
 
     private List<Lotto> generateLottos(int lottoCount) {
