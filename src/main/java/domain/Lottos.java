@@ -1,14 +1,8 @@
 package domain;
 
-import dto.LottoStatistics;
-import dto.LottoStatus;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Lottos {
     private final List<Lotto> lottos;
@@ -17,21 +11,12 @@ public class Lottos {
         this.lottos = List.copyOf(lottoList);
     }
 
-    public LottoStatistics getLottoStatistics(Lotto winningLotto, LottoNumber bonusNumber) {
-        Map<LottoRank, Integer> matchingCounts = calculateMatchedCounts(winningLotto, bonusNumber);
-        BigDecimal profitRate = calculateProfitRate(matchingCounts);
-
-        return new LottoStatistics(matchingCounts, profitRate);
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 
-    public List<LottoStatus> toStatus() {
-        return lottos.stream()
-                .map(Lotto::getLottoStatus)
-                .toList();
-    }
-
-    private Map<LottoRank, Integer> calculateMatchedCounts(Lotto winningLotto, LottoNumber bonusNumber) {
-        Map<LottoRank, Integer> matchedCounts = new LinkedHashMap<>();
+    public Map<LottoRank, Integer> calculateMatchedCounts(Lotto winningLotto, LottoNumber bonusNumber) {
+        Map<LottoRank, Integer> matchedCounts = new EnumMap<>(LottoRank.class);
         Arrays.stream(LottoRank.values())
                 .forEach(rank -> matchedCounts.put(rank, 0));
         lottos.forEach(lotto -> {
@@ -40,10 +25,10 @@ public class Lottos {
             updateCount(matchedCounts, count, hasBonus);
         });
 
-        return matchedCounts;
+        return Map.copyOf(matchedCounts);
     }
 
-    private BigDecimal calculateProfitRate(Map<LottoRank, Integer> matchedCounts) {
+    public BigDecimal calculateProfitRate(Map<LottoRank, Integer> matchedCounts) {
         long totalPrize = matchedCounts.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
