@@ -19,18 +19,15 @@ public class LottoPurchase {
         int totalTicketCount = totalPrice / LOTTO_PRICE;
         int autoCount = totalTicketCount - manualCount;
 
-        // 방어 코드: 구입 금액보다 수동 개수가 많으면 예외 발생
         if (autoCount < 0) {
             throw new IllegalArgumentException("구입 금액보다 많은 수동 로또를 선택하셨습니다.");
         }
 
-        // 수동 로또와 자동 로또를 합친 전체 리스트 생성
         List<Lotto> combinedLottos = new ArrayList<>(manualLottos);
         for (int i = 0; i < autoCount; i++) {
             combinedLottos.add(lottoMaker.makeLotto());
         }
 
-        // Lottos 일급 컬렉션에 전체 리스트 전달
         this.lottos = new Lottos(combinedLottos);
     }
 
