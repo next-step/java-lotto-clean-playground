@@ -13,7 +13,7 @@ import dto.WinningResult;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
+import java.util.function.Supplier;
 
 public class LottoController {
     private final InputView inputView;
@@ -27,9 +27,9 @@ public class LottoController {
     }
 
     public void run() {
-        PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readAmount());
-        ManualLottoCount manualLottoCount = new ManualLottoCount(inputView.readManualCount(), purchaseAmount);
-        Lottos lottos = purchaseLottos(purchaseAmount, manualLottoCount);
+        PurchaseAmount purchaseAmount = retryUntilValid(() -> new PurchaseAmount(inputView.readAmount()));
+        ManualLottoCount manualLottoCount = retryUntilValid(() -> new ManualLottoCount(inputView.readManualCount(), purchaseAmount));
+        Lottos lottos = retryUntilValid(() -> purchaseLottos(purchaseAmount, manualLottoCount));
 
         printPurchaseResult(lottos, manualLottoCount);
 
@@ -51,13 +51,25 @@ public class LottoController {
     }
 
     private WinningLotto readWinningLotto() {
-        List<Integer> winningNumbers = inputView.readWinningNumbers();
-        BonusBall bonusBall = new BonusBall(new LottoNumber(inputView.readBonusBall()));
-        return new WinningLotto(Lotto.from(winningNumbers), bonusBall);
+        Lotto winningLotto = retryUntilValid(() -> Lotto.from(inputView.readWinningNumbers()));
+        return retryUntilValid(() -> {
+            BonusBall bonusBall = new BonusBall(new LottoNumber(inputView.readBonusBall()));
+            return new WinningLotto(winningLotto, bonusBall);
+        });
     }
 
     private void printWinningResult(WinningStatistics winningStatistics, PurchaseAmount purchaseAmount) {
         outputView.printWinningStatistics(WinningResult.from(winningStatistics));
         outputView.printProfitRate(winningStatistics.calculateProfitRate(purchaseAmount));
+    }
+
+    private <T> T retryUntilValid(Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
