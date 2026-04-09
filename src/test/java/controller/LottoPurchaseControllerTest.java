@@ -3,23 +3,24 @@ package controller;
 import common.NumberGenerator;
 import common.TestNumberGenerator;
 import constants.LottoSettingsConstants;
-import controller.mock.MockInputView;
-import controller.mock.MockLottoFactory;
-import controller.mock.MockLottoPurchaseController;
-import controller.mock.MockOutputView;
 import model.LottoBatch;
-import org.junit.jupiter.api.Assertions;
+import model.LottoFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import view.InputView;
+import view.OutputView;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
+
 class LottoPurchaseControllerTest {
     @Test
-    @DisplayName("로또 구매 컨트롤러 테스트")
+    @DisplayName("계층 통합 테스트: 로또 구매 컨트롤러 테스트")
     void purchase_calls_intended_functions() {
         // given
         LottoBatch lottoBatch = new LottoBatch();
@@ -28,22 +29,22 @@ class LottoPurchaseControllerTest {
             testNumbers.add(i);
         }
         NumberGenerator testNumberGenerator = new TestNumberGenerator(testNumbers);
-        MockLottoFactory lottoFactory = new MockLottoFactory(testNumberGenerator);
+        LottoFactory lottoFactory = new LottoFactory(testNumberGenerator);
 
         String testInput = "2000\n1\n1,2,3,7,8,9";
         Scanner scanner = new Scanner(new ByteArrayInputStream(testInput.getBytes()));
-        MockInputView inputView = new MockInputView(scanner);
-        MockOutputView outputView = new MockOutputView();
-        MockLottoPurchaseController controller = new MockLottoPurchaseController(lottoBatch, lottoFactory, inputView, outputView);
+        InputView inputView = new InputView(scanner);
+        OutputView outputView = new OutputView();
+        LottoPurchaseController controller = new LottoPurchaseController(lottoBatch, lottoFactory, inputView, outputView);
 
         //when
         controller.purchase();
 
         // then
-        Assertions.assertTrue(outputView.printPurchaseResultCalled);
-        Assertions.assertTrue(inputView.getManuallyPurchasedLottoNumbers);
-        Assertions.assertEquals(2, inputView.getSingleIntegerFromUserAfterShowingAScriptCalledCount);
-        Assertions.assertEquals(1, lottoFactory.generateLottoCalledCount);
-        Assertions.assertEquals(2, controller.wrapLottoIntoDtoCallCount);
+        List<Integer>firstLottoNumbers = List.of(1,2,3,7,8,9);
+        List<Integer>secondLottoNumbers= testNumbers.subList(0,LottoSettingsConstants.LOTTO_SIZE);
+
+        assertThat(lottoBatch.getAllLotto().get(0).numbers()).hasSameElementsAs(firstLottoNumbers);
+        assertThat(lottoBatch.getAllLotto().get(1).numbers()).hasSameElementsAs(secondLottoNumbers);
     }
 }

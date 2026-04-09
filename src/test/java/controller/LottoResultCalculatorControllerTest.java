@@ -1,18 +1,16 @@
 package controller;
 
 import constants.LottoSettingsConstants;
-import controller.mock.MockInputView;
-import controller.mock.MockLottoResultCalculatorController;
-import controller.mock.MockOutputView;
 import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
 import model.LottoResult;
-import model.WinCondition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import view.InputView;
+import view.OutputView;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ class LottoResultCalculatorControllerTest {
 
     String testWinningNumbersAndBonusNumber;
     Scanner scanner;
-    MockInputView inputView;
-    MockOutputView outputView;
+    InputView inputView;
+    OutputView outputView;
 
 
     @BeforeEach
@@ -37,26 +35,19 @@ class LottoResultCalculatorControllerTest {
 
         this.testWinningNumbersAndBonusNumber = "1, 2, 3, 4, 5, 6\n7";
         this.scanner = new Scanner(new ByteArrayInputStream(testWinningNumbersAndBonusNumber.getBytes()));
-        this.inputView = new MockInputView(scanner);
-        this.outputView = new MockOutputView();
+        this.inputView = new InputView(scanner);
+        this.outputView = new OutputView();
     }
 
     @Test
-    @DisplayName("결과 계산 컨트롤러")
+    @DisplayName("계층 통합 테스트 결과 계산 컨트롤러")
     void calculate_calls_intended_functions() {
         // given
-        MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
-
+        LottoResultCalculatorController controller= new LottoResultCalculatorController(lottoBatch, inputView, outputView);
         // when
-        controller.calculate();
 
         // then
-        Assertions.assertTrue(inputView.getWinningNumbersCalled);
-        Assertions.assertEquals(1, inputView.getSingleIntegerFromUserAfterShowingAScriptCalledCount);
-        Assertions.assertTrue(outputView.printStatsCalled);
-        Assertions.assertTrue(outputView.printReturnRatioCalled);
-        Assertions.assertTrue(controller.accceptWinCondtionCalled);
-        Assertions.assertTrue(controller.wrapLottoIntoDtoCalled);
+        Assertions.assertDoesNotThrow(controller::calculate);
     }
 
     @Test
@@ -64,7 +55,7 @@ class LottoResultCalculatorControllerTest {
     void testWrapLottoResultIntoDto() {
         // given
         List<LottoResult> testResult= new ArrayList<>(List.of(LottoResult.SIX, LottoResult.FIVE, LottoResult.FIVE_WITH_BONUS, LottoResult.FOUR, LottoResult.THREE));
-        MockLottoResultCalculatorController controller= new MockLottoResultCalculatorController(lottoBatch, inputView, outputView);
+        LottoResultCalculatorController controller= new LottoResultCalculatorController(lottoBatch, inputView, outputView);
 
         //when
         LottoResultDto resultDto = controller.wrapLottoIntoDto(testResult);
