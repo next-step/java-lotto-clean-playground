@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class LottoDraw {
     private final Lotto drawnLotto;
-    private final int bonusNumber;
+    private final LottoNumber bonusNumber;
     private final LottoReceipt receipt;
     private final MatchingCounts counts;
 
-    public LottoDraw(Lotto drawnLotto, int bonusNumber, LottoReceipt receipt) {
+    public LottoDraw(Lotto drawnLotto, LottoNumber bonusNumber, LottoReceipt receipt) {
         this.drawnLotto = drawnLotto;
         this.bonusNumber = bonusNumber;
         this.receipt = receipt;

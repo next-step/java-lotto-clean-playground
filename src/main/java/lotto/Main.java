@@ -34,16 +34,15 @@ public class Main {
     private static LottoDraw runDraw(LottoReceipt receipt) {
         System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
         Lotto winningLotto = LOTTO_PARSER.parse(SC.nextLine());
-        int bonus = bonusBall();
+        LottoNumber bonus = bonusBall();
         return new LottoDraw(winningLotto, bonus, receipt);
     }
 
-    private static int bonusBall() {
+    private static LottoNumber bonusBall() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        int bonus;
         try {
-            bonus = Integer.parseInt(SC.nextLine());
-            return bonus;
+            int bonusValue = Integer.parseInt(SC.nextLine());
+            return new LottoNumber(bonusValue);
         } catch (NumberFormatException e) {
             System.out.println("숫자를 입력해 주세요.");
             return bonusBall();

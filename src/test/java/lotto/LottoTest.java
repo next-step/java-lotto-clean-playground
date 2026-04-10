@@ -89,7 +89,7 @@ public class LottoTest {
                 new LottoNumber(5),
                 new LottoNumber(6)
         ));
-        int bonusNumber = 7;
+        LottoNumber bonusNumber = new LottoNumber(7);
 
         Lotto userLotto = new Lotto(List.of(
                 new LottoNumber(1),
