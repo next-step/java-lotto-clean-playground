@@ -34,8 +34,18 @@ public class Main {
     private static LottoDraw runDraw(LottoReceipt receipt) {
         System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
         Lotto winningLotto = LOTTO_PARSER.parse(SC.nextLine());
-        LottoNumber bonus = bonusBall();
+        LottoNumber bonus = getValidBonus(winningLotto);
         return new LottoDraw(winningLotto, bonus, receipt);
+    }
+
+    private static LottoNumber getValidBonus(Lotto winningLotto) {
+        while (true) {
+            LottoNumber bonus = bonusBall();
+            if (!winningLotto.numbers().contains(bonus)) {
+                return bonus;
+            }
+            System.out.println("보너스 볼은 당첨 번호와 같을 수 없습니다.");
+        }
     }
 
     private static LottoNumber bonusBall() {
