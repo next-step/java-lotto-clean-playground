@@ -1,25 +1,21 @@
 package domain;
 
-import dto.WinningResult;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class WinningStatistics {
     private final Map<Rank, Integer> statistics;
 
     public WinningStatistics() {
-        statistics = new HashMap<>();
+        statistics = new EnumMap<>(Rank.class);
         initialize();
     }
 
-    public static WinningStatistics from(Lottos lottos, Lotto winningLotto) {
+    public static WinningStatistics from(Lottos lottos, WinningLotto winningLotto) {
         WinningStatistics statistics = new WinningStatistics();
 
         lottos.lottoToList().stream()
-                .map(lotto -> Rank.from(lotto.countMatch(winningLotto)))
+                .map(winningLotto::match)
                 .forEach(statistics::add);
 
         return statistics;
@@ -35,21 +31,6 @@ public class WinningStatistics {
         int rankCount = statistics.get(rank);
         rankCount++;
         statistics.put(rank, rankCount);
-    }
-
-    public List<WinningResult> winningResults() {
-        return Arrays.stream(Rank.values())
-                .filter(Rank::isWinning)
-                .map(this::toWinningResult)
-                .toList();
-    }
-
-    private WinningResult toWinningResult(Rank rank) {
-        return new WinningResult(
-                rank.getMatchCount(),
-                rank.getPrizeMoney(),
-                statistics.get(rank)
-        );
     }
 
     public int countOf(Rank rank) {

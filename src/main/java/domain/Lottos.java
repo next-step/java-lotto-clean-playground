@@ -10,6 +10,12 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
+    public static Lottos from(List<List<Integer>> lottos) {
+        return new Lottos(lottos.stream()
+                .map(Lotto::from)
+                .toList());
+    }
+
     public int size() {
         return lottos.size();
     }

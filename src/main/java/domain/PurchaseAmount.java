@@ -19,4 +19,8 @@ public record PurchaseAmount(int amount) {
     public int calculateLottoCount() {
         return amount / LOTTO_PRICE;
     }
+
+    public int calculateAutoLottoCount(int manualCount) {
+        return calculateLottoCount() - manualCount;
+    }
 }
