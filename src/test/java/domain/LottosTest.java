@@ -33,8 +33,9 @@ public class LottosTest {
         Lotto winningLotto = new Lotto(winningNumbers);
         LottoNumber bonusNumber = LottoNumber.valueOf(40);
         //when
-        Map<LottoRank, Integer> matchedCount = lottos.calculateMatchedCounts(winningLotto, bonusNumber);
-        BigDecimal profitRate = lottos.calculateProfitRate(matchedCount);
+        LottoWinningResult lottoWinningResult = lottos.generateWinningResult(winningLotto, bonusNumber);
+        Map<LottoRank, Integer> matchedCount = lottoWinningResult.getMatchedCounts();
+        BigDecimal profitRate = lottoWinningResult.calculateProfitRate();
         LottoStatistics lottoStatistics = LottoStatistics.of(matchedCount, profitRate);
 
         //then
