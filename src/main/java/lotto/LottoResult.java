@@ -16,26 +16,21 @@ public enum LottoResult {
         this.reward = reward;
     }
 
-    public static LottoResult valueOf(int matchingCount, boolean matchBonus) {
-        if (matchingCount == 6) {
-            return SIX;
-        }
-        if (matchingCount == 5 && matchBonus) {
+    public static LottoResult valueOf(int count, boolean matchBonus) {
+        if (count == 5 && matchBonus) {
             return BONUS;
         }
-        if (matchingCount == 5) {
-            return FIVE;
+
+        for (LottoResult result : values()) {
+            if (result != BONUS && result.matchingCount == count) {
+                return result;
+            }
         }
-        if (matchingCount == 4) {
-            return FOUR;
-        }
-        if (matchingCount == 3) {
-            return THREE;
-        }
-        if (matchingCount < 3 && matchingCount >= 0) {
-            return NONE;
-        }
-        throw new IllegalArgumentException("유효하지 않은 당첨 개수입니다: " + matchingCount);
+        return NONE;
+    }
+
+    public int getMatchingCount() {
+        return matchingCount;
     }
 
     public int getReward() {
