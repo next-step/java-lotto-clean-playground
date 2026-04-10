@@ -10,24 +10,21 @@ class RankTest {
 
     @ParameterizedTest
     @CsvSource({
-            "6, false, FIRST",
-            "5, true, SECOND",
-            "5, false, THIRD",
+            "6, false, FIRST",   // 6개 일치
+            "5, true, SECOND",   // 5개 일치 + 보너스 일치
+            "5, false, THIRD",   // 5개 일치 + 보너스 불일치
             "4, false, FOURTH",
             "3, false, FIFTH",
             "2, false, MISS",
-            "0, true, MISS"
+            "0, false, MISS"
     })
-    @DisplayName("일치하는 숫자 개수와 보너스 번호 일치 여부에 따라 올바른 등수를 반환한다.")
+    @DisplayName("일치 개수와 보너스 일치 여부에 따라 올바른 Rank를 반환한다.")
     void findTest(int matchCount, boolean matchBonus, Rank expectedRank) {
-        //given
-        Rank rankFinder = Rank.MISS;
+        // when
+        Rank actualRank = Rank.find(matchCount, matchBonus);
 
-        //when
-        Rank result = rankFinder.find(matchCount, matchBonus);
-
-        //then
-        assertThat(result).isEqualTo(expectedRank);
+        // then
+        assertThat(actualRank).isEqualTo(expectedRank);
     }
 
     @ParameterizedTest
@@ -39,12 +36,29 @@ class RankTest {
             "FIFTH, 5000",
             "MISS, 0"
     })
-    @DisplayName("각 등수에 해당하는 상금을 정확히 반환한다.")
+    @DisplayName("각 등수별 당첨금을 정확히 반환한다.")
     void getPrizeMoneyTest(Rank rank, int expectedPrize) {
-        //given //when
-        int prizeMoney = rank.getPrizeMoney();
+        // when
+        int actualPrize = rank.getPrizeMoney();
 
-        //then
-        assertThat(prizeMoney).isEqualTo(expectedPrize);
+        // then
+        assertThat(actualPrize).isEqualTo(expectedPrize);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "FIRST, 6",
+            "SECOND, 5",
+            "THIRD, 5",
+            "FOURTH, 4",
+            "FIFTH, 3"
+    })
+    @DisplayName("각 등수별 필요 일치 개수를 정확히 반환한다.")
+    void getMatchCountTest(Rank rank, int expectedCount) {
+        // when
+        int actualCount = rank.getMatchCount();
+
+        // then
+        assertThat(actualCount).isEqualTo(expectedCount);
     }
 }

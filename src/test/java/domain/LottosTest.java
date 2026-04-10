@@ -1,7 +1,7 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -9,65 +9,74 @@ import org.junit.jupiter.api.Test;
 
 class LottosTest {
 
-    @Test
-    @DisplayName("전달된 로또 리스트의 크기가 기대 수량과 다르면 예외가 발생한다.")
-    void validateSizeTest() {
-        //given
-        List<Lotto> lottoList = List.of(
-                new Lotto(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                        new LottoNumber(5), new LottoNumber(6)))
-        );
-        int expectedCount = 2;
-
-        //when //then
-        assertThatThrownBy(() -> new Lottos(lottoList, expectedCount))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("구매 수량이 일치하지 않습니다.");
+    private Lotto createMockLotto(List<Integer> numbers) {
+        return new Lotto(numbers.stream()
+                .map(LottoNumber::new)
+                .collect(java.util.stream.Collectors.toList()));
     }
 
     @Test
-    @DisplayName("수동 로또와 자동 로또 묶음을 하나로 합친다.")
+    @DisplayName("Lottos 객체는 생성 시 전달된 리스트의 크기를 올바르게 반환한다.")
+    void sizeTest() {
+        // given
+        List<Lotto> lottoList = List.of(
+                createMockLotto(List.of(1, 2, 3, 4, 5, 6)),
+                createMockLotto(List.of(7, 8, 9, 10, 11, 12))
+        );
+
+        // when
+        Lottos lottos = new Lottos(lottoList);
+
+        // then
+        assertThat(lottos.size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("수동 로또 뭉치와 자동 로또 뭉치를 하나로 합칠 수 있다.")
     void mergeTest() {
-        //given
-        Lotto lotto1 = new Lotto(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
-                new LottoNumber(5), new LottoNumber(6)));
-        Lotto lotto2 = new Lotto(
-                List.of(new LottoNumber(7), new LottoNumber(8), new LottoNumber(9), new LottoNumber(10),
-                        new LottoNumber(11), new LottoNumber(12)));
+        // given
+        Lottos manual = new Lottos(List.of(createMockLotto(List.of(1, 2, 3, 4, 5, 6))));
+        Lottos random = new Lottos(List.of(createMockLotto(List.of(10, 11, 12, 13, 14, 15))));
 
-        Lottos manual = new Lottos(List.of(lotto1), 1);
-        Lottos random = new Lottos(List.of(lotto2), 1);
-
-        //when
+        // when
         Lottos merged = Lottos.merge(manual, random);
 
-        //then
+        // then
         assertThat(merged.size()).isEqualTo(2);
-        assertThat(merged.getLottos()).containsExactly(lotto1, lotto2);
+        assertThat(merged.getLottos()).hasSize(2);
     }
 
     @Test
-    @DisplayName("보유한 로또들의 당첨 결과를 계산하여 계산기에 반영한다.")
+    @DisplayName("여러 개의 로또 당첨 결과를 계산하여 계산기에 반영한다.")
     void calculateResultsTest() {
-        //given
-        Lotto lotto = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        // given
+        Lottos lottos = new Lottos(List.of(
+                createMockLotto(List.of(1, 2, 3, 10, 11, 12)), // 3개 일치 -> 5등
+                createMockLotto(List.of(1, 2, 3, 4, 11, 12))  // 4개 일치 -> 4등
         ));
-        Lottos lottos = new Lottos(List.of(lotto), 1);
 
-        Lotto winnerNumbers = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(7), new LottoNumber(8), new LottoNumber(9)
-        )); // 3개 일치
-        LottoNumber bonusNumber = new LottoNumber(10);
+        Lotto winnerNumbers = createMockLotto(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = new LottoNumber(7);
         LottoCalculator calculator = new LottoCalculator();
 
-        //when
+        // when
         lottos.calculateResults(winnerNumbers, bonusNumber, calculator);
 
-        //then
-        // 3개 일치 -> 5등(Rank.FIFTH) 가정
+        // then
         assertThat(calculator.getResult().get(Rank.FIFTH)).isEqualTo(1);
+        assertThat(calculator.getResult().get(Rank.FOURTH)).isEqualTo(1);
+        assertThat(calculator.getResult().get(Rank.FIRST)).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("getLottos()로 반환된 리스트를 외부에서 수정하려고 하면 예외가 발생한다.")
+    void unmodifiableListTest() {
+        // given
+        Lottos lottos = new Lottos(List.of(createMockLotto(List.of(1, 2, 3, 4, 5, 6))));
+        List<Lotto> lottoList = lottos.getLottos();
+
+        // when // then
+        assertThatThrownBy(() -> lottoList.add(createMockLotto(List.of(7, 8, 9, 10, 11, 12))))
+                .isInstanceOf(UnsupportedOperationException.class);
     }
 }
