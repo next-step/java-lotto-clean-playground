@@ -1,87 +1,96 @@
 package lotto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private static final LottoMaker LOTTO_MAKER = new LottoMaker();
     private static final LottoParser LOTTO_PARSER = new LottoParser();
+    private static final Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int totalPrice, numberOfManual;
-
-        System.out.println("구입금액을 입력해 주세요. (ex. 1000) (숫자가 아닌 경우 0으로 간주)");
-
-        try {
-            totalPrice = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            totalPrice = 0;
+        int price = inputPrice();
+        if (price < 1000) {
+            return;
         }
 
-        System.out.println();
-
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        numberOfManual = Integer.parseInt(scanner.nextLine());
-
-        System.out.println();
-
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        List<Lotto> manualLottos = new ArrayList<>();
-        for (int i = 0; i < numberOfManual; i++) {
-            manualLottos.add(LOTTO_PARSER.parse(scanner.nextLine()));
-        }
-
-        LottoPurchase purchase = new LottoPurchase(totalPrice, manualLottos, LOTTO_MAKER);
-
-        System.out.println("\n수동으로 " + numberOfManual + "장, 자동으로 " +
-                (purchase.getNumberOfLotto() - numberOfManual) + "개를 구매했습니다.");
-
+        LottoPurchase purchase = buyLottos(price);
         LottoReceipt receipt = purchase.printReceipt();
-        displayReceipt(receipt);
-        displayChange(purchase.getChange());
+        displayReceiptInfo(receipt, purchase.getChange());
 
-        System.out.println();
-        System.out.println("지난주 당첨 번호를 입력해 주세요.");
-        Lotto drawnLotto = LOTTO_PARSER.parse(scanner.nextLine());
-
-        System.out.println("보너스 볼을 입력해 주세요.");
-        int bonusNumber = Integer.parseInt(scanner.nextLine());
-
-        LottoDraw draw = new LottoDraw(drawnLotto, bonusNumber, receipt);
-        System.out.println();
-        displayResult(draw);
+        displayResult(runDraw(receipt));
     }
 
+    private static LottoPurchase buyLottos(int price) {
+        int manualCount = inputManualCount();
+        List<Lotto> manuals = inputManualNumbers(manualCount);
 
-    private static void displayReceipt(LottoReceipt receipt) {
-        for (Lotto lotto : receipt.lottos().getLottos()) {
-            List<String> nums = lotto.numbers().stream()
-                    .map(LottoNumber::toString)
-                    .toList();
-            System.out.println("[" + String.join(", ", nums) + "]");
+        LottoPurchase purchase = new LottoPurchase(price, manuals, LOTTO_MAKER);
+        System.out.printf("\n수동 %d장, 자동 %d개를 구매했습니다.\n",
+                manualCount, purchase.getNumberOfLotto() - manualCount);
+        return purchase;
+    }
+
+    private static LottoDraw runDraw(LottoReceipt receipt) {
+        System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
+        Lotto winningLotto = LOTTO_PARSER.parse(SC.nextLine());
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonus = Integer.parseInt(SC.nextLine());
+        return new LottoDraw(winningLotto, bonus, receipt);
+    }
+
+    private static int inputPrice() {
+        System.out.println("구입금액을 입력해 주세요. (ex. 1000)");
+        try {
+            int price = Integer.parseInt(SC.nextLine());
+            if (price < 1000) {
+                System.out.println("1000원 이상 입력해야 합니다. 로또를 살 수 없으므로 종료합니다.");
+            }
+            return price;
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
 
-    private static void displayChange(int change) {
-        if (change != 0) {
+    private static int inputManualCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(SC.nextLine());
+    }
+
+    private static List<Lotto> inputManualNumbers(int count) {
+        if (count <= 0) {
+            System.out.println("로또를 구매할 수 없습니다.");
+
+        }
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        return java.util.stream.IntStream.range(0, count)
+                .mapToObj(i -> LOTTO_PARSER.parse(SC.nextLine()))
+                .toList();
+    }
+
+    private static void displayReceiptInfo(LottoReceipt receipt, int change) {
+        receipt.lottos().getLottos().forEach(lotto -> {
+            List<String> s = lotto.numbers().stream().map(Object::toString).toList();
+            System.out.println("[" + String.join(", ", s) + "]");
+        });
+        if (change > 0) {
             System.out.println(change + "원이 남았습니다.");
         }
     }
 
     private static void displayResult(LottoDraw draw) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-
-        System.out.println("3개 일치 (" + LottoResult.THREE.getReward() + "원)- " + draw.getCount(LottoResult.THREE));
-        System.out.println("4개 일치 (" + LottoResult.FOUR.getReward() + "원)- " + draw.getCount(LottoResult.FOUR));
-        System.out.println("5개 일치 (" + LottoResult.FIVE.getReward() + "원)- " + draw.getCount(LottoResult.FIVE));
-        System.out.println(
-                "5개 일치, 보너스 볼 일치 (" + LottoResult.BONUS.getReward() + "원)- " + draw.getCount(LottoResult.BONUS));
-        System.out.println("6개 일치 (" + LottoResult.SIX.getReward() + "원)- " + draw.getCount(LottoResult.SIX));
-
+        System.out.println("\n당첨 통계\n---------");
+        for (LottoResult res : LottoResult.values()) {
+            if (res == LottoResult.NONE) {
+                continue;
+            }
+            displayRank(res, draw.getCount(res));
+        }
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");
     }
 
+    private static void displayRank(LottoResult res, int count) {
+        String label = res == LottoResult.BONUS ? "5개 일치, 보너스 볼 일치" : res.getMatchingCount() + "개 일치";
+        System.out.printf("%s (%d원)- %d\n", label, res.getReward(), count);
+    }
 }
