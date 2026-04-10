@@ -34,7 +34,7 @@ public class LottoDraw {
         int matchingCount = numbers.size();
 
         boolean matchBonus = lottoRow.numbers().stream()
-                .anyMatch(num -> num.number() == bonusNumber);
+                .anyMatch(num -> num == bonusNumber);
 
         return LottoResult.valueOf(matchingCount, matchBonus);
     }
