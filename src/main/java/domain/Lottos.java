@@ -1,7 +1,5 @@
 package domain;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -18,7 +16,7 @@ public class Lottos {
         return List.copyOf(lottos);
     }
 
-    public Map<LottoRank, Integer> calculateMatchedCounts(Lotto winningLotto, LottoNumber bonusNumber) {
+    public LottoWinningResult generateWinningResult(Lotto winningLotto, LottoNumber bonusNumber) {
         Map<LottoRank, Integer> matchedCounts = new EnumMap<>(LottoRank.class);
         Arrays.stream(LottoRank.values())
                 .forEach(rank -> matchedCounts.put(rank, 0));
@@ -28,17 +26,7 @@ public class Lottos {
             updateCount(matchedCounts, count, hasBonus);
         });
 
-        return Map.copyOf(matchedCounts);
-    }
-
-    public BigDecimal calculateProfitRate(Map<LottoRank, Integer> matchedCounts) {
-        long totalPrize = matchedCounts.entrySet().stream()
-                .mapToLong(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
-        BigDecimal totalProfit = BigDecimal.valueOf(totalPrize);
-        BigDecimal purchasedPrice = BigDecimal.valueOf(lottos.size() * 1000L);
-
-        return totalProfit.divide(purchasedPrice, 2, RoundingMode.HALF_UP);
+        return new LottoWinningResult(matchedCounts, lottos.size());
     }
 
     private void updateCount(Map<LottoRank, Integer> matchedCounts, int count, boolean hasBonus) {
