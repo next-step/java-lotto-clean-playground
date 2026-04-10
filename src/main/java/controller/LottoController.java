@@ -3,6 +3,7 @@ package controller;
 import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoRank;
+import domain.LottoWinningResult;
 import domain.Lottos;
 import domain.strategy.NumbersGenerator;
 import dto.LottoStatistics;
@@ -85,8 +86,10 @@ public class LottoController {
 
     private void showResultStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
         outputView.printStatisticHeader();
-        Map<LottoRank, Integer> matchedCounts = lottos.calculateMatchedCounts(winningLotto, bonusNumber);
-        BigDecimal profitRate = lottos.calculateProfitRate(matchedCounts);
+        LottoWinningResult lottoWinningResult = lottos.generateWinningResult(winningLotto, bonusNumber);
+        Map<LottoRank, Integer> matchedCounts = lottoWinningResult.getMatchedCounts();
+        BigDecimal profitRate = lottoWinningResult.calculateProfitRate();
+
         LottoStatistics lottoStatistics = LottoStatistics.of(matchedCounts, profitRate);
         outputView.printStatistics(lottoStatistics);
 
