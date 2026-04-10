@@ -7,6 +7,9 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class LottoTest {
 
@@ -146,5 +149,36 @@ public class LottoTest {
         assertThat(purchase.getNumberOfLotto()).isEqualTo(2);
         assertThat(purchase.getManualCount()).isEqualTo(1);
         assertThat(purchase.getAutoCount()).isEqualTo(1);
+    }
+
+    @DisplayName("당첨 개수와 보너스 일치 여부에 따라 올바른 결과를 반환한다.")
+    @ParameterizedTest
+    @CsvSource({
+            "6, false, SIX",
+            "6, true, SIX",
+            "5, true, BONUS",
+            "5, false, FIVE",
+            "4, true, FOUR",
+            "3, false, THREE",
+            "2, true, NONE",
+            "0, false, NONE"
+    })
+    void calculateLottoResult(int count, boolean matchBonus, LottoResult expected) {
+        assertThat(LottoResult.valueOf(count, matchBonus)).isEqualTo(expected);
+    }
+
+    @DisplayName("입력 번호가 6개가 아니거나 형식이 틀리면 예외가 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1,2,3,4,5",
+            "1,2,3,4,5,6,7",
+            "1, 2, 3, , 5, 6",
+            "1;2;3;4;5;6",
+            "one,2,3,4,5,6"
+    })
+    void parseInvalidInput(String input) {
+        LottoParser lottoParser = new LottoParser();
+        assertThatThrownBy(() -> lottoParser.parse(input))
+                .isInstanceOf(RuntimeException.class);
     }
 }
