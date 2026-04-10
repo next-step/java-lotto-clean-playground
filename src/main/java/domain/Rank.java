@@ -20,22 +20,15 @@ public enum Rank {
         this.matchBonus = matchBonus;
     }
 
-    public Rank find(int matchCount, boolean matchBonus) {
+    public static Rank find(int matchCount, boolean matchBonus) {
+        if (matchCount == SECOND.matchCount && matchBonus) {
+            return SECOND;
+        }
         return Arrays.stream(values())
-                .filter(rank -> rank.isMatch(matchCount, matchBonus))
+                .filter(rank -> rank != SECOND)
+                .filter(rank -> rank.matchCount == matchCount)
                 .findFirst()
                 .orElse(MISS);
-    }
-
-
-    private boolean isMatch(int matchCount, boolean matchBonus) {
-        if (this == SECOND) {
-            return matchCount == 5 && matchBonus;
-        }
-        if (this == THIRD) {
-            return matchCount == 5 && !matchBonus;
-        }
-        return this.matchCount == matchCount;
     }
 
     public int getMatchCount() {

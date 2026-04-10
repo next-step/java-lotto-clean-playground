@@ -7,8 +7,7 @@ import java.util.List;
 public class Lottos {
     private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> lottos, int expectedCount) {
-        validateSize(lottos, expectedCount);
+    public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
     }
 
@@ -16,13 +15,7 @@ public class Lottos {
         List<Lotto> allLottos = new ArrayList<>();
         allLottos.addAll(manual.getLottos());
         allLottos.addAll(random.getLottos());
-        return new Lottos(allLottos, allLottos.size());
-    }
-
-    private void validateSize(List<Lotto> lottos, int expectedCount) {
-        if (lottos.size() != expectedCount) {
-            throw new IllegalArgumentException("구매 수량이 일치하지 않습니다.");
-        }
+        return new Lottos(allLottos);
     }
 
     public int size() {
@@ -31,9 +24,7 @@ public class Lottos {
 
     public void calculateResults(Lotto winnerNumbers, LottoNumber bonusNumber, LottoCalculator calculator) {
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.getMatchCount(winnerNumbers);
-            boolean bonus = lotto.contains(bonusNumber);
-            Rank rank = Rank.MISS.find(matchCount, bonus);
+            Rank rank = lotto.calculateRank(winnerNumbers, bonusNumber);
             calculator.valueAdd(rank);
         }
     }

@@ -51,7 +51,7 @@ public class Application {
             Lotto lotto = random.generate();
             purchased.add(lotto);
         }
-        return new Lottos(purchased, count);
+        return new Lottos(purchased);
     }
 
     public void printLotto(Lotto lotto) {
@@ -80,7 +80,7 @@ public class Application {
 
     public Lottos purchaseManualLottos(int manualCount) {
         if (manualCount == 0) {
-            return new Lottos(new ArrayList<>(), 0);
+            return new Lottos(new ArrayList<>());
         }
 
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
@@ -93,7 +93,7 @@ public class Application {
                 System.out.println(e.getMessage());
             }
         }
-        return new Lottos(manualLottos, manualCount);
+        return new Lottos(manualLottos);
     }
 
     public static void main(String[] args) {

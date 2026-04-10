@@ -33,6 +33,12 @@ public class Lotto {
         }
     }
 
+    public Rank calculateRank(Lotto winnerNumbers, LottoNumber bonusNumber) {
+        int matchCount = getMatchCount(winnerNumbers);
+        boolean matchBonus = contains(bonusNumber);
+        return Rank.find(matchCount, matchBonus);
+    }
+
     public List<LottoNumber> getNumbers() {
         return Collections.unmodifiableList(lottoNumbers);
     }
