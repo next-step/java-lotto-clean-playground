@@ -10,14 +10,16 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
-public class LottorReceiptResultTest {
+public class LottoReceiptResultTest {
+    private DefaultLottoResultPolicy resultPolicy = new DefaultLottoResultPolicy();
+
     @Test
     void 모든_숫자가_일치하면_1등이다() {
         WinningLotto drawn = createWinningLotto(9, 1, 2, 3, 4, 5, 6);
         Lotto given = createLotto(1, 2, 3, 4, 5, 6);
         LottoReceipt receipt = new LottoReceipt(List.of(given), 1000);
 
-        assertThat(lottoDrawNumberCounts(new LottoReceiptResult(drawn, receipt)))
+        assertThat(lottoDrawNumberCounts(resultPolicy.getResult(drawn, receipt)))
                 .isEqualTo(Collections.singletonMap(LottoResult.SIX, 1));
     }
 
@@ -27,7 +29,7 @@ public class LottorReceiptResultTest {
         Lotto given = createLotto(1, 2, 3, 4, 6, 7);
         LottoReceipt receipt = createReceipt(given);
 
-        assertThat(lottoDrawNumberCounts(new LottoReceiptResult(drawn, receipt)))
+        assertThat(lottoDrawNumberCounts(resultPolicy.getResult(drawn, receipt)))
                 .isEqualTo(Collections.singletonMap(LottoResult.FIVE_BONUS, 1));
     }
 
@@ -37,7 +39,7 @@ public class LottorReceiptResultTest {
         Lotto given = createLotto(1, 2, 3, 5, 6, 10);
         LottoReceipt receipt = createReceipt(given);
 
-        assertThat(lottoDrawNumberCounts(new LottoReceiptResult(drawn, receipt)))
+        assertThat(lottoDrawNumberCounts(resultPolicy.getResult(drawn, receipt)))
                 .isEqualTo(Collections.singletonMap(LottoResult.FIVE, 1));
     }
 
@@ -47,7 +49,7 @@ public class LottorReceiptResultTest {
         Lotto given = createLotto(2, 3, 5, 6, 10, 45);
         LottoReceipt receipt = createReceipt(given);
 
-        assertThat(lottoDrawNumberCounts(new LottoReceiptResult(drawn, receipt)))
+        assertThat(lottoDrawNumberCounts(resultPolicy.getResult(drawn, receipt)))
                 .isEqualTo(Collections.singletonMap(LottoResult.FOUR, 1));
     }
 
@@ -57,7 +59,7 @@ public class LottorReceiptResultTest {
         Lotto given = createLotto(2, 3, 5, 8, 10, 45);
         LottoReceipt receipt = createReceipt(given);
 
-        assertThat(lottoDrawNumberCounts(new LottoReceiptResult(drawn, receipt)))
+        assertThat(lottoDrawNumberCounts(resultPolicy.getResult(drawn, receipt)))
                 .isEqualTo(Collections.singletonMap(LottoResult.THREE, 1));
     }
 
@@ -70,7 +72,7 @@ public class LottorReceiptResultTest {
                 createLotto(5, 10, 11, 12, 24, 35) // 2개
         );
 
-        LottoReceiptResult draw = new LottoReceiptResult(drawn, receipt);
+        LottoReceiptResult draw = resultPolicy.getResult(drawn, receipt);
 
         assertThat(lottoDrawNumberCounts(draw))
                 .isEqualTo(Collections.singletonMap(LottoResult.NONE, 3));
