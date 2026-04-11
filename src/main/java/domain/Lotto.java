@@ -33,6 +33,12 @@ public class Lotto {
         }
     }
 
+    public static void validateBonusNumber(Lotto numbers, LottoNumber bonusNumber) {
+        if (numbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 볼의 숫자가 지난 주 당첨 번호와 중복됩니다.");
+        }
+    }
+
     public Rank calculateRank(Lotto winnerNumbers, LottoNumber bonusNumber) {
         int matchCount = getMatchCount(winnerNumbers);
         boolean matchBonus = contains(bonusNumber);
