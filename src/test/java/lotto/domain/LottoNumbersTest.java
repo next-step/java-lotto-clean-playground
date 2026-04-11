@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
-public class LottoTest {
+public class LottoNumbersTest {
     @Test
     void 로또를_생성할_수_있다() {
         assertThatCode(() -> createNumbers(1, 3, 6, 7, 13, 20))
