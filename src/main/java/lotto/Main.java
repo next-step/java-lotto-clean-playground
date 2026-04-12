@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     private static final LottoMaker LOTTO_MAKER = new LottoMaker();
     private static final LottoParser LOTTO_PARSER = new LottoParser();
-    private static final Scanner SC = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public static void main(String[] args) {
         int price = 0;
@@ -33,7 +33,7 @@ public class Main {
 
     private static LottoDraw runDraw(LottoReceipt receipt) {
         System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
-        Lotto winningLotto = LOTTO_PARSER.parse(SC.nextLine());
+        Lotto winningLotto = LOTTO_PARSER.parse(SCANNER.nextLine());
         LottoNumber bonus = getValidBonus(winningLotto);
         return new LottoDraw(winningLotto, bonus, receipt);
     }
@@ -51,7 +51,7 @@ public class Main {
     private static LottoNumber bonusBall() {
         System.out.println("보너스 볼을 입력해 주세요.");
         try {
-            int bonusValue = Integer.parseInt(SC.nextLine());
+            int bonusValue = Integer.parseInt(SCANNER.nextLine());
             return new LottoNumber(bonusValue);
         } catch (NumberFormatException e) {
             System.out.println("숫자를 입력해 주세요.");
@@ -62,7 +62,7 @@ public class Main {
     private static int inputPrice() {
         System.out.println("구입금액을 입력해 주세요. (ex. 1000)");
         try {
-            int price = Integer.parseInt(SC.nextLine());
+            int price = Integer.parseInt(SCANNER.nextLine());
             if (price < 1000) {
                 System.out.println("1000원 이상 입력해야 합니다.");
             }
@@ -74,7 +74,7 @@ public class Main {
 
     private static int inputManualCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        return Integer.parseInt(SC.nextLine());
+        return Integer.parseInt(SCANNER.nextLine());
     }
 
     private static List<Lotto> inputManualNumbers(int count) {
@@ -84,7 +84,7 @@ public class Main {
         }
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         return java.util.stream.IntStream.range(0, count)
-                .mapToObj(i -> LOTTO_PARSER.parse(SC.nextLine()))
+                .mapToObj(i -> LOTTO_PARSER.parse(SCANNER.nextLine()))
                 .toList();
     }
 
