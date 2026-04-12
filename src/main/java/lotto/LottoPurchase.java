@@ -31,7 +31,7 @@ public class LottoPurchase {
         this.lottos = new Lottos(combinedLottos);
     }
 
-    public LottoReceipt printReceipt() {
+    public LottoReceipt getReceipt() {
         return new LottoReceipt(lottos, totalPrice);
     }
 

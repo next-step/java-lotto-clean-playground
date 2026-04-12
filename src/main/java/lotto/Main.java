@@ -15,7 +15,7 @@ public class Main {
         }
 
         LottoPurchase purchase = buyLottos(price);
-        LottoReceipt receipt = purchase.printReceipt();
+        LottoReceipt receipt = purchase.getReceipt();
         displayReceiptInfo(receipt, purchase.getChange());
 
         displayResult(runDraw(receipt));
