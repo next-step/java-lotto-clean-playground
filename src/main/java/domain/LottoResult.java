@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,11 @@ import java.util.Objects;
 public class LottoResult {
     private final Map<LottoRank, Integer> ticketCountOfEachRank;
 
-    public LottoResult(List<Integer> matchingTicketCounts) {
-        validate(matchingTicketCounts);
+    public LottoResult(List<LottoRank> lottoRankOfEachTicket) {
+        List<Integer> matchingTicketCounts = new ArrayList<>();
+        for (LottoRank lottoRank: LottoRank.values()) {
+            matchingTicketCounts.add(Collections.frequency(lottoRankOfEachTicket, lottoRank));
+        }
         ticketCountOfEachRank = new HashMap<>();
         for(int i = 0; i < matchingTicketCounts.size(); i++) {
             ticketCountOfEachRank.put(LottoRank.values()[i], matchingTicketCounts.get(i));
@@ -22,12 +27,6 @@ public class LottoResult {
             totalProfit += lottoRank.getPrizeMoney() * ticketCountOfEachRank.get(lottoRank);
         }
         return price.calculateProfitRate(totalProfit);
-    }
-
-    private void validate(List<Integer> matchingTicketCounts) {
-        if (matchingTicketCounts.size() != LottoRank.values().length) {
-            throw new IllegalArgumentException("등수 종류의 수가 올바르지 않습니다.");
-        }
     }
 
     @Override

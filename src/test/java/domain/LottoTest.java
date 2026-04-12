@@ -59,7 +59,7 @@ public class LottoTest {
                         ),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         LottoNumber.valueOf(7),
-                        new LottoResult(List.of(1, 1, 1, 1, 1))
+                        new LottoResult(List.of(LottoRank.FIFTH, LottoRank.FOURTH, LottoRank.THIRD, LottoRank.SECOND, LottoRank.FIRST))
                 ),
                 Arguments.arguments(
                         List.of(
@@ -67,7 +67,7 @@ public class LottoTest {
                         ),
                         new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         LottoNumber.valueOf(7),
-                        new LottoResult(List.of(0, 0, 0, 0, 1))
+                        new LottoResult(List.of(LottoRank.FIRST))
                 )
         );
     }

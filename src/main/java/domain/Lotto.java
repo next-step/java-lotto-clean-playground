@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -20,11 +19,7 @@ public class Lotto {
         for (LottoTicket ticket : tickets) {
             lottoRankOfEachTicket.add(ticket.getLottoRank(winnerTicket, bonusNumber));
         }
-        List<Integer> matchingTicketCounts = new ArrayList<>();
-        for (LottoRank lottoRank: LottoRank.values()) {
-            matchingTicketCounts.add(Collections.frequency(lottoRankOfEachTicket, lottoRank));
-        }
-        return new LottoResult(matchingTicketCounts);
+        return new LottoResult(lottoRankOfEachTicket);
     }
 
     public int getNumberOfTickets() {
