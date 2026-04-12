@@ -8,8 +8,7 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
         LottoTicketGenerator lottoTicketGenerator = new RandomLottoTicketGenerator();
-        Cashier cashier = new Cashier(lottoTicketGenerator);
-        Controller controller = new Controller(inputView, outputView, cashier);
+        Controller controller = new Controller(inputView, outputView, lottoTicketGenerator);
         controller.run();
     }
 }

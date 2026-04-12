@@ -1,9 +1,9 @@
 package controller;
 
-import domain.Cashier;
 import domain.Lotto;
 import domain.LottoResult;
 import domain.LottoTicket;
+import domain.LottoTicketGenerator;
 import domain.ManualTicketCount;
 import domain.Price;
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import view.OutputView;
 public class Controller {
     private final InputView inputView;
     private final OutputView outputView;
-    private final Cashier cashier;
+    private final LottoTicketGenerator lottoTicketGenerator;
 
-    public Controller(InputView inputView, OutputView outputView, Cashier cashier) {
+    public Controller(InputView inputView, OutputView outputView, LottoTicketGenerator lottoTicketGenerator) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.cashier = cashier;
+        this.lottoTicketGenerator = lottoTicketGenerator;
     }
 
     public void run() {
@@ -29,10 +29,10 @@ public class Controller {
         if (manualTicketCount.getCount() != 0) {
             manualTickets = inputView.inputManualTickets(manualTicketCount);
         }
-        Lotto lotto = cashier.generateTickets(price, manualTickets);
+        Lotto lotto = new Lotto(price, lottoTicketGenerator, manualTickets);
         outputView.showLottoTickets(lotto, manualTicketCount);
 
         LottoResult result = lotto.getResults(inputView.inputWinnerTicket(), inputView.inputBonusNumber());
-        outputView.showLottoResults(result, cashier.getProfitRate(result, price));
+        outputView.showLottoResults(result, result.getProfitRate(price));
     }
 }

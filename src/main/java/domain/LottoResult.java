@@ -16,6 +16,14 @@ public class LottoResult {
         }
     }
 
+    public double getProfitRate(Price price) {
+        int totalProfit = 0;
+        for (LottoRank lottoRank : LottoRank.values()) {
+            totalProfit += lottoRank.getPrizeMoney() * ticketCountOfEachRank.get(lottoRank);
+        }
+        return price.calculateProfitRate(totalProfit);
+    }
+
     private void validate(List<Integer> matchingTicketCounts) {
         if (matchingTicketCounts.size() != LottoRank.values().length) {
             throw new IllegalArgumentException("등수 종류의 수가 올바르지 않습니다.");

@@ -7,8 +7,12 @@ import java.util.List;
 public class Lotto {
     private final List<LottoTicket> tickets;
 
-    public Lotto(List<LottoTicket> tickets) {
-        this.tickets = tickets;
+    public Lotto(Price price, LottoTicketGenerator lottoTicketGenerator, List<LottoTicket> manualTickets) {
+        int ticketCount = price.getBuyableLottoCount() - manualTickets.size();
+        for (int i = 0; i < ticketCount; i++) {
+            manualTickets.add(lottoTicketGenerator.generate());
+        }
+        this.tickets = manualTickets;
     }
 
     public LottoResult getResults(LottoTicket winnerTicket, LottoNumber bonusNumber) {

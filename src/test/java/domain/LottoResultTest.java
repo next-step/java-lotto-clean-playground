@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -22,9 +23,9 @@ public class LottoResultTest {
 
     private static Stream<Arguments> testLottoResult_ValidInputLength() {
         return Stream.of(
-                Arguments.arguments(List.of(1, 2, 1, 0)),
-                Arguments.arguments(List.of(0, 0, 0, 0)),
-                Arguments.arguments(List.of(4, 3, 2, 1))
+                Arguments.arguments(List.of(1, 2, 1, 0, 0)),
+                Arguments.arguments(List.of(0, 0, 0, 0, 0)),
+                Arguments.arguments(List.of(5, 4, 3, 2, 1))
         );
     }
 
@@ -40,7 +41,29 @@ public class LottoResultTest {
         return Stream.of(
                 Arguments.arguments(List.of()),
                 Arguments.arguments(List.of(0, 0)),
-                Arguments.arguments(List.of(4, 3, 2, 1, 0))
+                Arguments.arguments(List.of(5, 4, 3, 2, 1, 0))
+        );
+    }
+
+    @DisplayName("로또 결과와 가격으로 수익률을 계산한다.")
+    @ParameterizedTest
+    @MethodSource
+    public void testGetProfitRate(List<Integer> matchingTicketCounts, Price price, double expected) {
+        // given
+        LottoResult lottoResult = new LottoResult(matchingTicketCounts);
+
+        // when
+        double actual = lottoResult.getProfitRate(price);
+
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> testGetProfitRate() {
+        return Stream.of(
+                Arguments.arguments(List.of(1, 2, 1, 0, 0), new Price(10000), 160.5),
+                Arguments.arguments(List.of(0, 0, 0, 0, 0), new Price(10000), 0.0),
+                Arguments.arguments(List.of(2, 1, 2, 0, 1), new Price(10000), 200306.0)
         );
     }
 }
