@@ -1,6 +1,9 @@
 package domain;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class LottoTicket {
     public static final int TICKET_LENGTH = 6;
@@ -15,7 +18,7 @@ public class LottoTicket {
 
     private static void validate(List<LottoNumber> lottoNumbers) {
         int length = lottoNumbers.size();
-        if(length != TICKET_LENGTH) {
+        if (length != TICKET_LENGTH) {
             throw new IllegalArgumentException("로또 티켓의 숫자는 " + TICKET_LENGTH + "개여야 합니다.");
         }
         Set<LottoNumber> ticketSet = new HashSet<>(lottoNumbers);
@@ -25,13 +28,7 @@ public class LottoTicket {
     }
 
     public LottoRank getLottoRank(LottoTicket winnerTicket, LottoNumber bonusNumber) {
-        int matchCount = getMatchCount(winnerTicket);
-        if (matchCount == LottoRank.FIRST.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FIRST.shouldMatchBonusBall()) != -1) return LottoRank.FIRST;
-        if (matchCount == LottoRank.SECOND.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.SECOND.shouldMatchBonusBall()) != -1) return LottoRank.SECOND;
-        if (matchCount == LottoRank.THIRD.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.THIRD.shouldMatchBonusBall()) != -1) return LottoRank.THIRD;
-        if (matchCount == LottoRank.FOURTH.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FOURTH.shouldMatchBonusBall()) != -1) return LottoRank.FOURTH;
-        if (matchCount == LottoRank.FIFTH.getMatchingNumberCount() && Boolean.compare(containsBonusNumber(bonusNumber), LottoRank.FIFTH.shouldMatchBonusBall()) != -1) return LottoRank.FIFTH;
-        return null;
+        return LottoRank.getLottoRank(getMatchCount(winnerTicket), lottoNumbers.contains(bonusNumber));
     }
 
     private int getMatchCount(LottoTicket winnerTicket) {
@@ -40,10 +37,6 @@ public class LottoTicket {
             matchCount += Boolean.compare(lottoNumbers.contains(number), false);
         }
         return matchCount;
-    }
-
-    private boolean containsBonusNumber(LottoNumber bonusNumber) {
-        return lottoNumbers.contains(bonusNumber);
     }
 
     @Override
