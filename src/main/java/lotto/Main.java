@@ -9,9 +9,9 @@ public class Main {
     private static final Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int price = inputPrice();
-        if (price < 1000) {
-            return;
+        int price = 0;
+        while (price < 1000) {
+            price = inputPrice();
         }
 
         LottoPurchase purchase = buyLottos(price);
@@ -64,7 +64,7 @@ public class Main {
         try {
             int price = Integer.parseInt(SC.nextLine());
             if (price < 1000) {
-                System.out.println("1000원 이상 입력해야 합니다. 로또를 살 수 없으므로 종료합니다.");
+                System.out.println("1000원 이상 입력해야 합니다.");
             }
             return price;
         } catch (NumberFormatException e) {
