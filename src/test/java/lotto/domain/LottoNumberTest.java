@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -43,8 +43,7 @@ public class LottoNumberTest {
 
     @Test
     void 로또_번호는_문자열로_변환할_수_있다() {
-        assertThat(new LottoNumber(43))
-                .asString()
+        assertThat(new LottoNumber(43).format())
                 .isEqualTo("43");
     }
 }
