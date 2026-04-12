@@ -21,44 +21,6 @@ public class Main {
         displayResult(runDraw(receipt));
     }
 
-    private static LottoPurchase buyLottos(int price) {
-        int manualCount = inputManualCount();
-        List<Lotto> manuals = inputManualNumbers(manualCount);
-
-        LottoPurchase purchase = new LottoPurchase(price, manuals, LOTTO_MAKER);
-        System.out.printf("\n수동 %d장, 자동 %d개를 구매했습니다.\n",
-                manualCount, purchase.getNumberOfLotto() - manualCount);
-        return purchase;
-    }
-
-    private static LottoDraw runDraw(LottoReceipt receipt) {
-        System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
-        Lotto winningLotto = LOTTO_PARSER.parse(SCANNER.nextLine());
-        LottoNumber bonus = getValidBonus(winningLotto);
-        return new LottoDraw(winningLotto, bonus, receipt);
-    }
-
-    private static LottoNumber getValidBonus(Lotto winningLotto) {
-        while (true) {
-            LottoNumber bonus = bonusBall();
-            if (!winningLotto.numbers().contains(bonus)) {
-                return bonus;
-            }
-            System.out.println("보너스 볼은 당첨 번호와 같을 수 없습니다.");
-        }
-    }
-
-    private static LottoNumber bonusBall() {
-        System.out.println("보너스 볼을 입력해 주세요.");
-        try {
-            int bonusValue = Integer.parseInt(SCANNER.nextLine());
-            return new LottoNumber(bonusValue);
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해 주세요.");
-            return bonusBall();
-        }
-    }
-
     private static int inputPrice() {
         System.out.println("구입금액을 입력해 주세요. (ex. 1000)");
         try {
@@ -86,6 +48,44 @@ public class Main {
         return java.util.stream.IntStream.range(0, count)
                 .mapToObj(i -> LOTTO_PARSER.parse(SCANNER.nextLine()))
                 .toList();
+    }
+
+    private static LottoPurchase buyLottos(int price) {
+        int manualCount = inputManualCount();
+        List<Lotto> manuals = inputManualNumbers(manualCount);
+
+        LottoPurchase purchase = new LottoPurchase(price, manuals, LOTTO_MAKER);
+        System.out.printf("\n수동 %d장, 자동 %d개를 구매했습니다.\n",
+                manualCount, purchase.getNumberOfLotto() - manualCount);
+        return purchase;
+    }
+
+    private static LottoDraw runDraw(LottoReceipt receipt) {
+        System.out.println("\n지난주 당첨 번호를 입력해 주세요.");
+        Lotto winningLotto = LOTTO_PARSER.parse(SCANNER.nextLine());
+        LottoNumber bonus = getValidBonus(winningLotto);
+        return new LottoDraw(winningLotto, bonus, receipt);
+    }
+
+    private static LottoNumber bonusBall() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        try {
+            int bonusValue = Integer.parseInt(SCANNER.nextLine());
+            return new LottoNumber(bonusValue);
+        } catch (NumberFormatException e) {
+            System.out.println("숫자를 입력해 주세요.");
+            return bonusBall();
+        }
+    }
+
+    private static LottoNumber getValidBonus(Lotto winningLotto) {
+        while (true) {
+            LottoNumber bonus = bonusBall();
+            if (!winningLotto.numbers().contains(bonus)) {
+                return bonus;
+            }
+            System.out.println("보너스 볼은 당첨 번호와 같을 수 없습니다.");
+        }
     }
 
     private static void displayReceiptInfo(LottoReceipt receipt, int change) {
