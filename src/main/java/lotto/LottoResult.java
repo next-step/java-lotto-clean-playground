@@ -30,6 +30,10 @@ public enum LottoResult {
                 .orElse(NONE);
     }
 
+    public boolean isDisplayable() {
+        return this != NONE;
+    }
+
     public int getMatchingCount() {
         return matchingCount;
     }

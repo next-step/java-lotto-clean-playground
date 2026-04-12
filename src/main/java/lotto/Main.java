@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -100,12 +101,11 @@ public class Main {
 
     private static void displayResult(LottoDraw draw) {
         System.out.println("\n당첨 통계\n---------");
-        for (LottoResult res : LottoResult.values()) {
-            if (res == LottoResult.NONE) {
-                continue;
-            }
-            displayRank(res, draw.getCount(res));
-        }
+
+        Arrays.stream(LottoResult.values())
+                .filter(LottoResult::isDisplayable)
+                .forEach(res -> displayRank(res, draw.getCount(res)));
+
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");
     }
 
