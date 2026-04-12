@@ -1,9 +1,10 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class LottosTest {
     private Lotto createMockLotto(List<Integer> numbers) {
         return new Lotto(numbers.stream()
                 .map(LottoNumber::new)
-                .collect(java.util.stream.Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     @Test
@@ -51,16 +52,18 @@ class LottosTest {
     void calculateResultsTest() {
         // given
         Lottos lottos = new Lottos(List.of(
-                createMockLotto(List.of(1, 2, 3, 10, 11, 12)), // 3개 일치 -> 5등
-                createMockLotto(List.of(1, 2, 3, 4, 11, 12))  // 4개 일치 -> 4등
+                createMockLotto(List.of(1, 2, 3, 10, 11, 12)),
+                createMockLotto(List.of(1, 2, 3, 4, 11, 12))
         ));
 
         Lotto winnerNumbers = createMockLotto(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber bonusNumber = new LottoNumber(7);
+        WinningLotto winningLotto = new WinningLotto(winnerNumbers, bonusNumber);
+
         LottoCalculator calculator = new LottoCalculator();
 
         // when
-        lottos.calculateResults(winnerNumbers, bonusNumber, calculator);
+        lottos.calculateResults(winningLotto, calculator);
 
         // then
         assertThat(calculator.getResult().get(Rank.FIFTH)).isEqualTo(1);

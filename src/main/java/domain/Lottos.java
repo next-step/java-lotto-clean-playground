@@ -22,9 +22,9 @@ public class Lottos {
         return lottos.size();
     }
 
-    public void calculateResults(Lotto winnerNumbers, LottoNumber bonusNumber, LottoCalculator calculator) {
+    public void calculateResults(WinningLotto winningLotto, LottoCalculator calculator) {
         for (Lotto lotto : lottos) {
-            Rank rank = lotto.calculateRank(winnerNumbers, bonusNumber);
+            Rank rank = winningLotto.judge(lotto);
             calculator.valueAdd(rank);
         }
     }

@@ -25,12 +25,11 @@ public class InputView {
         return InputParser.parseToLotto(input);
     }
 
-    public LottoNumber getBonusNumber(Lotto winnerNumbers) {
+    public LottoNumber getBonusNumber() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
         String input = scanner.nextLine();
         validateEmpty(input);
         validateNumber(input);
-        Lotto.validateBonusNumber(winnerNumbers, InputParser.parseToLottoNumber(input));
         return InputParser.parseToLottoNumber(input);
     }
 

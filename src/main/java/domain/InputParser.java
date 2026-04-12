@@ -10,7 +10,6 @@ public class InputParser {
         for (String token : tokens) {
             int number = Integer.parseInt(token.trim());
             winningNumbers.add(new LottoNumber(number));
-
         }
         return new Lotto(winningNumbers);
     }
