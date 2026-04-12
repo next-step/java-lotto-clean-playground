@@ -75,7 +75,7 @@ public class LottoTicketTest {
         );
     }
 
-    @DisplayName("당첨 번호, 보너스 볼과 티켓 번호를 비교하여 등수를 반환하고, 등수가 없다면 null을 반환한다.")
+    @DisplayName("당첨 번호, 보너스 볼과 티켓 번호를 비교하여 등수를 반환한다.")
     @ParameterizedTest
     @MethodSource
     public void testGetLottoRank_ValidInput(LottoTicket lottoticket, LottoTicket winnerTicket, LottoNumber bonusNumber,
@@ -106,7 +106,7 @@ public class LottoTicketTest {
                         new LottoTicket(
                                 Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3),
                                         LottoNumber.valueOf(5), LottoNumber.valueOf(6), LottoNumber.valueOf(7))),
-                        LottoNumber.valueOf(6),
+                        LottoNumber.valueOf(4),
                         LottoRank.SECOND
                 ),
                 Arguments.arguments(
@@ -117,7 +117,7 @@ public class LottoTicketTest {
                                 Arrays.asList(LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(9),
                                         LottoNumber.valueOf(10), LottoNumber.valueOf(11), LottoNumber.valueOf(12))),
                         LottoNumber.valueOf(41),
-                        null
+                        LottoRank.MISS
                 )
         );
     }

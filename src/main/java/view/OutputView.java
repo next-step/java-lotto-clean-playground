@@ -4,6 +4,7 @@ import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoResult;
 import domain.ManualTicketCount;
+import java.util.Arrays;
 
 public class OutputView {
     public void showLottoResults(LottoResult result, Double profitRate) {
@@ -13,7 +14,9 @@ public class OutputView {
 
     public void showLottoStatistics(LottoResult result) {
         System.out.println("\n당첨 통계\n---------");
-        for (LottoRank lottoRank : LottoRank.values()) {
+        for (LottoRank lottoRank : Arrays.stream(LottoRank.values())
+                .filter(rank -> !rank.equals(LottoRank.MISS))
+                .toList()) {
             System.out.println(lottoRank.toString() + " - " + result.getMatchCount(lottoRank) + "개");
         }
     }
@@ -32,7 +35,8 @@ public class OutputView {
     }
 
     public void showLottoTickets(Lotto lotto, ManualTicketCount manualTicketCount) {
-        System.out.println("\n수동으로 " + manualTicketCount.getCount() + "장, 자동으로 " + (lotto.getNumberOfTickets() - manualTicketCount.getCount()) + "장을 구매했습니다.");
+        System.out.println("\n수동으로 " + manualTicketCount.getCount() + "장, 자동으로 " + (lotto.getNumberOfTickets()
+                - manualTicketCount.getCount()) + "장을 구매했습니다.");
         System.out.println(lotto);
         System.out.println();
     }

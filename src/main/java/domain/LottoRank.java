@@ -1,6 +1,7 @@
 package domain;
 
 public enum LottoRank {
+    MISS(0, 0, 0),
     FIFTH(3, 5000, 0),
     FOURTH(4, 50000, 0),
     THIRD(5, 1500000, -1),
@@ -26,7 +27,7 @@ public enum LottoRank {
                 return lottoRank;
             }
         }
-        return null;
+        return MISS;
     }
 
     @Override
