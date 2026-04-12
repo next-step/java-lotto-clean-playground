@@ -78,8 +78,8 @@ public class LottoTicketTest {
     @DisplayName("당첨 번호, 보너스 볼과 티켓 번호를 비교하여 등수를 반환하고, 등수가 없다면 null을 반환한다.")
     @ParameterizedTest
     @MethodSource
-    public void testGetLottoRank(LottoTicket lottoticket, LottoTicket winnerTicket, LottoNumber bonusNumber,
-                                 LottoRank expected) {
+    public void testGetLottoRank_ValidInput(LottoTicket lottoticket, LottoTicket winnerTicket, LottoNumber bonusNumber,
+                                            LottoRank expected) {
         // when
         LottoRank actual = lottoticket.getLottoRank(winnerTicket, bonusNumber);
 
@@ -87,7 +87,7 @@ public class LottoTicketTest {
         assertThat(actual).isEqualTo(expected);
     }
 
-    private static Stream<Arguments> testGetLottoRank() {
+    private static Stream<Arguments> testGetLottoRank_ValidInput() {
         return Stream.of(
                 Arguments.arguments(
                         new LottoTicket(
@@ -118,6 +118,32 @@ public class LottoTicketTest {
                                         LottoNumber.valueOf(10), LottoNumber.valueOf(11), LottoNumber.valueOf(12))),
                         LottoNumber.valueOf(41),
                         null
+                )
+        );
+    }
+
+    @DisplayName("당첨 번호와 보너스 번호가 중복되면 IllegalArgumentException을 발생시킨다.")
+    @ParameterizedTest
+    @MethodSource
+    public void testGetLottoRank_InvalidInput(LottoTicket winnerTicket, LottoNumber bonusNumber) {
+        // when & then
+        assertThatThrownBy(() -> winnerTicket.getLottoRank(winnerTicket, bonusNumber)).isInstanceOf(
+                IllegalArgumentException.class).hasMessage("당첨 번호와 보너스 번호는 중복될 수 없습니다.");
+    }
+
+    private static Stream<Arguments> testGetLottoRank_InvalidInput() {
+        return Stream.of(
+                Arguments.arguments(
+                        new LottoTicket(
+                                Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3),
+                                        LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        LottoNumber.valueOf(6)
+                ),
+                Arguments.arguments(
+                        new LottoTicket(
+                                Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3),
+                                        LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        LottoNumber.valueOf(1)
                 )
         );
     }

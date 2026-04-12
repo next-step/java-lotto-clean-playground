@@ -28,6 +28,9 @@ public class LottoTicket {
     }
 
     public LottoRank getLottoRank(LottoTicket winnerTicket, LottoNumber bonusNumber) {
+        if (winnerTicket.lottoNumbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException("당첨 번호와 보너스 번호는 중복될 수 없습니다.");
+        }
         return LottoRank.getLottoRank(getMatchCount(winnerTicket), lottoNumbers.contains(bonusNumber));
     }
 
