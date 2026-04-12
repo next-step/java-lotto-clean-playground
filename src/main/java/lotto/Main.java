@@ -110,7 +110,10 @@ public class Main {
     }
 
     private static void displayRank(LottoResult res, int count) {
-        String label = res == LottoResult.BONUS ? "5개 일치, 보너스 볼 일치" : res.getMatchingCount() + "개 일치";
+        String label = res.getMatchingCount() + "개 일치";
+        if (res == LottoResult.BONUS) {
+            label = "5개 일치, 보너스 볼 일치";
+        }
         System.out.printf("%s (%d원)- %d\n", label, res.getReward(), count);
     }
 }
