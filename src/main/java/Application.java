@@ -1,5 +1,6 @@
 import controller.Controller;
-import domain.*;
+import domain.LottoTicketGenerator;
+import domain.RandomLottoTicketGenerator;
 import view.InputView;
 import view.OutputView;
 
