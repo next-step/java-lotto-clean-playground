@@ -1,7 +1,6 @@
 package domain;
 
 import constant.ErrorMessage;
-import dto.LottoStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,29 +19,28 @@ public class LottoTest {
         List<LottoNumber> validNumbers = Stream.of(45, 2, 18, 7, 9, 6)
                 .map(LottoNumber::valueOf)
                 .toList();
-        LottoStatus expectedNumbers = new LottoStatus(
-                Stream.of(2, 6, 7, 9, 18, 45)
-                        .map(LottoNumber::valueOf)
-                        .toList()
-        );
+        List<LottoNumber> expectedNumbers = Stream.of(2, 6, 7, 9, 18, 45)
+                .map(LottoNumber::valueOf)
+                .toList();
         //when
         Lotto lotto = new Lotto(validNumbers);
         //then
-        assertThat(lotto.getLottoStatus())
+        assertThat(lotto.getLottoNumber())
                 .isEqualTo(expectedNumbers);
     }
 
     @Test
     void 로또_당첨_번호를_계산한다() {
         //given
-        Lotto lotto = new Lotto(Stream.of(45, 2, 18, 7, 9, 6)
+        Lotto lotto = new Lotto(Stream.of(2, 6, 7, 9, 18, 45)
                 .map(LottoNumber::valueOf)
                 .toList());
         List<LottoNumber> winningNumbers = Stream.of(2, 6, 7, 13, 14, 15)
                 .map(LottoNumber::valueOf)
                 .toList();
+        Lotto winningLotto = new Lotto(winningNumbers);
         //when
-        int matchCount = lotto.countMatchingNumbers(winningNumbers);
+        int matchCount = lotto.countMatchingNumbers(winningLotto);
         //then
         assertThat(matchCount)
                 .isEqualTo(3);

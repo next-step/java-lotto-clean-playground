@@ -1,9 +1,7 @@
 package domain;
 
-import dto.LottoStatus;
-
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,32 +12,25 @@ public class Lottos {
         this.lottos = List.copyOf(lottoList);
     }
 
-    public Map<LottoRank, Integer> calculateMatchCounts(List<LottoNumber> winningNumbers) {
-        Map<LottoRank, Integer> matchingCounts = new LinkedHashMap<>();
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
+    }
 
+    public LottoWinningResult generateWinningResult(Lotto winningLotto, LottoNumber bonusNumber) {
+        Map<LottoRank, Integer> matchedCounts = new EnumMap<>(LottoRank.class);
         Arrays.stream(LottoRank.values())
-                .forEach(rank -> matchingCounts.put(rank, 0));
+                .forEach(rank -> matchedCounts.put(rank, 0));
+        lottos.forEach(lotto -> {
+            int count = lotto.countMatchingNumbers(winningLotto);
+            boolean hasBonus = lotto.contains(bonusNumber);
+            updateCount(matchedCounts, count, hasBonus);
+        });
 
-        for (Lotto lotto : lottos) {
-            int count = lotto.countMatchingNumbers(winningNumbers);
-            updateCount(matchingCounts, count);
-        }
-
-        return Map.copyOf(matchingCounts);
+        return new LottoWinningResult(matchedCounts, lottos.size());
     }
 
-    public int getQuantity() {
-        return lottos.size();
-    }
-
-    public List<LottoStatus> toStatus() {
-        return lottos.stream()
-                .map(Lotto::getLottoStatus)
-                .toList();
-    }
-
-    private void updateCount(Map<LottoRank, Integer> matchingCounts, int count) {
-        LottoRank rank = LottoRank.getLottoRank(count);
-        matchingCounts.put(rank, matchingCounts.get(rank) + 1);
+    private void updateCount(Map<LottoRank, Integer> matchedCounts, int count, boolean hasBonus) {
+        LottoRank rank = LottoRank.getLottoRank(count, hasBonus);
+        matchedCounts.put(rank, matchedCounts.get(rank) + 1);
     }
 }

@@ -1,4 +1,4 @@
-package util;
+package domain.strategy;
 
 import domain.LottoNumber;
 

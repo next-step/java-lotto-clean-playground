@@ -11,24 +11,50 @@ public class Validator {
     private static final int MIN_LOTTO_COUNT = 1;
     private static final int LOTTO_PRICE = 1000;
 
-    public List<LottoNumber> validateLastWinningsInput(String input) {
+    public LottoNumber validateBonusNumberInput(Lotto winningLotto, String input) {
+        try {
+            LottoNumber bonusNumber = LottoNumber.valueOf(Integer.parseInt(input));
+            validateNoDuplicateBonusNumber(winningLotto, bonusNumber);
+            return bonusNumber;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT.getMessage());
+        }
+    }
+
+    public List<LottoNumber> validateLottoInput(String input) {
         List<String> strings = Arrays.stream(input.split(","))
                 .map(String::trim)
                 .toList();
-        List<LottoNumber> winnings = validateWinningsInputIntegrity(strings);
+        List<LottoNumber> winnings = validateLottoIntegrity(strings);
         new Lotto(winnings);
 
         return winnings;
     }
 
-    public Integer validatePriceInput(String input) {
-        int purchasePrice = validatePriceInputIntegrity(input);
+    public int validatePriceInput(String input) {
+        int purchasePrice = validateIntegerInputIntegrity(input);
         int purchaseAmount = validateUnit(purchasePrice);
         validateLottoCount(purchaseAmount);
         return purchaseAmount;
     }
 
-    private List<LottoNumber> validateWinningsInputIntegrity(List<String> strings) {
+    public int validateManualInput(String input, int purchaseAmount) {
+        int manualCount = validateIntegerInputIntegrity(input);
+        validateNonNegative(manualCount);
+
+        if (manualCount > purchaseAmount) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_MANUAL_QUANTITY.getMessage());
+        }
+        return manualCount;
+    }
+
+    private void validateNoDuplicateBonusNumber(Lotto winningLotto, LottoNumber bonusNumber) {
+        if (winningLotto.contains(bonusNumber)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DUPLICATE_BONUS_NUMBER.getMessage());
+        }
+    }
+
+    private List<LottoNumber> validateLottoIntegrity(List<String> strings) {
         try {
             return strings.stream()
                     .map(Integer::parseInt)
@@ -40,8 +66,7 @@ public class Validator {
     }
 
     private int validateUnit(int purchasePrice) {
-        int purchaseAmount = purchasePrice % LOTTO_PRICE;
-        if (purchaseAmount > 0) {
+        if (purchasePrice % LOTTO_PRICE > 0) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_PURCHASE_UNIT.getMessage());
         }
         return purchasePrice / LOTTO_PRICE;
@@ -55,11 +80,17 @@ public class Validator {
         }
     }
 
-    private int validatePriceInputIntegrity(String input) {
+    private int validateIntegerInputIntegrity(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT.getMessage());
+        }
+    }
+
+    private void validateNonNegative(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NEGATIVE_INPUT.getMessage());
         }
     }
 }

@@ -2,13 +2,16 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoNumber;
+import domain.LottoRank;
 import domain.LottoWinningResult;
 import domain.Lottos;
+import domain.strategy.NumbersGenerator;
+import dto.LottoStatistics;
 import dto.LottoStatus;
-import util.NumbersGenerator;
 import view.InputView;
 import view.OutputView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,33 +33,67 @@ public class LottoController {
     public void run() {
         Lottos lottos = buyLottos();
 
-        List<LottoNumber> winningLotto = readWinningLotto();
+        Lotto winningLotto = readWinningLotto();
+        LottoNumber bonusNumber = readBonusNumber(winningLotto);
 
-        showResultStatistics(lottos, winningLotto);
+        showResultStatistics(lottos, winningLotto, bonusNumber);
     }
 
     private Lottos buyLottos() {
-        int purchaseAmount = readAmount();
-        Lottos lottos = new Lottos(getnerateLottos(purchaseAmount));
+        int totalAmount = readTotalLottoAmount();
+        int manualAmount = readManualLottoAmount(totalAmount);
+        int autoAmount = totalAmount - manualAmount;
 
-        outputView.printQuantity(lottos.getQuantity());
-        outputView.printElements(lottos.toStatus().stream()
-                .map(LottoStatus::toString)
-                .toList());
+        Lottos lottos = generateLottos(manualAmount, autoAmount);
+
+        outputView.printQuantity(manualAmount, autoAmount);
+        List<LottoStatus> lottoStatusList = lottos.getLottos().stream()
+                .map(LottoStatus::from)
+                .toList();
+        outputView.printElements(lottoStatusList);
         return lottos;
     }
 
-    private void showResultStatistics(Lottos lottos, List<LottoNumber> winningLotto) {
+    private Lottos generateLottos(int manualAmount, int autoAmount) {
+        List<Lotto> totalLottos = new ArrayList<>();
+
+        if (manualAmount != 0) {
+            outputView.printInputManualNumbers();
+            List<Lotto> manualLottos = generateManualLottos(manualAmount);
+            totalLottos.addAll(manualLottos);
+        }
+        List<Lotto> autoLottos = generateAutoLottos(autoAmount);
+        totalLottos.addAll(autoLottos);
+
+        return new Lottos(totalLottos);
+    }
+
+    private List<Lotto> generateManualLottos(int manualCount) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            lottoList.add(readLotto());
+        }
+        return lottoList;
+    }
+
+    private List<Lotto> generateAutoLottos(int purchaseAmount) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (int i = 0; i < purchaseAmount; i++) {
+            lottoList.add(new Lotto(numbersGenerator.generate()));
+        }
+        return lottoList;
+    }
+
+    private void showResultStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
         outputView.printStatisticHeader();
-        LottoWinningResult winningResult = new LottoWinningResult(lottos.calculateMatchCounts(winningLotto));
-        winningResult.getLottoStatistics().entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .forEach(entry -> outputView.printStatistics(
-                        entry.getKey().getMatchCount(),
-                        entry.getKey().getPrice(),
-                        entry.getValue()
-                ));
-        outputView.printResult(winningResult.getLottoProfitRate(lottos.getQuantity()));
+        LottoWinningResult lottoWinningResult = lottos.generateWinningResult(winningLotto, bonusNumber);
+        Map<LottoRank, Integer> matchedCounts = lottoWinningResult.getMatchedCounts();
+        BigDecimal profitRate = lottoWinningResult.calculateProfitRate();
+
+        LottoStatistics lottoStatistics = LottoStatistics.of(matchedCounts, profitRate);
+        outputView.printStatistics(lottoStatistics);
+
+        outputView.printResult(lottoStatistics.profitRate());
     }
 
     private <T> T repeatUntilSuccess(Supplier<T> callBack) {
@@ -69,25 +106,35 @@ public class LottoController {
         }
     }
 
-    private int readAmount() {
+    private int readTotalLottoAmount() {
         return repeatUntilSuccess(() -> {
-            outputView.printStartGuide();
+            outputView.printInputStartGuide();
             return validator.validatePriceInput(inputView.readInput());
         });
     }
 
-    private List<LottoNumber> readWinningLotto() {
+    private int readManualLottoAmount(int purchaseAmount) {
         return repeatUntilSuccess(() -> {
-            outputView.printPrompt();
-            return validator.validateLastWinningsInput(inputView.readInput());
+            outputView.printInputManualCount();
+            return validator.validateManualInput(inputView.readInput(), purchaseAmount);
         });
     }
 
-    private List<Lotto> getnerateLottos(int purchaseAmount) {
-        List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < purchaseAmount; i++) {
-            lottoList.add(new Lotto(numbersGenerator.generate()));
-        }
-        return lottoList;
+    private Lotto readWinningLotto() {
+        return repeatUntilSuccess(() -> {
+            outputView.printPrompt();
+            return new Lotto(validator.validateLottoInput(inputView.readInput()));
+        });
+    }
+
+    private Lotto readLotto() {
+        return repeatUntilSuccess(() -> new Lotto(validator.validateLottoInput(inputView.readInput())));
+    }
+
+    private LottoNumber readBonusNumber(Lotto winningLotto) {
+        return repeatUntilSuccess(() -> {
+            outputView.printBonusPrompt();
+            return validator.validateBonusNumberInput(winningLotto, inputView.readInput());
+        });
     }
 }
