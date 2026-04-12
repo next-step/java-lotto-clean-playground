@@ -6,6 +6,7 @@ import domain.Lottos;
 import domain.Money;
 import domain.RandomLottoGenerator;
 import domain.Rank;
+import domain.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
 import view.InputView;
@@ -31,10 +32,12 @@ public class Application {
         printAllLottos(purchasedLottos); // 합쳐진 모든 로또 출력
 
         Lotto winnerNumbers = inputView.getWinnerNumbers(); // 당첨번호 로또 입력
-        LottoNumber bonusNumber = inputView.getBonusNumber(winnerNumbers); // 보너스 볼 입력
+        LottoNumber bonusNumber = inputView.getBonusNumber(); // 보너스 볼 입력
+
+        WinningLotto winningLotto = new WinningLotto(winnerNumbers, bonusNumber);
 
         LottoCalculator calculator = new LottoCalculator();
-        purchasedLottos.calculateResults(winnerNumbers, bonusNumber, calculator); // 결과 계산
+        purchasedLottos.calculateResults(winningLotto, calculator); // 결과 계산
         printStatistics(calculator, money); // 최종 통계 및 수익률 출력
     }
 
@@ -54,9 +57,6 @@ public class Application {
         return new Lottos(purchased);
     }
 
-    public void printLotto(Lotto lotto) {
-        resultView.printLottoNumbers(lotto);
-    }
 
     public void printStatistics(LottoCalculator calculator, Money money) {
         resultView.printStatics();
