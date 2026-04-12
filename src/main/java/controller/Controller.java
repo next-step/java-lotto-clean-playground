@@ -1,9 +1,6 @@
 package controller;
 
-import domain.LottoService;
-import domain.LottoTicket;
-import domain.Statistic;
-import domain.WinningResult;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -18,16 +15,25 @@ public class Controller {
 
     public void run(){
         int money = inputView.getMoney();
+        int manualTicketNumber = inputView.getManualTicketNumber();
+        List<List<Integer>> manualNumbers = inputView.getManualNumbers(manualTicketNumber);
 
-        List<LottoTicket> lottoTickets = lottoService.buyTickets(money);
+        TicketBundle ticketBundle = lottoService.buyTickets(money, manualNumbers);
 
-        outputView.printLottoList(lottoTickets.size(), lottoTickets);
+        outputView.printLottoList(ticketBundle);
 
         List<Integer> winningNumbers = inputView.getWinningNumbers();
+        int bonusNumber = inputView.getBonusNumber();
 
-        WinningResult winningResult = statistic.getWinningResult(lottoTickets, winningNumbers);
-        double revenue = statistic.getRevenue(money, winningResult);
+        int first = ticketBundle.getCountOfTicketGrade(1, winningNumbers, bonusNumber);
+        int second = ticketBundle.getCountOfTicketGrade(2, winningNumbers, bonusNumber);
+        int third = ticketBundle.getCountOfTicketGrade(3, winningNumbers, bonusNumber);
+        int fourth = ticketBundle.getCountOfTicketGrade(4, winningNumbers, bonusNumber);
+        int fifth = ticketBundle.getCountOfTicketGrade(5, winningNumbers, bonusNumber);
 
-        outputView.printResult(winningResult, revenue);
+        int totalReward = ticketBundle.getTotalPrice(winningNumbers, bonusNumber);
+        double revenue = statistic.getRevenue(money,totalReward);
+
+        outputView.printResult(first, second, third, fourth, fifth, revenue);
     }
 }

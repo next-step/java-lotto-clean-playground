@@ -9,16 +9,23 @@ import java.util.stream.IntStream;
 
 public class LottoService {
     public static final int TICKET_PRICE = 1000;
-    public static final int LOTTO_SIZE = 6;
 
     public LottoService() {
     }
 
-    public List<LottoTicket> buyTickets(int money) {
+    public TicketBundle buyTickets(int money, List<List<Integer>> manualBuyTickets) {
+        int manalTicketNumber = manualBuyTickets.size();
+        money = money - manalTicketNumber *TICKET_PRICE;
+
         validateMoney(money);
         int ticketCount = money/ TICKET_PRICE;
 
-        List<LottoTicket> tickets = new ArrayList<>();
+        TicketBundle tickets = new TicketBundle();
+
+        for(List<Integer> ticketNumbers:manualBuyTickets){
+            LottoTicket ticket = new LottoTicket(ticketNumbers);
+            tickets.add(ticket);
+        }
 
         for(int i=0;i<ticketCount;i++){
             tickets.add(generateTicket());
@@ -28,8 +35,8 @@ public class LottoService {
     }
 
     private LottoTicket generateTicket() {
-        List<Integer> ticketBasket = new ArrayList<>();
-        List<Integer> ticketNumbers = new ArrayList<>();
+        List<Integer> ticketBasket;
+        List<Integer> ticketNumbers;
 
         ticketBasket = IntStream.rangeClosed(1,45)
                                 .boxed()
