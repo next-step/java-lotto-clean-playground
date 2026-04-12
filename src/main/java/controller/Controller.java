@@ -2,7 +2,6 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoResult;
-import domain.LottoTicket;
 import domain.LottoTicketGenerator;
 import domain.ManualTicketCount;
 import domain.Price;
@@ -25,7 +24,7 @@ public class Controller {
     public void run() {
         Price price = inputView.inputPrice();
         ManualTicketCount manualTicketCount = inputView.inputManualTicketCount(price);
-        List<LottoTicket> manualTickets = new ArrayList<>();
+        List<List<Integer>> manualTickets = new ArrayList<>();
         if (manualTicketCount.getCount() != 0) {
             manualTickets = inputView.inputManualTickets(manualTicketCount);
         }

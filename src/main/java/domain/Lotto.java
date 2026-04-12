@@ -6,12 +6,16 @@ import java.util.List;
 public class Lotto {
     private final List<LottoTicket> tickets;
 
-    public Lotto(Price price, LottoTicketGenerator lottoTicketGenerator, List<LottoTicket> manualTickets) {
+    public Lotto(Price price, LottoTicketGenerator lottoTicketGenerator, List<List<Integer>> manualTickets) {
+        List<LottoTicket> tickets = new ArrayList<>(manualTickets.stream()
+                .map(list -> new ArrayList<>(list.stream().map(LottoNumber::valueOf).toList()))
+                .map(LottoTicket::new)
+                .toList());
         int ticketCount = price.getBuyableLottoCount() - manualTickets.size();
         for (int i = 0; i < ticketCount; i++) {
-            manualTickets.add(lottoTicketGenerator.generate());
+            tickets.add(lottoTicketGenerator.generate());
         }
-        this.tickets = manualTickets;
+        this.tickets = tickets;
     }
 
     public LottoResult getResults(LottoTicket winnerTicket, LottoNumber bonusNumber) {

@@ -1,17 +1,16 @@
 package domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
     @DisplayName("입력 개수만큼 로또 티켓을 발급한다.")
@@ -33,7 +32,8 @@ public class LottoTest {
     @DisplayName("티켓 리스트를 당첨 티켓과 비교하여 LottoResult를 반환한다.")
     @ParameterizedTest
     @MethodSource
-    public void testGetResults(List<LottoTicket> tickets, LottoTicket winnerTicket, LottoNumber bonusNumber, LottoResult expected) {
+    public void testGetResults(List<List<Integer>> tickets, LottoTicket winnerTicket, LottoNumber bonusNumber,
+                               LottoResult expected) {
         // given
         LottoTicketGenerator lottoTicketGenerator = new RandomLottoTicketGenerator();
         Lotto lotto = new Lotto(new Price(tickets.size() * 1000), lottoTicketGenerator, tickets);
@@ -48,24 +48,29 @@ public class LottoTest {
     private static Stream<Arguments> testGetResults() {
         return Stream.of(
                 Arguments.arguments(
-                        List.of(
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(7))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(7), LottoNumber.valueOf(8), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(8), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(14), LottoNumber.valueOf(15), LottoNumber.valueOf(16))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(11), LottoNumber.valueOf(12), LottoNumber.valueOf(13), LottoNumber.valueOf(14), LottoNumber.valueOf(15), LottoNumber.valueOf(6))),
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(11), LottoNumber.valueOf(21), LottoNumber.valueOf(31), LottoNumber.valueOf(41), LottoNumber.valueOf(15), LottoNumber.valueOf(16)))
+                        Arrays.asList(
+                                Arrays.asList(1, 2, 3, 4, 5, 7),
+                                Arrays.asList(1, 2, 3, 4, 5, 6),
+                                Arrays.asList(7, 8, 3, 4, 5, 6),
+                                Arrays.asList(8, 2, 3, 4, 5, 6),
+                                Arrays.asList(1, 2, 3, 14, 15, 16),
+                                Arrays.asList(11, 12, 13, 14, 15, 6),
+                                Arrays.asList(11, 21, 31, 41, 15, 16)
                         ),
-                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        new LottoTicket(
+                                Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3),
+                                        LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         LottoNumber.valueOf(7),
-                        new LottoResult(List.of(LottoRank.FIFTH, LottoRank.FOURTH, LottoRank.THIRD, LottoRank.SECOND, LottoRank.FIRST))
+                        new LottoResult(List.of(LottoRank.FIFTH, LottoRank.FOURTH, LottoRank.THIRD, LottoRank.SECOND,
+                                LottoRank.FIRST, LottoRank.MISS, LottoRank.MISS))
                 ),
                 Arguments.arguments(
                         List.of(
-                                new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6)))
+                                Arrays.asList(1, 2, 3, 4, 5, 6)
                         ),
-                        new LottoTicket(Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3), LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
+                        new LottoTicket(
+                                Arrays.asList(LottoNumber.valueOf(1), LottoNumber.valueOf(2), LottoNumber.valueOf(3),
+                                        LottoNumber.valueOf(4), LottoNumber.valueOf(5), LottoNumber.valueOf(6))),
                         LottoNumber.valueOf(7),
                         new LottoResult(List.of(LottoRank.FIRST))
                 )

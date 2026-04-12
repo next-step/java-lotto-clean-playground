@@ -27,16 +27,15 @@ public class InputView {
         return new ManualTicketCount(Integer.parseInt(scanner.nextLine()), price);
     }
 
-    public List<LottoTicket> inputManualTickets(ManualTicketCount manualTicketCount) {
+    public List<List<Integer>> inputManualTickets(ManualTicketCount manualTicketCount) {
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<LottoTicket> manualTickets = new ArrayList<>();
+        List<List<Integer>> manualTickets = new ArrayList<>();
         for (int i = 0; i < manualTicketCount.getCount(); i++) {
-            manualTickets.add(new LottoTicket(
+            manualTickets.add(
                     Arrays.stream(scanner.nextLine().split(", "))
                             .map(Integer::parseInt)
-                            .map(LottoNumber::valueOf)
                             .collect(Collectors.toList())
-            ));
+            );
         }
         return manualTickets;
     }
