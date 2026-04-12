@@ -181,4 +181,12 @@ public class LottoTest {
         assertThatThrownBy(() -> lottoParser.parse(input))
                 .isInstanceOf(RuntimeException.class);
     }
+
+    @DisplayName("LottoResult의 값이 None일 경우 false를 제대로 반환한다.")
+    @Test
+    void isDisplayableBooleanTest() {
+        LottoResult result = LottoResult.NONE;
+
+        assertThat(result.isDisplayable()).isEqualTo(false);
+    }
 }
