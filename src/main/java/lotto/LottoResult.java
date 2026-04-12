@@ -1,5 +1,7 @@
 package lotto;
 
+import java.util.Arrays;
+
 public enum LottoResult {
     NONE(0, 0),
     THREE(3, 5_000),
@@ -21,12 +23,11 @@ public enum LottoResult {
             return BONUS;
         }
 
-        for (LottoResult result : values()) {
-            if (result != BONUS && result.matchingCount == count) {
-                return result;
-            }
-        }
-        return NONE;
+        return Arrays.stream(values())
+                .filter(result -> result != BONUS && result != NONE)
+                .filter(result -> result.matchingCount == count)
+                .findFirst()
+                .orElse(NONE);
     }
 
     public int getMatchingCount() {
