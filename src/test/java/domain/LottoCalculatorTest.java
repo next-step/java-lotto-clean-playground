@@ -7,20 +7,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoCalculatorTest {
 
-    @DisplayName("기록된 통계를 바탕으로 정확한 수익률을 계산한다.")
+    @DisplayName("2등 당첨을 포함하여 기록된 통계를 바탕으로 정확한 수익률을 계산한다.")
     @Test
     void calculateYieldTest() {
         // given
         LottoCalculator calculator = new LottoCalculator();
-        Money money = new Money(14000); // 14장 로또 구매
+        Money money = new Money(10000); // 10장 구매 (10,000원 지출)
 
-        // 5등(상금 5000원) 1번 당첨이라고 강제기록시키기
-        calculator.valueAdd(Rank.THREE);
+        // 2등(상금 30,000,000원) 1번 당첨 기록
+        calculator.valueAdd(Rank.SECOND);
 
         // when
         double yield = calculator.calculateYield(money);
 
-        // then: 5000 / 14000 소수점 둘째자리까지 계산시키기
-        assertThat(yield).isBetween(0.35, 0.36);
+        // 30,000,000 / 10,000 = 3000.0
+        assertThat(yield).isEqualTo(3000.0);
     }
 }

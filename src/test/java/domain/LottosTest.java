@@ -8,31 +8,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottosTest {
 
-    @DisplayName("Lottos 객체가 당첨 번호를 받아 스스로 모든 로또를 대조하고 정확한 통계(LottoCalculator)를 반환한다.")
+    @DisplayName("Lottos 객체가 WinningLotto를 받아 스스로 대조하고 정확한 통계를 반환한다.")
     @Test
     void matchAllTest() {
-        // given
-        Lotto winningLotto = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
-        ));
+        // given (당첨 번호 1~6, 보너스 7)
+        WinningLotto winningLotto = new WinningLotto(
+                new Lotto(List.of(
+                        new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                        new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+                )),
+                new LottoNumber(7)
+        );
 
-        Lotto myLotto1 = new Lotto(List.of(
-                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), // 3개일치
-                new LottoNumber(10), new LottoNumber(11), new LottoNumber(12)
+        Lotto secondPrizeLotto = new Lotto(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(7)
         ));
-        Lotto myLotto2 = new Lotto(List.of(
-                new LottoNumber(10), new LottoNumber(11), new LottoNumber(12), // 0개 일치
+        Lotto missLotto = new Lotto(List.of(
+                new LottoNumber(10), new LottoNumber(11), new LottoNumber(12),
                 new LottoNumber(13), new LottoNumber(14), new LottoNumber(15)
         ));
 
-        Lottos lottos = new Lottos(List.of(myLotto1, myLotto2));
+        Lottos lottos = new Lottos(List.of(secondPrizeLotto, missLotto));
 
-        // when (묻지 말고 시켜라!)
+        // when
         LottoCalculator calculator = lottos.matchAll(winningLotto);
 
         // then
-        assertThat(calculator.getResult().get(Rank.THREE)).isEqualTo(1); // 5등 1번
-        assertThat(calculator.getResult().get(Rank.MISS)).isEqualTo(1);  // 꼴등 1번
+        assertThat(calculator.getResult().get(Rank.SECOND)).isEqualTo(1); // 2등 1번
+        assertThat(calculator.getResult().get(Rank.MISS)).isEqualTo(1);  // 꽝 1번
     }
 }

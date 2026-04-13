@@ -1,10 +1,11 @@
 package view;
 
+import domain.Rank;
 import java.util.List;
 
 public class ResultView {
-    public void printPurchaseCount(int count) {
-        System.out.println("\n" + count + "개를 구매했습니다.");
+    public void printPurchaseCount(int manual, int auto) {
+        System.out.println("\n수동으로 " + manual + "장, 자동으로 " + auto + "개를 구매했습니다.");
     }
 
     public void printLottoNumbers(List<Integer> numbers) {
@@ -15,8 +16,12 @@ public class ResultView {
         System.out.println("\n당첨 통계\n---------");
     }
 
-    public void printWinningStatics(int num, int price, int count) {
-        System.out.println(num + "개 일치 (" + price + "원)- " + count + "개");
+    public void printWinningStatics(Rank rank, int count) {
+        if (rank == Rank.SECOND) {
+            System.out.println("5개 일치, 보너스 볼 일치(" + rank.getPrizemoney() + "원) - " + count + "개");
+            return;
+        }
+        System.out.println(rank.getMatchnumbers() + "개 일치 (" + rank.getPrizemoney() + "원)- " + count + "개");
     }
 
     public void printYield(double yield, boolean sign) {
