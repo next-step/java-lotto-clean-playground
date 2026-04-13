@@ -1,5 +1,8 @@
 package domain.lotto;
 
+import domain.lotto.exception.DuplicateNumbersException;
+import domain.lotto.exception.EmptyTicketException;
+import domain.lotto.exception.WrongTicketLengthException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,6 +53,30 @@ class TicketTest {
                         new Ball(6),
                         5,
                         true)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidBallsMethodSource")
+    @DisplayName("유효하지 않은 번호 리스트로 티켓 생성 시 예외가 발생한다.")
+    void constructorExceptionTest(List<Ball> invalidBalls, Class<? extends RuntimeException> exceptionType) {
+        Assertions.assertThatThrownBy(() -> new Ticket(invalidBalls)).isInstanceOf(exceptionType);
+    }
+
+    private static Stream<Arguments> invalidBallsMethodSource() {
+        return Stream.of(
+                Arguments.of(
+                        List.of(), EmptyTicketException.class
+                ),
+                Arguments.of(
+                        Stream.of(1, 1, 2, 3, 4, 5).map(Ball::new).toList(), DuplicateNumbersException.class
+                ),
+                Arguments.of(
+                        Stream.of(1, 2, 3, 4, 5).map(Ball::new).toList(), WrongTicketLengthException.class
+                ),
+                Arguments.of(
+                        Stream.of(1, 2, 3, 4, 5, 6, 7).map(Ball::new).toList(), WrongTicketLengthException.class
+                )
         );
     }
 }

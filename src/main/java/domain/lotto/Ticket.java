@@ -15,9 +15,11 @@ public class Ticket {
 
     public Ticket(List<Ball> balls) {
         validateTicket(balls);
-        balls.sort(Comparator.naturalOrder());
 
-        this.balls = balls;
+        List<Ball> immutableBalls = new ArrayList<>(balls);
+        immutableBalls.sort(Comparator.naturalOrder());
+
+        this.balls = immutableBalls;
     }
 
     public List<Ball> getBalls() {

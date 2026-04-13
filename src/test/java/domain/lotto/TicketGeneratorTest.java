@@ -1,5 +1,6 @@
 package domain.lotto;
 
+import domain.lotto.exception.TicketSizeMismatchException;
 import number_generator.NumberListGenerator;
 import number_generator.RandomNumberListGenerator;
 import org.assertj.core.api.Assertions;
@@ -72,6 +73,33 @@ class TicketGeneratorTest {
                         new Ticket(Stream.of(30, 29, 28, 27, 26, 25).map(Ball::new).toList()),
                         new Ticket(Stream.of(30, 29, 28, 27, 26, 25).map(Ball::new).toList()),
                         new Ticket(Stream.of(30, 29, 28, 27, 26, 25).map(Ball::new).toList())))
+        );
+    }
+
+    @DisplayName("수동 티켓 수와 실제 티켓 리스트의 크기가 다르면 예외가 발생한다.")
+    @ParameterizedTest
+    @MethodSource("mismatchTicketCountMethodSource")
+    void manualTicketSizeMismatchTest(int manualCount, int actualListSize) {
+        // Given
+        TicketCount manualTicketCount = new TicketCount(manualCount);
+        TicketCount randomTicketCount = new TicketCount(0);
+        TicketGenerator generator = new TicketGenerator(manualTicketCount, randomTicketCount);
+
+        List<Ticket> manualTickets = new ArrayList<>();
+        for (int i = 0; i < actualListSize; i++) {
+            manualTickets.add(new Ticket(Stream.of(1, 2, 3, 4, 5, 6).map(Ball::new).toList()));
+        }
+
+        // When & Then
+        Assertions.assertThatThrownBy(() -> generator.createManualTickets(manualTickets))
+                .isInstanceOf(TicketSizeMismatchException.class);
+    }
+
+    private static Stream<Arguments> mismatchTicketCountMethodSource() {
+        return Stream.of(
+                Arguments.of(3, 2),
+                Arguments.of(1, 5),
+                Arguments.of(5, 0)
         );
     }
 }

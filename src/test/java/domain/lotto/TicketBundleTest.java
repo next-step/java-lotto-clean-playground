@@ -16,7 +16,7 @@ class TicketBundleTest {
     void lottoResultTest(List<Ball> winnerNumbers, Ball bonusBall, List<Integer> expectedResult) {
         // given
         TicketBundle bundle = new TicketBundle();
-        TicketCount totalCount = new TicketCount(new Payment(1000));
+        TicketCount totalCount = new TicketCount(1);
         TicketCount randomCount = totalCount;
         TicketGenerator ticketGenerator = new TicketGenerator(new TicketCount(0), randomCount);
         bundle.addTickets(ticketGenerator.createRandomTickets((count, min, max) -> List.of(1, 2, 3, 4, 5, 6)));
@@ -28,11 +28,11 @@ class TicketBundleTest {
 
         // then
         org.junit.jupiter.api.Assertions.assertAll(
-                () -> Assertions.assertThat(result.getThreeCorrectCount()).isEqualTo(expectedResult.get(0)),
-                () -> Assertions.assertThat(result.getFourCorrectCount()).isEqualTo(expectedResult.get(1)),
-                () -> Assertions.assertThat(result.getFiveAndNoBonusCorrectCount()).isEqualTo(expectedResult.get(2)),
-                () -> Assertions.assertThat(result.getFiveAndBonusCorrectCount()).isEqualTo(expectedResult.get(3)),
-                () -> Assertions.assertThat(result.getSixCorrectCount()).isEqualTo(expectedResult.get(4))
+                () -> Assertions.assertThat(result.getCount(Rank.THREE_CORRECT)).isEqualTo(expectedResult.get(0)),
+                () -> Assertions.assertThat(result.getCount(Rank.FOUR_CORRECT)).isEqualTo(expectedResult.get(1)),
+                () -> Assertions.assertThat(result.getCount(Rank.FIVE_CORRECT)).isEqualTo(expectedResult.get(2)),
+                () -> Assertions.assertThat(result.getCount(Rank.FIVE_AND_BONUS_CORRECT)).isEqualTo(expectedResult.get(3)),
+                () -> Assertions.assertThat(result.getCount(Rank.SIX_CORRECT)).isEqualTo(expectedResult.get(4))
         );
     }
 
