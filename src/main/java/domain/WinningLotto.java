@@ -20,6 +20,6 @@ public class WinningLotto {
         int matchNumbers = userLotto.getMatchNumbers(winningLotto);
         boolean matchBonus = userLotto.getNumbers().contains(bonusNumber);
 
-        return Rank.valueOf(matchNumbers, matchBonus);
+        return Rank.of(matchNumbers, matchBonus);
     }
 }
