@@ -20,16 +20,16 @@ class LottosTest {
                 new LottoNumber(7)
         );
 
-        Lotto myLotto1 = new Lotto(List.of(
+        Lotto secondPrizeLotto = new Lotto(List.of(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(7) // 2등 당첨
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(7)
         ));
-        Lotto myLotto2 = new Lotto(List.of(
+        Lotto missLotto = new Lotto(List.of(
                 new LottoNumber(10), new LottoNumber(11), new LottoNumber(12),
-                new LottoNumber(13), new LottoNumber(14), new LottoNumber(15) // 꽝
+                new LottoNumber(13), new LottoNumber(14), new LottoNumber(15)
         ));
 
-        Lottos lottos = new Lottos(List.of(myLotto1, myLotto2));
+        Lottos lottos = new Lottos(List.of(secondPrizeLotto, missLotto));
 
         // when
         LottoCalculator calculator = lottos.matchAll(winningLotto);
