@@ -16,7 +16,7 @@ public enum Rank {
         this.prizeMoney = prizeMoney;
     }
 
-    public static Rank valueOf(int matchNumbers, boolean matchBonus) {
+    public static Rank of(int matchNumbers, boolean matchBonus) {
         if (matchNumbers == 5) {
             return determineSecondOrThird(matchBonus);
         }
@@ -40,7 +40,7 @@ public enum Rank {
     }
 
     private static boolean isGeneralRankMatched(Rank rank, int matchNumbers) {
-        return rank.matchNumbers == matchNumbers && rank != SECOND && rank != THIRD;
+        return rank.matchNumbers == matchNumbers;
     }
 
     public int getMatchnumbers() {
