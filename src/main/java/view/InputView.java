@@ -3,8 +3,8 @@ package view;
 import domain.lotto.Ball;
 import domain.lotto.Ticket;
 import domain.lotto.WinnerBalls;
-import domain.lotto.wrappers.Payment;
-import domain.lotto.wrappers.TicketCount;
+import domain.lotto.Payment;
+import domain.lotto.TicketCount;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,5 @@
 package domain.lotto;
 
-import domain.lotto.wrappers.CorrectCount;
 import domain.lotto.exception.DuplicateNumbersException;
 import domain.lotto.exception.EmptyTicketException;
 import domain.lotto.exception.WrongTicketLengthException;

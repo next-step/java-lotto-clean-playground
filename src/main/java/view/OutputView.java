@@ -1,12 +1,6 @@
 package view;
 
-import domain.lotto.Ball;
-import domain.lotto.Ticket;
-import domain.lotto.TicketBundle;
-import domain.lotto.TicketGenerator;
-import domain.lotto.wrappers.Result;
-import domain.lotto.wrappers.ProfitRate;
-import domain.lotto.wrappers.TicketCount;
+import domain.lotto.*;
 
 import java.util.List;
 
@@ -31,22 +25,22 @@ public class OutputView {
         System.out.println(ticket);
     }
 
-    public void showResults(TicketCount ticketCount, Result result) {
+    public void showResults(Payment payment, Result result) {
         showStatistics(result);
-        showProfitRate(ticketCount, result);
+        showProfitRate(payment, result);
     }
 
     public void showStatistics(Result result) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.println("3개 일치 (" + THREE_CORRECT.getPrizeMoney() + "원)- " + result.getThreeCorrectCount() + "개");
-        System.out.println("4개 일치 (" + FOUR_CORRECT.getPrizeMoney() + "원)- " + result.getFourCorrectCount() + "개");
-        System.out.println("5개 일치 (" + FIVE_CORRECT.getPrizeMoney() + "원)- " + result.getFiveAndNoBonusCorrectCount() + "개");
-        System.out.println("5개, 보너스볼 일치 (" + FIVE_AND_BONUS_CORRECT.getPrizeMoney() + "원)- " + result.getFiveAndBonusCorrectCount() + "개");
-        System.out.println("6개 일치 (" + SIX_CORRECT.getPrizeMoney() + "원)- " + result.getSixCorrectCount() + "개");
+        System.out.println("3개 일치 (" + THREE_CORRECT.getPrizeMoney() + "원)- " + result.getCount(THREE_CORRECT) + "개");
+        System.out.println("4개 일치 (" + FOUR_CORRECT.getPrizeMoney() + "원)- " + result.getCount(FOUR_CORRECT) + "개");
+        System.out.println("5개 일치 (" + FIVE_CORRECT.getPrizeMoney() + "원)- " + result.getCount(FIVE_CORRECT) + "개");
+        System.out.println("5개, 보너스볼 일치 (" + FIVE_AND_BONUS_CORRECT.getPrizeMoney() + "원)- " + result.getCount(FIVE_AND_BONUS_CORRECT) + "개");
+        System.out.println("6개 일치 (" + SIX_CORRECT.getPrizeMoney() + "원)- " + result.getCount(SIX_CORRECT) + "개");
     }
 
-    public void showProfitRate(TicketCount ticketCount, Result result) {
-        ProfitRate profitRate = result.calculateProfitRate(ticketCount);
+    public void showProfitRate(Payment payment, Result result) {
+        ProfitRate profitRate = result.calculateProfitRate(payment);
 
         System.out.printf("총 수익률은 %.2f입니다.", profitRate.getValue());
         if (profitRate.getValue() > 1) {

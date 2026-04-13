@@ -1,7 +1,6 @@
 package domain.lotto;
 
 import domain.lotto.exception.TicketSizeMismatchException;
-import domain.lotto.wrappers.TicketCount;
 import number_generator.NumberListGenerator;
 import number_generator.wrappers.Count;
 

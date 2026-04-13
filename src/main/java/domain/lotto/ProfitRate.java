@@ -1,4 +1,4 @@
-package domain.lotto.wrappers;
+package domain.lotto;
 
 public class ProfitRate {
     private final double value;

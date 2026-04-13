@@ -1,8 +1,5 @@
 package domain.lotto;
 
-import domain.lotto.wrappers.CorrectCount;
-import domain.lotto.wrappers.Result;
-
 import java.util.ArrayList;
 import java.util.List;
 

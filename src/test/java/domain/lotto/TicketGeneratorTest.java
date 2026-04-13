@@ -1,6 +1,5 @@
 package domain.lotto;
 
-import domain.lotto.wrappers.TicketCount;
 import number_generator.NumberListGenerator;
 import number_generator.RandomNumberListGenerator;
 import org.assertj.core.api.Assertions;

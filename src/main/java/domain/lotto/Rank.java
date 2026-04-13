@@ -1,6 +1,7 @@
 package domain.lotto;
 
 public enum Rank {
+    MISS(0, 0),
     THREE_CORRECT(3,5000),
     FOUR_CORRECT(4, 50000),
     FIVE_CORRECT(5, 1500000),
@@ -22,5 +23,31 @@ public enum Rank {
 
     public int getNumberOfCorrect() {
         return numberOfCorrect;
+    }
+
+    public static Rank valueOf(CorrectCount correctCount) {
+        int numberOfCorrect = correctCount.getCorrectCount();
+        boolean hasBonus = correctCount.hasBonusNumber();
+
+        if (numberOfCorrect == THREE_CORRECT.getNumberOfCorrect()) {
+            return THREE_CORRECT;
+        }
+
+        if (numberOfCorrect == FOUR_CORRECT.getNumberOfCorrect()) {
+            return FOUR_CORRECT;
+        }
+
+        if (numberOfCorrect == FIVE_CORRECT.getNumberOfCorrect() && !hasBonus) {
+            return FIVE_CORRECT;
+        }
+
+        if (numberOfCorrect == FIVE_CORRECT.getNumberOfCorrect() && hasBonus) {
+            return FIVE_AND_BONUS_CORRECT;
+        }
+
+        if (numberOfCorrect == SIX_CORRECT.getNumberOfCorrect()) {
+            return SIX_CORRECT;
+        }
+        return MISS;
     }
 }

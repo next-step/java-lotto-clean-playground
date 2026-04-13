@@ -1,8 +1,5 @@
 package domain.lotto;
 
-import domain.lotto.wrappers.Payment;
-import domain.lotto.wrappers.Result;
-import domain.lotto.wrappers.TicketCount;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

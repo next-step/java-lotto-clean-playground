@@ -1,4 +1,4 @@
-package domain.lotto.wrappers;
+package domain.lotto;
 
 import domain.lotto.exception.NoPaymentException;
 import domain.lotto.exception.WrongPaymentException;
@@ -16,6 +16,10 @@ public class Payment {
 
     public int getValue() {
         return value;
+    }
+
+    public TicketCount createTicketCount() {
+        return new TicketCount(value/TICKET_PRICE);
     }
 
     private void validatePositive(int value) {
