@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,7 +47,7 @@ public class InputView {
         if (count > 0) {
             System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         }
-        List<String> manualNumbers = new java.util.ArrayList<>();
+        List<String> manualNumbers = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             manualNumbers.add(scanner.nextLine());
         }
