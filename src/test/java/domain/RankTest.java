@@ -10,12 +10,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RankTest {
 
     @DisplayName("일치 개수와 보너스 일치 여부에 따라 정확한 등수를 반환한다.")
-    @Test
-    void valueOfMatchTest() {
-        assertThat(Rank.valueOf(6, false)).isEqualTo(Rank.FIRST);
-        assertThat(Rank.valueOf(5, true)).isEqualTo(Rank.SECOND); // 2등
-        assertThat(Rank.valueOf(5, false)).isEqualTo(Rank.THIRD); // 3등
-        assertThat(Rank.valueOf(4, false)).isEqualTo(Rank.FOURTH);
+    @ParameterizedTest
+    @CsvSource(value = {
+            "6, false, FIRST",
+            "5, true, SECOND",
+            "5, false, THIRD",
+            "4, false, FOURTH"
+    })
+    void rankOfTest(int matchCount, boolean matchBonus, Rank expectedRank) {
+        assertThat(Rank.of(matchCount, matchBonus)).isEqualTo(expectedRank);
     }
 
     @DisplayName("일치하는 개수가 0, 1, 2개일 경우 모두 MISS(꽝)를 반환한다.")
