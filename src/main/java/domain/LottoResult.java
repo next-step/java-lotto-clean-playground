@@ -1,25 +1,32 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class LottoResult {
-    private final Map<LottoRank, Count> ticketCountOfEachRank;
+    private final Map<LottoRank, Integer> ticketCountOfEachRank;
 
-    public LottoResult(List<Count> matchingTicketCounts) {
-        validate(matchingTicketCounts);
+    public LottoResult(List<LottoRank> lottoRankOfEachTicket) {
+        List<Integer> matchingTicketCounts = new ArrayList<>();
+        for (LottoRank lottoRank : LottoRank.values()) {
+            matchingTicketCounts.add(Collections.frequency(lottoRankOfEachTicket, lottoRank));
+        }
         ticketCountOfEachRank = new HashMap<>();
-        for(int i = 0; i < matchingTicketCounts.size(); i++) {
+        for (int i = 0; i < matchingTicketCounts.size(); i++) {
             ticketCountOfEachRank.put(LottoRank.values()[i], matchingTicketCounts.get(i));
         }
     }
 
-    private void validate(List<Count> matchingTicketCounts) {
-        if (matchingTicketCounts.size() != LottoRank.values().length) {
-            throw new IllegalArgumentException("등수 종류의 수가 올바르지 않습니다.");
+    public double getProfitRate(Price price) {
+        int totalProfit = 0;
+        for (LottoRank lottoRank : LottoRank.values()) {
+            totalProfit += lottoRank.getPrizeMoney() * ticketCountOfEachRank.get(lottoRank);
         }
+        return price.calculateProfitRate(totalProfit);
     }
 
     @Override
@@ -39,7 +46,7 @@ public class LottoResult {
         return Objects.hash(ticketCountOfEachRank);
     }
 
-    public Count getMatchCount(LottoRank rank) {
+    public int getMatchCount(LottoRank rank) {
         return ticketCountOfEachRank.get(rank);
     }
 }

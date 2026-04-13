@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
     private static final Map<Integer, LottoNumber> LOTTO_NUMBER_CACHE = new HashMap<>();
 
     private final int number;
@@ -27,7 +27,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
         if (cachedNumber != null) {
             return cachedNumber;
         }
-        return new LottoNumber(number);
+        throw new IllegalArgumentException("로또 숫자가 범위를 벗어났습니다.");
     }
 
     private void validateNumber(int number) {

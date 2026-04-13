@@ -1,26 +1,29 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     private final List<LottoTicket> tickets;
 
-    public Lotto(List<LottoTicket> tickets) {
+    public Lotto(Price price, LottoTicketGenerator lottoTicketGenerator, List<List<Integer>> manualTickets) {
+        List<LottoTicket> tickets = new ArrayList<>(manualTickets.stream()
+                .map(list -> new ArrayList<>(list.stream().map(LottoNumber::valueOf).toList()))
+                .map(LottoTicket::new)
+                .toList());
+        int ticketCount = price.getBuyableLottoCount() - manualTickets.size();
+        for (int i = 0; i < ticketCount; i++) {
+            tickets.add(lottoTicketGenerator.generate());
+        }
         this.tickets = tickets;
     }
 
-    public LottoResult getResults(LottoTicket winnerTicket) {
-        List<Count> matchCountOfEachTicket = new ArrayList<>();
+    public LottoResult getResults(LottoTicket winnerTicket, LottoNumber bonusNumber) {
+        List<LottoRank> lottoRankOfEachTicket = new ArrayList<>();
         for (LottoTicket ticket : tickets) {
-            matchCountOfEachTicket.add(ticket.getMatchCount(winnerTicket));
+            lottoRankOfEachTicket.add(ticket.getLottoRank(winnerTicket, bonusNumber));
         }
-        List<Count> matchingTicketCounts = new ArrayList<>();
-        for (LottoRank lottoRank: LottoRank.values()) {
-            matchingTicketCounts.add(new Count(Collections.frequency(matchCountOfEachTicket, lottoRank.getMatchingNumberCount())));
-        }
-        return new LottoResult(matchingTicketCounts);
+        return new LottoResult(lottoRankOfEachTicket);
     }
 
     public int getNumberOfTickets() {

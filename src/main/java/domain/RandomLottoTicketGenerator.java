@@ -1,21 +1,25 @@
 package domain;
 
+import static domain.LottoNumber.MAX_NUMBER;
+import static domain.LottoNumber.MIN_NUMBER;
+import static domain.LottoTicket.TICKET_LENGTH;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class RandomLottoTicketGenerator implements LottoTicketGenerator {
-    private static final int UPPER_BOUND = 46;
-    private static final int LOWER_BOUND = 1;
-    private static final int TICKET_LENGTH = 6;
+    private static final List<LottoNumber> lottoNumberList = new ArrayList<>();
+
+    static {
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
+            lottoNumberList.add(LottoNumber.valueOf(i));
+        }
+    }
 
     @Override
     public LottoTicket generate() {
-        List<LottoNumber> lottoNumberList = new ArrayList<>();
-        for (int i = LOWER_BOUND; i < UPPER_BOUND; i++) {
-            lottoNumberList.add(LottoNumber.valueOf(i));
-        }
         Collections.shuffle(lottoNumberList);
-        return new LottoTicket(lottoNumberList.subList(0, TICKET_LENGTH));
+        return new LottoTicket(new ArrayList<>(lottoNumberList.subList(0, TICKET_LENGTH)));
     }
 }
