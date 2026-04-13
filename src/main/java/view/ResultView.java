@@ -19,10 +19,9 @@ public class ResultView {
     public void printWinningStatics(Rank rank, int count) {
         if (rank == Rank.SECOND) {
             System.out.println("5개 일치, 보너스 볼 일치(" + rank.getPrizemoney() + "원) - " + count + "개");
+            return;
         }
-        if (rank != Rank.SECOND) {
-            System.out.println(rank.getMatchnumbers() + "개 일치 (" + rank.getPrizemoney() + "원)- " + count + "개");
-        }
+        System.out.println(rank.getMatchnumbers() + "개 일치 (" + rank.getPrizemoney() + "원)- " + count + "개");
     }
 
     public void printYield(double yield, boolean sign) {
