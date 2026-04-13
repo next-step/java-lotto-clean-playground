@@ -1,36 +1,46 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Rank {
-    SIX(6, 2000000000),
-    FIVE(5, 1500000),
-    FOUR(4, 50000),
-    THREE(3, 5000),
-    MISS(0, 0);
+    FIFTH(3, 5_000, false),
+    FOURTH(4, 50_000, false),
+    THIRD(5, 1_500_000, false),
+    SECOND(5, 30_000_000, true),
+    FIRST(6, 2_000_000_000, false),
+    MISS(0, 0, false);
 
-    private final int matchnumbers;
-    private final int prizemoney;
+    private final int matchCount;
+    private final int prizeMoney;
+    private final boolean matchBonus;
 
-    Rank(Integer matchnumbers, Integer prizemoney) {
-        this.matchnumbers = matchnumbers;
-        this.prizemoney = prizemoney;
+    Rank(Integer matchCount, Integer prizeMoney, Boolean matchBonus) {
+        this.matchCount = matchCount;
+        this.prizeMoney = prizeMoney;
+        this.matchBonus = matchBonus;
     }
 
-    public Rank valueOf(Integer matchnumbers) {
-        for (Rank rank : values()) {
-            if (rank.matchnumbers == matchnumbers) {
-                return rank;
-            }
+    public static Rank find(int matchCount, boolean matchBonus) {
+        if (matchCount == SECOND.matchCount && matchBonus) {
+            return SECOND;
         }
-
-        return MISS;
+        return Arrays.stream(values())
+                .filter(rank -> rank != SECOND)
+                .filter(rank -> rank.matchCount == matchCount)
+                .findFirst()
+                .orElse(MISS);
     }
 
-    public int getMatchnumbers() {
-        return matchnumbers;
+    public int getMatchCount() {
+        return matchCount;
     }
 
-    public int getPrizemoney() {
-        return prizemoney;
+    public int getPrizeMoney() {
+        return prizeMoney;
+    }
+
+    public boolean getMatchBonus() {
+        return matchBonus;
     }
 }
 

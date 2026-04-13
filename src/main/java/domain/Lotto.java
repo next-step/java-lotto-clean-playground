@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -32,13 +33,13 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getLotto() {
-        return lottoNumbers;
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(lottoNumbers);
     }
 
-    public int getMatchNumbers(Lotto winnerNumbers) {
+    public int getMatchCount(Lotto other) {
         return (int) lottoNumbers.stream()
-                .filter(winnerNumbers::contains)
+                .filter(other::contains)
                 .count();
     }
 

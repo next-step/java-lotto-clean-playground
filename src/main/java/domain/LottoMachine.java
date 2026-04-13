@@ -14,4 +14,10 @@ public class LottoMachine {
             throw new IllegalArgumentException("로또는 1000원 단위로만 구매 가능합니다.");
         }
     }
+
+    public static void validateManualCount(int count, int manualCount) {
+        if (count < manualCount) {
+            throw new IllegalArgumentException("입력하신 수동 구매 횟수가 뽑을 수 있는 로또 수를 넘어섰습니다.");
+        }
+    }
 }
