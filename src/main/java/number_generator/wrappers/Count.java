@@ -4,6 +4,7 @@ public class Count {
     private final int value;
 
     public Count(int value) {
+        validate(value);
         this.value = value;
     }
 

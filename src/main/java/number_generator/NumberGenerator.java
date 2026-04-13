@@ -1,5 +1,5 @@
 package number_generator;
 
 public interface NumberGenerator {
-    public int generate(int min, int max);
+    int generate(int min, int max);
 }

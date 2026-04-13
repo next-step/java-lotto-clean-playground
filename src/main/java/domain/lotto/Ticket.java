@@ -15,11 +15,9 @@ public class Ticket {
 
     public Ticket(List<Ball> balls) {
         validateTicket(balls);
-        List<Integer> mutableNumberList = new ArrayList<>(balls.stream().map(Ball::getNumber).toList());
+        balls.sort(Comparator.naturalOrder());
 
-        mutableNumberList.sort(Comparator.naturalOrder());
-
-        this.balls = mutableNumberList.stream().map(Ball::new).toList();
+        this.balls = balls;
     }
 
     public List<Ball> getBalls() {

@@ -2,7 +2,7 @@ package domain.lotto;
 
 import domain.lotto.exception.WrongLottoNumberException;
 
-public class Ball {
+public class Ball implements Comparable<Ball> {
     public static final int UPPER_BOUND = 46;
     public static final int LOWER_BOUND = 1;
 
@@ -32,5 +32,10 @@ public class Ball {
         }
 
         return number == ((Ball) obj).number;
+    }
+
+    @Override
+    public int compareTo(Ball otherBall) {
+        return Integer.compare(this.number, otherBall.number);
     }
 }
