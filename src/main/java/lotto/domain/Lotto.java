@@ -1,8 +1,9 @@
 package lotto.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Lotto {
     private static final int LOTTO_SIZE = 6;
@@ -14,36 +15,27 @@ public class Lotto {
         Collections.sort(this.numbers);
     }
 
-    public static Lotto from(List<Integer> numbers) { // 객체로 관리해주는 메서드
-        return new Lotto(numbers.stream().map(LottoNumber::valueOf).collect(Collectors.toList()));
-    } // integer을 lottonumber 객체로 변환
-
-    public static Lotto from(LottoNumberStrategy strategy){
-        return from(strategy.generate());
+    public static Lotto from(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
+        return new Lotto(lottoNumbers);
     }
 
     private void validate(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
-        if (new HashSet<>(numbers).size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
-        }
     }
 
-    public boolean contains(LottoNumber number) {
-        return numbers.contains(number);
-    } //로또에 특정 숫자가 포함되어있나 검사(보너스 숫자 확인용)
-
-    public int countMatch(Lotto other) {
-        return (int) numbers.stream().filter(other.numbers::contains).count();
+    public int countMatch(Lotto winningLotto) {
+        return (int) numbers.stream()
+                .filter(winningLotto.numbers::contains)
+                .count();
     }
 
     @Override
     public String toString() {
         return numbers.toString();
     }
-
-    //toString을 또 써주는 이유 : 각 클래스는 자기 역할에 맞게 따로 toString을 가져야 함
-    //LottoNumber에서는 하나의 숫자를 string으로 가지며, 여기서는 6개 묶음을.
 }
