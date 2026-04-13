@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.LottoTicket.TICKET_LENGTH;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -13,7 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class LottoTicketTest {
-    @DisplayName("로또 숫자 리스트의 길이가 6이고 중복이 없다면 예외가 발생하지 않는다.")
+    @DisplayName("로또 숫자 리스트의 길이가 TICKET_LENGTH고 중복이 없다면 예외가 발생하지 않는다.")
     @ParameterizedTest
     @MethodSource
     public void testLottoTicket_ValidLottoNumbers(List<LottoNumber> lottoNumbers) {
@@ -35,13 +36,13 @@ public class LottoTicketTest {
         );
     }
 
-    @DisplayName("로또 숫자 리스트의 길이가 6이 아니면 IllegalArgumentException을 발생시킨다.")
+    @DisplayName("로또 숫자 리스트의 길이가 TICKET_LENGTH가 아니면 IllegalArgumentException을 발생시킨다.")
     @ParameterizedTest
     @MethodSource
     public void testLottoTicket_InvalidLottoNumbersLength(List<LottoNumber> lottoNumbers) {
         // when & then
         assertThatThrownBy(() -> new LottoTicket(lottoNumbers)).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 티켓의 숫자는 6개여야 합니다.");
+                .hasMessage("로또 티켓의 숫자는 " + TICKET_LENGTH + "개여야 합니다.");
     }
 
     private static Stream<Arguments> testLottoTicket_InvalidLottoNumbersLength() {

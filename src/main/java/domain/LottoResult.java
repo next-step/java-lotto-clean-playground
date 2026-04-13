@@ -12,11 +12,11 @@ public class LottoResult {
 
     public LottoResult(List<LottoRank> lottoRankOfEachTicket) {
         List<Integer> matchingTicketCounts = new ArrayList<>();
-        for (LottoRank lottoRank: LottoRank.values()) {
+        for (LottoRank lottoRank : LottoRank.values()) {
             matchingTicketCounts.add(Collections.frequency(lottoRankOfEachTicket, lottoRank));
         }
         ticketCountOfEachRank = new HashMap<>();
-        for(int i = 0; i < matchingTicketCounts.size(); i++) {
+        for (int i = 0; i < matchingTicketCounts.size(); i++) {
             ticketCountOfEachRank.put(LottoRank.values()[i], matchingTicketCounts.get(i));
         }
     }
