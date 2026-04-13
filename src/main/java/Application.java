@@ -91,10 +91,9 @@ public class Application {
     }
 
     private Lottos purchaseAllLottos(PurchaseCount count) {
-        List<Lotto> purchased = new ArrayList<>();
-        purchased.addAll(purchaseManual(count.getManual()));
-        purchased.addAll(purchaseAuto(count.getAuto()));
-        return new Lottos(purchased);
+        List<Lotto> manuals = purchaseManual(count.getManual());
+        List<Lotto> autos = purchaseAuto(count.getAuto());
+        return Lottos.of(manuals, autos);
     }
 
     private void printLottoAdapter(Lotto lotto) {
