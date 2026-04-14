@@ -32,8 +32,8 @@ class LottoFactoryTest {
         Lotto testLotto = lottoFactory.generateLotto();
 
         //then
-        Assertions.assertEquals(LottoSettingsConstants.LOTTO_SIZE, testLotto.getNumbers().size());
-        Set<Integer> uniqueNumbers = new HashSet<>(testLotto.getNumbers());
-        Assertions.assertEquals(uniqueNumbers.size(), testLotto.getNumbers().size());
+        Assertions.assertEquals(LottoSettingsConstants.LOTTO_SIZE, testLotto.numbers().size());
+        Set<Integer> uniqueNumbers = new HashSet<>(testLotto.numbers());
+        Assertions.assertEquals(uniqueNumbers.size(), testLotto.numbers().size());
     }
 }

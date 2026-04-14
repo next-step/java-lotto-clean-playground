@@ -72,18 +72,4 @@ public class LottoTest {
         Exception exception= Assertions.assertThrows(IllegalArgumentException.class, () -> ValidateLotto.checkIfNumbersAreValid(winningNumbers));
         Assertions.assertEquals(ErrorMessageConstants.NO_DUPLICATES_ALLOWED, exception.getMessage());
     }
-
-    @Test
-    @DisplayName("로또별 당첨 유형 계산")
-    void testGetLottoResult(){
-        //given
-        List<Integer> winningNumbers = new ArrayList<>(List.of(1,2,3,4,5,6));
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
-
-        //when
-        LottoResult lottoResult = lotto.compareWithWinningNumbers(winningNumbers);
-
-        //then
-        Assertions.assertEquals(LottoResult.THREE, lottoResult);
-    }
 }

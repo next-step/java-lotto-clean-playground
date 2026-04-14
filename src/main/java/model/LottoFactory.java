@@ -2,7 +2,6 @@ package model;
 
 import common.NumberGenerator;
 import constants.LottoSettingsConstants;
-import common.ValidateLotto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +15,17 @@ public class LottoFactory {
         this.numberGenerator = numberGenerator;
     }
 
+    public List<Lotto> generateLottoByPrice(int userCashInput) {
+        int lottoCount = userCashInput / LottoSettingsConstants.LOTTO_PRICE;
+        List<Lotto> result = new ArrayList<>();
+        for (int i = 0; i < lottoCount; i++) {
+            Lotto lotto = generateLotto();
+            result.add(lotto);
+        }
+
+        return result;
+    }
+
     protected Lotto generateLotto(){
         Set<Integer> result = new HashSet<>();
 
@@ -27,14 +37,11 @@ public class LottoFactory {
         return new Lotto(result.stream().toList());
     }
 
-    public List<Lotto> generateLottoByPrice(int userCashInput) {
-       ValidateLotto.checkPriceHigherThanSingleLottoPrice(userCashInput);
+    public List<Lotto> mapToLottos(List<List<Integer>> numbers) {
+        List<Lotto> result = new ArrayList<>();
 
-        int lottoCount = userCashInput / LottoSettingsConstants.LOTTO_PRICE;
-        List<Lotto> result = new ArrayList<Lotto>();
-        for (int i = 0; i < lottoCount; i++) {
-            Lotto lotto = generateLotto();
-            result.add(lotto);
+        for (List<Integer> number: numbers) {
+            result.add(new Lotto(number));
         }
 
         return result;

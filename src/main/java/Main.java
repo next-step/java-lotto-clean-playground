@@ -17,10 +17,7 @@ public class Main {
         InputView inputView = new InputView(new Scanner(System.in));
         OutputView outputView = new OutputView();
 
-        LottoPurchaseController lottoPurchaseController = new LottoPurchaseController(
-            lottoBatch, lottoFactory, inputView, outputView
-        );
-
+        LottoPurchaseController lottoPurchaseController = new LottoPurchaseController(lottoBatch, lottoFactory, inputView, outputView);
         lottoPurchaseController.purchase();
 
         LottoResultCalculatorController lottoResultCalculatorController = new LottoResultCalculatorController(lottoBatch, inputView, outputView);

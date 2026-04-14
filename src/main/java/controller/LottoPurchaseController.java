@@ -1,5 +1,8 @@
 package controller;
 
+import common.ValidatePurchase;
+import constants.LottoSettingsConstants;
+import constants.ScriptConstants;
 import dto.LottoDto;
 import model.Lotto;
 import model.LottoBatch;
@@ -28,17 +31,30 @@ public class LottoPurchaseController {
     }
 
     public void purchase() {
-        int userCashInput = inputView.getUserCashInput();
+        int userCashInput = inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_CASH_SCRIPT);
+        int manualPurchaseCount = inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_COUNT_SCRIPT);
+        ValidatePurchase.checkIfPurchaseInfoIsValid(userCashInput, manualPurchaseCount);
 
-        List<Lotto> boughtLottos = lottoFactory.generateLottoByPrice(userCashInput);
-        lottoBatch.addAll(boughtLottos);
+        purchaseLottosManually(manualPurchaseCount);
+        purchaseGeneratedLottos(userCashInput - manualPurchaseCount * LottoSettingsConstants.LOTTO_PRICE);
         List<LottoDto> lottoDtos = lottoBatch.getAllLotto().stream()
-                .map(this::wrapLottoIntoDto).toList();
+                    .map(this::wrapLottoIntoDto).toList();
 
-        outputView.printPurchaseResult(lottoDtos);
+        outputView.printPurchaseResult(lottoDtos, manualPurchaseCount);
+    }
+
+    private void purchaseLottosManually(int manualPurchaseCount) {
+        List<List<Integer>> userInput = inputView.getManuallyPurchasedLottoNumbers(manualPurchaseCount);
+        List<Lotto> lottos = lottoFactory.mapToLottos(userInput);
+        lottoBatch.addAll(lottos);
+    }
+
+    private void purchaseGeneratedLottos(int cashInput) {
+        List<Lotto> generatedLottos = lottoFactory.generateLottoByPrice(cashInput);
+        lottoBatch.addAll(generatedLottos);
     }
 
     protected LottoDto wrapLottoIntoDto(Lotto lotto) {
-        return new LottoDto(lotto.getNumbers());
+        return new LottoDto(lotto.numbers());
     }
 }

@@ -12,10 +12,10 @@ public class ValidateLotto {
         checkIfDuplicateExist(numbers);
         checkIfNotEnoughNumbers(numbers);
         checkIfTooManyNumbers(numbers);
-        checkIfNumbersAreInRange(numbers);
+        checkIfNumbersAreInLottoNumberRange(numbers);
     }
 
-    private static void checkIfNumbersAreInRange(List<Integer> numbers){
+    public static void checkIfNumbersAreInLottoNumberRange(List<Integer> numbers){
         List<Integer> notInRange = numbers.stream().filter(
                 i-> i < LottoSettingsConstants.LOTTO_MINIMUM_NUMBER || i > LottoSettingsConstants.LOTTO_MAXIMUM_NUMBER
         ).toList();
@@ -43,11 +43,5 @@ public class ValidateLotto {
         if (test.size() != numbers.size()) {
             throw new IllegalArgumentException(ErrorMessageConstants.NO_DUPLICATES_ALLOWED);
         }
-    }
-
-    public static void checkPriceHigherThanSingleLottoPrice(int price) {
-       if (price < LottoSettingsConstants.LOTTO_PRICE){
-           throw new IllegalArgumentException(ErrorMessageConstants.PRICE_TOO_LOW);
-       }
     }
 }

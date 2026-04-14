@@ -14,23 +14,36 @@ public class InputView {
         this.scanner = scanner;
     }
 
-    public int getUserCashInput() {
-        System.out.println(ScriptConstants.INPUT_CASH_SCRIPT);
+    public int getSingleIntegerFromUserAfterShowingAScript(String script) {
+        System.out.println(script);
         String userInput = scanner.nextLine();
-        try {
-            return Integer.parseInt(userInput.strip());
-        } catch (Exception e) {
-            throw new IllegalArgumentException(ErrorMessageConstants.NOT_A_SINGLE_NUMBER);
+        return convertStringToInteger(userInput);
+    }
+
+    public List<List<Integer>> getManuallyPurchasedLottoNumbers(int count) {
+        System.out.println(ScriptConstants.INPUT_ENTER_MANUAL_PURCHASE_LOTTO_SCRIPT);
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < count; i ++) {
+            String userInput = scanner.nextLine();
+            List<Integer> userInputAsLottoNumber = this.parseUserInputIntoLottoNumbers(userInput);
+            result.add(userInputAsLottoNumber);
         }
+
+        return result;
     }
 
     public List<Integer> getWinningNumbers() {
         System.out.println(ScriptConstants.INPUT_ENTER_WINNING_NUMBER_SCRIPT);
-        List<String> userInputs = parseByDelimiter(scanner.nextLine());
+        return this.parseUserInputIntoLottoNumbers(scanner.nextLine());
+    }
+
+    protected List<Integer> parseUserInputIntoLottoNumbers(String userInput) {
+        List<String> userInputParsed = parseByDelimiter(userInput);
         List<Integer> result = new ArrayList<>();
 
-        for (String userInput: userInputs) {
-            result.add(this.convertStringToInteger(userInput));
+        for (String currentToken: userInputParsed) {
+            result.add(this.convertStringToInteger(currentToken));
         }
 
         return result;

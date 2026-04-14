@@ -1,15 +1,16 @@
 package controller;
 
 import constants.LottoSettingsConstants;
+import constants.ScriptConstants;
 import dto.LottoResultDto;
 import model.Lotto;
 import model.LottoBatch;
+import model.LottoFinanceStatsCalculator;
 import model.LottoResult;
-import common.ValidateLotto;
+import model.WinCondition;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,33 +27,18 @@ public class LottoResultCalculatorController {
     }
 
     public void calculate() {
+        LottoFinanceStatsCalculator lottoFinanceStatsCalculator = new LottoFinanceStatsCalculator(this.lottoBatch);
+        WinCondition winCondition = this.acceptWinCondition();
+
+        this.outputView.printAllStats(wrapLottoIntoDto(lottoFinanceStatsCalculator.getLottoResults(winCondition)));
+        this.outputView.printReturnRatio(lottoFinanceStatsCalculator.getReturnRatio(winCondition));
+    }
+
+    protected WinCondition acceptWinCondition() {
         List<Integer> winningNumbers = this.inputView.getWinningNumbers();
+        int bonusNumber = this.inputView.getSingleIntegerFromUserAfterShowingAScript(ScriptConstants.INPUT_ENTER_BONUS_NUMBER_SCRIPT);
 
-        List<LottoResult> matchCountPerLotto = this.getMatchCountPerLotto(winningNumbers);
-        this.outputView.printStats(wrapLottoIntoDto(matchCountPerLotto));
-        this.outputView.printReturnRatio(getReturnRatio(winningNumbers));
-    }
-
-    protected double getReturnRatio(List<Integer> winningNumbers) {
-        List<LottoResult> result = this.getMatchCountPerLotto(winningNumbers);
-
-        double earnResult = 0.0;
-        for (LottoResult lottoResult : result) {
-            earnResult += lottoResult.getReward();
-        }
-
-        return earnResult / (LottoSettingsConstants.LOTTO_PRICE * lottoBatch.getLottoCount());
-    }
-
-    protected List<LottoResult> getMatchCountPerLotto(List<Integer> winningNumbers) {
-        ValidateLotto.checkIfNumbersAreValid(winningNumbers);
-        List<LottoResult> result = new ArrayList<>();
-
-        for (Lotto lotto : lottoBatch.getAllLotto()) {
-            result.add(lotto.compareWithWinningNumbers(winningNumbers));
-        }
-
-        return result;
+        return new WinCondition(new Lotto((winningNumbers)), bonusNumber);
     }
 
     protected LottoResultDto wrapLottoIntoDto (List<LottoResult> lottoResults) {
