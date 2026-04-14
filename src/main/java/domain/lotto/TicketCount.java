@@ -1,9 +1,9 @@
-package domain.wrappers;
+package domain.lotto;
 
-public class CorrectCount {
+public class TicketCount {
     private final int value;
 
-    public CorrectCount(int value) {
+    public TicketCount(int value) {
         this.value = value;
     }
 
