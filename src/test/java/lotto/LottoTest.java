@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.Lotto.LottoException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ public class LottoTest {
         );
 
         assertThatThrownBy(() -> new Lotto(duplicateNumbers))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(LottoException.DuplicateNumber.class);
     }
 
     @DisplayName("생성된 로또 번호는 오름차순으로 정렬되어 있다.")
