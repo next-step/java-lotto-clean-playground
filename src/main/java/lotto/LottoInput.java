@@ -27,7 +27,7 @@ public class LottoInput {
     }
 
     private static int inputManualCount() {
-        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요. (구매 로또 수 이하여야 합니다.)");
         return Integer.parseInt(SCANNER.nextLine());
     }
 
@@ -43,7 +43,13 @@ public class LottoInput {
     }
 
     public LottoPurchase buyLottos(int price) {
-        int manualCount = inputManualCount();
+        int manualCount = price + 1;
+        int count = price / 1000;
+
+        while (manualCount > count) {
+            manualCount = inputManualCount();
+        }
+
         List<Lotto> manuals = inputManualNumbers(manualCount);
 
         LottoPurchase purchase = new LottoPurchase(price, manuals, LOTTO_MAKER);
