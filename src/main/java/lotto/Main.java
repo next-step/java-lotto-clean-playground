@@ -23,13 +23,18 @@ public class Main {
     }
 
     private static int inputPrice() {
+        int price = tryParsePrice();
+        if (price < 1000) {
+            System.out.println("1000원 이상 입력해야 합니다.");
+            return 0;
+        }
+        return price;
+    }
+
+    private static int tryParsePrice() {
         System.out.println("구입금액을 입력해 주세요. (ex. 1000)");
         try {
-            int price = Integer.parseInt(SCANNER.nextLine());
-            if (price < 1000) {
-                System.out.println("1000원 이상 입력해야 합니다.");
-            }
-            return price;
+            return Integer.parseInt(SCANNER.nextLine());
         } catch (NumberFormatException e) {
             return 0;
         }
