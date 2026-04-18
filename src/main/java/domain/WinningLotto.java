@@ -1,43 +1,32 @@
 package domain;
 
-import java.util.HashMap;
-import java.util.List;
-
 public class WinningLotto {
+    private final Lotto winningLotto;
+    private final LottoNumber bonusNumber;
 
-    public HashMap<MatchResult, Integer> getMatchResult(List<Lotto> allLottos, List<LottoNumber> winningNumbers) {
-
-        HashMap<MatchResult, Integer> resultMap = new HashMap<>();
-
-        for(MatchResult result: MatchResult.values()) {
-            resultMap.put(result, 0);
-        }
-
-        for(Lotto singleLotto: allLottos) {
-            int singleEqualCount = 0;
-            for (LottoNumber number : winningNumbers) {
-                if (singleLotto.getNumbers().contains(number)) {
-                    singleEqualCount += 1;
-                }
-            }
-
-            for(MatchResult result: MatchResult.values()) {
-                if(singleEqualCount == result.getMatchCount()) {
-                    resultMap.put(result, resultMap.get(result) + 1);
-                }
-            }
-        }
-
-        return resultMap;
+    public WinningLotto(Lotto winningLotto, LottoNumber bonusNumber) {
+        validate(winningLotto, bonusNumber);
+        this.winningLotto = winningLotto;
+        this.bonusNumber = bonusNumber;
     }
 
-    public double getLottoProfitRate (HashMap<MatchResult, Integer> resultMap, int purchaseAmount) {
-        double totalReward = 0;
-
-        for(MatchResult result: MatchResult.values()) {
-            totalReward += result.getMatchReward() * resultMap.get(result);
+    private void validate(Lotto winningLotto, LottoNumber bonusNumber) {
+        if (winningLotto.getNumbers().contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
+    }
 
-        return totalReward / purchaseAmount;
+    public MatchResult match(Lotto lotto) {
+        int matchCount = lotto.countMatch(winningLotto);
+        boolean bonusMatch = lotto.getNumbers().contains(bonusNumber);
+        return MatchResult.of(matchCount, bonusMatch);
+    }
+
+    public Lotto getWinningLotto() {
+        return winningLotto;
+    }
+
+    public LottoNumber getBonusNumber() {
+        return bonusNumber;
     }
 }

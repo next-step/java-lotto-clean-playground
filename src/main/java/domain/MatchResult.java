@@ -5,33 +5,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum MatchResult {
-    THREE(3, 5_000),
-    FOUR(4, 50_000),
-    FIVE(5, 1_500_000),
-    SIX(6, 2_000_000_000),
-    MISS(0, 0);
+    THREE(3, 5_000, false, "3개 일치"),
+    FOUR(4, 50_000, false, "4개 일치"),
+    FIVE(5, 1_500_000, false, "5개 일치"),
+    FIVE_BONUS(5, 30_000_000, true, "5개 일치, 보너스 볼 일치"),
+    SIX(6, 2_000_000_000, false, "6개 일치"),
+    MISS(0, 0, false, "");
 
     private final int matchCount;
     private final int matchReward;
+    private final boolean bonusMatch;
+    private final String label;
 
-    MatchResult(final int matchCount, final int matchReward) {
+    MatchResult(final int matchCount, final int matchReward, boolean bonusMatch, String label) {
         this.matchCount = matchCount;
         this.matchReward = matchReward;
+        this.bonusMatch = bonusMatch;
+        this.label = label;
     }
 
-    public static Map<MatchResult, Integer> of(Lottos lottos, Lotto winningLotto) {
+    public static Map<MatchResult, Integer> of(Lottos lottos, WinningLotto winningLotto) {
         Map<MatchResult, Integer> resultMap = new HashMap<>();
         for (MatchResult result : values()) {
             resultMap.put(result, 0);
         }
         for (Lotto lotto : lottos.getLottos()) {
-            int matchCount = lotto.countMatch(winningLotto);
-            Arrays.stream(values())
-                    .filter(r -> r.matchCount == matchCount)
-                    .findFirst()
-                    .ifPresent(r -> resultMap.put(r, resultMap.get(r) + 1));
+           MatchResult result = winningLotto.match(lotto);
+           resultMap.put(result, resultMap.get(result) + 1);
         }
         return resultMap;
+    }
+
+    public static MatchResult of(int matchCount, boolean bonusMatch) {
+        return Arrays.stream(values())
+                .filter(r -> r.matchCount == matchCount && r.bonusMatch == bonusMatch)
+                .findFirst()
+                .orElse(MISS);
     }
 
     public static double getProfitRate(Map<MatchResult, Integer> resultMap, int purchaseAmount) {
@@ -43,4 +52,8 @@ public enum MatchResult {
 
     public int getMatchCount() { return matchCount; }
     public int getMatchReward() { return matchReward; }
+
+    public String getLabel() {
+        return label;
+    }
 }

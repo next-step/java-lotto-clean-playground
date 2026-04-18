@@ -11,12 +11,17 @@ public class Lottos {
     private static final int LOTTO_UPPER_BOUND = 45;
     private final List<Lotto> lottos;
 
-    public Lottos(final PurchaseAmount purchaseAmount) {
-        this.lottos = generateLottos(purchaseAmount.getLottoCount());
+    public Lottos(PurchaseAmount purchaseAmount, List<Lotto> manualLottos) {
+        validateManualCount(purchaseAmount, manualLottos);
+        int autoCount = purchaseAmount.getAutoCount(manualLottos.size());
+
+        List<Lotto> allLottos = new ArrayList<>(manualLottos);
+        allLottos.addAll(generateLottos(autoCount));
+        this.lottos = allLottos;
     }
 
-    public List<Lotto> getLottos() {
-        return Collections.unmodifiableList(lottos);
+    private void validateManualCount(PurchaseAmount purchaseAmount, List<Lotto> manualLottos) {
+        purchaseAmount.validateManualCount(manualLottos.size());
     }
 
     private List<Lotto> generateLottos(int lottoCount) {
@@ -42,4 +47,9 @@ public class Lottos {
         }
         return lottoNumbers;
     }
+
+    public List<Lotto> getLottos() {
+        return Collections.unmodifiableList(lottos);
+    }
+
 }
