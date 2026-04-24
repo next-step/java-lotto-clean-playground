@@ -8,6 +8,22 @@ public class LottoInput {
     private static final LottoParser LOTTO_PARSER = new LottoParser();
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    private static int inputManualCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요. (구매 로또 수 이하여야 합니다.)");
+        return Integer.parseInt(SCANNER.nextLine());
+    }
+
+    private List<Lotto> inputManualNumbers(int count) {
+        if (count <= 0) {
+            System.out.println("로또를 구매할 수 없습니다.");
+
+        }
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        return java.util.stream.IntStream.range(0, count)
+                .mapToObj(i -> LOTTO_PARSER.parse(SCANNER.nextLine()))
+                .toList();
+    }
+
     public int inputPrice() {
         int price = tryParsePrice();
         if (price < 1000) {
@@ -17,29 +33,13 @@ public class LottoInput {
         return price;
     }
 
-    private static int tryParsePrice() {
+    private int tryParsePrice() {
         System.out.println("구입금액을 입력해 주세요. (ex. 1000)");
         try {
             return Integer.parseInt(SCANNER.nextLine());
         } catch (NumberFormatException e) {
             return 0;
         }
-    }
-
-    private static int inputManualCount() {
-        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요. (구매 로또 수 이하여야 합니다.)");
-        return Integer.parseInt(SCANNER.nextLine());
-    }
-
-    private static List<Lotto> inputManualNumbers(int count) {
-        if (count <= 0) {
-            System.out.println("로또를 구매할 수 없습니다.");
-
-        }
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        return java.util.stream.IntStream.range(0, count)
-                .mapToObj(i -> LOTTO_PARSER.parse(SCANNER.nextLine()))
-                .toList();
     }
 
     public LottoPurchase buyLottos(int price) {
