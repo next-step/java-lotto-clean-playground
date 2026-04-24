@@ -5,9 +5,7 @@ public class Main {
         LottoInput lottoInput = new LottoInput();
         LottoDisplay lottoDisplay = new LottoDisplay();
 
-        LottoPlay lottoPlay = new LottoPlay();
-
-        LottoController lottoController = new LottoController(lottoInput, lottoDisplay, lottoPlay);
+        LottoController lottoController = new LottoController(lottoInput, lottoDisplay);
 
         lottoController.playLotto();
     }

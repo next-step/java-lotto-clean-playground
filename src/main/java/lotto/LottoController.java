@@ -5,14 +5,12 @@ import java.util.List;
 public class LottoController {
     private final LottoInput lottoInput;
     private final LottoDisplay lottoDisplay;
-    private final LottoPlay lottoPlay;
     private final LottoParser lottoParser;
     private final LottoMaker lottoMaker;
 
-    public LottoController(LottoInput lottoInput, LottoDisplay lottoDisplay, LottoPlay lottoPlay) {
+    public LottoController(LottoInput lottoInput, LottoDisplay lottoDisplay) {
         this.lottoInput = lottoInput;
         this.lottoDisplay = lottoDisplay;
-        this.lottoPlay = lottoPlay;
         this.lottoParser = new LottoParser();
         this.lottoMaker = new LottoMaker();
     }
@@ -32,8 +30,10 @@ public class LottoController {
         LottoReceipt receipt = purchase.getReceipt();
         lottoDisplay.displayReceiptInfo(receipt, purchase.getChange());
 
-        LottoDraw draw = lottoPlay.runDraw(receipt);
+        Lotto winningLotto = getWinningLotto();
+        LottoNumber bonusNumber = getValidBonus(winningLotto);
 
+        LottoDraw draw = new LottoDraw(winningLotto, bonusNumber, receipt);
         lottoDisplay.displayResult(draw);
     }
 
@@ -77,5 +77,35 @@ public class LottoController {
         return rawNumbers.stream()
                 .map(lottoParser::parse)
                 .toList();
+    }
+
+    private Lotto getWinningLotto() {
+        while (true) {
+            try {
+                String rawNumbers = lottoInput.inputWinningNumbers();
+                return lottoParser.parse(rawNumbers);
+            } catch (IllegalArgumentException e) {
+                lottoDisplay.displayError(e.getMessage());
+            }
+        }
+    }
+
+    private LottoNumber getValidBonus(Lotto winningLotto) {
+        while (true) {
+            try {
+                int bonusValue = lottoInput.inputBonusNumber();
+                LottoNumber bonus = new LottoNumber(bonusValue);
+                checkSameBonusNumber(winningLotto, bonus);
+                return bonus;
+            } catch (IllegalArgumentException e) {
+                lottoDisplay.displayError(e.getMessage());
+            }
+        }
+    }
+
+    private void checkSameBonusNumber(Lotto winningLotto, LottoNumber bonus) {
+        if (winningLotto.numbers().contains(bonus)) {
+            throw new IllegalArgumentException("보너스 볼은 당첨 번호와 같을 수 없습니다.");
+        }
     }
 }
