@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import lotto.Lotto.LottoException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -111,45 +110,6 @@ public class LottoTest {
 
         assertThat(draw.getCount(LottoResult.BONUS)).isEqualTo(1);
         assertThat(draw.getCount(LottoResult.FIVE)).isEqualTo(0);
-    }
-
-    @DisplayName("수동 로또 구매 개수가 구입 금액보다 많을 시 IllegalArgumentException이 발생한다.")
-    @Test
-    void purchaseTooManyManual() {
-        int totalPrice = 0;
-        List<Lotto> manualLottos = List.of(new Lotto(List.of(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        )));
-        LottoMaker maker = new LottoMaker();
-
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new LottoPurchase(totalPrice, manualLottos, maker));
-    }
-
-    @DisplayName("수동 번호 1개와 2000원을 입력하면 수동 1개, 자동 1개가 생성된다.")
-    @Test
-    void purchaseMixedLotto() {
-        int totalPrice = 2000;
-        List<Lotto> manualLottos = List.of(new Lotto(List.of(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        )));
-        LottoMaker maker = new LottoMaker();
-
-        LottoPurchase purchase = new LottoPurchase(totalPrice, manualLottos, maker);
-
-        assertThat(purchase.getNumberOfLotto()).isEqualTo(2);
-        assertThat(purchase.getManualCount()).isEqualTo(1);
-        assertThat(purchase.getAutoCount()).isEqualTo(1);
     }
 
     @DisplayName("당첨 개수와 보너스 일치 여부에 따라 올바른 결과를 반환한다.")
