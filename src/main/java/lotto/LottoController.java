@@ -16,14 +16,14 @@ public class LottoController {
     }
 
     public void playLotto() {
-        int price = getValidPrice();
-        int maxLottoCount = price / 1000;
+        LottoPrice price = getPrice();
+        int maxLottoCount = price.getMaxLottoCount();
 
         int manualCount = getValidManualCount(maxLottoCount);
-        List<Lotto> manualLottos = getManualLottos(manualCount);
+        List<Lotto> manualLottos = lottoInput.getManualLottos(manualCount);
 
         LottoPurchase purchase = new LottoPurchase(price, manualLottos, lottoMaker);
-        int autoCount = purchase.getNumberOfLotto() - manualCount;
+        int autoCount = purchase.getAutoCount();
 
         lottoDisplay.displayPurchaseResult(manualCount, autoCount);
 
@@ -37,18 +37,15 @@ public class LottoController {
         lottoDisplay.displayResult(draw);
     }
 
-    private int getValidPrice() {
+    private LottoPrice getPrice() {
         while (true) {
             try {
-                int price = lottoInput.inputPrice();
-                if (price < 1000) {
-                    throw new IllegalArgumentException("1000원 이상 입력해야 합니다.");
-                }
-                return price;
+                return lottoInput.inputPrice();
             } catch (IllegalArgumentException e) {
-                lottoDisplay.displayError(e.getMessage());
+                lottoInput.showError(e.getMessage());
             }
         }
+
     }
 
     private void checkCountValidation(int manualCount, int maxCount) {
@@ -67,16 +64,9 @@ public class LottoController {
                 checkCountValidation(manualCount, maxCount);
                 return manualCount;
             } catch (IllegalArgumentException e) {
-                lottoDisplay.displayError(e.getMessage());
+                lottoInput.showError(e.getMessage());
             }
         }
-    }
-
-    private List<Lotto> getManualLottos(int manualCount) {
-        List<String> rawNumbers = lottoInput.inputManualNumbers(manualCount);
-        return rawNumbers.stream()
-                .map(lottoParser::parse)
-                .toList();
     }
 
     private Lotto getWinningLotto() {
@@ -85,7 +75,7 @@ public class LottoController {
                 String rawNumbers = lottoInput.inputWinningNumbers();
                 return lottoParser.parse(rawNumbers);
             } catch (IllegalArgumentException e) {
-                lottoDisplay.displayError(e.getMessage());
+                lottoInput.showError(e.getMessage());
             }
         }
     }
@@ -98,7 +88,7 @@ public class LottoController {
                 checkSameBonusNumber(winningLotto, bonus);
                 return bonus;
             } catch (IllegalArgumentException e) {
-                lottoDisplay.displayError(e.getMessage());
+                lottoInput.showError(e.getMessage());
             }
         }
     }

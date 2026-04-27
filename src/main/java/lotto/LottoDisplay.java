@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LottoDisplay {
-    private static void displayRank(LottoResult res, int count) {
+    private void displayRank(LottoResult res, int count) {
         String label = res.getMatchingCount() + "개 일치";
         if (res == LottoResult.BONUS) {
             label = "5개 일치, 보너스 볼 일치";
@@ -34,9 +34,5 @@ public class LottoDisplay {
                 .forEach(res -> displayRank(res, draw.getCount(res)));
 
         System.out.println("총 수익률은 " + draw.getRateOfReturn() + "입니다.");
-    }
-
-    public void displayError(String message) {
-        System.out.println(message);
     }
 }
