@@ -5,13 +5,14 @@ import java.util.Set;
 
 public class LottoDraw {
     private final Lotto drawnLotto;
+    private final LottoNumber bonusNumber;
     private final LottoReceipt receipt;
     private final MatchingCounts counts;
 
-    public LottoDraw(Lotto drawnLotto, LottoReceipt receipt) {
+    public LottoDraw(Lotto drawnLotto, LottoNumber bonusNumber, LottoReceipt receipt) {
         this.drawnLotto = drawnLotto;
+        this.bonusNumber = bonusNumber;
         this.receipt = receipt;
-
         this.counts = getNumberCount();
     }
 
@@ -32,7 +33,9 @@ public class LottoDraw {
 
         int matchingCount = numbers.size();
 
-        return LottoResult.valueOf(matchingCount);
+        boolean matchBonus = lottoRow.numbers().contains(bonusNumber);
+
+        return LottoResult.valueOf(matchingCount, matchBonus);
     }
 
     public int getCount(LottoResult result) {

@@ -1,23 +1,41 @@
 package lotto;
 
-public class LottoPurchase {
-    private static final int LOTTO_PRICE = 1000;
+import java.util.ArrayList;
+import java.util.List;
 
+public class LottoPurchase {
     private final Lottos lottos;
     private final int totalPrice;
     private final int change;
+    private final int manualCount;
 
-    public LottoPurchase(int totalPrice, LottoMaker lottoMaker) {
-        this.totalPrice = totalPrice;
+    public LottoPurchase(LottoPrice totalPrice, List<Lotto> manualLottos, LottoMaker lottoMaker) {
+        this.totalPrice = totalPrice.getPrice();
+        this.change = totalPrice.getPrice() % totalPrice.getPricePerLotto();
+        this.manualCount = manualLottos.size();
 
-        int numberOfLotto = this.totalPrice / LOTTO_PRICE;
-        change = totalPrice % LOTTO_PRICE;
+        int totalTicketCount = totalPrice.getPrice() / totalPrice.getPricePerLotto();
+        int autoCount = totalTicketCount - manualCount;
 
-        this.lottos = Lottos.from(numberOfLotto, lottoMaker);
+        if (autoCount < 0) {
+            throw new IllegalArgumentException("구입 금액보다 많은 수동 로또를 선택하셨습니다.");
+        }
+        List<Lotto> allLottos = new ArrayList<>(manualLottos);
+
+        if (autoCount > 0) {
+            Lottos autoLottos = Lottos.from(autoCount, lottoMaker);
+            allLottos.addAll(autoLottos.getLottos());
+        }
+
+        this.lottos = new Lottos(allLottos);
     }
 
-    public LottoReceipt printReceipt() {
+    public LottoReceipt getReceipt() {
         return new LottoReceipt(lottos, totalPrice);
+    }
+
+    public int getAutoCount() {
+        return getNumberOfLotto() - manualCount;
     }
 
     public int getNumberOfLotto() {

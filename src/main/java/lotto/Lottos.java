@@ -21,8 +21,11 @@ public class Lottos {
     }
 
     private void validate(List<Lotto> lottos) {
-        if (lottos == null || lottos.isEmpty()) {
-            throw new IllegalArgumentException("로또는 최소 1개 이상 포함되어야 합니다.");
+        if (lottos == null) {
+            throw new IllegalArgumentException("로또에 null이 들어왔습니다.");
+        }
+        if (lottos.isEmpty()) {
+            throw new IllegalArgumentException("로또가 비어있습니다.");
         }
     }
 
