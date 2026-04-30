@@ -1,28 +1,53 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LottoTicket {
-    List<Integer> lottoNumbers;
+    private static final int LOTTO_SIZE = 6;
+    List<LottoNumber> lottoNumbers;
 
-    public LottoTicket (List<Integer> lottoNumbers) {
-        this.lottoNumbers = new ArrayList<>(lottoNumbers);
-        Collections.sort(this.lottoNumbers);
+    public LottoTicket (List<LottoNumber> lottoNumbers) {
+        validateSize(lottoNumbers);
+        validateDuplicate(lottoNumbers);
+        this.lottoNumbers = lottoNumbers;
     }
 
     public String toDisplayString() {
-        return lottoNumbers.toString();
+        return lottoNumbers.stream()
+                .sorted(Comparator.comparingInt(LottoNumber::value))
+                .toString();
     }
 
-    public int getMatchedNumbers(List<Integer> winningNumbers) {
+    public WinningRank getWinningRank(WinningNumbers winningNumbers) {
+        int matchCount = countMatchNumbers(winningNumbers);
+        boolean bonusMatched = lottoNumbers.contains(winningNumbers.getBonusNumber());
+        return WinningRank.of(matchCount, bonusMatched);
+    }
+
+    private int countMatchNumbers(WinningNumbers winningNumbers) {
         int count = 0;
-        for(Integer winningNumber: winningNumbers) {
-            if(lottoNumbers.contains(winningNumber)) {
+        for (LottoNumber winningNumber : winningNumbers.getLottoNumbers()) {
+            if (lottoNumbers.contains(winningNumber)) {
                 count++;
             }
         }
         return count;
+    }
+
+    private void validateSize(List<LottoNumber> numbers) {
+        if (numbers == null || numbers.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+        }
+    }
+
+    private void validateDuplicate(List<LottoNumber> numbers) {
+        long distinctCount = numbers.stream()
+                .distinct()
+                .count();
+
+        if (distinctCount != LOTTO_SIZE) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
+        }
     }
 }

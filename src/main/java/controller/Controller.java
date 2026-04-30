@@ -1,9 +1,12 @@
 package controller;
 
+import domain.LottoNumber;
 import domain.LottoService;
 import domain.LottoTicket;
 import domain.Statistic;
-import domain.WinningResultDto;
+import domain.WinningNumbers;
+import domain.WinningRank;
+import java.util.Map;
 import view.InputView;
 import view.OutputView;
 
@@ -25,14 +28,18 @@ public class Controller {
 
     public void run(){
         int money = inputView.getMoney();
+        int manualCount = inputView.getManualLottoCount();
+        List<List<Integer>> manualTicketNumbers = inputView.getManualTicketNumbers(manualCount);
 
-        List<LottoTicket> lottoTickets = lottoService.buyTickets(money);
+        List<LottoTicket> allTickets = lottoService.buyTickets(money, manualTicketNumbers);
+        outputView.printLottoList(manualCount, allTickets.size(), allTickets);
 
-        outputView.printLottoList(lottoTickets.size(), lottoTickets);
+        List<LottoNumber> winningNumberList = inputView.getWinningNumbers();
+        LottoNumber bonusNumber = inputView.getBonusNumber();
 
-        List<Integer> winningNumbers = inputView.getWinningNumbers();
+        WinningNumbers winningNumbers = new WinningNumbers(winningNumberList, bonusNumber);
 
-        WinningResultDto winningResult = statistic.getWinningResult(lottoTickets, winningNumbers);
+        Map<WinningRank, Integer> winningResult = statistic.getWinningResult(allTickets, winningNumbers);
         double revenue = statistic.getRevenue(money, winningResult);
 
         outputView.printResult(winningResult, revenue);
