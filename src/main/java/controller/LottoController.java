@@ -1,56 +1,137 @@
 package controller;
 
-import domain.*;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoService;
+import domain.LottoTicketCount;
+import domain.Lottos;
+import domain.LottoTotalPrice;
+import domain.Money;
+import domain.MatchCount;
+import domain.ProfitRate;
 import view.InputView;
 import view.OutputView;
 import view.ResultView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class LottoController {
+
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
     ResultView resultView = new ResultView();
 
     public void run() {
         outputView.printWonMessage();
-        Money money = new Money(inputView.inputMoney());
+        Money money;
+        while (true) {
+            try {
+                money = new Money(inputView.inputMoney());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
 
-        LottoTickets lottoTickets = buyLotto(money);
+        Lottos lottoTickets = buyLotto(money);
         checkLotto(lottoTickets, money);
     }
 
 
-    public LottoTickets buyLotto(Money money) {
-
-        LottoTicketCount ticketNumber = Money.getTicketCount(money);
+    public Lottos buyLotto(Money money) {
+        LottoTicketCount ticketNumber = money.getTicketCount();
         resultView.printTicketNumbers(ticketNumber.getCount());
 
-        outputView.lottoResult();
+        outputView.printManualCount();
+        int manualCount;
 
-        LottoTickets lottoTickets = new LottoTickets(ticketNumber);
+        while (true) {
+            try {
+                manualCount = inputView.inputManualCount();
+                ticketNumber.validateManualCount(manualCount);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
+
+        List<Lotto> manualLottos = new ArrayList<>();
+        outputView.printManualNumbers();
+
+        LottoService lottoService = new LottoService();
+        for (int i = 0; i < manualCount; i++) {
+            while (true) {
+                try {
+                    String manualNumbers = inputView.inputManualNumbers();
+                    Lotto lotto = lottoService.parseLottoAnswer(manualNumbers);
+                    manualLottos.add(lotto);
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("다시 입력해주세요.");
+                }
+            }
+        }
+
+        int autoCount = ticketNumber.getCount() - manualCount;
+
+        resultView.printManualAuto(manualCount, autoCount);
+        outputView.lottoResult();
+        Lottos lottoTickets = Lottos.createMixedTickets(manualLottos, autoCount);
+
         for (Lotto lotto : lottoTickets.getTickets()) {
             System.out.println(lotto);
         }
+
         return lottoTickets;
     }
 
-    public void checkLotto(LottoTickets lottoTickets, Money money) {
+
+    public void checkLotto(Lottos ticketAutoCount, Money money) {
         outputView.printLottoAnswer();
 
         LottoService lottoService = new LottoService();
-        String lottoAnswer = inputView.inputLottoAnswer();
+
+        Lotto lottoAnswerObj = null;
+        while (lottoAnswerObj == null) {
+            try {
+                String lottoAnswer = inputView.inputLottoAnswer();
+                lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
+
         outputView.printBonusMessage();
-        int bonusBallNumber = inputView.inputBonusNumber();
-        LottoNumber bonuseBall = new LottoNumber(bonusBallNumber);
 
-        Lotto lottoAnswerObj = lottoService.parseLottoAnswer(lottoAnswer);
-        MatchCount matchCount = lottoService.calculateMatchCount(lottoTickets.getTickets(), lottoAnswerObj, bonuseBall);
+        LottoNumber bonusBall;
+        while (true) {
+            try {
+                int bonusBallNumber = inputView.inputBonusNumber();
+                bonusBall = new LottoNumber(bonusBallNumber);
+                lottoService.validateBonusBall(lottoAnswerObj, bonusBall);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("다시 입력해주세요.");
+            }
+        }
 
-        int totalSum = LottoProfit.LottoSum(matchCount);
-//        ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(totalSum));
+        MatchCount matchCount = lottoService.calculateMatchCount(
+                ticketAutoCount.getTickets(),
+                lottoAnswerObj,
+                bonusBall);
+
         ProfitRate profitRate = new ProfitRate(money, new LottoTotalPrice(matchCount));
 
+        outputView.lottoResult();
         resultView.printLottoMatch(matchCount);
         resultView.printLottoProfit(profitRate.getProfitRate());
     }
+
 }

@@ -1,10 +1,11 @@
 package domain;
 
 public class LottoNumber implements Comparable<LottoNumber> {
+
     private final int number;
 
     public LottoNumber(int number) {
-        if (number < createList.LOTTO_MIN_NUMBER|| number > createList.LOTTO_MAX_NUMBER) {
+        if (number < createList.LOTTO_MIN_NUMBER || number > createList.LOTTO_MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
         this.number = number;
@@ -35,4 +36,5 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public String toString() {
         return String.valueOf(number);
     }
+
 }
