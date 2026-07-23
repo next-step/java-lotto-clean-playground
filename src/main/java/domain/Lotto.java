@@ -57,4 +57,19 @@ public class Lotto {
         }
     }
 
+    public int matchCount(Lotto other) {
+        int count = 0;
+
+        for(Integer number : lottoNumbers) {
+            count += countMatch(number, other);
+        }
+        return count;
+    }
+
+    private int countMatch(int number, Lotto other) {
+        if (other.lottoNumbers.contains(number)) {
+            return 1;
+        }
+        return 0;
+    }
 }
