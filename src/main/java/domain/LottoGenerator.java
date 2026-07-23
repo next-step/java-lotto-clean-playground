@@ -9,7 +9,7 @@ public class LottoGenerator {
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int LOTTO_SIZE = 6;
 
-    public List<Integer> generateNumbers() {
+    private List<Integer> generateNumbers() {
         List<Integer> allNumbers = new ArrayList<>();
         for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++) {
             allNumbers.add(i);
