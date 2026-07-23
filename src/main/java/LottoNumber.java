@@ -14,4 +14,22 @@ public class LottoNumber {
             throw new IllegalArgumentException("로또 숫자 범위가 유효하지 않습니다.");
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof LottoNumber)) {
+            return false;
+        }
+
+        LottoNumber lottoNumber = (LottoNumber) other;
+        return value == lottoNumber.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(value);
+    }
 }
