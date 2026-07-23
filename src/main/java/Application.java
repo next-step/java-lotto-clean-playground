@@ -27,9 +27,6 @@ public class Application {
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-            } catch (InputMismatchException e) {
-                System.out.println("숫자만 입력해주세요.");
-                inputView.clearBuffer();
             }
         }
     }

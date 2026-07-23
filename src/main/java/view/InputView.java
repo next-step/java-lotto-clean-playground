@@ -14,8 +14,4 @@ public class InputView {
             throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
     }
-
-    public void clearBuffer() {
-        sc.nextLine();
-    }
 }
