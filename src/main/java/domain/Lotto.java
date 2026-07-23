@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int LOTTO_SIZE = 6;
     private final List<Integer> lottoNumbers;
 
     public Lotto(List<Integer> lottoNumbers) {
@@ -18,7 +21,7 @@ public class Lotto {
     }
 
     private void validateSize() {
-            if (lottoNumbers.size() != 6) {
+            if (lottoNumbers.size() != LOTTO_SIZE) {
                 throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
             }
     }
@@ -30,7 +33,7 @@ public class Lotto {
     }
 
     private void validateNumberRange(int number) {
-        if (number < 1 || number > 45) {
+        if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
         }
     }
