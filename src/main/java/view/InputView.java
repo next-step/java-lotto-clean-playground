@@ -7,8 +7,15 @@ public class InputView {
 
     public int inputPrice() {
         System.out.println("구입금액을 입력해 주세요.");
-        int price = sc.nextInt();
 
-        return price;
+        try {
+            return Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자만 입력해주세요.");
+        }
+    }
+
+    public void clearBuffer() {
+        sc.nextLine();
     }
 }

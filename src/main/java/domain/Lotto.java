@@ -14,6 +14,10 @@ public class Lotto {
         validateLottoNumbers();
     }
 
+    public List<Integer> getLottoNumbers() {
+        return new ArrayList<>(lottoNumbers);
+    }
+
     private void validateLottoNumbers() {
         validateSize();
         validateRange();
