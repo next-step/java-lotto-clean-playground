@@ -1,6 +1,7 @@
 package view;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -25,5 +26,16 @@ class InputViewTest {
         int purchaseAmount = inputView.readPurchaseAmount();
 
         assertThat(purchaseAmount).isEqualTo(14000);
+    }
+
+    @Test
+    @DisplayName("구입 금액이 숫자가 아니면 예외가 발생한다")
+    void throwExceptionWhenPurchaseAmountIsNotNumber() {
+        System.setIn(new ByteArrayInputStream("abc".getBytes()));
+        InputView inputView = new InputView();
+
+        assertThatThrownBy(inputView::readPurchaseAmount)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("구입 금액은 숫자여야 합니다.");
     }
 }

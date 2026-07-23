@@ -9,11 +9,29 @@ public class LottoMachine {
     private final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
     public List<Lotto> buy(int purchaseAmount) {
+        validatePurchaseAmount(purchaseAmount);
         int purchaseCount = purchaseAmount / LOTTO_PRICE;
-        return createLotto(purchaseCount);
+        return createLottos(purchaseCount);
     }
 
-    private List<Lotto> createLotto(int purchaseCount) {
+    private void validatePurchaseAmount(int purchaseAmount) {
+        validatePositiveAmount(purchaseAmount);
+        validateDivisibleAmount(purchaseAmount);
+    }
+
+    private void validatePositiveAmount(int purchaseAmount) {
+        if (purchaseAmount <= 0) {
+            throw new IllegalArgumentException("구입 금액은 0원보다 커야 합니다.");
+        }
+    }
+
+    private void validateDivisibleAmount(int purchaseAmount) {
+        if (purchaseAmount % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("구입 금액은 1000원 단위여야 합니다.");
+        }
+    }
+
+    private List<Lotto> createLottos(int purchaseCount) {
         return IntStream.range(0, purchaseCount)
                 .mapToObj(index -> createLotto())
                 .collect(Collectors.toList());
