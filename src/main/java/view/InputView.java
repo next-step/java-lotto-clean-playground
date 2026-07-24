@@ -13,13 +13,7 @@ public class InputView {
     }
 
     public int payment() {
-        int paid;
-
-        do {
-            paid = validPayment();
-        } while (paid <= 0);
-
-        return paid;
+        return validPayment();
     }
 
     private int validPayment() {
@@ -34,7 +28,7 @@ public class InputView {
     private int initPayment() {
         int amount = scanner.nextInt();
 
-        if (amount < 0) {
+        if (amount <= 0) {
             throw new InputMismatchException();
         }
 

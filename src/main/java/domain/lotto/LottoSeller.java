@@ -25,8 +25,12 @@ public class LottoSeller {
         return this.tickets;
     }
 
+    public int getAmount() {
+        return this.paid;
+    }
+
     public int getChange() {
-        return change;
+        return this.change;
     }
 
     private void initTickets() {

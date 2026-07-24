@@ -14,9 +14,15 @@ public class Lotto {
     public Lotto(int price, DrawLottoNumber drawLottoNumber) {
         this.price = price;
         this.drawLottoNumber = drawLottoNumber;
+        this.numbers.addAll(numberDraw());
+    }
+
+    @Override
+    public String toString() {
+        return this.numbers.toString();
     }
 
     private List<Integer> numberDraw() {
-        return drawLottoNumber.initNumbers(drawLottoNumber.drawNumber());
+        return drawLottoNumber.draw();
     }
 }

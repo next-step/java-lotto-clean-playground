@@ -1,25 +1,21 @@
 package domain.draw;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.stream.IntStream;
 
 public class RandomLottoNumber implements DrawLottoNumber{
 
-    @Override
-    public Integer drawNumber() {
-        return new Random().nextInt(45) + 1;
-    }
+    private static final List<Integer> ballPool = IntStream.rangeClosed(1, 45).boxed().toList();
 
     @Override
-    public List<Integer> initNumbers(Integer number) {
+    public List<Integer> draw() {
 
-        List<Integer> drawNumber = new ArrayList<>();
-
-        for (int i = 0; i < 6; i++) {
-            drawNumber.add(number);
-        }
-
-        return drawNumber;
+        List<Integer> balls = new ArrayList<>(ballPool);
+        Collections.shuffle(balls);
+        List<Integer> picked = new ArrayList<>(balls.subList(0, 6));
+        Collections.sort(picked);
+        return picked;
     }
 }
