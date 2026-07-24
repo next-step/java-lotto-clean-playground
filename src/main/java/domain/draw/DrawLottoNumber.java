@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface DrawLottoNumber {
     Integer drawNumber();
-    List<Integer> initNumbers();
+    List<Integer> initNumbers(Integer number);
 }

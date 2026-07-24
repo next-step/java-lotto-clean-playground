@@ -12,12 +12,12 @@ public class RandomLottoNumber implements DrawLottoNumber{
     }
 
     @Override
-    public List<Integer> initNumbers() {
+    public List<Integer> initNumbers(Integer number) {
 
         List<Integer> drawNumber = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            drawNumber.add(drawNumber());
+            drawNumber.add(number);
         }
 
         return drawNumber;

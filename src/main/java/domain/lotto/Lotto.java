@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 import domain.draw.DrawLottoNumber;
 
@@ -7,19 +7,16 @@ import java.util.List;
 
 public class Lotto {
 
-    private final int price = 1000;
+    private final int price;
     private final List<Integer> numbers = new ArrayList<>();
     private final DrawLottoNumber drawLottoNumber;
 
-    public Lotto(DrawLottoNumber drawLottoNumber) {
+    public Lotto(int price, DrawLottoNumber drawLottoNumber) {
+        this.price = price;
         this.drawLottoNumber = drawLottoNumber;
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
-
     private List<Integer> numberDraw() {
-        return drawLottoNumber.initNumbers();
+        return drawLottoNumber.initNumbers(drawLottoNumber.drawNumber());
     }
 }
