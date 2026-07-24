@@ -1,10 +1,9 @@
 import domain.Lotto;
 import domain.LottoStore;
+import domain.Lottos;
+import domain.Money;
 import view.InputView;
 import view.ResultView;
-
-import java.util.InputMismatchException;
-import java.util.List;
 
 public class Application {
     private final InputView inputView = new InputView();
@@ -21,13 +20,15 @@ public class Application {
             try{
                 int price = inputView.inputPrice();
 
-                List<Lotto> lottos = lottoStore.buy(price);
+                Lottos lottos = lottoStore.buy(new Money(price));
 
                 resultView.printLottos(lottos);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+
+
         }
     }
 }

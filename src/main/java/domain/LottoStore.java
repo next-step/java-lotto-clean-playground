@@ -4,34 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoStore {
-    private static final int LOTTO_PRICE = 1000;
+    private static final Money LOTTO_PRICE = new Money(1000);
     private final LottoGenerator lottoGenerator = new LottoGenerator();
 
-    public List<Lotto> buy(int price) {
-        validatePrice(price);
-        int count = calculateLottoCount(price);
+    public Lottos buy(Money money) {
+        validatePrice(money);
+        int count = calculateLottoCount(money);
         return generateLottos(count);
     }
 
-    private void validatePrice(int price) {
-        if (price < LOTTO_PRICE) {
+    private int calculateLottoCount(Money money) {
+        return money.divideBy(LOTTO_PRICE);
+    }
+
+    private void validatePrice(Money money) {
+        if (money.isLessThan(LOTTO_PRICE)) {
             throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
         }
 
-        if (price % LOTTO_PRICE != 0) {
+        if (!money.isDivisibleBy(LOTTO_PRICE)) {
             throw new IllegalArgumentException("구매 금액은 1000원 단위여야 합니다.");
         }
     }
 
-    private int calculateLottoCount(int price) {
-        return price / LOTTO_PRICE;
-    }
-
-    private List<Lotto> generateLottos(int count) {
+    private Lottos generateLottos(int count) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(lottoGenerator.generateLotto());
         }
-        return lottos;
+        return new Lottos(lottos);
     }
 }
