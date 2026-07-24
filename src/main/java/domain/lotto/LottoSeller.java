@@ -26,7 +26,7 @@ public class LottoSeller {
     }
 
     public int getAmount() {
-        return this.paid;
+        return this.paid / PRICE;
     }
 
     public int getChange() {
@@ -35,7 +35,7 @@ public class LottoSeller {
 
     private void initTickets() {
         for (int i = 0; i < paid / PRICE; i++) {
-            tickets.add(new Lotto(PRICE, drawLottoNumber));
+            tickets.add(new Lotto(drawLottoNumber));
         }
     }
 }

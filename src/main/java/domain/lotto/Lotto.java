@@ -7,12 +7,10 @@ import java.util.List;
 
 public class Lotto {
 
-    private final int price;
     private final List<Integer> numbers = new ArrayList<>();
     private final DrawLottoNumber drawLottoNumber;
 
-    public Lotto(int price, DrawLottoNumber drawLottoNumber) {
-        this.price = price;
+    public Lotto(DrawLottoNumber drawLottoNumber) {
         this.drawLottoNumber = drawLottoNumber;
         this.numbers.addAll(numberDraw());
     }
