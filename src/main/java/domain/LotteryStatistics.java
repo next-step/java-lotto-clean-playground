@@ -19,7 +19,7 @@ public class LotteryStatistics {
     public void calculateStatistics(Lottos lottos, Lotto winningLotto, int bonusNumber) {
         for (Lotto lotto : lottos) {
             int matchCount = lotto.matchCount(winningLotto);
-            boolean bonusMatched = lotto.contains(bonusNumber);
+            boolean bonusMatched = lotto.contains(new LottoNumber(bonusNumber));
 
             Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
             increaseCount(rank);

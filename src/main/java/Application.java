@@ -1,8 +1,4 @@
-import domain.Lotto;
-import domain.LotteryStatistics;
-import domain.Lottos;
-import domain.LottoStore;
-import domain.Money;
+import domain.*;
 import view.InputView;
 import view.ResultView;
 
@@ -22,8 +18,19 @@ public class Application {
     }
 
     private void run() {
-        Money purchasePrice = inputPurchasePrice();
-        Lottos lottos = purchaseLottos(purchasePrice);
+        Money purchasePrice;
+        Lottos lottos;
+
+        while (true) {
+            try {
+                purchasePrice = inputPurchasePrice();
+                lottos = purchaseLottos(purchasePrice);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         Lotto winningLotto = inputWinningLotto();
         int bonusNumber = inputBonusNumber();
         publishStatistics(lottos, winningLotto, bonusNumber, purchasePrice);
@@ -33,7 +40,7 @@ public class Application {
         while (true) {
             try {
                 int bonusNumber = inputView.inputBonusNumber();
-                Lotto.validateNumberRange(bonusNumber);
+                LottoNumber.validateNumberRange(bonusNumber);
                 return bonusNumber;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -61,7 +68,7 @@ public class Application {
         while (true) {
             try {
                 String input = inputView.inputWinningLotto();
-                List<Integer> numbers = parseLottoNumbers(input.split(","));
+                List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
                 return new Lotto(numbers);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -69,11 +76,12 @@ public class Application {
         }
     }
 
-    private List<Integer> parseLottoNumbers(String[] numbers) {
+    private List<LottoNumber> parseLottoNumbers(String[] numbers) {
         try {
             return Arrays.stream(numbers)
                     .map(String::trim)
                     .map(Integer::parseInt)
+                    .map(LottoNumber::new)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("당첨 번호는 숫자만 입력해주세요.");

@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
-    public static final int MIN_NUMBER = 1;
-    public static final int MAX_NUMBER = 45;
     public static final int LOTTO_SIZE = 6;
-    private final List<Integer> lottoNumbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    public Lotto(List<Integer> lottoNumbers) {
+    public Lotto(List<LottoNumber> lottoNumbers) {
         this.lottoNumbers = new ArrayList<>(lottoNumbers);
         validateLottoNumbers();
     }
 
-    public List<Integer> getLottoNumbers() {
+    public List<LottoNumber> getLottoNumbers() {
         return new ArrayList<>(lottoNumbers);
     }
 
     private void validateLottoNumbers() {
         validateSize();
-        validateRange();
         validateDuplicate();
     }
 
@@ -30,28 +27,16 @@ public class Lotto {
             }
     }
 
-    private void validateRange() {
-        for(int number : lottoNumbers) {
-            validateNumberRange(number);
-        }
-    }
-
-    public static void validateNumberRange(int number) {
-        if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
-        }
-    }
-
     private void validateDuplicate() {
-        List<Integer> temp = new ArrayList<>();
+        List<LottoNumber> temp = new ArrayList<>();
 
-        for(int number : lottoNumbers) {
+        for(LottoNumber number : lottoNumbers) {
             validateNumberDuplicate(number, temp);
             temp.add(number);
         }
     }
 
-    private void validateNumberDuplicate(int number, List<Integer> temp) {
+    private void validateNumberDuplicate(LottoNumber number, List<LottoNumber> temp) {
         if (temp.contains(number)) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
@@ -60,19 +45,19 @@ public class Lotto {
     public int matchCount(Lotto other) {
         int count = 0;
 
-        for(Integer number : lottoNumbers) {
+        for(LottoNumber number : lottoNumbers) {
             count += countMatch(number, other);
         }
         return count;
     }
 
-    private int countMatch(int number, Lotto other) {
+    private int countMatch(LottoNumber number, Lotto other) {
         if (other.lottoNumbers.contains(number)) {
             return 1;
         }
         return 0;
     }
-    public boolean contains(int number) {
+    public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
     }
 }
