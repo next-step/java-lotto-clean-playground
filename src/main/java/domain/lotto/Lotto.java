@@ -20,6 +20,10 @@ public class Lotto {
         return this.numbers.toString();
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
     private List<Integer> numberDraw() {
         return drawLottoNumber.draw();
     }
