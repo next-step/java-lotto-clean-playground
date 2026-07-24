@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoGenerator;
+import domain.PurchaseAmount;
 import view.InputView;
 import view.ResultView;
 
@@ -22,8 +23,8 @@ public class LottoController {
     }
 
     public void run() {
-        int purchaseAmount = inputView.readPurchaseAmount();
-        int lottoCount = purchaseAmount / LOTTO_PRICE;
+        PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
+        int lottoCount = purchaseAmount.getAmount() / LOTTO_PRICE;
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
