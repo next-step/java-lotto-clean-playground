@@ -6,15 +6,15 @@ import domain.number.MatchCount;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class WinningStatistics {
+public class LottoStatistics {
     private final Map<LottoRank, Integer> results;
 
-    private WinningStatistics(Map<LottoRank, Integer> results) {
+    private LottoStatistics(Map<LottoRank, Integer> results) {
         this.results = results;
     }
 
-    public static WinningStatistics empty() {
-        return new WinningStatistics(initialResults());
+    public static LottoStatistics empty() {
+        return new LottoStatistics(initialResults());
     }
 
     private static Map<LottoRank, Integer> initialResults() {

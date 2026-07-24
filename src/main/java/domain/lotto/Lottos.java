@@ -1,6 +1,6 @@
 package domain.lotto;
 
-import domain.result.WinningStatistics;
+import domain.result.LottoStatistics;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,9 +19,9 @@ public class Lottos {
         return Collections.unmodifiableList(values);
     }
 
-    public WinningStatistics calculateWinningStatistics(WinningLotto winningLotto) {
-        WinningStatistics winningStatistics = WinningStatistics.empty();
-        values.forEach(lotto -> winningStatistics.record(lotto.countMatching(winningLotto)));
-        return winningStatistics;
+    public LottoStatistics calculateLottoStatistics(WinningLotto winningLotto) {
+        LottoStatistics lottoStatistics = LottoStatistics.empty();
+        values.forEach(lotto -> lottoStatistics.record(lotto.countMatching(winningLotto)));
+        return lottoStatistics;
     }
 }

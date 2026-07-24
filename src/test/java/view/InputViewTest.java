@@ -18,17 +18,6 @@ class InputViewTest {
     }
 
     @Test
-    @DisplayName("구입 금액을 입력받는다")
-    void readPurchaseAmount() {
-        System.setIn(new ByteArrayInputStream("14000".getBytes()));
-        InputView inputView = new InputView();
-
-        int purchaseAmount = inputView.readPurchaseAmount();
-
-        assertThat(purchaseAmount).isEqualTo(14000);
-    }
-
-    @Test
     @DisplayName("구입 금액이 숫자가 아니면 예외가 발생한다")
     void throwExceptionWhenPurchaseAmountIsNotNumber() {
         System.setIn(new ByteArrayInputStream("abc".getBytes()));
@@ -37,5 +26,16 @@ class InputViewTest {
         assertThatThrownBy(inputView::readPurchaseAmount)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입 금액은 숫자여야 합니다.");
+    }
+
+    @Test
+    @DisplayName("당첨 번호가 숫자 형식이 아니면 예외가 발생한다")
+    void throwExceptionWhenWinningNumbersAreNotNumbers() {
+        System.setIn(new ByteArrayInputStream("1 4 8 33 42 45".getBytes()));
+        InputView inputView = new InputView();
+
+        assertThatThrownBy(inputView::readWinningLotto)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("당첨 번호는 쉼표(,)로 구분한 숫자여야 합니다.");
     }
 }

@@ -4,7 +4,7 @@ import domain.lotto.LottoMachine;
 import domain.lotto.Lottos;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
-import domain.result.WinningStatistics;
+import domain.result.LottoStatistics;
 import view.InputView;
 import view.OutputView;
 
@@ -25,7 +25,7 @@ public class LottoController {
             Lottos purchasedLottoTickets
     ) {
         WinningLotto winningLotto = inputView.readWinningLotto();
-        WinningStatistics statistics = purchasedLottoTickets.calculateWinningStatistics(winningLotto);
-        outputView.printWinningStatistics(statistics, purchaseAmount);
+        LottoStatistics statistics = purchasedLottoTickets.calculateLottoStatistics(winningLotto);
+        outputView.printLottoStatistics(statistics, purchaseAmount);
     }
 }

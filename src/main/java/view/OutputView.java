@@ -4,7 +4,7 @@ import domain.lotto.Lotto;
 import domain.lotto.Lottos;
 import domain.money.PurchaseAmount;
 import domain.result.LottoRank;
-import domain.result.WinningStatistics;
+import domain.result.LottoStatistics;
 import java.util.List;
 
 public class OutputView {
@@ -18,13 +18,13 @@ public class OutputView {
         purchasedLottoTickets.values().forEach(System.out::println);
     }
 
-    public void printWinningStatistics(
-            WinningStatistics winningStatistics,
+    public void printLottoStatistics(
+            LottoStatistics lottoStatistics,
             PurchaseAmount purchaseAmount
     ) {
         printStatisticsHeader();
-        printStatisticsResults(winningStatistics);
-        printProfitRate(winningStatistics, purchaseAmount);
+        printStatisticsResults(lottoStatistics);
+        printProfitRate(lottoStatistics, purchaseAmount);
     }
 
     private void printStatisticsHeader() {
@@ -33,17 +33,17 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    private void printStatisticsResults(WinningStatistics winningStatistics) {
+    private void printStatisticsResults(LottoStatistics lottoStatistics) {
         LottoRank.valuesForResult().stream()
-                .map(rank -> rank.resultMessage(winningStatistics.countOf(rank)))
+                .map(rank -> rank.resultMessage(lottoStatistics.countOf(rank)))
                 .forEach(System.out::println);
     }
 
     private void printProfitRate(
-            WinningStatistics winningStatistics,
+            LottoStatistics lottoStatistics,
             PurchaseAmount purchaseAmount
     ) {
-        double profitRate = winningStatistics.profitRate(purchaseAmount);
+        double profitRate = lottoStatistics.profitRate(purchaseAmount);
         System.out.printf("총 수익률은 %.2f입니다.", profitRate);
         printLossMessage(profitRate);
         System.out.println();

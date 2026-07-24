@@ -2,7 +2,11 @@ package view;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import domain.Lotto;
+import domain.lotto.Lotto;
+import domain.lotto.Lottos;
+import domain.lotto.WinningLotto;
+import domain.money.PurchaseAmount;
+import domain.result.LottoStatistics;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -32,10 +36,49 @@ class OutputViewTest {
         assertThat(outputStream.toString()).contains("[1, 2, 3, 4, 5, 6]");
     }
 
+    @Test
+    @DisplayName("수익률이 1보다 작으면 손해 안내 문구를 출력한다")
+    void printLossMessageWhenProfitRateIsLessThanOne() {
+        OutputView outputView = new OutputView();
+        LottoStatistics statistics = createNoPrizeStatistics();
+        System.setOut(new PrintStream(outputStream));
+
+        outputView.printLottoStatistics(statistics, PurchaseAmount.from(1_000));
+
+        assertThat(outputStream.toString()).contains("결과적으로 손해라는 의미임");
+    }
+
+    @Test
+    @DisplayName("수익률이 1보다 크면 손해 안내 문구를 출력하지 않는다")
+    void doNotPrintLossMessageWhenProfitRateIsGreaterThanOne() {
+        OutputView outputView = new OutputView();
+        LottoStatistics statistics = createPrizeStatistics();
+        System.setOut(new PrintStream(outputStream));
+
+        outputView.printLottoStatistics(statistics, PurchaseAmount.from(1_000));
+
+        assertThat(outputStream.toString()).contains("총 수익률은 5.00입니다.");
+        assertThat(outputStream.toString()).doesNotContain("결과적으로 손해라는 의미임");
+    }
+
     private List<Lotto> createLottoTickets() {
         return List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
                 new Lotto(List.of(7, 8, 9, 10, 11, 12))
         );
+    }
+
+    private LottoStatistics createNoPrizeStatistics() {
+        return createStatistics(new Lotto(List.of(7, 8, 9, 10, 11, 12)));
+    }
+
+    private LottoStatistics createPrizeStatistics() {
+        return createStatistics(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
+    }
+
+    private LottoStatistics createStatistics(Lotto lotto) {
+        Lottos lottos = new Lottos(List.of(lotto));
+        WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6));
+        return lottos.calculateLottoStatistics(winningLotto);
     }
 }
