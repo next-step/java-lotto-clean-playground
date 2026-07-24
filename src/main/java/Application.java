@@ -7,6 +7,7 @@ import view.InputView;
 import view.ResultView;
 
 import java.util.Arrays;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,20 @@ public class Application {
         Money purchasePrice = inputPurchasePrice();
         Lottos lottos = purchaseLottos(purchasePrice);
         Lotto winningLotto = inputWinningLotto();
-        publishStatistics(lottos, winningLotto, purchasePrice);
+        int bonusNumber = inputBonusNumber();
+        publishStatistics(lottos, winningLotto, bonusNumber, purchasePrice);
+    }
+
+    private int inputBonusNumber() {
+        while (true) {
+            try {
+                int bonusNumber = inputView.inputBonusNumber();
+                Lotto.validateNumberRange(bonusNumber);
+                return bonusNumber;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private Money inputPurchasePrice() {
@@ -67,8 +81,8 @@ public class Application {
         }
     }
 
-    private void publishStatistics(Lottos lottos, Lotto winningLotto, Money purchasePrice) {
-        lotteryStatistics.calculateStatistics(lottos, winningLotto);
+    private void publishStatistics(Lottos lottos, Lotto winningLotto, int bonusNumber, Money purchasePrice) {
+        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
         Money totalPrize = lotteryStatistics.calculatePrize();
         resultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }

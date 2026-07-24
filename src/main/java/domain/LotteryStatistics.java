@@ -16,9 +16,12 @@ public class LotteryStatistics {
         return new EnumMap<Rank, Integer>(statistics);
     }
 
-    public void calculateStatistics(Lottos lottos, Lotto winningLotto) {
+    public void calculateStatistics(Lottos lottos, Lotto winningLotto, int bonusNumber) {
         for (Lotto lotto : lottos) {
-            Rank rank = Rank.findByMatchCount(lotto.matchCount(winningLotto));
+            int matchCount = lotto.matchCount(winningLotto);
+            boolean bonusMatched = lotto.contains(bonusNumber);
+
+            Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
             increaseCount(rank);
         }
     }

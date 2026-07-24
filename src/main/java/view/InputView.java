@@ -24,4 +24,14 @@ public class InputView {
         }
         return input;
     }
+
+    public int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자만 입력해 주세요.");
+        }
+    }
 }

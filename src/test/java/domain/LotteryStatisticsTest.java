@@ -19,10 +19,12 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
+        int bonusNumber = 45;
+
         LotteryStatistics lotteryStatistics = new LotteryStatistics();
 
         // When
-        lotteryStatistics.calculateStatistics(lottos, winningLotto);
+        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
 
         // Then
         Map<Rank, Integer> result = lotteryStatistics.getStatistics();
@@ -45,13 +47,34 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
+        int bonusNumber = 45;
+
         LotteryStatistics lotteryStatistics = new LotteryStatistics();
 
         // When
-        lotteryStatistics.calculateStatistics(lottos, winningLotto);
+        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
         Money totalPrize = lotteryStatistics.calculatePrize();
 
         // Then
         assertEquals(new Money(55000), totalPrize);
+    }
+
+    @Test
+    void 보너스볼이_일치하고_5개가_일치하면_2등이다() {
+        // Given
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 7));
+        Lottos lottos = new Lottos(List.of(lotto));
+
+        int bonusNumber = 7;
+
+        LotteryStatistics lotteryStatistics = new LotteryStatistics();
+        // When
+        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+        // Then
+        Map<Rank, Integer> result = lotteryStatistics.getStatistics();
+
+        assertEquals(1, result.get(Rank.SECOND));
+        assertEquals(0, result.get(Rank.FIVE));
     }
 }

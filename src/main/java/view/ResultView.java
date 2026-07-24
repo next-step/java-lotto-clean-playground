@@ -31,11 +31,22 @@ public class ResultView {
     }
 
     private void printEntry(Map.Entry<Rank, Integer> entry) {
-        if (entry.getKey() == Rank.NONE) {
+        Rank rank = entry.getKey();
+
+        if (rank == Rank.NONE) {
             return;
         }
-        System.out.println(entry.getKey().getMatchCount() + "개 일치 ("
-                + entry.getKey().getPrice() + "원)- "
-                + entry.getValue() + "개");
+        System.out.println(createMessage(rank, entry.getValue()));
+    }
+
+    private String createMessage(Rank rank, int count) {
+        if (rank == Rank.SECOND) {
+            return "5개 일치, 보너스 볼 일치 ("
+                    + rank.getPrice() + "원)- "
+                    + count + "개";
+        }
+        return rank.getMatchCount() + "개 일치 ("
+                + rank.getPrice() + "원)- "
+                + count + "개";
     }
 }

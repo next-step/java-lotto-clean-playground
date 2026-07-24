@@ -36,7 +36,7 @@ public class Lotto {
         }
     }
 
-    private void validateNumberRange(int number) {
+    public static void validateNumberRange(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
         }
@@ -71,5 +71,8 @@ public class Lotto {
             return 1;
         }
         return 0;
+    }
+    public boolean contains(int number) {
+        return lottoNumbers.contains(number);
     }
 }
