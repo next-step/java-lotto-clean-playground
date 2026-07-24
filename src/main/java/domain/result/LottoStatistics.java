@@ -2,7 +2,6 @@ package domain.result;
 
 import domain.money.PrizeAmount;
 import domain.money.PurchaseAmount;
-import domain.number.MatchCount;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,8 +22,8 @@ public class LottoStatistics {
         return results;
     }
 
-    public void record(MatchCount matchCount) {
-        LottoRank.findBy(matchCount).ifPresent(this::increase);
+    public void record(LottoResult lottoResult) {
+        LottoRank.findBy(lottoResult).ifPresent(this::increase);
     }
 
     private void increase(LottoRank lottoRank) {

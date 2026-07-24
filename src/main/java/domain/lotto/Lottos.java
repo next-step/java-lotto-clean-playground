@@ -21,7 +21,7 @@ public class Lottos {
 
     public LottoStatistics calculateLottoStatistics(WinningLotto winningLotto) {
         LottoStatistics lottoStatistics = LottoStatistics.empty();
-        values.forEach(lotto -> lottoStatistics.record(lotto.countMatching(winningLotto)));
+        values.forEach(lotto -> lottoStatistics.record(lotto.match(winningLotto)));
         return lottoStatistics;
     }
 }
