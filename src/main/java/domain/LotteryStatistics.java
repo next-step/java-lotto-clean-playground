@@ -28,7 +28,7 @@ public class LotteryStatistics {
         statistics.put(rank, ++count);
     }
 
-   public int calculatePrice() {
+   public int calculatePrize() {
         int total = 0;
         for (Map.Entry<Rank, Integer> entry : statistics.entrySet()) {
             total += entry.getKey().getPrice() * entry.getValue();

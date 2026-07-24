@@ -21,6 +21,10 @@ public enum Rank {
         return price;
     }
 
+    public int getMatchCount() {
+        return matchCount;
+    }
+
     public static Rank findByMatchCount(int matchCount) {
         return Arrays.stream(values())
                 .filter(rank -> rank.matches(matchCount))

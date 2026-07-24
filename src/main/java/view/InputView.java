@@ -11,7 +11,17 @@ public class InputView {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자만 입력해주세요.");
+            throw new IllegalArgumentException("숫자만 입력해 주세요.");
         }
+    }
+
+    public String inputWinningLotto() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        String input = scanner.nextLine();
+
+        if (input.isBlank()) {
+            throw new IllegalArgumentException("당첨 번호를 입력해 주세요.");
+        }
+        return input;
     }
 }
