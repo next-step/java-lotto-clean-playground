@@ -79,4 +79,51 @@ class LottoTest {
         );
         assertEquals("로또 번호는 중복될 수 없습니다.", exception.getMessage());
     }
+
+    @Test
+    void 번호가_모두_일치하면_6을_반환() {
+        // Given
+        List<Integer> numbers1 = List.of(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers2 = List.of(1, 2, 3, 4, 5, 6);
+
+        Lotto lotto1 = new Lotto(numbers1);
+        Lotto lotto2 = new Lotto(numbers2);
+
+        // When
+        int result = lotto1.matchCount(lotto2);
+
+        // Then
+        assertEquals(6, result);
+    }
+    @Test
+    void 번호가_3개_일치하면_3을_반환() {
+        // Given
+        List<Integer> numbers1 = List.of(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers2 = List.of(1, 2, 3, 7, 8, 9);
+
+        Lotto lotto1 = new Lotto(numbers1);
+        Lotto lotto2 = new Lotto(numbers2);
+
+        // When
+        int result = lotto1.matchCount(lotto2);
+
+        // Then
+        assertEquals(3, result);
+    }
+
+    @Test
+    void 일치하는_번호가_없으면_0을_반환() {
+        // Given
+        List<Integer> numbers1 = List.of(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers2 = List.of(7, 8, 9, 10, 11, 12);
+
+        Lotto lotto1 = new Lotto(numbers1);
+        Lotto lotto2 = new Lotto(numbers2);
+
+        // When
+        int result = lotto1.matchCount(lotto2);
+
+        // Then
+        assertEquals(0, result);
+    }
 }
