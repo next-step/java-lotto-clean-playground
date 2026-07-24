@@ -2,6 +2,7 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,14 @@ public class Application {
         while (true) {
             try {
                 purchasePrice = inputPurchasePrice();
-                lottos = purchaseLottos(purchasePrice);
+                lottoStore.validatePurchasePrice(purchasePrice);
+
+                int manualCount = inputManualLottoCount();
+                lottoStore.validateManualCount(purchasePrice, manualCount);
+
+                List<Lotto> manualLottos = inputManualLottos(manualCount);
+
+                lottos = purchaseLottos(purchasePrice, manualLottos);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -32,15 +40,48 @@ public class Application {
         }
 
         Lotto winningLotto = inputWinningLotto();
-        int bonusNumber = inputBonusNumber();
+        int bonusNumber = inputBonusNumber(winningLotto);
         publishStatistics(lottos, winningLotto, bonusNumber, purchasePrice);
     }
 
-    private int inputBonusNumber() {
+    private Lotto inputManualLotto() {
+        while (true) {
+            try {
+                String input = inputView.inputManualLotto();
+                List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
+                return new Lotto(numbers);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int inputManualLottoCount() {
+        while (true) {
+            try {
+                return inputView.inputManualLottoCount();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private List<Lotto> inputManualLottos(int manualCount) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            manualLottos.add(inputManualLotto());
+        }
+        return manualLottos;
+    }
+
+    private int inputBonusNumber(Lotto winningLotto) {
         while (true) {
             try {
                 int bonusNumber = inputView.inputBonusNumber();
                 LottoNumber.validateNumberRange(bonusNumber);
+                winningLotto.validateBonusNumber(bonusNumber);
                 return bonusNumber;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -58,9 +99,9 @@ public class Application {
         }
     }
 
-    private Lottos purchaseLottos(Money purchasePrice) {
-        Lottos lottos = lottoStore.buy(purchasePrice);
-        resultView.printLottos(lottos);
+    private Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
+        Lottos lottos = lottoStore.buy(purchasePrice, manualLottos);
+        resultView.printLottos(lottos, manualLottos.size());
         return lottos;
     }
 
@@ -84,7 +125,7 @@ public class Application {
                     .map(LottoNumber::new)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자만 입력해주세요.");
+            throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
     }
 

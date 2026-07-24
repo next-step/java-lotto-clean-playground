@@ -57,7 +57,14 @@ public class Lotto {
         }
         return 0;
     }
+
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
+    }
+
+    public void validateBonusNumber(int bonusNumber) {
+        if (contains(new LottoNumber(bonusNumber))) {
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
     }
 }

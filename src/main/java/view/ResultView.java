@@ -10,8 +10,10 @@ import java.util.Map;
 
 public class ResultView {
 
-    public void printLottos(Lottos lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.\n");
+    public void printLottos(Lottos lottos, int manualCount) {
+        int autoCount = lottos.size() - manualCount;
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
+                manualCount, autoCount);
 
         for(Lotto lotto : lottos) {
             System.out.println(lotto.getLottoNumbers());

@@ -2,6 +2,8 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoStoreTest {
@@ -10,7 +12,7 @@ class LottoStoreTest {
         // Given
         LottoStore lottoStore = new LottoStore();
         // When
-        Lottos lottos = lottoStore.buy(new Money(1000));
+        Lottos lottos = lottoStore.buy(new Money(1000), List.of());
         // Then
         assertEquals(1, lottos.size());
     }
@@ -20,7 +22,7 @@ class LottoStoreTest {
         // Given
         LottoStore lottoStore = new LottoStore();
         // When
-        Lottos lottos = lottoStore.buy(new Money(5000));
+        Lottos lottos = lottoStore.buy(new Money(5000), List.of());
         // Then
         assertEquals(5, lottos.size());
     }
@@ -32,7 +34,7 @@ class LottoStoreTest {
         // When & Then
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> lottoStore.buy(new Money(1500)));
+                () -> lottoStore.buy(new Money(1500), List.of()));
         assertEquals("구매 금액은 1000원 단위여야 합니다.", exception.getMessage());
     }
 
@@ -43,7 +45,7 @@ class LottoStoreTest {
         // When & Then
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> lottoStore.buy(new Money(999))
+                () -> lottoStore.buy(new Money(999), List.of())
         );
         assertEquals("구매 금액은 1000원 이상이어야 합니다.", exception.getMessage());
     }
