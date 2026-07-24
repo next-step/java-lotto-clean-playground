@@ -8,10 +8,6 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class InputView {
-    private static final String PURCHASE_AMOUNT_PROMPT = "구입금액을 입력해 주세요.";
-    private static final String WINNING_NUMBERS_PROMPT = "지난 주 당첨 번호를 입력해 주세요.(쉼표 ','로 구분합니다.)";
-    private static final String NUMBER_DELIMITER = ",";
-
     private final Scanner scanner = new Scanner(System.in);
 
     public int readPurchaseAmount() {
@@ -19,18 +15,18 @@ public class InputView {
     }
 
     public PurchaseAmount readPurchaseAmountValue() {
-        System.out.println(PURCHASE_AMOUNT_PROMPT);
+        System.out.println("구입금액을 입력해 주세요.");
         return PurchaseAmount.from(parsePurchaseAmount(scanner.nextLine()));
     }
 
     public WinningLotto readWinningLotto() {
         System.out.println();
-        System.out.println(WINNING_NUMBERS_PROMPT);
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.(쉼표 ','로 구분합니다.)");
         return WinningLotto.from(parseNumbers(scanner.nextLine()));
     }
 
     private List<Integer> parseNumbers(String input) {
-        return Arrays.stream(input.split(NUMBER_DELIMITER))
+        return Arrays.stream(input.split(","))
                 .map(String::trim)
                 .map(this::parseWinningNumber)
                 .collect(Collectors.toList());

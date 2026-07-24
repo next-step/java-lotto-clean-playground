@@ -2,7 +2,6 @@ package domain.result;
 
 import domain.money.PrizeAmount;
 import domain.number.MatchCount;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +46,6 @@ public enum LottoRank {
     }
 
     private long prizeAmountValue() {
-        return Arrays.stream(values())
-                .filter(rank -> rank == this)
-                .mapToLong(rank -> rank.prizeAmount.valueForDisplay())
-                .findFirst()
-                .orElseThrow();
+        return prizeAmount.valueForDisplay();
     }
 }

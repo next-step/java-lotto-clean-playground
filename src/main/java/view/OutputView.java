@@ -8,19 +8,13 @@ import domain.result.WinningStatistics;
 import java.util.List;
 
 public class OutputView {
-    private static final String PURCHASE_COUNT_FORMAT = "%d개를 구매했습니다.%n";
-    private static final String STATISTICS_TITLE = "당첨 통계";
-    private static final String STATISTICS_LINE = "---------";
-    private static final String PROFIT_FORMAT =
-            "총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)%n";
-
     public void printPurchasedLottoTickets(List<Lotto> purchasedLottoTickets) {
         printPurchasedLottoTickets(new Lottos(purchasedLottoTickets));
     }
 
     public void printPurchasedLottoTickets(Lottos purchasedLottoTickets) {
         System.out.println();
-        System.out.printf(PURCHASE_COUNT_FORMAT, purchasedLottoTickets.size());
+        System.out.printf("%d개를 구매했습니다.%n", purchasedLottoTickets.size());
         purchasedLottoTickets.values().forEach(System.out::println);
     }
 
@@ -35,8 +29,8 @@ public class OutputView {
 
     private void printStatisticsHeader() {
         System.out.println();
-        System.out.println(STATISTICS_TITLE);
-        System.out.println(STATISTICS_LINE);
+        System.out.println("당첨 통계");
+        System.out.println("---------");
     }
 
     private void printStatisticsResults(WinningStatistics winningStatistics) {
@@ -49,6 +43,15 @@ public class OutputView {
             WinningStatistics winningStatistics,
             PurchaseAmount purchaseAmount
     ) {
-        System.out.printf(PROFIT_FORMAT, winningStatistics.profitRate(purchaseAmount));
+        double profitRate = winningStatistics.profitRate(purchaseAmount);
+        System.out.printf("총 수익률은 %.2f입니다.", profitRate);
+        printLossMessage(profitRate);
+        System.out.println();
+    }
+
+    private void printLossMessage(double profitRate) {
+        if (profitRate < 1) {
+            System.out.print("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+        }
     }
 }
