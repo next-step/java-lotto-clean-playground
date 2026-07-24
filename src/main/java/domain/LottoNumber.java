@@ -11,6 +11,10 @@ public class LottoNumber {
         this.value = value;
     }
 
+    public int getValue() {
+        return value;
+    }
+
     private void validateValue(int value) {
         if (value < MIN_LOTTO_NUMBER || value > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("로또 숫자 범위가 유효하지 않습니다.");

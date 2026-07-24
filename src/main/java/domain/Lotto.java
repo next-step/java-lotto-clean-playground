@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Lotto {
     private static final int LOTTO_SIZE = 6;
@@ -12,7 +10,17 @@ public class Lotto {
     Lotto(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
-        this.numbers = List.copyOf(numbers);
+        this.numbers = sortNumbers(numbers);
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return List.copyOf(numbers);
+    }
+
+    private List<LottoNumber> sortNumbers(List<LottoNumber> numbers) {
+        List<LottoNumber> sortedNumbers = new ArrayList<>(numbers);
+        sortedNumbers.sort(Comparator.comparingInt(LottoNumber::getValue));
+        return sortedNumbers;
     }
 
     private void validateSize(List<LottoNumber> numbers) {
