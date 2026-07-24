@@ -1,17 +1,10 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoGenerator;
-import domain.PurchaseAmount;
+import domain.*;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LottoController {
-    private static final int LOTTO_PRICE = 1000;
-
     private final InputView inputView;
     private final ResultView resultView;
     private final LottoGenerator lottoGenerator;
@@ -24,13 +17,8 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
-        int lottoCount = purchaseAmount.getAmount() / LOTTO_PRICE;
+        LottoPurchase lottoPurchase = new LottoPurchase(purchaseAmount, lottoGenerator);
 
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottos.add(lottoGenerator.generate());
-        }
-
-        resultView.printPurchasedLottos(lottos);
+        resultView.printPurchasedLottos(lottoPurchase.issueLottos());
     }
 }
