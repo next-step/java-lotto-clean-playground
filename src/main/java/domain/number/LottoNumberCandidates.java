@@ -1,4 +1,4 @@
-package domain;
+package domain.number;
 
 import java.util.List;
 import java.util.stream.Collectors;

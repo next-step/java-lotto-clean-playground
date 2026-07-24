@@ -1,8 +1,10 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoMachine;
-import java.util.List;
+import domain.lotto.LottoMachine;
+import domain.lotto.Lottos;
+import domain.lotto.WinningLotto;
+import domain.money.PurchaseAmount;
+import domain.result.WinningStatistics;
 import view.InputView;
 import view.OutputView;
 
@@ -12,8 +14,18 @@ public class LottoController {
     private final OutputView outputView = new OutputView();
 
     public void run() {
-        int purchaseAmount = inputView.readPurchaseAmount();
-        List<Lotto> purchasedLottoTickets = lottoMachine.buy(purchaseAmount);
+        PurchaseAmount purchaseAmount = inputView.readPurchaseAmountValue();
+        Lottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount);
         outputView.printPurchasedLottoTickets(purchasedLottoTickets);
+        printWinningResult(purchaseAmount, purchasedLottoTickets);
+    }
+
+    private void printWinningResult(
+            PurchaseAmount purchaseAmount,
+            Lottos purchasedLottoTickets
+    ) {
+        WinningLotto winningLotto = inputView.readWinningLotto();
+        WinningStatistics statistics = purchasedLottoTickets.calculateWinningStatistics(winningLotto);
+        outputView.printWinningStatistics(statistics, purchaseAmount);
     }
 }
