@@ -7,7 +7,6 @@ import view.InputView;
 import view.ResultView;
 
 import java.util.Arrays;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.stream.Collectors;
 

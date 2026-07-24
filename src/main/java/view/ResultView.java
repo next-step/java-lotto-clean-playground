@@ -41,7 +41,7 @@ public class ResultView {
 
     private String createMessage(Rank rank, int count) {
         if (rank == Rank.SECOND) {
-            return "5개 일치, 보너스 볼 일치 ("
+            return "5개 일치, 보너스 볼 일치("
                     + rank.getPrice() + "원)- "
                     + count + "개";
         }
