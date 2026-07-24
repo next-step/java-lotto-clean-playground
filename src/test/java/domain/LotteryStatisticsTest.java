@@ -49,9 +49,9 @@ class LotteryStatisticsTest {
 
         // When
         lotteryStatistics.calculateStatistics(lottos, winningLotto);
-        int totalPrize = lotteryStatistics.calculatePrize();
+        Money totalPrize = lotteryStatistics.calculatePrize();
 
         // Then
-        assertEquals(55000, totalPrize);
+        assertEquals(new Money(55000), totalPrize);
     }
 }

@@ -1,9 +1,14 @@
-import domain.*;
+import domain.Lotto;
+import domain.LotteryStatistics;
+import domain.Lottos;
+import domain.LottoStore;
+import domain.Money;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Application {
     private final InputView inputView = new InputView();
@@ -17,55 +22,54 @@ public class Application {
     }
 
     private void run() {
-        Lottos lottos;
-        Lotto winningLotto;
-        int purchasePrice;
+        Money purchasePrice = inputPurchasePrice();
+        Lottos lottos = purchaseLottos(purchasePrice);
+        Lotto winningLotto = inputWinningLotto();
+        publishStatistics(lottos, winningLotto, purchasePrice);
+    }
 
-        while(true) {
-            try{
-                purchasePrice = inputView.inputPrice();
-
-                lottos = lottoStore.buy(new Money(purchasePrice));
-
-                resultView.printLottos(lottos);
-
-                break;
+    private Money inputPurchasePrice() {
+        while (true) {
+            try {
+                return new Money(inputView.inputPrice());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private Lottos purchaseLottos(Money purchasePrice) {
+        Lottos lottos = lottoStore.buy(purchasePrice);
+        resultView.printLottos(lottos);
+        return lottos;
+    }
+
+    private Lotto inputWinningLotto() {
         while (true) {
-           try {
-               String winningNumbers = inputView.inputWinningLotto();
-
-               String[] numbers = winningNumbers.split(",");
-
-               List<Integer> lottoNumbers = new ArrayList<>();
-
-               try {
-                   for (String number : numbers) {
-                       lottoNumbers.add(Integer.parseInt(number.trim()));
-                   }
-               } catch (NumberFormatException e) {
-                   throw new IllegalArgumentException("당첨 번호는 숫자만 입력해주세요.");
-               }
-
-               winningLotto = new Lotto(lottoNumbers);
-
-               break;
-           } catch (IllegalArgumentException e) {
-               System.out.println(e.getMessage());
-           }
+            try {
+                String input = inputView.inputWinningLotto();
+                List<Integer> numbers = parseLottoNumbers(input.split(","));
+                return new Lotto(numbers);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
+    }
 
+    private List<Integer> parseLottoNumbers(String[] numbers) {
+        try {
+            return Arrays.stream(numbers)
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("당첨 번호는 숫자만 입력해주세요.");
+        }
+    }
+
+    private void publishStatistics(Lottos lottos, Lotto winningLotto, Money purchasePrice) {
         lotteryStatistics.calculateStatistics(lottos, winningLotto);
-
-        int totalPrize = lotteryStatistics.calculatePrize();
-
-        resultView.printStatistics(
-                lotteryStatistics,
-                totalPrize,
-                purchasePrice
-        );
+        Money totalPrize = lotteryStatistics.calculatePrize();
+        resultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }
 }

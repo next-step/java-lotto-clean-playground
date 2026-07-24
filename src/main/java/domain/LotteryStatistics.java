@@ -28,10 +28,13 @@ public class LotteryStatistics {
         statistics.put(rank, ++count);
     }
 
-   public int calculatePrize() {
-        int total = 0;
+   public Money calculatePrize() {
+        Money total = new Money(0);
         for (Map.Entry<Rank, Integer> entry : statistics.entrySet()) {
-            total += entry.getKey().getPrice() * entry.getValue();
+            Money prize = entry.getKey()
+                    .getPrice()
+                    .multiply(entry.getValue());
+            total = total.add(prize);
         }
         return total;
    }

@@ -4,6 +4,7 @@ import domain.LotteryStatistics;
 import domain.Lotto;
 import domain.Lottos;
 import domain.Rank;
+import domain.Money;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class ResultView {
         }
     }
 
-    public void printStatistics(LotteryStatistics statistics, int totalPrize, int purchasePrice) {
+    public void printStatistics(LotteryStatistics statistics, Money totalPrize, Money purchasePrice) {
         System.out.println("당첨 통계\n---------");
         Map<Rank, Integer> result = statistics.getStatistics();
 
@@ -25,7 +26,7 @@ public class ResultView {
             printEntry(entry);
         }
 
-        double rate = (double) totalPrize / purchasePrice;
+        double rate = totalPrize.divide(purchasePrice);
         System.out.println("총 수익률은 " + String.format("%.2f", rate) + "입니다.");
     }
 
