@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import dto.PurchaseResult;
 
 public class Application {
     private final InputView inputView = new InputView();
@@ -18,21 +19,27 @@ public class Application {
         app.run();
     }
 
+    private PurchaseResult purchaseLotto() {
+        Money purchasePrice = inputPurchasePrice();
+        lottoStore.validatePurchasePrice(purchasePrice);
+
+        int manualCount = inputManualLottoCount();
+        lottoStore.validateManualCount(purchasePrice, manualCount);
+
+        List<Lotto> manualLottos = inputManualLottos(manualCount);
+
+        Lottos lottos = purchaseLottos(purchasePrice, manualLottos);
+
+        return new PurchaseResult(purchasePrice, lottos);
+
+    }
+
     private void run() {
-        Money purchasePrice;
-        Lottos lottos;
+        PurchaseResult purchaseResult = null;
 
         while (true) {
             try {
-                purchasePrice = inputPurchasePrice();
-                lottoStore.validatePurchasePrice(purchasePrice);
-
-                int manualCount = inputManualLottoCount();
-                lottoStore.validateManualCount(purchasePrice, manualCount);
-
-                List<Lotto> manualLottos = inputManualLottos(manualCount);
-
-                lottos = purchaseLottos(purchasePrice, manualLottos);
+                purchaseResult = purchaseLotto();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -41,7 +48,12 @@ public class Application {
 
         Lotto winningLotto = inputWinningLotto();
         int bonusNumber = inputBonusNumber(winningLotto);
-        publishStatistics(lottos, winningLotto, bonusNumber, purchasePrice);
+        publishStatistics(
+                purchaseResult.lottos(),
+                winningLotto,
+                bonusNumber,
+                purchaseResult.purchasePrice()
+        );
     }
 
     private Lotto inputManualLotto() {
