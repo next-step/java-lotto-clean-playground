@@ -25,6 +25,14 @@ public class WinningLotto {
         return new WinningLotto(LottoNumbers.from(numbers), bonusBall);
     }
 
+    public static WinningLotto from(LottoNumbers lottoNumbers) {
+        return new WinningLotto(lottoNumbers, null);
+    }
+
+    public static WinningLotto of(LottoNumbers lottoNumbers, BonusBall bonusBall) {
+        return new WinningLotto(lottoNumbers, bonusBall);
+    }
+
     public boolean contains(LottoNumber lottoNumber) {
         return lottoNumbers.contains(lottoNumber);
     }
