@@ -2,6 +2,7 @@ package controller;
 
 import domain.lotto.LottoMachine;
 import domain.lotto.Lottos;
+import domain.lotto.ManualPurchaseCount;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
@@ -15,8 +16,10 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = inputView.readPurchaseAmountValue();
-        Lottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount);
-        outputView.printPurchasedLottoTickets(purchasedLottoTickets);
+        ManualPurchaseCount manualPurchaseCount = inputView.readManualPurchaseCount();
+        Lottos manualLottos = inputView.readManualLottos(manualPurchaseCount);
+        Lottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount, manualLottos);
+        outputView.printPurchasedLottoTickets(purchasedLottoTickets, manualPurchaseCount);
         printWinningResult(purchaseAmount, purchasedLottoTickets);
     }
 

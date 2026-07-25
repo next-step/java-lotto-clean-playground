@@ -17,6 +17,21 @@ public class LottoMachine {
         return new Lottos(createLottos(purchaseAmount.lottoCount()));
     }
 
+    public Lottos buy(PurchaseAmount purchaseAmount, Lottos manualLottos) {
+        validateManualLottos(purchaseAmount, manualLottos);
+        return manualLottos.addAll(createLottos(autoPurchaseCount(purchaseAmount, manualLottos)));
+    }
+
+    private void validateManualLottos(PurchaseAmount purchaseAmount, Lottos manualLottos) {
+        if (manualLottos.size() > purchaseAmount.lottoCount()) {
+            throw new IllegalArgumentException("수동 구매 수는 전체 구매 수를 넘을 수 없습니다.");
+        }
+    }
+
+    private int autoPurchaseCount(PurchaseAmount purchaseAmount, Lottos manualLottos) {
+        return purchaseAmount.lottoCount() - manualLottos.size();
+    }
+
     private List<Lotto> createLottos(int purchaseCount) {
         return IntStream.range(0, purchaseCount)
                 .mapToObj(index -> createLotto())

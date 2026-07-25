@@ -2,6 +2,7 @@ package view;
 
 import domain.lotto.Lotto;
 import domain.lotto.Lottos;
+import domain.lotto.ManualPurchaseCount;
 import domain.money.PurchaseAmount;
 import domain.result.LottoRank;
 import domain.result.LottoStatistics;
@@ -15,6 +16,19 @@ public class OutputView {
     public void printPurchasedLottoTickets(Lottos purchasedLottoTickets) {
         System.out.println();
         System.out.printf("%d개를 구매했습니다.%n", purchasedLottoTickets.size());
+        purchasedLottoTickets.values().forEach(this::printLotto);
+    }
+
+    public void printPurchasedLottoTickets(
+            Lottos purchasedLottoTickets,
+            ManualPurchaseCount manualPurchaseCount
+    ) {
+        System.out.println();
+        System.out.printf(
+                "수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
+                manualPurchaseCount.value(),
+                purchasedLottoTickets.size() - manualPurchaseCount.value()
+        );
         purchasedLottoTickets.values().forEach(this::printLotto);
     }
 
