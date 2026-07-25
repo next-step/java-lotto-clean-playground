@@ -1,6 +1,5 @@
 package domain.number;
 
-import domain.lotto.WinningLotto;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -53,13 +52,13 @@ public class LottoNumbers {
                 .toList();
     }
 
-    public MatchCount countMatching(WinningLotto winningLotto) {
-        return MatchCount.from(countContainedNumbers(winningLotto));
+    public MatchCount countMatching(LottoNumbers other) {
+        return MatchCount.from(countContainedNumbers(other));
     }
 
-    private int countContainedNumbers(WinningLotto winningLotto) {
+    private int countContainedNumbers(LottoNumbers other) {
         return (int) numbers.stream()
-                .filter(winningLotto::contains)
+                .filter(other::contains)
                 .count();
     }
 
@@ -82,5 +81,4 @@ public class LottoNumbers {
                 .map(LottoNumber::value)
                 .collect(Collectors.toList());
     }
-
 }

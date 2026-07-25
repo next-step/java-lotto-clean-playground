@@ -41,6 +41,6 @@ public class PurchaseAmount {
     }
 
     public double profitRate(PrizeAmount prizeAmount) {
-        return prizeAmount.divideBy(value);
+        return (double) prizeAmount.value() / value;
     }
 }

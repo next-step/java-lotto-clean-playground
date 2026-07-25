@@ -1,13 +1,14 @@
 package domain.lotto;
 
-import domain.number.LottoNumber;
 import domain.number.LottoNumbers;
+import domain.number.MatchCount;
+import domain.result.LottoResult;
 import java.util.List;
 import java.util.Optional;
 
 public class WinningLotto {
     private final LottoNumbers lottoNumbers;
-    private final BonusBall bonusBall; // nullable
+    private final BonusBall bonusBall;
 
     private WinningLotto(LottoNumbers lottoNumbers, BonusBall bonusBall) {
         this.lottoNumbers = lottoNumbers;
@@ -33,11 +34,22 @@ public class WinningLotto {
         return new WinningLotto(lottoNumbers, bonusBall);
     }
 
-    public boolean contains(LottoNumber lottoNumber) {
-        return lottoNumbers.contains(lottoNumber);
-    }
-
     public Optional<BonusBall> bonusBall() {
         return Optional.ofNullable(bonusBall);
+    }
+
+    public MatchCount countMatching(Lotto lotto) {
+        return lottoNumbers.countMatching(LottoNumbers.from(lotto.values()));
+    }
+
+    public LottoResult match(Lotto lotto) {
+        MatchCount matchCount = countMatching(lotto);
+        return LottoResult.of(matchCount, isBonusBallMatched(lotto));
+    }
+
+    private boolean isBonusBallMatched(Lotto lotto) {
+        return bonusBall()
+                .map(bonusBall -> lotto.contains(bonusBall.lottoNumber()))
+                .orElse(false);
     }
 }

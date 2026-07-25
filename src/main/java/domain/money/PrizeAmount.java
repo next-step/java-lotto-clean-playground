@@ -19,11 +19,7 @@ public class PrizeAmount {
         return new PrizeAmount(value + other.value);
     }
 
-    public double divideBy(int divisor) {
-        return (double) value / divisor;
-    }
-
-    public long valueForDisplay() {
+    public long value() {
         return value;
     }
 }

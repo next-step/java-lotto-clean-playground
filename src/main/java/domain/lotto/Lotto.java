@@ -1,9 +1,7 @@
 package domain.lotto;
 
 import domain.number.LottoNumbers;
-import domain.number.MatchCount;
 import domain.number.LottoNumber;
-import domain.result.LottoResult;
 import java.util.List;
 
 public class Lotto {
@@ -15,24 +13,6 @@ public class Lotto {
 
     public Lotto(LottoNumbers lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
-    }
-
-    public MatchCount countMatching(WinningLotto winningLotto) {
-        return lottoNumbers.countMatching(winningLotto);
-    }
-
-    public LottoResult match(WinningLotto winningLotto) {
-        return LottoResult.of(countMatching(winningLotto), matchesBonusBall(winningLotto));
-    }
-
-    private boolean matchesBonusBall(WinningLotto winningLotto) {
-        return winningLotto.bonusBall()
-                .filter(this::matches)
-                .isPresent();
-    }
-
-    private boolean matches(BonusBall bonusBall) {
-        return contains(bonusBall.lottoNumber());
     }
 
     public boolean contains(LottoNumber lottoNumber) {

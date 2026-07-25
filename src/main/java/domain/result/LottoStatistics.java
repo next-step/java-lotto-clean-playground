@@ -2,36 +2,38 @@ package domain.result;
 
 import domain.money.PrizeAmount;
 import domain.money.PurchaseAmount;
-import java.util.LinkedHashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoStatistics {
-    private final Map<LottoRank, Integer> results;
+    private static final int INITIAL_COUNT = 0;
 
-    private LottoStatistics(Map<LottoRank, Integer> results) {
-        this.results = results;
+    private final Map<LottoRank, Integer> rankCounts;
+
+    private LottoStatistics(Map<LottoRank, Integer> rankCounts) {
+        this.rankCounts = rankCounts;
     }
 
     public static LottoStatistics empty() {
-        return new LottoStatistics(initialResults());
+        return new LottoStatistics(initialRankCounts());
     }
 
-    private static Map<LottoRank, Integer> initialResults() {
-        Map<LottoRank, Integer> results = new LinkedHashMap<>();
-        LottoRank.valuesForResult().forEach(rank -> results.put(rank, 0));
-        return results;
+    private static Map<LottoRank, Integer> initialRankCounts() {
+        Map<LottoRank, Integer> rankCounts = new EnumMap<>(LottoRank.class);
+        LottoRank.valuesForResult().forEach(rank -> rankCounts.put(rank, INITIAL_COUNT));
+        return rankCounts;
     }
 
     public void record(LottoResult lottoResult) {
-        LottoRank.findBy(lottoResult).ifPresent(this::increase);
+        LottoRank.findBy(lottoResult).ifPresent(this::increaseCount);
     }
 
-    private void increase(LottoRank lottoRank) {
-        results.put(lottoRank, countOf(lottoRank) + 1);
+    private void increaseCount(LottoRank lottoRank) {
+        rankCounts.put(lottoRank, countOf(lottoRank) + 1);
     }
 
     public int countOf(LottoRank lottoRank) {
-        return results.get(lottoRank);
+        return rankCounts.getOrDefault(lottoRank, INITIAL_COUNT);
     }
 
     public double profitRate(PurchaseAmount purchaseAmount) {
@@ -39,8 +41,8 @@ public class LottoStatistics {
     }
 
     private PrizeAmount totalPrizeAmount() {
-        return results.keySet().stream()
-                .map(rank -> rank.totalPrize(countOf(rank)))
+        return rankCounts.entrySet().stream()
+                .map(entry -> entry.getKey().totalPrize(entry.getValue()))
                 .reduce(PrizeAmount.from(0), PrizeAmount::plus);
     }
 }

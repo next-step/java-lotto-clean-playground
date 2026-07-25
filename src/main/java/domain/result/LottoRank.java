@@ -48,14 +48,6 @@ public enum LottoRank {
     }
 
     public String resultMessage(int count) {
-        return resultMessage + " (" + prizeText() + "원)- " + count + "개";
-    }
-
-    private String prizeText() {
-        return String.valueOf(prizeAmountValue());
-    }
-
-    private long prizeAmountValue() {
-        return prizeAmount.valueForDisplay();
+        return resultMessage + " (" + prizeAmount.value() + "원)- " + count + "개";
     }
 }
