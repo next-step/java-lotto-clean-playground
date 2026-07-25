@@ -8,9 +8,10 @@ import domain.Rank;
 
 public class ResultView {
 
-    public static void printLottos(Lottos lottos) {
+    public static void printLottos(Lottos lottos, int manualCount) {
+        int autoCount = lottos.size() - manualCount;
         System.out.println();
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
 
         for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getNumbers());
