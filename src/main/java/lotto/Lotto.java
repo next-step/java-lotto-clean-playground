@@ -35,6 +35,10 @@ public class Lotto {
         return matchCount;
     }
 
+    public LottoRank determineRank(Lotto winningLotto) {
+        return LottoRank.from(countMatches(winningLotto));
+    }
+
     private int match(LottoNumber number) {
         if (numbers.contains(number)) {
             return 1;

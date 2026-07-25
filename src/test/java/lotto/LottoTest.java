@@ -47,6 +47,17 @@ public class LottoTest {
         assertThat(lotto.countMatches(winningLotto)).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("일치하는 번호 개수로 당첨 등수를 판정한다")
+    void determineRank() {
+        Lotto lotto = new Lotto(Arrays.asList(
+                number(1), number(2), number(3), number(7), number(9), number(11)));
+        Lotto winningLotto = new Lotto(Arrays.asList(
+                number(1), number(2), number(3), number(4), number(5), number(6)));
+
+        assertThat(lotto.determineRank(winningLotto)).isEqualTo(LottoRank.FOURTH);
+    }
+
     private LottoNumber number(int value) {
         return new LottoNumber(value);
     }
