@@ -3,6 +3,7 @@ package domain.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.money.PurchaseAmount;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,22 @@ class LottoMachineTest {
         List<Lotto> purchasedLottoTickets = lottoMachine.buy(14000);
 
         assertThat(purchasedLottoTickets).hasSize(14);
+    }
+
+    @Test
+    @DisplayName("수동 구매 로또와 자동 구매 로또를 함께 생성한다")
+    void createManualAndAutomaticLottos() {
+        LottoMachine lottoMachine = new LottoMachine();
+        Lottos manualLottos = createManualLottos();
+
+        Lottos purchasedLottoTickets = lottoMachine.buy(PurchaseAmount.from(3_000), manualLottos);
+
+        assertThat(purchasedLottoTickets.values()).hasSize(3);
+        assertThat(purchasedLottoTickets.values().get(0).values()).containsExactly(1, 2, 3, 4, 5, 6);
+    }
+
+    private Lottos createManualLottos() {
+        return new Lottos(List.of(new Lotto(List.of(1, 2, 3, 4, 5, 6))));
     }
 
     @Test

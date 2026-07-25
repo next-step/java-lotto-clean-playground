@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import domain.lotto.Lotto;
 import domain.lotto.Lottos;
+import domain.lotto.ManualPurchaseCount;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
@@ -35,6 +36,18 @@ class OutputViewTest {
         assertThat(outputStream.toString()).contains("2개를 구매했습니다.");
         assertThat(outputStream.toString()).contains("[1, 2, 3, 4, 5, 6]");
         assertThat(outputStream.toString()).contains("[7, 8, 9, 10, 11, 12]");
+    }
+
+    @Test
+    @DisplayName("수동 구매 수와 자동 구매 수를 출력한다")
+    void printManualAndAutomaticPurchaseCount() {
+        OutputView outputView = new OutputView();
+        Lottos purchasedLottoTickets = new Lottos(createLottoTickets());
+        System.setOut(new PrintStream(outputStream));
+
+        outputView.printPurchasedLottoTickets(purchasedLottoTickets, ManualPurchaseCount.from(1));
+
+        assertThat(outputStream.toString()).contains("수동으로 1장, 자동으로 1개를 구매했습니다.");
     }
 
     @Test

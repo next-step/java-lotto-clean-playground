@@ -3,6 +3,8 @@ package view;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.lotto.Lottos;
+import domain.lotto.ManualPurchaseCount;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +17,40 @@ class InputViewTest {
     @AfterEach
     void restoreInput() {
         System.setIn(standardInput);
+    }
+
+    @Test
+    @DisplayName("수동 구매 수를 입력받는다")
+    void readManualPurchaseCount() {
+        System.setIn(new ByteArrayInputStream("3".getBytes()));
+        InputView inputView = new InputView();
+
+        ManualPurchaseCount manualPurchaseCount = inputView.readManualPurchaseCount();
+
+        assertThat(manualPurchaseCount.value()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("수동 구매 로또 번호를 입력받는다")
+    void readManualLottos() {
+        System.setIn(new ByteArrayInputStream("1,2,3,4,5,6\n7,8,9,10,11,12".getBytes()));
+        InputView inputView = new InputView();
+
+        Lottos manualLottos = inputView.readManualLottos(ManualPurchaseCount.from(2));
+
+        assertThat(manualLottos.values()).hasSize(2);
+        assertThat(manualLottos.values().get(0).values()).containsExactly(1, 2, 3, 4, 5, 6);
+    }
+
+    @Test
+    @DisplayName("수동 구매 번호가 숫자 형식이 아니면 예외가 발생한다")
+    void throwExceptionWhenManualNumbersAreNotNumbers() {
+        System.setIn(new ByteArrayInputStream("1 2 3 4 5 6".getBytes()));
+        InputView inputView = new InputView();
+
+        assertThatThrownBy(() -> inputView.readManualLottos(ManualPurchaseCount.from(1)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("수동 구매 번호는 쉼표(,)로 구분한 숫자여야 합니다.");
     }
 
     @Test
