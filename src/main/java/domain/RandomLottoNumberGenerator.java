@@ -20,7 +20,6 @@ public class RandomLottoNumberGenerator implements LottoNumberGenerator {
     }
 
     private List<Integer> createPool() {
-        IntStream stream = IntStream.range(MIN_NUMBER, MAX_NUMBER);
         return IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
