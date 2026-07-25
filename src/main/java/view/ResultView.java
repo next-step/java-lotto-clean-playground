@@ -31,5 +31,9 @@ public class ResultView {
         int count = statisticsMap.getOrDefault(rank, 0);
         System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
     }
+
+    public static void printProfitRate(double profitRate) {
+        System.out.println("총 수익률은 " + profitRate + "입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+    }
 }
 

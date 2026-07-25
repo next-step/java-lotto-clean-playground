@@ -20,6 +20,22 @@ public class WinningStatistics {
         return result;
     }
 
+    public double calculateProfitRate(int purchaseAmount) {
+        long totalPrize = calculateTotalPrize();
+        double rate = (double) totalPrize / purchaseAmount;
+        return Math.floor(rate * 100) / 100;
+    }
+
+    private long calculateTotalPrize() {
+        long totalPrize = 0;
+        for (Map.Entry<Rank, Integer> entry : statistics.entrySet()) {
+            Rank rank = entry.getKey();
+            int count = entry.getValue();
+            totalPrize += (long) rank.getPrize() * count;
+        }
+        return totalPrize;
+    }
+
     public Map<Rank, Integer> getStatistics() {
         return statistics;
     }

@@ -30,5 +30,8 @@ public class Application {
 
         WinningStatistics statistics = new WinningStatistics(lottos, winningLottoNumber);
         ResultView.printStatistics(statistics);
+
+        double profitRate = statistics.calculateProfitRate(amount);
+        ResultView.printProfitRate(profitRate);
     }
 }
