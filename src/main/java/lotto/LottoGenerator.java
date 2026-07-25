@@ -9,25 +9,23 @@ public class LottoGenerator {
     private static final int MAXIMUM_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
 
-    public static List<Integer> generateNumbers() {
-        List<Integer> numbers = createNumbers();
+    public static Lotto generateLotto() {
+        List<LottoNumber> numbers = createNumbers();
 
         Collections.shuffle(numbers);
-        List<Integer> lottoNumbers = new ArrayList<>(numbers.subList(0, LOTTO_NUMBER_COUNT));
+        List<LottoNumber> lottoNumbers = new ArrayList<>(numbers.subList(0, LOTTO_NUMBER_COUNT));
 
         Collections.sort(lottoNumbers);
-        return lottoNumbers;
+        return new Lotto(lottoNumbers);
     }
 
-    private static List<Integer> createNumbers() {
-        List<Integer> numbers = new ArrayList<>();
+    private static List<LottoNumber> createNumbers() {
+        List<LottoNumber> numbers = new ArrayList<>();
 
         for (int number = MINIMUM_LOTTO_NUMBER; number <= MAXIMUM_LOTTO_NUMBER; number++) {
-            numbers.add(number);
+            numbers.add(new LottoNumber(number));
         }
         return numbers;
     }
 
 }
-
-
