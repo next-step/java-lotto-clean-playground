@@ -9,6 +9,14 @@ public class LottoGenerator {
     private static final int MAXIMUM_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
 
+    public static Lottos generateLottos(int purchaseCount) {
+        List<Lotto> lottos = new ArrayList<>();
+        for (int count = 0; count < purchaseCount; count++) {
+            lottos.add(generateLotto());
+        }
+        return new Lottos(lottos);
+    }
+
     public static Lotto generateLotto() {
         List<LottoNumber> numbers = createNumbers();
 
