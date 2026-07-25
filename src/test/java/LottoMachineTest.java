@@ -1,6 +1,7 @@
 import domain.LottoMachine;
 import domain.LottoNumberGenerator;
 import domain.Lottos;
+import domain.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,11 +24,11 @@ class LottoMachineTest {
         @ParameterizedTest
         @ValueSource(ints = {1000, 5000, 14000})
         @DisplayName("구입 금액을 1000으로 나눈 수만큼 로또를 발급한다 테스트")
-        void 금액을_1000으로_나눈_수만큼_발급(int amount) {
-            int expectedSize = amount / 1000;
+        void 금액을_1000으로_나눈_수만큼_발급(int money) {
+            int expectedSize = money / 1000;
             LottoMachine lottoMachine = new LottoMachine(FIXED_GENERATOR);
 
-            Lottos lottos = lottoMachine.buy(amount);
+            Lottos lottos = lottoMachine.buy(new Money(money));
 
             assertThat(lottos.size()).isEqualTo(expectedSize);
         }
@@ -38,25 +39,13 @@ class LottoMachineTest {
     class validate {
 
         @ParameterizedTest
-        @ValueSource(ints = {0, -5000, -10000})
-        @DisplayName("구입 금액이 0 이하면 예외 발생 테스트")
-        void 금액이_0이하면_예외_발생(int amount) {
-            String throwMessage = "구입금액은 0원보다 커야 합니다.";
-            LottoMachine lottoMachine = new LottoMachine(FIXED_GENERATOR);
-
-            assertThatThrownBy(() -> lottoMachine.buy(amount))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(throwMessage);
-        }
-
-        @ParameterizedTest
         @ValueSource(ints = {333, 1500, 5500})
         @DisplayName("구입 금액이 1000원 단위가 아니면 예외 발생 테스트")
-        void 금액이_1000원_단위가_아니면_예외_발생(int amount) {
+        void 금액이_단위가_아니면_예외_발생(int money) {
             String throwMessage = "구입금액은 1000원 단위여야 합니다.";
             LottoMachine lottoMachine = new LottoMachine(FIXED_GENERATOR);
 
-            assertThatThrownBy(() -> lottoMachine.buy(amount))
+            assertThatThrownBy(() -> lottoMachine.buy(new Money(money)))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(throwMessage);
         }
