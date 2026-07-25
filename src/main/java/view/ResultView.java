@@ -1,8 +1,10 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoRank;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ResultView {
@@ -11,6 +13,18 @@ public class ResultView {
         for (Lotto lotto : lottos) {
             printLotto(lotto);
         }
+    }
+
+    public void printLottoStatistics(Map<LottoRank, Integer> rankCounts, double profitRate) {
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+
+        for (LottoRank rank : LottoRank.values()) {
+            System.out.println("%d개 일치 (%d원)- %d개"
+                    .formatted(rank.getMatchCount(), rank.getPrize(), rankCounts.get(rank)));
+        }
+
+        System.out.println("총 수익률은 %.2f입니다.".formatted(profitRate));
     }
 
     private void printLotto(Lotto lotto) {

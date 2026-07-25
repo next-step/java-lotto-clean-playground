@@ -4,6 +4,8 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
+import java.util.List;
+
 public class LottoController {
     private final InputView inputView;
     private final ResultView resultView;
@@ -19,6 +21,13 @@ public class LottoController {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
         LottoPurchase lottoPurchase = new LottoPurchase(purchaseAmount, lottoGenerator);
 
-        resultView.printPurchasedLottos(lottoPurchase.issueLottos());
+        List<Lotto> lottos = lottoPurchase.issueLottos();
+        resultView.printPurchasedLottos(lottos);
+
+        WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers());
+        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto);
+        double profitRate = statistics.calculateProfitRate(purchaseAmount);
+
+        resultView.printLottoStatistics(statistics.getRankCounts(), profitRate);
     }
 }

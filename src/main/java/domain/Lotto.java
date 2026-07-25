@@ -13,6 +13,13 @@ public class Lotto {
         this.numbers = sortNumbers(numbers);
     }
 
+    public static Lotto from(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = numbers.stream()
+                .map(LottoNumber::new)
+                .toList();
+        return new Lotto(lottoNumbers);
+    }
+
     public List<LottoNumber> getNumbers() {
         return List.copyOf(numbers);
     }
