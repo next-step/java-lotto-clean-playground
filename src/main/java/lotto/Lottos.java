@@ -11,6 +11,12 @@ public class Lottos implements Iterable<Lotto> {
         this.lottos = new ArrayList<>(lottos);
     }
 
+    public Lottos combine(Lottos other) {
+        List<Lotto> combinedLottos = new ArrayList<>(lottos);
+        combinedLottos.addAll(other.lottos);
+        return new Lottos(combinedLottos);
+    }
+
     public LottoResult createResult(WinningLotto winningLotto) {
         LottoResult result = new LottoResult();
         for (Lotto lotto : lottos) {

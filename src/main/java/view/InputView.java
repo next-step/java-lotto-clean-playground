@@ -2,6 +2,7 @@ package view;
 
 import lotto.Lotto;
 import lotto.LottoNumber;
+import lotto.Lottos;
 import lotto.PurchaseAmount;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class InputView {
     public static Lotto readWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
-        return parseWinningLotto(SCANNER.nextLine());
+        return parseLotto(SCANNER.nextLine());
     }
 
     public static LottoNumber readBonusNumber() {
@@ -30,7 +31,29 @@ public class InputView {
         return parseBonusNumber(SCANNER.nextLine());
     }
 
-    static Lotto parseWinningLotto(String input) {
+    public static int readManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+
+        return Integer.parseInt(SCANNER.nextLine());
+    }
+
+    public static Lottos readManualLottos(int manualLottoCount) {
+        if (manualLottoCount == 0) {
+            return new Lottos(new ArrayList<>());
+        }
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        return readLottos(manualLottoCount);
+    }
+
+    private static Lottos readLottos(int lottoCount) {
+        List<Lotto> lottos = new ArrayList<>();
+        for (int count = 0; count < lottoCount; count++) {
+            lottos.add(parseLotto(SCANNER.nextLine()));
+        }
+        return new Lottos(lottos);
+    }
+
+    static Lotto parseLotto(String input) {
         List<LottoNumber> numbers = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(input, ",");
         while (tokenizer.hasMoreTokens()) {

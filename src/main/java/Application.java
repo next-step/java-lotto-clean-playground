@@ -12,12 +12,22 @@ public class Application {
 
     public static void main(String[] args) {
         PurchaseAmount purchaseAmount = InputView.readPurchaseAmount();
-        int purchaseCount = purchaseAmount.calculateLottoCount();
-        Lottos purchasedLottos = LottoGenerator.generateLottos(purchaseCount);
+        int manualLottoCount = InputView.readManualLottoCount();
+        int automaticLottoCount = purchaseAmount.calculateAutomaticLottoCount(manualLottoCount);
+        Lottos purchasedLottos = purchaseLottos(manualLottoCount, automaticLottoCount);
 
-        ResultView.printLottoCount(purchaseCount);
+        ResultView.printLottoCount(manualLottoCount, automaticLottoCount);
         ResultView.printLottos(purchasedLottos);
+        printWinningResult(purchasedLottos, purchaseAmount);
+    }
 
+    private static Lottos purchaseLottos(int manualLottoCount, int automaticLottoCount) {
+        Lottos manualLottos = InputView.readManualLottos(manualLottoCount);
+        Lottos automaticLottos = LottoGenerator.generateLottos(automaticLottoCount);
+        return manualLottos.combine(automaticLottos);
+    }
+
+    private static void printWinningResult(Lottos purchasedLottos, PurchaseAmount purchaseAmount) {
         Lotto winningNumbers = InputView.readWinningLotto();
         LottoNumber bonusNumber = InputView.readBonusNumber();
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);

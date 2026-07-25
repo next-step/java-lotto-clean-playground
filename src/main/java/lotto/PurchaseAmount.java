@@ -13,6 +13,17 @@ public class PurchaseAmount {
         return value / LOTTO_PRICE;
     }
 
+    public int calculateAutomaticLottoCount(int manualLottoCount) {
+        validateManualLottoCount(manualLottoCount);
+        return calculateLottoCount() - manualLottoCount;
+    }
+
+    private void validateManualLottoCount(int manualLottoCount) {
+        if (manualLottoCount < 0 || manualLottoCount > calculateLottoCount()) {
+            throw new IllegalArgumentException("수동 구매 수는 전체 구매 수를 넘을 수 없습니다.");
+        }
+    }
+
     public ProfitRate calculateProfitRate(PrizeMoney prizeMoney) {
         return new ProfitRate((double) prizeMoney.amount() / value);
     }

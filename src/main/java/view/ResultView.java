@@ -8,9 +8,10 @@ import lotto.PurchaseAmount;
 
 public class ResultView {
 
-    public static void printLottoCount(int count) {
+    public static void printLottoCount(int manualLottoCount, int automaticLottoCount) {
         System.out.println();
-        System.out.println(count + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 "
+                + automaticLottoCount + "개를 구매했습니다.");
     }
 
     public static void printLottos(Lottos lottos) {
