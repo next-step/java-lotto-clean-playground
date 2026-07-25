@@ -1,5 +1,9 @@
+import domain.Lotto;
 import domain.LottoGenerator;
+import domain.Lottos;
 import domain.PurchaseAmount;
+import domain.WinningLottoNumber;
+import domain.WinningStatistics;
 import java.util.List;
 import view.InputView;
 import view.ResultView;
@@ -14,9 +18,17 @@ public class Application {
         LottoGenerator lottoGenerator = new LottoGenerator();
         ResultView.printPurchaseAmount(count);
 
+        Lottos lottos = new Lottos();
         for (int i = 0; i < count; i++) {
-            List<Integer> lotto = lottoGenerator.generateLotto();
+            Lotto lotto = lottoGenerator.generateLotto();
+            lottos.add(lotto);
             ResultView.printLotto(lotto);
         }
+
+        List<Integer> winningNumbersInput = InputView.getWinningNumbers();
+        WinningLottoNumber winningLottoNumber = new WinningLottoNumber(winningNumbersInput);
+
+        WinningStatistics statistics = new WinningStatistics(lottos, winningLottoNumber);
+        ResultView.printStatistics(statistics);
     }
 }
