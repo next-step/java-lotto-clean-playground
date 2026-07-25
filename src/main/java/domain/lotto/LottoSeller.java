@@ -29,6 +29,10 @@ public class LottoSeller {
         return this.paid / PRICE;
     }
 
+    public int getPaid() {
+        return paid;
+    }
+
     public int getChange() {
         return this.change;
     }

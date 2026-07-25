@@ -34,7 +34,7 @@ public class LottoController {
         win = new Win(winningNumbers, seller.getTickets());
 
         OutputView.newLine();
-        OutputView.printWinningStatics(win.getWinningStatics());
+        OutputView.printWinningStatics(win.getWinningStatics(), seller.getPaid());
     }
 
     private void payAndNoticeChange(LottoSeller seller) {

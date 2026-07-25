@@ -29,26 +29,29 @@ public class OutputView {
         System.out.println("지난 주 당첨 번호를 입력해주세요.");
     }
 
-    public static void printWinningStatics(Map<String, Integer> winningStatics) {
+    public static void printWinningStatics(Map<String, Integer> winningStatics, Integer payment) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         System.out.printf("3개 일치 (5000원) - %d개\n", winningStatics.get("3"));
         System.out.printf("4개 일치 (50000원) - %d개\n", winningStatics.get("4"));
         System.out.printf("5개 일치 (1500000원) - %d개\n", winningStatics.get("5"));
         System.out.printf("6개 일치 (2000000000원) - %d개\n", winningStatics.get("6"));
-        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 결과적으로는 %s라는 의미임)\n", getReturnRate(winningStatics), getProfitOrLoss(winningStatics));
+        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 결과적으로는 %s라는 의미임)\n",
+                getReturnRate(winningStatics, payment),
+                getProfitOrLoss(winningStatics, payment)
+        );
     }
 
-    private static Double getReturnRate(Map<String, Integer> winningStatics) {
+    private static Double getReturnRate(Map<String, Integer> winningStatics, Integer payment) {
         return winningStatics.entrySet().stream()
                 .mapToDouble(entry ->
                         Integer.parseInt(entry.getKey()) * entry.getValue()
                 )
-                .sum();
+                .sum() / payment;
     }
 
-    private static String getProfitOrLoss(Map<String, Integer> winningStatics) {
-        Double rate = getReturnRate(winningStatics);
+    private static String getProfitOrLoss(Map<String, Integer> winningStatics, Integer payment) {
+        Double rate = getReturnRate(winningStatics, payment);
         if(rate >= 1) {
             return "이득";
         }
