@@ -77,8 +77,4 @@ public class LottoNumbers {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public String toString() {
-        return values().toString();
-    }
 }

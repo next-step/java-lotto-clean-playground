@@ -39,8 +39,7 @@ public class Lotto {
         return lottoNumbers.contains(lottoNumber);
     }
 
-    @Override
-    public String toString() {
-        return lottoNumbers.toString();
+    public List<Integer> values() {
+        return lottoNumbers.values();
     }
 }
