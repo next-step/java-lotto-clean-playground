@@ -1,7 +1,6 @@
 package domain.number;
 
 import domain.result.MatchCount;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -74,7 +73,7 @@ public class LottoNumberCombination {
     }
 
     public List<Integer> values() {
-        return Collections.unmodifiableList(toValues());
+        return toValues();
     }
 
     private List<Integer> toValues() {

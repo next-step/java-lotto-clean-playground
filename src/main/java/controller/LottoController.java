@@ -6,11 +6,13 @@ import domain.lotto.PurchasedLottos;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
+import domain.result.LottoStatisticsCalculator;
 import view.InputView;
 import view.OutputView;
 
 public class LottoController {
     private final LottoMachine lottoMachine = new LottoMachine();
+    private final LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator();
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
 
@@ -28,7 +30,7 @@ public class LottoController {
             PurchasedLottos purchasedLottoTickets
     ) {
         WinningLotto winningLotto = inputView.readWinningLotto();
-        LottoStatistics statistics = purchasedLottoTickets.calculateLottoStatistics(winningLotto);
+        LottoStatistics statistics = lottoStatisticsCalculator.calculate(purchasedLottoTickets, winningLotto);
         outputView.printLottoStatistics(statistics, purchaseAmount);
     }
 }

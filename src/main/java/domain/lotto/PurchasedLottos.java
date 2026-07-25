@@ -1,8 +1,6 @@
 package domain.lotto;
 
-import domain.result.LottoStatistics;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PurchasedLottos {
@@ -21,18 +19,12 @@ public class PurchasedLottos {
     }
 
     public List<LottoTicket> values() {
-        return Collections.unmodifiableList(values);
+        return values;
     }
 
     public PurchasedLottos addAll(List<LottoTicket> lottos) {
         List<LottoTicket> combinedLottos = new ArrayList<>(values);
         combinedLottos.addAll(lottos);
         return new PurchasedLottos(combinedLottos);
-    }
-
-    public LottoStatistics calculateLottoStatistics(WinningLotto winningLotto) {
-        LottoStatistics lottoStatistics = LottoStatistics.empty();
-        values.forEach(lottoTicket -> lottoStatistics.record(winningLotto.match(lottoTicket)));
-        return lottoStatistics;
     }
 }
