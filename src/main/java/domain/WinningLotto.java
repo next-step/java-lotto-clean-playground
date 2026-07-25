@@ -12,8 +12,8 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public static WinningLotto from(List<Integer> numbers, int bonusNumber) {
-        return new WinningLotto(Lotto.from(numbers), new LottoNumber(bonusNumber));
+    public static WinningLotto from(List<Integer> winningNumbers, int bonusNumber) {
+        return new WinningLotto(Lotto.from(winningNumbers), new LottoNumber(bonusNumber));
     }
 
     public int countMatches(Lotto lotto) {
