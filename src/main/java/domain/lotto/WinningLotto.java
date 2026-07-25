@@ -39,7 +39,7 @@ public class WinningLotto {
     }
 
     public MatchCount countMatching(LottoTicket lottoTicket) {
-        return numbers.countMatching(LottoNumberCombination.from(lottoTicket.values()));
+        return lottoTicket.countMatching(numbers);
     }
 
     public LottoResult match(LottoTicket lottoTicket) {
