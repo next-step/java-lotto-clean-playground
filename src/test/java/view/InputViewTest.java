@@ -38,4 +38,15 @@ class InputViewTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("당첨 번호는 쉼표(,)로 구분한 숫자여야 합니다.");
     }
+
+    @Test
+    @DisplayName("보너스 볼이 숫자가 아니면 예외가 발생한다")
+    void throwExceptionWhenBonusBallIsNotNumber() {
+        System.setIn(new ByteArrayInputStream("1,2,3,4,5,6\nabc".getBytes()));
+        InputView inputView = new InputView();
+
+        assertThatThrownBy(inputView::readWinningLotto)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("보너스 볼은 숫자여야 합니다.");
+    }
 }

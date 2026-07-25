@@ -34,6 +34,7 @@ class OutputViewTest {
 
         assertThat(outputStream.toString()).contains("2개를 구매했습니다.");
         assertThat(outputStream.toString()).contains("[1, 2, 3, 4, 5, 6]");
+        assertThat(outputStream.toString()).contains("[7, 8, 9, 10, 11, 12]");
     }
 
     @Test
