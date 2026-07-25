@@ -7,26 +7,22 @@ import java.util.Optional;
 
 public class WinningLotto {
     private final LottoNumbers lottoNumbers;
-    private final Optional<BonusBall> bonusBall;
+    private final BonusBall bonusBall; // nullable
 
-    private WinningLotto(LottoNumbers lottoNumbers, Optional<BonusBall> bonusBall) {
+    private WinningLotto(LottoNumbers lottoNumbers, BonusBall bonusBall) {
         this.lottoNumbers = lottoNumbers;
-        validateBonusBall(bonusBall);
+        if (bonusBall != null) {
+            lottoNumbers.validateNotContains(bonusBall.lottoNumber());
+        }
         this.bonusBall = bonusBall;
     }
 
     public static WinningLotto from(List<Integer> numbers) {
-        return new WinningLotto(LottoNumbers.from(numbers), Optional.empty());
+        return new WinningLotto(LottoNumbers.from(numbers), null);
     }
 
     public static WinningLotto of(List<Integer> numbers, BonusBall bonusBall) {
-        return new WinningLotto(LottoNumbers.from(numbers), Optional.of(bonusBall));
-    }
-
-    private void validateBonusBall(Optional<BonusBall> bonusBall) {
-        if (bonusBall.filter(ball -> lottoNumbers.contains(ball.lottoNumber())).isPresent()) {
-            throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
-        }
+        return new WinningLotto(LottoNumbers.from(numbers), bonusBall);
     }
 
     public boolean contains(LottoNumber lottoNumber) {
@@ -34,6 +30,6 @@ public class WinningLotto {
     }
 
     public Optional<BonusBall> bonusBall() {
-        return bonusBall;
+        return Optional.ofNullable(bonusBall);
     }
 }
