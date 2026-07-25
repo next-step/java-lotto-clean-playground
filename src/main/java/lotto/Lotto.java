@@ -27,6 +27,21 @@ public class Lotto {
         }
     }
 
+    public int countMatches(Lotto winningLotto) {
+        int matchCount = 0;
+        for (LottoNumber number : numbers) {
+            matchCount += winningLotto.match(number);
+        }
+        return matchCount;
+    }
+
+    private int match(LottoNumber number) {
+        if (numbers.contains(number)) {
+            return 1;
+        }
+        return 0;
+    }
+
     @Override
     public String toString() {
         return numbers.toString();
