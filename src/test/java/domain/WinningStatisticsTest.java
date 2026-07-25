@@ -1,6 +1,5 @@
 package domain;
 
-<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -24,7 +23,4 @@ class WinningStatisticsTest {
 
         assertThat(profitRate).isEqualTo(2000000.0);
     }
-=======
-public class WinningStatisticsTest {
->>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
 }

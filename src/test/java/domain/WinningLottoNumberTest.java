@@ -1,6 +1,5 @@
 package domain;
 
-<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -30,7 +29,5 @@ class WinningLottoNumberTest {
 
         assertThat(matchCount).isEqualTo(0);
     }
-=======
-public class WinningLottoNumberTest {
->>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
+
 }

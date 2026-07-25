@@ -1,6 +1,5 @@
 package domain;
 
-<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
@@ -24,7 +23,5 @@ class BonusBallTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
     }
-=======
-public class BonusBallTest {
->>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
 }
+

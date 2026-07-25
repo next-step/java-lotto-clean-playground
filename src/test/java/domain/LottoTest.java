@@ -1,6 +1,5 @@
 package domain;
 
-<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -47,7 +46,4 @@ public class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
-=======
-public class LottoTest {
->>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
 }

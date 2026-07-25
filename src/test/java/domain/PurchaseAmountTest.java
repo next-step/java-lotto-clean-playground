@@ -1,11 +1,10 @@
 package domain;
 
-<<<<<<< HEAD
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PurchaseAmountTest {
     @Test
@@ -59,7 +58,4 @@ public class PurchaseAmountTest {
 
         assertThat(purchaseAmount.calculateAutoCount(3)).isEqualTo(11);
     }
-=======
-public class PurchaseAmountTest {
->>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
 }
