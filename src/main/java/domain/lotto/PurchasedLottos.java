@@ -5,30 +5,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lottos {
-    private final List<Lotto> values;
+public class PurchasedLottos {
+    private final List<LottoTicket> values;
 
-    public Lottos(List<Lotto> values) {
+    public PurchasedLottos(List<LottoTicket> values) {
         this.values = List.copyOf(values);
+    }
+
+    public static PurchasedLottos empty() {
+        return new PurchasedLottos(List.of());
     }
 
     public int size() {
         return values.size();
     }
 
-    public List<Lotto> values() {
+    public List<LottoTicket> values() {
         return Collections.unmodifiableList(values);
     }
 
-    public Lottos addAll(List<Lotto> lottos) {
-        List<Lotto> combinedLottos = new ArrayList<>(values);
+    public PurchasedLottos addAll(List<LottoTicket> lottos) {
+        List<LottoTicket> combinedLottos = new ArrayList<>(values);
         combinedLottos.addAll(lottos);
-        return new Lottos(combinedLottos);
+        return new PurchasedLottos(combinedLottos);
     }
 
     public LottoStatistics calculateLottoStatistics(WinningLotto winningLotto) {
         LottoStatistics lottoStatistics = LottoStatistics.empty();
-        values.forEach(lotto -> lottoStatistics.record(winningLotto.match(lotto)));
+        values.forEach(lottoTicket -> lottoStatistics.record(winningLotto.match(lottoTicket)));
         return lottoStatistics;
     }
 }

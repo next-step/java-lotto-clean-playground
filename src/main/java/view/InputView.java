@@ -1,9 +1,9 @@
 package view;
 
 import domain.lotto.BonusBall;
-import domain.lotto.Lotto;
-import domain.lotto.Lottos;
+import domain.lotto.LottoTicket;
 import domain.lotto.ManualPurchaseCount;
+import domain.lotto.PurchasedLottos;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import java.util.Arrays;
@@ -30,15 +30,15 @@ public class InputView {
         return ManualPurchaseCount.from(parseManualPurchaseCount(scanner.nextLine()));
     }
 
-    public Lottos readManualLottos(ManualPurchaseCount manualPurchaseCount) {
+    public PurchasedLottos readManualLottos(ManualPurchaseCount manualPurchaseCount) {
         System.out.println();
         System.out.println("수동으로 구매할 로또 번호를 입력해 주세요.(장 별로는 Enter로 구분합니다.)");
-        return new Lottos(readManualLottoValues(manualPurchaseCount));
+        return new PurchasedLottos(readManualLottoValues(manualPurchaseCount));
     }
 
-    private List<Lotto> readManualLottoValues(ManualPurchaseCount manualPurchaseCount) {
+    private List<LottoTicket> readManualLottoValues(ManualPurchaseCount manualPurchaseCount) {
         return java.util.stream.IntStream.range(0, manualPurchaseCount.value())
-                .mapToObj(index -> new Lotto(parseManualNumbers(scanner.nextLine())))
+                .mapToObj(index -> new LottoTicket(parseManualNumbers(scanner.nextLine())))
                 .collect(Collectors.toList());
     }
 

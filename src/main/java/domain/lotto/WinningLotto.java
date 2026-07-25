@@ -1,55 +1,55 @@
 package domain.lotto;
 
-import domain.number.LottoNumbers;
-import domain.number.MatchCount;
+import domain.number.LottoNumberCombination;
 import domain.result.LottoResult;
+import domain.result.MatchCount;
 import java.util.List;
 import java.util.Optional;
 
 public class WinningLotto {
-    private final LottoNumbers lottoNumbers;
+    private final LottoNumberCombination numbers;
     private final BonusBall bonusBall;
 
-    private WinningLotto(LottoNumbers lottoNumbers, BonusBall bonusBall) {
-        this.lottoNumbers = lottoNumbers;
+    private WinningLotto(LottoNumberCombination numbers, BonusBall bonusBall) {
+        this.numbers = numbers;
         if (bonusBall != null) {
-            lottoNumbers.validateNotContains(bonusBall.lottoNumber());
+            numbers.validateNotContains(bonusBall.lottoNumber());
         }
         this.bonusBall = bonusBall;
     }
 
     public static WinningLotto from(List<Integer> numbers) {
-        return new WinningLotto(LottoNumbers.from(numbers), null);
+        return new WinningLotto(LottoNumberCombination.from(numbers), null);
     }
 
     public static WinningLotto of(List<Integer> numbers, BonusBall bonusBall) {
-        return new WinningLotto(LottoNumbers.from(numbers), bonusBall);
+        return new WinningLotto(LottoNumberCombination.from(numbers), bonusBall);
     }
 
-    public static WinningLotto from(LottoNumbers lottoNumbers) {
-        return new WinningLotto(lottoNumbers, null);
+    public static WinningLotto from(LottoNumberCombination numbers) {
+        return new WinningLotto(numbers, null);
     }
 
-    public static WinningLotto of(LottoNumbers lottoNumbers, BonusBall bonusBall) {
-        return new WinningLotto(lottoNumbers, bonusBall);
+    public static WinningLotto of(LottoNumberCombination numbers, BonusBall bonusBall) {
+        return new WinningLotto(numbers, bonusBall);
     }
 
     public Optional<BonusBall> bonusBall() {
         return Optional.ofNullable(bonusBall);
     }
 
-    public MatchCount countMatching(Lotto lotto) {
-        return lottoNumbers.countMatching(LottoNumbers.from(lotto.values()));
+    public MatchCount countMatching(LottoTicket lottoTicket) {
+        return numbers.countMatching(LottoNumberCombination.from(lottoTicket.values()));
     }
 
-    public LottoResult match(Lotto lotto) {
-        MatchCount matchCount = countMatching(lotto);
-        return LottoResult.of(matchCount, isBonusBallMatched(lotto));
+    public LottoResult match(LottoTicket lottoTicket) {
+        MatchCount matchCount = countMatching(lottoTicket);
+        return LottoResult.of(matchCount, isBonusBallMatched(lottoTicket));
     }
 
-    private boolean isBonusBallMatched(Lotto lotto) {
+    private boolean isBonusBallMatched(LottoTicket lottoTicket) {
         return bonusBall()
-                .map(bonusBall -> lotto.contains(bonusBall.lottoNumber()))
+                .map(bonusBall -> lottoTicket.contains(bonusBall.lottoNumber()))
                 .orElse(false);
     }
 }

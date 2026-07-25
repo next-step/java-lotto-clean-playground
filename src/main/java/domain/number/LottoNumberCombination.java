@@ -1,26 +1,27 @@
 package domain.number;
 
+import domain.result.MatchCount;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LottoNumbers {
+public class LottoNumberCombination {
     private static final int LOTTO_NUMBER_COUNT = 6;
 
     private final List<LottoNumber> numbers;
 
-    private LottoNumbers(List<LottoNumber> numbers) {
+    private LottoNumberCombination(List<LottoNumber> numbers) {
         validate(numbers);
         this.numbers = sort(numbers);
     }
 
-    public static LottoNumbers from(List<Integer> numbers) {
-        return new LottoNumbers(toLottoNumbers(numbers));
+    public static LottoNumberCombination from(List<Integer> numbers) {
+        return new LottoNumberCombination(toLottoNumbers(numbers));
     }
 
-    public static LottoNumbers of(List<LottoNumber> numbers) {
-        return new LottoNumbers(numbers);
+    public static LottoNumberCombination of(List<LottoNumber> numbers) {
+        return new LottoNumberCombination(numbers);
     }
 
     private static List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
@@ -52,11 +53,11 @@ public class LottoNumbers {
                 .toList();
     }
 
-    public MatchCount countMatching(LottoNumbers other) {
+    public MatchCount countMatching(LottoNumberCombination other) {
         return MatchCount.from(countContainedNumbers(other));
     }
 
-    private int countContainedNumbers(LottoNumbers other) {
+    private int countContainedNumbers(LottoNumberCombination other) {
         return (int) numbers.stream()
                 .filter(other::contains)
                 .count();

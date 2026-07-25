@@ -1,8 +1,8 @@
 package controller;
 
 import domain.lotto.LottoMachine;
-import domain.lotto.Lottos;
 import domain.lotto.ManualPurchaseCount;
+import domain.lotto.PurchasedLottos;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
@@ -17,15 +17,15 @@ public class LottoController {
     public void run() {
         PurchaseAmount purchaseAmount = inputView.readPurchaseAmountValue();
         ManualPurchaseCount manualPurchaseCount = inputView.readManualPurchaseCount();
-        Lottos manualLottos = inputView.readManualLottos(manualPurchaseCount);
-        Lottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount, manualLottos);
+        PurchasedLottos manualLottos = inputView.readManualLottos(manualPurchaseCount);
+        PurchasedLottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount, manualLottos);
         outputView.printPurchasedLottoTickets(purchasedLottoTickets, manualPurchaseCount);
         printWinningResult(purchaseAmount, purchasedLottoTickets);
     }
 
     private void printWinningResult(
             PurchaseAmount purchaseAmount,
-            Lottos purchasedLottoTickets
+            PurchasedLottos purchasedLottoTickets
     ) {
         WinningLotto winningLotto = inputView.readWinningLotto();
         LottoStatistics statistics = purchasedLottoTickets.calculateLottoStatistics(winningLotto);

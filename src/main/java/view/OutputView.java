@@ -1,26 +1,26 @@
 package view;
 
-import domain.lotto.Lotto;
-import domain.lotto.Lottos;
+import domain.lotto.LottoTicket;
 import domain.lotto.ManualPurchaseCount;
+import domain.lotto.PurchasedLottos;
 import domain.money.PurchaseAmount;
 import domain.result.LottoRank;
 import domain.result.LottoStatistics;
 import java.util.List;
 
 public class OutputView {
-    public void printPurchasedLottoTickets(List<Lotto> purchasedLottoTickets) {
-        printPurchasedLottoTickets(new Lottos(purchasedLottoTickets));
+    public void printPurchasedLottoTickets(List<LottoTicket> purchasedLottoTickets) {
+        printPurchasedLottoTickets(new PurchasedLottos(purchasedLottoTickets));
     }
 
-    public void printPurchasedLottoTickets(Lottos purchasedLottoTickets) {
+    public void printPurchasedLottoTickets(PurchasedLottos purchasedLottoTickets) {
         System.out.println();
         System.out.printf("%d개를 구매했습니다.%n", purchasedLottoTickets.size());
         purchasedLottoTickets.values().forEach(this::printLotto);
     }
 
     public void printPurchasedLottoTickets(
-            Lottos purchasedLottoTickets,
+            PurchasedLottos purchasedLottoTickets,
             ManualPurchaseCount manualPurchaseCount
     ) {
         System.out.println();
@@ -32,8 +32,8 @@ public class OutputView {
         purchasedLottoTickets.values().forEach(this::printLotto);
     }
 
-    private void printLotto(Lotto lotto) {
-        System.out.println(lotto.values());
+    private void printLotto(LottoTicket lottoTicket) {
+        System.out.println(lottoTicket.values());
     }
 
     public void printLottoStatistics(

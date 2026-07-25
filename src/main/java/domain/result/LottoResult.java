@@ -1,7 +1,5 @@
 package domain.result;
 
-import domain.number.MatchCount;
-
 public class LottoResult {
     private final MatchCount matchCount;
     private final boolean bonusBallMatched;

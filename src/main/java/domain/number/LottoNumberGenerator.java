@@ -8,7 +8,7 @@ public class LottoNumberGenerator {
     private static final int LOTTO_NUMBER_COUNT = 6;
 
     public List<Integer> generate() {
-        List<Integer> candidateNumbers = LottoNumberCandidates.createAll();
+        List<Integer> candidateNumbers = LottoNumberRange.values();
         Collections.shuffle(candidateNumbers);
         return selectSortedNumbers(candidateNumbers);
     }

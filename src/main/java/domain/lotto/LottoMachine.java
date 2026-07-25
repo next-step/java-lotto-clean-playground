@@ -9,36 +9,28 @@ import java.util.stream.IntStream;
 public class LottoMachine {
     private final LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
-    public List<Lotto> buy(int purchaseAmount) {
-        return buy(PurchaseAmount.from(purchaseAmount)).values();
+    public PurchasedLottos buy(PurchaseAmount purchaseAmount, PurchasedLottos manualLottoTickets) {
+        validateManualLottos(purchaseAmount, manualLottoTickets);
+        return manualLottoTickets.addAll(createAutoLottoTickets(autoPurchaseCount(purchaseAmount, manualLottoTickets)));
     }
 
-    public Lottos buy(PurchaseAmount purchaseAmount) {
-        return new Lottos(createLottos(purchaseAmount.lottoCount()));
-    }
-
-    public Lottos buy(PurchaseAmount purchaseAmount, Lottos manualLottos) {
-        validateManualLottos(purchaseAmount, manualLottos);
-        return manualLottos.addAll(createLottos(autoPurchaseCount(purchaseAmount, manualLottos)));
-    }
-
-    private void validateManualLottos(PurchaseAmount purchaseAmount, Lottos manualLottos) {
-        if (manualLottos.size() > purchaseAmount.lottoCount()) {
+    private void validateManualLottos(PurchaseAmount purchaseAmount, PurchasedLottos manualLottoTickets) {
+        if (manualLottoTickets.size() > purchaseAmount.lottoCount()) {
             throw new IllegalArgumentException("수동 구매 수는 전체 구매 수를 넘을 수 없습니다.");
         }
     }
 
-    private int autoPurchaseCount(PurchaseAmount purchaseAmount, Lottos manualLottos) {
-        return purchaseAmount.lottoCount() - manualLottos.size();
+    private int autoPurchaseCount(PurchaseAmount purchaseAmount, PurchasedLottos manualLottoTickets) {
+        return purchaseAmount.lottoCount() - manualLottoTickets.size();
     }
 
-    private List<Lotto> createLottos(int purchaseCount) {
+    private List<LottoTicket> createAutoLottoTickets(int purchaseCount) {
         return IntStream.range(0, purchaseCount)
-                .mapToObj(index -> createLotto())
+                .mapToObj(index -> createAutoLottoTicket())
                 .collect(Collectors.toList());
     }
 
-    private Lotto createLotto() {
-        return new Lotto(lottoNumberGenerator.generate());
+    private LottoTicket createAutoLottoTicket() {
+        return new LottoTicket(lottoNumberGenerator.generate());
     }
 }
