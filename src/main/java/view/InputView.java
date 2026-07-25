@@ -1,5 +1,9 @@
 package view;
 
+import domain.lotto.Lotto;
+import domain.lotto.wrap.LottoNumber;
+import domain.lotto.wrap.Money;
+
 import java.io.InputStream;
 import java.util.*;
 
@@ -11,20 +15,26 @@ public class InputView {
         this.scanner = new Scanner(inputStream);
     }
 
-    public List<Integer> lastWeekWinningNumbers() {
-        return validNumbers();
+    public Lotto lastWeekWinningNumbers() {
+        Lotto lotto;
+
+        do {
+            lotto = validNumbers();
+        } while (lotto == null);
+
+        return lotto;
     }
 
-    private List<Integer> validNumbers() {
+    private Lotto validNumbers() {
         try {
-            return initNumbers();
+            return new Lotto(initNumbers());
         } catch (IllegalArgumentException e) {
             System.out.println("당첨 번호를 입력할 때에는 6개의 숫자여야 하며, 콤마로 구분되어 있어야 합니다.");
         }
         return null;
     }
 
-    private List<Integer> initNumbers() {
+    private List<LottoNumber> initNumbers() {
         String input = scanner.nextLine();
 
         if (!input.contains(",")) {
@@ -33,21 +43,29 @@ public class InputView {
         return Arrays.stream(input.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .sorted()
+                .map(LottoNumber::new)
                 .toList();
     }
 
-    public int payment() {
-        return validPayment();
+    public Money payment() {
+
+        Integer payment;
+
+        do {
+            payment = validationMoney();
+        } while (payment == null);
+
+        return new Money(payment);
     }
 
-    private int validPayment() {
+    private Integer validationMoney() {
         try {
             return initPayment();
-        } catch(InputMismatchException e) {
-            System.out.println("지불 금액은 음이 아닌 정수여야 합니다.");
+        } catch (InputMismatchException e) {
+            System.out.println("양의 정수를 입력해주세요.");
+            scanner.nextLine();
         }
-        return -1;
+        return null;
     }
 
     private int initPayment() {
@@ -59,5 +77,16 @@ public class InputView {
         }
 
         return amount;
+    }
+
+    public LottoNumber bonusNumber() {
+        return initBonusNumber();
+    }
+
+    private LottoNumber initBonusNumber() {
+        LottoNumber bonusNumber = new LottoNumber(scanner.nextInt());
+        scanner.nextLine();
+
+        return bonusNumber;
     }
 }

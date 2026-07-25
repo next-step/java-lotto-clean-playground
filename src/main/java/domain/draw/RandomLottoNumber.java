@@ -1,5 +1,8 @@
 package domain.draw;
 
+import domain.lotto.Lotto;
+import domain.lotto.wrap.LottoNumber;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,15 +10,15 @@ import java.util.stream.IntStream;
 
 public class RandomLottoNumber implements DrawLottoNumber{
 
-    private static final List<Integer> ballPool = IntStream.rangeClosed(1, 45).boxed().toList();
+    private static final List<LottoNumber> ballPool = IntStream.rangeClosed(1, 45).mapToObj(LottoNumber::new).toList();
 
     @Override
-    public List<Integer> draw() {
+    public Lotto draw() {
 
-        List<Integer> balls = new ArrayList<>(ballPool);
+        List<LottoNumber> balls = new ArrayList<>(ballPool);
         Collections.shuffle(balls);
-        List<Integer> picked = new ArrayList<>(balls.subList(0, 6));
+        List<LottoNumber> picked = new ArrayList<>(balls.subList(0, 6));
         Collections.sort(picked);
-        return picked;
+        return new Lotto(picked);
     }
 }

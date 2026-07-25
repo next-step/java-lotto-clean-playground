@@ -1,7 +1,7 @@
 package domain.draw;
 
-import java.util.List;
+import domain.lotto.Lotto;
 
 public interface DrawLottoNumber {
-    List<Integer> draw();
+    Lotto draw();
 }

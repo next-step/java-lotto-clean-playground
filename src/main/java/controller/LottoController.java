@@ -1,17 +1,19 @@
 package controller;
 
 import domain.draw.RandomLottoNumber;
+import domain.lotto.Lotto;
 import domain.lotto.LottoSeller;
-import domain.lotto.Win;
+import domain.lotto.WinningLotto;
+import domain.lotto.collection.LottoTickets;
+import domain.lotto.collection.WinningStatistics;
+import domain.lotto.wrap.LottoNumber;
+import domain.lotto.wrap.Money;
 import view.InputView;
 import view.OutputView;
-
-import java.util.List;
 
 public class LottoController {
 
     private final InputView inputView;
-    private Win win;
 
     public LottoController(InputView inputView) {
         this.inputView = inputView;
@@ -19,22 +21,29 @@ public class LottoController {
 
     public void run() {
 
-        int payment = initPayment();
+        Money payment = initPayment();
 
         LottoSeller seller = new LottoSeller(payment, new RandomLottoNumber());
 
         payAndNoticeChange(seller);
 
-        OutputView.printLottoTickets(seller.getTickets());
+        LottoTickets tickets = seller.getTickets();
+        OutputView.printLottoTickets(tickets);
         OutputView.newLine();
 
         OutputView.printLastWeekWinedNumbersNotice();
-        List<Integer> winningNumbers = inputView.lastWeekWinningNumbers();
 
-        win = new Win(winningNumbers, seller.getTickets());
+        Lotto lastWeekWinningNumber = inputView.lastWeekWinningNumbers();
+        OutputView.newLine();
+
+        OutputView.printBonusBallNotice();
+        LottoNumber bonus = inputView.bonusNumber();
+
+        WinningLotto winningLotto = new WinningLotto(lastWeekWinningNumber, bonus);
+        WinningStatistics statistics = tickets.match(winningLotto);
 
         OutputView.newLine();
-        OutputView.printWinningStatics(win.getWinningStatics(), seller.getPaid());
+        OutputView.printWinningStatics(statistics, seller.getPaid());
     }
 
     private void payAndNoticeChange(LottoSeller seller) {
@@ -46,13 +55,13 @@ public class LottoController {
         }
     }
 
-    private int initPayment() {
-        int payment;
+    private Money initPayment() {
+        Money payment;
 
         do {
             OutputView.printPaymentNotice();
             payment = inputView.payment();
-        } while (payment <= 0);
+        } while (payment.getAmount() <= 0);
         return payment;
     }
 }

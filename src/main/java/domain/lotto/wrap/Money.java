@@ -12,6 +12,22 @@ public class Money {
         this.amount = amount;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public Money plus(Money other) {
+        return new Money(this.amount + other.amount);
+    }
+
+    public Money subtract(Money other) {
+        return  new Money(amount - other.amount);
+    }
+
+    public Money multiply(int count) {
+        return new Money(amount * count);
+    }
+
     // 몇 개 구매할 수 있음을 반환하는 함수
     public int countPurchasable(Money price) {
         return amount / price.amount;
