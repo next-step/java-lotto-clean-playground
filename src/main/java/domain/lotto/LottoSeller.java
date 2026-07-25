@@ -15,15 +15,22 @@ public class LottoSeller {
     private final Money amount;
     private final Money paid;
     private final Money change;
+    private final int manualCount;
     private LottoTickets tickets;
     private final DrawLottoNumber drawLottoNumber;
 
-    public LottoSeller(Money amount, DrawLottoNumber drawLottoNumber) {
+    public LottoSeller(Money amount, List<Lotto> manualLottos, DrawLottoNumber drawLottoNumber) {
         this.drawLottoNumber = drawLottoNumber;
         this.amount = amount;
         this.change = amount.change(PRICE);
         this.paid = amount.subtract(change);
-        initTickets();
+        validateManualCount(manualLottos);
+        this.manualCount = manualLottos.size();
+        initTickets(manualLottos);
+    }
+
+    public static Money getPrice() {
+        return PRICE;
     }
 
     public LottoTickets getTickets() {
@@ -34,6 +41,14 @@ public class LottoSeller {
         return this.amount.countPurchasable(PRICE);
     }
 
+    public int getManualCount() {
+        return this.manualCount;
+    }
+
+    public int getAutoCount() {
+        return getAmount() - this.manualCount;
+    }
+
     public Money getPaid() {
         return paid;
     }
@@ -42,11 +57,17 @@ public class LottoSeller {
         return this.change.getAmount();
     }
 
-    private void initTickets() {
+    private void validateManualCount(List<Lotto> manualLottos) {
+        if (manualLottos.size() > amount.countPurchasable(PRICE)) {
+            throw new IllegalArgumentException("수동 구매 수는 구입 금액으로 살 수 있는 개수를 초과할 수 없습니다.");
+        }
+    }
 
-        List<Lotto> tickets = new LinkedList<>();
+    private void initTickets(List<Lotto> manualLottos) {
 
-        for (int i = 0; i < amount.countPurchasable(PRICE); i++) {
+        List<Lotto> tickets = new LinkedList<>(manualLottos);
+
+        for (int i = manualLottos.size(); i < amount.countPurchasable(PRICE); i++) {
             tickets.add(drawLottoNumber.draw());
         }
 

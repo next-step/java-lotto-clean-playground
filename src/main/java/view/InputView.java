@@ -25,6 +25,16 @@ public class InputView {
         return lotto;
     }
 
+    public Lotto manualLottoNumbers() {
+        Lotto lotto;
+
+        do {
+            lotto = validNumbers();
+        } while (lotto == null);
+
+        return lotto;
+    }
+
     private Lotto validNumbers() {
         try {
             return new Lotto(initNumbers());
@@ -77,6 +87,38 @@ public class InputView {
         }
 
         return amount;
+    }
+
+    public int manualCount() {
+
+        Integer count;
+
+        do {
+            count = validationManualCount();
+        } while (count == null);
+
+        return count;
+    }
+
+    private Integer validationManualCount() {
+        try {
+            return initManualCount();
+        } catch (InputMismatchException e) {
+            System.out.println("0 이상의 정수를 입력해주세요.");
+            scanner.nextLine();
+        }
+        return null;
+    }
+
+    private int initManualCount() {
+        int count = scanner.nextInt();
+        scanner.nextLine();
+
+        if (count < 0) {
+            throw new InputMismatchException();
+        }
+
+        return count;
     }
 
     public LottoNumber bonusNumber() {

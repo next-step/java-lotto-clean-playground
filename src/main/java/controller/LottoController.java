@@ -11,6 +11,9 @@ import domain.lotto.wrap.Money;
 import view.InputView;
 import view.OutputView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LottoController {
 
     private final InputView inputView;
@@ -22,23 +25,21 @@ public class LottoController {
     public void run() {
 
         Money payment = initPayment();
+        List<Lotto> manualLottos = manualLottosInitialize(payment);
 
-        LottoSeller seller = new LottoSeller(payment, new RandomLottoNumber());
+        LottoSeller seller = new LottoSeller(payment, manualLottos, new RandomLottoNumber());
 
         payAndNoticeChange(seller);
 
-        LottoTickets tickets = seller.getTickets();
-        OutputView.printLottoTickets(tickets);
-        OutputView.newLine();
+        LottoTickets tickets = ticketsInitialize(seller);
+        Lotto lastWeekWinningNumber = lastWeekWinningNumberInitialize();
 
-        OutputView.printLastWeekWinedNumbersNotice();
+        LottoNumber bonus = lastWeekBonusBallInitialize();
 
-        Lotto lastWeekWinningNumber = inputView.lastWeekWinningNumbers();
-        OutputView.newLine();
+        printResult(lastWeekWinningNumber, bonus, tickets, seller);
+    }
 
-        OutputView.printBonusBallNotice();
-        LottoNumber bonus = inputView.bonusNumber();
-
+    private void printResult(Lotto lastWeekWinningNumber, LottoNumber bonus, LottoTickets tickets, LottoSeller seller) {
         WinningLotto winningLotto = new WinningLotto(lastWeekWinningNumber, bonus);
         WinningStatistics statistics = tickets.match(winningLotto);
 
@@ -46,9 +47,30 @@ public class LottoController {
         OutputView.printWinningStatics(statistics, seller.getPaid());
     }
 
+    private LottoNumber lastWeekBonusBallInitialize() {
+        OutputView.printBonusBallNotice();
+        LottoNumber bonus = inputView.bonusNumber();
+        return bonus;
+    }
+
+    private Lotto lastWeekWinningNumberInitialize() {
+        OutputView.printLastWeekWinedNumbersNotice();
+
+        Lotto lastWeekWinningNumber = inputView.lastWeekWinningNumbers();
+        OutputView.newLine();
+        return lastWeekWinningNumber;
+    }
+
+    private LottoTickets ticketsInitialize(LottoSeller seller) {
+        LottoTickets tickets = seller.getTickets();
+        OutputView.printLottoTickets(tickets);
+        OutputView.newLine();
+        return tickets;
+    }
+
     private void payAndNoticeChange(LottoSeller seller) {
         OutputView.newLine();
-        OutputView.printLottoAmount(seller.getAmount());
+        OutputView.printLottoAmount(seller.getManualCount(), seller.getAutoCount());
 
         if (seller.getChange() > 0) {
             System.out.printf("잔돈은 %d원 입니다.\n", seller.getChange());
@@ -63,5 +85,28 @@ public class LottoController {
             payment = inputView.payment();
         } while (payment.getAmount() <= 0);
         return payment;
+    }
+
+    private int initManualCount(Money payment) {
+        int count;
+
+        do {
+            OutputView.printManualCountNotice();
+            count = inputView.manualCount();
+        } while (count > payment.countPurchasable(LottoSeller.getPrice()));
+        return count;
+    }
+
+    private List<Lotto> manualLottosInitialize(Money payment) {
+        int manualCount = initManualCount(payment);
+        List<Lotto> manualLottos = new ArrayList<>();
+
+        if (manualCount > 0) {
+            OutputView.printManualNumbersNotice();
+        }
+        for (int i = 0; i < manualCount; i++) {
+            manualLottos.add(inputView.manualLottoNumbers());
+        }
+        return manualLottos;
     }
 }
