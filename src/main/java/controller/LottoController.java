@@ -4,6 +4,7 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
@@ -21,13 +22,35 @@ public class LottoController {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
         LottoPurchase lottoPurchase = new LottoPurchase(purchaseAmount, lottoGenerator);
 
-        List<Lotto> lottos = lottoPurchase.issueLottos();
+        List<Lotto> lottos = issueLottos(lottoPurchase);
+
         resultView.printPurchasedLottos(lottos);
 
-        WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers(), inputView.readBonusNumber());
-        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto);
-        double profitRate = statistics.calculateProfitRate(purchaseAmount);
+        LottoStatistics statistics = createLottoStatistics(lottos);
+        resultView.printLottoStatistics(statistics.getRankCounts(), statistics.calculateProfitRate(purchaseAmount));
+    }
 
-        resultView.printLottoStatistics(statistics.getRankCounts(), profitRate);
+    private List<Lotto> issueLottos(LottoPurchase lottoPurchase) {
+        int manualLottoCount = inputView.readManualLottoCount();
+        List<Lotto> manualLottos = createManualLottos(manualLottoCount);
+
+        List<Lotto> lottos = new ArrayList<>();
+        lottos.addAll(manualLottos);
+        lottos.addAll(lottoPurchase.issueRemainingAutoLottos(manualLottoCount));
+        return lottos;
+    }
+
+    private List<Lotto> createManualLottos(int manualLottoCount) {
+        List<List<Integer>> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
+
+        return manualLottoNumbers.stream()
+                .map(Lotto::from)
+                .toList();
+    }
+
+    private LottoStatistics createLottoStatistics(List<Lotto> lottos) {
+        WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers(), inputView.readBonusNumber());
+
+        return new LottoStatistics(lottos, winningLotto);
     }
 }

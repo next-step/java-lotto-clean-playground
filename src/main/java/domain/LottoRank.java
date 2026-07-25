@@ -10,6 +10,8 @@ public enum LottoRank {
     FIVE_MATCH_WITH_BONUS(5, true, 30000000, "5개 일치, 보너스 볼 일치"),
     SIX_MATCH(6, false, 2000000000, "6개 일치");
 
+    private static final int BONUS_MATCH_COUNT = 5;
+
     private final int matchCount;
     private final boolean bonusMatch;
     private final int prize;
@@ -38,7 +40,7 @@ public enum LottoRank {
         if (this.matchCount != matchCount) {
             return false;
         }
-        if (matchCount == 5) {
+        if (matchCount == BONUS_MATCH_COUNT) {
             return this.bonusMatch == bonusMatch;
         }
         return true;
