@@ -22,4 +22,19 @@ public class PurchaseAmount {
     public int calculateLottoCount() {
         return amount / LOTTO_PRICE;
     }
+
+    public int calculateAutoCount(int manualCount) {
+        validateManualCount(manualCount);
+        return calculateLottoCount() - manualCount;
+    }
+
+    private void validateManualCount(int manualCount) {
+        if (manualCount < 0) {
+            throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
+        }
+
+        if (manualCount > calculateLottoCount()) {
+            throw new IllegalArgumentException("수동 구매 개수는 전체 구매 개수보다 많을 수 없습니다.");
+        }
+    }
 }

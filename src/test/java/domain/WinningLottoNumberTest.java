@@ -1,0 +1,36 @@
+package domain;
+
+<<<<<<< HEAD
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class WinningLottoNumberTest {
+
+    @Test
+    @DisplayName("calculate match count")
+    void calculateMatchCount() {
+        WinningLottoNumber winningLottoNumber = new WinningLottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        Lotto purchasedLotto = new Lotto(List.of(1, 2, 3, 10, 20, 30));
+
+        int matchCount = winningLottoNumber.countMatches(purchasedLotto);
+
+        assertThat(matchCount).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("there is no match")
+    void noMatch() {
+        WinningLottoNumber winningLottoNumber = new WinningLottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        Lotto purchasedLotto = new Lotto(List.of(7, 8, 9, 10, 11, 12));
+
+        int matchCount = winningLottoNumber.countMatches(purchasedLotto);
+
+        assertThat(matchCount).isEqualTo(0);
+    }
+=======
+public class WinningLottoNumberTest {
+>>>>>>> ea80e16 (feat : 5단ãã계 리팩토ã링 및 테스트 코드 추가)
+}

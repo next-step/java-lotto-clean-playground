@@ -1,5 +1,7 @@
 package domain;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,6 @@ public class Lottos {
     }
 
     public List<Lotto> getLottos() {
-        return new ArrayList<>(lottos);
+        return unmodifiableList(lottos);
     }
 }

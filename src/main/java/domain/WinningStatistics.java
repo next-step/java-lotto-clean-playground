@@ -1,20 +1,24 @@
 package domain;
 
+import static java.util.Collections.unmodifiableMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class WinningStatistics {
     private final Map<Rank, Integer> statistics;
 
-    public WinningStatistics(Lottos lottos, WinningLottoNumber winningLottoNumber) {
-        this.statistics = calculateStatistics(lottos, winningLottoNumber);
+    public WinningStatistics(Lottos lottos, WinningLottoNumber winningLottoNumber, BonusBall bonusBall) {
+        this.statistics = calculateStatistics(lottos, winningLottoNumber, bonusBall);
     }
 
-    private Map<Rank, Integer> calculateStatistics(Lottos lottos, WinningLottoNumber winningLottoNumber) {
+    private Map<Rank, Integer> calculateStatistics(
+            Lottos lottos, WinningLottoNumber winningLottoNumber, BonusBall bonusBall) {
         Map<Rank, Integer> result = new HashMap<>();
         for (Lotto lotto : lottos.getLottos()) {
             int matchCount = winningLottoNumber.countMatches(lotto);
-            Rank rank = Rank.valueOf(matchCount);
+            boolean isBonusMatched = bonusBall.isMatch(lotto);
+            Rank rank = Rank.valueOf(matchCount, isBonusMatched);
             result.merge(rank, 1, Integer::sum);
         }
         return result;
@@ -37,6 +41,6 @@ public class WinningStatistics {
     }
 
     public Map<Rank, Integer> getStatistics() {
-        return statistics;
+        return unmodifiableMap(statistics);
     }
 }

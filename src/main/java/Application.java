@@ -1,3 +1,4 @@
+import domain.BonusBall;
 import domain.Lotto;
 import domain.LottoGenerator;
 import domain.Lottos;
@@ -11,24 +12,38 @@ import view.ResultView;
 public class Application {
     public static void main(String[] args) {
         int amount = InputView.getLottoPurchaseAmount();
-
         PurchaseAmount purchaseAmount = new PurchaseAmount(amount);
-        int count = purchaseAmount.calculateLottoCount();
 
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        ResultView.printPurchaseAmount(count);
+        int manualCount = InputView.getManualCount();
+        int autoCount = purchaseAmount.calculateAutoCount(manualCount);
+
+        List<List<Integer>> manualNumbers = InputView.getManualNumbers(manualCount);
 
         Lottos lottos = new Lottos();
-        for (int i = 0; i < count; i++) {
+
+        for (List<Integer> numbers : manualNumbers) {
+            Lotto lotto = new Lotto(numbers);
+            lottos.add(lotto);
+        }
+
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        for (int i = 0; i < autoCount; i++) {
             Lotto lotto = lottoGenerator.generateLotto();
             lottos.add(lotto);
+        }
+
+        ResultView.printPurchaseAmount(manualCount, autoCount);
+        for (Lotto lotto : lottos.getLottos()) {
             ResultView.printLotto(lotto);
         }
 
         List<Integer> winningNumbersInput = InputView.getWinningNumbers();
         WinningLottoNumber winningLottoNumber = new WinningLottoNumber(winningNumbersInput);
 
-        WinningStatistics statistics = new WinningStatistics(lottos, winningLottoNumber);
+        int bonusNumber = InputView.getBonusBall();
+        BonusBall bonusBall = new BonusBall(bonusNumber, winningLottoNumber.getWinningNumbers());
+
+        WinningStatistics statistics = new WinningStatistics(lottos, winningLottoNumber, bonusBall);
         ResultView.printStatistics(statistics);
 
         double profitRate = statistics.calculateProfitRate(amount);

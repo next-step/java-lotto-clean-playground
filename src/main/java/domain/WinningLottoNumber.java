@@ -17,4 +17,8 @@ public class WinningLottoNumber {
                 .filter(number -> winningNumber.contains(number))
                 .count();
     }
+
+    public List<Integer> getWinningNumbers() {
+        return winningLotto.getNumbers();
+    }
 }

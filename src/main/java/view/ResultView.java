@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class ResultView {
-    public static void printPurchaseAmount(int count) {
+    public static void printPurchaseAmount(int manualCount, int autoCount) {
         System.out.println();
-        System.out.println(count + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
     }
 
     public static void printLotto(Lotto lotto) {
@@ -29,6 +29,10 @@ public class ResultView {
 
     private static void printRank(Rank rank, Map<Rank, Integer> statisticsMap) {
         int count = statisticsMap.getOrDefault(rank, 0);
+        if (rank.isBonusMatch()) {
+            System.out.println(rank.getMatchCount() + "개 일치, 보너스 볼 일치(" + rank.getPrize() + "원) - " + count + "개");
+            return;
+        }
         System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
     }
 
