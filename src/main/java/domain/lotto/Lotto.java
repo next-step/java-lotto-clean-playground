@@ -22,7 +22,17 @@ public class Lotto {
     }
 
     public LottoResult match(WinningLotto winningLotto) {
-        return LottoResult.of(countMatching(winningLotto), winningLotto.matchesBonusBall(this));
+        return LottoResult.of(countMatching(winningLotto), matchesBonusBall(winningLotto));
+    }
+
+    private boolean matchesBonusBall(WinningLotto winningLotto) {
+        return winningLotto.bonusBall()
+                .filter(this::matches)
+                .isPresent();
+    }
+
+    private boolean matches(BonusBall bonusBall) {
+        return contains(bonusBall.lottoNumber());
     }
 
     public boolean contains(LottoNumber lottoNumber) {

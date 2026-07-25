@@ -13,7 +13,7 @@ public class BonusBall {
         return new BonusBall(LottoNumber.from(number));
     }
 
-    public boolean matches(Lotto lotto) {
-        return lotto.contains(lottoNumber);
+    public LottoNumber lottoNumber() {
+        return lottoNumber;
     }
 }

@@ -24,7 +24,7 @@ public class WinningLotto {
     }
 
     private void validateBonusBall(Optional<BonusBall> bonusBall) {
-        if (bonusBall.filter(ball -> ball.matches(new Lotto(lottoNumbers))).isPresent()) {
+        if (bonusBall.filter(ball -> lottoNumbers.contains(ball.lottoNumber())).isPresent()) {
             throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
         }
     }
@@ -33,7 +33,7 @@ public class WinningLotto {
         return lottoNumbers.contains(lottoNumber);
     }
 
-    public boolean matchesBonusBall(Lotto lotto) {
-        return bonusBall.filter(ball -> ball.matches(lotto)).isPresent();
+    public Optional<BonusBall> bonusBall() {
+        return bonusBall;
     }
 }
