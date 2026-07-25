@@ -11,6 +11,14 @@ public class Lottos implements Iterable<Lotto> {
         this.lottos = new ArrayList<>(lottos);
     }
 
+    public LottoResult createResult(Lotto winningLotto) {
+        LottoResult result = new LottoResult();
+        for (Lotto lotto : lottos) {
+            result.addResult(lotto.determineRank(winningLotto));
+        }
+        return result;
+    }
+
     @Override
     public Iterator<Lotto> iterator() {
         return lottos.iterator();
