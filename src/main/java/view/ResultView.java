@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ResultView {
-    public void printPurchasedLottos(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public void printPurchasedLottos(List<Lotto> lottos, int manualLottoCount, int autoLottoCount) {
+        System.out.println("수동으로 %d장, 자동으로 %d개를 구매했습니다."
+                .formatted(manualLottoCount, autoLottoCount));
+
         for (Lotto lotto : lottos) {
             printLotto(lotto);
         }

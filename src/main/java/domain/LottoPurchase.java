@@ -15,15 +15,18 @@ public class LottoPurchase {
     }
 
     public List<Lotto> issueRemainingAutoLottos(int manualLottoCount) {
-        int totalLottoCount = getLottoCount();
-        validateManualLottoCount(manualLottoCount, totalLottoCount);
-
-        int autoLottoCount = totalLottoCount - manualLottoCount;
+        int autoLottoCount = getAutoLottoCount(manualLottoCount);
         return issueAutoLottos(autoLottoCount);
     }
 
     public int getLottoCount() {
         return purchaseAmount.getAmount() / LOTTO_PRICE;
+    }
+
+    private int getAutoLottoCount(int manualLottoCount) {
+        int totalLottoCount = getLottoCount();
+        validateManualLottoCount(manualLottoCount, totalLottoCount);
+        return totalLottoCount - manualLottoCount;
     }
 
     private void validateManualLottoCount(int manualLottoCount, int totalLottoCount) {

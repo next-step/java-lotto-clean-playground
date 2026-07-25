@@ -22,21 +22,22 @@ public class LottoController {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
         LottoPurchase lottoPurchase = new LottoPurchase(purchaseAmount, lottoGenerator);
 
-        List<Lotto> lottos = issueLottos(lottoPurchase);
-
-        resultView.printPurchasedLottos(lottos);
+        List<Lotto> lottos = issueAndPrintLottos(lottoPurchase);
 
         LottoStatistics statistics = createLottoStatistics(lottos);
         resultView.printLottoStatistics(statistics.getRankCounts(), statistics.calculateProfitRate(purchaseAmount));
     }
 
-    private List<Lotto> issueLottos(LottoPurchase lottoPurchase) {
+    private List<Lotto> issueAndPrintLottos(LottoPurchase lottoPurchase) {
         int manualLottoCount = inputView.readManualLottoCount();
         List<Lotto> manualLottos = createManualLottos(manualLottoCount);
+        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
 
         List<Lotto> lottos = new ArrayList<>();
         lottos.addAll(manualLottos);
-        lottos.addAll(lottoPurchase.issueRemainingAutoLottos(manualLottoCount));
+        lottos.addAll(autoLottos);
+
+        resultView.printPurchasedLottos(lottos, manualLottoCount, autoLottos.size());
         return lottos;
     }
 
