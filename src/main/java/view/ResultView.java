@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ResultView {
     public void printPurchasedLottos(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매하셨습니다.");
+        System.out.println(lottos.size() + "개를 구매했습니다.");
         for (Lotto lotto : lottos) {
             printLotto(lotto);
         }
@@ -20,8 +20,8 @@ public class ResultView {
         System.out.println("---------");
 
         for (LottoRank rank : LottoRank.values()) {
-            System.out.println("%d개 일치 (%d원)- %d개"
-                    .formatted(rank.getMatchCount(), rank.getPrize(), rankCounts.get(rank)));
+            System.out.println("%s(%d원)- %d개"
+                    .formatted(rank.getDescription(), rank.getPrize(), rankCounts.get(rank)));
         }
 
         System.out.println("총 수익률은 %.2f입니다.".formatted(profitRate));

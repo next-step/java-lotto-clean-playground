@@ -25,8 +25,9 @@ public class LottoStatistics {
 
         for (Lotto purchasedLotto : lottos) {
             int matchCount = winningLotto.countMatches(purchasedLotto);
+            boolean bonusMatch = winningLotto.matchesBonus(purchasedLotto);
 
-            LottoRank.findByMatchCount(matchCount)
+            LottoRank.findByMatchResult(matchCount, bonusMatch)
                     .ifPresent(rank -> rankCounts.put(rank, rankCounts.get(rank) + 1));
         }
 
@@ -34,13 +35,13 @@ public class LottoStatistics {
     }
 
     private Map<LottoRank, Integer> initializeRankCounts() {
-        Map<LottoRank, Integer> statistics = new EnumMap<>(LottoRank.class);
+        Map<LottoRank, Integer> rankCounts = new EnumMap<>(LottoRank.class);
 
         for (LottoRank rank : LottoRank.values()) {
-            statistics.put(rank, 0);
+            rankCounts.put(rank, 0);
         }
 
-        return statistics;
+        return rankCounts;
     }
 
     private int calculateTotalPrize() {

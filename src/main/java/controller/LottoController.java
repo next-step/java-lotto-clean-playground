@@ -24,7 +24,7 @@ public class LottoController {
         List<Lotto> lottos = lottoPurchase.issueLottos();
         resultView.printPurchasedLottos(lottos);
 
-        WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers());
+        WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers(), inputView.readBonusNumber());
         LottoStatistics statistics = new LottoStatistics(lottos, winningLotto);
         double profitRate = statistics.calculateProfitRate(purchaseAmount);
 
