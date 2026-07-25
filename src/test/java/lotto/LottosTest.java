@@ -24,6 +24,8 @@ class LottosTest {
         assertThat(result.countOf(LottoRank.THIRD)).isEqualTo(1);
         assertThat(result.countOf(LottoRank.MISS)).isEqualTo(1);
         assertThat(result.totalPrizeMoney()).isEqualTo(new PrizeMoney(55_000));
+        assertThat(result.calculateProfitRate(new PurchaseAmount(110_000)))
+                .isEqualTo(new ProfitRate(0.5));
     }
 
     private Lotto lotto(int first, int second, int third, int fourth, int fifth, int sixth) {

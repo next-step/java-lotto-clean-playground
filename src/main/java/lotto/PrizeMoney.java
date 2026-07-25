@@ -17,6 +17,10 @@ public class PrizeMoney {
         return new PrizeMoney(money * count);
     }
 
+    long amount() {
+        return money;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -32,5 +36,10 @@ public class PrizeMoney {
     @Override
     public int hashCode() {
         return Objects.hash(money);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(money);
     }
 }

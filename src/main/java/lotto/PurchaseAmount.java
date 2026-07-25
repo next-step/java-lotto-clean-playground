@@ -12,4 +12,8 @@ public class PurchaseAmount {
     public int calculateLottoCount() {
         return value / LOTTO_PRICE;
     }
+
+    public ProfitRate calculateProfitRate(PrizeMoney prizeMoney) {
+        return new ProfitRate((double) prizeMoney.amount() / value);
+    }
 }
