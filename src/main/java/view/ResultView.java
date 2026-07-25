@@ -22,11 +22,17 @@ public class ResultView {
     public static void printResult(LottoResult result, PurchaseAmount purchaseAmount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
+        printRank(result, LottoRank.FIFTH);
         printRank(result, LottoRank.FOURTH);
         printRank(result, LottoRank.THIRD);
-        printRank(result, LottoRank.SECOND);
+        printSecondRank(result);
         printRank(result, LottoRank.FIRST);
         printProfitRate(result, purchaseAmount);
+    }
+
+    private static void printSecondRank(LottoResult result) {
+        System.out.println("5개 일치, 보너스 볼 일치(" + LottoRank.SECOND.prizeMoney()
+                + "원) - " + result.countOf(LottoRank.SECOND) + "개");
     }
 
     private static void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {

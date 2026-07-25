@@ -11,10 +11,10 @@ public class Lottos implements Iterable<Lotto> {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public LottoResult createResult(Lotto winningLotto) {
+    public LottoResult createResult(WinningLotto winningLotto) {
         LottoResult result = new LottoResult();
         for (Lotto lotto : lottos) {
-            result.addResult(lotto.determineRank(winningLotto));
+            result.addResult(winningLotto.determineRank(lotto));
         }
         return result;
     }

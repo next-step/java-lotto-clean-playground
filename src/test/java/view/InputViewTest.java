@@ -21,4 +21,11 @@ class InputViewTest {
         assertThatThrownBy(() -> InputView.parseWinningLotto("1, 2, 3"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("보너스 번호를 로또 번호로 변환한다")
+    void parseBonusNumber() {
+        assertThatCode(() -> InputView.parseBonusNumber("7"))
+                .doesNotThrowAnyException();
+    }
 }

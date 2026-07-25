@@ -24,6 +24,12 @@ public class InputView {
         return parseWinningLotto(SCANNER.nextLine());
     }
 
+    public static LottoNumber readBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        return parseBonusNumber(SCANNER.nextLine());
+    }
+
     static Lotto parseWinningLotto(String input) {
         List<LottoNumber> numbers = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(input, ",");
@@ -31,6 +37,10 @@ public class InputView {
             numbers.add(toLottoNumber(tokenizer.nextToken()));
         }
         return new Lotto(numbers);
+    }
+
+    static LottoNumber parseBonusNumber(String input) {
+        return toLottoNumber(input);
     }
 
     private static LottoNumber toLottoNumber(String value) {

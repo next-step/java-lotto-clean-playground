@@ -10,10 +10,16 @@ class LottoRankTest {
     @Test
     @DisplayName("3개부터 6개까지 일치하면 당첨 등수를 반환한다")
     void findWinningRank() {
-        assertThat(LottoRank.from(3)).isEqualTo(LottoRank.FOURTH);
-        assertThat(LottoRank.from(4)).isEqualTo(LottoRank.THIRD);
-        assertThat(LottoRank.from(5)).isEqualTo(LottoRank.SECOND);
+        assertThat(LottoRank.from(3)).isEqualTo(LottoRank.FIFTH);
+        assertThat(LottoRank.from(4)).isEqualTo(LottoRank.FOURTH);
+        assertThat(LottoRank.from(5)).isEqualTo(LottoRank.THIRD);
         assertThat(LottoRank.from(6)).isEqualTo(LottoRank.FIRST);
+    }
+
+    @Test
+    @DisplayName("5개와 보너스 번호가 일치하면 2등을 반환한다")
+    void findSecondRank() {
+        assertThat(LottoRank.from(5, true)).isEqualTo(LottoRank.SECOND);
     }
 
     @Test

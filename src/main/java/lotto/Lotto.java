@@ -35,15 +35,15 @@ public class Lotto {
         return matchCount;
     }
 
-    public LottoRank determineRank(Lotto winningLotto) {
-        return LottoRank.from(countMatches(winningLotto));
-    }
-
     private int match(LottoNumber number) {
-        if (numbers.contains(number)) {
+        if (contains(number)) {
             return 1;
         }
         return 0;
+    }
+
+    boolean contains(LottoNumber number) {
+        return numbers.contains(number);
     }
 
     @Override
