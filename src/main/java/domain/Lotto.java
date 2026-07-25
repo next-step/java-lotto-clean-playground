@@ -1,32 +1,57 @@
 package domain;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-public class Lotto extends Numbers {
+public class Lotto {
 
-    public Lotto(List<Integer> numbers) {
-        super(numbers);
+    private static final int LOTTO_SIZE = 6;
+
+    private final Set<LottoNumber> numbers;
+
+    public Lotto(List<LottoNumber> numbers) {
+        validateSize(numbers.size());
+        Set<LottoNumber> unique = new HashSet<>(numbers);
+        validateDuplicate(numbers.size(), unique.size());
+        this.numbers = unique;
     }
 
     public static Lotto from(List<String> rawNumbers) {
         try {
-            return new Lotto(toNumbers(rawNumbers));
+            return new Lotto(toLottoNumbers(rawNumbers));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("로또 번호는 숫자로 입력해야 합니다.");
         }
     }
 
-    private static List<Integer> toNumbers(List<String> rawNumbers) {
+    private void validateSize(int size) {
+        if (size != LOTTO_SIZE) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+        }
+    }
+
+    private void validateDuplicate(int inputSize, int uniqueSize) {
+        if (uniqueSize != inputSize) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
+        }
+    }
+
+    private static List<LottoNumber> toLottoNumbers(List<String> rawNumbers) {
         return rawNumbers.stream()
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .sorted()
-                .collect(Collectors.toList());
+                .map(LottoNumber::of)
+                .toList();
     }
 
-    @Override
-    protected String label() {
-        return "로또 번호";
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
+    public List<LottoNumber> getNumbers() {
+        return numbers.stream()
+                .sorted()
+                .toList();
     }
 }

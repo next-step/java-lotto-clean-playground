@@ -18,7 +18,7 @@ public class ResultView {
         }
     }
 
-    public static void printStatistics(LottoResult result, Money amount) {
+    public static void printStatistics(LottoResult result, Money money) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
@@ -27,7 +27,7 @@ public class ResultView {
         printRank(Rank.THIRD, result);
         printRank(Rank.SECOND, result);
         printRank(Rank.FIRST, result);
-        System.out.println(profitMessage(result.profitRate(amount)));
+        System.out.println(profitMessage(result.profitRate(money)));
     }
 
     private static void printRank(Rank rank, LottoResult result) {

@@ -8,7 +8,6 @@ import domain.Lottos;
 import domain.Money;
 import domain.RandomLottoNumberGenerator;
 import domain.WinningLotto;
-import domain.WinningNumbers;
 import view.InputView;
 import view.ResultView;
 
@@ -18,18 +17,18 @@ import java.util.stream.Collectors;
 public class LottoController {
 
     public void run() {
-        Money amount = new Money(InputView.getPurchaseAmount());
-        Lottos lottos = buy(amount);
+        Money money = new Money(InputView.getPurchaseMoney());
+        Lottos lottos = buy(money);
         WinningLotto winningLotto = readWinningLotto();
         LottoResult result = new LottoResult(lottos, winningLotto);
-        ResultView.printStatistics(result, amount);
+        ResultView.printStatistics(result, money);
     }
 
-    private Lottos buy(Money amount) {
+    private Lottos buy(Money money) {
         int manualCount = InputView.getManualCount();
         List<Lotto> manualLottos = toManualLottos(InputView.getManualLottoNumbers(manualCount));
         LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
-        Lottos lottos = lottoMachine.buy(amount, manualLottos);
+        Lottos lottos = lottoMachine.buy(money, manualLottos);
         ResultView.printLottos(lottos, manualLottos.size());
         return lottos;
     }
@@ -41,8 +40,8 @@ public class LottoController {
     }
 
     private WinningLotto readWinningLotto() {
-        WinningNumbers winningNumbers = WinningNumbers.from(InputView.getWinningNumbers());
-        LottoNumber bonus = new LottoNumber(InputView.getBonusNumber());
+        Lotto winningNumbers = Lotto.from(InputView.getWinningNumbers());
+        LottoNumber bonus = LottoNumber.of(InputView.getBonusNumber());
         return new WinningLotto(winningNumbers, bonus);
     }
 }
