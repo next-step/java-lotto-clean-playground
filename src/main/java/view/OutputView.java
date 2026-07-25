@@ -6,19 +6,8 @@ import domain.lotto.PurchasedLottos;
 import domain.money.PurchaseAmount;
 import domain.result.LottoRank;
 import domain.result.LottoStatistics;
-import java.util.List;
 
 public class OutputView {
-    public void printPurchasedLottoTickets(List<LottoTicket> purchasedLottoTickets) {
-        printPurchasedLottoTickets(new PurchasedLottos(purchasedLottoTickets));
-    }
-
-    public void printPurchasedLottoTickets(PurchasedLottos purchasedLottoTickets) {
-        System.out.println();
-        System.out.printf("%d개를 구매했습니다.%n", purchasedLottoTickets.size());
-        purchasedLottoTickets.values().forEach(this::printLotto);
-    }
-
     public void printPurchasedLottoTickets(
             PurchasedLottos purchasedLottoTickets,
             ManualPurchaseCount manualPurchaseCount

@@ -3,8 +3,8 @@ package view;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import domain.lotto.Lottos;
 import domain.lotto.ManualPurchaseCount;
+import domain.lotto.PurchasedLottos;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import org.junit.jupiter.api.AfterEach;
@@ -36,7 +36,7 @@ class InputViewTest {
         System.setIn(new ByteArrayInputStream("1,2,3,4,5,6\n7,8,9,10,11,12".getBytes()));
         InputView inputView = new InputView();
 
-        Lottos manualLottos = inputView.readManualLottos(ManualPurchaseCount.from(2));
+        PurchasedLottos manualLottos = inputView.readManualLottos(ManualPurchaseCount.from(2));
 
         assertThat(manualLottos.values()).hasSize(2);
         assertThat(manualLottos.values().get(0).values()).containsExactly(1, 2, 3, 4, 5, 6);
@@ -59,7 +59,7 @@ class InputViewTest {
         System.setIn(new ByteArrayInputStream("abc".getBytes()));
         InputView inputView = new InputView();
 
-        assertThatThrownBy(inputView::readPurchaseAmount)
+        assertThatThrownBy(inputView::readPurchaseAmountValue)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입 금액은 숫자여야 합니다.");
     }

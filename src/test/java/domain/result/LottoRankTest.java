@@ -2,7 +2,6 @@ package domain.result;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import domain.number.MatchCount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

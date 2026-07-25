@@ -3,29 +3,30 @@ package domain.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.number.LottoNumber;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoTest {
+class LottoTicketTest {
+    private static final List<Integer> VALID_LOTTO_NUMBERS = List.of(1, 2, 3, 4, 5, 6);
 
     @Test
     @DisplayName("로또 번호 목록을 조회한다")
     void returnLottoNumbers() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        LottoTicket lottoTicket = new LottoTicket(VALID_LOTTO_NUMBERS);
 
-        List<Integer> result = lotto.values();
+        List<Integer> result = lottoTicket.values();
 
-        assertThat(result).containsExactly(1, 2, 3, 4, 5, 6);
+        assertThat(result).containsExactlyElementsOf(VALID_LOTTO_NUMBERS);
     }
 
     @Test
-    @DisplayName("당첨 번호와 일치하는 번호 개수를 센다")
-    void countMatchingNumbers() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
-        WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6));
+    @DisplayName("로또 번호 포함 여부를 확인한다")
+    void containsLottoNumber() {
+        LottoTicket lottoTicket = new LottoTicket(VALID_LOTTO_NUMBERS);
 
-        boolean result = lotto.countMatching(winningLotto).isSame(3);
+        boolean result = lottoTicket.contains(LottoNumber.from(1));
 
         assertThat(result).isTrue();
     }
@@ -33,7 +34,7 @@ class LottoTest {
     @Test
     @DisplayName("로또 번호가 6개가 아니면 예외가 발생한다")
     void throwExceptionWhenNumberCountIsNotSix() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5)))
+        assertThatThrownBy(() -> new LottoTicket(List.of(1, 2, 3, 4, 5)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 6개여야 합니다.");
     }
@@ -41,7 +42,7 @@ class LottoTest {
     @Test
     @DisplayName("로또 번호가 중복되면 예외가 발생한다")
     void throwExceptionWhenNumberIsDuplicated() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 1, 2, 3, 4, 5)))
+        assertThatThrownBy(() -> new LottoTicket(List.of(1, 1, 2, 3, 4, 5)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 중복될 수 없습니다.");
     }

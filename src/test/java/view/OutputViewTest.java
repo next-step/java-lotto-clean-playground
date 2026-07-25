@@ -2,12 +2,13 @@ package view;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import domain.lotto.Lotto;
-import domain.lotto.Lottos;
+import domain.lotto.LottoTicket;
 import domain.lotto.ManualPurchaseCount;
+import domain.lotto.PurchasedLottos;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
+import domain.result.LottoStatisticsCalculator;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -25,24 +26,10 @@ class OutputViewTest {
     }
 
     @Test
-    @DisplayName("구매한 로또 개수와 번호를 출력한다")
-    void printPurchasedLottoTickets() {
-        OutputView outputView = new OutputView();
-        List<Lotto> purchasedLottoTickets = createLottoTickets();
-        System.setOut(new PrintStream(outputStream));
-
-        outputView.printPurchasedLottoTickets(purchasedLottoTickets);
-
-        assertThat(outputStream.toString()).contains("2개를 구매했습니다.");
-        assertThat(outputStream.toString()).contains("[1, 2, 3, 4, 5, 6]");
-        assertThat(outputStream.toString()).contains("[7, 8, 9, 10, 11, 12]");
-    }
-
-    @Test
     @DisplayName("수동 구매 수와 자동 구매 수를 출력한다")
     void printManualAndAutomaticPurchaseCount() {
         OutputView outputView = new OutputView();
-        Lottos purchasedLottoTickets = new Lottos(createLottoTickets());
+        PurchasedLottos purchasedLottoTickets = new PurchasedLottos(createLottoTickets());
         System.setOut(new PrintStream(outputStream));
 
         outputView.printPurchasedLottoTickets(purchasedLottoTickets, ManualPurchaseCount.from(1));
@@ -75,24 +62,24 @@ class OutputViewTest {
         assertThat(outputStream.toString()).doesNotContain("결과적으로 손해라는 의미임");
     }
 
-    private List<Lotto> createLottoTickets() {
+    private List<LottoTicket> createLottoTickets() {
         return List.of(
-                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
-                new Lotto(List.of(7, 8, 9, 10, 11, 12))
+                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(List.of(7, 8, 9, 10, 11, 12))
         );
     }
 
     private LottoStatistics createNoPrizeStatistics() {
-        return createStatistics(new Lotto(List.of(7, 8, 9, 10, 11, 12)));
+        return createStatistics(new LottoTicket(List.of(7, 8, 9, 10, 11, 12)));
     }
 
     private LottoStatistics createPrizeStatistics() {
-        return createStatistics(new Lotto(List.of(1, 2, 3, 10, 11, 12)));
+        return createStatistics(new LottoTicket(List.of(1, 2, 3, 10, 11, 12)));
     }
 
-    private LottoStatistics createStatistics(Lotto lotto) {
-        Lottos lottos = new Lottos(List.of(lotto));
+    private LottoStatistics createStatistics(LottoTicket lottoTicket) {
+        PurchasedLottos lottos = new PurchasedLottos(List.of(lottoTicket));
         WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6));
-        return lottos.calculateLottoStatistics(winningLotto);
+        return new LottoStatisticsCalculator().calculate(lottos, winningLotto);
     }
 }
