@@ -43,7 +43,10 @@ public class OutputView {
                 .forEach(System.out::println);
     }
 
-    private void printProfitRate( LottoStatistics lottoStatistics, PurchaseAmount purchaseAmount) {
+    private void printProfitRate(
+            LottoStatistics lottoStatistics,
+            PurchaseAmount purchaseAmount
+    ) {
         double profitRate = lottoStatistics.profitRate(purchaseAmount);
         System.out.printf("총 수익률은 %.2f입니다.", profitRate);
         printLossMessage(profitRate);
@@ -53,12 +56,6 @@ public class OutputView {
     private void printLossMessage(double profitRate) {
         if (profitRate < 1) {
             System.out.print("(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
-        }
-        else if (profitRate == 1) {
-            System.out.println("(기준이 1이기 때문에 본전이라는 의미임)");
-        }
-        else {
-            System.out.println("(기준이 1이기 때문에 결과적으로 이득이라는 의미임)");
         }
     }
 }
