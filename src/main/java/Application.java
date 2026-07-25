@@ -19,6 +19,11 @@ public class Application {
         app.run();
     }
 
+    private void run() {
+        PurchaseResult purchaseResult = inputPurchaseResult();
+        showResult(purchaseResult);
+    }
+
     private PurchaseResult purchaseLotto() {
         Money purchasePrice = inputPurchasePrice();
         lottoStore.validatePurchasePrice(purchasePrice);
@@ -31,23 +36,27 @@ public class Application {
         Lottos lottos = purchaseLottos(purchasePrice, manualLottos);
 
         return new PurchaseResult(purchasePrice, lottos);
-
     }
 
-    private void run() {
-        PurchaseResult purchaseResult = null;
-
+    private PurchaseResult inputPurchaseResult() {
         while (true) {
             try {
-                purchaseResult = purchaseLotto();
-                break;
+                return purchaseLotto();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
 
+    private void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
+        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+        Money totalPrize = lotteryStatistics.calculatePrize();
+        resultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
+    }
+
+    private void showResult(PurchaseResult purchaseResult) {
         Lotto winningLotto = inputWinningLotto();
-        int bonusNumber = inputBonusNumber(winningLotto);
+        LottoNumber bonusNumber = inputBonusNumber(winningLotto);
         publishStatistics(
                 purchaseResult.lottos(),
                 winningLotto,
@@ -56,22 +65,21 @@ public class Application {
         );
     }
 
-    private Lotto inputManualLotto() {
+    private int inputManualLottoCount() {
         while (true) {
             try {
-                String input = inputView.inputManualLotto();
-                List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
-                return new Lotto(numbers);
+                return inputView.inputManualLottoCount();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private int inputManualLottoCount() {
+    private Lotto inputManualLotto() {
         while (true) {
             try {
-                return inputView.inputManualLottoCount();
+                String input = inputView.inputManualLotto();
+                return createLotto(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -88,11 +96,10 @@ public class Application {
         return manualLottos;
     }
 
-    private int inputBonusNumber(Lotto winningLotto) {
+    private LottoNumber inputBonusNumber(Lotto winningLotto) {
         while (true) {
             try {
-                int bonusNumber = inputView.inputBonusNumber();
-                LottoNumber.validateNumberRange(bonusNumber);
+                LottoNumber bonusNumber = new LottoNumber(inputView.inputBonusNumber());
                 winningLotto.validateBonusNumber(bonusNumber);
                 return bonusNumber;
             } catch (IllegalArgumentException e) {
@@ -111,6 +118,11 @@ public class Application {
         }
     }
 
+    private Lotto createLotto(String input) {
+        List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
+        return new Lotto(numbers);
+    }
+
     private Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
         Lottos lottos = lottoStore.buy(purchasePrice, manualLottos);
         resultView.printLottos(lottos, manualLottos.size());
@@ -121,8 +133,7 @@ public class Application {
         while (true) {
             try {
                 String input = inputView.inputWinningLotto();
-                List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
-                return new Lotto(numbers);
+                return createLotto(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -139,11 +150,5 @@ public class Application {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
-    }
-
-    private void publishStatistics(Lottos lottos, Lotto winningLotto, int bonusNumber, Money purchasePrice) {
-        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
-        Money totalPrize = lotteryStatistics.calculatePrize();
-        resultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }
 }

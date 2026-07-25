@@ -21,7 +21,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        int bonusNumber = 45;
+        LottoNumber bonusNumber = new LottoNumber(45);
 
         LotteryStatistics lotteryStatistics = new LotteryStatistics();
 
@@ -49,7 +49,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        int bonusNumber = 45;
+        LottoNumber bonusNumber = new LottoNumber(45);
 
         LotteryStatistics lotteryStatistics = new LotteryStatistics();
 
@@ -68,7 +68,7 @@ class LotteryStatisticsTest {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 7);
         Lottos lottos = new Lottos(List.of(lotto));
 
-        int bonusNumber = 7;
+        LottoNumber bonusNumber = new LottoNumber(7);
 
         LotteryStatistics lotteryStatistics = new LotteryStatistics();
 

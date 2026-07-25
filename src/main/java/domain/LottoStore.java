@@ -51,5 +51,8 @@ public class LottoStore {
         if (manualCount > totalCount) {
             throw new IllegalArgumentException("수동으로 구매 가능한 개수를 초과했습니다.");
         }
+        if (manualCount < 0) {
+            throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
+        }
     }
 }

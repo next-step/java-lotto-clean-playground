@@ -62,8 +62,8 @@ public class Lotto {
         return lottoNumbers.contains(number);
     }
 
-    public void validateBonusNumber(int bonusNumber) {
-        if (contains(new LottoNumber(bonusNumber))) {
+    public void validateBonusNumber(LottoNumber bonusNumber) {
+        if (contains(bonusNumber)) {
             throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }
