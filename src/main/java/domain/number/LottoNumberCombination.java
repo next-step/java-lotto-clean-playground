@@ -19,10 +19,6 @@ public class LottoNumberCombination {
         return new LottoNumberCombination(toLottoNumbers(numbers));
     }
 
-    public static LottoNumberCombination of(List<LottoNumber> numbers) {
-        return new LottoNumberCombination(numbers);
-    }
-
     private static List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .map(LottoNumber::from)

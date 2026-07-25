@@ -26,15 +26,7 @@ public class WinningLotto {
         return new WinningLotto(LottoNumberCombination.from(numbers), bonusBall);
     }
 
-    public static WinningLotto from(LottoNumberCombination numbers) {
-        return new WinningLotto(numbers, null);
-    }
-
-    public static WinningLotto of(LottoNumberCombination numbers, BonusBall bonusBall) {
-        return new WinningLotto(numbers, bonusBall);
-    }
-
-    public Optional<BonusBall> bonusBall() {
+    private Optional<BonusBall> bonusBall() {
         return Optional.ofNullable(bonusBall);
     }
 

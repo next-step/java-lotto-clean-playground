@@ -12,7 +12,7 @@ public class LottoTicket {
         this(LottoNumberCombination.from(numbers));
     }
 
-    public LottoTicket(LottoNumberCombination numbers) {
+    private LottoTicket(LottoNumberCombination numbers) {
         this.numbers = numbers;
     }
 

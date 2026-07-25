@@ -13,10 +13,6 @@ public class LottoResult {
         return new LottoResult(matchCount, bonusBallMatched);
     }
 
-    public boolean matches(int matchCount, boolean bonusBallMatched) {
-        return this.matchCount.isSame(matchCount) && this.bonusBallMatched == bonusBallMatched;
-    }
-
     public boolean hasMatchCount(int matchCount) {
         return this.matchCount.isSame(matchCount);
     }
