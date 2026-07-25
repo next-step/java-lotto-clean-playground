@@ -1,5 +1,6 @@
 import domain.Lotto;
 import domain.LottoMachine;
+import domain.LottoNumber;
 import domain.LottoNumberGenerator;
 import domain.Lottos;
 import domain.Money;
@@ -16,8 +17,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoMachineTest {
 
-    private static final LottoNumberGenerator FIXED_GENERATOR =
-            () -> List.of(1, 2, 3, 4, 5, 6);
+    private static final LottoNumberGenerator FIXED_GENERATOR = () -> List.of(
+            LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3),
+            LottoNumber.of(4), LottoNumber.of(5), LottoNumber.of(6));
 
     @Nested
     @DisplayName("로또 구매 테스트")
@@ -36,15 +38,19 @@ class LottoMachineTest {
         }
 
         @Test
-        @DisplayName("수동 로또와 자동 로또를 합쳐 발급 테스트")
+        @DisplayName("수동 로또를 그대로 포함하고 나머지는 자동으로 채워 발급한다 테스트")
         void 수동과_자동을_합쳐_발급() {
-            List<Lotto> manualLottos = List.of(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
-            int expectedSize = 3;
+            Lotto manualLotto = Lotto.from(List.of("11", "12", "13", "14", "15", "16"));
+            List<List<Integer>> expectedLottos = List.of(
+                    List.of(11, 12, 13, 14, 15, 16),    // 수동
+                    List.of(1, 2, 3, 4, 5, 6));         // 자동
             LottoMachine lottoMachine = new LottoMachine(FIXED_GENERATOR);
 
-            Lottos lottos = lottoMachine.buy(new Money(3000), manualLottos);
+            Lottos lottos = lottoMachine.buy(new Money(2000), List.of(manualLotto));
 
-            assertThat(lottos.size()).isEqualTo(expectedSize);
+            assertThat(lottos.getLottos())
+                    .extracting(lotto -> lotto.getNumbers().stream().map(LottoNumber::getValue).toList())
+                    .containsExactlyElementsOf(expectedLottos);
         }
     }
 
@@ -68,13 +74,13 @@ class LottoMachineTest {
         @DisplayName("수동 구매 수가 전체 구매 수를 초과하면 예외 발생 테스트")
         void 수동_수가_전체_수를_초과하면_예외() {
             List<Lotto> manualLottos = List.of(
-                    new Lotto(List.of(1, 2, 3, 4, 5, 6)),
-                    new Lotto(List.of(7, 8, 9, 10, 11, 12)),
-                    new Lotto(List.of(13, 14, 15, 16, 17, 18)));
+                    Lotto.from(List.of("1", "2", "3", "4", "5", "6")),
+                    Lotto.from(List.of("7", "8", "9", "10", "11", "12")),
+                    Lotto.from(List.of("13", "14", "15", "16", "17", "18")));
             String throwMessage = "수동 구매 수는 전체 구매 수를 초과할 수 없습니다.";
             LottoMachine lottoMachine = new LottoMachine(FIXED_GENERATOR);
 
-            assertThatThrownBy(() -> lottoMachine.buy(new Money(2000), manualLottos))
+            assertThatThrownBy(() -> lottoMachine.buy(new Money(1000), manualLottos))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(throwMessage);
         }

@@ -17,7 +17,7 @@ class LottoNumberTest {
         @ValueSource(ints = {1, 23, 45})
         @DisplayName("1부터 45 사이면 생성 성공 테스트")
         void 범위_안이면_생성_성공(int value) {
-            LottoNumber lottoNumber = new LottoNumber(value);
+            LottoNumber lottoNumber = LottoNumber.of(value);
 
             assertThat(lottoNumber.getValue()).isEqualTo(value);
         }
@@ -28,7 +28,7 @@ class LottoNumberTest {
         void 범위_밖이면_예외_발생(int value) {
             String throwMessage = "로또 번호는 1부터 45 사이여야 합니다.";
 
-            assertThatThrownBy(() -> new LottoNumber(value))
+            assertThatThrownBy(() -> LottoNumber.of(value))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage(throwMessage);
         }
