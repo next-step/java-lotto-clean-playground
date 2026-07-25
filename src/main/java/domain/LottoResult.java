@@ -7,14 +7,14 @@ public class LottoResult {
 
     private final Map<Rank, Integer> rankCounts;
 
-    public LottoResult(Lottos lottos, WinningNumbers winningNumbers) {
-        this.rankCounts = aggregate(lottos, winningNumbers);
+    public LottoResult(Lottos lottos, WinningLotto winningLotto) {
+        this.rankCounts = aggregate(lottos, winningLotto);
     }
 
-    private Map<Rank, Integer> aggregate(Lottos lottos, WinningNumbers winningNumbers) {
+    private Map<Rank, Integer> aggregate(Lottos lottos, WinningLotto winningLotto) {
         Map<Rank, Integer> result = new EnumMap<>(Rank.class);
         for (Lotto lotto : lottos.getLottos()) {
-            Rank rank = winningNumbers.match(lotto);
+            Rank rank = winningLotto.match(lotto);
             result.merge(rank, 1, Integer::sum);
         }
         return result;

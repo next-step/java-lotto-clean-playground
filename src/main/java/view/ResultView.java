@@ -21,16 +21,24 @@ public class ResultView {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        printRank(Rank.THREE, result);
-        printRank(Rank.FOUR, result);
-        printRank(Rank.FIVE, result);
-        printRank(Rank.SIX, result);
+        printRank(Rank.FIFTH, result);
+        printRank(Rank.FOURTH, result);
+        printRank(Rank.THIRD, result);
+        printRank(Rank.SECOND, result);
+        printRank(Rank.FIRST, result);
         System.out.println(profitMessage(result.profitRate(amount)));
     }
 
     private static void printRank(Rank rank, LottoResult result) {
-        System.out.printf("%d개 일치 (%d원)- %d개%n",
-                rank.getMatchCount(), rank.getPrize(), result.countOf(rank));
+        System.out.printf("%s (%d원) - %d개%n",
+                matchText(rank), rank.getPrize(), result.countOf(rank));
+    }
+
+    private static String matchText(Rank rank) {
+        if (rank.isBonusRequired()) {
+            return rank.getMatchCount() + "개 일치, 보너스 볼 일치";
+        }
+        return rank.getMatchCount() + "개 일치";
     }
 
     private static String profitMessage(double rate) {

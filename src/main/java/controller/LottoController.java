@@ -1,10 +1,12 @@
 package controller;
 
 import domain.LottoMachine;
+import domain.LottoNumber;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.Money;
 import domain.RandomLottoNumberGenerator;
+import domain.WinningLotto;
 import domain.WinningNumbers;
 import view.InputView;
 import view.ResultView;
@@ -19,7 +21,10 @@ public class LottoController {
         ResultView.printLottos(lottos);
 
         WinningNumbers winningNumbers = WinningNumbers.from(InputView.getWinningNumbers());
-        LottoResult result = new LottoResult(lottos, winningNumbers);
+        LottoNumber bonus = new LottoNumber(InputView.getBonusNumber());
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonus);
+
+        LottoResult result = new LottoResult(lottos, winningLotto);
         ResultView.printStatistics(result, amount);
     }
 }

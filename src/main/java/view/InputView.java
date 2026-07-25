@@ -21,4 +21,14 @@ public class InputView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return Arrays.asList(scanner.nextLine().split(","));
     }
+
+    public static int getBonusNumber() {
+        System.out.println();
+        System.out.println("보너스 볼을 입력해 주세요.");
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("보너스 볼은 숫자로 입력해야 합니다.");
+        }
+    }
 }

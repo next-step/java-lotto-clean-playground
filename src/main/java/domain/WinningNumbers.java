@@ -30,15 +30,14 @@ public class WinningNumbers extends Numbers {
         return "당첨 번호";
     }
 
-    public Rank match(Lotto lotto) {
-        int matchCount = countMatch(lotto);
-        return Rank.from(matchCount);
-    }
-
-    private int countMatch(Lotto lotto) {
+    public int countMatch(Lotto lotto) {
         List<Integer> winning = getNumbers();
         return (int) lotto.getNumbers().stream()
                 .filter(winning::contains)
                 .count();
+    }
+
+    public boolean contains(int number) {
+        return getNumbers().contains(number);
     }
 }

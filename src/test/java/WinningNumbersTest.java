@@ -1,5 +1,4 @@
 import domain.Lotto;
-import domain.Rank;
 import domain.WinningNumbers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -54,19 +53,19 @@ class WinningNumbersTest {
     }
 
     @Nested
-    @DisplayName("당첨 등수 판정 테스트")
-    class match {
+    @DisplayName("당첨 번호 일치 개수 테스트")
+    class countMatch {
 
         private final WinningNumbers winningNumbers =
                 new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
 
         @Test
-        @DisplayName("당첨 번호와 겹친 개수만큼 등수 판정 테스트")
-        void 겹친_개수로_등수_판정() {
-            Rank expectedRank = Rank.THREE;
+        @DisplayName("당첨 번호와 겹친 번호 개수 세기 테스트")
+        void 겹친_번호_개수_세기() {
             Lotto lotto = new Lotto(List.of(1, 2, 3, 10, 11, 12));
+            int expectedCount = 3;
 
-            assertThat(winningNumbers.match(lotto)).isEqualTo(expectedRank);
+            assertThat(winningNumbers.countMatch(lotto)).isEqualTo(expectedCount);
         }
     }
 }
