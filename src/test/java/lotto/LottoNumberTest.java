@@ -3,6 +3,7 @@ package lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -22,5 +23,15 @@ class LottoNumberTest {
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new LottoNumber(46))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("같은 값을 가진 로또 번호는 동일하다")
+    void compareLottoNumber() {
+        LottoNumber firstNumber = new LottoNumber(7);
+        LottoNumber secondNumber = new LottoNumber(7);
+
+        assertThat(firstNumber).isEqualTo(secondNumber);
+        assertThat(firstNumber.hashCode()).isEqualTo(secondNumber.hashCode());
     }
 }
