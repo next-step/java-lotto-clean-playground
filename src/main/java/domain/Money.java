@@ -1,7 +1,6 @@
 package domain;
 
-public class Money {
-    private final int value;
+public record Money(int value) {
 
     public Money(int value) {
         this.value = value;
@@ -29,28 +28,6 @@ public class Money {
 
     public boolean isDivisibleBy(Money other) {
         return value % other.value == 0;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Money)) {
-            return false;
-        }
-        Money other = (Money) obj;
-        return value == other.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(value);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
     }
 }
 
