@@ -50,7 +50,7 @@ public class LottoGameTest {
             Assertions.assertThrows(
                     NoSuchElementException.class,
                     // when
-                    inputView::payment
+                    () -> inputView.payment(priceOf())
             );
         }
 
@@ -64,7 +64,7 @@ public class LottoGameTest {
             Assertions.assertThrows(
                     NoSuchElementException.class,
                     // when
-                    inputView::payment
+                    () -> inputView.payment(priceOf())
             );
         }
 
@@ -78,7 +78,7 @@ public class LottoGameTest {
             Assertions.assertThrows(
                     NoSuchElementException.class,
                     // when
-                    inputView::payment
+                    () -> inputView.payment(priceOf())
             );
         }
 
@@ -89,7 +89,7 @@ public class LottoGameTest {
             InputView inputView = inputViewOf("10000\n");
 
             // when
-            Money payment = inputView.payment();
+            Money payment = inputView.payment(priceOf());
 
             // then
             assertThat(payment.getAmount()).isEqualTo(10000);

@@ -61,7 +61,12 @@ public class InputView {
     }
 
     public Money payment(Money price) {
-        return new Money(validationMoney(price));
+        Integer payment;
+        do {
+            payment = validationMoney(price);
+        } while (payment == null);
+
+        return new Money(payment);
     }
 
     private Integer validationMoney(Money price) {
@@ -83,7 +88,7 @@ public class InputView {
         }
 
         if (amount < price.getAmount()) {
-            throw new IllegalArgumentException("구입 금액은 로또 가격보다 낮을 수 없습니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException("구입 금액은 로또 가격보다 낮을 수 없습니다. 다시 입력해주세요.\n로또 금액은 " + price.getAmount() + "원입니다.");
         }
 
         return amount;
