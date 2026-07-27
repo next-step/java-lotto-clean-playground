@@ -9,11 +9,11 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> lottoNumbers) {
         validateLottoNumbers();
-        this.lottoNumbers = new ArrayList<>(lottoNumbers);
+        this.lottoNumbers = List.copyOf(lottoNumbers);
     }
 
     public List<LottoNumber> getLottoNumbers() {
-        return new ArrayList<>(lottoNumbers);
+        return lottoNumbers;
     }
 
     private void validateLottoNumbers() {
