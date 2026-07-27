@@ -24,6 +24,6 @@ public class LottoResult {
     }
 
     public ProfitRate calculateProfitRate(PurchaseAmount purchaseAmount) {
-        return purchaseAmount.calculateProfitRate(totalPrizeMoney());
+        return ProfitRate.calculateRate(totalPrizeMoney(), purchaseAmount);
     }
 }

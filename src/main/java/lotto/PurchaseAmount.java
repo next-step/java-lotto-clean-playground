@@ -29,10 +29,6 @@ public class PurchaseAmount {
         }
     }
 
-    public ProfitRate calculateProfitRate(PrizeMoney prizeMoney) {
-        return new ProfitRate((double) prizeMoney.amount() / purchaseValue);
-    }
-
     private static void validateMinimumValue(int purchaseValue) {
         if (purchaseValue < LOTTO_PRICE) {
             throw new IllegalArgumentException("최소 구입 금액은 " + LOTTO_PRICE + "원입니다.");
@@ -43,5 +39,9 @@ public class PurchaseAmount {
         if ((purchaseValue % LOTTO_PRICE) != 0) {
             throw new IllegalArgumentException("구입 금액은 " + LOTTO_PRICE + "원 단위여야 합니다.");
         }
+    }
+
+    int getValue() {
+        return purchaseValue;
     }
 }

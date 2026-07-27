@@ -35,4 +35,9 @@ public class ProfitRate {
                 .stripTrailingZeros()
                 .toPlainString();
     }
+
+    public static ProfitRate calculateRate(PrizeMoney prizeMoney, PurchaseAmount purchaseAmount) {
+        double rate = (double) prizeMoney.getPrizeMoney() / purchaseAmount.getValue();
+        return new ProfitRate(rate);
+    }
 }
