@@ -11,6 +11,8 @@ public enum Rank {
     FIFTH(3, false, 5_000L),
     MISS(0, false, 0L);
 
+    private static final int BONUS_CHECK_MATCH_COUNT = 5;
+
     private final int matchCount;
     private final boolean bonusRequired;
     private final long prize;
@@ -22,14 +24,13 @@ public enum Rank {
     }
 
     public static Rank of(int matchCount, boolean bonusMatched) {
+        if (matchCount == BONUS_CHECK_MATCH_COUNT) {
+            return bonusMatched ? SECOND : THIRD;
+        }
         return Arrays.stream(values())
-                .filter(rank -> rank.matches(matchCount, bonusMatched))
+                .filter(rank -> rank.matchCount == matchCount)
                 .findFirst()
                 .orElse(MISS);
-    }
-
-    private boolean matches(int matchCount, boolean bonusMatched) {
-        return this.matchCount == matchCount && (!bonusRequired || bonusMatched);
     }
 
     public int getMatchCount() {
