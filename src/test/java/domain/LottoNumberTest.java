@@ -30,17 +30,21 @@ class LottoNumberTest {
 
     @Test
     void 같은_값의_로또번호는_같은_로또번호로_판단한다() {
+        // given
         LottoNumber lottoNumber1 = new LottoNumber(1);
         LottoNumber lottoNumber2 = new LottoNumber(1);
 
+        // then
         assertThat(lottoNumber1).isEqualTo(lottoNumber2);
     }
 
     @Test
     void 서로다른_값의_로또번호는_다른_로또번호로_판단한다() {
+        // given
         LottoNumber lottoNumber1 = new LottoNumber(1);
         LottoNumber lottoNumber2 = new LottoNumber(2);
 
+        // then
         assertThat(lottoNumber1).isNotEqualTo(lottoNumber2);
     }
 }

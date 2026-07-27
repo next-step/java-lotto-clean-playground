@@ -24,34 +24,57 @@ class LottoPurchaseTest {
 
     @Test
     void 수동_구매_수가_0이면_전체_구매_수만큼_자동_로또를_발급한다() {
-        List<Lotto> lottos = lottoPurchase.issueRemainingAutoLottos(0);
+        // given
+        int manualLottoCount = 0;
 
+        // when
+        List<Lotto> lottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+
+        // then
         assertThat(lottos).hasSize(3);
     }
 
     @Test
     void 수동_구매_수만큼_제외하고_자동_로또를_발급한다() {
-        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(2);
+        // given
+        int manualLottoCount = 2;
 
+        // when
+        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+
+        // then
         assertThat(autoLottos).hasSize(1);
     }
 
     @Test
     void 수동_구매_수가_전체_구매_수와_같으면_자동_로또를_발급하지_않는다() {
-        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(3);
+        // given
+        int manualLottoCount = 3;
 
+        // when
+        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+
+        // then
         assertThat(autoLottos).isEmpty();
     }
 
     @Test
     void 수동_구매_수가_전체_구매_수보다_크면_예외를_던진다() {
-        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(4))
+        // given
+        int manualLottoCount = 4;
+
+        // when & then
+        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(manualLottoCount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 수동_구매_수가_음수면_예외를_던진다() {
-        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(-1))
+        // given
+        int manualLottoCount = -1;
+
+        // when & then
+        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(manualLottoCount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
