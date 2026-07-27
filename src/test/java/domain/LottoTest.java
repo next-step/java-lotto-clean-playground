@@ -11,11 +11,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 class LottoTest {
     private Lotto createLotto(int... numbers) {
@@ -33,11 +31,9 @@ class LottoTest {
     @ParameterizedTest
     @MethodSource("invalidSizeNumbers")
     void 번호_개수가_6개보다_많거나_적으면_생성되지_않는다(int[] numbers) {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> createLotto(numbers)
-        );
-        assertEquals("로또 번호는 6개여야 합니다.", exception.getMessage());
+        assertThatThrownBy(() -> createLotto(numbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 6개여야 합니다.");
     }
 
     private static Stream<int[]> invalidSizeNumbers() {
@@ -54,11 +50,9 @@ class LottoTest {
 
     @Test
     void 중복된_숫자가_존재하면_생성되지_않는다() {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> createLotto(1, 2, 3, 4, 5, 5)
-        );
-        assertEquals("로또 번호는 중복될 수 없습니다.", exception.getMessage());
+        assertThatThrownBy(() -> createLotto(1, 2, 3, 4, 5, 5))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 중복될 수 없습니다.");
     }
     @ParameterizedTest
     @MethodSource("matchedCountCases")
@@ -83,13 +77,9 @@ class LottoTest {
     void 보너스_번호와_당첨_번호가_중복되면_오류가_발생한다() {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
 
-        IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class,
-                        () -> lotto.validateBonusNumber(new LottoNumber(1))
-                );
-
-        assertThat(exception.getMessage())
-                .isEqualTo("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        assertThatThrownBy(() -> lotto.validateBonusNumber(new LottoNumber(1)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
 
     @ParameterizedTest

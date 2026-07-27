@@ -1,13 +1,12 @@
 package domain;
 
 import domain.lotto.LottoNumber;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 class LottoNumberTest {
 
@@ -20,10 +19,9 @@ class LottoNumberTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 46})
     void 범위를_벗어나면_생성되지_않는다(int number) {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> new LottoNumber(number)
-        );
-        assertEquals("로또 번호는 1~45 사이여야 합니다.", exception.getMessage());
+
+        assertThatThrownBy(() -> new LottoNumber(number))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 1~45 사이여야 합니다.");
     }
 }
