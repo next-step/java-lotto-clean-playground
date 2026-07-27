@@ -45,4 +45,8 @@ public class ResultView {
         System.out.println(rank.matchCount() + "개 일치 (" + rank.prizeMoney()
                 + "원)- " + result.countOf(rank) + "개");
     }
+
+    public static void printError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
 }

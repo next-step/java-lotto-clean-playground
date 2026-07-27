@@ -15,8 +15,7 @@ public class InputView {
 
     public static PurchaseAmount readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
-
-        return new PurchaseAmount(Integer.parseInt(SCANNER.nextLine()));
+        return new PurchaseAmount(Integer.parseInt(SCANNER.nextLine().trim()));
     }
 
     public static Lotto readWinningLotto() {
@@ -69,5 +68,4 @@ public class InputView {
     private static LottoNumber toLottoNumber(String value) {
         return new LottoNumber(Integer.parseInt(value.trim()));
     }
-
 }
