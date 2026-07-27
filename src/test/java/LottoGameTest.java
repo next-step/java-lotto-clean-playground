@@ -26,6 +26,9 @@ public class LottoGameTest {
     private InputView inputViewOf(String input) {
         return new InputView(new ByteArrayInputStream(input.getBytes()));
     }
+    private Money priceOf() {
+            return new Money(1_000);
+    }
 
     private static List<LottoNumber> toLottoNumbers(int... values) {
         return Arrays.stream(values)
@@ -96,7 +99,7 @@ public class LottoGameTest {
         @DisplayName("1000원 단위가 아닌 금액은 잔돈으로 반환")
         void changeIsReturned() {
             // given
-            LottoSeller seller = new LottoSeller(
+            LottoSeller seller = new LottoSeller(priceOf(),
                     new Money(10_500), List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
             // then
@@ -108,7 +111,7 @@ public class LottoGameTest {
         @DisplayName("구입 금액만큼 로또가 발급")
         void ticketCountMatchesPayment() {
             // given
-            LottoSeller seller = new LottoSeller(
+            LottoSeller seller = new LottoSeller(priceOf(),
                     new Money(10_000), List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
             // then
@@ -376,7 +379,7 @@ public class LottoGameTest {
             );
 
             // when
-            LottoSeller seller = new LottoSeller(
+            LottoSeller seller = new LottoSeller(priceOf(),
                     new Money(10_000), manualLottos, new FixedDrawLottoNumber(40, 41, 42, 43, 44, 45));
 
             // then
@@ -404,7 +407,7 @@ public class LottoGameTest {
             Assertions.assertThrows(
                     IllegalArgumentException.class,
                     // when
-                    () -> new LottoSeller(
+                    () -> new LottoSeller(priceOf(),
                             new Money(2_000), manualLottos, new FixedDrawLottoNumber(40, 41, 42, 43, 44, 45))
             );
         }

@@ -16,6 +16,10 @@ public class Money {
         return amount;
     }
 
+    public int compareTo(Money other) {
+        return Integer.compare(amount, other.amount);
+    }
+
     public Money plus(Money other) {
         return new Money(this.amount + other.amount);
     }

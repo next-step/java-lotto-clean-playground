@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LottoSeller {
 
-    private static final Money PRICE = new Money(1_000);
+    private final Money PRICE;
 
     private final Money amount;
     private final Money paid;
@@ -19,7 +19,8 @@ public class LottoSeller {
     private LottoTickets tickets;
     private final DrawLottoNumber drawLottoNumber;
 
-    public LottoSeller(Money amount, List<Lotto> manualLottos, DrawLottoNumber drawLottoNumber) {
+    public LottoSeller(Money price, Money amount, List<Lotto> manualLottos, DrawLottoNumber drawLottoNumber) {
+        this.PRICE = price;
         this.drawLottoNumber = drawLottoNumber;
         this.amount = amount;
         this.change = amount.change(PRICE);
@@ -27,10 +28,6 @@ public class LottoSeller {
         validateManualCount(manualLottos);
         this.manualCount = manualLottos.size();
         initTickets(manualLottos);
-    }
-
-    public static Money getPrice() {
-        return PRICE;
     }
 
     public LottoTickets getTickets() {

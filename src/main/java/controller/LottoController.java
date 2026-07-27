@@ -16,6 +16,8 @@ import java.util.List;
 
 public class LottoController {
 
+    private final Money PRICE = new Money(1_000);
+
     private final InputView inputView;
 
     public LottoController(InputView inputView) {
@@ -27,7 +29,7 @@ public class LottoController {
         Money payment = initPayment();
         List<Lotto> manualLottos = manualLottosInitialize(payment);
 
-        LottoSeller seller = new LottoSeller(payment, manualLottos, new RandomLottoNumber());
+        LottoSeller seller = new LottoSeller(PRICE, payment, manualLottos, new RandomLottoNumber());
 
         payAndNoticeChange(seller);
 
@@ -93,7 +95,7 @@ public class LottoController {
         do {
             OutputView.printManualCountNotice();
             count = inputView.manualCount();
-        } while (count > payment.countPurchasable(LottoSeller.getPrice()));
+        } while (count > payment.countPurchasable(PRICE));
         return count;
     }
 
