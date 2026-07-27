@@ -1,15 +1,11 @@
 package view.input;
 
 import domain.lotto.Lotto;
-import domain.lotto.wrap.LottoNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import static helper.TestHelperMethod.inputViewOf;

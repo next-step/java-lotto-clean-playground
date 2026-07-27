@@ -4,7 +4,6 @@ import domain.draw.DrawLottoNumber;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.wrap.Money;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

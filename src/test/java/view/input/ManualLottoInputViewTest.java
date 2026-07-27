@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
-import java.io.ByteArrayInputStream;
 import java.util.NoSuchElementException;
 
 import static helper.TestHelperMethod.inputViewOf;

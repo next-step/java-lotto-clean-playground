@@ -8,10 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.List;
 
 import static helper.TestHelperMethod.inputViewOf;
 import static helper.TestHelperMethod.toLottoNumbers;
