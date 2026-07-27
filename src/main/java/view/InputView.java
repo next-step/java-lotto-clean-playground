@@ -39,7 +39,7 @@ public class InputView {
         try {
             return new Lotto(initNumbers());
         } catch (IllegalArgumentException e) {
-            System.out.println("당첨 번호를 입력할 때에는 6개의 숫자여야 하며, 콤마로 구분되어 있어야 합니다.");
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -48,7 +48,7 @@ public class InputView {
         String input = scanner.nextLine();
 
         if (!input.contains(",")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("당첨 번호를 입력할 때에는 6개의 숫자여야 하며, 콤마로 구분되어 있어야 합니다.");
         }
         return Arrays.stream(input.split(","))
                 .map(String::trim)
