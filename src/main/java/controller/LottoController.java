@@ -26,7 +26,7 @@ public class LottoController {
 
     public void run() {
 
-        Money payment = initPayment();
+        Money payment = initPayment(PRICE);
         List<Lotto> manualLottos = manualLottosInitialize(payment);
 
         LottoSeller seller = new LottoSeller(PRICE, payment, manualLottos, new RandomLottoNumber());
@@ -79,13 +79,13 @@ public class LottoController {
         }
     }
 
-    private Money initPayment() {
+    private Money initPayment(Money price) {
         Money payment;
 
         do {
             OutputView.printPaymentNotice();
-            payment = inputView.payment();
-        } while (payment.getAmount() <= 0);
+            payment = inputView.payment(price);
+        } while (payment.compareTo(price) < 0);
         return payment;
     }
 

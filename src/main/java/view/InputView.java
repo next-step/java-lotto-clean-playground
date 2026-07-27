@@ -5,7 +5,10 @@ import domain.lotto.wrap.LottoNumber;
 import domain.lotto.wrap.Money;
 
 import java.io.InputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class InputView {
 
@@ -57,33 +60,30 @@ public class InputView {
                 .toList();
     }
 
-    public Money payment() {
-
-        Integer payment;
-
-        do {
-            payment = validationMoney();
-        } while (payment == null);
-
-        return new Money(payment);
+    public Money payment(Money price) {
+        return new Money(validationMoney(price));
     }
 
-    private Integer validationMoney() {
+    private Integer validationMoney(Money price) {
         try {
-            return initPayment();
-        } catch (InputMismatchException e) {
-            System.out.println("양의 정수를 입력해주세요.");
+            return initPayment(price);
+        } catch (InputMismatchException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             scanner.nextLine();
         }
         return null;
     }
 
-    private int initPayment() {
+    private int initPayment(Money price) {
         int amount = scanner.nextInt();
         scanner.nextLine();
 
         if (amount <= 0) {
-            throw new InputMismatchException();
+            throw new InputMismatchException("양의 정수를 입력해주세요.");
+        }
+
+        if (amount < price.getAmount()) {
+            throw new IllegalArgumentException("구입 금액은 로또 가격보다 낮을 수 없습니다. 다시 입력해주세요.");
         }
 
         return amount;
