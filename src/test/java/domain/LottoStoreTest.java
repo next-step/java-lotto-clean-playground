@@ -1,5 +1,10 @@
 package domain;
 
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.LottoStore;
+import domain.lotto.Lottos;
+import domain.lotto.Money;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

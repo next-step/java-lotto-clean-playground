@@ -1,10 +1,9 @@
 package view;
 
-import domain.LotteryStatistics;
-import domain.Lotto;
-import domain.Lottos;
-import domain.Rank;
-import domain.Money;
+import domain.lotto.LotteryStatistics;
+import domain.lotto.Lottos;
+import domain.lotto.Rank;
+import domain.lotto.Money;
 
 import java.util.Map;
 
@@ -15,8 +14,8 @@ public class ResultView {
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
                 manualCount, autoCount);
 
-        for(Lotto lotto : lottos) {
-            System.out.println(lotto.getLottoNumbers());
+        for (String display : lottos.toDisplayStrings()) {
+            System.out.println(display);
         }
     }
 

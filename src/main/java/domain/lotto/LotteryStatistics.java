@@ -1,6 +1,7 @@
-package domain;
+package domain.lotto;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class LotteryStatistics {
@@ -17,11 +18,8 @@ public class LotteryStatistics {
     }
 
     public void calculateStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber) {
-        for (Lotto lotto : lottos) {
-            int matchCount = lotto.matchCount(winningLotto);
-            boolean bonusMatched = lotto.contains(bonusNumber);
-
-            Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
+        List<Rank> ranks = lottos.matchRanks(winningLotto, bonusNumber);
+        for (Rank rank : ranks) {
             increaseCount(rank);
         }
     }

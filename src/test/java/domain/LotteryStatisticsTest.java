@@ -1,5 +1,11 @@
 package domain;
 
+import domain.lotto.LotteryStatistics;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import domain.lotto.Money;
+import domain.lotto.Rank;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

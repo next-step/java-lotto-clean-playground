@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        this.lottoNumbers = new ArrayList<>(lottoNumbers);
         validateLottoNumbers();
+        this.lottoNumbers = new ArrayList<>(lottoNumbers);
     }
 
     public List<LottoNumber> getLottoNumbers() {

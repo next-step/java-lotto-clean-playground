@@ -1,9 +1,9 @@
-import domain.Lotto;
-import domain.LottoNumber;
-import domain.Lottos;
-import domain.LottoStore;
-import domain.Money;
-import domain.LotteryStatistics;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import domain.lotto.LottoStore;
+import domain.lotto.Money;
+import domain.lotto.LotteryStatistics;
 
 import view.InputView;
 import view.ResultView;

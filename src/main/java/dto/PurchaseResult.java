@@ -1,7 +1,7 @@
 package dto;
 
-import domain.Lottos;
-import domain.Money;
+import domain.lotto.Lottos;
+import domain.lotto.Money;
 
 
 public record PurchaseResult(

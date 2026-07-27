@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 public record Money(int value) {
 
