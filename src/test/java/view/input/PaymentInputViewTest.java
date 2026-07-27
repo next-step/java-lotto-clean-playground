@@ -46,6 +46,21 @@ public class PaymentInputViewTest {
     }
 
     @Test
+    @DisplayName("1000원 미만의 금액은 재입력 요청")
+    void isLowerThen1000() {
+        // given
+        InputView inputView = inputViewOf("500\n");
+
+        // then
+        Assertions.assertThrows(
+                NoSuchElementException.class,
+
+                // when
+                () -> inputView.payment(priceOf())
+        );
+    }
+
+    @Test
     @DisplayName("실수를 입력한 경우 재입력 요청")
     void ifFloatInput() {
         // given

@@ -29,6 +29,20 @@ public class LastWeekWinningNumberInputViewTest {
     }
 
     @Test
+    @DisplayName("1 ~ 45의 범위 내의 숫자가 아닌 경우")
+    void isNotValidNumber() {
+        // given
+        InputView inputView = inputViewOf("1,2,3,4,5, 50\n");
+
+        // then
+        Assertions.assertThrows(
+                NoSuchElementException.class,
+                // when
+                inputView::lastWeekWinningNumbers
+        );
+    }
+
+    @Test
     @DisplayName("7개를 입력한 경우 재입력 요청")
     void ifSevenNumbersInput() {
         // given
