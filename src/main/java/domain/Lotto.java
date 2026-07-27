@@ -1,8 +1,8 @@
 package domain;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Lotto {
 
@@ -12,9 +12,9 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numbers) {
         validateSize(numbers.size());
-        Set<LottoNumber> unique = new HashSet<>(numbers);
-        validateDuplicate(numbers.size(), unique.size());
-        this.numbers = unique;
+        Set<LottoNumber> sorted = new TreeSet<>(numbers);
+        validateDuplicate(numbers.size(), sorted.size());
+        this.numbers = sorted;
     }
 
     public static Lotto from(List<String> rawNumbers) {
@@ -50,8 +50,6 @@ public class Lotto {
     }
 
     public List<LottoNumber> getNumbers() {
-        return numbers.stream()
-                .sorted()
-                .toList();
+        return List.copyOf(numbers);
     }
 }
