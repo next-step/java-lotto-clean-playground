@@ -2,9 +2,9 @@ package domain;
 
 import domain.lotto.Money;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -65,48 +65,25 @@ class MoneyTest {
         assertEquals(6, result);
     }
 
-    @Test
-    void 금액이_더_작으면_true를_반환한다() {
-        // Given
-        Money money1 = new Money(1000);
-        Money money2 = new Money(2000);
-        // When
+    @ParameterizedTest
+    @CsvSource({"1000, 2000, true", "2000, 1000, false"})
+    void 금액이_더_적으면_true를_더_많으면_false를_반환한다(int value1, int value2, boolean expected) {
+        Money money1 = new Money(value1);
+        Money money2 = new Money(value2);
+
         boolean result = money1.isLessThan(money2);
-        // Then
-        assertTrue(result);
+
+        assertEquals(expected, result);
     }
 
-    @Test
-    void 금액이_더_작지_않으면_false를_반환한다() {
-        // Given
-        Money money1 = new Money(2000);
-        Money money2 = new Money(1000);
-        // When
-        boolean result = money1.isLessThan(money2);
-        // Then
-        assertFalse(result);
-    }
-
-    @Test
-    void 나누어_떨어지면_true를_반환한다() {
-        // Given
-        Money money1 = new Money(12000);
-        Money money2 = new Money(2000);
-        // When
+    @ParameterizedTest
+    @CsvSource({"12000, 2000, true", "13000, 2000, false"})
+    void 나머지가_없으면_true를_있으면_false를_반환한다(int value1, int value2, boolean expected) {
+        Money money1 = new Money(value1);
+        Money money2 = new Money(value2);
         boolean result = money1.isDivisibleBy(money2);
-        // Then
-        assertTrue(result);
-    }
 
-    @Test
-    void 나누어_떨어지지_않으면_false를_반환한다() {
-        // Given
-        Money money1 = new Money(13000);
-        Money money2 = new Money(2000);
-        // When
-        boolean result = money1.isDivisibleBy(money2);
-        // Then
-        assertFalse(result);
+        assertEquals(expected, result);
     }
 
     @Test

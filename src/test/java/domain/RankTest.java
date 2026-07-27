@@ -1,22 +1,26 @@
 package domain;
 
 import domain.lotto.Rank;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RankTest {
-    @Test
-    void 일치하는_갯수와_보너스_번호의_일치_여부에_따라_해당하는_등수를_반환한다() {
-        assertEquals(Rank.NONE, Rank.findByMatchCount(0, false));
-        assertEquals(Rank.NONE, Rank.findByMatchCount(1, false));
-        assertEquals(Rank.NONE, Rank.findByMatchCount(2, false));
-        assertEquals(Rank.THREE, Rank.findByMatchCount(3, false));
-        assertEquals(Rank.FOUR, Rank.findByMatchCount(4, false));
-        assertEquals(Rank.FIVE, Rank.findByMatchCount(5, false));
-        assertEquals(Rank.SECOND, Rank.findByMatchCount(5, true));
-        assertEquals(Rank.SIX, Rank.findByMatchCount(6, false));
-        assertEquals(Rank.SIX, Rank.findByMatchCount(6, true));
-        assertEquals(Rank.NONE, Rank.findByMatchCount(7, false));
+    @ParameterizedTest
+    @CsvSource({
+            "0, false, NONE",
+            "1, false, NONE",
+            "2, false, NONE",
+            "3, false, THREE",
+            "4, false, FOUR",
+            "5, false, FIVE",
+            "5, true, SECOND",
+            "6, false, SIX",
+            "6, true, SIX",
+            "7, false, NONE"
+    })
+    void 일치_개수와_보너스_일치_여부에_따라_등수를_반환한다(int matchCount, boolean bonusMatched, Rank expected) {
+        assertEquals(expected, Rank.findByMatchCount(matchCount, bonusMatched));
     }
 }
