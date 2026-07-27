@@ -24,6 +24,16 @@ public class Lotto {
         return List.copyOf(numbers);
     }
 
+    public int countMatchingNumbers(Lotto other) {
+        return (int) numbers.stream()
+                .filter(other::contains)
+                .count();
+    }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
+    }
+
     private List<LottoNumber> sortNumbers(List<LottoNumber> numbers) {
         List<LottoNumber> sortedNumbers = new ArrayList<>(numbers);
         sortedNumbers.sort(Comparator.comparingInt(LottoNumber::getValue));

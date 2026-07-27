@@ -15,7 +15,7 @@ class WinningLottoTest {
         Lotto lotto = Lotto.from(List.of(1, 2, 3, 7, 8, 9));
 
         // when
-        int matchCount = winningLotto.countMatches(lotto);
+        int matchCount = winningLotto.countMatchingNumbersOf(lotto);
 
         // then
         assertThat(matchCount).isEqualTo(3);

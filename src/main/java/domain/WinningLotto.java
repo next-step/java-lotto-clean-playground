@@ -16,19 +16,16 @@ public class WinningLotto {
         return new WinningLotto(Lotto.from(winningNumbers), new LottoNumber(bonusNumber));
     }
 
-    public int countMatches(Lotto lotto) {
-        return (int) this.lotto.getNumbers()
-                .stream()
-                .filter(winningNumber -> lotto.getNumbers().contains(winningNumber))
-                .count();
+    public int countMatchingNumbersOf(Lotto purchasedLotto) {
+        return purchasedLotto.countMatchingNumbers(lotto);
     }
 
-    public boolean matchesBonus(Lotto lotto) {
-        return lotto.getNumbers().contains(bonusNumber);
+    public boolean matchesBonus(Lotto purchasedLotto) {
+        return purchasedLotto.contains(bonusNumber);
     }
 
     private void validateBonusNumber(Lotto lotto, LottoNumber bonusNumber) {
-        if (lotto.getNumbers().contains(bonusNumber)) {
+        if (lotto.contains(bonusNumber)) {
             throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }

@@ -24,7 +24,7 @@ public class LottoStatistics {
         Map<LottoRank, Integer> rankCounts = initializeRankCounts();
 
         for (Lotto purchasedLotto : lottos) {
-            int matchCount = winningLotto.countMatches(purchasedLotto);
+            int matchCount = winningLotto.countMatchingNumbersOf(purchasedLotto);
             boolean bonusMatch = winningLotto.matchesBonus(purchasedLotto);
 
             LottoRank.findByMatchResult(matchCount, bonusMatch)
