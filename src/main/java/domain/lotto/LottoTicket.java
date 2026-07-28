@@ -1,8 +1,7 @@
 package domain.lotto;
 
 import domain.number.LottoNumberCombination;
-import domain.number.LottoNumber;
-import domain.result.MatchCount;
+import domain.result.LottoResult;
 import java.util.List;
 
 public class LottoTicket {
@@ -16,12 +15,8 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
-    public boolean contains(LottoNumber lottoNumber) {
-        return numbers.contains(lottoNumber);
-    }
-
-    public MatchCount countMatching(LottoNumberCombination other) {
-        return numbers.countMatching(other);
+    public LottoResult match(WinningLotto winningLotto) {
+        return winningLotto.match(numbers);
     }
 
     public List<Integer> values() {

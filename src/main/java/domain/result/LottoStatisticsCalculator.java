@@ -8,7 +8,7 @@ public class LottoStatisticsCalculator {
         LottoStatistics lottoStatistics = LottoStatistics.empty();
         purchasedLottos.values()
                 .stream()
-                .map(winningLotto::match)
+                .map(lottoTicket -> lottoTicket.match(winningLotto))
                 .forEach(lottoStatistics::record);
         return lottoStatistics;
     }

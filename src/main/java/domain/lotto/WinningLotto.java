@@ -24,18 +24,18 @@ public class WinningLotto {
         return Optional.ofNullable(bonusBall);
     }
 
-    public MatchCount countMatching(LottoTicket lottoTicket) {
-        return lottoTicket.countMatching(numbers);
+    LottoResult match(LottoNumberCombination ticketNumbers) {
+        MatchCount matchCount = countMatching(ticketNumbers);
+        return LottoResult.of(matchCount, isBonusBallMatched(ticketNumbers));
     }
 
-    public LottoResult match(LottoTicket lottoTicket) {
-        MatchCount matchCount = countMatching(lottoTicket);
-        return LottoResult.of(matchCount, isBonusBallMatched(lottoTicket));
+    private MatchCount countMatching(LottoNumberCombination ticketNumbers) {
+        return ticketNumbers.countMatching(numbers);
     }
 
-    private boolean isBonusBallMatched(LottoTicket lottoTicket) {
+    private boolean isBonusBallMatched(LottoNumberCombination ticketNumbers) {
         return bonusBall()
-                .map(bonusBall -> lottoTicket.contains(bonusBall.lottoNumber()))
+                .map(bonusBall -> ticketNumbers.contains(bonusBall.lottoNumber()))
                 .orElse(false);
     }
 }
