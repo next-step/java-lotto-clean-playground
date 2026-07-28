@@ -1,34 +1,45 @@
 package domain;
 
+import static domain.LottoRule.LOTTO_PRICE;
 import generator.LottoNumberGenerator;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LottoSystem {
-    private static final int LOTTO_PRICE = 1000;
 
-    private final Integer lottoCount;
+    private final Integer purchaseAmount;
     private final Lottos lottos;
+    private final LottoNumberGenerator lottoNumberGenerator;
+    private final Integer purchasedLottoCount;
 
-    public LottoSystem(Integer inputMoney, LottoNumberGenerator lottoNumberGenerator) {
-        this.lottoCount = inputMoney / LOTTO_PRICE;
-        this.lottos = new Lottos(createLottos(lottoNumberGenerator));
+    public LottoSystem(Integer purchaseAmount, LottoNumberGenerator lottoNumberGenerator) {
+        validate(purchaseAmount, lottoNumberGenerator);
+        this.purchaseAmount = purchaseAmount;
+        this.lottoNumberGenerator = lottoNumberGenerator;
+        this.purchasedLottoCount = purchaseAmount / LOTTO_PRICE;
+        this.lottos = new Lottos(createLotto());
     }
 
-    private List<Lotto> createLottos(LottoNumberGenerator lottoNumberGenerator) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottos.add(new Lotto(lottoNumberGenerator.generate()));
+    private void validate(Integer purchaseAmount, LottoNumberGenerator lottoNumberGenerator){
+        if(purchaseAmount < LOTTO_PRICE){
+            throw new IllegalArgumentException("로또 가격보다 입력한 값이 적습니다.");
         }
-        return lottos;
     }
 
-    public Lottos getLottos() {
+    private List<Lotto> createLotto(){
+        return Stream
+            .generate(lottoNumberGenerator::generate)
+            .map(Lotto::new)
+            .limit(purchasedLottoCount)
+            .toList();
+    }
+    public List<List<Integer>> purchasedLottoNumbers() {
+        return lottos.purchasedLottoNumbers();
+    }
+    public Lottos purchasedLottos(){
         return lottos;
     }
-
-    public PurchasedLottoNumbers getPurchasedLottoNumbers() {
-        return lottos.toNumbers();
+    public Integer purchasedLottoCount() {
+        return purchasedLottoCount;
     }
 }
