@@ -42,8 +42,19 @@ public class OutputView {
 
     private void printStatisticsResults(LottoStatistics lottoStatistics) {
         LottoRank.valuesForResult().stream()
-                .map(rank -> rank.resultMessage(lottoStatistics.countOf(rank)))
+                .map(rank -> statisticsResultMessage(rank, lottoStatistics.countOf(rank)))
                 .forEach(System.out::println);
+    }
+
+    private String statisticsResultMessage(LottoRank lottoRank, int count) {
+        return matchMessage(lottoRank) + " (" + lottoRank.prizeAmount() + "원)- " + count + "개";
+    }
+
+    private String matchMessage(LottoRank lottoRank) {
+        if (lottoRank.requiresBonusBallMatch()) {
+            return lottoRank.matchCount() + "개 일치, 보너스 볼 일치";
+        }
+        return lottoRank.matchCount() + "개 일치";
     }
 
     private void printProfitRate(
