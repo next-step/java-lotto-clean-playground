@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.money.PurchaseAmount;
 import java.util.List;
@@ -36,5 +37,19 @@ class LottoMachineTest {
 
     private PurchasedLottos createManualLottos() {
         return new PurchasedLottos(List.of(new LottoTicket(List.of(1, 2, 3, 4, 5, 6))));
+    }
+
+    @Test
+    @DisplayName("수동 구매 로또 수가 전체 구매 수보다 많으면 예외가 발생한다")
+    void throwExceptionWhenManualLottoCountExceedsTotalPurchaseCount() {
+        LottoMachine lottoMachine = new LottoMachine();
+        PurchasedLottos manualLottos = new PurchasedLottos(List.of(
+                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)),
+                new LottoTicket(List.of(7, 8, 9, 10, 11, 12))
+        ));
+
+        assertThatThrownBy(() -> lottoMachine.buy(PurchaseAmount.from(1_000), manualLottos))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("수동 구매 수는 전체 구매 수를 넘을 수 없습니다.");
     }
 }
