@@ -8,7 +8,6 @@ import static domain.LottoRank.THIRD;
 import domain.LottoRank;
 import domain.LottoRankTable;
 import java.util.List;
-import java.util.Map;
 
 public class ResultView {
     public static void printPurchasedLottos(Integer purchasedLottoCount, List<List<Integer>> lottos){

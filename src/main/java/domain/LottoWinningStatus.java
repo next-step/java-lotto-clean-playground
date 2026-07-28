@@ -1,7 +1,5 @@
 package domain;
 import java.util.List;
-import java.util.Map;
-
 
 public class LottoWinningStatus {
   private final WinningNumbers winningNumbers;
