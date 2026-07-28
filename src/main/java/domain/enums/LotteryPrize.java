@@ -14,6 +14,16 @@ public enum LotteryPrize {
     MISS(0, false, new Money(0))
     ;
 
+    private final int matchCount;
+    private final boolean isMatchedBonus;
+    private final Money prize;
+
+    LotteryPrize(int matchCount, boolean isMatchedBonus, Money prize) {
+        this.matchCount = matchCount;
+        this.isMatchedBonus = isMatchedBonus;
+        this.prize = prize;
+    }
+
     public static LotteryPrize of(int matchCount, boolean isMatchedBonus) {
         if (matchCount == 5 && isMatchedBonus) {
             return SECOND;
@@ -32,13 +42,4 @@ public enum LotteryPrize {
         return prize;
     }
 
-    LotteryPrize(int matchCount, boolean isMatchedBonus, Money prize) {
-        this.matchCount = matchCount;
-        this.isMatchedBonus = isMatchedBonus;
-        this.prize = prize;
-    }
-
-    private final int matchCount;
-    private final boolean isMatchedBonus;
-    private final Money prize;
 }
