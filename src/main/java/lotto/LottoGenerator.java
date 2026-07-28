@@ -2,6 +2,7 @@ package lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LottoGenerator {
@@ -23,7 +24,7 @@ public class LottoGenerator {
         Collections.shuffle(numbers);
         List<LottoNumber> lottoNumbers = new ArrayList<>(numbers.subList(0, LOTTO_NUMBER_COUNT));
 
-        Collections.sort(lottoNumbers);
+        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getValue));
         return new Lotto(lottoNumbers);
     }
 

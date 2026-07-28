@@ -1,10 +1,10 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class Lottos implements Iterable<Lotto> {
+public class Lottos {
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
@@ -25,8 +25,7 @@ public class Lottos implements Iterable<Lotto> {
         return result;
     }
 
-    @Override
-    public Iterator<Lotto> iterator() {
-        return lottos.iterator();
+    public void forEach(Consumer<Lotto> action) {
+        lottos.forEach(action);
     }
 }

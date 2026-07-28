@@ -1,6 +1,5 @@
 package view;
 
-import lotto.Lotto;
 import lotto.LottoRank;
 import lotto.LottoResult;
 import lotto.Lottos;
@@ -15,9 +14,7 @@ public class ResultView {
     }
 
     public static void printLottos(Lottos lottos) {
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto);
-        }
+        lottos.forEach(lotto -> System.out.println(lotto));
     }
 
     public static void printResult(LottoResult result, PurchaseAmount purchaseAmount) {
