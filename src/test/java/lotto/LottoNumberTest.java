@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoNumberTest {
@@ -12,8 +11,11 @@ class LottoNumberTest {
     @Test
     @DisplayName("1부터 45 사이의 로또 번호를 생성한다")
     void createLottoNumber() {
-        assertThatCode(() -> new LottoNumber(1)).doesNotThrowAnyException();
-        assertThatCode(() -> new LottoNumber(45)).doesNotThrowAnyException();
+        LottoNumber minimumNumber = new LottoNumber(1);
+        LottoNumber maximumNumber = new LottoNumber(45);
+
+        assertThat(minimumNumber.getValue()).isEqualTo(1);
+        assertThat(maximumNumber.getValue()).isEqualTo(45);
     }
 
     @Test

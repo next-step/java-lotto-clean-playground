@@ -1,9 +1,13 @@
 package view;
 
+import lotto.Lotto;
+import lotto.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class InputViewTest {
@@ -11,8 +15,12 @@ class InputViewTest {
     @Test
     @DisplayName("쉼표로 구분한 당첨 번호를 로또로 변환한다")
     void parseLotto() {
-        assertThatCode(() -> InputView.parseLotto("1, 2, 3, 4, 5, 6"))
-                .doesNotThrowAnyException();
+        Lotto lotto = InputView.parseLotto("1, 2, 3, 4, 5, 6");
+        Lotto expectedLotto = new Lotto(Arrays.asList(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
+
+        assertThat(lotto.countMatches(expectedLotto)).isEqualTo(6);
     }
 
     @Test
@@ -25,7 +33,8 @@ class InputViewTest {
     @Test
     @DisplayName("보너스 번호를 로또 번호로 변환한다")
     void parseBonusNumber() {
-        assertThatCode(() -> InputView.parseBonusNumber("7"))
-                .doesNotThrowAnyException();
+        LottoNumber bonusNumber = InputView.parseBonusNumber("7");
+
+        assertThat(bonusNumber).isEqualTo(new LottoNumber(7));
     }
 }
