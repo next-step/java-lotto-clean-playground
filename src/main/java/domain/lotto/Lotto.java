@@ -17,15 +17,15 @@ public class Lotto {
         this.numbers = List.copyOf(numbers);
     }
 
-    private void validateDuplicate(List<LottoNumber> numbers) {
-        if (new HashSet(numbers).size() != numbers.size()) {
-            throw new IllegalArgumentException("추첨된 로또 번호는 서로 중복될 수 없습니다.");
-        }
-    }
-
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != SIZE) {
             throw new IllegalArgumentException("추첨된 로또 숫자는 6개여야 합니다.");
+        }
+    }
+
+    private void validateDuplicate(List<LottoNumber> numbers) {
+        if (new HashSet(numbers).size() != numbers.size()) {
+            throw new IllegalArgumentException("추첨된 로또 번호는 서로 중복될 수 없습니다.");
         }
     }
 
