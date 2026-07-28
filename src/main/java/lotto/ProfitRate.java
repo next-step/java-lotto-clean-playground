@@ -39,7 +39,7 @@ public class ProfitRate {
     }
 
     public static ProfitRate calculateRate(PrizeMoney prizeMoney, PurchaseAmount purchaseAmount) {
-        double rate = (double) prizeMoney.getPrizeMoney() / purchaseAmount.getValue();
+        double rate = (double) prizeMoney.value() / purchaseAmount.getValue();
         return new ProfitRate(rate);
     }
 

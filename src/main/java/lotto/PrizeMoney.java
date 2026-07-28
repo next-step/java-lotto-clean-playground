@@ -1,45 +1,17 @@
 package lotto;
 
-import java.util.Objects;
-
-public class PrizeMoney {
-    private final long prizeMoney;
-
-    public PrizeMoney(long value) {
-        this.prizeMoney = value;
-    }
+public record PrizeMoney(long value) {
 
     public PrizeMoney add(PrizeMoney other) {
-        return new PrizeMoney(prizeMoney + other.prizeMoney);
+        return new PrizeMoney(value + other.value);
     }
 
     public PrizeMoney multiply(int count) {
-        return new PrizeMoney(prizeMoney * count);
-    }
-
-    long getPrizeMoney() {
-        return prizeMoney;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (!(object instanceof PrizeMoney)) {
-            return false;
-        }
-        PrizeMoney prizeMoney = (PrizeMoney) object;
-        return this.prizeMoney == prizeMoney.prizeMoney;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(prizeMoney);
+        return new PrizeMoney(value * count);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(prizeMoney);
+        return String.valueOf(value);
     }
 }
