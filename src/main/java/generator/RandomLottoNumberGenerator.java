@@ -1,23 +1,24 @@
 package generator;
 
+import static domain.LottoRule.LOTTO_NUMBERS_COUNT;
+import static domain.LottoRule.MAX_NUMBER;
+import static domain.LottoRule.MIN_NUMBER;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class RandomLottoNumberGenerator implements LottoNumberGenerator {
-    private final List<Integer> lottoNumberRange;
-
-    public RandomLottoNumberGenerator(){
-        List<Integer> lottoNumbers = new ArrayList<>();
-        for(int i = 1; i <= 45; i++ ){
+    private final List<Integer> lottoNumbers;
+    public RandomLottoNumberGenerator() {
+        lottoNumbers =  new ArrayList<>();
+        for(Integer i = MIN_NUMBER; i <= MAX_NUMBER; i++){
             lottoNumbers.add(i);
         }
-        this.lottoNumberRange = lottoNumbers;
     }
-
     @Override
     public List<Integer> generate() {
-        Collections.shuffle(lottoNumberRange);
-        return new ArrayList<>(lottoNumberRange.subList(0, 6));
+        Collections.shuffle(lottoNumbers);
+        return new ArrayList<>(lottoNumbers.subList(0, LOTTO_NUMBERS_COUNT));
     }
 }
