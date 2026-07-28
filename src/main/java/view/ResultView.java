@@ -3,6 +3,7 @@ package view;
 import lotto.LottoRank;
 import lotto.LottoResult;
 import lotto.Lottos;
+import lotto.ProfitRate;
 import lotto.PurchaseAmount;
 
 public class ResultView {
@@ -34,8 +35,19 @@ public class ResultView {
     }
 
     private static void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {
-        System.out.println("총 수익률은 " + result.calculateProfitRate(purchaseAmount)
-                + "입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+        ProfitRate profitRate = result.calculateProfitRate(purchaseAmount);
+        System.out.println("총 수익률은 " + profitRate
+                + "입니다.(기준이 1이기 때문에 결과적으로 " + profitResult(profitRate) + "라는 의미임)");
+    }
+
+    private static String profitResult(ProfitRate profitRate) {
+        if (profitRate.isProfit()) {
+            return "이익이";
+        }
+        if (profitRate.isLoss()) {
+            return "손해";
+        }
+        return "본전이";
     }
 
     private static void printRank(LottoResult result, LottoRank rank) {

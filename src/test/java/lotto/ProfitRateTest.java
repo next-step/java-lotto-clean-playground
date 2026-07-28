@@ -27,4 +27,25 @@ public class ProfitRateTest {
 
         assertThat(profitRate.toString()).isEqualTo("0.35");
     }
+
+    @Test
+    @DisplayName("수익률이 1보다 크면 이익이다")
+    void determineProfit() {
+        assertThat(new ProfitRate(1.5).isProfit()).isTrue();
+    }
+
+    @Test
+    @DisplayName("수익률이 1보다 작으면 손해다")
+    void determineLoss() {
+        assertThat(new ProfitRate(0.5).isLoss()).isTrue();
+    }
+
+    @Test
+    @DisplayName("수익률이 1이면 이익도 손해도 아니다")
+    void determineBreakEven() {
+        ProfitRate profitRate = new ProfitRate(1.0);
+
+        assertThat(profitRate.isProfit()).isFalse();
+        assertThat(profitRate.isLoss()).isFalse();
+    }
 }

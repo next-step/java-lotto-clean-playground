@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 public class ProfitRate {
+    private static final double BREAK_EVEN_RATE = 1.0;
+
     private final double rate;
 
     public ProfitRate(double rate) {
@@ -39,5 +41,13 @@ public class ProfitRate {
     public static ProfitRate calculateRate(PrizeMoney prizeMoney, PurchaseAmount purchaseAmount) {
         double rate = (double) prizeMoney.getPrizeMoney() / purchaseAmount.getValue();
         return new ProfitRate(rate);
+    }
+
+    public boolean isProfit() {
+        return rate > BREAK_EVEN_RATE;
+    }
+
+    public boolean isLoss() {
+        return rate < BREAK_EVEN_RATE;
     }
 }
