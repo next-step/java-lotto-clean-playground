@@ -6,16 +6,22 @@ import java.util.Map;
 
 public class LottoStatistics {
     private final Map<LottoRank, Integer> rankCounts;
+    private final double profitRate;
 
-    public LottoStatistics(List<Lotto> lottos, WinningLotto winningLotto) {
+    public LottoStatistics(List<Lotto> lottos, WinningLotto winningLotto, PurchaseAmount purchaseAmount) {
         this.rankCounts = calculateRankCounts(lottos, winningLotto);
+        this.profitRate = calculateProfitRate(purchaseAmount);
     }
 
     public Map<LottoRank, Integer> getRankCounts() {
         return Map.copyOf(rankCounts);
     }
 
-    public double calculateProfitRate(PurchaseAmount purchaseAmount) {
+    public double getProfitRate() {
+        return profitRate;
+    }
+
+    private double calculateProfitRate(PurchaseAmount purchaseAmount) {
         int totalPrize = calculateTotalPrize();
         return (double) totalPrize / purchaseAmount.getAmount();
     }

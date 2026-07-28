@@ -11,6 +11,7 @@ class LottoStatisticsTest {
     @Test
     void 구매_로또들의_당첨_등급별_개수를_계산한다() {
         // given
+        PurchaseAmount purchaseAmount = new PurchaseAmount(5000);
         WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6), 7);
         List<Lotto> lottos = List.of(
                 Lotto.from(List.of(1, 2, 3, 7, 8, 9)),      // 3개 일치 + 보너스
@@ -19,7 +20,7 @@ class LottoStatisticsTest {
                 Lotto.from(List.of(1, 2, 3, 4, 5, 7)),      // 5개 일치 + 보너스
                 Lotto.from(List.of(1, 2, 7, 8, 9, 10))      // 2개 일치
         );
-        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto);
+        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto, purchaseAmount);
 
         // when
         Map<LottoRank, Integer> rankCounts = statistics.getRankCounts();
@@ -35,12 +36,13 @@ class LottoStatisticsTest {
     @Test
     void 총_당첨금을_구입_금액으로_나누어_수익률을_계산한다() {
         // given
+        PurchaseAmount purchaseAmount = new PurchaseAmount(10000);
         WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6), 7);
         List<Lotto> lottos = List.of(Lotto.from(List.of(1, 2, 3, 7, 8, 9)));
-        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto);
+        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto, purchaseAmount);
 
         // when
-        double profitRate = statistics.calculateProfitRate(new PurchaseAmount(10000));
+        double profitRate = statistics.getProfitRate();
 
         // then
         assertThat(profitRate).isEqualTo(0.5);

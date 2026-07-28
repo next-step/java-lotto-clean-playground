@@ -23,8 +23,8 @@ public class LottoController {
 
         PurchasedLottos purchasedLottos = issueAndPrintLottos(lottoPurchase);
 
-        LottoStatistics statistics = createLottoStatistics(purchasedLottos.lottos());
-        resultView.printLottoStatistics(statistics.getRankCounts(), statistics.calculateProfitRate(purchaseAmount));
+        LottoStatistics statistics = createLottoStatistics(purchasedLottos.lottos(), purchaseAmount);
+        resultView.printLottoStatistics(statistics.getRankCounts(), statistics.getProfitRate());
     }
 
     private PurchasedLottos issueAndPrintLottos(LottoPurchase lottoPurchase) {
@@ -43,9 +43,9 @@ public class LottoController {
         return purchasedLottos;
     }
 
-    private LottoStatistics createLottoStatistics(List<Lotto> lottos) {
+    private LottoStatistics createLottoStatistics(List<Lotto> lottos, PurchaseAmount purchaseAmount) {
         WinningLotto winningLotto = WinningLotto.from(inputView.readWinningNumbers(), inputView.readBonusNumber());
 
-        return new LottoStatistics(lottos, winningLotto);
+        return new LottoStatistics(lottos, winningLotto, purchaseAmount);
     }
 }
