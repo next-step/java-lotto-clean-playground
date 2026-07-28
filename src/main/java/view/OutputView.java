@@ -5,6 +5,7 @@ import domain.lotto.Lotto;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.collection.WinningStatistics;
 import domain.lotto.wrap.Money;
+import view.enums.ProfitEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,16 @@ public class OutputView {
 
         System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 %s라는 의미임)",
                 statistics.returnRate(payment),
-                statistics.isProfit(payment));
+                getStringAboutProfitOrDamaged(statistics, payment)
+        );
+    }
+
+    private static String getStringAboutProfitOrDamaged(WinningStatistics statistics, Money payment) {
+        boolean isProfit = statistics.isProfit(payment);
+        if (isProfit) {
+            return ProfitEnum.PROFIT.getOutputValue();
+        }
+        return ProfitEnum.DAMAGE.getOutputValue();
     }
 
     public static void printBonusBallNotice() {

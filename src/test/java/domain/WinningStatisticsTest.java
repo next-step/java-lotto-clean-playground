@@ -92,7 +92,7 @@ public class WinningStatisticsTest {
         WinningStatistics lose = statisticsOf(40, 41, 42, 43, 44, 45);
 
         // then
-        assertThat(win.isProfit(paid)).isEqualTo("이득");
-        assertThat(lose.isProfit(paid)).isEqualTo("손해");
+        assertThat(win.isProfit(paid)).isEqualTo(true);
+        assertThat(lose.isProfit(paid)).isEqualTo(false);
     }
 }

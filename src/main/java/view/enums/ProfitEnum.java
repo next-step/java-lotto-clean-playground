@@ -11,4 +11,8 @@ public enum ProfitEnum {
     ProfitEnum(String outputValue) {
         this.outputValue = outputValue;
     }
+
+    public String getOutputValue() {
+        return outputValue;
+    }
 }

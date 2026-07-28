@@ -31,10 +31,7 @@ public class WinningStatistics {
         return (double) totalPrize().getAmount() / paid.getAmount();
     }
 
-    public String isProfit(Money paid) {
-        if (returnRate(paid) >= 1) {
-            return "이득";
-        }
-        return "손해";
+    public boolean isProfit(Money paid) {
+        return returnRate(paid) >= 1;
     }
 }
