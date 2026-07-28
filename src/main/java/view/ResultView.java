@@ -6,21 +6,28 @@ import lotto.Lottos;
 import lotto.ProfitRate;
 import lotto.PurchaseAmount;
 
-public class ResultView {
+import java.io.PrintStream;
 
-    public static void printLottoCount(int manualLottoCount, int automaticLottoCount) {
-        System.out.println();
-        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 "
+public class ResultView {
+    private final PrintStream output;
+
+    public ResultView(PrintStream output) {
+        this.output = output;
+    }
+
+    public void printLottoCount(int manualLottoCount, int automaticLottoCount) {
+        output.println();
+        output.println("수동으로 " + manualLottoCount + "장, 자동으로 "
                 + automaticLottoCount + "개를 구매했습니다.");
     }
 
-    public static void printLottos(Lottos lottos) {
-        lottos.forEach(lotto -> System.out.println(lotto));
+    public void printLottos(Lottos lottos) {
+        lottos.forEach(output::println);
     }
 
-    public static void printResult(LottoResult result, PurchaseAmount purchaseAmount) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
+    public void printResult(LottoResult result, PurchaseAmount purchaseAmount) {
+        output.println("당첨 통계");
+        output.println("---------");
         printRank(result, LottoRank.FIFTH);
         printRank(result, LottoRank.FOURTH);
         printRank(result, LottoRank.THIRD);
@@ -29,14 +36,14 @@ public class ResultView {
         printProfitRate(result, purchaseAmount);
     }
 
-    private static void printSecondRank(LottoResult result) {
-        System.out.println("5개 일치, 보너스 볼 일치(" + LottoRank.SECOND.prizeMoney()
+    private void printSecondRank(LottoResult result) {
+        output.println("5개 일치, 보너스 볼 일치(" + LottoRank.SECOND.prizeMoney()
                 + "원) - " + result.countOf(LottoRank.SECOND) + "개");
     }
 
-    private static void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {
+    private void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {
         ProfitRate profitRate = result.calculateProfitRate(purchaseAmount);
-        System.out.println("총 수익률은 " + profitRate
+        output.println("총 수익률은 " + profitRate
                 + "입니다.(기준이 1이기 때문에 결과적으로 " + profitResult(profitRate) + "라는 의미임)");
     }
 
@@ -50,12 +57,12 @@ public class ResultView {
         return "본전이";
     }
 
-    private static void printRank(LottoResult result, LottoRank rank) {
-        System.out.println(rank.matchCount() + "개 일치 (" + rank.prizeMoney()
+    private void printRank(LottoResult result, LottoRank rank) {
+        output.println(rank.matchCount() + "개 일치 (" + rank.prizeMoney()
                 + "원)- " + result.countOf(rank) + "개");
     }
 
-    public static void printError(String errorMessage) {
-        System.out.println(errorMessage);
+    public void printError(String errorMessage) {
+        output.println(errorMessage);
     }
 }
