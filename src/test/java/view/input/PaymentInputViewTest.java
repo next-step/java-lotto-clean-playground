@@ -100,16 +100,14 @@ public class PaymentInputViewTest {
     }
 
     @Test
-    @DisplayName("구입 금액만큼 로또가 발급")
+    @DisplayName("구입 금액만큼 자동 로또가 발급")
     void ticketCountMatchesPayment() {
         // given
         LottoSeller seller = new LottoSeller(priceOf(),
                 new Money(10_000), List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then
-        assertThat(seller.getAmount()).isEqualTo(10);
+        assertThat(seller.getAutoCount()).isEqualTo(10);
         assertThat(seller.getTickets().getTickets()).hasSize(10);
     }
-
-
 }

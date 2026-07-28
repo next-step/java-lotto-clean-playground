@@ -33,7 +33,7 @@ public class LottoSeller {
         return this.tickets;
     }
 
-    public int getAmount() {
+    private int getAmount() {
         return this.amount.countPurchasable(PRICE);
     }
 
