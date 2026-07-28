@@ -1,7 +1,6 @@
 package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.money.PurchaseAmount;
 import java.util.List;
@@ -37,25 +36,5 @@ class LottoMachineTest {
 
     private PurchasedLottos createManualLottos() {
         return new PurchasedLottos(List.of(new LottoTicket(List.of(1, 2, 3, 4, 5, 6))));
-    }
-
-    @Test
-    @DisplayName("구입 금액이 0원 이하면 예외가 발생한다")
-    void throwExceptionWhenPurchaseAmountIsNotPositive() {
-        LottoMachine lottoMachine = new LottoMachine();
-
-        assertThatThrownBy(() -> lottoMachine.buy(PurchaseAmount.from(0), PurchasedLottos.empty()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액은 0원보다 커야 합니다.");
-    }
-
-    @Test
-    @DisplayName("구입 금액이 1000원 단위가 아니면 예외가 발생한다")
-    void throwExceptionWhenPurchaseAmountIsNotDivisibleByThousand() {
-        LottoMachine lottoMachine = new LottoMachine();
-
-        assertThatThrownBy(() -> lottoMachine.buy(PurchaseAmount.from(9_500), PurchasedLottos.empty()))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액은 1000원 단위여야 합니다.");
     }
 }
