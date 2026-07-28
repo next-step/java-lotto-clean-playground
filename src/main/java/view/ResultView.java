@@ -1,40 +1,40 @@
 package view;
 
-import domain.LottoCountByMatchNumber;
-import domain.PrizeMoneyTable;
-import domain.PurchasedLottoNumbers;
+import static domain.LottoRank.FIRST;
+import static domain.LottoRank.FOUR;
+import static domain.LottoRank.SECOND;
+import static domain.LottoRank.THIRD;
 
+import domain.LottoRank;
+import domain.LottoRankTable;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Map;
 
 public class ResultView {
-    private static final int MINIMUM_PRIZE_MATCH_COUNT = 3;
-
-    public static void printLottoResult(PurchasedLottoNumbers purchasedLottoNumbers) {
-        System.out.println(purchasedLottoNumbers.size() + "개를 구매했습니다.");
-        for (List<Integer> purchasedLottoNumber : purchasedLottoNumbers.getPurchasedLottoNumbers()) {
-            System.out.println(purchasedLottoNumber);
-        }
+    public static void printPurchasedLottos(Integer purchasedLottoCount, List<List<Integer>> lottos){
+      System.out.println(purchasedLottoCount + "개를 구입했습니다.");
+      for (List<Integer> lotto : lottos) {
+        System.out.println(lotto);
+      }
     }
 
-    public static void printWinningStatistics(LottoCountByMatchNumber lottoCountByMatchNumber, PrizeMoneyTable prizeMoneyTable, Integer purchaseAmount){
-        System.out.println("\n당첨 통계");
-        System.out.println("----------");
-        SortedSet<Integer> matchNumbers = new TreeSet<>(prizeMoneyTable.matchNumbers()).tailSet(MINIMUM_PRIZE_MATCH_COUNT);
-        for (int matchNumber : matchNumbers) {
-            System.out.println(matchNumber + "개 일치 (" + prizeMoneyTable.getPrize(matchNumber) + "원) : " + lottoCountByMatchNumber.get(matchNumber) + "개");
-        }
+    public static void printMatchingNumbers(LottoRankTable rankTable){
+      System.out.println("당첨 통계 \n ------------------------");
+      List<LottoRank> ranks = List.of(FOUR,THIRD,SECOND,FIRST);
+      for (LottoRank rank : ranks) {
+        System.out.printf(rank.getMatchingCount() + "개 일치 (" + rank.getPrize() + "원) : " + rankTable.countOf(rank) + "\n");
+      }
     }
 
-    public static void printRateOfReturn(Double rateOfReturn){
-        System.out.printf("\n총 수익률은  %.2f 입니다. %s", rateOfReturn, result(rateOfReturn));
+    public static void printProfitRate(Double profitRate){
+      System.out.printf("\n총 수익률은 : %.2f입니다. %s", profitRate, lossOrGainMessage(profitRate));
     }
 
-    private static String result(Double rateOfReturn){
-        if(rateOfReturn > 1){
-            return "(기준이 1이기 때문에 이득을 보셨습니다.)";
-        }
-        return "(기준이 1이기 때문에 결과적으로 손해입니다)";
+    private static String lossOrGainMessage(Double profitRate){
+      if(profitRate < 1.0){
+        return "( 기준이 1이기 때문에 결과적으로 손해입니다. )";
+      }
+      return "(기준이 1이기 때문에 결과적으로 이득입니다. )";
     }
+
 }
