@@ -30,7 +30,7 @@ public class LottoController {
 
         LottoSeller seller = new LottoSeller(PRICE, payment, manualLottos, new RandomLottoNumber());
 
-        payAndNoticeChange(seller);
+        noticeLottoAmountAndChange(seller);
 
         LottoTickets tickets = ticketsInitialize(seller);
         Lotto lastWeekWinningNumber = lastWeekWinningNumberInitialize();
@@ -69,7 +69,7 @@ public class LottoController {
         return tickets;
     }
 
-    private void payAndNoticeChange(LottoSeller seller) {
+    private void noticeLottoAmountAndChange(LottoSeller seller) {
         OutputView.newLine();
         OutputView.printLottoAmount(seller.getManualCount(), seller.getAutoCount());
 
