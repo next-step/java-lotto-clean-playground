@@ -13,6 +13,9 @@ class PurchaseAmountTest {
         assertThatThrownBy(() -> PurchaseAmount.from(0))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("구입 금액은 0원보다 커야 합니다.");
+        assertThatThrownBy(() -> PurchaseAmount.from(-1))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("구입 금액은 0원보다 커야 합니다.");
     }
 
     @Test
