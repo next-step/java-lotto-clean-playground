@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import domain.lotto.LottoTicket;
 import domain.lotto.ManualPurchaseCount;
 import domain.lotto.PurchasedLottos;
+import domain.lotto.BonusBall;
 import domain.lotto.WinningLotto;
 import domain.money.PurchaseAmount;
 import domain.result.LottoStatistics;
@@ -79,7 +80,10 @@ class OutputViewTest {
 
     private LottoStatistics createStatistics(LottoTicket lottoTicket) {
         PurchasedLottos lottos = new PurchasedLottos(List.of(lottoTicket));
-        WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = WinningLotto.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                BonusBall.from(13)
+        );
         return new LottoStatisticsCalculator().calculate(lottos, winningLotto);
     }
 }

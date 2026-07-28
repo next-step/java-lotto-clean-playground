@@ -16,7 +16,10 @@ class LottoStatisticsCalculatorTest {
     @DisplayName("로또 번호와 당첨 번호를 비교해 당첨 통계를 계산한다")
     void calculateLottoStatistics() {
         PurchasedLottos lottos = new PurchasedLottos(createLottos());
-        WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = WinningLotto.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                BonusBall.from(13)
+        );
         LottoStatisticsCalculator calculator = new LottoStatisticsCalculator();
 
         LottoStatistics statistics = calculator.calculate(lottos, winningLotto);
