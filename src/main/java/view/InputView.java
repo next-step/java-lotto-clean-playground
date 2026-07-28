@@ -1,53 +1,44 @@
 package view;
 
-import domain.lotto.BonusBall;
-import domain.lotto.LottoTicket;
-import domain.lotto.ManualPurchaseCount;
-import domain.lotto.PurchasedLottos;
-import domain.lotto.WinningLotto;
-import domain.money.PurchaseAmount;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InputView {
     private final Scanner scanner = new Scanner(System.in);
 
-    public PurchaseAmount readPurchaseAmountValue() {
+    public int readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
-        return PurchaseAmount.from(parsePurchaseAmount(scanner.nextLine()));
+        return parsePurchaseAmount(scanner.nextLine());
     }
 
-    public ManualPurchaseCount readManualPurchaseCount() {
+    public int readManualPurchaseCount() {
         System.out.println();
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return ManualPurchaseCount.from(parseManualPurchaseCount(scanner.nextLine()));
+        return parseManualPurchaseCount(scanner.nextLine());
     }
 
-    public PurchasedLottos readManualLottos(ManualPurchaseCount manualPurchaseCount) {
+    public List<List<Integer>> readManualLottoNumbers(int manualPurchaseCount) {
         System.out.println();
         System.out.println("수동으로 구매할 로또 번호를 입력해 주세요.(장 별로는 Enter로 구분합니다.)");
-        return new PurchasedLottos(readManualLottoValues(manualPurchaseCount));
-    }
-
-    private List<LottoTicket> readManualLottoValues(ManualPurchaseCount manualPurchaseCount) {
-        return java.util.stream.IntStream.range(0, manualPurchaseCount.value())
-                .mapToObj(index -> new LottoTicket(parseManualNumbers(scanner.nextLine())))
+        return IntStream.range(0, manualPurchaseCount)
+                .mapToObj(index -> parseManualNumbers(scanner.nextLine()))
                 .collect(Collectors.toList());
     }
 
-    public WinningLotto readWinningLotto() {
+    public List<Integer> readWinningNumbers() {
         System.out.println();
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return WinningLotto.of(parseWinningNumbers(scanner.nextLine()), readBonusBall());
+        return parseWinningNumbers(scanner.nextLine());
     }
 
-    private BonusBall readBonusBall() {
+    public int readBonusBall() {
         System.out.println();
         System.out.println("보너스 볼을 입력해 주세요.");
-        return BonusBall.from(parseBonusBall(scanner.nextLine()));
+        return parseBonusBall(scanner.nextLine());
     }
 
     private List<Integer> parseManualNumbers(String input) {
