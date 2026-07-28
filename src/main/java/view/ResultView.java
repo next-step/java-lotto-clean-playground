@@ -1,8 +1,8 @@
 package view;
 
-import domain.Lotto;
-import domain.Rank;
-import domain.WinningStatistics;
+import domain.lotto.Lotto;
+import domain.winning.Rank;
+import domain.winning.WinningStatistics;
 import java.util.Arrays;
 import java.util.Map;
 

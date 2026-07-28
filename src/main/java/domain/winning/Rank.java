@@ -1,4 +1,4 @@
-package domain;
+package domain.winning;
 
 import java.util.Arrays;
 
@@ -22,9 +22,19 @@ public enum Rank {
 
     public static Rank valueOf(int matchCount, boolean isBonusMatched) {
         return Arrays.stream(Rank.values())
-                .filter(rank -> rank.matchCount == matchCount && rank.bonusMatch == isBonusMatched)
+                .filter(rank -> rank.isMatchingRank(matchCount, isBonusMatched))
                 .findFirst()
                 .orElse(NONE);
+    }
+
+    private boolean isMatchingRank(int matchCount, boolean isBonusMatched) {
+        if (this.matchCount != matchCount) {
+            return false;
+        }
+        if (matchCount != 5) {
+            return true;
+        }
+        return this.bonusMatch == isBonusMatched;
     }
 
     public int getMatchCount() {
