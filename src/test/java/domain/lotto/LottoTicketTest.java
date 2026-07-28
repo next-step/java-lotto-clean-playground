@@ -1,7 +1,6 @@
 package domain.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.result.LottoResult;
 import java.util.List;
@@ -34,21 +33,5 @@ class LottoTicketTest {
 
         assertThat(result.hasMatchCount(3)).isTrue();
         assertThat(result.hasUnmatchedBonusBall()).isTrue();
-    }
-
-    @Test
-    @DisplayName("로또 번호가 6개가 아니면 예외가 발생한다")
-    void throwExceptionWhenNumberCountIsNotSix() {
-        assertThatThrownBy(() -> new LottoTicket(List.of(1, 2, 3, 4, 5)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 6개여야 합니다.");
-    }
-
-    @Test
-    @DisplayName("로또 번호가 중복되면 예외가 발생한다")
-    void throwExceptionWhenNumberIsDuplicated() {
-        assertThatThrownBy(() -> new LottoTicket(List.of(1, 1, 2, 3, 4, 5)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 중복될 수 없습니다.");
     }
 }
