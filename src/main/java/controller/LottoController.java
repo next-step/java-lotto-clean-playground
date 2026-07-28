@@ -4,7 +4,6 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
@@ -22,31 +21,25 @@ public class LottoController {
         PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
         LottoPurchase lottoPurchase = new LottoPurchase(purchaseAmount, lottoGenerator);
 
-        List<Lotto> lottos = issueAndPrintLottos(lottoPurchase);
+        PurchasedLottos purchasedLottos = issueAndPrintLottos(lottoPurchase);
 
-        LottoStatistics statistics = createLottoStatistics(lottos);
+        LottoStatistics statistics = createLottoStatistics(purchasedLottos.lottos());
         resultView.printLottoStatistics(statistics.getRankCounts(), statistics.calculateProfitRate(purchaseAmount));
     }
 
-    private List<Lotto> issueAndPrintLottos(LottoPurchase lottoPurchase) {
+    private PurchasedLottos issueAndPrintLottos(LottoPurchase lottoPurchase) {
         int manualLottoCount = inputView.readManualLottoCount();
-        List<Lotto> manualLottos = createManualLottos(manualLottoCount);
-        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
-
-        List<Lotto> lottos = new ArrayList<>();
-        lottos.addAll(manualLottos);
-        lottos.addAll(autoLottos);
-
-        resultView.printPurchasedLottos(lottos, manualLottoCount, autoLottos.size());
-        return lottos;
-    }
-
-    private List<Lotto> createManualLottos(int manualLottoCount) {
         List<List<Integer>> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
 
-        return manualLottoNumbers.stream()
-                .map(Lotto::from)
-                .toList();
+        PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
+
+        resultView.printPurchasedLottos(
+                purchasedLottos.lottos(),
+                purchasedLottos.manualLottoCount(),
+                purchasedLottos.autoLottoCount()
+        );
+
+        return purchasedLottos;
     }
 
     private LottoStatistics createLottoStatistics(List<Lotto> lottos) {

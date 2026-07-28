@@ -25,56 +25,65 @@ class LottoPurchaseTest {
     @Test
     void 수동_구매_수가_0이면_전체_구매_수만큼_자동_로또를_발급한다() {
         // given
-        int manualLottoCount = 0;
+        List<List<Integer>> manualLottoNumbers = List.of();
 
         // when
-        List<Lotto> lottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+        PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
 
         // then
-        assertThat(lottos).hasSize(3);
+        assertThat(purchasedLottos.lottos()).hasSize(3);
+        assertThat(purchasedLottos.manualLottoCount()).isEqualTo(0);
+        assertThat(purchasedLottos.autoLottoCount()).isEqualTo(3);
     }
 
     @Test
     void 수동_구매_수만큼_제외하고_자동_로또를_발급한다() {
         // given
-        int manualLottoCount = 2;
+        List<List<Integer>> manualLottoNumbers = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(7, 8, 9, 10, 11, 12)
+        );
 
         // when
-        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+        PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
 
         // then
-        assertThat(autoLottos).hasSize(1);
+        assertThat(purchasedLottos.lottos()).hasSize(3);
+        assertThat(purchasedLottos.manualLottoCount()).isEqualTo(2);
+        assertThat(purchasedLottos.autoLottoCount()).isEqualTo(1);
     }
 
     @Test
     void 수동_구매_수가_전체_구매_수와_같으면_자동_로또를_발급하지_않는다() {
         // given
-        int manualLottoCount = 3;
+        List<List<Integer>> manualLottoNumbers = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(7, 8, 9, 10, 11, 12),
+                List.of(13, 14, 15, 16, 17, 18)
+        );
 
         // when
-        List<Lotto> autoLottos = lottoPurchase.issueRemainingAutoLottos(manualLottoCount);
+        PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
 
         // then
-        assertThat(autoLottos).isEmpty();
+        assertThat(purchasedLottos.lottos()).hasSize(3);
+        assertThat(purchasedLottos.manualLottoCount()).isEqualTo(3);
+        assertThat(purchasedLottos.autoLottoCount()).isEqualTo(0);
     }
 
     @Test
     void 수동_구매_수가_전체_구매_수보다_크면_예외를_던진다() {
         // given
-        int manualLottoCount = 4;
+        List<List<Integer>> manualLottoNumbers = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(7, 8, 9, 10, 11, 12),
+                List.of(13, 14, 15, 16, 17, 18),
+                List.of(19, 20, 21, 22, 23, 24)
+        );
 
         // when & then
-        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(manualLottoCount))
+        assertThatThrownBy(() -> lottoPurchase.purchase(manualLottoNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    void 수동_구매_수가_음수면_예외를_던진다() {
-        // given
-        int manualLottoCount = -1;
-
-        // when & then
-        assertThatThrownBy(() -> lottoPurchase.issueRemainingAutoLottos(manualLottoCount))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
 }
