@@ -11,29 +11,29 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class InputView {
-    private static final Scanner SCANNER = new Scanner(System.in);
+        private static final Scanner scanner = new Scanner(System.in);
 
     public static PurchaseAmount readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
-        return new PurchaseAmount(Integer.parseInt(SCANNER.nextLine().trim()));
+        return new PurchaseAmount(Integer.parseInt(scanner.nextLine().trim()));
     }
 
     public static Lotto readWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
-        return parseLotto(SCANNER.nextLine());
+        return parseLotto(scanner.nextLine());
     }
 
     public static LottoNumber readBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
 
-        return parseBonusNumber(SCANNER.nextLine());
+        return parseBonusNumber(scanner.nextLine());
     }
 
     public static int readManualLottoCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 
-        return Integer.parseInt(SCANNER.nextLine());
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static Lottos readManualLottos(int manualLottoCount) {
@@ -47,7 +47,7 @@ public class InputView {
     private static Lottos readLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int count = 0; count < lottoCount; count++) {
-            lottos.add(parseLotto(SCANNER.nextLine()));
+            lottos.add(parseLotto(scanner.nextLine()));
         }
         return new Lottos(lottos);
     }
