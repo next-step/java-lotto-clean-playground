@@ -20,10 +20,6 @@ public enum LottoRank {
         this.prizeMoney = new PrizeMoney(prizeMoney);
     }
 
-    public static LottoRank from(int matchCount) {
-        return from(matchCount, false);
-    }
-
     public static LottoRank from(int matchCount, boolean bonusMatched) {
         return Arrays.stream(values())
                 .filter(rank -> rank.matches(matchCount, bonusMatched))
