@@ -29,8 +29,9 @@ public class LottoController {
 
     private PurchasedLottos issueAndPrintLottos(LottoPurchase lottoPurchase) {
         int manualLottoCount = inputView.readManualLottoCount();
-        List<List<Integer>> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
+        lottoPurchase.validateManualPurchaseCount(manualLottoCount);
 
+        List<List<Integer>> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
         PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
 
         resultView.printPurchasedLottos(

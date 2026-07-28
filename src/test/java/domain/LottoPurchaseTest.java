@@ -86,4 +86,13 @@ class LottoPurchaseTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void 수동_구매_수가_전체_구매_수보다_크면_사전_검증에서_예외를_던진다() {
+        // given
+        int manualLottoCount = 4;
+
+        // when & then
+        assertThatThrownBy(() -> lottoPurchase.validateManualPurchaseCount(manualLottoCount))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

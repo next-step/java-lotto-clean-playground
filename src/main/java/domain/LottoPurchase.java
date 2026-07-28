@@ -31,6 +31,10 @@ public class LottoPurchase {
         return new PurchasedLottos(lottos, manualLottoCount, autoLottoCount);
     }
 
+    public void validateManualPurchaseCount(int manualLottoCount) {
+        validateManualLottoCount(manualLottoCount, getLottoCount());
+    }
+
     private List<Lotto> createManualLottos(List<List<Integer>> manualLottoNumbers) {
         return manualLottoNumbers.stream()
                 .map(Lotto::from)
