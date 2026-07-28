@@ -17,4 +17,10 @@ class PurchaseAmountTest {
         assertThatCode(() -> new PurchaseAmount(1000))
                 .doesNotThrowAnyException();
     }
+
+    @Test
+    void 구매_금액_단위가_1000원이_아니면_예외를_던진다() {
+        assertThatThrownBy(() -> new PurchaseAmount(1001))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

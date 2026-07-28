@@ -13,7 +13,7 @@ class LottoPurchaseTest {
 
     @BeforeEach
     void setUp() {
-        PurchaseAmount purchaseAmount = new PurchaseAmount(3500);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(3000);
         lottoPurchase = new LottoPurchase(purchaseAmount, new RandomLottoGenerator());
     }
 
@@ -90,6 +90,16 @@ class LottoPurchaseTest {
     void 수동_구매_수가_전체_구매_수보다_크면_사전_검증에서_예외를_던진다() {
         // given
         int manualLottoCount = 4;
+
+        // when & then
+        assertThatThrownBy(() -> lottoPurchase.validateManualPurchaseCount(manualLottoCount))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 수동_구매_수가_음수이면_사전_검증에서_예외를_던진다() {
+        // given
+        int manualLottoCount = -1;
 
         // when & then
         assertThatThrownBy(() -> lottoPurchase.validateManualPurchaseCount(manualLottoCount))

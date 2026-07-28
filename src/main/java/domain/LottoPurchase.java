@@ -48,6 +48,10 @@ public class LottoPurchase {
     }
 
     private void validateManualLottoCount(int manualLottoCount, int totalLottoCount) {
+        if (manualLottoCount < 0) {
+            throw new IllegalArgumentException("수동 구매 수는 음수일 수 없습니다.");
+        }
+
         if (manualLottoCount > totalLottoCount) {
             throw new IllegalArgumentException("수동 구매 수는 전체 구매 수를 초과할 수 없습니다.");
         }

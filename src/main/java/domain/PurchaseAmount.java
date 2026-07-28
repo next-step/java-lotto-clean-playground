@@ -1,12 +1,13 @@
 package domain;
 
 public class PurchaseAmount {
-    private static final int MIN_PURCHASE_AMOUNT = 1000;
+    private static final int LOTTO_PRICE = 1000;
 
     private final int value;
 
     public PurchaseAmount(int value) {
         validateMinimumAmount(value);
+        validatePurchaseUnit(value);
         this.value = value;
     }
 
@@ -15,8 +16,14 @@ public class PurchaseAmount {
     }
 
     private void validateMinimumAmount(int value) {
-        if (value < MIN_PURCHASE_AMOUNT) {
-            throw new IllegalArgumentException("구매 금액은 " + MIN_PURCHASE_AMOUNT + "원 이상이어야 합니다.");
+        if (value < LOTTO_PRICE) {
+            throw new IllegalArgumentException("구매 금액은 " + LOTTO_PRICE + "원 이상이어야 합니다.");
+        }
+    }
+
+    private void validatePurchaseUnit(int value) {
+        if (value % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("구매 금액은 " + LOTTO_PRICE + "원 단위여야 합니다.");
         }
     }
 }
