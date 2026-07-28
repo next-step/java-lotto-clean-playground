@@ -17,7 +17,6 @@ import java.util.List;
 public class LottoController {
 
     private final Money PRICE = new Money(1_000);
-
     private final InputView inputView;
 
     public LottoController(InputView inputView) {

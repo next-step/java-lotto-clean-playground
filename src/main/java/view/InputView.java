@@ -38,6 +38,29 @@ public class InputView {
         return lotto;
     }
 
+    public Money payment(Money price) {
+        Integer payment;
+        do {
+            payment = validationMoney(price);
+        } while (payment == null);
+
+        return new Money(payment);
+    }
+
+    public int manualCount() {
+        Integer count;
+
+        do {
+            count = validationManualCount();
+        } while (count == null);
+
+        return count;
+    }
+
+    public LottoNumber bonusNumber() {
+        return initBonusNumber();
+    }
+
     private Lotto validNumbers() {
         try {
             return new Lotto(initNumbers());
@@ -58,15 +81,6 @@ public class InputView {
                 .map(Integer::parseInt)
                 .map(LottoNumber::new)
                 .toList();
-    }
-
-    public Money payment(Money price) {
-        Integer payment;
-        do {
-            payment = validationMoney(price);
-        } while (payment == null);
-
-        return new Money(payment);
     }
 
     private Integer validationMoney(Money price) {
@@ -94,16 +108,6 @@ public class InputView {
         return amount;
     }
 
-    public int manualCount() {
-
-        Integer count;
-
-        do {
-            count = validationManualCount();
-        } while (count == null);
-
-        return count;
-    }
 
     private Integer validationManualCount() {
         try {
@@ -124,10 +128,6 @@ public class InputView {
         }
 
         return count;
-    }
-
-    public LottoNumber bonusNumber() {
-        return initBonusNumber();
     }
 
     private LottoNumber initBonusNumber() {
