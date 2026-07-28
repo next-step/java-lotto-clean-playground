@@ -1,39 +1,52 @@
 package domain;
 
+import static domain.LottoRule.LOTTO_NUMBERS_COUNT;
+import static domain.LottoRule.MAX_NUMBER;
+import static domain.LottoRule.MIN_NUMBER;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
-    private static final int LOTTO_NUMBER_COUNT = 6;
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
+    private final List<Integer> numbers;
 
-    private final List<Integer> lottoNumbers;
-
-    public Lotto(List<Integer> lottoNumbers) {
-        validate(lottoNumbers);
-        List<Integer> sorted = new ArrayList<>(lottoNumbers);
-        Collections.sort(sorted);
-        this.lottoNumbers = sorted;
+    public Lotto(List<Integer> numbers) {
+        validate(numbers);
+        List<Integer> sortedNumbers = new ArrayList<>(numbers);
+        Collections.sort(sortedNumbers);
+        this.numbers = sortedNumbers;
     }
 
-    private void validate(List<Integer> lottoNumbers) {
-        if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+    private void validate(List<Integer> numbers){
+        if(numbers.size() != new HashSet<>(numbers).size()){
+            throw new IllegalArgumentException("중복된 로또 번호는 허용하지 않습니다.");
         }
-        for (int number : lottoNumbers) {
-            validateRange(number);
+        if(numbers.size() > LOTTO_NUMBERS_COUNT){
+            throw  new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBERS_COUNT + "개를 넘을 수 없습니다.");
+        }
+        if(numbers.size() < LOTTO_NUMBERS_COUNT){
+            throw new IllegalArgumentException("로또 번호는 반드시 " + LOTTO_NUMBERS_COUNT + "개를 입력하셔야 합니다.");
+        }
+        for(int i = 0; i < LOTTO_NUMBERS_COUNT; i++){
+            validateRange(numbers.get(i));
         }
     }
-
-    private void validateRange(int number) {
-        if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
+    private void validateRange(Integer number){
+        if(number > MAX_NUMBER || number < MIN_NUMBER){
+            throw new IllegalArgumentException("로또 번호의 범위는 " + MIN_NUMBER + "보다 작거나, " + MAX_NUMBER + "보다 클 수 없습니다.");
         }
     }
+    public List<Integer> getLottoNumbers(){
+        return Collections.unmodifiableList(numbers);
+    }
 
-    public List<Integer> getLottoNumbers() {
-        return Collections.unmodifiableList(lottoNumbers);
+    public Long countMatch(WinningNumbers winningNumbers) {
+        return countMatch(winningNumbers.getLotto());
+    }
+
+    private Long countMatch(Lotto other) {
+        return other.numbers.stream().filter(this.numbers::contains).count();
     }
 }
