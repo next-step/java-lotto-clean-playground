@@ -76,20 +76,4 @@ public class OutputView {
         prizes.remove(MISS);
         return prizes;
     }
-
-    private static Double getReturnRate(Map<String, Integer> winningStatics, Integer payment) {
-        return winningStatics.entrySet().stream()
-                .mapToDouble(entry ->
-                        Integer.parseInt(entry.getKey()) * entry.getValue()
-                )
-                .sum() / payment;
-    }
-
-    private static String getProfitOrLoss(Map<String, Integer> winningStatics, Integer payment) {
-        Double rate = getReturnRate(winningStatics, payment);
-        if(rate >= 1) {
-            return "이득";
-        }
-        return "손해";
-    }
 }
