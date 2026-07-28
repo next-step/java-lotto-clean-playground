@@ -62,12 +62,6 @@ public class LottoNumberCombination {
         return numbers.contains(lottoNumber);
     }
 
-    public void validateNotContains(LottoNumber lottoNumber) {
-        if (contains(lottoNumber)) {
-            throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
-        }
-    }
-
     public List<Integer> values() {
         return toValues();
     }

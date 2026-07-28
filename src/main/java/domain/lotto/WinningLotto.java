@@ -12,9 +12,7 @@ public class WinningLotto {
 
     private WinningLotto(LottoNumberCombination numbers, BonusBall bonusBall) {
         this.numbers = numbers;
-        if (bonusBall != null) {
-            numbers.validateNotContains(bonusBall.lottoNumber());
-        }
+        bonusBall.validateNotDuplicatedWith(numbers);
         this.bonusBall = bonusBall;
     }
 
