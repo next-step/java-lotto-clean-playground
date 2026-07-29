@@ -37,19 +37,9 @@ public class Lotto {
     }
 
     public int matchCount(Lotto other) {
-        int count = 0;
-
-        for(LottoNumber number : lottoNumbers) {
-            count += countMatch(number, other);
-        }
-        return count;
-    }
-
-    private int countMatch(LottoNumber number, Lotto other) {
-        if (other.lottoNumbers.contains(number)) {
-            return 1;
-        }
-        return 0;
+        return (int) lottoNumbers.stream()
+                .filter(other.lottoNumbers::contains)
+                .count();
     }
 
     public boolean contains(LottoNumber number) {
