@@ -10,9 +10,7 @@ import view.InputView;
 import view.ResultView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import dto.PurchaseResult;
 
 public class Application {
@@ -81,7 +79,7 @@ public class Application {
         while (true) {
             try {
                 String input = InputView.inputManualLotto();
-                return createLotto(input);
+                return Lotto.from(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -120,11 +118,6 @@ public class Application {
         }
     }
 
-    private static Lotto createLotto(String input) {
-        List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
-        return new Lotto(numbers);
-    }
-
     private static Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
         Lottos lottos = LottoStore.buy(purchasePrice, manualLottos);
         ResultView.printLottos(lottos, manualLottos.size());
@@ -135,22 +128,10 @@ public class Application {
         while (true) {
             try {
                 String input = InputView.inputWinningLotto();
-                return createLotto(input);
+                return Lotto.from(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-        }
-    }
-
-    private static List<LottoNumber> parseLottoNumbers(String[] numbers) {
-        try {
-            return Arrays.stream(numbers)
-                    .map(String::trim)
-                    .map(Integer::parseInt)
-                    .map(LottoNumber::new)
-                    .collect(Collectors.toList());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자만 입력해주세요.");
         }
     }
 }

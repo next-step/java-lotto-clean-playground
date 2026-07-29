@@ -1,8 +1,10 @@
 package domain.lotto;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int LOTTO_SIZE = 6;
@@ -11,6 +13,23 @@ public class Lotto {
     public Lotto(List<LottoNumber> lottoNumbers) {
         validateLottoNumbers(lottoNumbers);
         this.lottoNumbers = List.copyOf(lottoNumbers);
+    }
+
+    public static Lotto from(String input) {
+        List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
+        return new Lotto(numbers);
+    }
+
+    private static List<LottoNumber> parseLottoNumbers(String[] numbers) {
+        try {
+            return Arrays.stream(numbers)
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자만 입력해주세요.");
+        }
     }
 
     public List<LottoNumber> getLottoNumbers() {
