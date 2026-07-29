@@ -1,6 +1,7 @@
 package view.input;
 
 import domain.lotto.LottoSeller;
+import domain.lotto.Payment;
 import domain.lotto.wrap.Money;
 import fixed.FixedDrawLottoNumber;
 import org.junit.jupiter.api.Assertions;
@@ -27,7 +28,7 @@ public class PaymentInputViewTest {
         Assertions.assertThrows(
                 NoSuchElementException.class,
                 // when
-                () -> inputView.payment(priceOf())
+                inputView::payment
         );
     }
 
@@ -41,23 +42,21 @@ public class PaymentInputViewTest {
         Assertions.assertThrows(
                 NoSuchElementException.class,
                 // when
-                () -> inputView.payment(priceOf())
+                inputView::payment
         );
     }
 
     @Test
-    @DisplayName("1000원 미만의 금액은 재입력 요청")
+    @DisplayName("최소 금액 검증은 뷰의 책임이 아니므로 1000원 미만의 금액도 그대로 반환")
     void isLowerThen1000() {
         // given
         InputView inputView = inputViewOf("500\n");
 
-        // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
+        // when
+        Money payment = inputView.payment();
 
-                // when
-                () -> inputView.payment(priceOf())
-        );
+        // then
+        assertThat(payment.getAmount()).isEqualTo(500);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class PaymentInputViewTest {
         Assertions.assertThrows(
                 NoSuchElementException.class,
                 // when
-                () -> inputView.payment(priceOf())
+                inputView::payment
         );
     }
 
@@ -81,7 +80,7 @@ public class PaymentInputViewTest {
         InputView inputView = inputViewOf("10000\n");
 
         // when
-        Money payment = inputView.payment(priceOf());
+        Money payment = inputView.payment();
 
         // then
         assertThat(payment.getAmount()).isEqualTo(10000);
@@ -91,8 +90,8 @@ public class PaymentInputViewTest {
     @DisplayName("1000원 단위가 아닌 금액은 잔돈으로 반환")
     void changeIsReturned() {
         // given
-        LottoSeller seller = new LottoSeller(priceOf(),
-                new Money(10_500), List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
+        LottoSeller seller = new LottoSeller(new Payment(new Money(10_500), priceOf()),
+                List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then
         assertThat(seller.getChange()).isEqualTo(500);
@@ -103,8 +102,8 @@ public class PaymentInputViewTest {
     @DisplayName("구입 금액만큼 자동 로또가 발급")
     void ticketCountMatchesPayment() {
         // given
-        LottoSeller seller = new LottoSeller(priceOf(),
-                new Money(10_000), List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
+        LottoSeller seller = new LottoSeller(new Payment(new Money(10_000), priceOf()),
+                List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then
         assertThat(seller.getAutoCount()).isEqualTo(10);

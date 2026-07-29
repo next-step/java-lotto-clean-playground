@@ -38,10 +38,10 @@ public class InputView {
         return lotto;
     }
 
-    public Money payment(Money price) {
+    public Money payment() {
         Integer payment;
         do {
-            payment = validationMoney(price);
+            payment = validationMoney();
         } while (payment == null);
 
         return new Money(payment);
@@ -83,26 +83,22 @@ public class InputView {
                 .toList();
     }
 
-    private Integer validationMoney(Money price) {
+    private Integer validationMoney() {
         try {
-            return initPayment(price);
-        } catch (InputMismatchException | IllegalArgumentException e) {
+            return initPayment();
+        } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
             scanner.nextLine();
         }
         return null;
     }
 
-    private int initPayment(Money price) {
+    private int initPayment() {
         int amount = scanner.nextInt();
         scanner.nextLine();
 
         if (amount <= 0) {
             throw new InputMismatchException("양의 정수를 입력해주세요.");
-        }
-
-        if (amount < price.getAmount()) {
-            throw new IllegalArgumentException("구입 금액은 로또 가격보다 낮을 수 없습니다. 다시 입력해주세요.\n로또 금액은 " + price.getAmount() + "원입니다.");
         }
 
         return amount;

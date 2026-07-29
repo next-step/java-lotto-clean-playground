@@ -3,6 +3,7 @@ package controller;
 import domain.draw.RandomLottoNumber;
 import domain.lotto.Lotto;
 import domain.lotto.LottoSeller;
+import domain.lotto.Payment;
 import domain.lotto.WinningLotto;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.collection.WinningStatistics;
@@ -25,10 +26,10 @@ public class LottoController {
 
     public void run() {
 
-        Money payment = initPayment(PRICE);
+        Payment payment = initPayment(PRICE);
         List<Lotto> manualLottos = manualLottosInitialize(payment);
 
-        LottoSeller seller = new LottoSeller(PRICE, payment, manualLottos, new RandomLottoNumber());
+        LottoSeller seller = new LottoSeller(payment, manualLottos, new RandomLottoNumber());
 
         noticeLottoAmountAndChange(seller);
 
@@ -73,32 +74,41 @@ public class LottoController {
         OutputView.newLine();
         OutputView.printLottoAmount(seller.getManualCount(), seller.getAutoCount());
 
-        if (seller.getChange() > 0) {
+        if (seller.hasChange()) {
             System.out.printf("잔돈은 %d원 입니다.\n", seller.getChange());
         }
     }
 
-    private Money initPayment(Money price) {
-        Money payment;
+    private Payment initPayment(Money price) {
+        Payment payment;
 
         do {
-            OutputView.printPaymentNotice();
-            payment = inputView.payment(price);
-        } while (payment.compareTo(price) < 0);
+            payment = requestPayment(price);
+        } while (payment == null);
         return payment;
     }
 
-    private int initManualCount(Money payment) {
+    private Payment requestPayment(Money price) {
+        try {
+            OutputView.printPaymentNotice();
+            return new Payment(inputView.payment(), price);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private int initManualCount(Payment payment) {
         int count;
 
         do {
             OutputView.printManualCountNotice();
             count = inputView.manualCount();
-        } while (count > payment.countPurchasable(PRICE));
+        } while (count > payment.purchasableCount());
         return count;
     }
 
-    private List<Lotto> manualLottosInitialize(Money payment) {
+    private List<Lotto> manualLottosInitialize(Payment payment) {
         int manualCount = initManualCount(payment);
         List<Lotto> manualLottos = new ArrayList<>();
 
