@@ -29,5 +29,10 @@ public record Money(int value) {
     public boolean isDivisibleBy(Money other) {
         return value % other.value == 0;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }
 

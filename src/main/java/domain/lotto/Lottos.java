@@ -1,9 +1,10 @@
 package domain.lotto;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Lottos {
+public class Lottos implements Iterable<Lotto> {
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
@@ -26,12 +27,8 @@ public class Lottos {
         return new WinningResult(ranks);
     }
 
-    public List<String> toDisplayStrings() {
-        List<String> displays = new ArrayList<>();
-
-        for (Lotto lotto : lottos) {
-            displays.add(lotto.getLottoNumbers().toString());
-        }
-        return displays;
+    @Override
+    public Iterator<Lotto> iterator() {
+        return lottos.iterator();
     }
 }
