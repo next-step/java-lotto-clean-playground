@@ -54,4 +54,7 @@ public class InputView {
         return input;
     }
 
+    public static void printErrorMessage(IllegalArgumentException e) {
+        System.out.println(e.getMessage());
+    }
 }

@@ -4,13 +4,14 @@ import domain.lotto.Lottos;
 import domain.lotto.LottoStore;
 import domain.lotto.Money;
 import domain.lotto.LotteryStatistics;
-
 import domain.lotto.WinningResult;
+
 import view.InputView;
 import view.ResultView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import dto.PurchaseResult;
 
 public class Application {
@@ -38,13 +39,7 @@ public class Application {
     }
 
     private static PurchaseResult inputPurchaseResult() {
-        while (true) {
-            try {
-                return purchaseLotto();
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(Application::purchaseLotto);
     }
 
     private static void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
@@ -66,24 +61,11 @@ public class Application {
     }
 
     private static int inputManualLottoCount() {
-        while (true) {
-            try {
-                return InputView.inputManualLottoCount();
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(InputView::inputManualLottoCount);
     }
 
     private static Lotto inputManualLotto() {
-        while (true) {
-            try {
-                String input = InputView.inputManualLotto();
-                return Lotto.from(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(() -> Lotto.from(InputView.inputManualLotto()));
     }
 
     private static List<Lotto> inputManualLottos(int manualCount) {
@@ -97,25 +79,15 @@ public class Application {
     }
 
     private static LottoNumber inputBonusNumber(Lotto winningLotto) {
-        while (true) {
-            try {
-                LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
-                winningLotto.validateBonusNumber(bonusNumber);
-                return bonusNumber;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(() -> {
+            LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
+            winningLotto.validateBonusNumber(bonusNumber);
+            return bonusNumber;
+        });
     }
 
     private static Money inputPurchasePrice() {
-        while (true) {
-            try {
-                return new Money(InputView.inputPrice());
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(() -> new Money(InputView.inputPrice()));
     }
 
     private static Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
@@ -125,12 +97,15 @@ public class Application {
     }
 
     private static Lotto inputWinningLotto() {
+        return retry(() -> Lotto.from(InputView.inputWinningLotto()));
+    }
+
+    private static <T> T retry(Supplier<T> action) {
         while (true) {
             try {
-                String input = InputView.inputWinningLotto();
-                return Lotto.from(input);
+                return action.get();
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                InputView.printErrorMessage(e);
             }
         }
     }
