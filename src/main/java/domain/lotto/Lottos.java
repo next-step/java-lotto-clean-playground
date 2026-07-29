@@ -14,7 +14,7 @@ public class Lottos {
         return lottos.size();
     }
 
-    public List<Rank> matchRanks(Lotto winningLotto, LottoNumber bonusNumber) {
+    public WinningResult matchRanks(Lotto winningLotto, LottoNumber bonusNumber) {
         List<Rank> ranks = new ArrayList<>();
 
         for (Lotto lotto : lottos) {
@@ -23,7 +23,7 @@ public class Lottos {
             Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
             ranks.add(rank);
         }
-        return ranks;
+        return new WinningResult(ranks);
     }
 
     public List<String> toDisplayStrings() {

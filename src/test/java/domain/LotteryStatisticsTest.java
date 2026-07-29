@@ -6,6 +6,7 @@ import domain.lotto.LottoNumber;
 import domain.lotto.Lottos;
 import domain.lotto.Money;
 import domain.lotto.Rank;
+import domain.lotto.WinningResult;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -29,10 +30,9 @@ class LotteryStatisticsTest {
 
         LottoNumber bonusNumber = new LottoNumber(45);
 
-        LotteryStatistics lotteryStatistics = new LotteryStatistics();
-
         // When
-        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
 
         // Then
         Map<Rank, Integer> result = lotteryStatistics.getStatistics();
@@ -57,10 +57,9 @@ class LotteryStatisticsTest {
 
         LottoNumber bonusNumber = new LottoNumber(45);
 
-        LotteryStatistics lotteryStatistics = new LotteryStatistics();
-
         // When
-        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
         Money totalPrize = lotteryStatistics.calculatePrize();
 
         // Then
@@ -76,10 +75,9 @@ class LotteryStatisticsTest {
 
         LottoNumber bonusNumber = new LottoNumber(7);
 
-        LotteryStatistics lotteryStatistics = new LotteryStatistics();
-
         // When
-        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
 
         // Then
         Map<Rank, Integer> result = lotteryStatistics.getStatistics();

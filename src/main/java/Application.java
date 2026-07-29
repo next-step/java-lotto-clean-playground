@@ -5,6 +5,7 @@ import domain.lotto.LottoStore;
 import domain.lotto.Money;
 import domain.lotto.LotteryStatistics;
 
+import domain.lotto.WinningResult;
 import view.InputView;
 import view.ResultView;
 
@@ -49,7 +50,8 @@ public class Application {
     }
 
     private static void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
-        LotteryStatistics lotteryStatistics = new LotteryStatistics(lottos, winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
         Money totalPrize = lotteryStatistics.calculatePrize();
         ResultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }
