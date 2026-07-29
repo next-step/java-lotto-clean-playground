@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public int inputPrice() {
+    public static int inputPrice() {
         System.out.println("구입금액을 입력해 주세요.");
 
         try {
@@ -15,7 +15,7 @@ public class InputView {
         }
     }
 
-    public String inputWinningLotto() {
+    public static String inputWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = scanner.nextLine();
 
@@ -25,7 +25,7 @@ public class InputView {
         return input;
     }
 
-    public int inputBonusNumber() {
+    public static int inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
 
         try {
@@ -35,7 +35,7 @@ public class InputView {
         }
     }
 
-    public int inputManualLottoCount() {
+    public static int inputManualLottoCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 
         try {
@@ -45,7 +45,7 @@ public class InputView {
         }
     }
 
-    public String inputManualLotto() {
+    public static String inputManualLotto() {
         String input = scanner.nextLine();
 
         if (input.isBlank()) {

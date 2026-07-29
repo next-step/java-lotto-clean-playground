@@ -8,7 +8,7 @@ public class Lotto {
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        validateLottoNumbers();
+        validateLottoNumbers(lottoNumbers);
         this.lottoNumbers = List.copyOf(lottoNumbers);
     }
 
@@ -16,18 +16,18 @@ public class Lotto {
         return lottoNumbers;
     }
 
-    private void validateLottoNumbers() {
-        validateSize();
-        validateDuplicate();
+    private void validateLottoNumbers(List<LottoNumber> lottoNumbers) {
+        validateSize(lottoNumbers);
+        validateDuplicate(lottoNumbers);
     }
 
-    private void validateSize() {
+    private void validateSize(List<LottoNumber> lottoNumbers) {
             if (lottoNumbers.size() != LOTTO_SIZE) {
                 throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
             }
     }
 
-    private void validateDuplicate() {
+    private void validateDuplicate(List<LottoNumber> lottoNumbers) {
         List<LottoNumber> temp = new ArrayList<>();
 
         for(LottoNumber number : lottoNumbers) {

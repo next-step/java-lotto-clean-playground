@@ -13,4 +13,9 @@ public record LottoNumber(int value) {
             throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
 }

@@ -5,9 +5,9 @@ import java.util.List;
 
 public class LottoStore {
     private static final Money LOTTO_PRICE = new Money(1000);
-    private final LottoGenerator lottoGenerator = new LottoGenerator();
+    private static final LottoGenerator lottoGenerator = new LottoGenerator();
 
-    public Lottos buy(Money money, List<Lotto> manualLottos) {
+    public static Lottos buy(Money money, List<Lotto> manualLottos) {
         validatePrice(money);
         int totalCount = calculateLottoCount(money);
         int autoCount = totalCount - manualLottos.size();
@@ -18,11 +18,11 @@ public class LottoStore {
         return generateLottos(autoCount, manualLottos);
     }
 
-    private int calculateLottoCount(Money money) {
+    private static int calculateLottoCount(Money money) {
         return money.divideBy(LOTTO_PRICE);
     }
 
-    private void validatePrice(Money money) {
+    private static void validatePrice(Money money) {
         if (money.isLessThan(LOTTO_PRICE)) {
             throw new IllegalArgumentException("구매 금액은 1000원 이상이어야 합니다.");
         }
@@ -32,7 +32,7 @@ public class LottoStore {
         }
     }
 
-    private Lottos generateLottos(int autoCount, List<Lotto> manualLottos) {
+    private static Lottos generateLottos(int autoCount, List<Lotto> manualLottos) {
         List<Lotto> lottos = new ArrayList<>(manualLottos);
 
         for (int i = 0; i < autoCount; i++) {
@@ -41,11 +41,11 @@ public class LottoStore {
         return new Lottos(lottos);
     }
 
-    public void validatePurchasePrice(Money money) {
+    public static void validatePurchasePrice(Money money) {
         validatePrice(money);
     }
 
-    public void validateManualCount(Money money, int manualCount) {
+    public static void validateManualCount(Money money, int manualCount) {
         int totalCount = calculateLottoCount(money);
 
         if (manualCount > totalCount) {

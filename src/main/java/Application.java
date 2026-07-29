@@ -15,27 +15,21 @@ import java.util.stream.Collectors;
 import dto.PurchaseResult;
 
 public class Application {
-    private final InputView inputView = new InputView();
-    private final ResultView resultView = new ResultView();
-    private final LottoStore lottoStore = new LottoStore();
-    private final LotteryStatistics lotteryStatistics = new LotteryStatistics();
-
     public static void main(String[] args) {
-        Application app = new Application();
-        app.run();
+        run();
     }
 
-    private void run() {
+    private static void run() {
         PurchaseResult purchaseResult = inputPurchaseResult();
         showResult(purchaseResult);
     }
 
-    private PurchaseResult purchaseLotto() {
+    private static PurchaseResult purchaseLotto() {
         Money purchasePrice = inputPurchasePrice();
-        lottoStore.validatePurchasePrice(purchasePrice);
+        LottoStore.validatePurchasePrice(purchasePrice);
 
         int manualCount = inputManualLottoCount();
-        lottoStore.validateManualCount(purchasePrice, manualCount);
+        LottoStore.validateManualCount(purchasePrice, manualCount);
 
         List<Lotto> manualLottos = inputManualLottos(manualCount);
 
@@ -44,7 +38,7 @@ public class Application {
         return new PurchaseResult(purchasePrice, lottos);
     }
 
-    private PurchaseResult inputPurchaseResult() {
+    private static PurchaseResult inputPurchaseResult() {
         while (true) {
             try {
                 return purchaseLotto();
@@ -54,13 +48,13 @@ public class Application {
         }
     }
 
-    private void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
-        lotteryStatistics.calculateStatistics(lottos, winningLotto, bonusNumber);
+    private static void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
+        LotteryStatistics lotteryStatistics = new LotteryStatistics(lottos, winningLotto, bonusNumber);
         Money totalPrize = lotteryStatistics.calculatePrize();
-        resultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
+        ResultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }
 
-    private void showResult(PurchaseResult purchaseResult) {
+    private static void showResult(PurchaseResult purchaseResult) {
         Lotto winningLotto = inputWinningLotto();
         LottoNumber bonusNumber = inputBonusNumber(winningLotto);
         publishStatistics(
@@ -71,20 +65,20 @@ public class Application {
         );
     }
 
-    private int inputManualLottoCount() {
+    private static int inputManualLottoCount() {
         while (true) {
             try {
-                return inputView.inputManualLottoCount();
+                return InputView.inputManualLottoCount();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private Lotto inputManualLotto() {
+    private static Lotto inputManualLotto() {
         while (true) {
             try {
-                String input = inputView.inputManualLotto();
+                String input = InputView.inputManualLotto();
                 return createLotto(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -92,7 +86,7 @@ public class Application {
         }
     }
 
-    private List<Lotto> inputManualLottos(int manualCount) {
+    private static List<Lotto> inputManualLottos(int manualCount) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
         List<Lotto> manualLottos = new ArrayList<>();
@@ -102,10 +96,10 @@ public class Application {
         return manualLottos;
     }
 
-    private LottoNumber inputBonusNumber(Lotto winningLotto) {
+    private static LottoNumber inputBonusNumber(Lotto winningLotto) {
         while (true) {
             try {
-                LottoNumber bonusNumber = new LottoNumber(inputView.inputBonusNumber());
+                LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
                 winningLotto.validateBonusNumber(bonusNumber);
                 return bonusNumber;
             } catch (IllegalArgumentException e) {
@@ -114,31 +108,31 @@ public class Application {
         }
     }
 
-    private Money inputPurchasePrice() {
+    private static Money inputPurchasePrice() {
         while (true) {
             try {
-                return new Money(inputView.inputPrice());
+                return new Money(InputView.inputPrice());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private Lotto createLotto(String input) {
+    private static Lotto createLotto(String input) {
         List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
         return new Lotto(numbers);
     }
 
-    private Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
-        Lottos lottos = lottoStore.buy(purchasePrice, manualLottos);
-        resultView.printLottos(lottos, manualLottos.size());
+    private static Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
+        Lottos lottos = LottoStore.buy(purchasePrice, manualLottos);
+        ResultView.printLottos(lottos, manualLottos.size());
         return lottos;
     }
 
-    private Lotto inputWinningLotto() {
+    private static Lotto inputWinningLotto() {
         while (true) {
             try {
-                String input = inputView.inputWinningLotto();
+                String input = InputView.inputWinningLotto();
                 return createLotto(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -146,7 +140,7 @@ public class Application {
         }
     }
 
-    private List<LottoNumber> parseLottoNumbers(String[] numbers) {
+    private static List<LottoNumber> parseLottoNumbers(String[] numbers) {
         try {
             return Arrays.stream(numbers)
                     .map(String::trim)
