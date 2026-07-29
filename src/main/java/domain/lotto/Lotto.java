@@ -1,7 +1,8 @@
 package domain.lotto;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
     public static final int LOTTO_SIZE = 6;
@@ -28,16 +29,9 @@ public class Lotto {
     }
 
     private void validateDuplicate(List<LottoNumber> lottoNumbers) {
-        List<LottoNumber> temp = new ArrayList<>();
+        Set<LottoNumber> uniqueNumbers = new HashSet<>(lottoNumbers);
 
-        for(LottoNumber number : lottoNumbers) {
-            validateNumberDuplicate(number, temp);
-            temp.add(number);
-        }
-    }
-
-    private void validateNumberDuplicate(LottoNumber number, List<LottoNumber> temp) {
-        if (temp.contains(number)) {
+        if (uniqueNumbers.size() != lottoNumbers.size()) {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
