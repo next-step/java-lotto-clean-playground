@@ -6,14 +6,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class LottoGenerator {
-    private static final List<Integer> NUMBERS = createNumbers();
-
-    private static List<Integer> createNumbers() {
-        return IntStream.
-                rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
-                .boxed()
-                .toList();
-    }
+    private static final List<Integer> NUMBERS = IntStream.
+            rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
+            .boxed()
+            .toList();
 
     public static Lotto generateLotto() {
         List<Integer> numbers = new ArrayList<>(NUMBERS);
@@ -36,7 +32,7 @@ public class LottoGenerator {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
 
         for (Integer number : numbers) {
-            lottoNumbers.add(new LottoNumber(number));
+            lottoNumbers.add(LottoNumber.getValue(number));
         }
         return lottoNumbers;
     }
