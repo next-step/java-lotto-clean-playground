@@ -7,14 +7,12 @@ import java.util.stream.Stream;
 
 public class LottoSystem {
 
-    private final int purchaseAmount;
     private final Lottos lottos;
     private final RandomLottoNumberGenerator randomLottoNumberGenerator;
     private final int purchasedLottoCount;
 
     public LottoSystem(int purchaseAmount, RandomLottoNumberGenerator randomLottoNumberGenerator) {
         validate(purchaseAmount, randomLottoNumberGenerator);
-        this.purchaseAmount = purchaseAmount;
         this.randomLottoNumberGenerator = randomLottoNumberGenerator;
         this.purchasedLottoCount = purchaseAmount / LOTTO_PRICE;
         this.lottos = new Lottos(createLotto());
