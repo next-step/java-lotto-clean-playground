@@ -15,7 +15,7 @@ public class Lottos {
     return lottos.stream().map(Lotto::getLottoNumbers).toList();
   }
 
-  public List<LottoMatchResult> createLottoMatchResult(WinningNumbers winningNumbers){
+  public List<LottoMatchResult> createLottoMatchResult(WinningNumbers winningNumbers) {
     return lottos.stream().map(lotto -> new LottoMatchResult(lotto, winningNumbers)).toList();
   }
 }

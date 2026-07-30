@@ -11,11 +11,11 @@ public class LottoRankTable {
     this.lottoRankTable = createRankTable(lottoMatchResults);
   }
 
-  public long countOf(LottoRank lottoRank){
+  public long countOf(LottoRank lottoRank) {
     return lottoRankTable.get(lottoRank);
   }
 
-  private Map<LottoRank, Long> createRankTable(List<LottoMatchResult> lottoMatchResults){
+  private Map<LottoRank, Long> createRankTable(List<LottoMatchResult> lottoMatchResults) {
     Map<LottoRank, Long> rankCounts = new HashMap<>();
     for(LottoRank lottoRank : LottoRank.values()){
       rankCounts.put(lottoRank, countByRank(lottoRank, lottoMatchResults));
@@ -23,8 +23,8 @@ public class LottoRankTable {
     return rankCounts;
   }
 
-  private long countByRank(LottoRank lottoRank, List<LottoMatchResult> lottoMatchResults){
-    return lottoMatchResults.stream().filter(result->result.getRank() == lottoRank).count();
+  private long countByRank(LottoRank lottoRank, List<LottoMatchResult> lottoMatchResults) {
+    return lottoMatchResults.stream().filter(result -> result.getRank() == lottoRank).count();
   }
 
   public long sumPrize() {

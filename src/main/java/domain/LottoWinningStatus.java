@@ -9,11 +9,11 @@ public class LottoWinningStatus {
     this.lottoMatchResults = new LottoMatchResults(lottos.createLottoMatchResult(winningNumbers), purchaseAmount);
   }
 
-  public double profitRate(){
+  public double profitRate() {
     return lottoMatchResults.profitRate();
   }
 
-  public LottoRankTable rankTable(){
+  public LottoRankTable rankTable() {
     return lottoMatchResults.rankTable();
   }
 }

@@ -12,7 +12,7 @@ public class LottoMatchResultsTest {
 
   @Test
   @DisplayName("[테스트 코드] : 총 상금과 구매 금액으로 수익률을 계산한다")
-  void test_수익률_계산(){
+  void test_수익률_계산() {
     List<LottoMatchResult> results = List.of(
         new LottoMatchResult(new Lotto(List.of(1, 2, 3, 4, 8, 9)), winningNumbers),  // 4등 / 50000원
         new LottoMatchResult(new Lotto(List.of(1, 2, 3, 8, 9, 10)), winningNumbers)  // 5등 / 5000원
@@ -25,7 +25,7 @@ public class LottoMatchResultsTest {
 
   @Test
   @DisplayName("[테스트 코드] : 당첨된 로또가 없으면 수익률은 0이다")
-  void test_당첨_없을_때_수익률_0(){
+  void test_당첨_없을_때_수익률_0() {
     List<LottoMatchResult> results = List.of(
         new LottoMatchResult(new Lotto(List.of(7, 8, 9, 10, 11, 12)), winningNumbers)
     );

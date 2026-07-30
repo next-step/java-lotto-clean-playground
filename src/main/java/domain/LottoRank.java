@@ -32,7 +32,7 @@ public enum LottoRank {
     return isMatchingBonusNumber;
   }
 
-  public static LottoRank findByMatchingResult(long matchingCount, boolean isMatchingBonusNumber){
+  public static LottoRank findByMatchingResult(long matchingCount, boolean isMatchingBonusNumber) {
     return Arrays.stream(LottoRank.values())
         .filter(value -> value.matchingCount == matchingCount)
         .filter(value -> value.satisfiesBonusCondition(isMatchingBonusNumber))
@@ -40,7 +40,7 @@ public enum LottoRank {
         .orElse(MISS);
   }
 
-  private boolean satisfiesBonusCondition(boolean isMatchingBonusNumber){
+  private boolean satisfiesBonusCondition(boolean isMatchingBonusNumber) {
     if (this.isMatchingBonusNumber) {
       return isMatchingBonusNumber;
     }

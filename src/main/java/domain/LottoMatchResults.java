@@ -12,11 +12,11 @@ public class LottoMatchResults {
     this.lottoRankTable = new LottoRankTable(new ArrayList<>(lottoMatchResults));
   }
 
-  public double profitRate(){
+  public double profitRate() {
     return (double) lottoRankTable.sumPrize() / purchaseAmount;
   }
 
-  public LottoRankTable rankTable(){
+  public LottoRankTable rankTable() {
     return lottoRankTable;
   }
 }

@@ -17,7 +17,7 @@ public class LottoRankTableTest {
 
   @Test
   @DisplayName("[테스트 코드] : 당첨번호와 로또번호를 비교해서 각각 매칭되는지 테스트.")
-  void test_당첨번호와_구매한_로또번호가_알맞게_매칭되는지_테스트(){
+  void test_당첨번호와_구매한_로또번호가_알맞게_매칭되는지_테스트() {
     List<LottoMatchResult> lottoMatchResults = List.of(
         createLottoMatchResult(List.of(1, 2, 3, 4, 5, 6)),
         createLottoMatchResult(List.of(1, 2, 3, 4, 5, 7)),
@@ -40,7 +40,7 @@ public class LottoRankTableTest {
 
   @Test
   @DisplayName("[테스트 코드] : 당첨번호와 구매한 로또 번호를 비교해서 랭크에 맞는 로또가 몇장인지 계산 테스트.")
-  void test_당첨번호와_구매한_로또번호가_매칭된_횟수_계산_테스트(){
+  void test_당첨번호와_구매한_로또번호가_매칭된_횟수_계산_테스트() {
     List<LottoMatchResult> lottoMatchResults = List.of(
         createLottoMatchResult(List.of(1, 2, 3, 40, 41, 42)),
         createLottoMatchResult(List.of(1, 2, 3, 7, 8, 9)),
@@ -53,7 +53,7 @@ public class LottoRankTableTest {
 
   @Test
   @DisplayName("[테스트 코드] : 당첨번호와 구매한 로또 번호를 비교해서 랭크에 맞는 금액이 적절하게 더해서 반환되는지 테스트")
-  void test_당첨번호와_구매한_로또번호를_비교해서_총_상금을_계산_테스트(){
+  void test_당첨번호와_구매한_로또번호를_비교해서_총_상금을_계산_테스트() {
 
     List<LottoMatchResult> lottoMatchResults = List.of(
         createLottoMatchResult(List.of(1, 2, 3, 4, 8, 9)), // 4개 매칭 / 50000

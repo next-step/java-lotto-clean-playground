@@ -19,14 +19,14 @@ public class WinningNumbers {
     return bonusNumber;
   }
 
-  private void validate(List<Integer> winningNumbers, int bonusNumber){
+  private void validate(List<Integer> winningNumbers, int bonusNumber) {
     validateBonusNumberRange(bonusNumber);
     if(winningNumbers.contains(bonusNumber)){
       throw new IllegalArgumentException("당첨번호에 존재하는 보너스 번호는 존재할 수 없습니다.");
     }
   }
 
-  private void validateBonusNumberRange(int bonusNumber){
+  private void validateBonusNumberRange(int bonusNumber) {
     if(bonusNumber > MAX_NUMBER || bonusNumber < MIN_NUMBER){
       throw new IllegalArgumentException("로또 번호의 범위는 " + MIN_NUMBER + "보다 작거나, " + MAX_NUMBER + "보다 클 수 없습니다.");
     }
