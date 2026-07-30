@@ -4,7 +4,7 @@ import domain.number.LottoNumberCombination;
 import domain.result.LottoResult;
 import domain.result.MatchCount;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 public class WinningLotto {
     private final LottoNumberCombination numbers;
@@ -12,16 +12,13 @@ public class WinningLotto {
 
     private WinningLotto(LottoNumberCombination numbers, BonusBall bonusBall) {
         this.numbers = numbers;
+        Objects.requireNonNull(bonusBall);
         bonusBall.validateNotDuplicatedWith(numbers);
         this.bonusBall = bonusBall;
     }
 
     public static WinningLotto of(List<Integer> numbers, BonusBall bonusBall) {
         return new WinningLotto(LottoNumberCombination.from(numbers), bonusBall);
-    }
-
-    private Optional<BonusBall> bonusBall() {
-        return Optional.ofNullable(bonusBall);
     }
 
     LottoResult match(LottoNumberCombination ticketNumbers) {
@@ -34,8 +31,6 @@ public class WinningLotto {
     }
 
     private boolean isBonusBallMatched(LottoNumberCombination ticketNumbers) {
-        return bonusBall()
-                .map(bonusBall -> ticketNumbers.contains(bonusBall.lottoNumber()))
-                .orElse(false);
+        return ticketNumbers.contains(bonusBall.lottoNumber());
     }
 }
