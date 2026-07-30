@@ -33,7 +33,7 @@ public class Lotto {
             validateRange(numbers.get(i));
         }
     }
-    private void validateRange(Integer number){
+    private void validateRange(int number){
         if(number > MAX_NUMBER || number < MIN_NUMBER){
             throw new IllegalArgumentException("로또 번호의 범위는 " + MIN_NUMBER + "보다 작거나, " + MAX_NUMBER + "보다 클 수 없습니다.");
         }
@@ -42,11 +42,11 @@ public class Lotto {
         return Collections.unmodifiableList(numbers);
     }
 
-    public Long countMatch(WinningNumbers winningNumbers) {
+    public long countMatch(WinningNumbers winningNumbers) {
         return countMatch(winningNumbers.getLotto());
     }
 
-    private Long countMatch(Lotto other) {
+    private long countMatch(Lotto other) {
         return other.numbers.stream().filter(this.numbers::contains).count();
     }
 }

@@ -7,12 +7,12 @@ import java.util.stream.Stream;
 
 public class LottoSystem {
 
-    private final Integer purchaseAmount;
+    private final int purchaseAmount;
     private final Lottos lottos;
     private final LottoNumberGenerator lottoNumberGenerator;
-    private final Integer purchasedLottoCount;
+    private final int purchasedLottoCount;
 
-    public LottoSystem(Integer purchaseAmount, LottoNumberGenerator lottoNumberGenerator) {
+    public LottoSystem(int purchaseAmount, LottoNumberGenerator lottoNumberGenerator) {
         validate(purchaseAmount, lottoNumberGenerator);
         this.purchaseAmount = purchaseAmount;
         this.lottoNumberGenerator = lottoNumberGenerator;
@@ -20,7 +20,7 @@ public class LottoSystem {
         this.lottos = new Lottos(createLotto());
     }
 
-    private void validate(Integer purchaseAmount, LottoNumberGenerator lottoNumberGenerator){
+    private void validate(int purchaseAmount, LottoNumberGenerator lottoNumberGenerator){
         if(purchaseAmount < LOTTO_PRICE){
             throw new IllegalArgumentException("로또 가격보다 입력한 값이 적습니다.");
         }
@@ -39,7 +39,7 @@ public class LottoSystem {
     public Lottos purchasedLottos(){
         return lottos;
     }
-    public Integer purchasedLottoCount() {
+    public int purchasedLottoCount() {
         return purchasedLottoCount;
     }
 }

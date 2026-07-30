@@ -12,20 +12,20 @@ public enum LottoRank {
   private final int matchingCount;
   private final long prize;
 
-  public Integer getMatchingCount() {
-    return matchingCount;
-  }
-
-  LottoRank(Integer matchingCount, Long prize) {
+  LottoRank(int matchingCount, long prize) {
     this.matchingCount = matchingCount;
     this.prize = prize;
   }
 
-  public Long getPrize() {
+  public int getMatchingCount() {
+    return matchingCount;
+  }
+
+  public long getPrize() {
     return prize;
   }
 
-  public static LottoRank findByMatchingCount(Long matchingCount){
+  public static LottoRank findByMatchingCount(long matchingCount){
     return Arrays.stream(LottoRank.values()).filter(value ->value.matchingCount == matchingCount).findAny().orElse(MISS);
   }
 }

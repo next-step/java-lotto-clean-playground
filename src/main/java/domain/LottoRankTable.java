@@ -10,7 +10,7 @@ public class LottoRankTable {
     this.lottoRankTable = new HashMap<>(lottoRankTable);
   }
 
-  public Long countOf(LottoRank lottoRank){
+  public long countOf(LottoRank lottoRank){
     return lottoRankTable.get(lottoRank);
   }
 }

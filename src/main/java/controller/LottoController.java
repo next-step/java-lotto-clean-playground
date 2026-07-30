@@ -9,7 +9,7 @@ import view.ResultView;
 
 public class LottoController {
   public static void run(){
-    final Integer purchaseAmount = InputView.purchaseAmount();
+    final int purchaseAmount = InputView.purchaseAmount();
     final LottoSystem lottoSystem = new LottoSystem(purchaseAmount, new RandomLottoNumberGenerator());
     ResultView.printPurchasedLottos(lottoSystem.purchasedLottoCount(), lottoSystem.purchasedLottoNumbers());
 

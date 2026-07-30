@@ -10,7 +10,7 @@ import domain.LottoRankTable;
 import java.util.List;
 
 public class ResultView {
-    public static void printPurchasedLottos(Integer purchasedLottoCount, List<List<Integer>> lottos){
+    public static void printPurchasedLottos(int purchasedLottoCount, List<List<Integer>> lottos){
       System.out.println(purchasedLottoCount + "개를 구입했습니다.");
       for (List<Integer> lotto : lottos) {
         System.out.println(lotto);
@@ -25,11 +25,11 @@ public class ResultView {
       }
     }
 
-    public static void printProfitRate(Double profitRate){
+    public static void printProfitRate(double profitRate){
       System.out.printf("\n총 수익률은 : %.2f입니다. %s", profitRate, lossOrGainMessage(profitRate));
     }
 
-    private static String lossOrGainMessage(Double profitRate){
+    private static String lossOrGainMessage(double profitRate){
       if(profitRate < 1.0){
         return "( 기준이 1이기 때문에 결과적으로 손해입니다. )";
       }

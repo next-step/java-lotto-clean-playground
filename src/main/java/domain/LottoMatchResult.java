@@ -2,7 +2,7 @@ package domain;
 
 public class LottoMatchResult {
   private final Lotto lotto;
-  private final Long matchingCount;
+  private final long matchingCount;
   private final LottoRank rank;
 
   public LottoMatchResult(Lotto lotto, WinningNumbers winningNumbers) {
@@ -15,7 +15,7 @@ public class LottoMatchResult {
     return rank;
   }
 
-  public Long winningPrize() {
+  public long winningPrize() {
     return rank.getPrize();
   }
 }

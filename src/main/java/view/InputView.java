@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static Integer purchaseAmount(){
+    public static int purchaseAmount(){
       System.out.println("\n구입금액을 입력해주세요");
       int amount = scanner.nextInt();
       scanner.nextLine();

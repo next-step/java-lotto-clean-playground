@@ -7,24 +7,24 @@ import java.util.Map;
 
 public class LottoMatchResults {
   private final List<LottoMatchResult> lottoMatchResults;
-  private final Integer purchaseAmount;
+  private final int purchaseAmount;
   private final LottoRankTable lottoRankTable;
 
-  public LottoMatchResults(List<LottoMatchResult> lottoMatchResults, Integer purchaseAmount) {
+  public LottoMatchResults(List<LottoMatchResult> lottoMatchResults, int purchaseAmount) {
     this.lottoMatchResults = new ArrayList<>(lottoMatchResults);
     this.purchaseAmount = purchaseAmount;
     this.lottoRankTable = new LottoRankTable(createRankTable());
   }
 
-  public Long countByRank(LottoRank lottoRank){
+  public long countByRank(LottoRank lottoRank){
     return lottoMatchResults.stream().filter(result->result.getRank() == lottoRank).count();
   }
 
-  private Long sumPrize() {
+  private long sumPrize() {
     return lottoMatchResults.stream().mapToLong(LottoMatchResult::winningPrize).sum();
   }
 
-  public Double profitRate(){
+  public double profitRate(){
     return (double) sumPrize() / purchaseAmount;
   }
 
