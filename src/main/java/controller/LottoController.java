@@ -2,7 +2,7 @@ package controller;
 
 import domain.LottoSystem;
 import domain.LottoWinningStatus;
-import generator.RandomLottoNumberGenerator;
+import domain.RandomLottoNumberGenerator;
 import java.util.List;
 import view.InputView;
 import view.ResultView;

@@ -1,4 +1,4 @@
-package generator;
+    package domain;
 
 import static domain.LottoRule.LOTTO_NUMBERS_COUNT;
 import static domain.LottoRule.MAX_NUMBER;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomLottoNumberGenerator implements LottoNumberGenerator {
+public class RandomLottoNumberGenerator {
     private final List<Integer> lottoNumbers;
     public RandomLottoNumberGenerator() {
         lottoNumbers =  new ArrayList<>();
@@ -16,7 +16,6 @@ public class RandomLottoNumberGenerator implements LottoNumberGenerator {
             lottoNumbers.add(i);
         }
     }
-    @Override
     public List<Integer> generate() {
         Collections.shuffle(lottoNumbers);
         return new ArrayList<>(lottoNumbers.subList(0, LOTTO_NUMBERS_COUNT));
