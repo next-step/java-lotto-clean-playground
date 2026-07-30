@@ -22,6 +22,7 @@ public class LottoController {
     public void run() {
         PurchaseAmount purchaseAmount = PurchaseAmount.from(inputView.readPurchaseAmount());
         ManualPurchaseCount manualPurchaseCount = ManualPurchaseCount.from(inputView.readManualPurchaseCount());
+        manualPurchaseCount.validateNotGreaterThan(purchaseAmount);
         PurchasedLottos manualLottos = createManualLottos(manualPurchaseCount);
         PurchasedLottos purchasedLottoTickets = lottoMachine.buy(purchaseAmount, manualLottos);
         outputView.printPurchasedLottoTickets(purchasedLottoTickets, manualPurchaseCount);

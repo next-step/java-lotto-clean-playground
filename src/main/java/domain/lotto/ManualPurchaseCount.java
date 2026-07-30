@@ -1,5 +1,7 @@
 package domain.lotto;
 
+import domain.money.PurchaseAmount;
+
 public class ManualPurchaseCount {
     private final int value;
 
@@ -20,5 +22,11 @@ public class ManualPurchaseCount {
 
     public int value() {
         return value;
+    }
+
+    public void validateNotGreaterThan(PurchaseAmount purchaseAmount) {
+        if (value > purchaseAmount.lottoCount()) {
+            throw new IllegalArgumentException("수동 구매 수는 전체 구매 수를 넘을 수 없습니다.");
+        }
     }
 }
