@@ -18,6 +18,10 @@ public class PurchaseAmount {
         return calculateLottoCount() - manualCount;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     private static void validateAmount(int amount) {
         validateMinimumAmount(amount);
         validateMultiplePrice(amount);

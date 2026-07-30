@@ -1,14 +1,12 @@
-package domain;
+package domain.winning;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
-
 import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
 import domain.lotto.Lottos;
-import domain.winning.BonusBall;
-import domain.winning.WinningLotto;
-import domain.winning.WinningStatistics;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,10 +16,16 @@ class WinningStatisticsTest {
     @DisplayName("calculate profit rate")
     void calculateProfitRate() {
         Lottos lottos = new Lottos();
-        lottos.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
 
+        List<LottoNumber> lottoNumbers = Stream.of(1, 2, 3, 4, 5, 6)
+                .map(LottoNumber::new)
+                .toList();
+
+        lottos.add(new Lotto(lottoNumbers));
+
+        LottoNumber bonusNumber = new LottoNumber(7);
         WinningLotto winningLottoNumber = new WinningLotto(List.of(1, 2, 3, 4, 5, 6));
-        BonusBall bonusBall = new BonusBall(7, List.of(1, 2, 3, 4, 5, 6));
+        BonusBall bonusBall = new BonusBall(bonusNumber, List.of(1, 2, 3, 4, 5, 6));
 
         WinningStatistics statistics = new WinningStatistics(lottos, winningLottoNumber, bonusBall);
 
