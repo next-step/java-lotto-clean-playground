@@ -46,7 +46,7 @@ public class WinningStatistics {
             Rank rank = entry.getKey();
             int count = entry.getValue();
 
-            totalPrize += (long) rank.getPrize() * count;
+            totalPrize += rank.getPrize() * count;
 
         }
 
