@@ -1,5 +1,5 @@
-import domain.lotto.Lotto;
 import domain.lotto.LotteryStatistics;
+import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoStore;
 import domain.lotto.Lottos;
@@ -68,7 +68,7 @@ public class Application {
     }
 
     private static List<Lotto> inputManualLottos(int manualCount) {
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        InputView.printManualLottoGuide();
 
         List<Lotto> manualLottos = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
@@ -79,7 +79,7 @@ public class Application {
 
     private static LottoNumber inputBonusNumber(Lotto winningLotto) {
         return retry(() -> {
-            LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
+            LottoNumber bonusNumber = LottoNumber.getValue(InputView.inputBonusNumber());
             winningLotto.validateBonusNumber(bonusNumber);
             return bonusNumber;
         });

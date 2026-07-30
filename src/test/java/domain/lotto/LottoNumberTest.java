@@ -1,11 +1,12 @@
-package domain;
+package domain.lotto;
 
-import domain.lotto.LottoNumber;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 
 class LottoNumberTest {
@@ -23,5 +24,13 @@ class LottoNumberTest {
         assertThatThrownBy(() -> new LottoNumber(number))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 1~45 사이여야 합니다.");
+    }
+
+    @Test
+    void getValue로_조회하면_캐시된_동일_인스턴스를_반환한다() {
+        LottoNumber number1 = LottoNumber.getValue(7);
+        LottoNumber number2 = LottoNumber.getValue(7);
+
+        assertSame(number1, number2);
     }
 }

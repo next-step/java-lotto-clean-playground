@@ -1,12 +1,11 @@
-package domain;
+package domain.lotto;
 
-import domain.lotto.Lotto;
-import domain.lotto.LottoNumber;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -90,5 +89,27 @@ class LottoTest {
         boolean result = lotto.contains(new LottoNumber(number));
 
         assertEquals(expected, result);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1,2,3,4,5,6", " 1, 2, 3, 4, 5, 6"})
+    void from으로_문자열을_파싱해_로또를_생성한다(String input) {
+        Lotto lotto = Lotto.from(input);
+
+        assertEquals(6, lotto.getLottoNumbers().size());
+    }
+
+    @Test
+    void from에_숫자가_아닌_값이_있으면_예외가_발생한다() {
+        assertThatThrownBy(() -> Lotto.from("1,2,3,4,5,가"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("숫자만 입력해주세요.");
+    }
+
+    @Test
+    void from에_범위를_벗어난_숫자가_있으면_예외가_발생한다() {
+        assertThatThrownBy(() -> Lotto.from("1,2,3,4,5,50"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 1~45 사이여야 합니다.");
     }
 }

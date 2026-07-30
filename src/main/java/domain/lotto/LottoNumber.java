@@ -18,7 +18,11 @@ public record LottoNumber(int value) {
     }
 
     public static LottoNumber getValue(int value) {
-        return CACHE.get(value);
+        LottoNumber cached = CACHE.get(value);
+        if (cached == null) {
+            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
+        }
+        return cached;
     }
 
     public static void validateNumberRange(int number) {

@@ -1,10 +1,10 @@
-package domain;
+package domain.lotto;
 
-import domain.lotto.Money;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -102,5 +102,19 @@ class MoneyTest {
         Money money2 = new Money(2000);
         // When & Then
         assertNotEquals(money1, money2);
+    }
+
+    @Test
+    void 값이_음수이면_예외가_발생한다() {
+        assertThatThrownBy(() -> new Money(-1000))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("금액은 0 이상이어야 합니다.");
+    }
+
+    @Test
+    void 값이_1000원_단위가_아니면_예외가_발생한다() {
+        assertThatThrownBy(() -> new Money(1500))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("금액은 1000원 단위여야 합니다.");
     }
 }

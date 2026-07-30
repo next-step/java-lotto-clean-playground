@@ -1,12 +1,5 @@
-package domain;
+package domain.lotto;
 
-import domain.lotto.LotteryStatistics;
-import domain.lotto.Lotto;
-import domain.lotto.LottoNumber;
-import domain.lotto.Lottos;
-import domain.lotto.Money;
-import domain.lotto.Rank;
-import domain.lotto.WinningResult;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

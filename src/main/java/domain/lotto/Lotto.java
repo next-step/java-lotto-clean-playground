@@ -25,7 +25,7 @@ public class Lotto {
             return Arrays.stream(numbers)
                     .map(String::trim)
                     .map(Integer::parseInt)
-                    .map(LottoNumber::new)
+                    .map(LottoNumber::getValue)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자만 입력해주세요.");
