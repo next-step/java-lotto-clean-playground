@@ -1,7 +1,6 @@
 package view;
 
 import domain.lotto.LotteryStatistics;
-import domain.lotto.Lotto;
 import domain.lotto.Lottos;
 import domain.lotto.Rank;
 import domain.lotto.Money;
@@ -15,9 +14,7 @@ public class ResultView {
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
                 manualCount, autoCount);
 
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.getLottoNumbers());
-        }
+        lottos.forEach(lotto -> System.out.println(lotto.getLottoNumbers()));
     }
 
     public static void printStatistics(LotteryStatistics statistics, Money totalPrize, Money purchasePrice) {

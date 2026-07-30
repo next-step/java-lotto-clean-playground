@@ -6,15 +6,10 @@ import java.util.List;
 public class LottoStore {
     private static final Money LOTTO_PRICE = new Money(1000);
 
-    public static Lottos buy(Money money, List<Lotto> manualLottos) {
-        int totalCount = calculateLottoCount(money);
+    public static int calculatePurchasableCount(Money money) {
+        int totalCount = money.divideBy(LOTTO_PRICE);
         validatePurchasableCount(totalCount);
-
-        int autoCount = totalCount - manualLottos.size();
-        if (autoCount < 0) {
-            throw new IllegalArgumentException("수동 구매 개수가 구매 가능한 개수를 초과했습니다.");
-        }
-        return generateLottos(autoCount, manualLottos);
+        return totalCount;
     }
 
     private static void validatePurchasableCount(int totalCount) {
@@ -23,8 +18,21 @@ public class LottoStore {
         }
     }
 
-    private static int calculateLottoCount(Money money) {
-        return money.divideBy(LOTTO_PRICE);
+    public static void validateManualCount(int totalCount, int manualCount) {
+        if (manualCount > totalCount) {
+            throw new IllegalArgumentException("수동으로 구매 가능한 개수를 초과했습니다.");
+        }
+        if (manualCount < 0) {
+            throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
+        }
+    }
+
+    public static Lottos buy(int totalCount, List<Lotto> manualLottos) {
+        int autoCount = totalCount - manualLottos.size();
+        if (autoCount < 0) {
+            throw new IllegalArgumentException("수동 구매 개수가 구매 가능한 개수를 초과했습니다.");
+        }
+        return generateLottos(autoCount, manualLottos);
     }
 
     private static Lottos generateLottos(int autoCount, List<Lotto> manualLottos) {
@@ -34,16 +42,5 @@ public class LottoStore {
             lottos.add(LottoGenerator.generateLotto());
         }
         return new Lottos(lottos);
-    }
-
-    public static void validateManualCount(Money money, int manualCount) {
-        int totalCount = calculateLottoCount(money);
-
-        if (manualCount > totalCount) {
-            throw new IllegalArgumentException("수동으로 구매 가능한 개수를 초과했습니다.");
-        }
-        if (manualCount < 0) {
-            throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
-        }
     }
 }

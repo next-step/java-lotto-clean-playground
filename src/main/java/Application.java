@@ -26,14 +26,14 @@ public class Application {
 
     private static PurchaseResult purchaseLotto() {
         Money purchasePrice = inputPurchasePrice();
-        purchasePrice.validate();
+        int totalCount = LottoStore.calculatePurchasableCount(purchasePrice);
 
         int manualCount = inputManualLottoCount();
-        LottoStore.validateManualCount(purchasePrice, manualCount);
+        LottoStore.validateManualCount(totalCount, manualCount);
 
         List<Lotto> manualLottos = inputManualLottos(manualCount);
 
-        Lottos lottos = purchaseLottos(purchasePrice, manualLottos);
+        Lottos lottos = purchaseLottos(totalCount, manualLottos);
 
         return new PurchaseResult(purchasePrice, lottos);
     }
@@ -90,8 +90,8 @@ public class Application {
         return retry(() -> new Money(InputView.inputPrice()));
     }
 
-    private static Lottos purchaseLottos(Money purchasePrice, List<Lotto> manualLottos) {
-        Lottos lottos = LottoStore.buy(purchasePrice, manualLottos);
+    private static Lottos purchaseLottos(int totalCount, List<Lotto> manualLottos) {
+        Lottos lottos = LottoStore.buy(totalCount, manualLottos);
         ResultView.printLottos(lottos, manualLottos.size());
         return lottos;
     }
