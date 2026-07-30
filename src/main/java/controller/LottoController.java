@@ -59,9 +59,8 @@ public class LottoController {
     }
 
     private static void addAutoLottos(Lottos lottos, int autoCount) {
-        LottoGenerator lottoGenerator = new LottoGenerator();
         for (int i = 0; i < autoCount; i++) {
-            lottos.add(lottoGenerator.generateLotto());
+            lottos.add(LottoGenerator.generateLotto());
         }
     }
 

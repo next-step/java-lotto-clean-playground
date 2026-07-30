@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoGenerator {
-    public Lotto generateLotto() {
+    public static Lotto generateLotto() {
         List<Integer> numbers = generateNumbers();
         Collections.shuffle(numbers);
 
@@ -19,7 +19,7 @@ public class LottoGenerator {
         return new Lotto(lottoNumbers);
     }
 
-    private List<Integer> generateNumbers() {
+    private static List<Integer> generateNumbers() {
         List<Integer> allNumbers = new ArrayList<>();
         for (int i = LottoNumber.MIN_LOTTO_NUMBER; i <= LottoNumber.MAX_LOTTO_NUMBER; i++) {
             allNumbers.add(i);
