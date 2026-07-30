@@ -1,9 +1,20 @@
 package domain.lotto;
 
 public record Money(int value) {
+    private static final int LOTTO_PRICE = 1000;
 
-    public Money(int value) {
-        this.value = value;
+    public Money {
+        validate(value);
+    }
+
+    private static void validate(int value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("금액은 0 이상이어야 합니다.");
+        }
+
+        if (value % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException("금액은 1000원 단위여야 합니다.");
+        }
     }
 
     public Money add(Money other) {

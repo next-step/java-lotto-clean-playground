@@ -26,7 +26,7 @@ public class Application {
 
     private static PurchaseResult purchaseLotto() {
         Money purchasePrice = inputPurchasePrice();
-        LottoStore.validatePurchasePrice(purchasePrice);
+        purchasePrice.validate();
 
         int manualCount = inputManualLottoCount();
         LottoStore.validateManualCount(purchasePrice, manualCount);
