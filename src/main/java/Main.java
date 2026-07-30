@@ -10,6 +10,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         View view=new View();
+        //구매금액입력
         int cost=view.inputCost();
         int amount=view.printAmount(cost);
         Map<Integer,Integer> staticWin=new HashMap<>();
@@ -18,13 +19,16 @@ public class Main {
 
         Controller controller=new Controller(amount);
         lottos=controller.genLotto();
+        //구매액만큼 로또 자동구매결과 출력
         view.printLottos(lottos);
+        //당첨번호 입력
         List<Integer> winningNums = view.inputWinningNums();
+        //보너스볼 입력
+        int bonusBall=view.inputBonusBall();
 
-        matrix=controller.findWinning(winningNums);
-        System.out.println(matrix);
+        matrix=controller.findWinning(winningNums,bonusBall);
         ////////////////////////////////////////////////////////////////////////////////////////
-        staticWin=controller.createWinCountMap(matrix);
+        staticWin=controller.createWinCountMap(matrix,bonusBall);
 
         System.out.println("당첨통계");
         System.out.println("---------");
