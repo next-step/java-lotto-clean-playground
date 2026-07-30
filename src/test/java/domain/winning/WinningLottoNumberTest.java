@@ -36,6 +36,7 @@ class WinningLottoNumberTest {
 
         Lotto purchasedLotto = new Lotto(lottoNumbers);
         int matchCount = winningLotto.countMatches(purchasedLotto);
+
         assertThat(matchCount).isEqualTo(0);
     }
 

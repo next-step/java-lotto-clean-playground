@@ -31,7 +31,9 @@ public class LottoNumber {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         LottoNumber lottoNumber = (LottoNumber) o;
+
         return number == lottoNumber.number;
     }
 
