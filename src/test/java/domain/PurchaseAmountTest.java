@@ -2,6 +2,7 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -22,5 +23,12 @@ class PurchaseAmountTest {
     void 구매_금액_단위가_1000원이_아니면_예외를_던진다() {
         assertThatThrownBy(() -> new PurchaseAmount(1001))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 구매_금액으로_구매_가능한_로또_수를_계산한다() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(3000);
+
+        assertThat(purchaseAmount.calculateLottoCount()).isEqualTo(3);
     }
 }

@@ -18,11 +18,6 @@ class LottoPurchaseTest {
     }
 
     @Test
-    void 구입_금액을_로또_가격으로_나누어_구매_수량을_계산한다() {
-        assertThat(lottoPurchase.getLottoCount()).isEqualTo(3);
-    }
-
-    @Test
     void 수동_구매_수가_0이면_전체_구매_수만큼_자동_로또를_발급한다() {
         // given
         List<List<Integer>> manualLottoNumbers = List.of();

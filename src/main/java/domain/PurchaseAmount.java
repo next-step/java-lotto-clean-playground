@@ -15,6 +15,10 @@ public class PurchaseAmount {
         return value;
     }
 
+    public int calculateLottoCount() {
+        return value / LOTTO_PRICE;
+    }
+
     private void validateMinimumAmount(int value) {
         if (value < LOTTO_PRICE) {
             throw new IllegalArgumentException("구매 금액은 " + LOTTO_PRICE + "원 이상이어야 합니다.");

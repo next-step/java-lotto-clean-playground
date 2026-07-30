@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoPurchase {
-    private static final int LOTTO_PRICE = 1000;
-
     private final PurchaseAmount purchaseAmount;
     private final LottoGenerator lottoGenerator;
 
@@ -15,7 +13,7 @@ public class LottoPurchase {
     }
 
     public int getLottoCount() {
-        return purchaseAmount.getAmount() / LOTTO_PRICE;
+        return purchaseAmount.calculateLottoCount();
     }
 
     public PurchasedLottos purchase(List<List<Integer>> manualLottoNumbers) {
