@@ -14,7 +14,9 @@ public class LottoController {
     ResultView.printPurchasedLottos(lottoSystem.purchasedLottoCount(), lottoSystem.purchasedLottoNumbers());
 
     final List<Integer> winningNumbers = InputView.winningNumbers();
-    final LottoWinningStatus lottoWinningStatus = new LottoWinningStatus(winningNumbers, lottoSystem.purchasedLottos(), purchaseAmount);
+    final int bonusNumber = InputView.bonusNumber();
+
+    final LottoWinningStatus lottoWinningStatus = new LottoWinningStatus(winningNumbers, lottoSystem.purchasedLottos(), purchaseAmount, bonusNumber);
     ResultView.printMatchingNumbers(lottoWinningStatus.rankTable());
     ResultView.printProfitRate(lottoWinningStatus.profitRate());
   }

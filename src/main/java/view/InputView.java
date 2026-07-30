@@ -25,4 +25,13 @@ public class InputView {
       List<String> tokens = List.of(inputWinningNumbers.split(","));
       return tokens.stream().map(token ->Integer.parseInt(token.trim())).toList();
     }
+
+    public static int bonusNumber(){
+      System.out.println("보너스 볼을 입력해주세요 : ");
+      int bonusNumber = scanner.nextInt();
+      scanner.nextLine();
+      System.out.println();
+      return bonusNumber;
+    }
+
 }

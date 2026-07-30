@@ -4,8 +4,8 @@ import java.util.List;
 public class LottoWinningStatus {
   private final LottoMatchResults lottoMatchResults;
 
-  public LottoWinningStatus(List<Integer> winningNumberValues, Lottos lottos, int purchaseAmount) {
-    final WinningNumbers winningNumbers = new WinningNumbers(winningNumberValues);
+  public LottoWinningStatus(List<Integer> winningNumberValues, Lottos lottos, int purchaseAmount, int bonusNumber) {
+    final WinningNumbers winningNumbers = new WinningNumbers(winningNumberValues, bonusNumber);
     this.lottoMatchResults = new LottoMatchResults(lottos.createLottoMatchResult(winningNumbers), purchaseAmount);
   }
 
