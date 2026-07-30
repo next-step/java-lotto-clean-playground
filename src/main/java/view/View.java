@@ -54,8 +54,17 @@ public class View {
         if(matchCount==5){
             System.out.printf("%d개 일치 (1500000원) - %d개\n",matchCount,winCount);
         }
+        if(matchCount==7){
+            System.out.printf("5개 일치, 보너스 볼 일치 (30000000원) - %d개\n",winCount);
+        }
         if(matchCount==6){
             System.out.printf("%d개 일치 (2000000000원) - %d개\n",matchCount,winCount);
         }
+    }
+
+    public int inputBonusBall(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextInt();
     }
 }
