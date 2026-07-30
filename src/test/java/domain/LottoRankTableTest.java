@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class LottoRankTableTest {
 
-  private final WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+  private final WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 7);
 
   private LottoMatchResult createLottoMatchResult(List<Integer> lottoNumbers) {
     return new LottoMatchResult(new Lotto(lottoNumbers), winningNumbers);
@@ -31,8 +31,9 @@ public class LottoRankTableTest {
     assertAll(
         () -> assertEquals(1L, rankTable.countOf(LottoRank.FIRST)),
         () -> assertEquals(1L, rankTable.countOf(LottoRank.SECOND)),
-        () -> assertEquals(1L, rankTable.countOf(LottoRank.THIRD)),
+        () -> assertEquals(0L, rankTable.countOf(LottoRank.THIRD)),
         () -> assertEquals(1L, rankTable.countOf(LottoRank.FOUR)),
+        () -> assertEquals(1L, rankTable.countOf(LottoRank.FIVE)),
         () -> assertEquals(1L, rankTable.countOf(LottoRank.MISS))
     );
   }
@@ -47,7 +48,7 @@ public class LottoRankTableTest {
     );
     LottoRankTable rankTable = new LottoRankTable(lottoMatchResults);
 
-    assertEquals(3L, rankTable.countOf(LottoRank.FOUR));
+    assertEquals(3L, rankTable.countOf(LottoRank.FIVE));
   }
 
   @Test

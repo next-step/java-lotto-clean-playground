@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 
 public class LottoMatchResultsTest {
 
-  private final WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+  private final WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 45);
 
   @Test
   @DisplayName("[테스트 코드] : 총 상금과 구매 금액으로 수익률을 계산한다")
   void test_수익률_계산(){
     List<LottoMatchResult> results = List.of(
-        new LottoMatchResult(new Lotto(List.of(1, 2, 3, 4, 8, 9)), winningNumbers),  // 3등 / 50000원
-        new LottoMatchResult(new Lotto(List.of(1, 2, 3, 8, 9, 10)), winningNumbers)  // 4등 / 5000원
+        new LottoMatchResult(new Lotto(List.of(1, 2, 3, 4, 8, 9)), winningNumbers),  // 4등 / 50000원
+        new LottoMatchResult(new Lotto(List.of(1, 2, 3, 8, 9, 10)), winningNumbers)  // 5등 / 5000원
     );
 
     LottoMatchResults lottoMatchResults = new LottoMatchResults(results, 2000);
