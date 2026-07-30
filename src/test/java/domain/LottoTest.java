@@ -1,8 +1,9 @@
+package domain;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import domain.Lotto;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,6 @@ public class LottoTest {
   @Test
   @DisplayName(" [테스트 코드] : 로또 번호의 범위는 MIN_NUMBER(=1)보다 작거나 MAX_NUMBER(=45)보다 클 수 없다.")
   void test_입력된_번호의_범위가_MIN_NUMBER_보다_작거나_MAX_NUMBER_보다_큰_경우_예외발생(){
-    final Integer purchaseAmount = 1000;
     assertAll(
         ()->assertThrows(IllegalArgumentException.class, ()-> new Lotto(List.of(50,49,48,47,46,45)).getLottoNumbers()),
         ()->assertThrows(IllegalArgumentException.class, ()-> new Lotto(List.of(-5,-4,-3,-2,- 1, 0)).getLottoNumbers())
