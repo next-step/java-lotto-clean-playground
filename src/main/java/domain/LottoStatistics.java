@@ -22,7 +22,7 @@ public class LottoStatistics {
     }
 
     private double calculateProfitRate(PurchaseAmount purchaseAmount) {
-        int totalPrize = calculateTotalPrize();
+        long totalPrize = calculateTotalPrize();
         return (double) totalPrize / purchaseAmount.getAmount();
     }
 
@@ -50,8 +50,8 @@ public class LottoStatistics {
         return rankCounts;
     }
 
-    private int calculateTotalPrize() {
-        int totalPrize = 0;
+    private long calculateTotalPrize() {
+        long totalPrize = 0;
 
         for (LottoRank rank : LottoRank.values()) {
             totalPrize += rank.getPrize() * rankCounts.get(rank);

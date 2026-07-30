@@ -4,20 +4,20 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum LottoRank {
-    THREE_MATCH(3, false, 5000, "3개 일치"),
-    FOUR_MATCH(4, false, 50000, "4개 일치"),
-    FIVE_MATCH(5, false, 1500000, "5개 일치"),
-    FIVE_MATCH_WITH_BONUS(5, true, 30000000, "5개 일치, 보너스 볼 일치"),
-    SIX_MATCH(6, false, 2000000000, "6개 일치");
+    THREE_MATCH(3, false, 5_000L, "3개 일치"),
+    FOUR_MATCH(4, false, 50_000L, "4개 일치"),
+    FIVE_MATCH(5, false, 1_500_000L, "5개 일치"),
+    FIVE_MATCH_WITH_BONUS(5, true, 30_000_000L, "5개 일치, 보너스 볼 일치"),
+    SIX_MATCH(6, false, 2_000_000_000L, "6개 일치");
 
     private static final int BONUS_MATCH_COUNT = 5;
 
     private final int matchCount;
     private final boolean bonusMatch;
-    private final int prize;
+    private final long prize;
     private final String description;
 
-    LottoRank(int matchCount, boolean bonusMatch, int prize, String description) {
+    LottoRank(int matchCount, boolean bonusMatch, long prize, String description) {
         this.matchCount = matchCount;
         this.bonusMatch = bonusMatch;
         this.prize = prize;
@@ -28,7 +28,7 @@ public enum LottoRank {
         return matchCount;
     }
 
-    public int getPrize() {
+    public long getPrize() {
         return prize;
     }
 

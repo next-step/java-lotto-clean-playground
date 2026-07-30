@@ -47,4 +47,22 @@ class LottoStatisticsTest {
         // then
         assertThat(profitRate).isEqualTo(0.5);
     }
+
+    @Test
+    void 일등이_두_장이면_수익률을_정상적으로_계산한다() {
+        // given
+        PurchaseAmount purchaseAmount = new PurchaseAmount(2000);
+        WinningLotto winningLotto = WinningLotto.from(List.of(1, 2, 3, 4, 5, 6), 7);
+        List<Lotto> lottos = List.of(
+                Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+                Lotto.from(List.of(1, 2, 3, 4, 5, 6))
+        );
+        LottoStatistics statistics = new LottoStatistics(lottos, winningLotto, purchaseAmount);
+
+        // when
+        double profitRate = statistics.getProfitRate();
+
+        // then
+        assertThat(profitRate).isEqualTo(2_000_000.0);
+    }
 }
