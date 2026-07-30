@@ -2,14 +2,11 @@ package domain;
 import java.util.List;
 
 public class LottoWinningStatus {
-  private final WinningNumbers winningNumbers;
-  private final Lottos lottos;
   private final LottoMatchResults lottoMatchResults;
 
-  public LottoWinningStatus(List<Integer> winningNumbers, Lottos lottos, int purchaseAmount) {
-    this.winningNumbers = new WinningNumbers(winningNumbers);
-    this.lottos = lottos;
-    this.lottoMatchResults = new LottoMatchResults(lottos.createLottoMatchResult(this.winningNumbers), purchaseAmount);
+  public LottoWinningStatus(List<Integer> winningNumberValues, Lottos lottos, int purchaseAmount) {
+    final WinningNumbers winningNumbers = new WinningNumbers(winningNumberValues);
+    this.lottoMatchResults = new LottoMatchResults(lottos.createLottoMatchResult(winningNumbers), purchaseAmount);
   }
 
   public double profitRate(){
