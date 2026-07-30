@@ -39,16 +39,27 @@ class LottoPurchaseTest {
     @Test
     void 수동_구매_수만큼_제외하고_자동_로또를_발급한다() {
         // given
+        List<Integer> firstManualLottoNumbers = List.of(1, 2, 3, 4, 5, 6);
+        List<Integer> secondManualLottoNumbers = List.of(7, 8, 9, 10, 11, 12);
+        List<Integer> autoLottoNumbers = List.of(40, 41, 42, 43, 44, 45);
+
+        LottoGenerator fixedLottoGenerator = () -> Lotto.from(autoLottoNumbers);
+        LottoPurchase lottoPurchase = new LottoPurchase(new PurchaseAmount(3000), fixedLottoGenerator);
+
         List<List<Integer>> manualLottoNumbers = List.of(
-                List.of(1, 2, 3, 4, 5, 6),
-                List.of(7, 8, 9, 10, 11, 12)
+                firstManualLottoNumbers,
+                secondManualLottoNumbers
         );
 
         // when
         PurchasedLottos purchasedLottos = lottoPurchase.purchase(manualLottoNumbers);
 
         // then
-        assertThat(purchasedLottos.lottos()).hasSize(3);
+        assertThat(extractLottoNumbers(purchasedLottos)).containsExactly(
+                firstManualLottoNumbers,
+                secondManualLottoNumbers,
+                autoLottoNumbers
+        );
         assertThat(purchasedLottos.manualLottoCount()).isEqualTo(2);
         assertThat(purchasedLottos.autoLottoCount()).isEqualTo(1);
     }
@@ -104,5 +115,17 @@ class LottoPurchaseTest {
         // when & then
         assertThatThrownBy(() -> lottoPurchase.validateManualPurchaseCount(manualLottoCount))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    private List<List<Integer>> extractLottoNumbers(PurchasedLottos purchasedLottos) {
+        return purchasedLottos.lottos().stream()
+                .map(this::extractNumbers)
+                .toList();
+    }
+
+    private List<Integer> extractNumbers(Lotto lotto) {
+        return lotto.getNumbers().stream()
+                .map(LottoNumber::getValue)
+                .toList();
     }
 }
