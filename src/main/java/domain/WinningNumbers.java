@@ -9,7 +9,7 @@ public class WinningNumbers {
     this.lotto = new Lotto(winningNumbers);
   }
 
-  public Lotto getLotto(){
-    return lotto;
+  public long countMatch(Lotto purchasedLotto) {
+    return lotto.getLottoNumbers().stream().filter(purchasedLotto.getLottoNumbers()::contains).count();
   }
 }

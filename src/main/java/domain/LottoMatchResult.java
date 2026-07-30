@@ -7,7 +7,7 @@ public class LottoMatchResult {
 
   public LottoMatchResult(Lotto lotto, WinningNumbers winningNumbers) {
     this.lotto = lotto;
-    this.matchingCount = lotto.countMatch(winningNumbers);
+    this.matchingCount = winningNumbers.countMatch(lotto);
     this.rank = LottoRank.findByMatchingCount(matchingCount);
   }
 

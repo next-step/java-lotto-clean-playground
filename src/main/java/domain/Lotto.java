@@ -41,12 +41,4 @@ public class Lotto {
     public List<Integer> getLottoNumbers(){
         return Collections.unmodifiableList(numbers);
     }
-
-    public long countMatch(WinningNumbers winningNumbers) {
-        return countMatch(winningNumbers.getLotto());
-    }
-
-    private long countMatch(Lotto other) {
-        return other.numbers.stream().filter(this.numbers::contains).count();
-    }
 }

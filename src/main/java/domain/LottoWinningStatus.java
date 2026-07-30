@@ -9,11 +9,7 @@ public class LottoWinningStatus {
   public LottoWinningStatus(List<Integer> winningNumbers, Lottos lottos, int purchaseAmount) {
     this.winningNumbers = new WinningNumbers(winningNumbers);
     this.lottos = lottos;
-    this.lottoMatchResults = new LottoMatchResults(createLottoMatchResult(), purchaseAmount);
-  }
-
-  private List<LottoMatchResult> createLottoMatchResult(){
-   return lottos.getLottos().stream().map(lotto -> new LottoMatchResult(lotto, winningNumbers)).toList();
+    this.lottoMatchResults = new LottoMatchResults(lottos.createLottoMatchResult(this.winningNumbers), purchaseAmount);
   }
 
   public double profitRate(){
