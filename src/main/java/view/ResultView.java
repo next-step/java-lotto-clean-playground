@@ -8,6 +8,7 @@ import domain.lotto.Money;
 import java.util.Map;
 
 public class ResultView {
+    private ResultView() {}
 
     public static void printLottos(Lottos lottos, int manualCount) {
         int autoCount = lottos.size() - manualCount;

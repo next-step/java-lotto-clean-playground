@@ -11,6 +11,8 @@ public class LottoGenerator {
             .boxed()
             .toList();
 
+    private LottoGenerator() {}
+
     public static Lotto generateLotto() {
         List<Integer> numbers = new ArrayList<>(NUMBERS);
         List<Integer> lottoNumbers = generateLottoNumbers(numbers);

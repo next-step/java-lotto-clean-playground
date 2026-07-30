@@ -1,18 +1,17 @@
 import domain.lotto.Lotto;
-import domain.lotto.LottoNumber;
-import domain.lotto.Lottos;
-import domain.lotto.LottoStore;
-import domain.lotto.Money;
 import domain.lotto.LotteryStatistics;
+import domain.lotto.LottoNumber;
+import domain.lotto.LottoStore;
+import domain.lotto.Lottos;
+import domain.lotto.Money;
 import domain.lotto.WinningResult;
-
+import dto.PurchaseResult;
 import view.InputView;
 import view.ResultView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-import dto.PurchaseResult;
 
 public class Application {
     public static void main(String[] args) {
