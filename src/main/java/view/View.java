@@ -8,7 +8,8 @@ public class View {
     public int inputCost() {
         System.out.println("구입금액을 입력해 주세요.");
         int cost=scanner.nextInt();
-        System.out.printf("입력하신 금액은 %d원 입니다.\n", cost);
-        return cost;
+        int ticketAmount=cost/1000;
+        System.out.printf("%d개를 구매했습니다.", ticketAmount);
+        return ticketAmount;
     }
 }
