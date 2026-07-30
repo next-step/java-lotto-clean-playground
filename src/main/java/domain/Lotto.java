@@ -41,4 +41,8 @@ public class Lotto {
     public List<Integer> getLottoNumbers(){
         return Collections.unmodifiableList(numbers);
     }
+
+    public boolean isMatchingBonusNumber(int bonusNumber){
+        return numbers.contains(bonusNumber);
+    }
 }
