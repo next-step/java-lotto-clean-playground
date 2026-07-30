@@ -17,6 +17,10 @@ public class Lotto {
         this.nums.sort(Comparator.naturalOrder());
     }
 
+    public List<Integer> getLottoList(){
+        return nums;
+    }
+
     @Override
     public String toString(){
         return nums.toString();
