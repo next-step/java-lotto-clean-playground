@@ -1,4 +1,5 @@
 import domain.Lottos;
+import domain.PurchaseAmount;
 import view.InputView;
 import view.OutputView;
 
@@ -7,11 +8,12 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        int amount = inputView.readPurchaseAmount();
+        int inputAmount = inputView.readPurchaseAmount();
+        PurchaseAmount purchaseAmount = new PurchaseAmount(inputAmount);
 
-        Lottos lottos = new Lottos(amount);
+        Lottos lottos = new Lottos(purchaseAmount);
 
-        outputView.printPurchasedCount(lottos);
+        outputView.printPurchasedCount(purchaseAmount);
         outputView.printLottos(lottos);
     }
 }

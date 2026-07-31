@@ -7,9 +7,9 @@ public class InputView {
 
     public int readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
-        int amount = scanner.nextInt();
+        int purchaseAmount = scanner.nextInt();
         System.out.println();
 
-        return amount;
+        return purchaseAmount;
     }
 }
