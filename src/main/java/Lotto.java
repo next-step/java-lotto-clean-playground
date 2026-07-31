@@ -1,13 +1,15 @@
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Lotto {
+
+    private final int LOTTO_THRESHOLD = 45;
+    private final int NUMBER_THRESHOLD = 6;
+
     Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
 
     int inputPurchasePrice() {
         try {
@@ -31,19 +33,54 @@ public class Lotto {
         }
     }
 
+
     int getNumber(int purchasePrice){
         return purchasePrice/1000;
     }
 
-    ArrayList oneLotto(){
-        Set<Integer> lotto = new TreeSet<>();
-        while(lotto.size()<6){
-            lotto.add(random.nextInt(45) + 1);
+
+    List<Integer> createNumbers(){
+        List<Integer> numbers = new ArrayList<>();
+        for(int i = 1; i <= LOTTO_THRESHOLD; i++){
+            numbers.add(i);
         }
-        return new ArrayList<>(lotto);
+        return numbers;
     }
 
-    void printLotto(ArrayList lotto){
+
+    List<Integer> shuffleNumbers(){
+        List<Integer> numbers = createNumbers();
+        Collections.shuffle(numbers);
+        return numbers;
+    }
+
+
+    List<Integer> sortLotto(List<Integer> lotto){
+        Collections.sort(lotto);
+        return lotto;
+    }
+
+
+    List<Integer> getLottoNumbers(List<Integer> numbers){
+        List<Integer> lotto = new ArrayList<>();
+
+        for(int i = 0; i < NUMBER_THRESHOLD; i++){
+            lotto.add(numbers.get(i));
+        }
+        return lotto;
+    }
+
+
+    List<Integer> oneLotto(){
+        List<Integer> numbers = shuffleNumbers();
+        List<Integer> lotto = getLottoNumbers(numbers);
+        lotto = sortLotto(lotto);
+
+        return lotto;
+    }
+
+
+    void printLotto(List<Integer> lotto){
         System.out.print("[");
         for(int i = 0; i < lotto.size() - 1; i++){
             System.out.print(lotto.get(i) + ", ");
@@ -51,17 +88,21 @@ public class Lotto {
         System.out.println(lotto.get(lotto.size() - 1) + "]");
     }
 
-    void printNumber(int number){
-        System.out.println(number + "개를 구매했습니다.");
+
+    void printTryNumber(int tryNumber){
+        System.out.println(tryNumber + "개를 구매했습니다.");
     }
+
 
     void lottoGame(){
         int number = getNumber(inputPurchasePrice());
-        printNumber(number);
+        List<Integer> lotto;
+        printTryNumber(number);
         for(int i = 0; i < number; i++){
             printLotto(oneLotto());
         }
     }
+
 
     public static void main(String[] args) {
         Lotto lotto = new Lotto();
