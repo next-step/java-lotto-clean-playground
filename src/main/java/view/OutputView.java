@@ -1,8 +1,12 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import domain.Lottos;
 import domain.PurchaseAmount;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OutputView {
     public void printPurchasedCount(PurchaseAmount purchaseAmount) {
@@ -11,7 +15,17 @@ public class OutputView {
 
     public void printLottos(Lottos lottos) {
         for (Lotto lotto : lottos.getLottos()) {
-            System.out.println(lotto.getNumbers());
+            printLotto(lotto);
         }
+    }
+
+    private void printLotto(Lotto lotto) {
+        List<Integer> numberValues = new ArrayList<>();
+
+        for (LottoNumber lottoNumber : lotto.getNumbers()) {
+            numberValues.add(lottoNumber.getNumber());
+        }
+
+        System.out.println(numberValues);
     }
 }

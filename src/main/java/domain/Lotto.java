@@ -10,13 +10,13 @@ public class Lotto {
     private static final int RANDOM_NUMBER_BOUND = 45;
 
     private final Random random = new Random();
-    private final List<Integer> numbers = new ArrayList<>();
+    private final List<LottoNumber> numbers = new ArrayList<>();
 
     public Lotto() {
         makeNumbers();
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return List.copyOf(numbers);
     }
 
@@ -28,17 +28,17 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-    private int generateRandomNumber() {
-        int number;
+    private LottoNumber generateRandomNumber() {
+        LottoNumber lottoNumber;
 
         do {
-            number = random.nextInt(RANDOM_NUMBER_BOUND) + 1;
-        } while (containsNumber(number));
+            lottoNumber = new LottoNumber(random.nextInt(RANDOM_NUMBER_BOUND) + 1);
+        } while (containsNumber(lottoNumber));
 
-        return number;
+        return lottoNumber;
     }
 
-    private boolean containsNumber(int number) {
-        return numbers.contains(number);
+    private boolean containsNumber(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
     }
 }

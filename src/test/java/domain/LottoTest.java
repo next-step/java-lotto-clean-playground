@@ -20,6 +20,15 @@ public class LottoTest {
         Lotto lotto = new Lotto();
 
         assertThat(lotto.getNumbers())
-                .allMatch(number -> number >= 1 && number <= 45);
+                .allMatch(lottoNumber -> lottoNumber.getNumber() >= 1
+                        && lottoNumber.getNumber() <= 45);
+    }
+
+    @Test
+    @DisplayName("로또는 6개의 번호를 가진다")
+    void lottoShouldContainsSizNumbers() {
+        Lotto lotto = new Lotto();
+
+        assertThat(lotto.getNumbers()).hasSize(6);
     }
 }
