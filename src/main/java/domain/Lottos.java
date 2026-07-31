@@ -26,6 +26,10 @@ public class Lottos {
         return List.copyOf(lottos);
     }
 
+    public int getLottoCount() {
+        return lottoCount;
+    }
+
     private void calculateLottoCount(int amount) {
         lottoCount = amount / LOTTO_PRICE;
     }
