@@ -1,12 +1,13 @@
 package domain.lotto;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+
 
 public class LottoTest {
     @Test
@@ -39,5 +40,23 @@ public class LottoTest {
         assertThatThrownBy(() -> new Lotto(lottoNumbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 번호는 중복될 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("count matching numbers")
+    void countMatchingNumbers() {
+        List<LottoNumber> numbers1 = Stream.of(1, 2, 3, 4, 5, 6)
+                .map(LottoNumber::new)
+                .toList();
+        Lotto lottoA = new Lotto(numbers1);
+
+        List<LottoNumber> numbers2 = Stream.of(4, 5, 6, 7, 8, 9)
+                .map(LottoNumber::new)
+                .toList();
+        Lotto lotto = new Lotto(numbers2);
+
+        int matchCount = lottoA.countMatchingNumbers(lotto);
+
+        assertThat(matchCount).isEqualTo(3);
     }
 }

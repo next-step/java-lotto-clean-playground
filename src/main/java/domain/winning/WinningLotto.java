@@ -15,12 +15,7 @@ public class WinningLotto {
     }
 
     public int countMatches(Lotto purchasedLotto) {
-        List<Integer> winningNumbers = winningLotto.getNumbers();
-        List<Integer> purchasedNumbers = purchasedLotto.getNumbers();
-
-        return (int) purchasedNumbers.stream()
-                .filter(number -> winningNumbers.contains(number))
-                .count();
+        return winningLotto.countMatchingNumbers(purchasedLotto);
     }
 
     public List<Integer> getWinningNumbers() {

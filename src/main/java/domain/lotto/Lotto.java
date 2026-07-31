@@ -21,6 +21,14 @@ public class Lotto {
                 .toList();
     }
 
+    public int countMatchingNumbers(Lotto other) {
+        List<Integer> otherNumbers = other.getNumbers();
+
+        return (int) this.getNumbers().stream()
+                .filter(number -> otherNumbers.contains(number))
+                .count();
+    }
+
     private void validateLottoNumbers(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
