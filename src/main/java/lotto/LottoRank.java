@@ -28,10 +28,15 @@ public enum LottoRank {
     }
 
     private boolean matches(int matchCount, boolean bonusMatched) {
-        if (bonusRequired) {
-            return this.matchCount == matchCount && bonusMatched;
+        if (this.matchCount != matchCount) {
+            return false;
         }
-        return this.matchCount == matchCount;
+
+        return matchesBonus(bonusMatched);
+    }
+
+    private boolean matchesBonus(boolean bonusMatched) {
+        return !bonusRequired || bonusMatched;
     }
 
     public PrizeMoney prizeMoney() {
