@@ -28,22 +28,10 @@ public class Lotto {
     }
 
     public int countMatches(Lotto winningLotto) {
-        int matchCount = 0;
-        for (LottoNumber number : numbers) {
-            matchCount += winningLotto.match(number);
-        }
-        return matchCount;
-    }
+        return (int) numbers.stream()
+                .filter(winningLotto.numbers::contains)
+                .count();
 
-    private int match(LottoNumber number) {
-        if (contains(number)) {
-            return 1;
-        }
-        return 0;
-    }
-
-    boolean contains(LottoNumber number) {
-        return numbers.contains(number);
     }
 
     @Override

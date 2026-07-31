@@ -14,8 +14,8 @@ class LottoNumberTest {
         LottoNumber minimumNumber = new LottoNumber(1);
         LottoNumber maximumNumber = new LottoNumber(45);
 
-        assertThat(minimumNumber.getValue()).isEqualTo(1);
-        assertThat(maximumNumber.getValue()).isEqualTo(45);
+        assertThat(minimumNumber.number()).isEqualTo(1);
+        assertThat(maximumNumber.number()).isEqualTo(45);
     }
 
     @Test

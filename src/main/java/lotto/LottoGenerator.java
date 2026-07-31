@@ -24,7 +24,7 @@ public class LottoGenerator {
         Collections.shuffle(numbers);
         List<LottoNumber> lottoNumbers = new ArrayList<>(numbers.subList(0, LOTTO_NUMBER_COUNT));
 
-        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getValue));
+        lottoNumbers.sort(Comparator.comparingInt(LottoNumber::number));
         return new Lotto(lottoNumbers);
     }
 

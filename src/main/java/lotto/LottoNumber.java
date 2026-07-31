@@ -1,16 +1,11 @@
 package lotto;
 
-import java.util.Objects;
-
-public class LottoNumber {
+public record LottoNumber(int number) {
     private static final int MINIMUM_NUMBER = 1;
     private static final int MAXIMUM_NUMBER = 45;
 
-    private final int value;
-
-    public LottoNumber(int value) {
-        validate(value);
-        this.value = value;
+    public LottoNumber {
+        validate(number);
     }
 
     private void validate(int value) {
@@ -20,28 +15,7 @@ public class LottoNumber {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (!(object instanceof LottoNumber)) {
-            return false;
-        }
-        LottoNumber lottoNumber = (LottoNumber) object;
-        return value == lottoNumber.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-
-    int getValue() {
-        return value;
-    }
-
-    @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(number);
     }
 }
