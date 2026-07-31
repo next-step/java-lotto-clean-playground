@@ -13,6 +13,10 @@ public class PurchaseAmount {
         this.amount = amount;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     public int calculateLottoCount() {
         return amount / LOTTO_PRICE;
     }

@@ -1,7 +1,10 @@
 import domain.Lottos;
 import domain.PurchaseAmount;
+import domain.WinningNumbers;
 import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -15,5 +18,10 @@ public class Application {
 
         outputView.printPurchasedCount(purchaseAmount);
         outputView.printLottos(lottos);
+
+        List<Integer> inputWinningNumbers = inputView.readWinningNumbers();
+        WinningNumbers winningNumbers = new WinningNumbers(inputWinningNumbers);
+
+        outputView.printLottoStatistics(lottos, winningNumbers, purchaseAmount);
     }
 }
