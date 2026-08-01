@@ -1,4 +1,5 @@
 import domain.LottoTicketCount;
+import domain.LottoTickets;
 import java.util.Scanner;
 import view.InputView;
 import view.OutputView;
@@ -10,6 +11,10 @@ public class Application {
         int lottoTicketTotalCount;
         lottoTicketTotalCount = lottoTicketCount.convertLottoPriceToTicketCount(InputView.inputLottoTotalPrice());
         OutputView.printLottoCount(lottoTicketTotalCount);
+
+        LottoTickets lottoTickets = new LottoTickets();
+        lottoTickets.makeLottos(lottoTicketTotalCount);
+        OutputView.printLottoNumbers(lottoTickets);
 
 
 

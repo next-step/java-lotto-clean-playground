@@ -21,4 +21,8 @@ public class Lotto {
 
     }
 
+    public TreeSet<Integer> getRandomNumberSet() {
+        return this.randomNumberSet;
+    }
+
 }
