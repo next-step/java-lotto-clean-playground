@@ -12,7 +12,7 @@ class LottoStoreTest {
     private Lotto createLotto(int... numbers) {
         return new Lotto(
                 Arrays.stream(numbers)
-                        .mapToObj(LottoNumber::new)
+                        .mapToObj(LottoNumber::from)
                         .toList()
         );
     }

@@ -8,6 +8,7 @@ import domain.lotto.WinningLotto;
 import domain.lotto.WinningResult;
 import dto.PurchaseResult;
 import view.InputView;
+import view.LottoNumberParser;
 import view.ResultView;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class Application {
     }
 
     private static Lotto inputWinningLotto() {
-        return retry(() -> Lotto.from(InputView.inputWinningLotto()));
+        return retry(() -> new Lotto(LottoNumberParser.parse(InputView.inputWinningLotto())));
     }
 
     private static int inputManualLottoCount() {
@@ -72,7 +73,7 @@ public class Application {
     }
 
     private static Lotto inputManualLotto() {
-        return retry(() -> Lotto.from(InputView.inputManualLotto()));
+        return retry(() -> new Lotto(LottoNumberParser.parse(InputView.inputManualLotto())));
     }
 
     private static List<Lotto> inputManualLottos(int manualCount) {

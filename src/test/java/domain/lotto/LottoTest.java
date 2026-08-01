@@ -18,7 +18,7 @@ class LottoTest {
     private Lotto createLotto(int... numbers) {
         return new Lotto(
                 Arrays.stream(numbers)
-                        .mapToObj(LottoNumber::new)
+                        .mapToObj(LottoNumber::from)
                         .toList()
         );
     }
@@ -71,45 +71,13 @@ class LottoTest {
         );
     }
 
-
-    @Test
-    void 보너스_번호와_당첨_번호가_중복되면_오류가_발생한다() {
-        Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
-
-        assertThatThrownBy(() -> lotto.validateBonusNumber(LottoNumber.from(1)))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
-    }
-
     @ParameterizedTest
     @CsvSource({"1, true", "7, false"})
     void 번호가_포함되었는지_여부를_반환한다(int number, boolean expected) {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
 
-        boolean result = lotto.contains(LottoNumber.from(1));
+        boolean result = lotto.contains(LottoNumber.from(number));
 
         assertEquals(expected, result);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"1,2,3,4,5,6", " 1, 2, 3, 4, 5, 6"})
-    void from으로_문자열을_파싱해_로또를_생성한다(String input) {
-        Lotto lotto = Lotto.from(input);
-
-        assertEquals(6, lotto.getLottoNumbers().size());
-    }
-
-    @Test
-    void from에_숫자가_아닌_값이_있으면_예외가_발생한다() {
-        assertThatThrownBy(() -> Lotto.from("1,2,3,4,5,가"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("숫자만 입력해주세요.");
-    }
-
-    @Test
-    void from에_범위를_벗어난_숫자가_있으면_예외가_발생한다() {
-        assertThatThrownBy(() -> Lotto.from("1,2,3,4,5,50"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 번호는 1~45 사이여야 합니다.");
     }
 }

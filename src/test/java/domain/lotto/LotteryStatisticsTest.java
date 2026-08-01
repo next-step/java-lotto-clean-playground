@@ -13,7 +13,7 @@ class LotteryStatisticsTest {
     @Test
     void 통계를_정상적으로_검사한다() {
         // Given
-        Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
+        Lotto winningLottoNumbers = createLotto(1, 2, 3, 4, 5, 6);
 
         Lotto lotto1 = createLotto(1, 2, 3, 7, 8, 9);      // 3개 일치
         Lotto lotto2 = createLotto(1, 2, 3, 4, 7, 8);      // 4개 일치
@@ -21,7 +21,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        LottoNumber bonusNumber = LottoNumber.from(45);
+        WinningLotto winningLotto = new WinningLotto(winningLottoNumbers, LottoNumber.from(45));
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto);
@@ -40,7 +40,7 @@ class LotteryStatisticsTest {
     @Test
     void 총_당첨금을_정확히_계산한다() {
         // Given
-        Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
+        Lotto winningLottoNumbers = createLotto(1, 2, 3, 4, 5, 6);
 
         Lotto lotto1 = createLotto(1, 2, 3, 7, 8, 9);      // 3개 일치
         Lotto lotto2 = createLotto(1, 2, 3, 4, 7, 8);      // 4개 일치
@@ -48,7 +48,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        LottoNumber bonusNumber = LottoNumber.from(45);
+        WinningLotto winningLotto = new WinningLotto(winningLottoNumbers, LottoNumber.from(45));
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto);
@@ -62,11 +62,11 @@ class LotteryStatisticsTest {
     @Test
     void 보너스볼이_일치하고_5개가_일치하면_2등이다() {
         // Given
-        Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
+        Lotto winningLottoNumbers = createLotto(1, 2, 3, 4, 5, 6);
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 7);
         Lottos lottos = new Lottos(List.of(lotto));
 
-        LottoNumber bonusNumber = LottoNumber.from(7);
+        WinningLotto winningLotto = new WinningLotto(winningLottoNumbers, LottoNumber.from(7));
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto);
