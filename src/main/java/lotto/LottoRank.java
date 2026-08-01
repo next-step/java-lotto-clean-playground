@@ -10,6 +10,8 @@ public enum LottoRank {
     FIFTH(3, false, 5_000L),
     MISS(0, false, 0L);
 
+    private static final int BONUS_MATCH_COUNT = 5;
+
     private final int matchCount;
     private final boolean bonusRequired;
     private final PrizeMoney prizeMoney;
@@ -36,7 +38,10 @@ public enum LottoRank {
     }
 
     private boolean matchesBonus(boolean bonusMatched) {
-        return !bonusRequired || bonusMatched;
+        if (matchCount != BONUS_MATCH_COUNT) {
+            return true;
+        }
+        return bonusRequired == bonusMatched;
     }
 
     public PrizeMoney prizeMoney() {
