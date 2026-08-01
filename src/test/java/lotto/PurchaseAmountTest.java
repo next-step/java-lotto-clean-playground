@@ -17,7 +17,8 @@ class PurchaseAmountTest {
     }
 
     @Test
-    void 구입금액은_1장가격_이상이어야한다() {
+    @DisplayName("구입금액은 1장 가격 이상이어야 한다")
+    void rejectPurchaseAmountBelowMinimum() {
         assertThatThrownBy(() -> {
             new PurchaseAmount(999);
         })
@@ -25,7 +26,8 @@ class PurchaseAmountTest {
     }
 
     @Test
-    void 구입금액은_단위에_맞게_입력해야한다() {
+    @DisplayName("구입금액은 단위에 맞게 입력해야 한다")
+    void rejectPurchaseAmountNotInUnit() {
         assertThatThrownBy(() -> {
             new PurchaseAmount(1_500);
         })
@@ -50,7 +52,8 @@ class PurchaseAmountTest {
     }
 
     @Test
-    void 수동_구매_수는_음수일_수_없다() {
+    @DisplayName("수동 구매 수는 음수일 수 없다")
+    void rejectNegativeManualLottoCount() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(14_000);
 
         assertThatThrownBy(() -> purchaseAmount.calculateAutomaticLottoCount(-1))
