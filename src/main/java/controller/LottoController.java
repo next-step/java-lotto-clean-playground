@@ -56,6 +56,6 @@ public class LottoController {
         int inputBonusNumber = InputView.getBonusBall();
         LottoNumber bonusNumber = new LottoNumber(inputBonusNumber);
 
-        return new BonusBall(bonusNumber, winningLotto.getWinningNumbers());
+        return new BonusBall(bonusNumber, winningLotto);
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 public class BonusBall {
     private final LottoNumber bonusNumber;
 
-    public BonusBall(LottoNumber bonusNumber, List<Integer> winningNumbers) {
-        validateDuplicateInWinningNumber(bonusNumber, winningNumbers);
+    public BonusBall(LottoNumber bonusNumber, WinningLotto winningLotto) {
+        validateDuplicate(bonusNumber, winningLotto);
         this.bonusNumber = bonusNumber;
     }
 
@@ -16,8 +16,8 @@ public class BonusBall {
         return lotto.contains(bonusNumber);
     }
 
-    private void validateDuplicateInWinningNumber(LottoNumber bonusNumber, List<Integer> winningNumbers) {
-        if (winningNumbers.contains(bonusNumber.getNumber())) {
+    private void validateDuplicate(LottoNumber bonusNumber, WinningLotto winningLotto) {
+        if (winningLotto.contains(bonusNumber)) {
             throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복될 수 없습니다.");
         }
     }

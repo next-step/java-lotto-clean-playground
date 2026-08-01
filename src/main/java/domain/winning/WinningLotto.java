@@ -18,7 +18,7 @@ public class WinningLotto {
         return winningLotto.countMatchingNumbers(purchasedLotto);
     }
 
-    public List<Integer> getWinningNumbers() {
-        return winningLotto.getNumbers();
+    public boolean contains(LottoNumber number) {
+        return winningLotto.contains(number);
     }
 }
