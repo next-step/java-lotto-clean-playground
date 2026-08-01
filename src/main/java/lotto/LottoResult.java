@@ -1,12 +1,19 @@
 package lotto;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class LottoResult {
     private final Map<LottoRank, Integer> rankCounts = new EnumMap<>(LottoRank.class);
 
-    public void addResult(LottoRank rank) {
+    public LottoResult(List<LottoRank> ranks) {
+        for (LottoRank rank : ranks) {
+            addResult(rank);
+        }
+    }
+
+    private void addResult(LottoRank rank) {
         rankCounts.merge(rank, 1, Integer::sum);
     }
 

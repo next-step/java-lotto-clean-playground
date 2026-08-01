@@ -18,11 +18,11 @@ public class Lottos {
     }
 
     public LottoResult createResult(WinningLotto winningLotto) {
-        LottoResult result = new LottoResult();
+        List<LottoRank> ranks = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            result.addResult(winningLotto.determineRank(lotto));
+            ranks.add(winningLotto.determineRank(lotto));
         }
-        return result;
+        return new LottoResult(ranks);
     }
 
     public void forEach(Consumer<Lotto> action) {
