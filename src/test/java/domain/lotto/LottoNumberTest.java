@@ -27,7 +27,7 @@ class LottoNumberTest {
     }
 
     @Test
-    void getValue로_조회하면_캐시된_동일_인스턴스를_반환한다() {
+    void from으로_조회하면_캐시된_동일_인스턴스를_반환한다() {
         LottoNumber number1 = LottoNumber.from(7);
         LottoNumber number2 = LottoNumber.from(7);
 

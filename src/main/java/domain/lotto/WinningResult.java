@@ -11,7 +11,7 @@ public class WinningResult {
         this.statistics = countByRank(ranks);
     }
 
-    public Map<Rank, Integer> countByRank(List<Rank> ranks) {
+    private static Map<Rank, Integer> countByRank(List<Rank> ranks) {
         Map<Rank, Integer> result = new EnumMap<>(Rank.class);
         for (Rank rank : Rank.values()) {
             result.put(rank, 0);
@@ -27,7 +27,7 @@ public class WinningResult {
     }
 
     public Money calculatePrize() {
-        Money total = new Money(0);
+        Money total = Money.ZERO;
         for (Map.Entry<Rank, Integer> entry : statistics.entrySet()) {
             Money prize = entry.getKey()
                     .getPrice()

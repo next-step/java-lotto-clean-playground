@@ -85,7 +85,7 @@ public class Application {
     }
 
     private static Money inputPurchasePrice() {
-        return retry(() -> new Money(InputView.inputPrice()));
+        return retry(() -> Money.from(InputView.inputPrice()));
     }
 
     private static Lottos purchaseLottos(int totalCount, List<Lotto> manualLottos) {
