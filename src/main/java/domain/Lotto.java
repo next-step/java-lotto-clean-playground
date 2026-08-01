@@ -16,7 +16,7 @@ public class Lotto {
 
     private void setLottoNumber(){
         while (randomNumberSet.size() < LOTTO_NUBER_COUNT) {
-            randomNumberSet.add(random.nextInt(LOTTO_NUMBER_BOUND + 1));
+            randomNumberSet.add(random.nextInt(1, LOTTO_NUMBER_BOUND + 1));
         }
 
     }

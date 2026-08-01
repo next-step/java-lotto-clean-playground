@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class LottoTickets {
     //로또 타입의 객체를 특정 수량만큼 초기화할수있는, 모아둘수있는 일급컬렉션
@@ -18,8 +19,12 @@ public class LottoTickets {
         return lottoArrayList;
     }
 
-    public ArrayList<Lotto> getLottoArrayList(){
-        return new ArrayList<>(lottoArrayList);
+    public TreeSet<Integer> getLottoTreeSet(int lottoTicketNumber){
+        return new TreeSet<>(lottoArrayList.get(lottoTicketNumber).getRandomNumberSet());
     }
 
+
+    public int getSize() {
+        return lottoArrayList.size();
+    }
 }

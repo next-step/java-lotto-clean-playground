@@ -3,14 +3,14 @@ package view;
 import java.util.Scanner;
 
 public final class InputView {
+    private static final Scanner lottoScanner = new Scanner(System.in);
 
     private InputView() {
-
     }
 
     public static int inputLottoTotalPrice(){
         System.out.println("구입 금액을 입력해 주세요.");
-        Scanner lottoScanner = new Scanner(System.in);
+
         String stringLottoTotalPrice;
         int validLottoTotalPrice;
 
@@ -24,6 +24,14 @@ public final class InputView {
         validLottoTotalPrice = Integer.parseInt(stringLottoTotalPrice);
 
         return validLottoTotalPrice;
+    }
+
+    public static String inputWinningLottoNumbers(){
+
+        System.out.println("\n지난 주 당첨번호를 입력해 주세요");
+        String winningLottoNumbers = lottoScanner.nextLine();
+
+        return winningLottoNumbers;
     }
 
     public static void closeScanner(Scanner scanner) {
