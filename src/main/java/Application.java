@@ -8,7 +8,7 @@ public class Application {
 
     public static void main(String[] args) {
         InputView inputView = new InputView(new Scanner(System.in));
-        ResultView resultView = new ResultView(System.out);
+        ResultView resultView = new ResultView();
         LottoController lottoController = new LottoController(inputView, resultView);
 
         try {
