@@ -28,17 +28,19 @@ public class ResultView {
     public void printResult(LottoResult result, PurchaseAmount purchaseAmount) {
         output.println("당첨 통계");
         output.println("---------");
-        printRank(result, LottoRank.FIFTH);
-        printRank(result, LottoRank.FOURTH);
-        printRank(result, LottoRank.THIRD);
-        printSecondRank(result);
-        printRank(result, LottoRank.FIRST);
+        printRanks(result);
         printProfitRate(result, purchaseAmount);
     }
 
-    private void printSecondRank(LottoResult result) {
-        output.println("5개 일치, 보너스 볼 일치(" + LottoRank.SECOND.prizeMoney()
-                + "원) - " + result.countOf(LottoRank.SECOND) + "개");
+    private void printRanks(LottoResult result) {
+        LottoRank[] ranks = LottoRank.values();
+        for (int index = ranks.length - 1; index >= 0; index--) {
+            LottoRank rank = ranks[index];
+            if (rank == LottoRank.MISS) {
+                continue;
+            }
+            printRank(result, rank);
+        }
     }
 
     private void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {
@@ -58,6 +60,11 @@ public class ResultView {
     }
 
     private void printRank(LottoResult result, LottoRank rank) {
+        if (rank == LottoRank.SECOND) {
+            output.println("5개 일치, 보너스 볼 일치(" + rank.prizeMoney()
+                    + "원) - " + result.countOf(rank) + "개");
+            return;
+        }
         output.println(rank.matchCount() + "개 일치 (" + rank.prizeMoney()
                 + "원)- " + result.countOf(rank) + "개");
     }
