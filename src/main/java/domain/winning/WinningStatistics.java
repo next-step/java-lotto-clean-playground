@@ -34,10 +34,7 @@ public class WinningStatistics {
         Map<Rank, Integer> result = new HashMap<>();
 
         for (Lotto lotto : lottos.getLottos()) {
-            int matchCount = winningLotto.countMatches(lotto);
-            boolean isBonusMatched = bonusBall.isMatch(lotto);
-
-            Rank rank = Rank.valueOf(matchCount, isBonusMatched);
+            Rank rank = winningLotto.judgeRank(lotto, bonusBall);
             result.merge(rank, 1, Integer::sum);
         }
 
