@@ -5,7 +5,7 @@ public class LottoMatchResult {
 
   public LottoMatchResult(Lotto lotto, WinningNumbers winningNumbers) {
     long matchingCount = winningNumbers.countMatch(lotto);
-    boolean isMatchingBonusNumber = lotto.isMatchingBonusNumber(winningNumbers.getBonusNumber());
+    boolean isMatchingBonusNumber = winningNumbers.hasBonusNumber(lotto);
     this.rank = LottoRank.findByMatchingResult(matchingCount, isMatchingBonusNumber);
   }
 

@@ -15,10 +15,6 @@ public class WinningNumbers {
     this.bonusNumber = bonusNumber;
   }
 
-  public int getBonusNumber() {
-    return bonusNumber;
-  }
-
   private void validate(List<Integer> winningNumbers, int bonusNumber) {
     validateBonusNumberRange(bonusNumber);
     if(winningNumbers.contains(bonusNumber)){
@@ -33,6 +29,10 @@ public class WinningNumbers {
   }
 
   public long countMatch(Lotto purchasedLotto) {
-    return lotto.getLottoNumbers().stream().filter(purchasedLotto.getLottoNumbers()::contains).count();
+    return lotto.countMatchingNumber(purchasedLotto);
+  }
+
+  public boolean hasBonusNumber(Lotto purchasedLotto) {
+    return purchasedLotto.isMatchingBonusNumber(bonusNumber);
   }
 }

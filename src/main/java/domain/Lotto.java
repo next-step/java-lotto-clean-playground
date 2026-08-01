@@ -45,4 +45,8 @@ public class Lotto {
   public boolean isMatchingBonusNumber(int bonusNumber) {
     return numbers.contains(bonusNumber);
   }
+
+  public long countMatchingNumber(Lotto purchasedLotto) {
+    return numbers.stream().filter(purchasedLotto.numbers::contains).count();
+  }
 }
