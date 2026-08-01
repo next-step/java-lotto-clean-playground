@@ -14,10 +14,8 @@ public class View {
         return cost;
     }
 
-    public int printAmount(int cost){
-        int ticketAmount=cost/1000;
-        System.out.printf("%d개를 구매했습니다.\n", ticketAmount);
-        return ticketAmount;
+    public void printAmount(int autoAmount, int passiveAmount){
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", passiveAmount, autoAmount);
     }
 
     public void printLottos(List<Lotto> lottos){
@@ -66,5 +64,26 @@ public class View {
         Scanner scanner = new Scanner(System.in);
         System.out.println("보너스 볼을 입력해 주세요.");
         return scanner.nextInt();
+    }
+
+    public int inputPassiveAmount(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return scanner.nextInt();
+    }
+
+    public List<Lotto> inputPassiveLotto(int passiveAmount){
+        List<Lotto> lottos=new ArrayList<>();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for(int i=0 ;i<passiveAmount;i++){
+            Scanner scanner = new Scanner(System.in);
+            List<Integer> nums=Arrays.stream(scanner.nextLine().split(", "))
+                    .map(Integer::parseInt)
+                    .toList();
+            Lotto lotto=new Lotto();
+            lotto.setLotto(nums);
+            lottos.add(lotto);
+        }
+        return lottos;
     }
 }
