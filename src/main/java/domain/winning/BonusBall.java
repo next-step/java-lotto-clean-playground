@@ -13,7 +13,7 @@ public class BonusBall {
     }
 
     public boolean isMatch(Lotto lotto) {
-        return lotto.getNumbers().contains(bonusNumber.getNumber());
+        return lotto.contains(bonusNumber);
     }
 
     private void validateDuplicateInWinningNumber(LottoNumber bonusNumber, List<Integer> winningNumbers) {

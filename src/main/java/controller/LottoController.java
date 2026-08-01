@@ -1,6 +1,9 @@
 package controller;
 
-import domain.lotto.*;
+import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import domain.lotto.LottosGenerator;
 import domain.purchase.PurchaseAmount;
 import domain.winning.BonusBall;
 import domain.winning.WinningLotto;
@@ -17,7 +20,7 @@ public class LottoController {
         WinningLotto winningLotto = inputWinningNumber();
         BonusBall bonusBall = inputBonusBall(winningLotto);
 
-        WinningStatistics statistics = new WinningStatistics(lottos, winningLotto, bonusBall);
+        WinningStatistics statistics = WinningStatistics.of(lottos, winningLotto, bonusBall);
         ResultView.printStatistics(statistics);
 
         double profitRate = statistics.calculateProfitRate(purchaseAmount.getAmount());

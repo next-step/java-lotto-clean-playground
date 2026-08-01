@@ -10,8 +10,13 @@ import java.util.Map;
 public class WinningStatistics {
     private final Map<Rank, Integer> statistics;
 
-    public WinningStatistics(Lottos lottos, WinningLotto winningLotto, BonusBall bonusBall) {
-        this.statistics = calculateStatistics(lottos, winningLotto, bonusBall);
+    private WinningStatistics(Map<Rank, Integer> statistics) {
+        this.statistics = statistics;
+    }
+
+    public static WinningStatistics of(Lottos lottos, WinningLotto winningLotto, BonusBall bonusBall) {
+        Map<Rank, Integer> statistics = calculateStatistics(lottos, winningLotto, bonusBall);
+        return new WinningStatistics(statistics);
     }
 
     public double calculateProfitRate(int purchaseAmount) {
@@ -24,7 +29,7 @@ public class WinningStatistics {
         return unmodifiableMap(statistics);
     }
 
-    private Map<Rank, Integer> calculateStatistics(
+    private static Map<Rank, Integer> calculateStatistics(
             Lottos lottos, WinningLotto winningLotto, BonusBall bonusBall) {
         Map<Rank, Integer> result = new HashMap<>();
 

@@ -29,6 +29,10 @@ public class Lotto {
                 .count();
     }
 
+    public boolean contains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
+    }
+
     private void validateLottoNumbers(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
