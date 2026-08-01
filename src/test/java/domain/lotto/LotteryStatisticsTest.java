@@ -21,7 +21,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        LottoNumber bonusNumber = new LottoNumber(45);
+        LottoNumber bonusNumber = LottoNumber.from(45);
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
@@ -48,7 +48,7 @@ class LotteryStatisticsTest {
 
         Lottos lottos = new Lottos(List.of(lotto1, lotto2, lotto3));
 
-        LottoNumber bonusNumber = new LottoNumber(45);
+        LottoNumber bonusNumber = LottoNumber.from(45);
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
@@ -66,7 +66,7 @@ class LotteryStatisticsTest {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 7);
         Lottos lottos = new Lottos(List.of(lotto));
 
-        LottoNumber bonusNumber = new LottoNumber(7);
+        LottoNumber bonusNumber = LottoNumber.from(7);
 
         // When
         WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
@@ -82,7 +82,7 @@ class LotteryStatisticsTest {
     private Lotto createLotto(int... numbers) {
         return new Lotto(
                 Arrays.stream(numbers)
-                        .mapToObj(LottoNumber::new)
+                        .mapToObj(LottoNumber::from)
                         .toList()
         );
     }

@@ -5,34 +5,52 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public record LottoNumber(int value) {
+public final class LottoNumber {
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
+    private final int value;
 
     private static final Map<Integer, LottoNumber> CACHE =
             IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                     .boxed().collect(Collectors.toMap(Function.identity(), LottoNumber::new));
 
-    public LottoNumber {
+    private LottoNumber(int value) {
         validateNumberRange(value);
+        this.value = value;
     }
 
-    public static LottoNumber getValue(int value) {
-        LottoNumber cached = CACHE.get(value);
-        if (cached == null) {
-            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
-        }
-        return cached;
+    public static LottoNumber from(int value) {
+        validateNumberRange(value);
+        return CACHE.get(value);
     }
 
-    public static void validateNumberRange(int number) {
+    private static void validateNumberRange(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1~45 사이여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는 " + MIN_NUMBER + "~" + MAX_NUMBER + " 사이여야 합니다.");
         }
+    }
+
+    public int value() {
+        return value;
     }
 
     @Override
-    public String toString() {
-        return String.valueOf(value);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof LottoNumber)) {
+            return false;
+        }
+
+        LottoNumber that = (LottoNumber) o;
+
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(value);
     }
 }

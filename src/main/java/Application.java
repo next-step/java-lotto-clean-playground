@@ -79,7 +79,7 @@ public class Application {
 
     private static LottoNumber inputBonusNumber(Lotto winningLotto) {
         return retry(() -> {
-            LottoNumber bonusNumber = LottoNumber.getValue(InputView.inputBonusNumber());
+            LottoNumber bonusNumber = LottoNumber.from(InputView.inputBonusNumber());
             winningLotto.validateBonusNumber(bonusNumber);
             return bonusNumber;
         });

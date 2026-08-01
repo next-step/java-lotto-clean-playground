@@ -34,7 +34,7 @@ public class LottoGenerator {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
 
         for (Integer number : numbers) {
-            lottoNumbers.add(LottoNumber.getValue(number));
+            lottoNumbers.add(LottoNumber.from(number));
         }
         return lottoNumbers;
     }

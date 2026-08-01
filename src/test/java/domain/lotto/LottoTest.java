@@ -76,7 +76,7 @@ class LottoTest {
     void 보너스_번호와_당첨_번호가_중복되면_오류가_발생한다() {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
 
-        assertThatThrownBy(() -> lotto.validateBonusNumber(new LottoNumber(1)))
+        assertThatThrownBy(() -> lotto.validateBonusNumber(LottoNumber.from(1)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
     }
@@ -86,7 +86,7 @@ class LottoTest {
     void 번호가_포함되었는지_여부를_반환한다(int number, boolean expected) {
         Lotto lotto = createLotto(1, 2, 3, 4, 5, 6);
 
-        boolean result = lotto.contains(new LottoNumber(number));
+        boolean result = lotto.contains(LottoNumber.from(1));
 
         assertEquals(expected, result);
     }
