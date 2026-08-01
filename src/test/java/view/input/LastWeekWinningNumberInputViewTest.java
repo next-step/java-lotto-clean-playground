@@ -1,11 +1,13 @@
 package view.input;
 
 import domain.lotto.Lotto;
+import domain.lotto.wrap.LottoNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static helper.TestHelperMethod.inputViewOf;
@@ -15,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LastWeekWinningNumberInputViewTest {
 
     @Test
-    @DisplayName("5개만 입력한 경우 재입력 요청")
+    @DisplayName("5개만 입력하고 정상적인 값을 입력한 경우")
     void ifFiveNumbersInput() {
         // given
-        InputView inputView = inputViewOf("1,2,3,4,5\n");
+        InputView inputView = inputViewOf("1,2,3,4,5\n4, 5, 6, 7, 8, 9");
+        List<LottoNumber> expected = toLottoNumbers(4, 5, 6, 7, 8, 9);
+
+        // when
+        Lotto lotto = inputView.lastWeekWinningNumbers();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::lastWeekWinningNumbers
-        );
+        assertThat(lotto.getNumbers()).isEqualTo(expected);
     }
 
     @Test
@@ -43,45 +45,45 @@ public class LastWeekWinningNumberInputViewTest {
     }
 
     @Test
-    @DisplayName("7개를 입력한 경우 재입력 요청")
+    @DisplayName("7개를 입력하고 정상적인 값을 입력한 경우")
     void ifSevenNumbersInput() {
         // given
-        InputView inputView = inputViewOf("1,2,3,4,5,6,7\n");
+        InputView inputView = inputViewOf("1,2,3,4,5,6,7\n1,2,3,4,5,6\n");
+        List<LottoNumber> expected = toLottoNumbers(1, 2, 3, 4, 5, 6);
+
+        // when
+        Lotto lotto = inputView.lastWeekWinningNumbers();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::lastWeekWinningNumbers
-        );
+        assertThat(lotto.getNumbers()).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("중복된 번호를 입력한 경우 재입력 요청")
+    @DisplayName("중복된 번호를 입력하고 정상적인 값을 입력한 경우")
     void ifDuplicateNumbersInput() {
         // given
-        InputView inputView = inputViewOf("1,1,2,3,4,5\n");
+        InputView inputView = inputViewOf("1,1,2,3,4,5\n1,2,3,4,5,6\n");
+        List<LottoNumber> expected = toLottoNumbers(1, 2, 3, 4, 5, 6);
+
+        // when
+        Lotto lotto = inputView.lastWeekWinningNumbers();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::lastWeekWinningNumbers
-        );
+        assertThat(lotto.getNumbers()).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("콤마 없이 입력한 경우 재입력 요청")
+    @DisplayName("콤마 없이 입력하고 정상적인 값을 입력한 경우")
     void ifNoCommaInput() {
         // given
-        InputView inputView = inputViewOf("123456\n");
+        InputView inputView = inputViewOf("123456\n4, 5, 6, 7, 8, 9");
+        List<LottoNumber> expected = toLottoNumbers(4, 5, 6, 7, 8, 9);
+
+        // when
+        inputView.lastWeekWinningNumbers();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::lastWeekWinningNumbers
-        );
+        assertThat(expected).isEqualTo(expected);
     }
 
     @Test

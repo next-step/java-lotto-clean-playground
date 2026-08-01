@@ -8,8 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
-import java.util.InputMismatchException;
-
 import static helper.TestHelperMethod.inputViewOf;
 import static helper.TestHelperMethod.toLottoNumbers;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,45 +15,62 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BonusBallInputViewTest {
 
     @Test
-    @DisplayName("문자열을 입력한 경우 예외가 발생한다")
+    @DisplayName("문자열을 입력하고 정상적으로 입력한 경우 성공한다.")
     void ifStringInput() {
         // given
-        InputView inputView = inputViewOf("칠\n");
+        InputView inputView = inputViewOf("칠\n7\n");
+        int expected = 7;
+
+        // when
+        LottoNumber actual = inputView.bonusNumber();
 
         // then
-        Assertions.assertThrows(
-                InputMismatchException.class,
-                // when
-                inputView::bonusNumber
-        );
+        assertThat(actual.getValue()).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("실수를 입력한 경우 예외 발생")
+    @DisplayName("실수를 입력하고 정상적으로 입력한 경우 성공한다.")
     void ifFloatInput() {
         // given
-        InputView inputView = inputViewOf("7.5\n");
+        InputView inputView = inputViewOf("7.5\n7\n");
+        int expected = 7;
+
+        // when
+        LottoNumber actual = inputView.bonusNumber();
 
         // then
-        Assertions.assertThrows(
-                InputMismatchException.class,
-                // when
-                inputView::bonusNumber
-        );
+        assertThat(actual.getValue()).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("음의 정수를 입력한 경우 예외 발생")
+    @DisplayName("음의 정수를 입력하고 정상적으로 입력한 경우 성공한다.")
     void ifNegativeInput() {
         // given
-        InputView inputView = inputViewOf("-7\n");
+        InputView inputView = inputViewOf("-7\n7\n");
+        int expected = 7;
+
+         // when
+        LottoNumber actual = inputView.bonusNumber();
 
         // then
-        Assertions.assertThrows(
-                IllegalArgumentException.class,
-                // when
-                inputView::bonusNumber
-        );
+        assertThat(actual.getValue()).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("로또 범위 외의 숫자를 입력한 경우")
+    void inputOverRangeNumberInBonusBallInitialize() {
+        // given
+        InputView underInputView = inputViewOf("0\n1\n");
+        InputView overInputView = inputViewOf("46\n1\n");
+        int expected = 1;
+
+        // when
+        LottoNumber under = underInputView.bonusNumber();
+        LottoNumber over = overInputView.bonusNumber();
+
+        // then
+        assertThat(under.getValue()).isEqualTo(expected);
+        assertThat(over.getValue()).isEqualTo(expected);
     }
 
     @Test

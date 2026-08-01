@@ -3,14 +3,13 @@ package view.input;
 import domain.lotto.LottoSeller;
 import domain.lotto.BuyingLotto;
 import domain.lotto.wrap.money.Money;
+import domain.lotto.wrap.money.Payment;
 import fixed.FixedDrawLottoNumber;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static helper.TestHelperMethod.inputViewOf;
 import static helper.TestHelperMethod.priceOf;
@@ -19,31 +18,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BuyingLottoInputViewTest {
 
     @Test
-    @DisplayName("문자열을 입력한 경우 재입력 요청")
+    @DisplayName("문자열을 입력하고, 정상적인 값을 입력하면 성공")
     void ifStringInput() {
         // given
-        InputView inputView = inputViewOf("만원\n");
+        InputView inputView = inputViewOf("만원\n10000\n");
+
+        // when
+        Payment payment = inputView.payment();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::payment
-        );
+        assertThat(payment.getAmount()).isEqualTo(10000);
     }
 
     @Test
-    @DisplayName("음의 정수를 입력한 경우 재입력 요청")
+    @DisplayName("음의 정수를 입력하고, 정상적인 값을 입력하면 성공")
     void ifNegativeInput() {
         // given
-        InputView inputView = inputViewOf("-10000\n");
+        InputView inputView = inputViewOf("-10000\n10000\n");
+
+        // when
+        Payment payment = inputView.payment();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::payment
-        );
+        assertThat(payment.getAmount()).isEqualTo(10000);
     }
 
     @Test
@@ -60,17 +57,16 @@ public class BuyingLottoInputViewTest {
     }
 
     @Test
-    @DisplayName("실수를 입력한 경우 재입력 요청")
+    @DisplayName("실수를 입력하고, 정상적인 값을 입력하면 성공")
     void ifFloatInput() {
         // given
-        InputView inputView = inputViewOf("10000.5\n");
+        InputView inputView = inputViewOf("10000.5\n10000\n");
+
+        // when
+        Money payment = inputView.payment();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::payment
-        );
+        assertThat(payment.getAmount()).isEqualTo(10000);
     }
 
     @Test
@@ -90,7 +86,7 @@ public class BuyingLottoInputViewTest {
     @DisplayName("1000원 단위가 아닌 금액은 잔돈으로 반환")
     void changeIsReturned() {
         // given
-        LottoSeller seller = new LottoSeller(new BuyingLotto(new Money(10_500), priceOf()),
+        LottoSeller seller = new LottoSeller(new BuyingLotto(new Payment(10_500), priceOf()),
                 List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then
@@ -102,7 +98,7 @@ public class BuyingLottoInputViewTest {
     @DisplayName("구입 금액만큼 자동 로또가 발급")
     void ticketCountMatchesPayment() {
         // given
-        LottoSeller seller = new LottoSeller(new BuyingLotto(new Money(10_000), priceOf()),
+        LottoSeller seller = new LottoSeller(new BuyingLotto(new Payment(10_000), priceOf()),
                 List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then

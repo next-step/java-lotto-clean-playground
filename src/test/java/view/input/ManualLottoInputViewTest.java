@@ -1,11 +1,8 @@
 package view.input;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import view.InputView;
-
-import java.util.NoSuchElementException;
 
 import static helper.TestHelperMethod.inputViewOf;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,45 +10,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ManualLottoInputViewTest {
 
     @Test
-    @DisplayName("문자열을 입력한 경우 재입력 요청")
+    @DisplayName("문자열을 입력하고 정상적인 값을 입력한 경우")
     void ifStringInput() {
         // given
-        InputView inputView = inputViewOf("셋\n");
+        InputView inputView = inputViewOf("셋\n3\n");
+        int expected = 3;
+
+        // when
+        int actual = inputView.manualCount();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::manualCount
-        );
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("음의 정수를 입력한 경우 재입력 요청")
+    @DisplayName("음의 정수를 입력하고 정상적인 값을 입력한 경우")
     void ifNegativeInput() {
         // given
-        InputView inputView = inputViewOf("-3\n");
+        InputView inputView = inputViewOf("-3\n3\n");
+        int expected = 3;
+
+        // when
+        int actual = inputView.manualCount();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::manualCount
-        );
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    @DisplayName("실수를 입력한 경우 재입력 요청")
+    @DisplayName("실수를 입력하고 정상적인 값을 입력한 경우")
     void ifFloatInput() {
         // given
-        InputView inputView = inputViewOf("3.5\n");
+        InputView inputView = inputViewOf("3.5\n3\n");
+        int expected = 3;
+
+        // when
+        int actual = inputView.manualCount();
 
         // then
-        Assertions.assertThrows(
-                NoSuchElementException.class,
-                // when
-                inputView::manualCount
-        );
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test

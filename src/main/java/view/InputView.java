@@ -45,7 +45,7 @@ public class InputView {
             payment = validationMoney();
         } while (payment == null);
 
-        return new Money(payment);
+        return new Payment(payment);
     }
 
     public int manualCount() {
@@ -59,7 +59,11 @@ public class InputView {
     }
 
     public LottoNumber bonusNumber() {
-        return initBonusNumber();
+        LottoNumber lottoNumbers;
+        do {
+            lottoNumbers = initBonusNumber();
+        } while(lottoNumbers == null);
+        return lottoNumbers;
     }
 
     private Lotto validNumbers() {
@@ -87,19 +91,17 @@ public class InputView {
     private Integer validationMoney() {
         try {
             return initPayment();
-        } catch (InputMismatchException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            scanner.nextLine();
         }
         return null;
     }
 
     private int initPayment() {
-        int amount = scanner.nextInt();
-        scanner.nextLine();
+        int amount = Integer.parseInt(scanner.nextLine().trim());
 
         if (amount <= 0) {
-            throw new InputMismatchException("양의 정수를 입력해주세요.");
+            throw new IllegalArgumentException("양의 정수를 입력해주세요.");
         }
 
         return amount;
@@ -109,28 +111,29 @@ public class InputView {
     private Integer validationManualCount() {
         try {
             return initManualCount();
-        } catch (InputMismatchException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("0 이상의 정수를 입력해주세요.");
-            scanner.nextLine();
         }
         return null;
     }
 
     private int initManualCount() {
-        int count = scanner.nextInt();
-        scanner.nextLine();
+        int count = Integer.parseInt(scanner.nextLine().trim());
 
         if (count < 0) {
-            throw new InputMismatchException();
+            throw new IllegalArgumentException("수동 횟수는 음수가 될 수 없습니다.");
         }
 
         return count;
     }
 
     private LottoNumber initBonusNumber() {
-        LottoNumber bonusNumber = new LottoNumber(scanner.nextInt());
-        scanner.nextLine();
-
+        LottoNumber bonusNumber = null;
+        try {
+            bonusNumber = new LottoNumber(Integer.parseInt(scanner.nextLine()));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         return bonusNumber;
     }
 }

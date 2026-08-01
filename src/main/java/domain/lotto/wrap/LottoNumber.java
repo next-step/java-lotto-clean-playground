@@ -12,7 +12,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public LottoNumber(int value) {
 
         if (value < MIN || value > MAX) {
-            throw new IllegalArgumentException("로또 번호는 1 이상 45 이하여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.");
         }
         this.value = value;
     }
