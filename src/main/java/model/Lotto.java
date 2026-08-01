@@ -21,6 +21,10 @@ public class Lotto {
         return nums;
     }
 
+    public void setLotto(List<Integer> nums){
+        this.nums=nums;
+    }
+
     @Override
     public String toString(){
         return nums.toString();
