@@ -10,6 +10,7 @@ public final class OutputView {
 
     public static void printLottoCount(int lottoCount) {
         System.out.println(lottoCount + "개를 구매했습니다");
+        System.out.println();
     }
 
     public static void printLottoNumbers(LottoTickets lottoTickets) {
