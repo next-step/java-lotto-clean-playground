@@ -7,6 +7,8 @@ import lotto.ProfitRate;
 import lotto.PurchaseAmount;
 
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class ResultView {
     private final PrintStream output;
@@ -33,14 +35,10 @@ public class ResultView {
     }
 
     private void printRanks(LottoResult result) {
-        LottoRank[] ranks = LottoRank.values();
-        for (int index = ranks.length - 1; index >= 0; index--) {
-            LottoRank rank = ranks[index];
-            if (rank == LottoRank.MISS) {
-                continue;
-            }
-            printRank(result, rank);
-        }
+        Arrays.stream(LottoRank.values())
+                .filter(rank -> rank != LottoRank.MISS)
+                .sorted(Comparator.comparingLong(rank -> rank.prizeMoney().value()))
+                .forEach(rank -> printRank(result, rank));
     }
 
     private void printProfitRate(LottoResult result, PurchaseAmount purchaseAmount) {
