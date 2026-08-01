@@ -31,7 +31,7 @@ public class Lotto {
 
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != SIZE) {
-            throw new IllegalArgumentException("추첨된 로또 숫자는 6개여야 합니다.");
+            throw new IllegalArgumentException("추첨된 로또 숫자는 " + SIZE + "개여야 합니다.");
         }
     }
 
