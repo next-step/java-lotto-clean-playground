@@ -4,24 +4,28 @@ import java.util.*;
 import model.Lotto;
 
 public class Controller {
-    private int ticketAmount;
+    private int autoAmount;
+    private int passiveAmount;
+
     private List<Lotto> lottos=new ArrayList<>();
     final List<Integer> prizeCost=new ArrayList<>();
 
 
-    public Controller(int ticketAmount){
-        this.ticketAmount=ticketAmount;
+    public Controller(int autoAmount,int passiveAmount){
+        this.autoAmount=autoAmount;
+        this.passiveAmount=passiveAmount;
     }
 
     public List<Lotto> genLotto(){
-        for(int i=0;i<ticketAmount;i++){
+        for(int i=0;i<autoAmount;i++){
             lottos.add(new Lotto());
         }
         return lottos;
     }
-    public List<List<Integer>> findWinning(List<Integer> nums,int bonusBall){
+    public List<List<Integer>> findWinning(List<Lotto> lottos,List<Integer> nums,int bonusBall){
         List<List<Integer>> matrix=new ArrayList<>();
-        for(int i=0;i<ticketAmount;i++){
+        int totalAmount=autoAmount+passiveAmount;
+        for(int i=0;i<totalAmount;i++){
             Lotto lotto=lottos.get(i);
             matrix.add(findRank(lotto,nums,bonusBall));
         }
@@ -31,6 +35,7 @@ public class Controller {
     public List<Integer> findRank(Lotto lotto,List<Integer> nums,int bonusBall){
         List<Integer> inter=new ArrayList<>(( lotto.getLottoList()));
         inter.retainAll(nums);
+        System.out.println(inter);
         int size=inter.size();
         List<Integer> lottoList=lotto.getLottoList();
 
