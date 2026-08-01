@@ -2,6 +2,12 @@ package lotto;
 
 public record PrizeMoney(long value) {
 
+    public PrizeMoney {
+        if (value < 0) {
+            throw new IllegalArgumentException("상금은 음수일 수 없습니다.");
+        }
+    }
+
     public PrizeMoney add(PrizeMoney other) {
         return new PrizeMoney(value + other.value);
     }
