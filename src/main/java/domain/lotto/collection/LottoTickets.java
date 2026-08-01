@@ -4,6 +4,7 @@ import domain.enums.LotteryPrize;
 import domain.lotto.Lotto;
 import domain.lotto.WinningLotto;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,10 @@ public class LottoTickets {
     }
 
     public List<Lotto> getTickets() {
+        List<Lotto> copied = new ArrayList<>();
+        for (Lotto lotto : tickets) {
+            copied.add(new Lotto(lotto.getNumbers()));
+        }
         return tickets;
     }
 }

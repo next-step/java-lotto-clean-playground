@@ -2,6 +2,7 @@ package domain.lotto;
 
 import domain.lotto.wrap.LottoNumber;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -14,6 +15,14 @@ public class Lotto {
         validateSize(numbers);
         validateDuplicate(numbers);
         this.numbers = List.copyOf(numbers);
+    }
+
+    public List<LottoNumber> getNumbers() {
+        List<LottoNumber> copied = new ArrayList<>();
+        for (LottoNumber number :  numbers) {
+            copied.add(new LottoNumber(number.getValue()));
+        }
+        return copied;
     }
 
     public int countMatch(Lotto other) {

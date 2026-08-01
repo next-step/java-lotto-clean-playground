@@ -17,6 +17,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.value = value;
     }
 
+    public int getValue() {
+        return value;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
