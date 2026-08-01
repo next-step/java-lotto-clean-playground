@@ -10,4 +10,10 @@ public class InputView {
         int purchaseAmount = scanner.nextInt();
         return purchaseAmount;
     }
+    public static String getWinningNumber() {
+        System.out.println("지난 주 당첨 번호를 입력해주세요.");
+        String enteredWinningNumber = scanner.nextLine();
+        return enteredWinningNumber;
+    }
+
 }

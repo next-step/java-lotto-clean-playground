@@ -1,9 +1,8 @@
 import domain.Lottos;
 import domain.PurchaseManage;
+import domain.WinningNumber;
 import view.InputView;
 import view.ResultView;
-
-import static view.InputView.getPurchaseAmount;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,5 +11,9 @@ public class Main {
         PurchaseManage purchaseManage = new PurchaseManage();
         Lottos lottos = purchaseManage.buyLottos(price);
         ResultView.showNum(lottos);
+
+        String enteredWinningNumber = InputView.getWinningNumber();
+        WinningNumber winningNumber = new WinningNumber();
+        winningNumber.setWinningNumber(enteredWinningNumber);
     }
 }
