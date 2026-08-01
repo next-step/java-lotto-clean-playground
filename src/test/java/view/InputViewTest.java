@@ -16,11 +16,10 @@ class InputViewTest {
     @DisplayName("쉼표로 구분한 당첨 번호를 로또로 변환한다")
     void parseLotto() {
         Lotto lotto = InputView.parseLotto("1, 2, 3, 4, 5, 6");
-        Lotto expectedLotto = new Lotto(Arrays.asList(
+        Arrays.asList(
                 new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
-
-        assertThat(lotto.countMatches(expectedLotto)).isEqualTo(6);
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)
+        ).forEach(number -> assertThat(lotto.contains(number)).isTrue());
     }
 
     @Test
