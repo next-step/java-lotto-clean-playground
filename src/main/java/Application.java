@@ -1,4 +1,3 @@
-import domain.lotto.LotteryStatistics;
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoStore;
@@ -54,9 +53,8 @@ public class Application {
 
     private static void publishStatistics(Lottos lottos, WinningLotto winningLotto, Money purchasePrice) {
         WinningResult winningResult = lottos.matchRanks(winningLotto);
-        LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
-        Money totalPrize = lotteryStatistics.calculatePrize();
-        ResultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
+        Money totalPrize = winningResult.calculatePrize();
+        ResultView.printStatistics(winningResult, totalPrize, purchasePrice);
     }
 
     private static WinningLotto inputWinningLottoInfo() {

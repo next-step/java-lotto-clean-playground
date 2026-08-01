@@ -2,7 +2,6 @@ package domain.lotto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class Lottos {
     private final List<Lotto> lottos;
@@ -15,8 +14,8 @@ public class Lottos {
         return lottos.size();
     }
 
-    public void forEach(Consumer<Lotto> consumer) {
-        lottos.forEach(consumer);
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 
     public WinningResult matchRanks(WinningLotto winningLotto) {

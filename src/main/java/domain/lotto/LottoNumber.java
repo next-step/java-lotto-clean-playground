@@ -1,13 +1,14 @@
 package domain.lotto;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class LottoNumber {
-    public static final int MIN_NUMBER = 1;
-    public static final int MAX_NUMBER = 45;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
     private final int value;
 
     private static final Map<Integer, LottoNumber> CACHE =
@@ -22,6 +23,10 @@ public final class LottoNumber {
     public static LottoNumber from(int value) {
         validateNumberRange(value);
         return CACHE.get(value);
+    }
+
+    public static List<LottoNumber> values() {
+        return List.copyOf(CACHE.values());
     }
 
     private static void validateNumberRange(int number) {
