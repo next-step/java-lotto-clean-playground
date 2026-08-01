@@ -11,15 +11,7 @@ public class WinningLotto {
     }
 
     public LottoRank determineRank(Lotto lotto) {
-        LottoMatch match = match(lotto);
-        return LottoRank.from(match.matchCount(), match.bonusMatched());
-    }
-
-    private LottoMatch match(Lotto lotto) {
-        return new LottoMatch(
-                lotto.countMatches(winningNumbers),
-                lotto.contains(bonusNumber)
-        );
+        return lotto.calculateRank(winningNumbers, bonusNumber);
     }
 
     private void validateBonusNumber(Lotto winningNumbers, LottoNumber bonusNumber) {
@@ -28,6 +20,4 @@ public class WinningLotto {
         }
     }
 
-    private record LottoMatch(int matchCount, boolean bonusMatched) {
-    }
 }

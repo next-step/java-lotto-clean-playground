@@ -34,6 +34,14 @@ public class Lotto {
 
     }
 
+    // package-private
+    LottoRank calculateRank(Lotto winningNumbers, LottoNumber bonusNumber) {
+        return LottoRank.from(
+                countMatches(winningNumbers),
+                contains(bonusNumber)
+        );
+    }
+
     boolean contains(LottoNumber number) {
         return numbers.contains(number);
     }
