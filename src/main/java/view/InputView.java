@@ -2,12 +2,10 @@ package view;
 
 import domain.lotto.Lotto;
 import domain.lotto.wrap.LottoNumber;
-import domain.lotto.wrap.money.Money;
 import domain.lotto.wrap.money.Payment;
 
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,7 +40,7 @@ public class InputView {
     public Payment payment() {
         Integer payment;
         do {
-            payment = validationMoney();
+            payment = validInputPayment();
         } while (payment == null);
 
         return new Payment(payment);
@@ -88,16 +86,16 @@ public class InputView {
                 .toList();
     }
 
-    private Integer validationMoney() {
+    private Integer validInputPayment() {
         try {
-            return initPayment();
+            return readPaymentInUserInput();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    private int initPayment() {
+    private int readPaymentInUserInput() {
         int amount = Integer.parseInt(scanner.nextLine().trim());
 
         if (amount <= 0) {
