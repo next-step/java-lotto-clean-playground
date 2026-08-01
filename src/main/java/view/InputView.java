@@ -25,19 +25,19 @@ public class InputView {
     public Lotto readWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 
-        return parseLotto(scanner.nextLine());
+        return parseLotto(scanner.nextLine().trim());
     }
 
     public LottoNumber readBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
 
-        return parseBonusNumber(scanner.nextLine());
+        return parseBonusNumber(scanner.nextLine().trim());
     }
 
     public int readManualLottoCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine().trim());
     }
 
     public Lottos readManualLottos(int manualLottoCount) {
@@ -51,7 +51,7 @@ public class InputView {
     private Lottos readLottos(int lottoCount) {
         List<Lotto> lottos = new ArrayList<>();
         for (int count = 0; count < lottoCount; count++) {
-            lottos.add(parseLotto(scanner.nextLine()));
+            lottos.add(parseLotto(scanner.nextLine().trim()));
         }
         return new Lottos(lottos);
     }
