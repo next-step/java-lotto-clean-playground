@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class WinningNumber {
     public List<Integer> setWinningNumber(String enteredWinningNumber) {
@@ -13,6 +10,7 @@ public class WinningNumber {
             item[i] = item[i].trim();
             winningNumber.add(Integer.parseInt(item[i]));
         }
+        Collections.sort(winningNumber);
 
         return winningNumber;
     }
