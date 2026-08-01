@@ -3,7 +3,6 @@ package domain.lotto;
 public final class Money {
     private static final int LOTTO_PRICE = 1000;
     public static final Money ZERO = new Money(0);
-
     private final int value;
 
     private Money(int value) {

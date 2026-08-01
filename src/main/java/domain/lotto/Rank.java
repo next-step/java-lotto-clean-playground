@@ -36,6 +36,7 @@ public enum Rank {
                 .findFirst()
                 .orElse(NONE);
     }
+
     private boolean matches(int matchCount) {
         return this.matchCount == matchCount;
     }

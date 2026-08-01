@@ -3,8 +3,8 @@ package view;
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
 import domain.lotto.Lottos;
-import domain.lotto.Rank;
 import domain.lotto.Money;
+import domain.lotto.Rank;
 import domain.lotto.WinningResult;
 
 import java.util.Map;
