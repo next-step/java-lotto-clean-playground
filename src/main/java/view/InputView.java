@@ -2,7 +2,8 @@ package view;
 
 import domain.lotto.Lotto;
 import domain.lotto.wrap.LottoNumber;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
+import domain.lotto.wrap.money.Payment;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class InputView {
         return lotto;
     }
 
-    public Money payment() {
+    public Payment payment() {
         Integer payment;
         do {
             payment = validationMoney();

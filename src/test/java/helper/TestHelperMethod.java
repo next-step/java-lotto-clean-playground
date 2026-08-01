@@ -1,7 +1,7 @@
 package helper;
 
 import domain.lotto.wrap.LottoNumber;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
 import view.InputView;
 
 import java.io.ByteArrayInputStream;

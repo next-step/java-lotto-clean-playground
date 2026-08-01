@@ -1,4 +1,4 @@
-package domain.lotto.wrap;
+package domain.lotto.wrap.money;
 
 public class Money {
 

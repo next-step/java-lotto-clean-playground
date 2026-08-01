@@ -3,12 +3,13 @@ package controller;
 import domain.draw.RandomLottoNumber;
 import domain.lotto.Lotto;
 import domain.lotto.LottoSeller;
-import domain.lotto.Payment;
+import domain.lotto.BuyingLotto;
 import domain.lotto.WinningLotto;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.collection.WinningStatistics;
 import domain.lotto.wrap.LottoNumber;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
+import domain.lotto.wrap.money.Price;
 import view.InputView;
 import view.OutputView;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class LottoController {
 
-    private final Money PRICE = new Money(1_000);
+    private final Price PRICE = new Price(1_000);
     private final InputView inputView;
 
     public LottoController(InputView inputView) {
@@ -26,10 +27,10 @@ public class LottoController {
 
     public void run() {
 
-        Payment payment = initPayment(PRICE);
-        List<Lotto> manualLottos = manualLottosInitialize(payment);
+        BuyingLotto buyingLotto = initPayment(PRICE);
+        List<Lotto> manualLottos = manualLottosInitialize(buyingLotto);
 
-        LottoSeller seller = new LottoSeller(payment, manualLottos, new RandomLottoNumber());
+        LottoSeller seller = new LottoSeller(buyingLotto, manualLottos, new RandomLottoNumber());
 
         noticeLottoAmountAndChange(seller);
 
@@ -79,37 +80,37 @@ public class LottoController {
         }
     }
 
-    private Payment initPayment(Money price) {
-        Payment payment;
+    private BuyingLotto initPayment(Price price) {
+        BuyingLotto buyingLotto;
 
         do {
-            payment = requestPayment(price);
-        } while (payment == null);
-        return payment;
+            buyingLotto = requestPayment(price);
+        } while (buyingLotto == null);
+        return buyingLotto;
     }
 
-    private Payment requestPayment(Money price) {
+    private BuyingLotto requestPayment(Price price) {
         try {
             OutputView.printPaymentNotice();
-            return new Payment(inputView.payment(), price);
+            return new BuyingLotto(inputView.payment(), price);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    private int initManualCount(Payment payment) {
+    private int initManualCount(BuyingLotto buyingLotto) {
         int count;
 
         do {
             OutputView.printManualCountNotice();
             count = inputView.manualCount();
-        } while (count > payment.purchasableCount());
+        } while (count > buyingLotto.purchasableCount());
         return count;
     }
 
-    private List<Lotto> manualLottosInitialize(Payment payment) {
-        int manualCount = initManualCount(payment);
+    private List<Lotto> manualLottosInitialize(BuyingLotto buyingLotto) {
+        int manualCount = initManualCount(buyingLotto);
         List<Lotto> manualLottos = new ArrayList<>();
 
         if (manualCount > 0) {

@@ -1,8 +1,8 @@
 package view.input;
 
 import domain.lotto.LottoSeller;
-import domain.lotto.Payment;
-import domain.lotto.wrap.Money;
+import domain.lotto.BuyingLotto;
+import domain.lotto.wrap.money.Money;
 import fixed.FixedDrawLottoNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,7 @@ import static helper.TestHelperMethod.inputViewOf;
 import static helper.TestHelperMethod.priceOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PaymentInputViewTest {
+public class BuyingLottoInputViewTest {
 
     @Test
     @DisplayName("문자열을 입력한 경우 재입력 요청")
@@ -90,7 +90,7 @@ public class PaymentInputViewTest {
     @DisplayName("1000원 단위가 아닌 금액은 잔돈으로 반환")
     void changeIsReturned() {
         // given
-        LottoSeller seller = new LottoSeller(new Payment(new Money(10_500), priceOf()),
+        LottoSeller seller = new LottoSeller(new BuyingLotto(new Money(10_500), priceOf()),
                 List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then
@@ -102,7 +102,7 @@ public class PaymentInputViewTest {
     @DisplayName("구입 금액만큼 자동 로또가 발급")
     void ticketCountMatchesPayment() {
         // given
-        LottoSeller seller = new LottoSeller(new Payment(new Money(10_000), priceOf()),
+        LottoSeller seller = new LottoSeller(new BuyingLotto(new Money(10_000), priceOf()),
                 List.of(), new FixedDrawLottoNumber(1, 2, 3, 4, 5, 6));
 
         // then

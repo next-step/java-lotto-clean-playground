@@ -1,7 +1,7 @@
 package domain.lotto.collection;
 
 import domain.enums.LotteryPrize;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
 
 import java.util.Map;
 

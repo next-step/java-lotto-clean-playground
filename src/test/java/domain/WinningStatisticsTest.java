@@ -6,7 +6,7 @@ import domain.lotto.WinningLotto;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.collection.WinningStatistics;
 import domain.lotto.wrap.LottoNumber;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

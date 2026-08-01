@@ -4,12 +4,11 @@ import domain.enums.LotteryPrize;
 import domain.lotto.Lotto;
 import domain.lotto.collection.LottoTickets;
 import domain.lotto.collection.WinningStatistics;
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
 import view.enums.ProfitEnum;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static domain.enums.LotteryPrize.MISS;
 

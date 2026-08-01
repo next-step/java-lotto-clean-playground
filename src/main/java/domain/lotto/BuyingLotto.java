@@ -1,13 +1,15 @@
 package domain.lotto;
 
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
+import domain.lotto.wrap.money.Payment;
+import domain.lotto.wrap.money.Price;
 
-public class Payment {
+public class BuyingLotto {
 
     private final Money amount;
     private final Money price;
 
-    public Payment(Money amount, Money price) {
+    public BuyingLotto(Payment amount, Price price) {
         validatePurchasable(amount, price);
         this.amount = amount;
         this.price = price;

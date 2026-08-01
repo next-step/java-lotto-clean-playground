@@ -1,6 +1,6 @@
 package domain.enums;
 
-import domain.lotto.wrap.Money;
+import domain.lotto.wrap.money.Money;
 
 import java.util.Arrays;
 
