@@ -1,13 +1,15 @@
 package domain.lotto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    public static final int LOTTO_SIZE = 6;
+    private static final int LOTTO_SIZE = 6;
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
@@ -18,6 +20,12 @@ public class Lotto {
     public static Lotto from(String input) {
         List<LottoNumber> numbers = parseLottoNumbers(input.split(","));
         return new Lotto(numbers);
+    }
+
+    public static Lotto from(List<LottoNumber> shuffledNumbers) {
+        List<LottoNumber> selected = new ArrayList<>(shuffledNumbers.subList(0, LOTTO_SIZE));
+        selected.sort(Comparator.comparingInt(LottoNumber::value));
+        return new Lotto(selected);
     }
 
     private static List<LottoNumber> parseLottoNumbers(String[] numbers) {
