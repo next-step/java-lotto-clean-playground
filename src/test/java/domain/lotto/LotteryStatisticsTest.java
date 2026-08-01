@@ -24,7 +24,7 @@ class LotteryStatisticsTest {
         LottoNumber bonusNumber = LottoNumber.from(45);
 
         // When
-        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto);
         LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
 
         // Then
@@ -51,7 +51,7 @@ class LotteryStatisticsTest {
         LottoNumber bonusNumber = LottoNumber.from(45);
 
         // When
-        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto);
         LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
         Money totalPrize = lotteryStatistics.calculatePrize();
 
@@ -69,7 +69,7 @@ class LotteryStatisticsTest {
         LottoNumber bonusNumber = LottoNumber.from(7);
 
         // When
-        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+        WinningResult winningResult = lottos.matchRanks(winningLotto);
         LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
 
         // Then

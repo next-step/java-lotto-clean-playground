@@ -19,12 +19,12 @@ public class Lottos {
         lottos.forEach(consumer);
     }
 
-    public WinningResult matchRanks(Lotto winningLotto, LottoNumber bonusNumber) {
+    public WinningResult matchRanks(WinningLotto winningLotto) {
         List<Rank> ranks = new ArrayList<>();
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.matchCount(winningLotto);
-            boolean bonusMatched = lotto.contains(bonusNumber);
+            int matchCount = lotto.matchCount(winningLotto.getLotto());
+            boolean bonusMatched = lotto.contains(winningLotto.getBonusNumber());
             Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
             ranks.add(rank);
         }

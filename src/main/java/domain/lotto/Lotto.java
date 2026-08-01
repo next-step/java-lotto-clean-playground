@@ -36,18 +36,18 @@ public class Lotto {
         return lottoNumbers;
     }
 
-    private void validateLottoNumbers(List<LottoNumber> lottoNumbers) {
+    private static void validateLottoNumbers(List<LottoNumber> lottoNumbers) {
         validateSize(lottoNumbers);
         validateDuplicate(lottoNumbers);
     }
 
-    private void validateSize(List<LottoNumber> lottoNumbers) {
+    private static void validateSize(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
 
-    private void validateDuplicate(List<LottoNumber> lottoNumbers) {
+    private static void validateDuplicate(List<LottoNumber> lottoNumbers) {
         Set<LottoNumber> uniqueNumbers = new HashSet<>(lottoNumbers);
 
         if (uniqueNumbers.size() != lottoNumbers.size()) {
@@ -63,11 +63,5 @@ public class Lotto {
 
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
-    }
-
-    public void validateBonusNumber(LottoNumber bonusNumber) {
-        if (contains(bonusNumber)) {
-            throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
-        }
     }
 }

@@ -4,6 +4,7 @@ import domain.lotto.LottoNumber;
 import domain.lotto.LottoStore;
 import domain.lotto.Lottos;
 import domain.lotto.Money;
+import domain.lotto.WinningLotto;
 import domain.lotto.WinningResult;
 import dto.PurchaseResult;
 import view.InputView;
@@ -41,22 +42,29 @@ public class Application {
         return retry(Application::purchaseLotto);
     }
 
-    private static void publishStatistics(Lottos lottos, Lotto winningLotto, LottoNumber bonusNumber, Money purchasePrice) {
-        WinningResult winningResult = lottos.matchRanks(winningLotto, bonusNumber);
+    private static void showResult(PurchaseResult purchaseResult) {
+        WinningLotto winningLotto = inputWinningLottoInfo();
+        publishStatistics(
+                purchaseResult.lottos(),
+                winningLotto,
+                purchaseResult.purchasePrice()
+        );
+    }
+
+    private static void publishStatistics(Lottos lottos, WinningLotto winningLotto, Money purchasePrice) {
+        WinningResult winningResult = lottos.matchRanks(winningLotto);
         LotteryStatistics lotteryStatistics = new LotteryStatistics(winningResult);
         Money totalPrize = lotteryStatistics.calculatePrize();
         ResultView.printStatistics(lotteryStatistics, totalPrize, purchasePrice);
     }
 
-    private static void showResult(PurchaseResult purchaseResult) {
+    private static WinningLotto inputWinningLottoInfo() {
         Lotto winningLotto = inputWinningLotto();
-        LottoNumber bonusNumber = inputBonusNumber(winningLotto);
-        publishStatistics(
-                purchaseResult.lottos(),
-                winningLotto,
-                bonusNumber,
-                purchaseResult.purchasePrice()
-        );
+        return retry(() -> new WinningLotto(winningLotto, LottoNumber.from(InputView.inputBonusNumber())));
+    }
+
+    private static Lotto inputWinningLotto() {
+        return retry(() -> Lotto.from(InputView.inputWinningLotto()));
     }
 
     private static int inputManualLottoCount() {
@@ -77,14 +85,6 @@ public class Application {
         return manualLottos;
     }
 
-    private static LottoNumber inputBonusNumber(Lotto winningLotto) {
-        return retry(() -> {
-            LottoNumber bonusNumber = LottoNumber.from(InputView.inputBonusNumber());
-            winningLotto.validateBonusNumber(bonusNumber);
-            return bonusNumber;
-        });
-    }
-
     private static Money inputPurchasePrice() {
         return retry(() -> new Money(InputView.inputPrice()));
     }
@@ -93,10 +93,6 @@ public class Application {
         Lottos lottos = LottoStore.buy(totalCount, manualLottos);
         ResultView.printLottos(lottos, manualLottos.size());
         return lottos;
-    }
-
-    private static Lotto inputWinningLotto() {
-        return retry(() -> Lotto.from(InputView.inputWinningLotto()));
     }
 
     private static <T> T retry(Supplier<T> action) {
