@@ -34,4 +34,35 @@ public class InputView {
 
         return bonusBall;
     }
+
+    public static int inputPassiveCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        int count = scanner.nextInt();
+        return count;
+    }
+
+    public static List<List<Integer>> inputPassiveLotto(int manualCount) {
+        scanner.nextLine();
+
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> passiveLottos = new ArrayList<>();
+
+        for (int i = 0; i < manualCount; i++) {
+            passiveLottos.add(inputManualLotto());
+        }
+        return passiveLottos;
+    }
+
+    private static List<Integer> inputManualLotto() {
+        String input = scanner.nextLine();
+        String[] numbers = input.split(",");
+
+        List<Integer> lotto = new ArrayList<>();
+
+        for (String number : numbers) {
+            lotto.add(Integer.parseInt(number.trim()));
+        }
+
+        return lotto;
+    }
 }

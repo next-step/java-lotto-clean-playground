@@ -22,28 +22,32 @@ public class Lotto {
         Collections.shuffle(lotto);
     }
 
-    private List<Integer> lottoPick(List<Integer> lotto) {
-        List<Integer> lottoSix = new ArrayList<>(lotto.subList(0, 6));
+    private List<LottoNumber> lottoPick(List<Integer> lotto) {
+        List<LottoNumber> lottoSix = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            lottoSix.add(lotto.get(i));
+        }
+
         return lottoSix;
     }
 
-    private void lottoSort(List<Integer> lotto) {
+    private void lottoSort(List<LottoNumber> lotto) {
         Collections.sort(lotto);
     }
 
-    public List<Integer> run() {
+    public List<LottoNumber> run() {
         List<Integer> lottoList = lottoList();
 
         lottoShuffle(lottoList);
-        lottoList = lottoPick(lottoList);
-        lottoSort(lottoList);
+        List<LottoNumber> lotto = lottoPick(lottoList);
+        lottoSort(lotto);
 
-        return lottoList;
+        return lotto;
     }
 
-    public List<List<Integer>> lottoLists(int price) {
+    public List<List<LottoNumber>> lottoLists(int count) {
         List<List<Integer>> lottos = new ArrayList<>();
-        for (int i = 0; i < price; i++) {
+        for (int i = 0; i < count; i++) {
             lottos.add(run());
         }
         return lottos;
