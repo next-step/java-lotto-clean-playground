@@ -8,7 +8,8 @@ public enum LottoWinningType {
     SECOND_PLACE("5개 일치, 보너스 볼 일치(30000000원)- ", tickets -> tickets * 30000000),
     THIRD_PLACE("5개 일치 (1500000원)- ", tickets -> tickets * 1500000),
     FOURTH_PLACE("4개 일치 (50000원)- ", tickets -> tickets * 50000),
-    FIFTH_PLACE("3개 일치 (5000원)- ", tickets -> tickets * 5000);
+    FIFTH_PLACE("3개 일치 (5000원)- ", tickets -> tickets * 5000),
+    NO_PRIZE("2개 이하 일치 (0원)- ", tickets -> 0d);
 
     private String winningDescription;
     private Function<Double, Double> prizeExpression;
@@ -23,8 +24,8 @@ public enum LottoWinningType {
         return prizeExpression.apply(matchingTickets);
     }
 
-    public static LottoWinningTypePrize findLottoWinningType(String winningType){
-        return Arrays.stream(LottoWinningTypePrize.values())
+    public static LottoWinningType findLottoWinningType(String winningType){
+        return Arrays.stream(LottoWinningType.values())
                 .filter(lottoWinningTypePrize -> lottoWinningTypePrize.name().equals(winningType))
                 .findAny()
                 .orElse(NO_PRIZE);
