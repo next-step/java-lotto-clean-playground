@@ -48,6 +48,6 @@ public class PurchasePrice {
     }
 
     public float calculateProfit(long prize) { // 수익률 계산
-        return (float) prize / purchasePrice * 100;
+        return (float) prize / purchasePrice;
     }
 }
