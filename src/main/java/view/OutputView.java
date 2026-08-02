@@ -1,6 +1,12 @@
 package view;
 
-import domain.*;
+import domain.Lotto;
+import domain.LottoNumber;
+import domain.LottoRank;
+import domain.LottoStatistics;
+import domain.Lottos;
+import domain.PurchaseAmount;
+import domain.WinningNumbers;
 
 import java.util.ArrayList;
 import java.util.List;
