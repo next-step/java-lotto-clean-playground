@@ -1,3 +1,4 @@
+import domain.LottoNumber;
 import domain.Lottos;
 import domain.PurchaseAmount;
 import domain.WinningNumbers;
@@ -20,8 +21,13 @@ public class Application {
         outputView.printLottos(lottos);
 
         List<Integer> inputWinningNumbers = inputView.readWinningNumbers();
-        WinningNumbers winningNumbers = new WinningNumbers(inputWinningNumbers);
+        int inputBonusNumber = inputView.readBonusNumber();
 
-        outputView.printLottoStatistics(lottos, winningNumbers, purchaseAmount);
+        WinningNumbers winningNumbers = new WinningNumbers(inputWinningNumbers);
+        LottoNumber bonusNumber = new LottoNumber(inputBonusNumber);
+
+        winningNumbers.validateBonusNumber(bonusNumber);
+
+        outputView.printLottoStatistics(lottos, winningNumbers, purchaseAmount, bonusNumber);
     }
 }

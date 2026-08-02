@@ -33,4 +33,14 @@ public class InputView {
 
          return winningNumbers;
     }
+
+    public int readBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String inputBonusNumber = scanner.nextLine();
+        int bonusNumber = Integer.parseInt(inputBonusNumber);
+
+        System.out.println();
+
+        return bonusNumber;
+    }
 }

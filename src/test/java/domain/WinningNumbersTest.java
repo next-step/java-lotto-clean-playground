@@ -36,4 +36,18 @@ public class WinningNumbersTest {
                 () -> new WinningNumbers(numbers)
         );
     }
+
+    @Test
+    @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외가 발생한다")
+    void throwsExceptionWhenBonusNumberIsDuplicatedWithWinningNumbers() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+        LottoNumber bonusNumber = new LottoNumber(3);
+
+        WinningNumbers winningNumbers = new WinningNumbers(numbers);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> winningNumbers.validateBonusNumber(bonusNumber)
+        );
+    }
 }
