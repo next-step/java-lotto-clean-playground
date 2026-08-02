@@ -1,7 +1,4 @@
-import domain.LottoNumber;
-import domain.Lottos;
-import domain.PurchaseAmount;
-import domain.WinningNumbers;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -12,19 +9,20 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        int inputAmount = inputView.readPurchaseAmount();
-        PurchaseAmount purchaseAmount = new PurchaseAmount(inputAmount);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(inputView.readPurchaseAmount());
 
-        Lottos lottos = new Lottos(purchaseAmount);
+        int manualLottoCount = inputView.readManualLottoCount();
+        int autoLottoCount = purchaseAmount.calculateAutoLottoCount(manualLottoCount);
 
-        outputView.printPurchasedCount(purchaseAmount);
+        List<List<Integer>> manualLottoNumbers = inputView.readManualLottoNumbers(manualLottoCount);
+
+        Lottos lottos = new Lottos(manualLottoNumbers, autoLottoCount);
+
+        outputView.printPurchasedCount(manualLottoCount, autoLottoCount);
         outputView.printLottos(lottos);
 
-        List<Integer> inputWinningNumbers = inputView.readWinningNumbers();
-        int inputBonusNumber = inputView.readBonusNumber();
-
-        WinningNumbers winningNumbers = new WinningNumbers(inputWinningNumbers);
-        LottoNumber bonusNumber = new LottoNumber(inputBonusNumber);
+        WinningNumbers winningNumbers = new WinningNumbers(inputView.readWinningNumbers());
+        LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
 
         winningNumbers.validateBonusNumber(bonusNumber);
 

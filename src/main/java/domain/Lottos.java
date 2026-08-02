@@ -6,10 +6,12 @@ import java.util.List;
 public class Lottos {
     private final List<Lotto> lottos = new ArrayList<>();
 
-    public Lottos(PurchaseAmount purchaseAmount) {
-        int lottoCount = purchaseAmount.calculateLottoCount();
+    public Lottos(List<List<Integer>> manualLottoNumbers, int autoLottoCount) {
+        for (List<Integer> manualLottoNumber : manualLottoNumbers) {
+            lottos.add(new Lotto(manualLottoNumber));
+        }
 
-        for (int i = 0; i < lottoCount; i++) {
+        for (int i = 0; i < autoLottoCount; i++) {
             lottos.add(new Lotto());
         }
     }

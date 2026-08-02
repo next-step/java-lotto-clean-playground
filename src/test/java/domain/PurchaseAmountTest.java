@@ -34,4 +34,37 @@ public class PurchaseAmountTest {
                 () -> new PurchaseAmount(amount)
         );
     }
+
+    @Test
+    @DisplayName("수동 구매 개수가 음수이면 예외가 발생한다")
+    void throwsExceptionWhenManualLottoCountIsNegative() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
+        int manualLottoCount = -2;
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> purchaseAmount.calculateAutoLottoCount(manualLottoCount)
+        );
+    }
+
+    @Test
+    @DisplayName("수동 구매 개수가 전체 구매 가능 개수를 초과하면 예외가 발생한다")
+    void throwsExceptionWhenManualLottoCountExceedsTotalLottoCount() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
+        int manualLottoCount = 15;
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> purchaseAmount.calculateAutoLottoCount(manualLottoCount)
+        );
+    }
+
+    @Test
+    @DisplayName("수동 구매 개수를 제외한 자동 구매 개수를 계산한다")
+    void calculatesAutoLottoCountWithValidManualLottoCount() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
+        int manualLottoCount = 3;
+
+        assertEquals(11, purchaseAmount.calculateAutoLottoCount(manualLottoCount));
+    }
 }

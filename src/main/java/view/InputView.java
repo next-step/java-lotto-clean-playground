@@ -17,21 +17,37 @@ public class InputView {
         return purchaseAmount;
     }
 
-    public List<Integer> readWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String inputWinningNumbers = scanner.nextLine();
+    public int readManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String inputManualLottoCount = scanner.nextLine();
+        int manualLottoCount = Integer.parseInt(inputManualLottoCount);
+
         System.out.println();
 
-        String[] splitWinningNumbers = inputWinningNumbers.split(",");
+        return manualLottoCount;
+    }
 
-        List<Integer> winningNumbers = new ArrayList<>();
+    public List<List<Integer>> readManualLottoNumbers(int manualLottoCount) {
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
 
-        for (String splitWinningNumber : splitWinningNumbers) {
-            splitWinningNumber = splitWinningNumber.trim();
-            winningNumbers.add(Integer.parseInt(splitWinningNumber));
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+
+        for (int i = 0; i < manualLottoCount; i++) {
+            String inputNumbers = scanner.nextLine();
+            manualLottoNumbers.add(parseNumbers(inputNumbers));
         }
 
-         return winningNumbers;
+        System.out.println();
+
+        return manualLottoNumbers;
+    }
+
+    public List<Integer> readWinningNumbers() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        String winningNumbers = scanner.nextLine();
+        System.out.println();
+
+         return parseNumbers(winningNumbers);
     }
 
     public int readBonusNumber() {
@@ -42,5 +58,17 @@ public class InputView {
         System.out.println();
 
         return bonusNumber;
+    }
+
+    private List<Integer> parseNumbers(String input) {
+        List<Integer> numbers = new ArrayList<>();
+
+        String[] numberStrings = input.split(",");
+
+        for (String numberString : numberStrings) {
+            numbers.add(Integer.parseInt(numberString.trim()));
+        }
+
+        return numbers;
     }
 }

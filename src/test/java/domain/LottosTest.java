@@ -5,12 +5,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class LottosTest {
     @Test
-    @DisplayName("구입 금액으로 계산된 개수만큼 로또를 생성한다")
-    void createsLottosBasedOnPurchaseAmount() {
+    @DisplayName("수동 로또와 자동 로또를 합한 개수만큼 로또를 생성한다")
+    void createsManualAndAutoLottos() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(12000);
+
+        int manualLottoCount = 3;
+        int autoLottoCount = purchaseAmount.calculateAutoLottoCount(manualLottoCount);
+        List<List<Integer>> manualLottoNumbers = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(7, 8, 9, 10, 11, 12),
+                List.of(13, 14, 15, 16, 17, 18)
+        );
+
+        Lottos lottos = new Lottos(manualLottoNumbers, autoLottoCount);
+
+        assertEquals(12, lottos.getLottos().size());
+    }
+
+    @Test
+    @DisplayName("수동 로또가 없으면 자동 로또만 생성한다")
+    void createsOnlyAutoLottosWhenThereAreNoManualLottos() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
-        Lottos lottos = new Lottos(purchaseAmount);
+
+        int manualLottoCount = 0;
+        int autoLottoCount = purchaseAmount.calculateAutoLottoCount(manualLottoCount);
+        List<List<Integer>> manualLottoNumbers = List.of();
+
+        Lottos lottos = new Lottos(manualLottoNumbers, autoLottoCount);
 
         assertEquals(14, lottos.getLottos().size());
     }

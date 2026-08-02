@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutputView {
-    public void printPurchasedCount(PurchaseAmount purchaseAmount) {
-        System.out.println(purchaseAmount.calculateLottoCount() + "개를 구매했습니다.");
+    public void printPurchasedCount(int manualLottoCount, int autoLottoCount) {
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
     }
 
     public void printLottos(Lottos lottos) {
