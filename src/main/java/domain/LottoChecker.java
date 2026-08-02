@@ -13,8 +13,19 @@ public class LottoChecker {
     public LottoChecker(String[] lastWeekWinnerLottoNumbers, LottoTickets lottoTickets, String bonusNumber) {
         this.winningLottoNumbers = wrappingToIntegerLottoNumbers(lastWeekWinnerLottoNumbers);
         this.lottoTickets = lottoTickets;
-
+        validateBonusNumber(bonusNumber);
         this.bonusNumber = Integer.parseInt(bonusNumber);
+    }
+
+    private void validateBonusNumber(String bonusNumber) {
+        try {
+            int number = Integer.parseInt(bonusNumber);
+            if (number < 1 || number > 45) {
+                throw new IllegalArgumentException("보너스 볼은 1과 45 사이의 숫자여야 합니다.");
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("보너스 볼은 숫자여야 합니다.");
+        }
     }
 
     private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {

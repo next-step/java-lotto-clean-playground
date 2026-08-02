@@ -11,25 +11,20 @@ public final class InputView {
 
     public static int inputLottoTotalPrice(){
         System.out.println("구입 금액을 입력해 주세요.");
-
-        String stringLottoTotalPrice;
-        int validLottoTotalPrice;
-
         try {
-            stringLottoTotalPrice = lottoScanner.nextLine();
-
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("정수로 입력해주세요");
+            return Integer.parseInt(lottoScanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("구입 금액은 숫자로만 입력해야 합니다.");
         }
-
-        validLottoTotalPrice = Integer.parseInt(stringLottoTotalPrice);
-
-        return validLottoTotalPrice;
     }
 
     public static int inputUserSelectedLottoCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        return Integer.parseInt(lottoScanner.nextLine());
+        try {
+            return Integer.parseInt(lottoScanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("로또 개수는 숫자로만 입력해야 합니다.");
+        }
     }
 
     public static ArrayList<String> inputUserSelectedLottoNumbers(int userSelectedNumbersCount) {
@@ -52,7 +47,9 @@ public final class InputView {
     public static String inputBonusBallNumber(){
         System.out.println("\n보너스 볼을 입력해 주세요.");
         String bonusNumber = lottoScanner.nextLine();
-
+        if (bonusNumber.contains(" ") || bonusNumber.contains(",")) {
+            throw new IllegalArgumentException("보너스 볼은 하나의 숫자만 입력해야 합니다.");
+        }
         return bonusNumber;
     }
 
