@@ -42,6 +42,8 @@ public final class InputView {
     }
 
     public static void closeScanner(Scanner scanner) {
-        closeScanner(scanner);
+        if (scanner != null) {
+            scanner.close();
+        }
     }
 }
