@@ -2,6 +2,7 @@ package domain;
 
 public class ProfitRate {
     private static final int FIRST_PRIZE = 2000000000;
+    private static final int BONUS_SECOND_PRIZE = 30000000;
     private static final int SECOND_PRIZE = 1500000;
     private static final int THIRD_PRIZE = 50000;
     private static final int FOURTH_PRIZE = 5000;
@@ -18,9 +19,10 @@ public class ProfitRate {
         int fourth = winningStatistics.getFourthPlace();
         int third = winningStatistics.getThirdPlace();
         int second = winningStatistics.getSecondPlace();
+        int bonusSecond = winningStatistics.getBounusSecondPlace();
         int first = winningStatistics.getFirstPlace();
 
-        return fourth * FOURTH_PRIZE + third * THIRD_PRIZE + second * SECOND_PRIZE + first * FIRST_PRIZE;
+        return fourth * FOURTH_PRIZE + third * THIRD_PRIZE + second * SECOND_PRIZE + bonusSecond * BONUS_SECOND_PRIZE + first * FIRST_PRIZE;
     }
 
     public double getProfitRate() {

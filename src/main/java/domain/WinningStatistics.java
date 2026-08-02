@@ -7,30 +7,33 @@ public class WinningStatistics {
     private int thirdPlace = 0; // 4개 일치
     private int secondPlace = 0; // 5개 일치
     private int firstPlace = 0; // 6개 일치
+    private int bonusSecondPlace = 0; // 5개 일치 + 보너스 볼 일치
     private int temptCount = 0;
     MatchCount matchCount = new MatchCount();
 
-    public void compareLottos (List<Integer> winningNumbers, Lottos lottos) {
+    public void compareLottos (List<Integer> winningNumbers, Lottos lottos, int bonusNumber) {
         for (LottoNumber lottoNumber : lottos.getLottos()) {
             matchCount.comparingLotto(lottoNumber.getLottoNumbers(), winningNumbers);
             temptCount = matchCount.getCount();
-            setPlace(temptCount);
+            setPlace(temptCount, lottoNumber.getLottoNumbers(), bonusNumber);
         }
     }
 
-    private void setPlace(int temptCount) {
-        if (temptCount == 3) {
-            fourthPlace++;
-        }
-        if (temptCount == 4) {
-            thirdPlace++;
-        }
+    private void setPlace(int temptCount, List<Integer> lottoNumber, int bonusNumber) {
+        if (temptCount == 3) {fourthPlace++;}
+        if (temptCount == 4) {thirdPlace++;}
         if (temptCount == 5) {
-            secondPlace++;
+            bonusBallChecker(lottoNumber, bonusNumber);
         }
-        if (temptCount == 6) {
-            firstPlace++;
+        if (temptCount == 6) {firstPlace++;}
+    }
+
+    private void bonusBallChecker(List<Integer> lottoNumber, int bonusNumber) {
+        if (matchCount.hasBonusNumber(lottoNumber, bonusNumber)) {
+            bonusSecondPlace++;
+            return;
         }
+        secondPlace++;
     }
 
     public int getFourthPlace() {
@@ -44,5 +47,8 @@ public class WinningStatistics {
     }
     public int getFirstPlace() {
         return firstPlace;
+    }
+    public int getBounusSecondPlace() {
+        return bonusSecondPlace;
     }
 }

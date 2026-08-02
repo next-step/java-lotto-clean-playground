@@ -16,7 +16,12 @@ public class MatchCount {
             count++;
         }
     }
+
     public int getCount() {
         return count;
+    }
+
+    public boolean hasBonusNumber(List<Integer> lottoNumber, int bonusNumber) {
+        return lottoNumber.contains(bonusNumber);
     }
 }
