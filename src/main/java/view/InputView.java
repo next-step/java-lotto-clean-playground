@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class InputView {
@@ -24,6 +25,20 @@ public final class InputView {
         validLottoTotalPrice = Integer.parseInt(stringLottoTotalPrice);
 
         return validLottoTotalPrice;
+    }
+
+    public static int inputManualLottoCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(lottoScanner.nextLine());
+    }
+
+    public static ArrayList<String> inputManualLottoNumbers(int userSelectedNumbersCount) {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        ArrayList<String> userSelectedNumbers = new ArrayList<>();
+        for (int i = 0; i < userSelectedNumbersCount; i++) {
+            userSelectedNumbers.add(lottoScanner.nextLine());
+        }
+        return userSelectedNumbers;
     }
 
     public static String inputWinningLottoNumbers(){
