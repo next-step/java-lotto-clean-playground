@@ -20,7 +20,6 @@ public class LottoResult {
         for (Map.Entry<LottoWinningType, Integer> entry : stats.entrySet()) {
             LottoWinningType type = entry.getKey();
             int count = entry.getValue();
-            // Enum의 함수형 인터페이스 호출
             totalPrize += (long) type.prizeExpression((double) count);
         }
         return totalPrize;

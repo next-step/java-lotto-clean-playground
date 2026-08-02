@@ -17,7 +17,6 @@ public class LottoTickets {
         return new TreeSet<>(lottoArrayList.get(lottoTicketNumber).getRandomNumberSet());
     }
 
-
     public int getSize() {
         return lottoArrayList.size();
     }

@@ -2,8 +2,6 @@ package view;
 
 import domain.LottoTickets;
 import domain.LottoWinningType;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public final class OutputView {
