@@ -22,6 +22,8 @@ public class Application {
         String[] winningNumbers  = InputView.inputWinningLottoNumbers().split(", ");
         // todo: 사용자가 입력한 지난주 당첨번호가 6개가 아니라면,, -> 예외처리? 어디에서?
 
+        String bonusNumber = InputView.inputBonusBallNumber();
+
         LottoChecker lottoChecker = new LottoChecker(winningNumbers, lottoTickets);
         Map<Integer,Integer> countedMatches = lottoChecker.countMatches(lottoChecker.checkAllTickets());
         OutputView.printMatchCount(countedMatches);

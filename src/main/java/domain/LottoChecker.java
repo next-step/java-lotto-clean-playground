@@ -10,16 +10,22 @@ import java.util.stream.Collectors;
 public class LottoChecker {
     private final ArrayList<Integer> winningLottoNumbers;
     private final LottoTickets lottoTickets;
+    private final String bonusNumber;
 
-    public LottoChecker(String[] lastWeekWinnerLottoNumbers, LottoTickets lottoTickets) {
+    public LottoChecker(String[] lastWeekWinnerLottoNumbers, LottoTickets lottoTickets, String bonusNumber) {
         this.winningLottoNumbers = wrappingToIntegerLottoNumbers(lastWeekWinnerLottoNumbers);
         this.lottoTickets = lottoTickets;
+        this.bonusNumber = bonusNumber;
     }
 
     private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
         return (ArrayList<Integer>) Arrays.stream(stringWinnerNumbers)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    private Integer wrappingToIntegerBonusNumber(String bonusNumber) {
+        return Integer.getInteger(bonusNumber);
     }
 
     public ArrayList<Integer> checkAllTickets() {

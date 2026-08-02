@@ -34,6 +34,13 @@ public final class InputView {
         return winningLottoNumbers;
     }
 
+    public static String inputBonusBallNumber(){
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        String bonusNumber = lottoScanner.nextLine();
+
+        return bonusNumber;
+    }
+
     public static void closeScanner(Scanner scanner) {
         closeScanner(scanner);
     }
