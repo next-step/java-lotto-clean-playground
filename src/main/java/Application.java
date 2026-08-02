@@ -53,8 +53,7 @@ public class Application {
 
     private static void publishStatistics(Lottos lottos, WinningLotto winningLotto, Money purchasePrice) {
         WinningResult winningResult = lottos.matchRanks(winningLotto);
-        Money totalPrize = winningResult.calculatePrize();
-        ResultView.printStatistics(winningResult, totalPrize, purchasePrice);
+        ResultView.printStatistics(winningResult, purchasePrice);
     }
 
     private static WinningLotto inputWinningLottoInfo() {

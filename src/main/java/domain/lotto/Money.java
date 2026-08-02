@@ -3,21 +3,21 @@ package domain.lotto;
 public final class Money {
     public static final int LOTTO_PRICE = 1000;
     public static final Money ZERO = new Money(0);
-    private final int value;
+    private final long value;
 
-    private Money(int value) {
+    private Money(long value) {
         validate(value);
         this.value = value;
     }
 
-    public static Money from(int value) {
+    public static Money from(long value) {
         if (value == 0) {
             return ZERO;
         }
         return new Money(value);
     }
 
-    private static void validate(int value) {
+    private static void validate(long value) {
         if (value < 0) {
             throw new IllegalArgumentException("금액은 0 이상이어야 합니다.");
         }
@@ -38,12 +38,12 @@ public final class Money {
         return (double) this.value / other.value;
     }
 
-    public int divideBy(Money money) {
+    public long divideBy(Money money) {
         return this.value / money.value;
     }
 
     public int countPurchasable(Money lottoPrice) {
-        int count = this.divideBy(lottoPrice);
+        int count = (int) this.divideBy(lottoPrice);
         validatePurchasable(count);
         return count;
     }
@@ -59,16 +59,15 @@ public final class Money {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Money)) {
+        if (!(o instanceof Money money)) {
             return false;
         }
-        Money money = (Money) o;
         return value == money.value;
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(value);
+        return Long.hashCode(value);
     }
 
     @Override

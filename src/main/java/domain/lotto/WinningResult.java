@@ -36,4 +36,9 @@ public class WinningResult {
         }
         return total;
     }
+
+    public double calculateProfitRate(Money purchasePrice) {
+        Money totalPrize = calculatePrize();
+        return totalPrize.divide(purchasePrice);
+    }
 }

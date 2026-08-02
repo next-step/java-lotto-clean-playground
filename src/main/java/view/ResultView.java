@@ -26,7 +26,7 @@ public class ResultView {
         }
     }
 
-    public static void printStatistics(WinningResult winningResult, Money totalPrize, Money purchasePrice) {
+    public static void printStatistics(WinningResult winningResult, Money purchasePrice) {
         System.out.println("당첨 통계\n---------");
         Map<Rank, Integer> result = winningResult.getStatistics();
 
@@ -34,7 +34,7 @@ public class ResultView {
             printEntry(entry);
         }
 
-        double rate = totalPrize.divide(purchasePrice);
+        double rate = winningResult.calculateProfitRate(purchasePrice);
         System.out.println("총 수익률은 " + String.format("%.2f", rate) + "입니다.");
     }
 
