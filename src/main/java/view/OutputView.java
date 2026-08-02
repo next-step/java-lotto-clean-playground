@@ -9,9 +9,8 @@ public final class OutputView {
 
     }
 
-    public static void printLottoCount(int lottoCount) {
-        System.out.println(lottoCount + "개를 구매했습니다");
-        System.out.println();
+    public static void printLottoCount(int userSelectedCount, int autoCount) {
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", userSelectedCount, autoCount);
     }
 
     public static void printLottoNumbers(LottoTickets lottoTickets) {
