@@ -19,8 +19,8 @@ public enum LottoWinningType {
 
     }
 
-    public long calculatePrize(double matchingTickets) {
-        return prizeExpression.apply((long) matchingTickets);
+    public double prizeExpression(double matchingTickets) {
+        return prizeExpression.apply(matchingTickets);
     }
 
     public static LottoWinningTypePrize findLottoWinningType(String winningType){
