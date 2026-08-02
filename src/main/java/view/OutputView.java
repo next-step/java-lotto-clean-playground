@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutputView {
-    private static final int MIN_WINNING_MATCH_COUNT = 3;
-    private static final int MAX_WINNING_MATCH_COUNT = 6;
-    private static final int BONUS_MATCH_COUNT = 5;
-
     public void printPurchasedCount(PurchaseAmount purchaseAmount) {
         System.out.println(purchaseAmount.calculateLottoCount() + "개를 구매했습니다.");
     }
@@ -47,11 +43,8 @@ public class OutputView {
     }
 
     private void printWinningCounts(LottoStatistics lottoStatistics) {
-        for (int matchCount = MIN_WINNING_MATCH_COUNT; matchCount <= MAX_WINNING_MATCH_COUNT; matchCount++) {
-            System.out.println(matchCount + "개 일치 ("
-                    + lottoStatistics.getPrizeAmount(matchCount) + ")- "
-                    + lottoStatistics.getWinningCount(matchCount) + "개");
-            printBonusWinningCountIfNeeded(lottoStatistics, matchCount);
+        for (LottoRank rank : LottoRank.values()) {
+            printWinningResult(lottoStatistics, rank);
         }
     }
 
@@ -59,11 +52,15 @@ public class OutputView {
         System.out.println("총 수익률은 " + lottoStatistics.calculateProfitRate(purchaseAmount) + "입니다.");
     }
 
-    private void printBonusWinningCountIfNeeded(LottoStatistics lottoStatistics, int matchCount) {
-        if (matchCount == BONUS_MATCH_COUNT) {
-            System.out.println(matchCount + "개 일치, 보너스 볼 일치("
-                    + lottoStatistics.getBonusPrizeAmount() + ") - "
-                    + lottoStatistics.getBonusWinningCount() + "개");
+    private void printWinningResult(LottoStatistics lottoStatistics, LottoRank rank) {
+        if (rank == LottoRank.SECOND) {
+            System.out.println(rank.getMatchCount() + "개 일치, 보너스 볼 일치("
+                    + rank.getPrize() + "원) - "
+                    + lottoStatistics.getWinningCount(rank) + "개");
+            return;
         }
+        System.out.println(rank.getMatchCount() + "개 일치 ("
+                + rank.getPrize() + "원)- "
+                + lottoStatistics.getWinningCount(rank) + "개");
     }
 }

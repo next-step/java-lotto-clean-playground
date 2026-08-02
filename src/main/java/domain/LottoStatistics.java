@@ -1,20 +1,10 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class LottoStatistics {
-    private static final long THREE_MATCH_PRIZE = 5000;
-    private static final long FOUR_MATCH_PRIZE = 50000;
-    private static final long FIVE_MATCH_PRIZE = 1500000;
-    private static final long BONUS_MATCH_PRIZE = 30000000;
-    private static final long SIX_MATCH_PRIZE = 2000000000;
-    private static final int MAX_MATCH_COUNT = 6;
-    private static final int BONUS_MATCH_COUNT = 5;
-
-    private final List<Integer> winningCounts = new ArrayList<>(7);
-
-    private int bonusWinningCount = 0;
+    private final Map<LottoRank, Integer> winningCounts = new EnumMap<>(LottoRank.class);
 
     public LottoStatistics(Lottos lottos, WinningNumbers winningNumbers, LottoNumber bonusNumber) {
         initializeWinningCounts();
@@ -22,24 +12,8 @@ public class LottoStatistics {
         calculateWinningCounts(lottos, winningNumbers, bonusNumber);
     }
 
-    public int getWinningCount(int matchCount) {
-        return winningCounts.get(matchCount);
-    }
-
-    public long getPrizeAmount(int matchCount) {
-        if (matchCount == 3) return THREE_MATCH_PRIZE;
-        if (matchCount == 4) return FOUR_MATCH_PRIZE;
-        if (matchCount == 5) return FIVE_MATCH_PRIZE;
-        if (matchCount == 6) return SIX_MATCH_PRIZE;
-        return 0;
-    }
-
-    public int getBonusWinningCount() {
-        return bonusWinningCount;
-    }
-
-    public long getBonusPrizeAmount() {
-        return BONUS_MATCH_PRIZE;
+    public int getWinningCount(LottoRank rank) {
+        return winningCounts.get(rank);
     }
 
     public double calculateProfitRate(PurchaseAmount purchaseAmount) {
@@ -49,18 +23,16 @@ public class LottoStatistics {
     private long calculateTotalPrize() {
         long total = 0;
 
-        total += getWinningCount(3) * THREE_MATCH_PRIZE;
-        total += getWinningCount(4) * FOUR_MATCH_PRIZE;
-        total += getWinningCount(5) * FIVE_MATCH_PRIZE;
-        total += getBonusWinningCount() * BONUS_MATCH_PRIZE;
-        total += getWinningCount(6) * SIX_MATCH_PRIZE;
+        for (LottoRank rank : LottoRank.values()) {
+            total += getWinningCount(rank) * rank.getPrize();
+        }
 
         return total;
     }
 
     private void initializeWinningCounts() {
-        for (int i = 0; i <= MAX_MATCH_COUNT; i++) {
-            winningCounts.add(0);
+        for (LottoRank rank : LottoRank.values()) {
+            winningCounts.put(rank, 0);
         }
     }
 
@@ -70,12 +42,8 @@ public class LottoStatistics {
         }
     }
 
-    private void increaseWinningCount(int countMatchingNumbers) {
-        winningCounts.set(countMatchingNumbers, winningCounts.get(countMatchingNumbers) + 1);
-    }
-
-    private void increaseBonusWinningCount() {
-        bonusWinningCount++;
+    private void increaseWinningCount(LottoRank rank) {
+        winningCounts.put(rank, winningCounts.get(rank) + 1);
     }
 
     private boolean isBonusNumberMatched(Lotto lotto, LottoNumber bonusNumber) {
@@ -83,13 +51,15 @@ public class LottoStatistics {
     }
 
     private void processLottoResult(Lotto lotto, WinningNumbers winningNumbers, LottoNumber bonusNumber) {
-        int countMatchingNumbers = winningNumbers.countMatchingNumbers(lotto);
+        int matchCount = winningNumbers.countMatchingNumbers(lotto);
+        boolean bonusMatched = isBonusNumberMatched(lotto, bonusNumber);
 
-        if (countMatchingNumbers == BONUS_MATCH_COUNT && isBonusNumberMatched(lotto, bonusNumber)) {
-            increaseBonusWinningCount();
+        LottoRank rank = LottoRank.from(matchCount, bonusMatched);
+
+        if (rank == null) {
             return;
         }
 
-        increaseWinningCount(countMatchingNumbers);
+        increaseWinningCount(rank);
     }
 }
