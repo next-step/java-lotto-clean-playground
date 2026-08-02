@@ -28,7 +28,7 @@ public class WinningNumbers {
     }
   }
 
-  public long countMatch(Lotto purchasedLotto) {
+  public long matchCount(Lotto purchasedLotto) {
     return lotto.countMatchingNumber(purchasedLotto);
   }
 
