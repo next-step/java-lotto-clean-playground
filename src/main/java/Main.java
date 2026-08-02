@@ -13,6 +13,8 @@ public class Main {
         ResultView.showNum(lottos);
 
         String enteredWinningNumber = InputView.getWinningNumber();
+        int bonusNumber = InputView.getBounusNumber();
+
         WinningNumber winningNumber = new WinningNumber();
         List<Integer> winningNumbers =  winningNumber.setWinningNumber(enteredWinningNumber);
         WinningStatistics winningStatistics = new WinningStatistics();
