@@ -16,19 +16,21 @@ public class LottoResult {
         return count;
     }
 
-    private int checkingWinningNumbers(List<Integer> lottoList, List<Integer> wins) {
+    private int checkingWinningNumbers(List<Integer> lottoList, List<Integer> wins, int bonusBall) {
         int count = 0;
         for (int win : wins) {
             count = resultCounting(lottoList, win, count);
         }
+
+        if (count == 5 && containsWinningNumber(lottoList, bonusBall)) return 7;
         return count;
     }
 
-    public List<Integer> calculateCounts(List<List<Integer>> lottos, List<Integer> wins) {
+    public List<Integer> calculateCounts(List<List<Integer>> lottos, List<Integer> wins, int bonusBall) {
         List<Integer> counts = new ArrayList<>();
 
         for (List<Integer> lotto : lottos) {
-            counts.add(checkingWinningNumbers(lotto, wins));
+            counts.add(checkingWinningNumbers(lotto, wins, bonusBall));
         }
         return counts;
     }

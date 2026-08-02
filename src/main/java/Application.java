@@ -20,7 +20,8 @@ public class Application {
         ResultView.printPurchase(lottos);
 
         List<Integer> wins = InputView.inputWinning();
-        List<Integer> counts = lottoResult.calculateCounts(lottos, wins);
+        int bonusBall = InputView.inputBonusBall();
+        List<Integer> counts = lottoResult.calculateCounts(lottos, wins, bonusBall);
 
         int winPrice = winningRate.calculateWinPrice(counts);
         double rate = winningRate.calculateRate(winPrice, purchasePrice);
