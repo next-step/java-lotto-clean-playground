@@ -3,7 +3,7 @@ package view;
 import java.util.Scanner;
 
 public final class InputView {
-    private static final Scanner lottoScanner = new Scanner(System.in);
+    public static Scanner lottoScanner = new Scanner(System.in);
 
     private InputView() {
     }
