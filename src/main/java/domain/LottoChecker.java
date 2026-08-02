@@ -2,20 +2,19 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoChecker {
     private final ArrayList<Integer> winningLottoNumbers;
     private final LottoTickets lottoTickets;
-    private final String bonusNumber;
+
+    private final int bonusNumber;
 
     public LottoChecker(String[] lastWeekWinnerLottoNumbers, LottoTickets lottoTickets, String bonusNumber) {
         this.winningLottoNumbers = wrappingToIntegerLottoNumbers(lastWeekWinnerLottoNumbers);
         this.lottoTickets = lottoTickets;
-        this.bonusNumber = bonusNumber;
+
+        this.bonusNumber = Integer.parseInt(bonusNumber);
     }
 
     private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
@@ -24,27 +23,23 @@ public class LottoChecker {
                 .collect(Collectors.toList());
     }
 
-    private Integer wrappingToIntegerBonusNumber(String bonusNumber) {
-        return Integer.getInteger(bonusNumber);
-    }
-
-    public ArrayList<Integer> checkAllTickets() {
-        ArrayList<Integer> matchCounts = new ArrayList<>();
+    public ArrayList<LottoWinningType> checkAllTickets() {
+        ArrayList<LottoWinningType> winningTypes = new ArrayList<>();
 
         for (int i = 0; i < lottoTickets.getSize(); i++) {
-            matchCounts.add(calculateMatchCountForTicket(i));
-        }
+            int matchCount = calculateMatchCountForTicket(i);
+            boolean matchBonus = hasBonusNumber(i);
 
-        return matchCounts;
+            winningTypes.add(LottoWinningType.valueOf(matchCount, matchBonus));
+        }
+        return winningTypes;
     }
 
     private int calculateMatchCountForTicket(int lottoTicketIndex) {
         int matchCount = 0;
-
         for (int winningNumber : winningLottoNumbers) {
             matchCount += getMatchScore(lottoTicketIndex, winningNumber);
         }
-
         return matchCount;
     }
 
@@ -55,29 +50,7 @@ public class LottoChecker {
         return 0;
     }
 
-    public Map<Integer, Integer> countMatches(ArrayList<Integer> matchCounts) {
-        Map<Integer, Integer> matchStatistics = new HashMap<>();
-
-        for (int matchCount : matchCounts) {
-            updateStatistics(matchStatistics, matchCount);
-        }
-
-        return matchStatistics;
+    public boolean hasBonusNumber(int lottoTicketIndex) {
+        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
     }
-
-    private void updateStatistics(Map<Integer, Integer> matchStatistics, int matchCount) {
-        if (matchCount < 3) {
-            return;
-        }
-
-        if (matchStatistics.containsKey(matchCount)) {
-            int currentCount = matchStatistics.get(matchCount);
-            matchStatistics.put(matchCount, currentCount + 1);
-            return;
-        }
-
-        matchStatistics.put(matchCount, 1);
-    }
-
-
 }

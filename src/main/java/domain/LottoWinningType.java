@@ -17,11 +17,25 @@ public enum LottoWinningType {
 
     LottoWinningType(String winningDescription, Function<Double, Double> prizeExpression) {
         this.winningDescription = winningDescription;
+        this.prizeExpression = prizeExpression;
 
     }
 
     public double prizeExpression(double matchingTickets) {
         return prizeExpression.apply(matchingTickets);
+    }
+
+    public String getWinningDescription() {
+        return winningDescription;
+    }
+
+    public static LottoWinningType valueOf(int matchCount, boolean matchBonus) {
+        if (matchCount == 6) return FIRST_PLACE;
+        if (matchCount == 5 && matchBonus) return SECOND_PLACE;
+        if (matchCount == 5) return THIRD_PLACE;
+        if (matchCount == 4) return FOURTH_PLACE;
+        if (matchCount == 3) return FIFTH_PLACE;
+        return NO_PRIZE;
     }
 
     public static LottoWinningType findLottoWinningType(String winningType){
