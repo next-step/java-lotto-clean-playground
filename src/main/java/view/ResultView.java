@@ -7,8 +7,9 @@ import java.util.Map;
 
 public class ResultView {
 
-    public static void printLottoNumberCount(int lottoNumberCount) {
-        System.out.println("\n" + lottoNumberCount + "개를 구매했습니다.");
+    public static void printLottoNumberCount(int manualLottoCount, int autoLottoCount) {
+        System.out.println("\n수동으로 " + manualLottoCount + "장, "
+                + "자동으로 " + autoLottoCount + "개를 구매했습니다.");
     }
 
     public static void printLotto(Lottos lottos) {

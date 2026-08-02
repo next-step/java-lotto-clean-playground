@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.Map;
 
 public class LottoGame {
@@ -8,17 +9,20 @@ public class LottoGame {
     private CorrectLotto correctLotto;
     private final PurchasePrice purchasePrice;
 
-    public LottoGame(PurchasePrice purchasePrice){
-        lottos = new Lottos(purchasePrice.getLottoNumberCount());
+
+    public LottoGame(PurchasePrice purchasePrice, List<String> values){
+        int autoLottoCount = purchasePrice.getAutoLottoCount();
+        int manualLottoCount = purchasePrice.getManualLottoCount();
+        lottos = new Lottos(autoLottoCount, manualLottoCount, values);
         this.purchasePrice = purchasePrice;
     }
 
 
     public Lottos getLottos() {
         return lottos;
-    }
+    } // 로또 객체 반환
 
-    public void createCorrectLotto(String[] values, LottoNumber bonusBall) {
+    public void createCorrectLotto(String[] values, LottoNumber bonusBall) { // 정답 로또 생성
         correctLotto = new CorrectLotto(values, bonusBall);
     }
 

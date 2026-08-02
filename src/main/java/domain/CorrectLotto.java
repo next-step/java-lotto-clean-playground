@@ -17,7 +17,7 @@ public class CorrectLotto {
     }
 
 
-    private void verifyBonusBall(LottoNumber bonusBall) {
+    private void verifyBonusBall(LottoNumber bonusBall) { // 로또 번호와 중복 확인
         if(correctLotto.contains(bonusBall)){
             throw new IllegalArgumentException("보너스볼은 당첨 번호와 중복될 수 없습니다.");
         }
@@ -48,10 +48,10 @@ public class CorrectLotto {
 
     public List<LottoNumber> getCorrectLotto() { // 로또 번호 반환
         return correctLotto;
-    }
+    } // 로또 번호 반환
 
 
     public LottoNumber getBonusBall() { // 보너스 볼 반환
         return bonusBall;
-    }
+    } // 보너스 볼 반환
 }

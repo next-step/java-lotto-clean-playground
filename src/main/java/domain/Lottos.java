@@ -8,15 +8,17 @@ import java.util.Map;
 public class Lottos {
 
     private final int lottoNumberCount;
-    List<Lotto> lottos;
+    List<Lotto> lottos = new ArrayList<>();
 
-    public Lottos(int lottoNumberCount) {
-        lottos = new ArrayList<>();
-        this.lottoNumberCount = lottoNumberCount;
+    public Lottos(int autoLottoCount, int manualLottoCount, List<String> values) {
 
-        for(int i = 0; i < lottoNumberCount; i++){
-            lottos.add(new Lotto());
-        }
+        List<Lotto> autoLotto = AutoLotto.generateAutoLotto(autoLottoCount);
+        List<Lotto> manualLotto = ManualLotto.generateManualLotto(manualLottoCount, values);
+
+        lottos.addAll(manualLotto);
+        lottos.addAll(autoLotto);
+
+        this.lottoNumberCount = autoLottoCount + manualLottoCount;
     }
 
 
@@ -44,9 +46,9 @@ public class Lottos {
     }
 
 
-    public int getLottoNumberCount() {
+    public int getLottoNumberCount() { // 로또 개수 반환
         return lottoNumberCount;
-    } // 로또 개수 반환
+    }
 
 
     public List<String> getLottoForms() { // 로또 출력 폼 리스트 반환

@@ -1,21 +1,33 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
 import domain.LottoNumber;
-import domain.PurchasePrice;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static PurchasePrice getPurchasePrice() {
+    public static int getPurchasePrice() {
         System.out.println("구입금액을 입력해 주세요.");
-        String input = scanner.nextLine();
-        int purchasePrice = Integer.parseInt(input.trim());
+        return Integer.parseInt(scanner.nextLine().trim());
+    }
 
-        return new PurchasePrice(purchasePrice);
+    public static int getManualLottoCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine().trim());
+    }
+
+
+    public static List<String> getManualLottoNumber(int manualLottoCount) {
+        List<String> manualLottoNumbers = new ArrayList<>();
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        for(int i = 0; i < manualLottoCount; i++) {
+            manualLottoNumbers.add(scanner.nextLine());
+        }
+        return manualLottoNumbers;
     }
 
 
@@ -37,7 +49,6 @@ public class InputView {
 
     public static LottoNumber getBonusBall() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
-        int bonusBall = scanner.nextInt();
-        return new LottoNumber(bonusBall);
+        return new LottoNumber(Integer.parseInt(scanner.nextLine().trim()));
     }
 }

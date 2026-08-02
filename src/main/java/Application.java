@@ -4,11 +4,20 @@ import domain.PurchasePrice;
 import view.InputView;
 import view.ResultView;
 
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
-        final PurchasePrice purchasePrice = InputView.getPurchasePrice();
-        LottoGame lottoGame = new LottoGame(purchasePrice);
-        ResultView.printLottoNumberCount(purchasePrice.getLottoNumberCount());
+
+        final int price = InputView.getPurchasePrice();
+        final int manualLottoCount = InputView.getManualLottoCount();
+
+        final PurchasePrice purchasePrice = new PurchasePrice(price, manualLottoCount);
+        final List<String> manualLottoNumber = InputView.getManualLottoNumber(manualLottoCount);
+
+        LottoGame lottoGame = new LottoGame(purchasePrice, manualLottoNumber);
+
+        ResultView.printLottoNumberCount(purchasePrice.getManualLottoCount(), purchasePrice.getAutoLottoCount());
         ResultView.printLotto(lottoGame.getLottos());
 
         final String[] values = InputView.getCorrectLotto();
