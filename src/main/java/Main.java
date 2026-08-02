@@ -1,8 +1,8 @@
-import domain.Lottos;
-import domain.PurchaseManage;
-import domain.WinningNumber;
+import domain.*;
 import view.InputView;
 import view.ResultView;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +14,10 @@ public class Main {
 
         String enteredWinningNumber = InputView.getWinningNumber();
         WinningNumber winningNumber = new WinningNumber();
-        winningNumber.setWinningNumber(enteredWinningNumber);
+        List<Integer> winningNumbers =  winningNumber.setWinningNumber(enteredWinningNumber);
+        WinningStatistics winningStatistics = new WinningStatistics();
+        winningStatistics.compareLottos(winningNumbers, lottos);
+        ProfitRate profitRate = new ProfitRate(price, winningStatistics);
+        ResultView.showStatistics(profitRate, winningStatistics);
     }
 }
