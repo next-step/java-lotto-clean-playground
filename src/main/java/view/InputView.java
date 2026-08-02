@@ -7,7 +7,7 @@ public class InputView {
 
     public static int getPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
-        int purchaseAmount = scanner.nextInt();
+        int purchaseAmount = Integer.parseInt(scanner.nextLine());
         return purchaseAmount;
     }
     public static String getWinningNumber() {
