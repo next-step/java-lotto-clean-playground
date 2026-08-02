@@ -37,3 +37,13 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### convention check ###
+checkstyle.sh
+style
+
+### husky ###
+.husky/
+node_modules/
+package.json
+package-lock.json
