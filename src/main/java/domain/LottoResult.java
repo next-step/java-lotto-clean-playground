@@ -10,7 +10,7 @@ public class LottoResult {
 
     public LottoResult(LottoStatistics lottoStatistics, int purchaseAmount) {
         this.lottoStatistics = lottoStatistics;
-        this.purchaseAmount = purchaseAmount * PRICE_PER_ONE_LOTTO_TICKET;
+        this.purchaseAmount = purchaseAmount;
     }
 
     private long calculateTotalPrize() {
