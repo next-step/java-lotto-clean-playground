@@ -22,10 +22,7 @@ public class Lottos {
         List<Rank> ranks = new ArrayList<>();
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.matchCount(winningLotto.getLotto());
-            boolean bonusMatched = lotto.contains(winningLotto.getBonusNumber());
-            Rank rank = Rank.findByMatchCount(matchCount, bonusMatched);
-            ranks.add(rank);
+            ranks.add(winningLotto.match(lotto));
         }
         return new WinningResult(ranks);
     }
