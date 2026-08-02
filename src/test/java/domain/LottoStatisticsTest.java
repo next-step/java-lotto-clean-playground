@@ -32,4 +32,27 @@ public class LottoStatisticsTest {
         assertEquals(1, lottoStatistics.getWinningCount(LottoRank.FOURTH));
         assertEquals(1, lottoStatistics.getWinningCount(LottoRank.FIFTH));
     }
+
+    @Test
+    @DisplayName("총 당첨 금액과 구입 금액을 기준으로 수익률을 계산한다")
+    void calculatesProfitRateBasedOnTotalPrize() {
+        Lottos lottos = new Lottos(createLottoNumbersForProfitRate(), 0);
+        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = new LottoNumber(7);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(5000);
+
+        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+
+        assertEquals(1.0, lottoStatistics.calculateProfitRate(purchaseAmount), 0.0001);
+    }
+
+    private List<List<Integer>> createLottoNumbersForProfitRate() {
+        return List.of(
+                List.of(1, 2, 3, 8, 9, 10),
+                List.of(1, 2, 8, 9, 10, 11),
+                List.of(1, 8, 9, 10, 11, 12),
+                List.of(8, 9, 10, 11, 12, 13),
+                List.of(14, 15, 16, 17, 18, 19)
+        );
+    }
 }
