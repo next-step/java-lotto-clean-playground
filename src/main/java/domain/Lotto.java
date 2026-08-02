@@ -31,13 +31,23 @@ public class Lotto {
         Collections.sort(lotto);
     }
 
-    public void run() {
+    public List<Integer> run() {
         List<Integer> lottoList = lottoList();
 
         lottoShuffle(lottoList);
         lottoList = lottoPick(lottoList);
         lottoSort(lottoList);
 
-        System.out.println(lottoList);
+        return lottoList;
     }
+
+    public List<List<Integer>> lottoLists(int price) {
+        List<List<Integer>> lottos = new ArrayList<>();
+        for (int i = 0; i < price; i++) {
+            lottos.add(run());
+        }
+        return lottos;
+    }
+
+
 }

@@ -1,15 +1,31 @@
+import domain.LottoResult;
+import domain.WinningRate;
 import view.InputView;
 import view.ResultView;
 import domain.Lotto;
+
+import java.util.List;
 
 
 public class Application {
     public static void main(String[] args) {
         Lotto lotto = new Lotto();
+        LottoResult lottoResult = new LottoResult();
+        WinningRate winningRate = new WinningRate();
 
-        int price = InputView.inputPrice();
-        price = lotto.calculateCount(price);
+        int purchasePrice = InputView.inputPrice();
+        int lottoCount = lotto.calculateCount(purchasePrice);
 
-        ResultView.printPurchase(price);
+        List<List<Integer>> lottos = lotto.lottoLists(lottoCount);
+        ResultView.printPurchase(lottos);
+
+        List<Integer> wins = InputView.inputWinning();
+        List<Integer> counts = lottoResult.calculateCounts(lottos, wins);
+
+        int winPrice = winningRate.calculateWinPrice(counts);
+        double rate = winningRate.calculateRate(winPrice, purchasePrice);
+
+        ResultView.printResult(counts, rate);
     }
 }
+
