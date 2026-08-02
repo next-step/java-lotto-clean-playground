@@ -17,14 +17,10 @@ public class InputView {
         return manualPurchaseLottos;
     }
 
-    public static String[] getManualPurchasedLottos(int count) {
-        String[] manualPurchasedLottos = new String[count];
+    public static String getManualPurchasedLottos() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        for (int i = 0; i < count; i++) {
-            String manualPurchasedLotto = scanner.nextLine();
-            manualPurchasedLottos[i] = manualPurchasedLotto;
-        }
-        return manualPurchasedLottos;
+        String manualPurchasedLotto = scanner.nextLine();
+        return manualPurchasedLotto;
     }
 
     public static String getWinningNumber() {

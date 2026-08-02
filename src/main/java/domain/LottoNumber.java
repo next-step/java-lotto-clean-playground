@@ -21,6 +21,11 @@ public class LottoNumber {
         Collections.sort(this.lottoNumbers);
     }
 
+    public LottoNumber(List<Integer> manualNumbers) {
+        this.lottoNumbers = new ArrayList<>(manualNumbers);
+        Collections.sort(this.lottoNumbers);
+    }
+
     public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }

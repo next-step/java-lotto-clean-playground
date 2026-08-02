@@ -6,11 +6,13 @@ import java.util.List;
 public class PurchaseManage {
     private static final int LOTTO_PRICE = 1000;
 
-    public Lottos buyLottos(int price) {
-        int count = price / LOTTO_PRICE;
-        List<LottoNumber> purchaseLottos = new ArrayList<>();
+    public Lottos buyLottos(int price, List<LottoNumber> manualLottos) {
+        int totalCount = price / LOTTO_PRICE;
+        int automaticLottoCount = totalCount - manualLottos.size();
 
-        for (int i = 0; i < count; i++) {
+        List<LottoNumber> purchaseLottos = new ArrayList<>(manualLottos);
+
+        for (int i = 0; i < automaticLottoCount; i++) {
             purchaseLottos.add(new LottoNumber());
         }
         return new Lottos(purchaseLottos);
