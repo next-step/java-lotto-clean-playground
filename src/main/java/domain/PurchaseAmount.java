@@ -7,9 +7,7 @@ public class PurchaseAmount {
     private final int amount;
 
     public PurchaseAmount(int amount) {
-        if (amount < LOTTO_PRICE) {
-            throw new IllegalArgumentException("최소 구입 금액은 " + LOTTO_PRICE + "원 입니다.");
-        }
+        validatePurchaseAmount(amount);
 
         this.amount = amount;
     }
@@ -35,6 +33,12 @@ public class PurchaseAmount {
 
         if (manualLottoCount < MIN_MANUAL_LOTTO_COUNT) {
             throw new IllegalArgumentException("수동 구매 개수는 " + MIN_MANUAL_LOTTO_COUNT + "이상이어야 합니다.");
+        }
+    }
+
+    private void validatePurchaseAmount(int amount) {
+        if (amount < LOTTO_PRICE) {
+            throw new IllegalArgumentException("최소 구입 금액은 " + LOTTO_PRICE + "원 입니다.");
         }
     }
 }

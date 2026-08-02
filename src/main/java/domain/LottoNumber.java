@@ -9,9 +9,7 @@ public class LottoNumber implements Comparable<LottoNumber>{
     private final int number;
 
     public LottoNumber(int number) {
-        if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
-        }
+        validateNumberRange(number);
 
         this.number = number;
     }
@@ -43,5 +41,11 @@ public class LottoNumber implements Comparable<LottoNumber>{
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    private void validateNumberRange(int number) {
+        if (number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER) {
+            throw new IllegalArgumentException("로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+        }
     }
 }

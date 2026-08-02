@@ -10,15 +10,11 @@ public class WinningNumbers {
     private final List<LottoNumber> winningNumbers = new ArrayList<>();
 
     public WinningNumbers(List<Integer> numbers) {
-        if (numbers.size() != WINNING_NUMBER_COUNT) {
-            throw new IllegalArgumentException("당첨 번호는 6개여야 합니다.");
-        }
+        validateWinningNumberCount(numbers);
 
         List<LottoNumber> lottoNumbers = convertToLottoNumbers(numbers);
 
-        if (new HashSet<>(lottoNumbers).size() != lottoNumbers.size()) {
-            throw new IllegalArgumentException("당첨 번호는 중복될 수 없습니다.");
-        }
+        validateDuplicateWinningNumbers(lottoNumbers);
 
         winningNumbers.addAll(lottoNumbers);
     }
@@ -59,5 +55,17 @@ public class WinningNumbers {
         }
 
         return lottoNumbers;
+    }
+
+    private void validateWinningNumberCount(List<Integer> numbers) {
+        if (numbers.size() != WINNING_NUMBER_COUNT) {
+            throw new IllegalArgumentException("당첨 번호는 6개여야 합니다.");
+        }
+    }
+
+    private void validateDuplicateWinningNumbers(List<LottoNumber> lottoNumbers) {
+        if (new HashSet<>(lottoNumbers).size() != lottoNumbers.size()) {
+            throw new IllegalArgumentException("당첨 번호는 중복될 수 없습니다.");
+        }
     }
 }

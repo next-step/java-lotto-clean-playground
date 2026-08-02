@@ -18,13 +18,8 @@ public class Lotto {
     }
 
     public Lotto(List<Integer> numberValues) {
-        if (numberValues.size() != NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 " + NUMBER_COUNT + "개여야 합니다.");
-        }
-
-        if (new HashSet<>(numberValues).size() != numberValues.size()) {
-            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
-        }
+        validateNumberCount(numberValues);
+        validateDuplicateNumbers(numberValues);
 
         convertToLottoNumbers(numberValues);
 
@@ -61,6 +56,18 @@ public class Lotto {
         for (int number : numberValues) {
             LottoNumber lottoNumber = new LottoNumber(number);
             numbers.add(lottoNumber);
+        }
+    }
+
+    private void validateNumberCount(List<Integer> numberValues) {
+        if (numberValues.size() != NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 번호는 " + NUMBER_COUNT + "개여야 합니다.");
+        }
+    }
+
+    private void validateDuplicateNumbers(List<Integer> numberValues) {
+        if (new HashSet<>(numberValues).size() != numberValues.size()) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
 }
