@@ -1,0 +1,36 @@
+package lotto;
+
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+public class LottoResult {
+    private final Map<LottoRank, Integer> rankCounts = new EnumMap<>(LottoRank.class);
+
+    public LottoResult(List<LottoRank> ranks) {
+        for (LottoRank rank : ranks) {
+            addResult(rank);
+        }
+    }
+
+    private void addResult(LottoRank rank) {
+        rankCounts.merge(rank, 1, Integer::sum);
+    }
+
+    public int countOf(LottoRank rank) {
+        return rankCounts.getOrDefault(rank, 0);
+    }
+
+    public PrizeMoney totalPrizeMoney() {
+        PrizeMoney totalPrizeMoney = new PrizeMoney(0);
+        for (Map.Entry<LottoRank, Integer> result : rankCounts.entrySet()) {
+            PrizeMoney prizeMoney = result.getKey().prizeMoney().multiply(result.getValue());
+            totalPrizeMoney = totalPrizeMoney.add(prizeMoney);
+        }
+        return totalPrizeMoney;
+    }
+
+    public ProfitRate calculateProfitRate(PurchaseAmount purchaseAmount) {
+        return ProfitRate.calculateRate(totalPrizeMoney(), purchaseAmount);
+    }
+}
