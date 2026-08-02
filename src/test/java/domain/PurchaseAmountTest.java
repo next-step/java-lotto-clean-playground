@@ -67,4 +67,13 @@ public class PurchaseAmountTest {
 
         assertEquals(11, purchaseAmount.calculateAutoLottoCount(manualLottoCount));
     }
+
+    @Test
+    @DisplayName("구매 가능한 로또를 모두 수동으로 구매하면 자동 구매 개수는 0이다")
+    void calculateZeroAutoLottoCountWhenAllLottosAreManual() {
+        PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
+        int manualLottoCount = 14;
+
+        assertEquals(0, purchaseAmount.calculateAutoLottoCount(manualLottoCount));
+    }
 }
