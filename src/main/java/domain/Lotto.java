@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
 
@@ -10,8 +11,12 @@ public class Lotto {
     TreeSet<Integer> randomNumberSet = new TreeSet<>();
     Random random = new Random();
 
-    public Lotto() { // 로또 한장 생성자
+    public Lotto() {
         setLottoNumber();
+    }
+
+    public Lotto(List<Integer> userSelectedNumbers) {
+        this.randomNumberSet.addAll(userSelectedNumbers);
     }
 
     private void setLottoNumber(){
