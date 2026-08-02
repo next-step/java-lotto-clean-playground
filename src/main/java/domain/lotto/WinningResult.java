@@ -22,16 +22,10 @@ public class WinningResult {
         return result;
     }
 
-    public Map<Rank, Integer> getStatistics() {
-        return new EnumMap<>(statistics);
-    }
-
     public Money calculatePrize() {
         Money total = Money.ZERO;
         for (Map.Entry<Rank, Integer> entry : statistics.entrySet()) {
-            Money prize = entry.getKey()
-                    .getPrice()
-                    .multiply(entry.getValue());
+            Money prize = entry.getKey().calculatePrize(entry.getValue());
             total = total.add(prize);
         }
         return total;
@@ -40,5 +34,9 @@ public class WinningResult {
     public double calculateProfitRate(Money purchasePrice) {
         Money totalPrize = calculatePrize();
         return totalPrize.divide(purchasePrice);
+    }
+
+    public Map<Rank, Integer> getStatistics() {
+        return new EnumMap<>(statistics);
     }
 }

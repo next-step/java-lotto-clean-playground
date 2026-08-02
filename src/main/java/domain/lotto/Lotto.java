@@ -8,7 +8,9 @@ import java.util.Set;
 
 public class Lotto {
     public static final Money PRICE = Money.from(Money.LOTTO_PRICE);
+
     private static final int LOTTO_SIZE = 6;
+
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
@@ -21,10 +23,6 @@ public class Lotto {
     public static Lotto from(List<LottoNumber> shuffledNumbers) {
         List<LottoNumber> selected = new ArrayList<>(shuffledNumbers.subList(0, LOTTO_SIZE));
         return new Lotto(selected);
-    }
-
-    public List<LottoNumber> getLottoNumbers() {
-        return lottoNumbers;
     }
 
     private static void validateLottoNumbers(List<LottoNumber> lottoNumbers) {
@@ -54,5 +52,9 @@ public class Lotto {
 
     public boolean contains(LottoNumber number) {
         return lottoNumbers.contains(number);
+    }
+
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
     }
 }

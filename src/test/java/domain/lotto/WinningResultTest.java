@@ -11,15 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class WinningResultTest {
     @Test
     void 등수별_당첨_개수를_정확히_계산한다() {
-        //Given
         WinningResult winningResult = new WinningResult(
                 List.of(Rank.THREE, Rank.THREE, Rank.FOUR, Rank.NONE)
         );
 
-        //When
         Map<Rank, Integer> result = winningResult.getStatistics();
 
-        //Then
         assertEquals(2, result.get(Rank.THREE));
         assertEquals(1, result.get(Rank.FOUR));
         assertEquals(1, result.get(Rank.NONE));
@@ -30,13 +27,10 @@ class WinningResultTest {
 
     @Test
     void 당첨된_등수가_없으면_모두_0이다() {
-        // Given
         WinningResult winningResult = new WinningResult(List.of());
 
-        // When
         Map<Rank, Integer> result = winningResult.getStatistics();
 
-        // Then
         for (Rank rank : Rank.values()) {
             assertEquals(0, result.get(rank));
         }

@@ -10,7 +10,8 @@ import domain.lotto.WinningResult;
 import java.util.Map;
 
 public class ResultView {
-    private ResultView() {}
+    private ResultView() {
+    }
 
     public static void printLottos(Lottos lottos, int manualCount) {
         int autoCount = lottos.size() - manualCount;
@@ -44,17 +45,19 @@ public class ResultView {
         if (rank == Rank.NONE) {
             return;
         }
+
         System.out.println(createMessage(rank, entry.getValue()));
     }
 
     private static String createMessage(Rank rank, int count) {
-        if (rank == Rank.SECOND) {
-            return "5개 일치, 보너스 볼 일치("
-                    + rank.getPrice() + "원)- "
+        if (rank.isBonusRequired()) {
+            return rank.getMatchCount() + "개 일치, 보너스 볼 일치("
+                    + rank.getPrice().value() + "원)- "
                     + count + "개";
         }
+
         return rank.getMatchCount() + "개 일치 ("
-                + rank.getPrice() + "원)- "
+                + rank.getPrice().value() + "원)- "
                 + count + "개";
     }
 }

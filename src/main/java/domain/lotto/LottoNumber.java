@@ -13,6 +13,7 @@ public final class LottoNumber {
             IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                     .boxed()
                     .collect(Collectors.toMap(Function.identity(), LottoNumber::new));
+
     private final int value;
 
     private LottoNumber(int value) {
@@ -50,7 +51,6 @@ public final class LottoNumber {
         }
 
         LottoNumber that = (LottoNumber) o;
-
         return value == that.value;
     }
 

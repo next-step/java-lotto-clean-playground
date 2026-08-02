@@ -3,6 +3,7 @@ package domain.lotto;
 public final class Money {
     public static final int LOTTO_PRICE = 1000;
     public static final Money ZERO = new Money(0);
+
     private final long value;
 
     private Money(long value) {
@@ -23,6 +24,12 @@ public final class Money {
         }
         if (value % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("금액은 1000원 단위여야 합니다.");
+        }
+    }
+
+    private static void validatePurchasable(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("금액은 1000원 이상이어야 합니다.");
         }
     }
 
@@ -48,10 +55,8 @@ public final class Money {
         return count;
     }
 
-    private static void validatePurchasable(int count) {
-        if (count < 1) {
-            throw new IllegalArgumentException("금액은 1000원 이상이어야 합니다.");
-        }
+    public long value() {
+        return value;
     }
 
     @Override
@@ -68,10 +73,5 @@ public final class Money {
     @Override
     public int hashCode() {
         return Long.hashCode(value);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
     }
 }

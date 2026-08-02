@@ -6,7 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LottoNumberParser {
-    private LottoNumberParser() {}
+    private LottoNumberParser() {
+    }
 
     public static List<LottoNumber> parse(String input) {
         try {
