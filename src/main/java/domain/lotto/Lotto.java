@@ -7,17 +7,19 @@ import java.util.List;
 import java.util.Set;
 
 public class Lotto {
+    public static final Money PRICE = Money.from(Money.LOTTO_PRICE);
     private static final int LOTTO_SIZE = 6;
     private final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
         validateLottoNumbers(lottoNumbers);
-        this.lottoNumbers = List.copyOf(lottoNumbers);
+        List<LottoNumber> sorted = new ArrayList<>(lottoNumbers);
+        sorted.sort(Comparator.comparingInt(LottoNumber::value));
+        this.lottoNumbers = List.copyOf(sorted);
     }
 
     public static Lotto from(List<LottoNumber> shuffledNumbers) {
         List<LottoNumber> selected = new ArrayList<>(shuffledNumbers.subList(0, LOTTO_SIZE));
-        selected.sort(Comparator.comparingInt(LottoNumber::value));
         return new Lotto(selected);
     }
 

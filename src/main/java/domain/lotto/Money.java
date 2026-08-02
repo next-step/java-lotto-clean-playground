@@ -1,7 +1,7 @@
 package domain.lotto;
 
 public final class Money {
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
     public static final Money ZERO = new Money(0);
     private final int value;
 
@@ -26,10 +26,6 @@ public final class Money {
         }
     }
 
-    public int value() {
-        return value;
-    }
-
     public Money add(Money other) {
         return Money.from(this.value + other.value);
     }
@@ -46,12 +42,16 @@ public final class Money {
         return this.value / money.value;
     }
 
-    public boolean isLessThan(Money other) {
-        return value < other.value;
+    public int countPurchasable(Money lottoPrice) {
+        int count = this.divideBy(lottoPrice);
+        validatePurchasable(count);
+        return count;
     }
 
-    public boolean isDivisibleBy(Money other) {
-        return value % other.value == 0;
+    private static void validatePurchasable(int count) {
+        if (count < 1) {
+            throw new IllegalArgumentException("금액은 1000원 이상이어야 합니다.");
+        }
     }
 
     @Override

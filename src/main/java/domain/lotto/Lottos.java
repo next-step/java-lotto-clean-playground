@@ -10,12 +10,12 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public int size() {
-        return lottos.size();
-    }
-
-    public List<Lotto> getLottos() {
-        return List.copyOf(lottos);
+    public static Lottos createLottos(PurchaseCount purchaseCount, List<Lotto> manualLottos) {
+        List<Lotto> lottos = new ArrayList<>(manualLottos);
+        for (int i = 0; i < purchaseCount.autoCount(); i++) {
+            lottos.add(LottoGenerator.generateLotto());
+        }
+        return new Lottos(lottos);
     }
 
     public WinningResult matchRanks(WinningLotto winningLotto) {
@@ -28,5 +28,13 @@ public class Lottos {
             ranks.add(rank);
         }
         return new WinningResult(ranks);
+    }
+
+    public int size() {
+        return lottos.size();
+    }
+
+    public List<Lotto> getLottos() {
+        return List.copyOf(lottos);
     }
 }

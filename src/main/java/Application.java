@@ -1,8 +1,8 @@
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
-import domain.lotto.LottoStore;
 import domain.lotto.Lottos;
 import domain.lotto.Money;
+import domain.lotto.PurchaseCount;
 import domain.lotto.WinningLotto;
 import domain.lotto.WinningResult;
 import dto.PurchaseResult;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class Application {
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         run();
     }
 
@@ -26,14 +26,14 @@ public class Application {
 
     private static PurchaseResult purchaseLotto() {
         Money purchasePrice = inputPurchasePrice();
-        int totalCount = LottoStore.calculatePurchasableCount(purchasePrice);
+        int totalCount = purchasePrice.countPurchasable(Lotto.PRICE);
 
         int manualCount = inputManualLottoCount();
-        LottoStore.validateManualCount(totalCount, manualCount);
+        PurchaseCount purchaseCount = new PurchaseCount(totalCount, manualCount);
 
         List<Lotto> manualLottos = inputManualLottos(manualCount);
 
-        Lottos lottos = purchaseLottos(totalCount, manualLottos);
+        Lottos lottos = purchaseLottos(purchaseCount, manualLottos);
 
         return new PurchaseResult(purchasePrice, lottos);
     }
@@ -88,8 +88,8 @@ public class Application {
         return retry(() -> Money.from(InputView.inputPrice()));
     }
 
-    private static Lottos purchaseLottos(int totalCount, List<Lotto> manualLottos) {
-        Lottos lottos = LottoStore.buy(totalCount, manualLottos);
+    private static Lottos purchaseLottos(PurchaseCount purchaseCount, List<Lotto> manualLottos) {
+        Lottos lottos = Lottos.createLottos(purchaseCount, manualLottos);
         ResultView.printLottos(lottos, manualLottos.size());
         return lottos;
     }
