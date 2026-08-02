@@ -59,7 +59,7 @@ public class Lotto {
     }
 
 
-    public int correctCount(CorrectLotto correctLotto) { // 실제 로또 번호와 일치하는 번호 개수 반환
+    private int correctCount(CorrectLotto correctLotto) { // 실제 로또 번호와 일치하는 번호 개수 반환
         int count = 0;
         for(int i = 0; i < lotto.size(); i++){
             if(correctLotto.getCorrectLotto().contains(lotto.get(i))){
@@ -68,6 +68,20 @@ public class Lotto {
         }
 
         return count;
+    }
+
+
+    private boolean bonusMatch(CorrectLotto correctLotto) {
+        if(lotto.contains(correctLotto.getBonusBall())) {
+            return true;
+        }
+        return false;
+    }
+
+    public Rank findRank(CorrectLotto correctLotto) {
+        int matchCount = correctCount(correctLotto);
+        boolean bonusMatch = bonusMatch(correctLotto);
+        return Rank.findRank(matchCount, bonusMatch);
     }
 
 

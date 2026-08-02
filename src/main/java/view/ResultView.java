@@ -1,7 +1,9 @@
 package view;
 
 import domain.Lottos;
+import domain.Rank;
 import java.util.List;
+import java.util.Map;
 
 public class ResultView {
 
@@ -17,13 +19,27 @@ public class ResultView {
         System.out.println();
     }
 
-    public static void printWinningStatistics(List<Integer> correctCount, float profit) {
+
+    public static void printWinningStatistics(Map<Rank, Integer> correctCount, float profit) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.println("3개 일치 (5000원) - " + correctCount.get(0) + "개");
-        System.out.println("4개 일치 (50000원) - " + correctCount.get(1) + "개");
-        System.out.println("5개 일치 (1500000원) - " + correctCount.get(2) + "개");
-        System.out.println("6개 일치 (2000000000원) - " + correctCount.get(3) + "개");
+        System.out.println(WinningForm(Rank.FIFTH, correctCount));
+        System.out.println(WinningForm(Rank.FOURTH, correctCount));
+        System.out.println(WinningForm(Rank.THIRD, correctCount));
+        System.out.println(WinningForm(Rank.SECOND, correctCount));
+        System.out.println(WinningForm(Rank.FIRST, correctCount));
         System.out.println("총 수익률은 " + profit + "입니다.");
+    }
+
+
+    private static String WinningForm(Rank rank, Map<Rank, Integer> correctCount) {
+        if(rank == Rank.SECOND) {
+            return rank.getMatchCount()
+                    + "개 일치, 보너스 볼 일치 (" + rank.getPrize() + "원) - "
+                    + correctCount.get(rank) + "개";
+        }
+        return rank.getMatchCount()
+                + "개 일치 (" + rank.getPrize() + "원) - "
+                + correctCount.get(rank) + "개";
     }
 
 }

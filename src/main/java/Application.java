@@ -1,4 +1,5 @@
 import domain.LottoGame;
+import domain.LottoNumber;
 import domain.PurchasePrice;
 import view.InputView;
 import view.ResultView;
@@ -11,8 +12,9 @@ public class Application {
         ResultView.printLotto(lottoGame.getLottos());
 
         final String[] values = InputView.getCorrectLotto();
-        lottoGame.createCorrectLotto(values);
+        final LottoNumber bonusBall = InputView.getBonusBall();
+        lottoGame.createCorrectLotto(values, bonusBall);
 
-        ResultView.printWinningStatistics(lottoGame.correctCount(), lottoGame.calculateProfit());
+        ResultView.printWinningStatistics(lottoGame.getRanksCount(), lottoGame.calculateProfit());
     }
 }

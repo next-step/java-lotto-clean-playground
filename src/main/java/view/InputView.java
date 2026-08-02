@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Arrays;
+
+import domain.LottoNumber;
 import domain.PurchasePrice;
 import java.util.Scanner;
 
@@ -30,5 +32,12 @@ public class InputView {
         }
 
         return values;
+    }
+
+
+    public static LottoNumber getBonusBall() {
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        int bonusBall = scanner.nextInt();
+        return new LottoNumber(bonusBall);
     }
 }

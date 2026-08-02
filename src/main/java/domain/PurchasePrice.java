@@ -30,7 +30,7 @@ public class PurchasePrice {
         return purchasePrice / 1000;
     }
 
-    public float calculateProfit(int price) {
+    public float calculateProfit(long price) {
         return (float) price / purchasePrice;
     }
 }

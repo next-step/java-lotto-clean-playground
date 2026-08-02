@@ -1,7 +1,9 @@
 package domain;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Lottos {
 
@@ -18,12 +20,27 @@ public class Lottos {
     }
 
 
-    List<Integer> correctCounts(CorrectLotto correctLotto) { // 실제 로또 번호와 일치하는 번호 개수 리스트 반환
-        List<Integer> correctCounts = new ArrayList<>();
+    private List<Rank> findRanks(CorrectLotto correctLotto) { // 실제 로또 번호의 등수 반환
+        List<Rank> ranks = new ArrayList<>();
         for(int i = 0; i < lottos.size(); i++) {
-            correctCounts.add(lottos.get(i).correctCount(correctLotto));
+            ranks.add(lottos.get(i).findRank(correctLotto));
         }
-        return correctCounts;
+        return ranks;
+    }
+
+
+    public Map<Rank, Integer> getRanksCount(CorrectLotto correctLotto) { // 등수, 개수 맵 반환
+        Map<Rank, Integer> ranksCount = new EnumMap<>(Rank.class);
+
+        for (Rank rank : Rank.values()) {
+            ranksCount.put(rank, 0);
+        }
+
+        for (Rank rank : findRanks(correctLotto)) { // 이 부분은 AI의 도움을 받았습니다
+            ranksCount.merge(rank, 1, Integer::sum);
+        }
+
+        return ranksCount;
     }
 
 

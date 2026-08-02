@@ -7,29 +7,34 @@ public class CorrectLotto {
 
     private static final int LOTTO_NUMBER_COUNT = 6;
 
-    List<LottoNumber> correctLotto;
+    private final List<LottoNumber> correctLotto;
+    private final LottoNumber bonusBall;
 
-    public CorrectLotto(String[] values){
+    public CorrectLotto(String[] values, LottoNumber bonusBall){
         correctLotto = verifyCorrectLotto(values);
+        verifyBonusBall(bonusBall);
+        this.bonusBall = bonusBall;
     }
 
 
-    private List<LottoNumber> verifyCorrectLotto(String[] values) {
-        List<LottoNumber> numbers;
-        try {
-            numbers = createCorrectLotto(values);
-            if(numbers.size() != LOTTO_NUMBER_COUNT) {
-                throw new IllegalArgumentException("6개의 숫자를 입력해주세요.");
-            }
+    private void verifyBonusBall(LottoNumber bonusBall) {
+        if(correctLotto.contains(bonusBall)){
+            throw new IllegalArgumentException("보너스볼은 당첨 번호와 중복될 수 없습니다.");
         }
-        catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자를 입력해주세요.");
+    }
+
+
+    private List<LottoNumber> verifyCorrectLotto(String[] values) { // 로또 번호 검증
+        List<LottoNumber> numbers;
+        numbers = createCorrectLotto(values);
+        if(numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("6개의 숫자를 입력해주세요.");
         }
         return numbers;
     }
 
 
-    private List<LottoNumber> createCorrectLotto(String[] values) {
+    private List<LottoNumber> createCorrectLotto(String[] values) { // 로또 번호 LottoNumber 객체로 변환
 
         List<LottoNumber> numbers = new ArrayList<>();
 
@@ -40,7 +45,13 @@ public class CorrectLotto {
         return numbers;
     }
 
-    public List<LottoNumber> getCorrectLotto() {
+
+    public List<LottoNumber> getCorrectLotto() { // 로또 번호 반환
         return correctLotto;
+    }
+
+
+    public LottoNumber getBonusBall() { // 보너스 볼 반환
+        return bonusBall;
     }
 }
