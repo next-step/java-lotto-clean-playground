@@ -12,6 +12,10 @@ public class Lotto {
     public Lotto(){
         for(int i=0;i<6;i++){
             int randomNum=random.nextInt(45)+1;
+
+            while (nums.contains(randomNum)){
+                randomNum=random.nextInt(45)+1;
+            }
             this.nums.add(randomNum);
         }
         this.nums.sort(Comparator.naturalOrder());
