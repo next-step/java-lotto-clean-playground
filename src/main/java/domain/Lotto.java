@@ -7,7 +7,7 @@ import java.util.TreeSet;
 public class Lotto {
     public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
     public static final int LOTTO_NUMBER_BOUND = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
+    public static final int LOTTO_NUMBER_COUNT = 6;
 
     TreeSet<Integer> randomNumberSet = new TreeSet<>();
     Random random = new Random();
@@ -21,6 +21,9 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는" + LOTTO_NUMBER_COUNT + "개여야 합니다.");
         }
         this.randomNumberSet.addAll(userSelectedNumbers);
+        if (this.randomNumberSet.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
+        }
     }
 
     public TreeSet<Integer> getRandomNumberSet() {
