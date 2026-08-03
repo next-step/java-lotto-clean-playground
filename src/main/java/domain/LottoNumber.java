@@ -22,8 +22,24 @@ public class LottoNumber {
     }
 
     public LottoNumber(List<Integer> manualNumbers) {
+        validateLottoNumber(manualNumbers);
         this.lottoNumbers = new ArrayList<>(manualNumbers);
         Collections.sort(this.lottoNumbers);
+    }
+
+    private void validateLottoNumber(List<Integer> manualNumbers) {
+        for (int number : manualNumbers) {
+            validateNumber(number);
+        }
+        if (manualNumbers.size() != 6) {
+            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+        }
+    }
+
+    private void validateNumber(int number) {
+        if (number < 1 || number > 46) {
+            throw new IllegalArgumentException("로또 번호는 1부터 45까지여야 합니다.");
+        }
     }
 
     public List<Integer> getLottoNumbers() {
