@@ -34,8 +34,4 @@ public enum Rank {
     public int getPrize() {
         return prize;
     }
-
-    public boolean isHasBonusBall() {
-        return hasBonusBall;
-    }
 }
