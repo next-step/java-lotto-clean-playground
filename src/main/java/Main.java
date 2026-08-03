@@ -22,7 +22,7 @@ public class Main {
 
         ResultView.showNum(lottos);
         String enteredWinningNumber = InputView.getWinningNumber();
-        int bonusNumber = InputView.getBounusNumber();
+        int bonusNumber = InputView.getBonusNumber();
 
         List<Integer> winningNumbers =  lottoParser.setWinningNumber(enteredWinningNumber);
         WinningStatistics winningStatistics = new WinningStatistics();
