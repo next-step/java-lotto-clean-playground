@@ -17,7 +17,7 @@ public class Lotto {
 
     public Lotto(List<Integer> userSelectedNumbers) {
         if (userSelectedNumbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException("로또 번호는" + LOTTO_NUMBER_COUNT + "개여야 합니다.");
         }
         this.randomNumberSet.addAll(userSelectedNumbers);
     }
