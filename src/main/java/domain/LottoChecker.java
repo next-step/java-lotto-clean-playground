@@ -20,22 +20,24 @@ public class LottoChecker {
         this.bonusNumber = Integer.parseInt(bonusNumber);
     }
 
+    private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
+        return (ArrayList<Integer>) Arrays.stream(stringWinnerNumbers)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
+
     private void validateBonusNumber(String bonusNumber) {
         try {
             int number = Integer.parseInt(bonusNumber);
             if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_BOUND) {
-                throw new IllegalArgumentException("보너스 볼은" + LOTTO_NUMBER_LOWER_BOUND + "과" + LOTTO_NUMBER_BOUND + "사이의 숫자여야 합니다.");
+                throw new IllegalArgumentException(
+                        "보너스 볼은" + LOTTO_NUMBER_LOWER_BOUND + "과" + LOTTO_NUMBER_BOUND + "사이의 숫자여야 합니다.");
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("보너스 볼은 숫자여야 합니다.");
         }
     }
 
-    private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
-        return (ArrayList<Integer>) Arrays.stream(stringWinnerNumbers)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-    }
 
     public ArrayList<LottoWinningType> checkAllTickets() {
         ArrayList<LottoWinningType> winningTypes = new ArrayList<>();
@@ -47,6 +49,10 @@ public class LottoChecker {
             winningTypes.add(LottoWinningType.valueOf(matchCount, matchBonus));
         }
         return winningTypes;
+    }
+
+    public boolean hasBonusNumber(int lottoTicketIndex) {
+        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
     }
 
     private int calculateMatchCountForTicket(int lottoTicketIndex) {
@@ -64,7 +70,5 @@ public class LottoChecker {
         return 0;
     }
 
-    public boolean hasBonusNumber(int lottoTicketIndex) {
-        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
-    }
+
 }
