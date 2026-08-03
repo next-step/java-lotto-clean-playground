@@ -23,15 +23,15 @@ public class Lotto {
         this.randomNumberSet.addAll(userSelectedNumbers);
     }
 
+    public TreeSet<Integer> getRandomNumberSet() {
+        return this.randomNumberSet;
+    }
+
     private void setLottoNumber(){
         while (randomNumberSet.size() < LOTTO_NUMBER_COUNT) {
             randomNumberSet.add(random.nextInt(LOTTO_NUMBER_LOWER_BOUND, LOTTO_NUMBER_BOUND + 1));
         }
 
-    }
-
-    public TreeSet<Integer> getRandomNumberSet() {
-        return this.randomNumberSet;
     }
 
 }

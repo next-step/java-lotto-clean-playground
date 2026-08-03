@@ -20,6 +20,22 @@ public class LottoChecker {
         this.bonusNumber = Integer.parseInt(bonusNumber);
     }
 
+    public ArrayList<LottoWinningType> checkAllTickets() {
+        ArrayList<LottoWinningType> winningTypes = new ArrayList<>();
+
+        for (int i = 0; i < lottoTickets.getSize(); i++) {
+            int matchCount = calculateMatchCountForTicket(i);
+            boolean matchBonus = hasBonusNumber(i);
+
+            winningTypes.add(LottoWinningType.valueOf(matchCount, matchBonus));
+        }
+        return winningTypes;
+    }
+
+    public boolean hasBonusNumber(int lottoTicketIndex) {
+        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
+    }
+
     private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
         return (ArrayList<Integer>) Arrays.stream(stringWinnerNumbers)
                 .map(Integer::parseInt)
@@ -38,23 +54,6 @@ public class LottoChecker {
         }
     }
 
-
-    public ArrayList<LottoWinningType> checkAllTickets() {
-        ArrayList<LottoWinningType> winningTypes = new ArrayList<>();
-
-        for (int i = 0; i < lottoTickets.getSize(); i++) {
-            int matchCount = calculateMatchCountForTicket(i);
-            boolean matchBonus = hasBonusNumber(i);
-
-            winningTypes.add(LottoWinningType.valueOf(matchCount, matchBonus));
-        }
-        return winningTypes;
-    }
-
-    public boolean hasBonusNumber(int lottoTicketIndex) {
-        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
-    }
-
     private int calculateMatchCountForTicket(int lottoTicketIndex) {
         int matchCount = 0;
         for (int winningNumber : winningLottoNumbers) {
@@ -69,6 +68,5 @@ public class LottoChecker {
         }
         return 0;
     }
-
 
 }
