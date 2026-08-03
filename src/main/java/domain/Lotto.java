@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.TreeSet;
 
 public class Lotto {
+    public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
     public static final int LOTTO_NUMBER_BOUND = 45;
     public static final int LOTTO_NUMBER_COUNT = 6;
 
@@ -24,7 +25,7 @@ public class Lotto {
 
     private void setLottoNumber(){
         while (randomNumberSet.size() < LOTTO_NUMBER_COUNT) {
-            randomNumberSet.add(random.nextInt(1, LOTTO_NUMBER_BOUND + 1));
+            randomNumberSet.add(random.nextInt(LOTTO_NUMBER_LOWER_BOUND, LOTTO_NUMBER_BOUND + 1));
         }
 
     }

@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class LottoChecker {
+    public static final int LOTTO_NUMBER_LOWER_BOUND = 1;
+    public static final int LOTTO_NUMBER_BOUND = 45;
+
     private final ArrayList<Integer> winningLottoNumbers;
     private final LottoTickets lottoTickets;
 
@@ -20,8 +23,8 @@ public class LottoChecker {
     private void validateBonusNumber(String bonusNumber) {
         try {
             int number = Integer.parseInt(bonusNumber);
-            if (number < 1 || number > 45) {
-                throw new IllegalArgumentException("보너스 볼은 1과 45 사이의 숫자여야 합니다.");
+            if (number < LOTTO_NUMBER_LOWER_BOUND || number > LOTTO_NUMBER_BOUND) {
+                throw new IllegalArgumentException("보너스 볼은" + LOTTO_NUMBER_LOWER_BOUND + "과" + LOTTO_NUMBER_BOUND + "사이의 숫자여야 합니다.");
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("보너스 볼은 숫자여야 합니다.");
