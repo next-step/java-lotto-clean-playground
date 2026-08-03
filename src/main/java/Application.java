@@ -43,7 +43,7 @@ public class Application {
 
         OutputView.printMatchCount(countedMatches);
 
-        LottoResult lottoResult = new LottoResult(lottoStatistics, (totalCount * LottoResult.PRICE_PER_ONE_LOTTO_TICKET));
+        LottoResult lottoResult = new LottoResult(lottoStatistics, (totalCount * LottoTicketCount.PRICE_PER_ONE_LOTTO_TICKET));
         OutputView.printRateOfReturn(lottoResult.calculateProfitRate());
 
         InputView.closeScanner(lottoScanner);

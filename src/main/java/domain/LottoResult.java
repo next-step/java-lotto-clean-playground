@@ -3,7 +3,6 @@ package domain;
 import java.util.Map;
 
 public class LottoResult {
-    public static final int PRICE_PER_ONE_LOTTO_TICKET = 1000;
 
     private final LottoStatistics lottoStatistics;
     private final int purchaseAmount;
