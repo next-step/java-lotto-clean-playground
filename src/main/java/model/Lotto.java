@@ -26,6 +26,16 @@ public class Lotto {
     }
 
     public void setLotto(List<Integer> nums){
+        if (nums.size()!=6){
+            throw new ArrayIndexOutOfBoundsException("로또번호는 6자리를 넘을수 없습니다");
+        }
+
+        for(int num:nums){
+            if(num>45||num<1){
+                throw new IllegalArgumentException("숫자는 1에서 45만 가능합니다.");
+            }
+        }
+
         this.nums=nums;
     }
 
