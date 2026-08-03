@@ -1,28 +1,25 @@
 package domain;
 
-public class ProfitRate {
-    private static final int FIRST_PRIZE = 2000000000;
-    private static final int BONUS_SECOND_PRIZE = 30000000;
-    private static final int SECOND_PRIZE = 1500000;
-    private static final int THIRD_PRIZE = 50000;
-    private static final int FOURTH_PRIZE = 5000;
+import java.util.Map;
 
-    int price;
-    WinningStatistics winningStatistics;
+public class ProfitRate {
+    private final int price;
+    private final WinningStatistics winningStatistics;
 
     public ProfitRate(int price, WinningStatistics winningStatistics) {
         this.price = price;
         this.winningStatistics = winningStatistics;
     }
 
-    public int getTotalProfit() {
-        int fourth = winningStatistics.getFourthPlace();
-        int third = winningStatistics.getThirdPlace();
-        int second = winningStatistics.getSecondPlace();
-        int bonusSecond = winningStatistics.getBounusSecondPlace();
-        int first = winningStatistics.getFirstPlace();
+    public long getTotalProfit() {
+        long totalProfit = 0;
+        Map<Rank, WinnerNum> statistics = winningStatistics.getWinningStatistics();
 
-        return fourth * FOURTH_PRIZE + third * THIRD_PRIZE + second * SECOND_PRIZE + bonusSecond * BONUS_SECOND_PRIZE + first * FIRST_PRIZE;
+        for (Rank rank : statistics.keySet()) {
+            int count = statistics.get(rank).getWinnerNum();
+            totalProfit += (long) rank.getPrize() * count;
+        }
+        return totalProfit;
     }
 
     public double getProfitRate() {
