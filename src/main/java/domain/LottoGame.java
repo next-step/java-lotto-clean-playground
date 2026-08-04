@@ -43,7 +43,7 @@ public class LottoGame {
 
     public Map<Rank, Integer> getRanksCount() { // 각 랭크의 개수 맵 반환
         return lottos.getRanksCount(correctLotto);
-    }
+    } // 각 순위의 개수가 들어있는 맵 반환
 
 
     public float calculateProfit(PurchasePrice purchasePrice) { // 수익률 계산

@@ -38,7 +38,7 @@ public class Lottos {
     }
 
 
-    public List<Lotto> getLottos() {
+    public List<Lotto> getLottos() { // 로또 리스트 반환
         return lottos;
     }
 }

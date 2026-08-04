@@ -40,7 +40,7 @@ public class AutoLotto {
 
     private static void shuffleNumbers(List<LottoNumber> numbers) { // 1~45 번호를 무작위로 섞음
         Collections.shuffle(numbers);
-    }
+    } // 숫자 섞기
 
 
     private static List<LottoNumber> extractNumber(List<LottoNumber> numbers) { // 앞자리 6개 추출
@@ -54,7 +54,7 @@ public class AutoLotto {
 
     private static void sortLotto(List<LottoNumber> lottoNumbers) { // 로또 번호 오름차순 정렬
         Collections.sort(lottoNumbers);
-    }
+    } // 로또 오름차순 정렬
 
 
     private static List<LottoNumber> getLottoNumbers(List<LottoNumber> numbers) { // 로또 번호 반환

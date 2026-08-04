@@ -44,12 +44,12 @@ public class CorrectLotto {
     }
 
 
-    public Lotto getCorrectLotto() { // 로또 번호 반환
+    public Lotto getCorrectLotto() { // 로또 객체 반환
         return correctLotto;
-    } // 로또 객체 반환
+    }
 
 
     public LottoNumber getBonusBall() { // 보너스 볼 반환
         return bonusBall;
-    } // 보너스 볼 반환
+    }
 }
