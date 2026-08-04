@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Lottos {
 
-    private final int lottoNumberCount;
     List<Lotto> lottos = new ArrayList<>();
 
     public Lottos(int autoLottoCount, int manualLottoCount, List<String> values) {
@@ -17,8 +16,6 @@ public class Lottos {
 
         lottos.addAll(manualLotto);
         lottos.addAll(autoLotto);
-
-        this.lottoNumberCount = autoLottoCount + manualLottoCount;
     }
 
 
@@ -47,7 +44,7 @@ public class Lottos {
 
 
     public int getLottoNumberCount() { // 로또 개수 반환
-        return lottoNumberCount;
+        return lottos.size();
     }
 
 
