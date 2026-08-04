@@ -1,0 +1,85 @@
+package domain;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.TreeSet;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+@DisplayName("LottoTickets 클래스")
+class LottoTicketsTest {
+
+    private LottoTickets lottoTickets;
+
+    @BeforeEach
+    void setUp() {
+        lottoTickets = new LottoTickets();
+    }
+
+    @Nested
+    @DisplayName("addUserSelectedLottos 메소드는")
+    class AddUserSelectedLottos {
+
+        @Test
+        @DisplayName("수동 번호 리스트를 받아 로또를 생성하고 추가한다.")
+        void shouldAddUserSelectedLottos() {
+            List<String> numberStrings = List.of("1, 2, 3, 4, 5, 6", "7, 8, 9, 10, 11, 12");
+
+            lottoTickets.addUserSelectedLottos(numberStrings);
+
+            assertThat(lottoTickets.getSize()).isEqualTo(2);
+            assertThat(lottoTickets.getLottoTreeSet(0)).containsExactly(1, 2, 3, 4, 5, 6);
+            assertThat(lottoTickets.getLottoTreeSet(1)).containsExactly(7, 8, 9, 10, 11, 12);
+        }
+
+        @Test
+        @DisplayName("잘못된 형식의 번호를 받으면 예외를 발생시킨다.")
+        void shouldThrowExceptionForInvalidNumbers() {
+            List<String> invalidNumberStrings = List.of("1, 2, 3, 4, 5");
+
+            assertThatThrownBy(() -> lottoTickets.addUserSelectedLottos(invalidNumberStrings))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("로또 번호는" + Lotto.LOTTO_NUMBER_COUNT + "개여야 합니다.");
+        }
+    }
+
+    @Nested
+    @DisplayName("addAutoLottos 메소드는")
+    class AddAutoLottos {
+
+        @Test
+        @DisplayName("주어진 개수만큼 자동 로또를 생성하고 추가한다.")
+        void shouldAddAutoLottos() {
+            int autoCount = 3;
+
+            lottoTickets.addAutoLottos(autoCount);
+
+            assertThat(lottoTickets.getSize()).isEqualTo(3);
+
+            for (int i = 0; i < autoCount; i++) {
+                assertThat(lottoTickets.getLottoTreeSet(i)).hasSize(Lotto.LOTTO_NUMBER_COUNT);
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("getLottoTreeSet 메소드는")
+    class GetLottoTreeSet {
+
+        @Test
+        @DisplayName("지정된 인덱스의 로또 번호 Set을 반환한다.")
+        void shouldReturnCorrectLottoSet() {
+            lottoTickets.addAutoLottos(1);
+            lottoTickets.addUserSelectedLottos(List.of("1, 2, 3, 4, 5, 6"));
+
+            TreeSet<Integer> manualLottoSet = lottoTickets.getLottoTreeSet(1);
+
+            assertThat(manualLottoSet).containsExactly(1, 2, 3, 4, 5, 6);
+        }
+    }
+}
