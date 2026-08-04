@@ -10,7 +10,7 @@ public class CorrectLotto {
 
     public CorrectLotto(String[] values, int bonusBall){
         List<LottoNumber> numbers = createCorrectLotto(values);
-        correctLotto = new Lotto(numbers);
+        correctLotto = new Lotto(List.copyOf(numbers));
         this.bonusBall = verifyBonusBall(bonusBall);
     }
 

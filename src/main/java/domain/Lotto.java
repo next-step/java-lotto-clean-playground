@@ -11,7 +11,7 @@ public class Lotto {
     public Lotto(List<LottoNumber> lotto) {
         verifyNumberCount(lotto);
         verifyOverlap(lotto);
-        this.lotto = lotto;
+        this.lotto = List.copyOf(lotto);
     }
 
     private void verifyNumberCount(List<LottoNumber> lotto) { // 로또 숫자 개수 검증

@@ -10,7 +10,7 @@ public class Lottos {
     List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
-        this.lottos = lottos;
+        this.lottos = List.copyOf(lottos);
     }
 
 
