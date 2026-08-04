@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseManage{
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
     private int bonusBall;
     private List<Integer> winningNumber;
 
@@ -15,7 +15,6 @@ public class PurchaseManage{
     public Lottos buyLottos(int price, int manualCount) {
         int totalCount = price / LOTTO_PRICE;
         int automaticLottoCount = totalCount - manualCount;
-
 
         List<LottoNumber> manualLottos = makeManualLotto(manualCount);
         List<LottoNumber> purchaseLottos = new ArrayList<>(manualLottos);
@@ -49,6 +48,7 @@ public class PurchaseManage{
     private void setBonusBall() {
         this.bonusBall = InputView.getBonusNumber();
     }
+
 
     public List<Integer> getWinningNumber() {
         return winningNumber;

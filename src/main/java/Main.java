@@ -5,7 +5,7 @@ import view.ResultView;
 public class Main {
     public static void main(String[] args) {
         final int price = InputView.getPurchaseAmount();
-        final int manualCount = InputView.getManualPurchaseAmount();
+        final int manualCount = InputView.getManualPurchaseAmount(price);
 
         PurchaseManage purchaseManage = new PurchaseManage();
         Lottos lottos = purchaseManage.buyLottos(price, manualCount);

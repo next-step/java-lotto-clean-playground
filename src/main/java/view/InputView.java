@@ -1,5 +1,7 @@
 package view;
 
+import domain.PurchaseManage;
+
 import java.util.Scanner;
 
 public class InputView {
@@ -16,10 +18,20 @@ public class InputView {
         }
     }
 
-    public static int getManualPurchaseAmount() {
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        int manualPurchaseLottos = Integer.parseInt(scanner.nextLine());
-        return manualPurchaseLottos;
+    public static int getManualPurchaseAmount(int price) {
+        int totalCount = price / PurchaseManage.LOTTO_PRICE;
+        try {
+            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+            int manualPurchaseLottos = Integer.parseInt(scanner.nextLine());
+            if (totalCount < manualPurchaseLottos || manualPurchaseLottos < 0) {
+                System.out.println("0개 이상" + " " + totalCount + "개 이하로 입력해주세요");
+                return getManualPurchaseAmount(price);
+            }
+            return manualPurchaseLottos;
+        } catch (NumberFormatException e) {
+            System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");
+            return getManualPurchaseAmount(price);
+        }
     }
 
     public static String getManualPurchasedLottos() {
