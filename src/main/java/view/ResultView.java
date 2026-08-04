@@ -4,7 +4,6 @@ import domain.Lotto;
 import domain.LottoNumber;
 import domain.Lottos;
 import domain.Rank;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

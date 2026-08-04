@@ -1,9 +1,7 @@
 import domain.LottoGame;
-import domain.LottoNumber;
 import domain.PurchasePrice;
 import view.InputView;
 import view.ResultView;
-
 import java.util.List;
 
 public class Application {
