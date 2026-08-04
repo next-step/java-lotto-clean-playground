@@ -7,6 +7,10 @@ import java.util.List;
 public class ManualLotto {
 
     public static List<Lotto> generateManualLotto(int manualLottoCount, List<String> values) {
+        if(manualLottoCount < 0) {
+            throw new IllegalArgumentException("0 이상의 값을 받아야 합니다.");
+        }
+
         List<Lotto> manualLotto = new ArrayList<>();
         for(int i = 0; i < manualLottoCount; i++) {
             manualLotto.add(convertStringToLottoNumber(splitString(values.get(i))));

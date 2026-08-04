@@ -10,6 +10,11 @@ public class AutoLotto {
     private static final int LOTTO_NUMBER_COUNT = 6;
 
     public static List<Lotto> generateAutoLotto(int autoLottoCount) { // 개수가 count인 로또 리스트 생성
+
+        if(autoLottoCount < 0) {
+            throw new IllegalArgumentException("0 이상의 값을 받아야 합니다.");
+        }
+
         List<Lotto> autoLotto = new ArrayList<>();
 
         for(int i = 0; i < autoLottoCount; i++) {
