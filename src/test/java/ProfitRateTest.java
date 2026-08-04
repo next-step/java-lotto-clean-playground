@@ -11,7 +11,7 @@ public class ProfitRateTest {
     @DisplayName("당첨 통계를 기반으로 총 수익률을 정확히 계산한다.")
     void calculateProfitRateTest() {
         //given
-        int price = 1000;
+        int price = 4000;
         List<Integer> winninggLotto = List.of(1, 2, 3, 4, 5, 6);
         int testBonusNum = 7;
 
