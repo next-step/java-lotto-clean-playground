@@ -14,7 +14,7 @@ public class Main {
         for (int i = 0; i < count; i++) {
             String input = InputView.getManualPurchasedLottos();
 
-            List<Integer> numbers = lottoParser.parseSingleLotto(input);
+            List<Integer> numbers = lottoParser.parseInput(input);
             manualLottos.add(new LottoNumber(numbers));
         }
         PurchaseManage purchaseManage = new PurchaseManage();
@@ -24,7 +24,7 @@ public class Main {
         String enteredWinningNumber = InputView.getWinningNumber();
         int bonusNumber = InputView.getBonusNumber();
 
-        List<Integer> winningNumbers =  lottoParser.setWinningNumber(enteredWinningNumber);
+        List<Integer> winningNumbers =  lottoParser.parseInput(enteredWinningNumber);
         WinningStatistics winningStatistics = new WinningStatistics();
         winningStatistics.compareLottos(winningNumbers, lottos, bonusNumber);
         ProfitRate profitRate = new ProfitRate(price, winningStatistics);
