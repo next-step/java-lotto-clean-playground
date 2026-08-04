@@ -1,7 +1,11 @@
 package view;
 
+import domain.Lotto;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public final class InputView {
     public static final int PRICE_PER_ONE_LOTTO_TICKET = 1000;
@@ -14,13 +18,14 @@ public final class InputView {
         System.out.println("구입 금액을 입력해 주세요.");
         while (true) {
             try {
-                int price = Integer.parseInt(lottoScanner.nextLine());
+                String input = lottoScanner.nextLine();
+                int price = Integer.parseInt(input);
                 validatePurchaseAmount(price);
                 return price;
             } catch (NumberFormatException e) {
-                System.out.println("구입 금액은 숫자로만 입력해야 합니다.");
+                System.out.println("구입 금액은 숫자로만 입력해야 합니다. 다시 입력해 주세요.");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + " 다시 입력해 주세요.");
             }
         }
     }
@@ -36,10 +41,19 @@ public final class InputView {
 
     public static int inputUserSelectedLottoCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        try {
-            return Integer.parseInt(lottoScanner.nextLine());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("로또 개수는 숫자로만 입력해야 합니다.");
+        while (true) {
+            try {
+                String input = lottoScanner.nextLine();
+                int manualCount = Integer.parseInt(input);
+                if (manualCount < 0) {
+                    throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
+                }
+                return manualCount;
+            } catch (NumberFormatException e) {
+                System.out.println("로또 개수는 숫자로만 입력해야 합니다. 다시 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage() + " 다시 입력해 주세요.");
+            }
         }
     }
 
@@ -47,26 +61,66 @@ public final class InputView {
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         ArrayList<String> userSelectedNumbers = new ArrayList<>();
         for (int i = 0; i < userSelectedNumbersCount; i++) {
-            userSelectedNumbers.add(lottoScanner.nextLine());
+            while (true) {
+                try {
+                    String numbersString = lottoScanner.nextLine();
+                    List<Integer> numbers = Arrays.stream(numbersString.split(",\\s*"))
+                            .map(Integer::parseInt)
+                            .collect(Collectors.toList());
+                    new Lotto(numbers);
+                    userSelectedNumbers.add(numbersString);
+                    break; 
+                } catch (NumberFormatException e) {
+                    System.out.println("로또 번호는 숫자로만 구성되어야 합니다. 해당 라인을 다시 입력해 주세요.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage() + " 해당 라인을 다시 입력해 주세요.");
+                }
+            }
         }
         return userSelectedNumbers;
     }
 
-    public static String inputWinningLottoNumbers(){
-
+    public static String inputWinningLottoNumbers() {
         System.out.println("\n지난 주 당첨번호를 입력해 주세요");
-        String winningLottoNumbers = lottoScanner.nextLine();
-
-        return winningLottoNumbers;
+        while (true) {
+            try {
+                String winningLottoNumbers = lottoScanner.nextLine();
+                List<Integer> numbers = Arrays.stream(winningLottoNumbers.split(",\\s*"))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+                new Lotto(numbers);
+                return winningLottoNumbers;
+            } catch (NumberFormatException e) {
+                System.out.println("당첨 번호는 숫자로만 구성되어야 합니다. 다시 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage() + " 다시 입력해 주세요.");
+            }
+        }
     }
 
-    public static String inputBonusBallNumber(){
+    public static String inputBonusBallNumber() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
-        String bonusNumber = lottoScanner.nextLine();
-        if (bonusNumber.contains(" ") || bonusNumber.contains(",")) {
-            throw new IllegalArgumentException("보너스 볼은 하나의 숫자만 입력해야 합니다.");
+        while (true) {
+            try {
+                String bonusNumberStr = lottoScanner.nextLine();
+                if (bonusNumberStr == null || bonusNumberStr.trim().isEmpty()) {
+                    throw new IllegalArgumentException("보너스 볼 번호를 입력해야 합니다.");
+                }
+                if (bonusNumberStr.contains(" ") || bonusNumberStr.contains(",")) {
+                    throw new IllegalArgumentException("보너스 볼은 하나의 숫자만 입력해야 합니다.");
+                }
+                int bonusNumber = Integer.parseInt(bonusNumberStr);
+                if (bonusNumber < Lotto.LOTTO_NUMBER_LOWER_BOUND || bonusNumber > Lotto.LOTTO_NUMBER_BOUND) {
+                    throw new IllegalArgumentException("보너스 볼은 " + Lotto.LOTTO_NUMBER_LOWER_BOUND + "과 " +
+                            Lotto.LOTTO_NUMBER_BOUND + " 사이의 숫자여야 합니다.");
+                }
+                return bonusNumberStr;
+            } catch (NumberFormatException e) {
+                System.out.println("보너스 볼은 숫자로만 입력해야 합니다. 다시 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage() + " 다시 입력해 주세요.");
+            }
         }
-        return bonusNumber;
     }
 
     public static void closeScanner(Scanner scanner) {
