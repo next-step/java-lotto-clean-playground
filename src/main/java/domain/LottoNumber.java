@@ -37,7 +37,7 @@ public class LottoNumber {
     }
 
     private void validateNumber(int number) {
-        if (number < 1 || number > 46) {
+        if (number < 1 || number > 45) {
             throw new IllegalArgumentException("로또 번호는 1부터 45까지여야 합니다.");
         }
     }
