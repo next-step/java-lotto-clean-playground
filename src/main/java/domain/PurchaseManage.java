@@ -12,23 +12,28 @@ public class PurchaseManage{
 
     LottoParser lottoParser = new LottoParser();
 
-    public Lottos buyLottos(int price, int manualCunt) {
+    public Lottos buyLottos(int price, int manualCount) {
         int totalCount = price / LOTTO_PRICE;
-        int automaticLottoCount = totalCount - manualCunt;
+        int automaticLottoCount = totalCount - manualCount;
 
-        List<LottoNumber> manualLottos = new ArrayList<>();
 
-        for (int i = 0; i < manualCunt; i++) {
-            String input = InputView.getManualPurchasedLottos();
-            List<Integer> numbers = lottoParser.parseInput(input);
-            manualLottos.add(new LottoNumber(numbers));
-        }
+        List<LottoNumber> manualLottos = makeManualLotto(manualCount);
         List<LottoNumber> purchaseLottos = new ArrayList<>(manualLottos);
 
         for (int i = 0; i < automaticLottoCount; i++) {
             purchaseLottos.add(new LottoNumber());
         }
         return new Lottos(purchaseLottos);
+    }
+
+    public List<LottoNumber> makeManualLotto(int manualCount) {
+        List<LottoNumber> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            String input = InputView.getManualPurchasedLottos();
+            List<Integer> numbers = lottoParser.parseInput(input);
+            manualLottos.add(new LottoNumber(numbers));
+        }
+        return manualLottos;
     }
 
     public void setLottoResult() {
