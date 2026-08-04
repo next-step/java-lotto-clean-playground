@@ -49,11 +49,6 @@ public class InputView {
 
         values = Arrays.stream(values).map(String::trim).toArray(String[]:: new); // 공백 처리
 
-        long distinct = Arrays.stream(values).distinct().count(); // 중복 처리
-        if(values.length != distinct){
-            throw new IllegalArgumentException("로또는 중복될 수 없습니다.");
-        }
-
         return values;
     }
 
