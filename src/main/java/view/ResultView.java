@@ -18,7 +18,7 @@ public class ResultView {
 
     public static void printLotto(Lottos lottos) {
         List<String> lottoForms = getLottoForms(lottos.getLottos());
-        for(int i = 0; i < lottos.getLottoNumberCount(); i++){
+        for(int i = 0; i < lottos.getLottos().size(); i++){
             System.out.println(lottoForms.get(i));
         }
         System.out.println();

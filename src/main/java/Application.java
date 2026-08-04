@@ -13,9 +13,9 @@ public class Application {
         final int manualLottoCount = InputView.getManualLottoCount();
 
         final PurchasePrice purchasePrice = new PurchasePrice(price, manualLottoCount);
-        final List<String> manualLottoNumber = InputView.getManualLottoNumber(manualLottoCount);
+        final List<String> manualLottoNumbers = InputView.getManualLottoNumber(manualLottoCount);
 
-        LottoGame lottoGame = new LottoGame(purchasePrice, manualLottoNumber);
+        LottoGame lottoGame = new LottoGame(purchasePrice, manualLottoNumbers);
 
         ResultView.printLottoNumberCount(purchasePrice.getManualLottoCount(), purchasePrice.getAutoLottoCount());
         ResultView.printLotto(lottoGame.getLottos());
@@ -24,6 +24,6 @@ public class Application {
         final int bonusBall = InputView.getBonusBall();
         lottoGame.createCorrectLotto(values, bonusBall);
 
-        ResultView.printWinningStatistics(lottoGame.getRanksCount(), lottoGame.calculateProfit());
+        ResultView.printWinningStatistics(lottoGame.getRanksCount(), lottoGame.calculateProfit(purchasePrice));
     }
 }

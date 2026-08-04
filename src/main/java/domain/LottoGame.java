@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,14 +8,10 @@ public class LottoGame {
 
     private final Lottos lottos;
     private CorrectLotto correctLotto;
-    private final PurchasePrice purchasePrice;
 
 
-    public LottoGame(PurchasePrice purchasePrice, List<String> values){
-        int autoLottoCount = purchasePrice.getAutoLottoCount();
-        int manualLottoCount = purchasePrice.getManualLottoCount();
-        lottos = new Lottos(autoLottoCount, manualLottoCount, values);
-        this.purchasePrice = purchasePrice;
+    public LottoGame(PurchasePrice purchasePrice, List<String> manualLottoNumbers){
+        this.lottos = new Lottos(createLottos(purchasePrice, manualLottoNumbers));
     }
 
 
@@ -22,8 +19,25 @@ public class LottoGame {
         return lottos;
     } // 로또 객체 반환
 
+
     public void createCorrectLotto(String[] values, int bonusBall) { // 정답 로또 생성
         correctLotto = new CorrectLotto(values, bonusBall);
+    }
+
+    private List<Lotto> createLottos(PurchasePrice purchasePrice, List<String> manualLottoNumbers) { // Lottos 생성
+
+        List<Lotto> lottos = new ArrayList<>();
+
+        int manualLottoCount = purchasePrice.getManualLottoCount();
+        int autoLottoCount = purchasePrice.getAutoLottoCount();
+
+        List<Lotto> autoLotto = AutoLotto.generateAutoLotto(autoLottoCount);
+        List<Lotto> manualLotto = ManualLotto.generateManualLotto(manualLottoCount, manualLottoNumbers);
+
+        lottos.addAll(manualLotto);
+        lottos.addAll(autoLotto);
+
+        return lottos;
     }
 
 
@@ -32,7 +46,7 @@ public class LottoGame {
     }
 
 
-    public float calculateProfit() { // 수익률 계산
+    public float calculateProfit(PurchasePrice purchasePrice) { // 수익률 계산
         Map<Rank, Integer> ranksCount = getRanksCount();
 
         long sum = 0;

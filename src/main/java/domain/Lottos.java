@@ -7,15 +7,10 @@ import java.util.Map;
 
 public class Lottos {
 
-    List<Lotto> lottos = new ArrayList<>();
+    List<Lotto> lottos;
 
-    public Lottos(int autoLottoCount, int manualLottoCount, List<String> values) {
-
-        List<Lotto> autoLotto = AutoLotto.generateAutoLotto(autoLottoCount);
-        List<Lotto> manualLotto = ManualLotto.generateManualLotto(manualLottoCount, values);
-
-        lottos.addAll(manualLotto);
-        lottos.addAll(autoLotto);
+    public Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 
 
@@ -40,11 +35,6 @@ public class Lottos {
         }
 
         return ranksCount;
-    }
-
-
-    public int getLottoNumberCount() { // 로또 개수 반환
-        return lottos.size();
     }
 
 
