@@ -45,10 +45,7 @@ public class Lotto {
 
 
     private boolean bonusMatch(CorrectLotto correctLotto) { // 보너스볼과 일치하는 번호가 있는지 확인
-        if(lotto.contains(correctLotto.getBonusBall())) {
-            return true;
-        }
-        return false;
+        return lotto.contains(correctLotto.getBonusBall());
     }
 
     public Rank findRank(CorrectLotto correctLotto) { // 로또가 몇 등인지 확인
