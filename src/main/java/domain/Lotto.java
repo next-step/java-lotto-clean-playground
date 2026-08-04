@@ -35,7 +35,7 @@ public class Lotto {
     private int correctCount(CorrectLotto correctLotto) { // 실제 로또 번호와 일치하는 번호 개수 반환
         int count = 0;
         for(int i = 0; i < lotto.size(); i++){
-            if(correctLotto.getCorrectLotto().contains(lotto.get(i))){
+            if(correctLotto.getCorrectLotto().getLotto().contains(lotto.get(i))){
                 count++;
             }
         }
