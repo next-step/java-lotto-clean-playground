@@ -14,27 +14,16 @@ public class CorrectLottoTest {
 
         // 준비
         String[] values = {"1", "2", "3", "4", "5", "6"};
-        LottoNumber bonusBall = new LottoNumber(7);
+        int bonusBall = 7;
 
         // 실행
         CorrectLotto correctLotto = new CorrectLotto(values, bonusBall);
 
         // 검증
-        assertEquals(6, correctLotto.getCorrectLotto().size());
+        assertEquals(6, correctLotto.getCorrectLotto().getLotto().size());
         assertEquals(new LottoNumber(7), correctLotto.getBonusBall());
     }
 
-    @Test
-    @DisplayName("당첨 번호가 6개가 아니면 예외")
-    void exceptIfNumberCountIsNot6() {
-
-        // 준비
-        String[] values = {"1", "2", "3", "4", "5"};
-
-        // 실행 & 검증
-        assertThrows(IllegalArgumentException.class,
-                () -> new CorrectLotto(values, new LottoNumber(7)));
-    }
 
     @Test
     @DisplayName("보너스 볼이 당첨 번호와 중복되면 예외")
@@ -45,6 +34,6 @@ public class CorrectLottoTest {
 
         // 실행 & 검증
         assertThrows(IllegalArgumentException.class,
-                () -> new CorrectLotto(values, new LottoNumber(6)));
+                () -> new CorrectLotto(values, 6));
     }
 }

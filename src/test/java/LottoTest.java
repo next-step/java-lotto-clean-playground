@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Lotto 테스트")
 public class LottoTest {
@@ -100,11 +101,35 @@ public class LottoTest {
         assertEquals(Rank.MISS, result);
     }
 
+    @Test
+    @DisplayName("당첨 번호가 6개가 아니면 예외")
+    void exceptIfNumberCountIsNot6() {
+
+        // 준비
+        String[] values = {"1", "2", "3", "4", "5"};
+
+        // 실행 & 검증
+        assertThrows(IllegalArgumentException.class,
+                () -> new CorrectLotto(values, 7));
+    }
+
+    @Test
+    @DisplayName("당첨 번호가 숫자가 아니면 예외")
+    void exceptIfNumberCountIsNotNumber() {
+
+        // 준비
+        String[] values = {"1", "2", "3", "4", "5", "a"};
+
+        // 실행 & 검증
+        assertThrows(IllegalArgumentException.class,
+                () -> new CorrectLotto(values, 7));
+    }
+
 
     private CorrectLotto createCorrectLotto() {
         String[] correctLotto = {"1", "2", "3", "4", "5", "6"};
 
-        return new CorrectLotto(correctLotto, new LottoNumber(7));
+        return new CorrectLotto(correctLotto, 7);
     }
 
     private Lotto createLotto(List<Integer> lottoNumbers) {

@@ -1,5 +1,5 @@
 import domain.CorrectLotto;
-import domain.LottoNumber;
+import domain.ManualLotto;
 import domain.Lottos;
 import domain.Rank;
 import org.junit.jupiter.api.DisplayName;
@@ -20,10 +20,9 @@ public class LottosTest {
                 "1, 2, 3, 4, 5, 6",
                 "1, 2, 3, 4, 5, 7",
                 "1, 2, 3, 7, 9, 10");
-        Lottos lottos = new Lottos(0, 3, manualLottos);
+        Lottos lottos = new Lottos(ManualLotto.generateManualLotto(3, manualLottos));
         CorrectLotto correctLotto = new CorrectLotto(
-                        new String[]{"1", "2", "3", "4", "5", "6"},
-                        new LottoNumber(7));
+                new String[]{"1", "2", "3", "4", "5", "6"}, 7);
 
         // 실행
         Map<Rank, Integer> result = lottos.getRanksCount(correctLotto);
