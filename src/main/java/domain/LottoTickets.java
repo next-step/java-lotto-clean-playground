@@ -11,7 +11,7 @@ public class LottoTickets {
 
     public void addUserSelectedLottos(List<String> userSelectedNumbersInput) {
         for (String numbersString : userSelectedNumbersInput) {
-            List<Integer> numbers = Arrays.stream(numbersString.split(", "))
+            List<Integer> numbers = Arrays.stream(numbersString.split(",\\s*"))
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
             lottoArrayList.add(new Lotto(numbers));
