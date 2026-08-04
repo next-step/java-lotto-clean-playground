@@ -6,9 +6,14 @@ public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
     public static int getPurchaseAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        int purchaseAmount = Integer.parseInt(scanner.nextLine());
-        return purchaseAmount;
+        try {
+            System.out.println("구입금액을 입력해 주세요.");
+            int purchaseAmount = Integer.parseInt(scanner.nextLine());
+            return purchaseAmount;
+        } catch(NumberFormatException e) {
+            System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");
+            return getPurchaseAmount();
+        }
     }
 
     public static int getManualPurchaseAmount() {
