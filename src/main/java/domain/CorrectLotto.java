@@ -8,17 +8,21 @@ public class CorrectLotto {
     private final Lotto correctLotto;
     private final LottoNumber bonusBall;
 
-    public CorrectLotto(String[] values, LottoNumber bonusBall){
+    public CorrectLotto(String[] values, int bonusBall){
         List<LottoNumber> numbers = createCorrectLotto(values);
         correctLotto = new Lotto(numbers);
-        verifyBonusBall(bonusBall);
-        this.bonusBall = bonusBall;
+        this.bonusBall = verifyBonusBall(bonusBall);
     }
 
-    private void verifyBonusBall(LottoNumber bonusBall) { // 보너스볼과 로또 번호 중복 확인
-        if(correctLotto.getLotto().contains(bonusBall)){
+    private LottoNumber verifyBonusBall(int bonusBall) { // 보너스볼과 로또 번호 중복 확인
+
+        LottoNumber LottoNumberBonusBall = new LottoNumber(bonusBall);
+
+        if(correctLotto.getLotto().contains(LottoNumberBonusBall)){
             throw new IllegalArgumentException("보너스볼은 당첨 번호와 중복될 수 없습니다.");
         }
+
+        return LottoNumberBonusBall;
     }
 
 
