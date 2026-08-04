@@ -13,15 +13,10 @@ public class LottoNumber implements Comparable<LottoNumber> { // 각각의 로�
     }
 
     private void verifyLottoNumber(int lottoNumber){ // 로또 번호 검증
-        try {
             if (lottoNumber < MIN_LOTTO_NUMBER || lottoNumber > MAX_LOTTO_NUMBER) {
                 throw new IllegalArgumentException("로또 번호는 1~45 사이입니다.");
             }
         }
-        catch (NumberFormatException e){
-            throw new IllegalArgumentException("로또 번호는 숫자입니다.");
-        }
-    }
 
 
     @Override // 이 부분은 AI의 도움을 받았습니다
