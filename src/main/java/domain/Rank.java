@@ -8,9 +8,9 @@ public enum Rank {
     FOURTH_PLACE(3, 5000, false),
     MISS(0, 0, false);
 
-    private int matchBallNum;
-    private int prize;
-    private boolean hasBonusBall;
+    private final int matchBallNum;
+    private final int prize;
+    private final boolean hasBonusBall;
 
     Rank(int matchBallNum, int prize, boolean hasBonusBall) {
         this.matchBallNum = matchBallNum;
