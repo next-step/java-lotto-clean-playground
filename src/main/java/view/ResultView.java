@@ -1,7 +1,11 @@
 package view;
 
+import domain.Lotto;
+import domain.LottoNumber;
 import domain.Lottos;
 import domain.Rank;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +17,7 @@ public class ResultView {
     }
 
     public static void printLotto(Lottos lottos) {
-        List<String> lottoForms = lottos.getLottoForms();
+        List<String> lottoForms = getLottoForms(lottos.getLottos());
         for(int i = 0; i < lottos.getLottoNumberCount(); i++){
             System.out.println(lottoForms.get(i));
         }
@@ -23,16 +27,16 @@ public class ResultView {
 
     public static void printWinningStatistics(Map<Rank, Integer> correctCount, float profit) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.println(WinningForm(Rank.FIFTH, correctCount));
-        System.out.println(WinningForm(Rank.FOURTH, correctCount));
-        System.out.println(WinningForm(Rank.THIRD, correctCount));
-        System.out.println(WinningForm(Rank.SECOND, correctCount));
-        System.out.println(WinningForm(Rank.FIRST, correctCount));
+        System.out.println(getWinningForm(Rank.FIFTH, correctCount));
+        System.out.println(getWinningForm(Rank.FOURTH, correctCount));
+        System.out.println(getWinningForm(Rank.THIRD, correctCount));
+        System.out.println(getWinningForm(Rank.SECOND, correctCount));
+        System.out.println(getWinningForm(Rank.FIRST, correctCount));
         System.out.println("총 수익률은 " + profit + "입니다.");
     }
 
 
-    private static String WinningForm(Rank rank, Map<Rank, Integer> correctCount) {
+    private static String getWinningForm(Rank rank, Map<Rank, Integer> correctCount) {
         if(rank == Rank.SECOND) {
             return rank.getMatchCount()
                     + "개 일치, 보너스 볼 일치 (" + rank.getPrize() + "원) - "
@@ -43,4 +47,20 @@ public class ResultView {
                 + correctCount.get(rank) + "개";
     }
 
+    private static String getLottoForm(List<LottoNumber> lotto){ // 로또 출력 폼 반환
+        StringBuilder form = new StringBuilder("[");
+        for (int i = 0; i < lotto.size() - 1; i++){
+            form.append(lotto.get(i)).append(", ");
+        }
+        form.append(lotto.get(lotto.size() - 1) + "]");
+        return form.toString();
+    }
+
+    private static List<String> getLottoForms(List<Lotto> lottos) { // 로또 출력 폼 리스트 반환
+        List<String> lottoForms = new ArrayList<>();
+        for(int i = 0; i < lottos.size(); i++){
+            lottoForms.add(getLottoForm(lottos.get(i).getLotto()));
+        }
+        return lottoForms;
+    }
 }

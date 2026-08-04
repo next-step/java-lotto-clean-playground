@@ -51,11 +51,7 @@ public class Lottos {
     }
 
 
-    public List<String> getLottoForms() { // 로또 출력 폼 리스트 반환
-        List<String> lottoForms = new ArrayList<>();
-        for(int i = 0; i < lottos.size(); i++){
-            lottoForms.add(lottos.get(i).getLottoForm());
-        }
-        return lottoForms;
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }

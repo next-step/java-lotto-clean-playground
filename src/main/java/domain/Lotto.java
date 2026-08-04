@@ -56,9 +56,4 @@ public class Lotto {
         boolean bonusMatch = bonusMatch(correctLotto);
         return Rank.findRank(matchCount, bonusMatch);
     }
-
-
-    public String getLottoForm() { // 로또 출력 폼 반환
-        return new LottoForm(lotto).getLottoForm();
-    } // 로또 출력폼 반환
 }
