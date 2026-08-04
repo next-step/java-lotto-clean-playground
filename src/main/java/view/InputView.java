@@ -4,17 +4,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class InputView {
+    public static final int PRICE_PER_ONE_LOTTO_TICKET = 1000;
     public static Scanner lottoScanner = new Scanner(System.in);
 
     private InputView() {
     }
 
-    public static int inputLottoTotalPrice(){
+    public static int inputLottoTotalPrice() {
         System.out.println("구입 금액을 입력해 주세요.");
-        try {
-            return Integer.parseInt(lottoScanner.nextLine());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("구입 금액은 숫자로만 입력해야 합니다.");
+        while (true) {
+            try {
+                int price = Integer.parseInt(lottoScanner.nextLine());
+                validatePurchaseAmount(price);
+                return price;
+            } catch (NumberFormatException e) {
+                System.out.println("구입 금액은 숫자로만 입력해야 합니다.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void validatePurchaseAmount(int price) {
+        if (price < PRICE_PER_ONE_LOTTO_TICKET) {
+            throw new IllegalArgumentException("구입 금액은 " + PRICE_PER_ONE_LOTTO_TICKET + "원 이상이어야 합니다.");
+        }
+        if (price % PRICE_PER_ONE_LOTTO_TICKET != 0) {
+            throw new IllegalArgumentException("구입 금액은 " + PRICE_PER_ONE_LOTTO_TICKET + "원 단위로 입력해야 합니다.");
         }
     }
 
