@@ -2,31 +2,20 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        int price = InputView.getPurchaseAmount();
-        int count = InputView.getManualPurchaseAmount();
-        List<LottoNumber> manualLottos = new ArrayList<>();
-        LottoParser lottoParser = new LottoParser();
-        for (int i = 0; i < count; i++) {
-            String input = InputView.getManualPurchasedLottos();
+        final int price = InputView.getPurchaseAmount();
+        final int manualCount = InputView.getManualPurchaseAmount();
 
-            List<Integer> numbers = lottoParser.parseInput(input);
-            manualLottos.add(new LottoNumber(numbers));
-        }
         PurchaseManage purchaseManage = new PurchaseManage();
-        Lottos lottos = purchaseManage.buyLottos(price, manualLottos);
+        Lottos lottos = purchaseManage.buyLottos(price, manualCount);
+        purchaseManage.setLottoResult();
 
         ResultView.showNum(lottos);
-        String enteredWinningNumber = InputView.getWinningNumber();
-        int bonusNumber = InputView.getBonusNumber();
 
-        List<Integer> winningNumbers =  lottoParser.parseInput(enteredWinningNumber);
         WinningStatistics winningStatistics = new WinningStatistics();
-        winningStatistics.compareLottos(winningNumbers, lottos, bonusNumber);
+
+        winningStatistics.compareLottos(purchaseManage.getWinningNumber(), lottos, purchaseManage.getBonusBall());
         ProfitRate profitRate = new ProfitRate(price, winningStatistics);
         ResultView.showStatistics(profitRate, winningStatistics);
     }
