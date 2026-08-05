@@ -8,17 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 public class LottosGenerator {
-    private int autoAmount;
-    private List<Lotto> lottos=new ArrayList<>();
     private Random random=new Random();
 
+    public List<Lotto> genLottos(int autoAmount){
+        List<Lotto> lottos=new ArrayList<>();
 
-    public LottosGenerator(int autoAmount, List<Lotto> lottos){
-        this.autoAmount=autoAmount;
-        this.lottos=lottos;
-    }
-
-    public List<Lotto> genLottos(){
         for(int i=0;i<autoAmount;i++){
             lottos.add(genLotto());
         }
