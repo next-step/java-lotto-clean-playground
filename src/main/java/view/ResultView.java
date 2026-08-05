@@ -19,6 +19,6 @@ public class ResultView {
         System.out.println("5개 일치 (1500000원)-" + winningStatistics.getWinningStatistics().get(Rank.SECOND_PLACE).getWinnerNum());
         System.out.println("5개 일치, 보너스 볼 일치(30000000원)-" + winningStatistics.getWinningStatistics().get(Rank.SECOND_PLACE_BONUS).getWinnerNum());
         System.out.println("6개 일치 (2000000000원)-" + winningStatistics.getWinningStatistics().get(Rank.FIRST_PLACE).getWinnerNum());
-        System.out.println("총 수익률은 " + profitRate.getProfitRate() + "입니다.");
+        System.out.println("총 수익률은 " + profitRate.getProfitRate() + "%입니다.");
     }
 }

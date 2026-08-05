@@ -30,7 +30,7 @@ public class ProfitRateTest {
 
         //then
         long expectedTotalProfit = (long) Rank.FIRST_PLACE.getPrize() + Rank.SECOND_PLACE_BONUS.getPrize() + Rank.SECOND_PLACE.getPrize() + Rank.MISS.getPrize();
-        double expectedProfitRate = (double) expectedTotalProfit / price;
+        double expectedProfitRate = ((double) expectedTotalProfit / price) * 100;
 
         assertEquals(expectedTotalProfit, profitRate.getTotalProfit());
         assertEquals(expectedProfitRate, profitRate.getProfitRate());

@@ -23,6 +23,6 @@ public class ProfitRate {
     }
 
     public double getProfitRate() {
-        return (double) getTotalProfit() / price;
+        return ((double) getTotalProfit() / price) * 100;
     }
 }
