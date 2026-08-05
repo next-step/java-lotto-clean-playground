@@ -22,14 +22,6 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printLottoStatistics(PurchaseAmount purchaseAmount, LottoStatistics lottoStatistics) {
-        printStatisticsHeader();
-
-        printWinningCounts(lottoStatistics);
-
-        printProfitRate(lottoStatistics, purchaseAmount);
-    }
-
     private void printLotto(Lotto lotto) {
         List<Integer> numberValues = new ArrayList<>();
 
@@ -38,6 +30,14 @@ public class OutputView {
         }
 
         System.out.println(numberValues);
+    }
+
+    public void printLottoStatistics(PurchaseAmount purchaseAmount, LottoStatistics lottoStatistics) {
+        printStatisticsHeader();
+
+        printWinningCounts(lottoStatistics);
+
+        printProfitRate(lottoStatistics, purchaseAmount);
     }
 
     private void printStatisticsHeader() {
@@ -51,10 +51,6 @@ public class OutputView {
         }
     }
 
-    private void printProfitRate(LottoStatistics lottoStatistics, PurchaseAmount purchaseAmount) {
-        System.out.println("총 수익률은 " + lottoStatistics.calculateProfitRate(purchaseAmount) + "입니다.");
-    }
-
     private void printWinningResult(LottoStatistics lottoStatistics, LottoRank rank) {
         if (rank == LottoRank.SECOND) {
             System.out.println(rank.getMatchCount() + "개 일치, 보너스 볼 일치("
@@ -65,5 +61,9 @@ public class OutputView {
         System.out.println(rank.getMatchCount() + "개 일치 ("
                 + rank.getPrize() + "원)- "
                 + lottoStatistics.getWinningCount(rank) + "개");
+    }
+
+    private void printProfitRate(LottoStatistics lottoStatistics, PurchaseAmount purchaseAmount) {
+        System.out.println("총 수익률은 " + lottoStatistics.calculateProfitRate(purchaseAmount) + "입니다.");
     }
 }

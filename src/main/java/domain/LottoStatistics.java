@@ -42,13 +42,13 @@ public class LottoStatistics {
         }
     }
 
-    private void increaseWinningCount(LottoRank rank) {
-        winningCounts.put(rank, winningCounts.get(rank) + 1);
-    }
-
     private void processLottoResult(Lotto lotto, WinningLotto winningLotto) {
         LottoRank rank = winningLotto.determineRank(lotto);
 
         increaseWinningCount(rank);
+    }
+
+    private void increaseWinningCount(LottoRank rank) {
+        winningCounts.put(rank, winningCounts.get(rank) + 1);
     }
 }
