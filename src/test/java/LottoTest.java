@@ -114,11 +114,11 @@ public class LottoTest {
     }
 
     @Test
-    @DisplayName("당첨 번호가 숫자가 아니면 예외")
-    void exceptIfNumberCountIsNotNumber() {
+    @DisplayName("당첨 번호가 중복이면 예외")
+    void exceptIfNumberCountIsOverlap() {
 
         // 준비
-        String[] values = {"1", "2", "3", "4", "5", "a"};
+        String[] values = {"1", "2", "3", "4", "5", "1"};
 
         // 실행 & 검증
         assertThrows(IllegalArgumentException.class,

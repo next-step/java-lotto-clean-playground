@@ -36,4 +36,16 @@ public class CorrectLottoTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new CorrectLotto(values, 6));
     }
+
+    @Test
+    @DisplayName("당첨 번호가 숫자가 아니면 예외")
+    void exceptIfLottoNumberIsNotNumber() {
+
+        // 준비
+        String[] values = {"1", "2", "3", "4", "5", "a"};
+
+        // 실행 & 검증
+        assertThrows(IllegalArgumentException.class,
+                () -> new CorrectLotto(values, 7));
+    }
 }

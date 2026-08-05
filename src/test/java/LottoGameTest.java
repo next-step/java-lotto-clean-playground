@@ -22,8 +22,7 @@ public class LottoGameTest {
         LottoGame game = new LottoGame(purchasePrice, manualLotto);
 
         // 검증
-        assertEquals(1, purchasePrice.getAutoLottoCount());
-        assertEquals(1, purchasePrice.getManualLottoCount());
+        assertEquals(2, game.getLottos().getLottos().size());
     }
 
     @Test
