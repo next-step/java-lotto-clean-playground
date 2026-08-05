@@ -2,6 +2,7 @@ import domain.LottoNumber;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.PurchaseAmount;
+import domain.WinningLotto;
 import domain.WinningNumbers;
 
 import view.InputView;
@@ -29,9 +30,9 @@ public class Application {
         WinningNumbers winningNumbers = new WinningNumbers(inputView.readWinningNumbers());
         LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
 
-        winningNumbers.validateBonusNumber(bonusNumber);
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningLotto);
         outputView.printLottoStatistics(purchaseAmount, lottoStatistics);
     }
 }

@@ -6,10 +6,10 @@ import java.util.Map;
 public class LottoStatistics {
     private final Map<LottoRank, Integer> winningCounts = new EnumMap<>(LottoRank.class);
 
-    public LottoStatistics(Lottos lottos, WinningNumbers winningNumbers, LottoNumber bonusNumber) {
+    public LottoStatistics(Lottos lottos, WinningLotto winningLotto) {
         initializeWinningCounts();
 
-        calculateWinningCounts(lottos, winningNumbers, bonusNumber);
+        calculateWinningCounts(lottos, winningLotto);
     }
 
     public int getWinningCount(LottoRank rank) {
@@ -36,9 +36,9 @@ public class LottoStatistics {
         }
     }
 
-    private void calculateWinningCounts(Lottos lottos, WinningNumbers winningNumbers, LottoNumber bonusNumber) {
+    private void calculateWinningCounts(Lottos lottos, WinningLotto winningLotto) {
         for (Lotto lotto : lottos.getLottos()) {
-            processLottoResult(lotto, winningNumbers, bonusNumber);
+            processLottoResult(lotto, winningLotto);
         }
     }
 
@@ -46,15 +46,8 @@ public class LottoStatistics {
         winningCounts.put(rank, winningCounts.get(rank) + 1);
     }
 
-    private boolean isBonusNumberMatched(Lotto lotto, LottoNumber bonusNumber) {
-         return lotto.getNumbers().contains(bonusNumber);
-    }
-
-    private void processLottoResult(Lotto lotto, WinningNumbers winningNumbers, LottoNumber bonusNumber) {
-        int matchCount = winningNumbers.countMatchingNumbers(lotto);
-        boolean bonusMatched = isBonusNumberMatched(lotto, bonusNumber);
-
-        LottoRank rank = LottoRank.from(matchCount, bonusMatched);
+    private void processLottoResult(Lotto lotto, WinningLotto winningLotto) {
+        LottoRank rank = winningLotto.determineRank(lotto);
 
         increaseWinningCount(rank);
     }

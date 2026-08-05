@@ -14,6 +14,7 @@ public class LottoStatisticsTest {
         List<Integer> winningNumberValues = List.of(1, 2, 3, 4, 5, 6);
         WinningNumbers winningNumbers = new WinningNumbers(winningNumberValues);
         LottoNumber bonusNumber = new LottoNumber(7);
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
         List<List<Integer>> lottoNumbers = List.of(
                 List.of(1, 2, 3, 4, 5, 6),
@@ -24,7 +25,7 @@ public class LottoStatisticsTest {
         );
 
         Lottos lottos = new Lottos(lottoNumbers, 0);
-        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningLotto);
 
         assertEquals(1, lottoStatistics.getWinningCount(LottoRank.FIRST));
         assertEquals(1, lottoStatistics.getWinningCount(LottoRank.SECOND));
@@ -39,9 +40,10 @@ public class LottoStatisticsTest {
         Lottos lottos = new Lottos(createLottoNumbersForProfitRate(), 0);
         WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber bonusNumber = new LottoNumber(7);
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
         PurchaseAmount purchaseAmount = new PurchaseAmount(5000);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningLotto);
 
         assertEquals(1.0, lottoStatistics.calculateProfitRate(purchaseAmount), 0.0001);
     }
