@@ -1,43 +1,35 @@
 package controller;
 
-import java.util.ArrayList;
+import model.Rank;
+
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Result {
-     List<Integer> prizeCost=new ArrayList<>();
 
-    public float totalRatio(int cost, Map<Integer,Integer> staticWin){
-        prizeCost.add(0,0);
+    EnumMap<Rank, Integer> counts;
 
-        staticWin.forEach((matchCount,winCount)->{
-            totalPrize(matchCount,winCount,prizeCost);
-        });
+    public Result(EnumMap<Rank, Integer> counts) {
+        this.counts = counts;
+    }
 
-        float ratio=((float)prizeCost.get(0)/(float)cost);
+    public float totalRatio(int cost) {
+        int totalPrize = totalPrize();
+
+        float ratio = ((float) totalPrize / (float) cost);
 
         return ratio;
     }
 
-    public void totalPrize(int matchCount, int winCount, List<Integer> prizeCost){
-        if(matchCount==3){
-            prizeCost.set(0,prizeCost.get(0)+5000*winCount);
-        }
+    public int totalPrize() {
+        int totalPrize = 0;
 
-        if(matchCount==4){
-            prizeCost.set(0,prizeCost.get(0)+50000*winCount);
+        for (Map.Entry<Rank, Integer> entry : counts.entrySet()) {
+            Rank rank = entry.getKey();
+            totalPrize = totalPrize + rank.getPrize()*entry.getValue();
         }
-
-        if(matchCount==5){
-            prizeCost.set(0,prizeCost.get(0)+1500000*winCount);
-        }
-
-        if(matchCount==7){
-            prizeCost.set(0,prizeCost.get(0)+300000000*winCount);
-        }
-
-        if(matchCount==6){
-            prizeCost.set(0,prizeCost.get(0)+2000000000*winCount);
-        }
+        return totalPrize;
     }
 }
