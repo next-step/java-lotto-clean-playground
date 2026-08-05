@@ -8,9 +8,11 @@ public class LottoGame {
 
     private final Lottos lottos;
     private CorrectLotto correctLotto;
+    private final PurchasePrice purchasePrice;
 
 
     public LottoGame(PurchasePrice purchasePrice, List<String> manualLottoNumbers){
+        this.purchasePrice = purchasePrice;
         this.lottos = new Lottos(createLottos(purchasePrice, manualLottoNumbers));
     }
 
@@ -46,7 +48,7 @@ public class LottoGame {
     }
 
 
-    public float calculateProfit(PurchasePrice purchasePrice) {
+    public float calculateProfit() {
         Map<Rank, Integer> ranksCount = getRanksCount();
 
         long sum = 0;

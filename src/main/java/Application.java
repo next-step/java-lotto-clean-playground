@@ -22,6 +22,6 @@ public class Application {
         final int bonusBall = InputView.getBonusBall();
         lottoGame.createCorrectLotto(values, bonusBall);
 
-        ResultView.printWinningStatistics(lottoGame.getRanksCount(), lottoGame.calculateProfit(purchasePrice));
+        ResultView.printWinningStatistics(lottoGame.getRanksCount(), lottoGame.calculateProfit());
     }
 }

@@ -38,7 +38,7 @@ public class LottoGameTest {
 
         // 실행
         Map<Rank, Integer> ranksCount = game.getRanksCount();
-        float profit = game.calculateProfit(purchasePrice);
+        float profit = game.calculateProfit();
 
         // 검증
         assertEquals(1, ranksCount.get(Rank.FIFTH));
