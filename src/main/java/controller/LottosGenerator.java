@@ -39,6 +39,4 @@ public class LottosGenerator {
         nums.sort(Comparator.naturalOrder());
         return new Lotto(nums);
     }
-
-
 }
