@@ -29,7 +29,7 @@ public class PurchaseManage{
         }
     }
 
-    public Lottos buyLottos(int price, int manualCount) {
+    public Lottos buyLottos(int manualCount) {
         int automaticLottoCount = totalCount - manualCount;
 
         List<LottoNumber> manualLottos = makeManualLotto(manualCount);

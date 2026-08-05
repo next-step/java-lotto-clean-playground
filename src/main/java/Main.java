@@ -8,7 +8,7 @@ public class Main {
         final int manualCount = InputView.getManualPurchaseAmount(price);
 
         PurchaseManage purchaseManage = new PurchaseManage(price, manualCount);
-        Lottos lottos = purchaseManage.buyLottos(price, manualCount);
+        Lottos lottos = purchaseManage.buyLottos(manualCount);
         purchaseManage.setLottoResult();
 
         ResultView.showNum(lottos);
