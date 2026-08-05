@@ -36,6 +36,15 @@ public class PurchaseAmountTest {
     }
 
     @Test
+    @DisplayName("구입 금액이 로또 가격 단위가 아니면 예외가 발생한다")
+    void throwsExceptionWhenPurchaseAMountIsNotMultipleOfLottoPrice() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new PurchaseAmount(1500)
+        );
+    }
+
+    @Test
     @DisplayName("수동 구매 개수가 음수이면 예외가 발생한다")
     void throwsExceptionWhenManualLottoCountIsNegative() {
         PurchaseAmount purchaseAmount = new PurchaseAmount(14000);
