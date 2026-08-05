@@ -6,7 +6,6 @@ import domain.LottoRank;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.PurchaseAmount;
-import domain.WinningNumbers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +22,9 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printLottoStatistics(Lottos lottos, WinningNumbers winningNumbers,
-                                     PurchaseAmount purchaseAmount, LottoNumber bonusNumber) {
+    public void printLottoStatistics(PurchaseAmount purchaseAmount, LottoStatistics lottoStatistics) {
         printStatisticsHeader();
 
-        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
         printWinningCounts(lottoStatistics);
 
         printProfitRate(lottoStatistics, purchaseAmount);

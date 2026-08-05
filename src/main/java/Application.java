@@ -1,4 +1,5 @@
 import domain.LottoNumber;
+import domain.LottoStatistics;
 import domain.Lottos;
 import domain.PurchaseAmount;
 import domain.WinningNumbers;
@@ -30,6 +31,7 @@ public class Application {
 
         winningNumbers.validateBonusNumber(bonusNumber);
 
-        outputView.printLottoStatistics(lottos, winningNumbers, purchaseAmount, bonusNumber);
+        LottoStatistics lottoStatistics = new LottoStatistics(lottos, winningNumbers, bonusNumber);
+        outputView.printLottoStatistics(purchaseAmount, lottoStatistics);
     }
 }
