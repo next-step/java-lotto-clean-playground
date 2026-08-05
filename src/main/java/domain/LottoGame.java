@@ -17,14 +17,14 @@ public class LottoGame {
 
     public Lottos getLottos() {
         return lottos;
-    } // 로또 객체 반환
+    }
 
 
-    public void createCorrectLotto(String[] values, int bonusBall) { // 정답 로또 생성
+    public void createCorrectLotto(String[] values, int bonusBall) {
         correctLotto = new CorrectLotto(values, bonusBall);
     }
 
-    private List<Lotto> createLottos(PurchasePrice purchasePrice, List<String> manualLottoNumbers) { // Lottos 생성
+    private List<Lotto> createLottos(PurchasePrice purchasePrice, List<String> manualLottoNumbers) {
 
         List<Lotto> lottos = new ArrayList<>();
 
@@ -43,10 +43,10 @@ public class LottoGame {
 
     public Map<Rank, Integer> getRanksCount() { // 각 랭크의 개수 맵 반환
         return lottos.getRanksCount(correctLotto);
-    } // 각 순위의 개수가 들어있는 맵 반환
+    }
 
 
-    public float calculateProfit(PurchasePrice purchasePrice) { // 수익률 계산
+    public float calculateProfit(PurchasePrice purchasePrice) {
         Map<Rank, Integer> ranksCount = getRanksCount();
 
         long sum = 0;

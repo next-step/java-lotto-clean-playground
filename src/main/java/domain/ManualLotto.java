@@ -19,7 +19,7 @@ public class ManualLotto {
         return manualLotto;
     }
 
-    private static String[] splitString(String input) { // string 객체를 쉼표 기준으로 나눔
+    private static String[] splitString(String input) {
         String[] manualLottoNumbers = input.split(",");
 
         manualLottoNumbers = Arrays.stream(manualLottoNumbers)
@@ -29,7 +29,7 @@ public class ManualLotto {
     }
 
 
-    private static Lotto convertStringToLottoNumber(String[] manualLottoNumbers) { // string 배열를 LottoNumber 리스트로 변환
+    private static Lotto convertStringToLottoNumber(String[] manualLottoNumbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
 
         try {

@@ -14,7 +14,7 @@ public class CorrectLotto {
         this.bonusBall = verifyBonusBall(bonusBall);
     }
 
-    private LottoNumber verifyBonusBall(int bonusBall) { // 보너스볼과 로또 번호 중복 확인
+    private LottoNumber verifyBonusBall(int bonusBall) {
 
         LottoNumber LottoNumberBonusBall = new LottoNumber(bonusBall);
 
@@ -26,7 +26,7 @@ public class CorrectLotto {
     }
 
 
-    private List<LottoNumber> createCorrectLotto(String[] values) { // 로또 번호 LottoNumber 객체로 변환
+    private List<LottoNumber> createCorrectLotto(String[] values) {
 
         List<LottoNumber> numbers = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class CorrectLotto {
     }
 
 
-    public Lotto getCorrectLotto() { // 로또 객체 반환
+    public Lotto getCorrectLotto() {
         return correctLotto;
     }
 

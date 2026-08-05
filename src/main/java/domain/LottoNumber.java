@@ -12,7 +12,7 @@ public class LottoNumber implements Comparable<LottoNumber> { // 각각의 로�
         this.lottoNumber = lottoNumber;
     }
 
-    private void verifyLottoNumber(int lottoNumber){ // 로또 번호 검증
+    private void verifyLottoNumber(int lottoNumber){
             if (lottoNumber < MIN_LOTTO_NUMBER || lottoNumber > MAX_LOTTO_NUMBER) {
                 throw new IllegalArgumentException("로또 번호는 1~45 사이입니다.");
             }

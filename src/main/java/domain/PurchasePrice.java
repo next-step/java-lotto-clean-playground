@@ -17,7 +17,7 @@ public class PurchasePrice {
         this.autoLottoCount = purchasePrice / LOTTO_PRICE - manualLottoCount;
     }
 
-    private void verifyPurchasePrice(int purchasePrice) { // 구입금액 검증
+    private void verifyPurchasePrice(int purchasePrice) {
         if (purchasePrice <= 0) {
             throw new IllegalArgumentException("양수의 가격을 입력해주세요.");
         }
@@ -27,7 +27,7 @@ public class PurchasePrice {
         }
     }
 
-    private void verifyManualCount(int purchasePrice, int manualLottoCount) { // 수동 로또 수 검증
+    private void verifyManualCount(int purchasePrice, int manualLottoCount) {
         if (manualLottoCount < 0) {
             throw new IllegalArgumentException("수동 로또 수는 0 이상이어야 합니다.");
         }
@@ -47,7 +47,7 @@ public class PurchasePrice {
         return autoLottoCount;
     }
 
-    public float calculateProfit(long prize) { // 수익률 계산
+    public float calculateProfit(long prize) {
         return (float) prize / purchasePrice;
     }
 }

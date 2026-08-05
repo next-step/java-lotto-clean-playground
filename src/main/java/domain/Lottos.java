@@ -14,7 +14,7 @@ public class Lottos {
     }
 
 
-    private List<Rank> findRanks(CorrectLotto correctLotto) { // 실제 로또 번호의 등수 반환
+    private List<Rank> findRanks(CorrectLotto correctLotto) {
         List<Rank> ranks = new ArrayList<>();
         for(int i = 0; i < lottos.size(); i++) {
             ranks.add(lottos.get(i).findRank(correctLotto));
@@ -23,7 +23,7 @@ public class Lottos {
     }
 
 
-    public Map<Rank, Integer> getRanksCount(CorrectLotto correctLotto) { // 등수, 개수 맵 반환
+    public Map<Rank, Integer> getRanksCount(CorrectLotto correctLotto) {
         Map<Rank, Integer> ranksCount = new EnumMap<>(Rank.class);
 
         for (Rank rank : Rank.values()) {
