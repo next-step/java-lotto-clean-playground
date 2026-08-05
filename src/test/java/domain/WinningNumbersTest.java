@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WinningNumbersTest {
@@ -12,7 +13,8 @@ public class WinningNumbersTest {
     @DisplayName("당첨 번호가 정확히 6개면 생성된다")
     void createsWinningNumbersWithSixNumbers() {
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
-        WinningNumbers winningNumbers = new WinningNumbers(numbers);
+
+        assertDoesNotThrow(() -> new WinningNumbers(numbers));
     }
 
     @Test
