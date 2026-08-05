@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Lottos {
 
-    List<Lotto> lottos;
+    private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
         this.lottos = List.copyOf(lottos);
