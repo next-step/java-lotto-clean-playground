@@ -375,6 +375,7 @@
 
 ### 로또 게임 생성 기능
 
+- [x] 전달받은 구입 금액 객체로 'PurchasePrice' 객체를 생성한다.
 - [x] `PurchasePrice`에서 자동 로또 수를 가져온다.
 - [x] `PurchasePrice`에서 수동 로또 수를 가져온다.
 - [x] 자동 로또 수를 이용해 자동 로또 목록을 생성한다.
@@ -396,13 +397,13 @@
 
 - [x] `Lottos`에 저장된 당첨 번호 객체를 전달한다.
 - [x] 등수별 당첨 개수가 저장된 `Map<Rank, Integer>`를 반환한다.
+- - [x] `correctLotto`가 `null`이면 `IllegalStateException`을 발생시킨다.
 
 ### 총 수익률 계산 기능
 
-- [x] `PurchasePrice` 객체를 매개변수로 전달받는다.
 - [x] 등수별 당첨 개수를 가져온다.
 - [x] `Rank.values()`를 이용해 모든 등수를 순회한다.
 - [x] 각 등수의 당첨 금액과 당첨 개수를 곱한다.
 - [x] 모든 당첨 금액을 합산한다.
-- [x] 총 당첨 금액을 전달받은 `PurchasePrice`에 전달한다.
+- [x] 총 당첨 금액을 필드의 객체 `PurchasePrice`에 전달한다.
 - [x] 계산된 수익률을 반환한다.
