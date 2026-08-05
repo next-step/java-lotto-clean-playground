@@ -1,6 +1,5 @@
 package domain;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,13 +12,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("LottoTicketCount 클래스")
 class LottoTicketCountTest {
 
-    private LottoTicketCount lottoTicketCount;
-
-    @BeforeEach
-    void setUp() {
-        lottoTicketCount = new LottoTicketCount();
-    }
-
     @Nested
     @DisplayName("정상적인 금액 입력 시")
     class ValidAmount {
@@ -31,7 +23,7 @@ class LottoTicketCountTest {
                 "2000, 2"
         })
         void shouldConvertPriceToTicketCountCorrectly(int price, int expectedCount) {
-            int actualCount = lottoTicketCount.convertLottoPriceToTicketCount(price);
+            int actualCount = LottoTicketCount.convertLottoPriceToTicketCount(price);
 
             assertThat(actualCount).isEqualTo(expectedCount);
         }
@@ -45,7 +37,7 @@ class LottoTicketCountTest {
         @ParameterizedTest
         @ValueSource(ints = {0, 100, 999})
         void shouldThrowExceptionForAmountLessThan1000(int price) {
-            assertThatThrownBy(() -> lottoTicketCount.convertLottoPriceToTicketCount(price))
+            assertThatThrownBy(() -> LottoTicketCount.convertLottoPriceToTicketCount(price))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("구입 금액은 " + LottoTicketCount.PRICE_PER_ONE_LOTTO_TICKET + "원 이상이어야 합니다.");
         }
@@ -54,7 +46,7 @@ class LottoTicketCountTest {
         @ParameterizedTest
         @ValueSource(ints = {1001, 1500, 2999})
         void shouldThrowExceptionForAmountNotMultipleOf1000(int price) {
-            assertThatThrownBy(() -> lottoTicketCount.convertLottoPriceToTicketCount(price))
+            assertThatThrownBy(() -> LottoTicketCount.convertLottoPriceToTicketCount(price))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("구입 금액은 " + LottoTicketCount.PRICE_PER_ONE_LOTTO_TICKET + "원 단위로 입력해야 합니다.");
         }

@@ -16,8 +16,7 @@ import view.OutputView;
 public class Application {
 
     public static void main(String[] args) {
-        LottoTicketCount lottoTicketCount = new LottoTicketCount();
-        int totalCount = lottoTicketCount.convertLottoPriceToTicketCount(InputView.inputLottoTotalPrice());
+        int totalCount = LottoTicketCount.convertLottoPriceToTicketCount(InputView.inputLottoTotalPrice());
 
         int manualCount = InputView.inputUserSelectedLottoCount();
         List<String> userSelectedNumbersInput = InputView.inputUserSelectedLottoNumbers(manualCount);

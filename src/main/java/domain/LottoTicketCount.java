@@ -2,15 +2,16 @@ package domain;
 
 public class LottoTicketCount {
     public static final int PRICE_PER_ONE_LOTTO_TICKET = 1000;
-    private int lottoTicketCount;
 
-    public int convertLottoPriceToTicketCount(int totalLottoPrice) {
-        validatePurchaseAmount(totalLottoPrice);
-        lottoTicketCount = totalLottoPrice / PRICE_PER_ONE_LOTTO_TICKET;
-        return lottoTicketCount;
+    private LottoTicketCount() {
     }
 
-    private void validatePurchaseAmount(int price) {
+    public static int convertLottoPriceToTicketCount(int totalLottoPrice) {
+        validatePurchaseAmount(totalLottoPrice);
+        return totalLottoPrice / PRICE_PER_ONE_LOTTO_TICKET;
+    }
+
+    private static void validatePurchaseAmount(int price) {
         if (price < PRICE_PER_ONE_LOTTO_TICKET) {
             throw new IllegalArgumentException("구입 금액은 " + PRICE_PER_ONE_LOTTO_TICKET + "원 이상이어야 합니다.");
         }
