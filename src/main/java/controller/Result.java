@@ -28,7 +28,7 @@ public class Result {
 
         for (Map.Entry<Rank, Integer> entry : counts.entrySet()) {
             Rank rank = entry.getKey();
-            totalPrize = totalPrize + rank.getPrize()*entry.getValue();
+            totalPrize = totalPrize + rank.getPrize() * entry.getValue();
         }
         return totalPrize;
     }
