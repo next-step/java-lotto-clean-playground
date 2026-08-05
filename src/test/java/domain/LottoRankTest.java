@@ -1,7 +1,6 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,6 +51,6 @@ public class LottoRankTest {
     void returnsNullWhenMatchCountIsLessThanThree() {
         LottoRank rank = LottoRank.from(2, false);
 
-        assertNull(rank);
+        assertEquals(LottoRank.MISS, rank);
     }
 }

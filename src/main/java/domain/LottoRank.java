@@ -1,6 +1,10 @@
 package domain;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum LottoRank {
+    MISS(0,0),
     FIFTH(3, 5000),
     FOURTH(4,50000),
     THIRD(5, 1500000),
@@ -21,7 +25,7 @@ public enum LottoRank {
         if (matchCount == 5) return THIRD;
         if (matchCount == 4) return FOURTH;
         if (matchCount == 3) return FIFTH;
-        return null;
+        return MISS;
     }
 
     public int getMatchCount() {
@@ -30,5 +34,11 @@ public enum LottoRank {
 
     public long getPrize() {
         return prize;
+    }
+
+    public static List<LottoRank> winningRanks() {
+        return Arrays.stream(values())
+                .filter(rank -> rank != MISS)
+                .toList();
     }
 }

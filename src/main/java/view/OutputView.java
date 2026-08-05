@@ -46,7 +46,7 @@ public class OutputView {
     }
 
     private void printWinningCounts(LottoStatistics lottoStatistics) {
-        for (LottoRank rank : LottoRank.values()) {
+        for (LottoRank rank : LottoRank.winningRanks()) {
             printWinningResult(lottoStatistics, rank);
         }
     }

@@ -56,10 +56,6 @@ public class LottoStatistics {
 
         LottoRank rank = LottoRank.from(matchCount, bonusMatched);
 
-        if (rank == null) {
-            return;
-        }
-
         increaseWinningCount(rank);
     }
 }
