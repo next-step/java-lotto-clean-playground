@@ -30,13 +30,13 @@ public final class InputView {
         }
     }
 
-    public static int inputUserSelectedLottoCount() {
+    public static int inputUserSelectedLottoCount(int totalCount) {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
         while (true) {
             try {
                 String input = lottoScanner.nextLine();
                 int manualCount = Integer.parseInt(input);
-                validateManualCount(manualCount);
+                validateManualCount(manualCount, totalCount);
                 return manualCount;
             } catch (NumberFormatException e) {
                 System.out.println("[ERROR] 로또 개수는 숫자로만 입력해야 합니다. 다시 입력해 주세요.");
@@ -100,9 +100,12 @@ public final class InputView {
         }
     }
 
-    private static void validateManualCount(int manualCount) {
+    private static void validateManualCount(int manualCount, int totalCount) {
         if (manualCount < 0) {
             throw new IllegalArgumentException("수동 구매 개수는 0 이상이어야 합니다.");
+        }
+        if (manualCount > totalCount) {
+            throw new IllegalArgumentException("수동 구매 개수는 전체 구매 개수(" + totalCount + "개)를 초과할 수 없습니다.");
         }
     }
 

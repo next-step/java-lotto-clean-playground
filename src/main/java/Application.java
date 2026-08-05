@@ -18,7 +18,7 @@ public class Application {
     public static void main(String[] args) {
         int totalCount = LottoTicketCount.convertLottoPriceToTicketCount(InputView.inputLottoTotalPrice());
 
-        int manualCount = InputView.inputUserSelectedLottoCount();
+        int manualCount = InputView.inputUserSelectedLottoCount(totalCount);
         List<String> userSelectedNumbersInput = InputView.inputUserSelectedLottoNumbers(manualCount);
 
         int autoCount = totalCount - manualCount;
