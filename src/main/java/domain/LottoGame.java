@@ -43,7 +43,10 @@ public class LottoGame {
     }
 
 
-    public Map<Rank, Integer> getRanksCount() { // 각 랭크의 개수 맵 반환
+    public Map<Rank, Integer> getRanksCount() {
+        if(correctLotto == null) {
+            throw new IllegalStateException("correctLotto가 생성되지 않았습니다.");
+        }
         return lottos.getRanksCount(correctLotto);
     }
 
