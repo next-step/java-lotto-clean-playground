@@ -12,7 +12,7 @@ public class ProfitRateTest {
     void calculateProfitRateTest() {
         //given
         int price = 4000;
-        List<Integer> winninggLotto = List.of(1, 2, 3, 4, 5, 6);
+        LottoNumber winninggLotto = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
         int testBonusNum = 7;
 
         Lottos testLottos = new Lottos(List.of(

@@ -14,7 +14,7 @@ public class WinningStatisticsTest {
     @DisplayName("등수 별 통계를 정확히 집계한다.")
     void comparingLottosTest() {
         //given
-        List<Integer> winninggLotto = List.of(1, 2, 3, 4, 5, 6);
+        LottoNumber winninggLotto = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
         int testBonusNum = 7;
 
         Lottos testLottos = new Lottos(List.of(

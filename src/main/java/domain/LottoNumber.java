@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoNumber {
     private static final List<Integer> NUMBERS = new ArrayList<>();
@@ -23,6 +21,7 @@ public class LottoNumber {
 
     public LottoNumber(List<Integer> manualNumbers) {
         validateLottoNumber(manualNumbers);
+        validateDuplication(manualNumbers);
         this.lottoNumbers = new ArrayList<>(manualNumbers);
         Collections.sort(this.lottoNumbers);
     }
@@ -39,6 +38,13 @@ public class LottoNumber {
     private void validateNumber(int number) {
         if (number < 1 || number > 45) {
             throw new IllegalArgumentException("로또 번호는 1부터 45까지여야 합니다.");
+        }
+    }
+
+    private void validateDuplication(List<Integer> manualNumbers) {
+        Set<Integer> uniqueNumbers = new HashSet<>(manualNumbers);
+        if (uniqueNumbers.size() != manualNumbers.size()) {
+            throw new IllegalArgumentException("중복된 로또 번호가 존재합니다.");
         }
     }
 

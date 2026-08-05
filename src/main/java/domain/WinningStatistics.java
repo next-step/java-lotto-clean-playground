@@ -12,7 +12,7 @@ public class WinningStatistics {
         }
     }
 
-    public void compareLottos (List<Integer> winningNumbers, Lottos lottos, int bonusNumber) {
+    public void compareLottos (LottoNumber winningNumbers, Lottos lottos, int bonusNumber) {
         for (LottoNumber lottoNumber : lottos.getLottos()) {
             matchCount.comparingLotto(lottoNumber.getLottoNumbers(), winningNumbers);
             Rank rank = Rank.getRank(matchCount.getCount(), matchCount.hasBonusNumber(lottoNumber.getLottoNumbers(), bonusNumber));

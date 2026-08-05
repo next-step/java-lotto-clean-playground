@@ -12,7 +12,7 @@ public class InputView {
             System.out.println("구입금액을 입력해 주세요.");
             int purchaseAmount = Integer.parseInt(scanner.nextLine());
             return purchaseAmount;
-        } catch(NumberFormatException e) {
+        } catch(NumberFormatException e) { // 문자, 공백, 숫자+문자, 숫자+공백 등 입력시
             System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");
             return getPurchaseAmount();
         }
@@ -22,6 +22,7 @@ public class InputView {
         try {
             System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
             int manualPurchaseLottos = Integer.parseInt(scanner.nextLine());
+
             new PurchaseManage(price, manualPurchaseLottos);
             return manualPurchaseLottos;
         } catch (NumberFormatException e) {
