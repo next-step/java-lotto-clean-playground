@@ -2,10 +2,7 @@ package view;
 
 import model.Lotto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class InputView {
     public int inputCost() {
@@ -41,22 +38,16 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public List<Lotto> inputPassiveLotto(int passiveAmount){
-        List<Lotto> lottos=new ArrayList<>();
-
+    public List<Integer> inputPassiveLotto(){
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
-        for(int i=0 ;i<passiveAmount;i++){
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-            List<Integer> nums=Arrays.stream(scanner.nextLine().split(", "))
-                    .map(Integer::parseInt)
-                    .toList();
+        List<Integer> nums=Arrays.stream(scanner.nextLine().split(", "))
+                .map(Integer::parseInt)
+                .toList();
 
-            Lotto lotto=new Lotto();
-            lotto.setLotto(nums);
-            lottos.add(lotto);
-        }
-        return lottos;
+        return nums;
     }
+
 }
