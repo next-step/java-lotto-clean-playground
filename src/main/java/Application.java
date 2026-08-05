@@ -31,7 +31,7 @@ public class Application {
 
         OutputView.printLottoNumbers(lottoTickets);
 
-        String[] winningNumbers = InputView.inputWinningLottoNumbers().split(",\\s*");
+        List<String> winningNumbers = List.of(InputView.inputWinningLottoNumbers().split(",\\s*"));
         String bonusNumber = InputView.inputBonusBallNumber();
 
         LottoChecker lottoChecker = new LottoChecker(winningNumbers, lottoTickets, bonusNumber);

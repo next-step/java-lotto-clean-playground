@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoChecker {
@@ -11,7 +11,7 @@ public class LottoChecker {
 
     private final int bonusNumber;
 
-    public LottoChecker(String[] lastWeekWinnerLottoNumbers, LottoTickets lottoTickets, String bonusNumber) {
+    public LottoChecker(List<String> lastWeekWinnerLottoNumbers, LottoTickets lottoTickets, String bonusNumber) {
         this.winningLottoNumbers = wrappingToIntegerLottoNumbers(lastWeekWinnerLottoNumbers);
         this.lottoTickets = lottoTickets;
         validateBonusNumber(bonusNumber);
@@ -34,8 +34,8 @@ public class LottoChecker {
         return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
     }
 
-    private ArrayList<Integer> wrappingToIntegerLottoNumbers(String[] stringWinnerNumbers) {
-        return (ArrayList<Integer>) Arrays.stream(stringWinnerNumbers)
+    private ArrayList<Integer> wrappingToIntegerLottoNumbers(List<String> stringWinnerNumbers) {
+        return (ArrayList<Integer>) stringWinnerNumbers.stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }

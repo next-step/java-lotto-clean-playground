@@ -2,6 +2,7 @@ package view;
 
 import domain.LottoTickets;
 import domain.LottoWinningType;
+import java.util.List;
 import java.util.Map;
 
 public final class OutputView {
@@ -23,13 +24,13 @@ public final class OutputView {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
-        LottoWinningType[] printOrder = {
+        List<LottoWinningType> printOrder = List.of(
                 LottoWinningType.FIFTH_PLACE,
                 LottoWinningType.FOURTH_PLACE,
                 LottoWinningType.THIRD_PLACE,
                 LottoWinningType.SECOND_PLACE,
                 LottoWinningType.FIRST_PLACE
-        };
+        );
 
         for (LottoWinningType type : printOrder) {
             System.out.println(type.getWinningDescription() + matchStatistics.get(type) + "개");
