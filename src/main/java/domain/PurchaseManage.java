@@ -12,7 +12,7 @@ public class PurchaseManage{
     private final int totalCount;
     private final int manualCount;
     private int bonusBall;
-    private LottoNumber winningLottoNumber;
+    private Lotto winningLotto;
 
     public PurchaseManage(int price, int manualCount) {
         this.totalCount = price / LOTTO_PRICE;
@@ -32,22 +32,22 @@ public class PurchaseManage{
     public Lottos buyLottos(int manualCount) {
         int automaticLottoCount = totalCount - manualCount;
 
-        List<LottoNumber> manualLottos = makeManualLotto(manualCount);
+        List<Lotto> manualLottos = makeManualLotto(manualCount);
 
-        List<LottoNumber> purchaseLottos = new ArrayList<>(manualLottos);
+        List<Lotto> purchaseLottos = new ArrayList<>(manualLottos);
 
         for (int i = 0; i < automaticLottoCount; i++) {
-            purchaseLottos.add(new LottoNumber());
+            purchaseLottos.add(new Lotto());
         }
         return new Lottos(purchaseLottos);
     }
 
-    public List<LottoNumber> makeManualLotto(int manualCount) {
-        List<LottoNumber> manualLottos = new ArrayList<>();
+    public List<Lotto> makeManualLotto(int manualCount) {
+        List<Lotto> manualLottos = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
             String input = InputView.getManualPurchasedLottos();
             List<Integer> numbers = lottoParser.parseInput(input);
-            manualLottos.add(new LottoNumber(numbers));
+            manualLottos.add(new Lotto(numbers));
         }
         return manualLottos;
     }
@@ -60,7 +60,7 @@ public class PurchaseManage{
     private void setWinningNumber() {
         String enteredWinningNumber = InputView.getWinningNumber();
         List<Integer> winningNumber =  lottoParser.parseInput(enteredWinningNumber);
-        this.winningLottoNumber = new LottoNumber(winningNumber);
+        this.winningLotto = new Lotto(winningNumber);
     }
 
     private void setBonusBall() {
@@ -71,7 +71,7 @@ public class PurchaseManage{
         if (bonusBall < 1 || bonusBall > 45) {
             throw new IllegalArgumentException("보너스 볼은 1부터 45 사이의 숫자여야 합니다.");
         }
-        List<Integer> copiedWinningNumber = winningLottoNumber.getLottoNumbers();
+        List<Integer> copiedWinningNumber = winningLotto.getLottoNumbers();
         Set<Integer> uniqueBonusball = new HashSet<>(copiedWinningNumber);
         if (!uniqueBonusball.add(bonusBall)) {
             throw new IllegalArgumentException("중복된 로또 번호가 존재합니다.");
@@ -80,8 +80,8 @@ public class PurchaseManage{
     }
 
 
-    public LottoNumber getWinningNumber() {
-        return winningLottoNumber;
+    public Lotto getWinningNumber() {
+        return winningLotto;
     }
 
     public int getBonusBall() {

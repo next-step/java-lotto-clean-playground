@@ -1,4 +1,4 @@
-import domain.LottoNumber;
+import domain.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,10 +20,10 @@ public class ExceptionTest {
 
         //then
         assertAll(
-                () -> assertThatCode(() -> new LottoNumber(testLottoNormal)).doesNotThrowAnyException(),
-                () -> assertThatCode(() -> new LottoNumber(testLottohasException)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 6개여야 합니다."),
-                () -> assertThatCode(() -> new LottoNumber(testLottohasException2)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다."),
-                () -> assertThatCode(() -> new LottoNumber(testLottohasException3)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다.")
+                () -> assertThatCode(() -> new Lotto(testLottoNormal)).doesNotThrowAnyException(),
+                () -> assertThatCode(() -> new Lotto(testLottohasException)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 6개여야 합니다."),
+                () -> assertThatCode(() -> new Lotto(testLottohasException2)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다."),
+                () -> assertThatCode(() -> new Lotto(testLottohasException3)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다.")
         );
     }
 
@@ -33,6 +33,6 @@ public class ExceptionTest {
     void validateDuplicatonTest() {
         List<Integer> duplicateLotto = List.of(1, 1, 2, 3, 4, 5);
 
-        assertThatCode(() -> new LottoNumber(duplicateLotto)).isInstanceOf(IllegalArgumentException.class).hasMessage("중복된 로또 번호가 존재합니다.");
+        assertThatCode(() -> new Lotto(duplicateLotto)).isInstanceOf(IllegalArgumentException.class).hasMessage("중복된 로또 번호가 존재합니다.");
     }
 }

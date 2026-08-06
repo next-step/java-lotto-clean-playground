@@ -12,7 +12,7 @@ public class ProfitRateTest {
     void calculateProfitRateTest() {
         //given
         int price = 4000;
-        LottoNumber winninggLotto = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winninggLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         int testBonusNum = 7;
 
         Lottos testLottos = new Lottos(List.of(
@@ -35,7 +35,7 @@ public class ProfitRateTest {
         assertEquals(expectedTotalProfit, profitRate.getTotalProfit());
         assertEquals(expectedProfitRate, profitRate.getProfitRate());
     }
-    private LottoNumber createLotto(Integer... numbers) {
-        return new LottoNumber(List.of(numbers));
+    private Lotto createLotto(Integer... numbers) {
+        return new Lotto(List.of(numbers));
     }
 }

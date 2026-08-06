@@ -12,10 +12,10 @@ public class WinningStatistics {
         }
     }
 
-    public void compareLottos (LottoNumber winningNumbers, Lottos lottos, int bonusNumber) {
-        for (LottoNumber lottoNumber : lottos.getLottos()) {
-            matchCount.comparingLotto(lottoNumber.getLottoNumbers(), winningNumbers);
-            Rank rank = Rank.getRank(matchCount.getCount(), matchCount.hasBonusNumber(lottoNumber.getLottoNumbers(), bonusNumber));
+    public void compareLottos (Lotto winningNumbers, Lottos lottos, int bonusNumber) {
+        for (Lotto lotto : lottos.getLottos()) {
+            matchCount.comparingLotto(lotto.getLottoNumbers(), winningNumbers);
+            Rank rank = Rank.getRank(matchCount.getCount(), matchCount.hasBonusNumber(lotto.getLottoNumbers(), bonusNumber));
             winningStatistics.get(rank).increase();
         }
     }

@@ -2,7 +2,7 @@ package domain;
 
 import java.util.*;
 
-public class LottoNumber {
+public class Lotto {
     private static final List<Integer> NUMBERS = new ArrayList<>();
     static {
         for (int i = 1; i <= 45; i++) {
@@ -10,20 +10,20 @@ public class LottoNumber {
         }
     }
 
-    private final List<Integer> lottoNumbers;
+    private final List<Integer> numbers;
 
-    public LottoNumber() {
+    public Lotto() {
         List<Integer> numbers = new ArrayList<>(NUMBERS);
         Collections.shuffle(numbers);
-        this.lottoNumbers = new ArrayList<>(numbers.subList(0, 6));
-        Collections.sort(this.lottoNumbers);
+        this.numbers = new ArrayList<>(numbers.subList(0, 6));
+        Collections.sort(this.numbers);
     }
 
-    public LottoNumber(List<Integer> manualNumbers) {
+    public Lotto(List<Integer> manualNumbers) {
         validateLottoNumber(manualNumbers);
         validateDuplication(manualNumbers);
-        this.lottoNumbers = new ArrayList<>(manualNumbers);
-        Collections.sort(this.lottoNumbers);
+        this.numbers = new ArrayList<>(manualNumbers);
+        Collections.sort(this.numbers);
     }
 
     private void validateLottoNumber(List<Integer> manualNumbers) {
@@ -49,6 +49,6 @@ public class LottoNumber {
     }
 
     public List<Integer> getLottoNumbers() {
-        return List.copyOf(lottoNumbers);
+        return List.copyOf(numbers);
     }
 }
