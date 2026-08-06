@@ -2,6 +2,7 @@ import domain.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -20,5 +21,14 @@ public class LottoNumberTest {
         assertThrows(IllegalArgumentException.class, () -> LottoNumber.from(0));
 
         assertThrows(IllegalArgumentException.class, () -> LottoNumber.from(46));
+    }
+
+    @Test
+    @DisplayName("값이 같을 때는 같은 객체")
+    void equalsLottoNumber() {
+        LottoNumber one = LottoNumber.from(3);
+        LottoNumber two = LottoNumber.from(3);
+
+        assertEquals(one, two);
     }
 }
