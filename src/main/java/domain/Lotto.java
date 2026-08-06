@@ -25,7 +25,7 @@ public class Lotto {
     private List<LottoNumber> lottoPick(List<Integer> lotto) {
         List<LottoNumber> lottoSix = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            lottoSix.add(lotto.get(i));
+            lottoSix.add(LottoNumber.from(lotto.get(i)));
         }
 
         return lottoSix;
