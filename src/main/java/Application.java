@@ -12,7 +12,9 @@ public class Application {
         WinningRate winningRate = new WinningRate();
 
         int purchasePrice = InputView.inputPrice();
-        int lottoCount = lottoGenerator.calculateCount(purchasePrice);
+        PurchaseAmount purchaseAmount = PurchaseAmount.from(purchasePrice);
+
+        int lottoCount = purchaseAmount.calculateCount();
         int passiveCount = InputView.inputPassiveCount();
         int autoCount = lottoCount - passiveCount;
 

@@ -5,10 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoGenerator {
-    public int calculateCount(int price) {
-        return price / 1000;
-    }
-
     private static List<Integer> lottoList() {
         List<Integer> lotto = new ArrayList<>();
 
