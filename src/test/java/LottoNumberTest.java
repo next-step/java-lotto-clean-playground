@@ -2,6 +2,10 @@ import domain.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -30,5 +34,21 @@ public class LottoNumberTest {
         LottoNumber two = LottoNumber.from(3);
 
         assertEquals(one, two);
+    }
+
+    @Test
+    @DisplayName("LottoNumber를 오름차순으로 정렬")
+    void sortLottoNumbersInAscendingOrder() {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+
+        lottoNumbers.add(LottoNumber.from(2));
+        lottoNumbers.add(LottoNumber.from(1));
+        lottoNumbers.add(LottoNumber.from(3));
+
+        Collections.sort(lottoNumbers);
+
+        assertEquals(LottoNumber.from(1), lottoNumbers.get(0));
+        assertEquals(LottoNumber.from(2), lottoNumbers.get(1));
+        assertEquals(LottoNumber.from(3), lottoNumbers.get(2));
     }
 }
