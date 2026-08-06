@@ -1,3 +1,4 @@
+import domain.LottoNumber;
 import domain.LottoResult;
 import domain.WinningRate;
 import view.InputView;
@@ -18,8 +19,8 @@ public class Application {
         int passiveCount = InputView.inputPassiveCount();
         int autoCount = lottoCount - passiveCount;
 
-        List<List<Integer>> passiveLotto = InputView.inputPassiveLotto(passiveCount);
-        List<List<Integer>> autoLotto = lotto.lottoLists(autoCount);
+        List<List<LottoNumber>> passiveLotto = InputView.inputPassiveLotto(passiveCount);
+        List<List<LottoNumber>> autoLotto = lotto.lottoLists(autoCount);
 
         ResultView.printPurchase(passiveLotto, passiveCount, autoCount);
         passiveLotto.addAll(autoLotto);

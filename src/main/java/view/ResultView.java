@@ -1,13 +1,15 @@
 package view;
 
+import domain.LottoNumber;
+
 import java.util.List;
 
 public class ResultView {
 
-    public static void printPurchase(List<List<Integer>> lottos, int passiveCount, int autoCount) {
+    public static void printPurchase(List<List<LottoNumber>> lottos, int passiveCount, int autoCount) {
         System.out.println("수동으로 " + passiveCount + "장, 자동으로 " + autoCount + "개를 구매했습니다."
         );
-        for (List<Integer> lotto : lottos) {
+        for (List<LottoNumber> lotto : lottos) {
             System.out.println(lotto);
         }
     }

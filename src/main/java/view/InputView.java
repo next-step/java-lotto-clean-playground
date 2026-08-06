@@ -1,5 +1,7 @@
 package view;
 
+import domain.LottoNumber;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,11 +43,11 @@ public class InputView {
         return count;
     }
 
-    public static List<List<Integer>> inputPassiveLotto(int manualCount) {
+    public static List<List<LottoNumber>> inputPassiveLotto(int manualCount) {
         scanner.nextLine();
 
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<List<Integer>> passiveLottos = new ArrayList<>();
+        List<List<LottoNumber>> passiveLottos = new ArrayList<>();
 
         for (int i = 0; i < manualCount; i++) {
             passiveLottos.add(inputManualLotto());
@@ -53,14 +55,14 @@ public class InputView {
         return passiveLottos;
     }
 
-    private static List<Integer> inputManualLotto() {
+    private static List<LottoNumber> inputManualLotto() {
         String input = scanner.nextLine();
         String[] numbers = input.split(",");
 
-        List<Integer> lotto = new ArrayList<>();
+        List<LottoNumber> lotto = new ArrayList<>();
 
         for (String number : numbers) {
-            lotto.add(Integer.parseInt(number.trim()));
+            lotto.add(LottoNumber.from(Integer.parseInt(number.trim())));
         }
 
         return lotto;

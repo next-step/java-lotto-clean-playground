@@ -46,7 +46,7 @@ public class Lotto {
     }
 
     public List<List<LottoNumber>> lottoLists(int count) {
-        List<List<Integer>> lottos = new ArrayList<>();
+        List<List<LottoNumber>> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(run());
         }

@@ -5,18 +5,18 @@ import java.util.List;
 
 public class LottoResult {
 
-    private boolean containsWinningNumber(List<Integer> lottoList, int win) {
-        return lottoList.contains(win);
+    private boolean containsWinningNumber(List<LottoNumber> lottoList, int win) {
+        return lottoList.contains(LottoNumber.from(win));
     }
 
-    private int resultCounting(List<Integer> lottoList, int win, int count) {
+    private int resultCounting(List<LottoNumber> lottoList, int win, int count) {
         if (containsWinningNumber(lottoList, win)) {
             count++;
         }
         return count;
     }
 
-    private int checkingWinningNumbers(List<Integer> lottoList, List<Integer> wins, int bonusBall) {
+    private int checkingWinningNumbers(List<LottoNumber> lottoList, List<Integer> wins, int bonusBall) {
         int count = 0;
         for (int win : wins) {
             count = resultCounting(lottoList, win, count);
@@ -26,10 +26,10 @@ public class LottoResult {
         return count;
     }
 
-    public List<Integer> calculateCounts(List<List<Integer>> lottos, List<Integer> wins, int bonusBall) {
+    public List<Integer> calculateCounts(List<List<LottoNumber>> lottos, List<Integer> wins, int bonusBall) {
         List<Integer> counts = new ArrayList<>();
 
-        for (List<Integer> lotto : lottos) {
+        for (List<LottoNumber> lotto : lottos) {
             counts.add(checkingWinningNumbers(lotto, wins, bonusBall));
         }
         return counts;
