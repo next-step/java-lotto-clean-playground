@@ -21,7 +21,7 @@ public class Application {
 
         passiveLotto.addAll(autoLotto);
         ResultView.printPurchase(passiveLotto, passiveCount, autoCount);
-
+        
         List<Integer> wins = InputView.inputWinning();
         int bonusBall = InputView.inputBonusBall();
         List<Integer> counts = lottoResult.calculateCounts(passiveLotto, wins, bonusBall);
