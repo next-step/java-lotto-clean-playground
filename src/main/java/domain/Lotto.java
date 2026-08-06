@@ -1,57 +1,36 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
-    public int calculateCount(int price) {
-        return price / 1000;
+    private final List<LottoNumber> numbers;
+
+    private Lotto(List<LottoNumber> numbers) {
+        this.numbers = numbers;
     }
 
-    private static List<Integer> lottoList() {
-        List<Integer> lotto = new ArrayList<>();
+    public static Lotto from(List<LottoNumber> numbers) {
+        validateCount(numbers);
+        validateDuplicate(numbers);
+        return new Lotto(numbers);
+    }
 
-        for (int i = 0; i < 45; i++) {
-            lotto.add(i+1);
+    private static void validateCount(List<LottoNumber> numbers) {
+        if(numbers.size() != 6) {
+            throw new IllegalArgumentException();
         }
-        return lotto;
     }
 
-    private void lottoShuffle(List<Integer> lotto) {
-        Collections.shuffle(lotto);
-    }
-
-    private List<LottoNumber> lottoPick(List<Integer> lotto) {
-        List<LottoNumber> lottoSix = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            lottoSix.add(LottoNumber.from(lotto.get(i)));
+    private static void validateDuplicate(List<LottoNumber> numbers) {
+        Set<LottoNumber> set = new HashSet<>(numbers);
+        if (set.size() != numbers.size()) {
+            throw new IllegalArgumentException();
         }
-
-        return lottoSix;
     }
 
-    private void lottoSort(List<LottoNumber> lotto) {
-        Collections.sort(lotto);
-    }
 
-    public List<LottoNumber> run() {
-        List<Integer> lottoList = lottoList();
-
-        lottoShuffle(lottoList);
-        List<LottoNumber> lotto = lottoPick(lottoList);
-        lottoSort(lotto);
-
-        return lotto;
-    }
-
-    public List<List<LottoNumber>> lottoLists(int count) {
-        List<List<LottoNumber>> lottos = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lottos.add(run());
-        }
-        return lottos;
-    }
 
 
 }
