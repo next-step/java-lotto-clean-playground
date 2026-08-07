@@ -1,6 +1,6 @@
 package view;
 
-import domain.PurchaseManage;
+import domain.PurchaseAmount;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class InputView {
             System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
             int manualPurchaseLottos = Integer.parseInt(scanner.nextLine());
 
-            new PurchaseManage(price, manualPurchaseLottos);
+            new PurchaseAmount(price, manualPurchaseLottos);
             return manualPurchaseLottos;
         } catch (NumberFormatException e) {
             System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");

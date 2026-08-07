@@ -8,30 +8,16 @@ import java.util.List;
 import java.util.Set;
 
 public class PurchaseManage{
-    public static final int LOTTO_PRICE = 1000;
-    private final int totalCount;
-    private final int manualCount;
+    private final PurchaseAmount purchaseAmount;
     private int bonusBall;
     private Lotto winningLotto;
 
-    public PurchaseManage(int price, int manualCount) {
-        this.totalCount = price / LOTTO_PRICE;
-        validateManualCount(manualCount);
-        this.manualCount = manualCount;
-    }
-
     LottoParser lottoParser = new LottoParser();
-
-    private void validateManualCount(int manualCount) {
-        if (totalCount < manualCount || manualCount < 0) {
-            System.out.println("0개 이상" + " " + totalCount + "개 이하로 입력해주세요");
-            throw new IllegalArgumentException("수동 구매 수량은 0개 이상 " + totalCount + "개 이하이어야 합니다.");
-        }
+    public PurchaseManage(PurchaseAmount purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
-
     public Lottos buyLottos(int manualCount) {
-        int automaticLottoCount = totalCount - manualCount;
-
+        int automaticLottoCount = purchaseAmount.calculateAutomaticCount();
         List<Lotto> manualLottos = makeManualLotto(manualCount);
 
         List<Lotto> purchaseLottos = new ArrayList<>(manualLottos);
