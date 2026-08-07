@@ -13,7 +13,7 @@ public class WinningLottoTest {
     void throwsExceptionWhenBonusNumberIsDuplicatedWithWinningNumbers() {
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
         LottoNumber bonusNumber = new LottoNumber(3);
-        WinningNumbers winningNumbers = new WinningNumbers(numbers);
+        Lotto winningNumbers = new Lotto(numbers);
 
         assertThrows(
                 IllegalArgumentException.class,

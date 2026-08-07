@@ -30,6 +30,28 @@ public class Lotto {
         }
     }
 
+    public int countMatchingNumbers(Lotto other) {
+        int count = 0;
+
+        for (LottoNumber lottoNumber : other.numbers) {
+            count += countMatch(lottoNumber);
+        }
+
+        return count;
+    }
+
+    private int countMatch(LottoNumber lottoNumber) {
+        if (containsNumber(lottoNumber)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public boolean containsNumber(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
+    }
+
     private void validateNumberCount(List<Integer> numberValues) {
         if (numberValues.size() != NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 " + NUMBER_COUNT + "개여야 합니다.");

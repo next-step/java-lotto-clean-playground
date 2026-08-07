@@ -1,10 +1,10 @@
 package domain;
 
 public class WinningLotto {
-    private final WinningNumbers winningNumbers;
+    private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(WinningNumbers winningNumbers, LottoNumber bonusNumber) {
+    public WinningLotto(Lotto winningNumbers, LottoNumber bonusNumber) {
         validateBonusNumber(winningNumbers, bonusNumber);
 
         this.winningNumbers = winningNumbers;
@@ -13,17 +13,13 @@ public class WinningLotto {
 
     public LottoRank determineRank(Lotto lotto) {
         int matchCount = winningNumbers.countMatchingNumbers(lotto);
-        boolean bonusMatched = isBonusNumberMatched(lotto);
+        boolean bonusMatched = lotto.containsNumber(bonusNumber);
 
         return LottoRank.from(matchCount, bonusMatched);
     }
 
-    private boolean isBonusNumberMatched(Lotto lotto) {
-        return lotto.getNumbers().contains(bonusNumber);
-    }
-
-    private void validateBonusNumber(WinningNumbers winningNumbers, LottoNumber bonusNumber) {
-        if (winningNumbers.contains(bonusNumber)) {
+    private void validateBonusNumber(Lotto winningNumbers, LottoNumber bonusNumber) {
+        if (winningNumbers.containsNumber(bonusNumber)) {
             throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }

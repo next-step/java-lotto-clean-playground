@@ -12,7 +12,7 @@ public class LottoStatisticsTest {
     @DisplayName("로또 당첨 결과를 등수별로 집계한다")
     void calculatesWinningCountForEachRank() {
         List<Integer> winningNumberValues = List.of(1, 2, 3, 4, 5, 6);
-        WinningNumbers winningNumbers = new WinningNumbers(winningNumberValues);
+        Lotto winningNumbers = new Lotto(winningNumberValues);
         LottoNumber bonusNumber = new LottoNumber(7);
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
@@ -38,7 +38,7 @@ public class LottoStatisticsTest {
     @DisplayName("총 당첨 금액과 구입 금액을 기준으로 수익률을 계산한다")
     void calculatesProfitRateBasedOnTotalPrize() {
         Lottos lottos = new Lottos(createLottoNumbersForProfitRate(), 0);
-        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber bonusNumber = new LottoNumber(7);
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
         PurchaseAmount purchaseAmount = new PurchaseAmount(5000);

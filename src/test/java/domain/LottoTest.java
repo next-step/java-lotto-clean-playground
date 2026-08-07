@@ -1,5 +1,6 @@
 package domain;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,14 @@ public class LottoTest {
                 IllegalArgumentException.class,
                 () -> new Lotto(numbers)
         );
+    }
+
+    @Test
+    @DisplayName("로또 번호가 정확히 6개면 생성된다")
+    void createsLottoWithSixNumbers() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+
+        assertDoesNotThrow(() -> new Lotto(numbers));
     }
 
     @ParameterizedTest

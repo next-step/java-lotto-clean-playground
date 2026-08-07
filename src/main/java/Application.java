@@ -1,9 +1,9 @@
+import domain.Lotto;
 import domain.LottoNumber;
 import domain.LottoStatistics;
 import domain.Lottos;
 import domain.PurchaseAmount;
 import domain.WinningLotto;
-import domain.WinningNumbers;
 
 import view.InputView;
 import view.OutputView;
@@ -39,7 +39,7 @@ public class Application {
     }
 
     private static WinningLotto createWinningLotto(InputView inputView) {
-        WinningNumbers winningNumbers = new WinningNumbers(inputView.readWinningNumbers());
+        Lotto winningNumbers = new Lotto(inputView.readWinningNumbers());
         LottoNumber bonusNumber = new LottoNumber(inputView.readBonusNumber());
 
         return new WinningLotto(winningNumbers, bonusNumber);
