@@ -9,14 +9,16 @@ public class Main {
 
         PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);
         PurchaseManage purchaseManage = new PurchaseManage(purchaseAmount);
-        Lottos lottos = purchaseManage.buyLottos(manualCount);
-        purchaseManage.setLottoResult();
 
+        Lottos lottos = purchaseManage.buyLottos(manualCount);
         ResultView.showNum(lottos);
 
+        String enteredWinningNumber = InputView.getWinningNumber();
+        int bonusBall = InputView.getBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(enteredWinningNumber, bonusBall);
         WinningStatistics winningStatistics = new WinningStatistics();
 
-        winningStatistics.compareLottos(purchaseManage.getWinningNumber(), lottos, purchaseManage.getBonusBall());
+        winningStatistics.compareLottos(winningLotto.getWinningLotto(), lottos, winningLotto.getBonusBall());
         ProfitRate profitRate = new ProfitRate(price, winningStatistics);
         ResultView.showStatistics(profitRate, winningStatistics);
     }

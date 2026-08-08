@@ -9,8 +9,6 @@ import java.util.Set;
 
 public class PurchaseManage{
     private final PurchaseAmount purchaseAmount;
-    private int bonusBall;
-    private Lotto winningLotto;
 
     LottoParser lottoParser = new LottoParser();
     public PurchaseManage(PurchaseAmount purchaseAmount) {
@@ -36,41 +34,5 @@ public class PurchaseManage{
             manualLottos.add(new Lotto(numbers));
         }
         return manualLottos;
-    }
-
-    public void setLottoResult() {
-        setWinningNumber();
-        setBonusBall();
-    }
-
-    private void setWinningNumber() {
-        String enteredWinningNumber = InputView.getWinningNumber();
-        List<Integer> winningNumber =  lottoParser.parseInput(enteredWinningNumber);
-        this.winningLotto = new Lotto(winningNumber);
-    }
-
-    private void setBonusBall() {
-        this.bonusBall = validateBonusBall(InputView.getBonusNumber());
-    }
-
-    private int validateBonusBall(int bonusBall) {
-        if (bonusBall < 1 || bonusBall > 45) {
-            throw new IllegalArgumentException("보너스 볼은 1부터 45 사이의 숫자여야 합니다.");
-        }
-        List<Integer> copiedWinningNumber = winningLotto.getLottoNumbers();
-        Set<Integer> uniqueBonusball = new HashSet<>(copiedWinningNumber);
-        if (!uniqueBonusball.add(bonusBall)) {
-            throw new IllegalArgumentException("중복된 로또 번호가 존재합니다.");
-        }
-        return bonusBall;
-    }
-
-
-    public Lotto getWinningNumber() {
-        return winningLotto;
-    }
-
-    public int getBonusBall() {
-        return bonusBall;
     }
 }
