@@ -3,11 +3,11 @@ package domain;
 import java.util.*;
 
 public class WinningStatistics {
-    Map<Rank, WinnerNum> winningStatistics = new HashMap<>();
+    private final Map<Rank, Integer> winningStatistics = new HashMap<>();
 
     public WinningStatistics() {
         for (Rank rank : Rank.values()) {
-            winningStatistics.put(rank, new WinnerNum(0));
+            winningStatistics.put(rank, 0);
         }
     }
 
@@ -15,11 +15,12 @@ public class WinningStatistics {
         for (Lotto lotto : lottos.getLottos()) {
             int count = winningLotto.match(lotto);
             Rank rank = Rank.getRank(count, winningLotto.getBonusFlag());
-            winningStatistics.get(rank).increase();
+            winningStatistics.put(rank, winningStatistics.get(rank) + 1);
         }
     }
 
-    public Map<Rank, WinnerNum> getWinningStatistics() {
-        return winningStatistics;
+
+    public Map<Rank, Integer> getWinningStatistics() {
+        return Collections.unmodifiableMap(winningStatistics);
     }
 }

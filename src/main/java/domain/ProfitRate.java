@@ -13,10 +13,10 @@ public class ProfitRate {
 
     public long getTotalProfit() {
         long totalProfit = 0;
-        Map<Rank, WinnerNum> statistics = winningStatistics.getWinningStatistics();
+        Map<Rank, Integer> statistics = winningStatistics.getWinningStatistics();
 
         for (Rank rank : statistics.keySet()) {
-            int count = statistics.get(rank).getWinnerNum();
+            int count = statistics.get(rank);
             totalProfit += (long) rank.getPrize() * count;
         }
         return totalProfit;
