@@ -10,11 +10,11 @@ public class InputView {
     private static Scanner scanner = new Scanner(System.in);
 
     public static int getPurchaseAmount() {
+        System.out.println("구입금액을 입력해 주세요.");
+        String input = scanner.nextLine();
         try {
-            System.out.println("구입금액을 입력해 주세요.");
-            int purchaseAmount = Integer.parseInt(scanner.nextLine());
-            return purchaseAmount;
-        } catch(NumberFormatException e) { // 문자, 공백, 숫자+문자, 숫자+공백 등 입력시
+            return Integer.parseInt(input);
+        } catch(NumberFormatException e) {
             System.out.println("숫자만 입력 가능합니다. 다시 입력해주세요.");
             return getPurchaseAmount();
         }

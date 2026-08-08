@@ -23,8 +23,9 @@ public class Main {
         WinningLotto winningLotto = new WinningLotto(enteredWinningNumber, bonusBall);
         WinningStatistics winningStatistics = new WinningStatistics();
 
-        winningStatistics.compareLottos(winningLotto.getWinningLotto(), lottos, winningLotto.getBonusBall());
+        winningStatistics.compareLottos(winningLotto, lottos);
         ProfitRate profitRate = new ProfitRate(price, winningStatistics);
         ResultView.showStatistics(profitRate, winningStatistics);
     }
+
 }
