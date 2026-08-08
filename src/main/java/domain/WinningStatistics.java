@@ -1,6 +1,8 @@
 package domain;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.HashMap;
 
 public class WinningStatistics {
     private final Map<Rank, Integer> winningStatistics = new HashMap<>();

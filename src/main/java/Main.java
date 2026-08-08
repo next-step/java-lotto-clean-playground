@@ -2,7 +2,6 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {

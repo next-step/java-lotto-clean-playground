@@ -1,6 +1,10 @@
 package domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Lotto {
     private static final List<Integer> NUMBERS = new ArrayList<>();
