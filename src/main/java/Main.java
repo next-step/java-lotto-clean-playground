@@ -13,7 +13,7 @@ public class Main {
         PurchaseManage purchaseManage = new PurchaseManage(purchaseAmount);
         List<String> manualInputs = InputView.getManualPurchasedLottos(manualCount);
 
-        Lottos lottos = purchaseManage.buyLottos(manualCount, manualInputs);
+        Lottos lottos = purchaseManage.buyLottos(manualInputs);
 
         ResultView.showNum(lottos);
 

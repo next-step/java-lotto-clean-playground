@@ -8,7 +8,7 @@ public class PurchaseManage{
     public PurchaseManage(PurchaseAmount purchaseAmount) {
         this.purchaseAmount = purchaseAmount;
     }
-    public Lottos buyLottos(int manualCount, List<String> manualInputs) {
+    public Lottos buyLottos(List<String> manualInputs) {
         int automaticLottoCount = purchaseAmount.calculateAutomaticCount();
         Lottos lottos = new Lottos();
         lottos.makeManualLottos(manualInputs);
