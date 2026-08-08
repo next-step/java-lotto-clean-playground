@@ -4,13 +4,12 @@ import java.util.*;
 
 public class LottoParser {
 
-    public List<Integer> parseInput(String input) {
-        List<Integer> lottoNumbers = new ArrayList<>();
-        String[] items = input.split(",");
-        for (String item : items) {
-            lottoNumbers.add(Integer.parseInt(item.trim()));
+    public static List<Integer> parseInput(String input) {
+        List<Integer> numbers = new ArrayList<>();
+        for (String value : input.split(",")) {
+            numbers.add(Integer.parseInt(value.trim()));
         }
-        Collections.sort(lottoNumbers);
-        return lottoNumbers;
+
+        return numbers;
     }
 }

@@ -2,6 +2,8 @@ package view;
 
 import domain.PurchaseAmount;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
@@ -34,10 +36,13 @@ public class InputView {
         }
     }
 
-    public static String getManualPurchasedLottos() {
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        String manualPurchasedLotto = scanner.nextLine();
-        return manualPurchasedLotto;
+    public static List<String> getManualPurchasedLottos(int manualCount) {
+        List<String> inputs = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+            inputs.add(scanner.nextLine());
+        }
+        return inputs;
     }
 
     public static String getWinningNumber() {

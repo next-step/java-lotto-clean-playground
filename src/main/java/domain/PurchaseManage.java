@@ -10,29 +10,15 @@ import java.util.Set;
 public class PurchaseManage{
     private final PurchaseAmount purchaseAmount;
 
-    LottoParser lottoParser = new LottoParser();
     public PurchaseManage(PurchaseAmount purchaseAmount) {
         this.purchaseAmount = purchaseAmount;
     }
-    public Lottos buyLottos(int manualCount) {
+    public Lottos buyLottos(int manualCount, List<String> manualInputs) {
         int automaticLottoCount = purchaseAmount.calculateAutomaticCount();
-        List<Lotto> manualLottos = makeManualLotto(manualCount);
+        Lottos lottos = new Lottos();
+        lottos.makeManualLottos(manualInputs);
+        lottos.makeAutomaticLottos(automaticLottoCount);
 
-        List<Lotto> purchaseLottos = new ArrayList<>(manualLottos);
-
-        for (int i = 0; i < automaticLottoCount; i++) {
-            purchaseLottos.add(new Lotto());
-        }
-        return new Lottos(purchaseLottos);
-    }
-
-    public List<Lotto> makeManualLotto(int manualCount) {
-        List<Lotto> manualLottos = new ArrayList<>();
-        for (int i = 0; i < manualCount; i++) {
-            String input = InputView.getManualPurchasedLottos();
-            List<Integer> numbers = lottoParser.parseInput(input);
-            manualLottos.add(new Lotto(numbers));
-        }
-        return manualLottos;
+        return lottos;
     }
 }

@@ -2,6 +2,9 @@ import domain.*;
 import view.InputView;
 import view.ResultView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         final int price = InputView.getPurchaseAmount();
@@ -9,8 +12,10 @@ public class Main {
 
         PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);
         PurchaseManage purchaseManage = new PurchaseManage(purchaseAmount);
+        List<String> manualInputs = InputView.getManualPurchasedLottos(manualCount);
 
-        Lottos lottos = purchaseManage.buyLottos(manualCount);
+        Lottos lottos = purchaseManage.buyLottos(manualCount, manualInputs);
+
         ResultView.showNum(lottos);
 
         String enteredWinningNumber = InputView.getWinningNumber();
