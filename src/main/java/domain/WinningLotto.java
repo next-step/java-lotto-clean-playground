@@ -7,7 +7,8 @@ import java.util.Set;
 public class WinningLotto {
     private final Lotto winningLotto;
     private final int bonusBall;
-    private final int count = 0;
+    private int count = 0;
+    private boolean bonusFlag;
 
     public WinningLotto(String enteredWinningLotto, int bonusBall) {
         LottoParser lottoParser = new LottoParser();
@@ -25,5 +26,28 @@ public class WinningLotto {
         if (!uniqueBonusball.add(bonusBall)) throw new IllegalArgumentException("중복된 로또 번호가 존재합니다.");
     }
 
+    public int match(Lotto lotto) {
+        count = 0;
+        List<Integer> copiedLotto = lotto.getLottoNumbers();
+        for (int i = 0; i < 6; i ++) {
+            compareNumbers(copiedLotto, i);
+        }
+        if (count == 5) {
+           bonusFlag = hasBonusNumber(copiedLotto);
+        }
+        return count;
+    }
+    public void compareNumbers(List<Integer> copiedLotto, int i) {
+        if (copiedLotto.contains(winningLotto.get(i))) {
+            count++;
+        }
+    }
 
+    public boolean hasBonusNumber(List<Integer> copiedLotto) {
+        return copiedLotto.contains(bonusBall);
+    }
+
+    public boolean getBonusFlag() {
+        return bonusFlag;
+    }
 }

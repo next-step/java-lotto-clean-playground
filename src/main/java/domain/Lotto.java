@@ -51,4 +51,9 @@ public class Lotto {
     public List<Integer> getLottoNumbers() {
         return List.copyOf(numbers);
     }
+
+    public int get(int index) {
+        return numbers.get(index);
+    }
+
 }

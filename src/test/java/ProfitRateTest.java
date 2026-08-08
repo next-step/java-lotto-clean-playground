@@ -12,8 +12,9 @@ public class ProfitRateTest {
     void calculateProfitRateTest() {
         //given
         int price = 4000;
-        Lotto winninggLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        String winningInput = "1, 2, 3, 4, 5, 6";
         int testBonusNum = 7;
+        WinningLotto testWinningLotto = new WinningLotto(winningInput, testBonusNum);
 
         Lottos testLottos = new Lottos(List.of(
                 createLotto(1, 2, 3, 4, 5, 6), //1등
@@ -24,7 +25,7 @@ public class ProfitRateTest {
         WinningStatistics testWinningStatistics = new WinningStatistics();
 
         //when
-        testWinningStatistics.compareLottos(winninggLotto, testLottos, testBonusNum);
+        testWinningStatistics.compareLottos(testWinningLotto, testLottos);
 
         ProfitRate profitRate = new ProfitRate(price, testWinningStatistics);
 
