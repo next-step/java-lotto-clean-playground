@@ -30,11 +30,11 @@ public class WinningStatisticsTest {
         testWinningStatistics.compareLottos(testWinningLotto, testLottos);
 
         //then
-        Map<Rank, WinnerNum> result = testWinningStatistics.getWinningStatistics();
-        assertEquals(1, result.get(Rank.FIRST_PLACE).getWinnerNum());
-        assertEquals(1, result.get(Rank.SECOND_PLACE_BONUS).getWinnerNum());
-        assertEquals(1, result.get(Rank.SECOND_PLACE).getWinnerNum());
-        assertEquals(1, result.get(Rank.MISS).getWinnerNum());
+        Map<Rank, Integer> result = testWinningStatistics.getWinningStatistics();
+        assertEquals(1, result.get(Rank.FIRST_PLACE));
+        assertEquals(1, result.get(Rank.SECOND_PLACE_BONUS));
+        assertEquals(1, result.get(Rank.SECOND_PLACE));
+        assertEquals(1, result.get(Rank.MISS));
 
 
 
