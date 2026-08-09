@@ -16,22 +16,22 @@ public class LottoResult {
         return count;
     }
 
-    private int checkingWinningNumbers(List<LottoNumber> lottoList, List<Integer> wins, int bonusBall) {
+    private Rank checkingWinningNumbers(List<LottoNumber> lottoList, List<Integer> wins, int bonusBall) {
         int count = 0;
         for (int win : wins) {
             count = resultCounting(lottoList, win, count);
         }
 
-        if (count == 5 && containsWinningNumber(lottoList, bonusBall)) return 7;
-        return count;
+        boolean matchBonus = containsWinningNumber(lottoList, bonusBall);
+        return Rank.find(count, matchBonus);
     }
 
-    public List<Integer> calculateCounts(List<List<LottoNumber>> lottos, List<Integer> wins, int bonusBall) {
-        List<Integer> counts = new ArrayList<>();
+    public List<Rank> calculateRanks(List<List<LottoNumber>> lottos, List<Integer> wins, int bonusBall) {
+        List<Rank> ranks = new ArrayList<>();
 
         for (List<LottoNumber> lotto : lottos) {
-            counts.add(checkingWinningNumbers(lotto, wins, bonusBall));
+            ranks.add(checkingWinningNumbers(lotto, wins, bonusBall));
         }
-        return counts;
+        return ranks;
     }
 }

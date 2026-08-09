@@ -26,12 +26,12 @@ public class Application {
 
         List<Integer> wins = InputView.inputWinning();
         int bonusBall = InputView.inputBonusBall();
-        List<Integer> counts = lottoResult.calculateCounts(passiveLotto, wins, bonusBall);
+        List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, wins, bonusBall);
 
-        int winPrice = winningRate.calculateWinPrice(counts);
+        int winPrice = winningRate.calculateWinPrice(ranks);
         double rate = winningRate.calculateRate(winPrice, purchasePrice);
 
-        ResultView.printResult(counts, rate);
+        ResultView.printResult(ranks, rate);
     }
 }
 
