@@ -31,18 +31,18 @@ public class LottoGenerator {
         Collections.sort(lotto);
     }
 
-    public List<LottoNumber> run() {
+    public Lotto run() {
         List<Integer> lottoList = lottoList();
 
         lottoShuffle(lottoList);
         List<LottoNumber> lotto = lottoPick(lottoList);
         lottoSort(lotto);
 
-        return lotto;
+        return Lotto.from(lotto);
     }
 
-    public List<List<LottoNumber>> lottoLists(int count) {
-        List<List<LottoNumber>> lottos = new ArrayList<>();
+    public List<Lotto> lottoLists(int count) {
+        List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(run());
         }

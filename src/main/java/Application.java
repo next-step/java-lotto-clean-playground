@@ -18,8 +18,8 @@ public class Application {
         int passiveCount = InputView.inputPassiveCount();
         int autoCount = lottoCount - passiveCount;
 
-        List<List<LottoNumber>> passiveLotto = InputView.inputPassiveLotto(passiveCount);
-        List<List<LottoNumber>> autoLotto = lottoGenerator.lottoLists(autoCount);
+        List<Lotto> passiveLotto = InputView.inputPassiveLotto(passiveCount);
+        List<Lotto> autoLotto = lottoGenerator.lottoLists(autoCount);
 
         passiveLotto.addAll(autoLotto);
         ResultView.printPurchase(passiveLotto, passiveCount, autoCount);
