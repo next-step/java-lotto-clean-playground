@@ -39,4 +39,13 @@ public class Lotto {
     public String toString() {
         return numbers.toString();
     }
+
+    public int countLotto(Lotto lotto) {
+        int count = 0;
+
+        for (LottoNumber number : numbers) {
+            if (lotto.contains(number)) count++;
+        }
+        return count;
+    }
 }

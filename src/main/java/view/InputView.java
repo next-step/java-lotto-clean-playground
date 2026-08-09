@@ -19,25 +19,26 @@ public class InputView {
         return price;
     }
 
-    public static List<Integer> inputWinning() {
+    public static Lotto inputWinning() {
         System.out.println();
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String win = scanner.nextLine();
 
+        String win = scanner.nextLine();
         String[] wins = win.split(",");
-        List<Integer> nums = new ArrayList<>();
+
+        List<LottoNumber> nums = new ArrayList<>();
 
         for (int i = 0; i < wins.length; i++) {
-            nums.add(Integer.parseInt(wins[i]));
+            nums.add(LottoNumber.from(Integer.parseInt(wins[i])));
         }
-        return nums;
+        return Lotto.from(nums);
     }
 
-    public static int inputBonusBall() {
+    public static LottoNumber inputBonusBall() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
         int bonusBall = scanner.nextInt();
 
-        return bonusBall;
+        return LottoNumber.from(bonusBall);
     }
 
     public static int inputPassiveCount() {

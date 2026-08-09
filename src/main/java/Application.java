@@ -26,9 +26,11 @@ public class Application {
         passiveLotto.addAll(autoLotto);
         ResultView.printPurchase(passiveLotto, passiveCount, autoCount);
 
-        List<Integer> wins = InputView.inputWinning();
-        int bonusBall = InputView.inputBonusBall();
-        List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, wins, bonusBall);
+        Lotto wins = InputView.inputWinning();
+        LottoNumber bonusBall = InputView.inputBonusBall();
+
+        WinningLotto winningLotto = WinningLotto.from(wins, bonusBall);
+        List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, winningLotto);
 
         int winPrice = winningRate.calculateWinPrice(ranks);
         double rate = winningRate.calculateRate(winPrice, purchaseAmount);
