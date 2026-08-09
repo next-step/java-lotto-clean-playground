@@ -54,19 +54,8 @@ public final class InputView {
         return parseLottoNumbers(numbersString);
     }
 
-    public static String inputWinningLottoNumbers() {
+    public static void printWinningLottoNumbersPrompt() {
         System.out.println("\n지난 주 당첨번호를 입력해 주세요");
-        while (true) {
-            try {
-                String winningLottoNumbers = lottoScanner.nextLine();
-                new Lotto(parseLottoNumbers(winningLottoNumbers));
-                return winningLottoNumbers;
-            } catch (NumberFormatException e) {
-                System.out.println("[ERROR] 당첨 번호는 숫자로만 구성되어야 합니다. 다시 입력해 주세요.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage() + " 다시 입력해 주세요.");
-            }
-        }
     }
 
     public static String inputBonusBallNumber() {

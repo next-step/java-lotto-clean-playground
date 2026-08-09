@@ -14,12 +14,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("LottoChecker 클래스")
 class LottoCheckerTest {
 
-    private List<String> winningNumbers;
+    private Lotto winningNumbers;
     private String bonusNumber;
 
     @BeforeEach
     void setUp() {
-        winningNumbers = List.of("1", "2", "3", "4", "5", "6");
+        winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         bonusNumber = "7";
     }
 

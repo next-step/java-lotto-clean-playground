@@ -32,10 +32,10 @@ public class Application {
 
         OutputView.printLottoNumbers(lottoTickets);
 
-        List<String> winningNumbers = List.of(InputView.inputWinningLottoNumbers().split(",\\s*"));
+        Lotto winningLotto = inputWinningLotto();
         String bonusNumber = InputView.inputBonusBallNumber();
 
-        LottoChecker lottoChecker = new LottoChecker(winningNumbers, lottoTickets, bonusNumber);
+        LottoChecker lottoChecker = new LottoChecker(winningLotto, lottoTickets, bonusNumber);
         ArrayList<LottoWinningType> checkedTickets = lottoChecker.checkAllTickets();
 
         LottoStatistics lottoStatistics = new LottoStatistics();
@@ -53,17 +53,22 @@ public class Application {
         InputView.printUserSelectedLottoNumbersPrompt();
         List<Lotto> userSelectedLottos = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
-            userSelectedLottos.add(readOneUserSelectedLotto());
+            userSelectedLottos.add(readLottoWithRetry("로또 번호는 숫자로만 구성되어야 합니다."));
         }
         return userSelectedLottos;
     }
 
-    private static Lotto readOneUserSelectedLotto() {
+    private static Lotto inputWinningLotto() {
+        InputView.printWinningLottoNumbersPrompt();
+        return readLottoWithRetry("당첨 번호는 숫자로만 구성되어야 합니다.");
+    }
+
+    private static Lotto readLottoWithRetry(String numberFormatErrorMessage) {
         while (true) {
             try {
                 return new Lotto(InputView.readLottoNumbers());
             } catch (NumberFormatException e) {
-                OutputView.printError("로또 번호는 숫자로만 구성되어야 합니다.");
+                OutputView.printError(numberFormatErrorMessage);
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e.getMessage());
             }
