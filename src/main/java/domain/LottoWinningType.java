@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 public enum LottoWinningType {
@@ -36,13 +35,6 @@ public enum LottoWinningType {
         if (matchCount == 4) return FOURTH_PLACE;
         if (matchCount == 3) return FIFTH_PLACE;
         return NO_PRIZE;
-    }
-
-    public static LottoWinningType findLottoWinningType(String winningType){
-        return Arrays.stream(LottoWinningType.values())
-                .filter(lottoWinningTypePrize -> lottoWinningTypePrize.name().equals(winningType))
-                .findAny()
-                .orElse(NO_PRIZE);
     }
 
 }

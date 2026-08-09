@@ -13,7 +13,7 @@ class LottoWinningTypeTest {
 
     @Nested
     @DisplayName("of 메소드는")
-    class ValueOfTest {
+    class OfTest {
 
         @DisplayName("일치 개수와 보너스 여부에 따라 정확한 등수를 반환한다.")
         @ParameterizedTest
@@ -56,21 +56,4 @@ class LottoWinningTypeTest {
         }
     }
 
-    @Nested
-    @DisplayName("findLottoWinningType 메소드는")
-    class FindLottoWinningTypeTest {
-
-        @Test
-        @DisplayName("문자열에 해당하는 enum 상수를 찾는다.")
-        void findsCorrectEnumConstant() {
-            assertThat(LottoWinningType.findLottoWinningType("FIRST_PLACE")).isEqualTo(LottoWinningType.FIRST_PLACE);
-            assertThat(LottoWinningType.findLottoWinningType("SECOND_PLACE")).isEqualTo(LottoWinningType.SECOND_PLACE);
-        }
-
-        @Test
-        @DisplayName("존재하지 않는 문자열에 대해서는 NO_PRIZE를 반환한다.")
-        void returnsNoPrizeForNonExistentConstant() {
-            assertThat(LottoWinningType.findLottoWinningType("INVALID_TYPE")).isEqualTo(LottoWinningType.NO_PRIZE);
-        }
-    }
 }
