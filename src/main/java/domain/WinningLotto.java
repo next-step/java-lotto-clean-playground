@@ -18,7 +18,7 @@ public class WinningLotto {
     }
 
     private void validateBonusBall(int bonusBall) {
-        if (bonusBall < 1 || bonusBall > 45) {
+        if (bonusBall < Lotto.MIN_NUMBER || bonusBall > Lotto.MAX_NUMBER) {
             throw new IllegalArgumentException("보너스 볼은 1부터 45 사이의 숫자여야 합니다.");
         }
         List<Integer> copiedWinningNumber = winningLotto.getLottoNumbers();
@@ -29,7 +29,7 @@ public class WinningLotto {
     public int match(Lotto lotto) {
         count = 0;
         List<Integer> copiedLotto = lotto.getLottoNumbers();
-        for (int i = 0; i < 6; i ++) {
+        for (int i = 0; i < Lotto.LOTTO_SIZE; i ++) {
             compareNumbers(copiedLotto, i);
         }
         if (count == 5) {

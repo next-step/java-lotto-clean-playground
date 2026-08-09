@@ -8,8 +8,12 @@ import java.util.HashSet;
 
 public class Lotto {
     private static final List<Integer> NUMBERS = new ArrayList<>();
+    public static final int MAX_NUMBER = 45;
+    public static final int MIN_NUMBER = 1;
+    public static final int LOTTO_SIZE = 6;
+
     static {
-        for (int i = 1; i <= 45; i++) {
+        for (int i = 1; i <= MAX_NUMBER; i++) {
             NUMBERS.add(i);
         }
     }
@@ -34,13 +38,13 @@ public class Lotto {
         for (int number : manualNumbers) {
             validateNumber(number);
         }
-        if (manualNumbers.size() != 6) {
+        if (manualNumbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
 
     private void validateNumber(int number) {
-        if (number < 1 || number > 45) {
+        if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1부터 45까지여야 합니다.");
         }
     }
