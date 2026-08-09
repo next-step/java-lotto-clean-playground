@@ -26,25 +26,18 @@ class LottoTicketsTest {
     class AddUserSelectedLottos {
 
         @Test
-        @DisplayName("수동 번호 리스트를 받아 로또를 생성하고 추가한다.")
+        @DisplayName("이미 생성된 로또 목록을 그대로 추가한다.")
         void shouldAddUserSelectedLottos() {
-            List<String> numberStrings = List.of("1, 2, 3, 4, 5, 6", "7, 8, 9, 10, 11, 12");
+            List<Lotto> lottos = List.of(
+                    new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                    new Lotto(List.of(7, 8, 9, 10, 11, 12))
+            );
 
-            lottoTickets.addUserSelectedLottos(numberStrings);
+            lottoTickets.addUserSelectedLottos(lottos);
 
             assertThat(lottoTickets.getSize()).isEqualTo(2);
             assertThat(lottoTickets.getLottoTreeSet(0)).containsExactly(1, 2, 3, 4, 5, 6);
             assertThat(lottoTickets.getLottoTreeSet(1)).containsExactly(7, 8, 9, 10, 11, 12);
-        }
-
-        @Test
-        @DisplayName("잘못된 형식의 번호를 받으면 예외를 발생시킨다.")
-        void shouldThrowExceptionForInvalidNumbers() {
-            List<String> invalidNumberStrings = List.of("1, 2, 3, 4, 5");
-
-            assertThatThrownBy(() -> lottoTickets.addUserSelectedLottos(invalidNumberStrings))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("로또 번호는" + Lotto.LOTTO_NUMBER_COUNT + "개여야 합니다.");
         }
     }
 
@@ -75,7 +68,7 @@ class LottoTicketsTest {
         @DisplayName("지정된 인덱스의 로또 번호 Set을 반환한다.")
         void shouldReturnCorrectLottoSet() {
             lottoTickets.addAutoLottos(1);
-            lottoTickets.addUserSelectedLottos(List.of("1, 2, 3, 4, 5, 6"));
+            lottoTickets.addUserSelectedLottos(List.of(new Lotto(List.of(1, 2, 3, 4, 5, 6))));
 
             TreeSet<Integer> manualLottoSet = lottoTickets.getLottoTreeSet(1);
 

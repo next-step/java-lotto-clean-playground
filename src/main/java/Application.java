@@ -1,5 +1,6 @@
 import static view.InputView.lottoScanner;
 
+import domain.Lotto;
 import domain.LottoChecker;
 import domain.LottoResult;
 import domain.LottoStatistics;
@@ -19,14 +20,14 @@ public class Application {
         int totalCount = LottoTicketCount.convertLottoPriceToTicketCount(InputView.inputLottoTotalPrice());
 
         int manualCount = InputView.inputUserSelectedLottoCount(totalCount);
-        List<String> userSelectedNumbersInput = InputView.inputUserSelectedLottoNumbers(manualCount);
+        List<Lotto> userSelectedLottos = inputUserSelectedLottos(manualCount);
 
         int autoCount = totalCount - manualCount;
 
         OutputView.printLottoCount(manualCount, autoCount);
 
         LottoTickets lottoTickets = new LottoTickets();
-        lottoTickets.addUserSelectedLottos(userSelectedNumbersInput);
+        lottoTickets.addUserSelectedLottos(userSelectedLottos);
         lottoTickets.addAutoLottos(autoCount);
 
         OutputView.printLottoNumbers(lottoTickets);
@@ -46,5 +47,26 @@ public class Application {
         OutputView.printRateOfReturn(lottoResult.calculateProfitRate());
 
         InputView.closeScanner(lottoScanner);
+    }
+
+    private static List<Lotto> inputUserSelectedLottos(int manualCount) {
+        InputView.printUserSelectedLottoNumbersPrompt();
+        List<Lotto> userSelectedLottos = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            userSelectedLottos.add(readOneUserSelectedLotto());
+        }
+        return userSelectedLottos;
+    }
+
+    private static Lotto readOneUserSelectedLotto() {
+        while (true) {
+            try {
+                return new Lotto(InputView.readLottoNumbers());
+            } catch (NumberFormatException e) {
+                OutputView.printError("로또 번호는 숫자로만 구성되어야 합니다.");
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 }

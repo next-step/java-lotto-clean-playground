@@ -3,18 +3,12 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class LottoTickets {
     ArrayList<Lotto> lottoArrayList = new ArrayList<>();
 
-    public void addUserSelectedLottos(List<String> userSelectedNumbersInput) {
-        for (String numbersString : userSelectedNumbersInput) {
-            List<Integer> numbers = List.of(numbersString.split(",\\s*")).stream()
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-            lottoArrayList.add(new Lotto(numbers));
-        }
+    public void addUserSelectedLottos(List<Lotto> userSelectedLottos) {
+        lottoArrayList.addAll(userSelectedLottos);
     }
 
     public void addAutoLottos(int autoCount) {

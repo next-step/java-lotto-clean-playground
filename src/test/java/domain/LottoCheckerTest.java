@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,7 +25,13 @@ class LottoCheckerTest {
 
     private LottoTickets createLottoTickets(List<String> numberStrings) {
         LottoTickets lottoTickets = new LottoTickets();
-        lottoTickets.addUserSelectedLottos(numberStrings);
+        List<Lotto> lottos = numberStrings.stream()
+                .map(numbersString -> List.of(numbersString.split(",\\s*")).stream()
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList()))
+                .map(Lotto::new)
+                .collect(Collectors.toList());
+        lottoTickets.addUserSelectedLottos(lottos);
         return lottoTickets;
     }
 

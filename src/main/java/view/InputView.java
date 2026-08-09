@@ -1,7 +1,6 @@
 package view;
 
 import domain.Lotto;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -46,13 +45,13 @@ public final class InputView {
         }
     }
 
-    public static ArrayList<String> inputUserSelectedLottoNumbers(int userSelectedNumbersCount) {
+    public static void printUserSelectedLottoNumbersPrompt() {
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        ArrayList<String> userSelectedNumbers = new ArrayList<>();
-        for (int i = 0; i < userSelectedNumbersCount; i++) {
-            userSelectedNumbers.add(readSingleLottoLine());
-        }
-        return userSelectedNumbers;
+    }
+
+    public static List<Integer> readLottoNumbers() {
+        String numbersString = lottoScanner.nextLine();
+        return parseLottoNumbers(numbersString);
     }
 
     public static String inputWinningLottoNumbers() {
@@ -60,7 +59,7 @@ public final class InputView {
         while (true) {
             try {
                 String winningLottoNumbers = lottoScanner.nextLine();
-                validateLottoNumbers(winningLottoNumbers);
+                new Lotto(parseLottoNumbers(winningLottoNumbers));
                 return winningLottoNumbers;
             } catch (NumberFormatException e) {
                 System.out.println("[ERROR] 당첨 번호는 숫자로만 구성되어야 합니다. 다시 입력해 주세요.");
@@ -109,25 +108,10 @@ public final class InputView {
         }
     }
 
-    private static String readSingleLottoLine() {
-        while (true) {
-            try {
-                String numbersString = lottoScanner.nextLine();
-                validateLottoNumbers(numbersString);
-                return numbersString;
-            } catch (NumberFormatException e) {
-                System.out.println("[ERROR] 로또 번호는 숫자로만 구성되어야 합니다. 다시 입력해 주세요.");
-            } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] " + e.getMessage() + " 다시 입력해 주세요.");
-            }
-        }
-    }
-    
-    private static void validateLottoNumbers(String numbersString) {
-        List<Integer> numbers = Arrays.stream(numbersString.split(",\\s*"))
+    private static List<Integer> parseLottoNumbers(String numbersString) {
+        return Arrays.stream(numbersString.split(",\\s*"))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        new Lotto(numbers);
     }
 
     private static void validateBonusBall(String bonusNumberStr) {
