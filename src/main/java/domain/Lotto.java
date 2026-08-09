@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,7 +9,7 @@ public class Lotto {
     private final List<LottoNumber> numbers;
 
     private Lotto(List<LottoNumber> numbers) {
-        this.numbers = numbers;
+        this.numbers = new ArrayList<>(numbers);
     }
 
     public static Lotto from(List<LottoNumber> numbers) {
@@ -28,6 +29,10 @@ public class Lotto {
         if (set.size() != numbers.size()) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
     }
 
 
