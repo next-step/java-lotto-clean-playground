@@ -23,7 +23,7 @@ public class WinningStatisticsTest {
                 createLotto(1, 2, 3, 4, 5, 7), //보너스 2등
                 createLotto(1, 2, 3, 4, 5, 8), //2등
                 createLotto(8, 9, 10, 11, 12, 13) //MISS
-                ));
+        ));
         WinningStatistics testWinningStatistics = new WinningStatistics();
 
         //when
@@ -37,8 +37,8 @@ public class WinningStatisticsTest {
         assertEquals(1, result.get(Rank.MISS));
 
 
-
     }
+
     private Lotto createLotto(Integer... numbers) {
         return new Lotto(List.of(numbers));
     }
