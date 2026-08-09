@@ -1,10 +1,12 @@
 import domain.Lotto;
+import net.bytebuddy.pool.TypePool;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ExceptionTest {
@@ -20,10 +22,11 @@ public class ExceptionTest {
         //then
         assertAll(
                 () -> assertThatCode(() -> new Lotto(testLottoNormal)).doesNotThrowAnyException(),
-                () -> assertThatCode(() -> new Lotto(testLottohasException)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 6개여야 합니다."),
-                () -> assertThatCode(() -> new Lotto(testLottohasException2)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다."),
-                () -> assertThatCode(() -> new Lotto(testLottohasException3)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다.")
+                () -> assertThatThrownBy(() -> new Lotto(testLottohasException)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 6개여야 합니다."),
+                () -> assertThatThrownBy(() -> new Lotto(testLottohasException2)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다."),
+                () -> assertThatThrownBy(() -> new Lotto(testLottohasException3)).isInstanceOf(IllegalArgumentException.class).hasMessage("로또 번호는 1부터 45까지여야 합니다.")
         );
+
     }
 
     @Test
