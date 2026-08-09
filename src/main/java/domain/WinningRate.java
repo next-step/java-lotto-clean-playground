@@ -14,7 +14,7 @@ public class WinningRate {
         return winPrice;
     }
 
-    public double calculateRate(int winPrice, int purchasePrice) {
-        return (double) winPrice / purchasePrice;
+    public double calculateRate(int winPrice, PurchaseAmount purchaseAmount) {
+        return (double) winPrice / purchaseAmount.getAmount();
     }
 }

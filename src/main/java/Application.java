@@ -29,7 +29,7 @@ public class Application {
         List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, wins, bonusBall);
 
         int winPrice = winningRate.calculateWinPrice(ranks);
-        double rate = winningRate.calculateRate(winPrice, purchasePrice);
+        double rate = winningRate.calculateRate(winPrice, purchaseAmount);
 
         ResultView.printResult(ranks, rate);
     }
