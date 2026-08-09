@@ -1,40 +1,49 @@
 package domain;
 
-import java.util.function.Function;
-
 public enum LottoWinningType {
-    FIRST_PLACE("6개 일치 (2000000000원)- ", tickets -> tickets * 2000000000),
-    SECOND_PLACE("5개 일치, 보너스 볼 일치(30000000원)- ", tickets -> tickets * 30000000),
-    THIRD_PLACE("5개 일치 (1500000원)- ", tickets -> tickets * 1500000),
-    FOURTH_PLACE("4개 일치 (50000원)- ", tickets -> tickets * 50000),
-    FIFTH_PLACE("3개 일치 (5000원)- ", tickets -> tickets * 5000),
-    NO_PRIZE("2개 이하 일치 (0원)- ", tickets -> 0d);
+    FIRST_PLACE(6, false, 2_000_000_000),
+    SECOND_PLACE(5, true, 30_000_000),
+    THIRD_PLACE(5, false, 1_500_000),
+    FOURTH_PLACE(4, false, 50_000),
+    FIFTH_PLACE(3, false, 5_000),
+    NO_PRIZE(0, false, 0);
 
-    private String winningDescription;
-    private Function<Double, Double> prizeCalculator;
+    private final int matchCount;
+    private final boolean requiresBonus;
+    private final int prize;
 
-
-    LottoWinningType(String winningDescription, Function<Double, Double> prizeCalculator) {
-        this.winningDescription = winningDescription;
-        this.prizeCalculator = prizeCalculator;
-
-    }
-
-    public double calculatePrize(double winningTicketCount) {
-        return prizeCalculator.apply(winningTicketCount);
-    }
-
-    public String getWinningDescription() {
-        return winningDescription;
+    LottoWinningType(int matchCount, boolean requiresBonus, int prize) {
+        this.matchCount = matchCount;
+        this.requiresBonus = requiresBonus;
+        this.prize = prize;
     }
 
     public static LottoWinningType of(int matchCount, boolean matchBonus) {
-        if (matchCount == 6) return FIRST_PLACE;
-        if (matchCount == 5 && matchBonus) return SECOND_PLACE;
-        if (matchCount == 5) return THIRD_PLACE;
-        if (matchCount == 4) return FOURTH_PLACE;
-        if (matchCount == 3) return FIFTH_PLACE;
+        if (matchCount == FIRST_PLACE.matchCount) return FIRST_PLACE;
+        if (matchCount == SECOND_PLACE.matchCount && matchBonus) return SECOND_PLACE;
+        if (matchCount == THIRD_PLACE.matchCount) return THIRD_PLACE;
+        if (matchCount == FOURTH_PLACE.matchCount) return FOURTH_PLACE;
+        if (matchCount == FIFTH_PLACE.matchCount) return FIFTH_PLACE;
         return NO_PRIZE;
     }
 
+    public long calculatePrize(int winningTicketCount) {
+        return (long) prize * winningTicketCount;
+    }
+
+    public boolean isPrizeWinning() {
+        return prize > 0;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public boolean requiresBonus() {
+        return requiresBonus;
+    }
+
+    public int getPrize() {
+        return prize;
+    }
 }

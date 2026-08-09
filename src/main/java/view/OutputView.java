@@ -2,12 +2,26 @@ package view;
 
 import domain.LottoTickets;
 import domain.LottoWinningType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class OutputView {
+    private static final List<LottoWinningType> WINNING_TYPE_PRINT_ORDER = createWinningTypePrintOrder();
+
     private OutputView() {
 
+    }
+
+    private static List<LottoWinningType> createWinningTypePrintOrder() {
+        List<LottoWinningType> printOrder = Arrays.stream(LottoWinningType.values())
+                .filter(LottoWinningType::isPrizeWinning)
+                .collect(Collectors.toCollection(ArrayList::new));
+        Collections.reverse(printOrder);
+        return List.copyOf(printOrder);
     }
 
     public static void printError(String message) {
@@ -28,17 +42,16 @@ public final class OutputView {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
-        List<LottoWinningType> printOrder = List.of(
-                LottoWinningType.FIFTH_PLACE,
-                LottoWinningType.FOURTH_PLACE,
-                LottoWinningType.THIRD_PLACE,
-                LottoWinningType.SECOND_PLACE,
-                LottoWinningType.FIRST_PLACE
-        );
-
-        for (LottoWinningType type : printOrder) {
-            System.out.println(type.getWinningDescription() + matchStatistics.get(type) + "개");
+        for (LottoWinningType type : WINNING_TYPE_PRINT_ORDER) {
+            System.out.println(formatWinningStatistic(type, matchStatistics.get(type)));
         }
+    }
+
+    private static String formatWinningStatistic(LottoWinningType type, int winningTicketCount) {
+        if (type.requiresBonus()) {
+            return type.getMatchCount() + "개 일치, 보너스 볼 일치(" + type.getPrize() + "원) - " + winningTicketCount + "개";
+        }
+        return type.getMatchCount() + "개 일치 (" + type.getPrize() + "원)- " + winningTicketCount + "개";
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
