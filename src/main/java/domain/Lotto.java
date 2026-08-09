@@ -19,7 +19,7 @@ public class Lotto {
     }
 
     private static void validateCount(List<LottoNumber> numbers) {
-        if(numbers.size() != 6) {
+        if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
     }
@@ -34,8 +34,6 @@ public class Lotto {
     public boolean contains(LottoNumber number) {
         return numbers.contains(number);
     }
-
-
 
 
 }

@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Objects;
 
-public class LottoNumber implements Comparable<LottoNumber>{
+public class LottoNumber implements Comparable<LottoNumber> {
     private final int number;
 
     private LottoNumber(int number) {
@@ -22,7 +22,7 @@ public class LottoNumber implements Comparable<LottoNumber>{
     private static final int MAX = 45;
 
     private static void validate(int number) {
-        if (number < MIN || number > MAX)  {
+        if (number < MIN || number > MAX) {
             throw new IllegalArgumentException();
         }
     }

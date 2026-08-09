@@ -9,7 +9,7 @@ public class LottoGenerator {
         List<Integer> lotto = new ArrayList<>();
 
         for (int i = 0; i < 45; i++) {
-            lotto.add(i+1);
+            lotto.add(i + 1);
         }
         return lotto;
     }

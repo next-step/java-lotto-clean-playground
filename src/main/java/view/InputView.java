@@ -27,8 +27,10 @@ public class InputView {
 
         for (int i = 0; i < wins.length; i++) {
             nums.add(Integer.parseInt(wins[i]));
-        } return nums;
+        }
+        return nums;
     }
+
     public static int inputBonusBall() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
         int bonusBall = scanner.nextInt();
