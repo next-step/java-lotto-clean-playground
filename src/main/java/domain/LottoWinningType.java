@@ -12,24 +12,24 @@ public enum LottoWinningType {
     NO_PRIZE("2개 이하 일치 (0원)- ", tickets -> 0d);
 
     private String winningDescription;
-    private Function<Double, Double> prizeExpression;
+    private Function<Double, Double> prizeCalculator;
 
 
-    LottoWinningType(String winningDescription, Function<Double, Double> prizeExpression) {
+    LottoWinningType(String winningDescription, Function<Double, Double> prizeCalculator) {
         this.winningDescription = winningDescription;
-        this.prizeExpression = prizeExpression;
+        this.prizeCalculator = prizeCalculator;
 
     }
 
-    public double prizeExpression(double matchingTickets) {
-        return prizeExpression.apply(matchingTickets);
+    public double calculatePrize(double winningTicketCount) {
+        return prizeCalculator.apply(winningTicketCount);
     }
 
     public String getWinningDescription() {
         return winningDescription;
     }
 
-    public static LottoWinningType valueOf(int matchCount, boolean matchBonus) {
+    public static LottoWinningType of(int matchCount, boolean matchBonus) {
         if (matchCount == 6) return FIRST_PLACE;
         if (matchCount == 5 && matchBonus) return SECOND_PLACE;
         if (matchCount == 5) return THIRD_PLACE;

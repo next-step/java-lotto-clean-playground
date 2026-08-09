@@ -15,7 +15,7 @@ class LottoTest {
     void createLottoAutomatically() {
         Lotto lotto = new Lotto();
 
-        assertThat(lotto.getRandomNumberSet()).hasSize(Lotto.LOTTO_NUMBER_COUNT);
+        assertThat(lotto.getNumbers()).hasSize(Lotto.LOTTO_NUMBER_COUNT);
     }
 
     @DisplayName("자동으로 생성된 로또 번호는 1과 45 사이의 값이다.")
@@ -23,7 +23,7 @@ class LottoTest {
     void validateNumberRange() {
         Lotto lotto = new Lotto();
 
-        assertThat(lotto.getRandomNumberSet()).allMatch(number -> number >= Lotto.LOTTO_NUMBER_LOWER_BOUND && number <= Lotto.LOTTO_NUMBER_BOUND);
+        assertThat(lotto.getNumbers()).allMatch(number -> number >= Lotto.LOTTO_NUMBER_LOWER_BOUND && number <= Lotto.LOTTO_NUMBER_BOUND);
     }
 
     @DisplayName("수동으로 로또를 생성한다.")
@@ -33,8 +33,8 @@ class LottoTest {
 
         Lotto lotto = new Lotto(userSelectedNumbers);
 
-        assertThat(lotto.getRandomNumberSet()).hasSize(Lotto.LOTTO_NUMBER_COUNT);
-        assertThat(lotto.getRandomNumberSet()).containsAll(userSelectedNumbers);
+        assertThat(lotto.getNumbers()).hasSize(Lotto.LOTTO_NUMBER_COUNT);
+        assertThat(lotto.getNumbers()).containsAll(userSelectedNumbers);
     }
 
     @DisplayName("수동으로 로또를 생성할 때 번호가 6개가 아니면 예외가 발생한다.")

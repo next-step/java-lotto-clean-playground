@@ -10,7 +10,7 @@ public class LottoChecker {
     private final int bonusNumber;
 
     public LottoChecker(Lotto winningLotto, LottoTickets lottoTickets, String bonusNumber) {
-        this.winningLottoNumbers = new ArrayList<>(winningLotto.getRandomNumberSet());
+        this.winningLottoNumbers = new ArrayList<>(winningLotto.getNumbers());
         this.lottoTickets = lottoTickets;
         validateBonusNumber(bonusNumber);
         this.bonusNumber = Integer.parseInt(bonusNumber);
@@ -23,13 +23,13 @@ public class LottoChecker {
             int matchCount = calculateMatchCountForTicket(i);
             boolean matchBonus = hasBonusNumber(i);
 
-            winningTypes.add(LottoWinningType.valueOf(matchCount, matchBonus));
+            winningTypes.add(LottoWinningType.of(matchCount, matchBonus));
         }
         return winningTypes;
     }
 
     public boolean hasBonusNumber(int lottoTicketIndex) {
-        return lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(this.bonusNumber);
+        return lottoTickets.getTicketNumbers(lottoTicketIndex).contains(this.bonusNumber);
     }
 
     private void validateBonusNumber(String bonusNumber) {
@@ -53,7 +53,7 @@ public class LottoChecker {
     }
 
     private int getMatchScore(int lottoTicketIndex, int winningNumber) {
-        if (lottoTickets.getLottoTreeSet(lottoTicketIndex).contains(winningNumber)) {
+        if (lottoTickets.getTicketNumbers(lottoTicketIndex).contains(winningNumber)) {
             return 1;
         }
         return 0;

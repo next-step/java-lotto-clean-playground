@@ -5,23 +5,23 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class LottoTickets {
-    ArrayList<Lotto> lottoArrayList = new ArrayList<>();
+    ArrayList<Lotto> lottos = new ArrayList<>();
 
     public void addUserSelectedLottos(List<Lotto> userSelectedLottos) {
-        lottoArrayList.addAll(userSelectedLottos);
+        lottos.addAll(userSelectedLottos);
     }
 
     public void addAutoLottos(int autoCount) {
         for (int i = 0; i < autoCount; i++) {
-            lottoArrayList.add(new Lotto());
+            lottos.add(new Lotto());
         }
     }
 
-    public TreeSet<Integer> getLottoTreeSet(int lottoTicketNumber){
-        return new TreeSet<>(lottoArrayList.get(lottoTicketNumber).getRandomNumberSet());
+    public TreeSet<Integer> getTicketNumbers(int ticketIndex){
+        return new TreeSet<>(lottos.get(ticketIndex).getNumbers());
     }
 
     public int getSize() {
-        return lottoArrayList.size();
+        return lottos.size();
     }
 }

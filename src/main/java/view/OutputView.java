@@ -20,7 +20,7 @@ public final class OutputView {
 
     public static void printLottoNumbers(LottoTickets lottoTickets) {
         for(int i = 0; i< lottoTickets.getSize(); i++) {
-            System.out.println(lottoTickets.getLottoTreeSet(i));
+            System.out.println(lottoTickets.getTicketNumbers(i));
         }
     }
 

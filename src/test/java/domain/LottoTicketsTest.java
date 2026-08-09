@@ -36,8 +36,8 @@ class LottoTicketsTest {
             lottoTickets.addUserSelectedLottos(lottos);
 
             assertThat(lottoTickets.getSize()).isEqualTo(2);
-            assertThat(lottoTickets.getLottoTreeSet(0)).containsExactly(1, 2, 3, 4, 5, 6);
-            assertThat(lottoTickets.getLottoTreeSet(1)).containsExactly(7, 8, 9, 10, 11, 12);
+            assertThat(lottoTickets.getTicketNumbers(0)).containsExactly(1, 2, 3, 4, 5, 6);
+            assertThat(lottoTickets.getTicketNumbers(1)).containsExactly(7, 8, 9, 10, 11, 12);
         }
     }
 
@@ -55,14 +55,14 @@ class LottoTicketsTest {
             assertThat(lottoTickets.getSize()).isEqualTo(3);
 
             for (int i = 0; i < autoCount; i++) {
-                assertThat(lottoTickets.getLottoTreeSet(i)).hasSize(Lotto.LOTTO_NUMBER_COUNT);
+                assertThat(lottoTickets.getTicketNumbers(i)).hasSize(Lotto.LOTTO_NUMBER_COUNT);
             }
         }
     }
 
     @Nested
-    @DisplayName("getLottoTreeSet 메소드는")
-    class GetLottoTreeSet {
+    @DisplayName("getTicketNumbers 메소드는")
+    class GetTicketNumbers {
 
         @Test
         @DisplayName("지정된 인덱스의 로또 번호 Set을 반환한다.")
@@ -70,7 +70,7 @@ class LottoTicketsTest {
             lottoTickets.addAutoLottos(1);
             lottoTickets.addUserSelectedLottos(List.of(new Lotto(List.of(1, 2, 3, 4, 5, 6))));
 
-            TreeSet<Integer> manualLottoSet = lottoTickets.getLottoTreeSet(1);
+            TreeSet<Integer> manualLottoSet = lottoTickets.getTicketNumbers(1);
 
             assertThat(manualLottoSet).containsExactly(1, 2, 3, 4, 5, 6);
         }

@@ -27,7 +27,7 @@ public class LottoResult {
         for (Map.Entry<LottoWinningType, Integer> entry : stats.entrySet()) {
             LottoWinningType type = entry.getKey();
             int count = entry.getValue();
-            totalPrize += (long) type.prizeExpression(count);
+            totalPrize += (long) type.calculatePrize(count);
         }
         return totalPrize;
     }
