@@ -9,10 +9,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.number = number;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
     public static LottoNumber from(int number) {
         validate(number);
         return new LottoNumber(number);
