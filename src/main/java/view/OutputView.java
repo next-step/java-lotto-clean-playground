@@ -10,6 +10,10 @@ public final class OutputView {
 
     }
 
+    public static void printError(String message) {
+        System.out.println("[ERROR] " + message + " 다시 입력해 주세요.");
+    }
+
     public static void printLottoCount(int userSelectedCount, int autoCount) {
         System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", userSelectedCount, autoCount);
     }
