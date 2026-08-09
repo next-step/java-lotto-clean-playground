@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class ExceptionTest {
     @Test
     @DisplayName("객체 생성 시 숫자가 6개가 아니거나 로또 번호를 초과 혹은 미만이면 예외를 던진다.")
-
     void validateLottoNumberTest() {
         //given
         List<Integer> testLottoNormal = List.of(1, 2, 3, 4, 5, 6); // 정상 로또
