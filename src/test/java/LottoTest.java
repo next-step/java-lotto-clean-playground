@@ -28,14 +28,30 @@ public class LottoTest {
     }
 
     @Test
-    @DisplayName("로또 번호가 6개가 아닌가")
-    void notSixLotto() {
+    @DisplayName("로또 번호가 5개면 예외")
+    void fiveNotSixLotto() {
         List<LottoNumber> numbers = List.of(
                 LottoNumber.from(1),
                 LottoNumber.from(2),
                 LottoNumber.from(3),
                 LottoNumber.from(4),
                 LottoNumber.from(5)
+        );
+
+        assertThrows(IllegalArgumentException.class, () -> Lotto.from(numbers));
+    }
+
+    @Test
+    @DisplayName("로또 번호가 7개면 예외")
+    void sevenNotSixLotto() {
+        List<LottoNumber> numbers = List.of(
+                LottoNumber.from(1),
+                LottoNumber.from(2),
+                LottoNumber.from(3),
+                LottoNumber.from(4),
+                LottoNumber.from(5),
+                LottoNumber.from(6),
+                LottoNumber.from(7)
         );
 
         assertThrows(IllegalArgumentException.class, () -> Lotto.from(numbers));
