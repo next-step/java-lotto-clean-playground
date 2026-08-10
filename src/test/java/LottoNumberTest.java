@@ -28,7 +28,7 @@ public class LottoNumberTest {
     }
 
     @Test
-    @DisplayName("값이 같을 때는 같은 객체")
+    @DisplayName("서로 다른 객체가 같은 값을 가지면 동등하다.")
     void equalsLottoNumber() {
         LottoNumber one = LottoNumber.from(3);
         LottoNumber two = LottoNumber.from(3);
