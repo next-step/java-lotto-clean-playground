@@ -29,7 +29,7 @@ public class InputView {
         List<LottoNumber> nums = new ArrayList<>();
 
         for (int i = 0; i < wins.length; i++) {
-            nums.add(LottoNumber.from(Integer.parseInt(wins[i])));
+            nums.add(LottoNumber.from(Integer.parseInt(wins[i].trim())));
         }
         return Lotto.from(nums);
     }
