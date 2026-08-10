@@ -14,9 +14,12 @@ public class InputView {
     public static int inputPrice() {
 
         System.out.println("구입금액을 입력해 주세요.");
-        int price = scanner.nextInt();
 
-        return price;
+        try {
+            return scanner.nextInt();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("구입 범위를 초과했습니다.");
+        }
     }
 
     public static Lotto inputWinning() {
