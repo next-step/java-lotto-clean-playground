@@ -32,7 +32,7 @@ public class Application {
         WinningLotto winningLotto = WinningLotto.from(wins, bonusBall);
         List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, winningLotto);
 
-        int winPrice = winningRate.calculateWinPrice(ranks);
+        long winPrice = winningRate.calculateWinPrice(ranks);
         double rate = winningRate.calculateRate(winPrice, purchaseAmount);
 
         ResultView.printResult(ranks, rate);

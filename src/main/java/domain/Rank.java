@@ -9,9 +9,9 @@ public enum Rank {
     MISS(0, 0);
 
     private final int matchCount;
-    private final int prize;
+    private final long prize;
 
-    Rank(int matchCount, int prize) {
+    Rank(int matchCount, long prize) {
         this.matchCount = matchCount;
         this.prize = prize;
     }
@@ -40,7 +40,7 @@ public enum Rank {
         return MISS;
     }
 
-    public int getPrize() {
+    public long getPrize() {
         return prize;
     }
 }

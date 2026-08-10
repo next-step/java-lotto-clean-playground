@@ -4,8 +4,8 @@ import java.util.List;
 
 public class WinningRate {
 
-    public int calculateWinPrice(List<Rank> ranks) {
-        int winPrice = 0;
+    public long calculateWinPrice(List<Rank> ranks) {
+        long winPrice = 0;
 
         for (Rank rank : ranks) {
             winPrice += rank.getPrize();
@@ -14,7 +14,7 @@ public class WinningRate {
         return winPrice;
     }
 
-    public double calculateRate(int winPrice, PurchaseAmount purchaseAmount) {
+    public double calculateRate(long winPrice, PurchaseAmount purchaseAmount) {
         return (double) winPrice / purchaseAmount.getAmount();
     }
 }
