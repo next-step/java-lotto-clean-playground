@@ -35,7 +35,8 @@ public class Application {
         long winPrice = winningRate.calculateWinPrice(ranks);
         double rate = winningRate.calculateRate(winPrice, purchaseAmount);
 
-        ResultView.printResult(ranks, rate);
+        List<Integer> rankCounts = lottoResult.countRanks(ranks);
+        ResultView.printResult(rankCounts, rate);
     }
 }
 

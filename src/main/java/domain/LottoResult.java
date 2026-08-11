@@ -13,4 +13,28 @@ public class LottoResult {
         }
         return ranks;
     }
+
+    private static int countRank(List<Rank> ranks, Rank target) {
+        int count = 0;
+
+        for (Rank rank : ranks) {
+            if (rank == target) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public List<Integer> countRanks(List<Rank> ranks) {
+        List<Integer> counts = new ArrayList<>();
+
+        counts.add(countRank(ranks, Rank.FIFTH));
+        counts.add(countRank(ranks, Rank.FOURTH));
+        counts.add(countRank(ranks, Rank.THIRD));
+        counts.add(countRank(ranks, Rank.SECOND));
+        counts.add(countRank(ranks, Rank.FIRST));
+
+        return counts;
+    }
 }

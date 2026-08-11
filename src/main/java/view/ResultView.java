@@ -15,29 +15,17 @@ public class ResultView {
         }
     }
 
-    public static void printResult(List<Rank> ranks, double rate) {
+    public static void printResult(List<Integer> rankCounts, double rate) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
 
 
-        System.out.println("3개 일치 (5,000원) - " + countRank(ranks, Rank.FIFTH) + "개");
-        System.out.println("4개 일치 (50,000원) - " + countRank(ranks, Rank.FOURTH) + "개");
-        System.out.println("5개 일치 (1,500,000원) - " + countRank(ranks, Rank.THIRD) + "개");
-        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + countRank(ranks, Rank.SECOND) + "개");
-        System.out.println("6개 일치 (2,000,000,000원) - " + countRank(ranks, Rank.FIRST) + "개");
+        System.out.println("3개 일치 (5,000원) - " + rankCounts.get(0) + "개");
+        System.out.println("4개 일치 (50,000원) - " + rankCounts.get(1) + "개");
+        System.out.println("5개 일치 (1,500,000원) - " + rankCounts.get(2) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + rankCounts.get(3) + "개");
+        System.out.println("6개 일치 (2,000,000,000원) - " + rankCounts.get(4) + "개");
         System.out.printf("총 수익률은 %.2f입니다.\n", rate);
-    }
-
-    private static int countRank(List<Rank> ranks, Rank target) {
-        int count = 0;
-
-        for (Rank rank : ranks) {
-            if (rank == target) {
-                count++;
-            }
-        }
-
-        return count;
     }
 }
