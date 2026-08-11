@@ -38,14 +38,16 @@ public class InputView {
     }
 
     public static LottoNumber inputBonusBall() {
-        System.out.println("\n보너스 볼을 입력해 주세요.");
+        System.out.println();
+        System.out.println("보너스 볼을 입력해 주세요.");
         int bonusBall = scanner.nextInt();
 
         return LottoNumber.from(bonusBall);
     }
 
     public static int inputManualCount() {
-        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        System.out.println();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         int count = scanner.nextInt();
         return count;
     }
@@ -53,7 +55,8 @@ public class InputView {
     public static List<Lotto> inputManualLotto(int manualCount) {
         scanner.nextLine();
 
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         List<Lotto> manualLottos = new ArrayList<>();
 
         for (int i = 0; i < manualCount; i++) {
