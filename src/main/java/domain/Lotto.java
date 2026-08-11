@@ -21,14 +21,14 @@ public class Lotto {
 
     private static void validateCount(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 개수가 6개여야 합니다.");
         }
     }
 
     private static void validateDuplicate(List<LottoNumber> numbers) {
         Set<LottoNumber> set = new HashSet<>(numbers);
         if (set.size() != numbers.size()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
 
