@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Lotto {
     private final List<LottoNumber> numbers;
+    private static final int LOTTO_NUMBER_COUNT = 6;
 
     private Lotto(List<LottoNumber> numbers) {
         this.numbers = new ArrayList<>(numbers);
@@ -19,7 +20,7 @@ public class Lotto {
     }
 
     private static void validateCount(List<LottoNumber> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException();
         }
     }

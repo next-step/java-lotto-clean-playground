@@ -2,6 +2,7 @@ package domain;
 
 public class PurchaseAmount {
     private final int amount;
+    private final static int LOTTO_PRICE_PER_TICKET = 1000;
 
     private PurchaseAmount(int amount) {
         validate(amount);
@@ -13,10 +14,10 @@ public class PurchaseAmount {
     }
 
     private static void validate(int amount) {
-        if (amount < 1000) {
+        if (amount < LOTTO_PRICE_PER_TICKET) {
             throw new IllegalArgumentException();
         }
-        if (amount % 1000 != 0) {
+        if (amount % LOTTO_PRICE_PER_TICKET != 0) {
             throw new IllegalArgumentException();
         }
     }
@@ -26,6 +27,6 @@ public class PurchaseAmount {
     }
 
     public int calculateCount() {
-        return amount / 1000;
+        return amount / LOTTO_PRICE_PER_TICKET;
     }
 }

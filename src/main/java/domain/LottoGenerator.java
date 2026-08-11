@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoGenerator {
+    private final static int MAX_LOTTO_NUMBER = 45;
+    private final static int LOTTO_NUMBER_COUNT = 6;
+
     private static List<Integer> lottoList() {
         List<Integer> lotto = new ArrayList<>();
 
-        for (int i = 0; i < 45; i++) {
+        for (int i = 0; i < MAX_LOTTO_NUMBER; i++) {
             lotto.add(i + 1);
         }
         return lotto;
@@ -20,7 +23,7 @@ public class LottoGenerator {
 
     private List<LottoNumber> lottoPick(List<Integer> lotto) {
         List<LottoNumber> lottoSix = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < LOTTO_NUMBER_COUNT; i++) {
             lottoSix.add(LottoNumber.from(lotto.get(i)));
         }
 
