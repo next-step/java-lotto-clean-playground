@@ -16,28 +16,38 @@ public enum Rank {
         this.prize = prize;
     }
 
-    public static Rank find(int matchCount, boolean matchBonus) {
-        if (matchCount == 6) {
-            return FIRST;
-        }
+    private boolean match(int matchCount) { // 개수가 맞는지 판단
+        return this.matchCount == matchCount;
+    }
 
-        if (matchCount == 5 && matchBonus) {
+    private static Rank findBonus(boolean matchBonus) { // 보너스 판단ㄴ
+        if (matchBonus) {
             return SECOND;
         }
+        return THIRD;
+    }
 
-        if (matchCount == 5) {
-            return THIRD;
+    private static Rank secondThird(Rank rank, boolean matchBonus) { // 개수가 2등이나 3등이면 보너스로
+        if (rank == SECOND || rank == THIRD) {
+            return findBonus(matchBonus);
         }
+        return rank;
+    }
 
-        if (matchCount == 4) {
-            return FOURTH;
+    private static Rank findMatchRank(Rank result, Rank rank, boolean matchBonus, int matchCount) { // 개수와 맞는지 판단
+        if (rank.match(matchCount)) {
+            result = secondThird(rank, matchBonus);
         }
+        return result;
+    }
 
-        if (matchCount == 3) {
-            return FIFTH;
+    public static Rank find(int matchCount, boolean matchBonus) {
+        Rank result = MISS;
+
+        for (Rank rank : Rank.values()) {
+            result = findMatchRank(result,rank,matchBonus, matchCount);
         }
-
-        return MISS;
+        return result;
     }
 
     public long getPrize() {
