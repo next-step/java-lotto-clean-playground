@@ -25,22 +25,22 @@ public class Application {
         PurchaseAmount purchaseAmount = PurchaseAmount.from(purchasePrice);
 
         int lottoCount = purchaseAmount.calculateCount();
-        int passiveCount = InputView.inputPassiveCount();
+        int manualCount = InputView.inputManualCount();
 
-        PurchaseCount purchaseCount = PurchaseCount.from(lottoCount, passiveCount);
+        PurchaseCount purchaseCount = PurchaseCount.from(lottoCount, manualCount);
         int autoCount = purchaseCount.calculateAutoCount();
 
-        List<Lotto> passiveLotto = InputView.inputPassiveLotto(passiveCount);
+        List<Lotto> manualLotto = InputView.inputManualLotto(manualCount);
         List<Lotto> autoLotto = lottoGenerator.lottoLists(autoCount);
 
-        passiveLotto.addAll(autoLotto);
-        ResultView.printPurchase(passiveLotto, passiveCount, autoCount);
+        manualLotto.addAll(autoLotto);
+        ResultView.printPurchase(manualLotto, manualCount, autoCount);
 
         Lotto wins = InputView.inputWinning();
         LottoNumber bonusBall = InputView.inputBonusBall();
 
         WinningLotto winningLotto = WinningLotto.from(wins, bonusBall);
-        List<Rank> ranks = lottoResult.calculateRanks(passiveLotto, winningLotto);
+        List<Rank> ranks = lottoResult.calculateRanks(manualLotto, winningLotto);
 
         long winPrice = winningRate.calculateWinPrice(ranks);
         double rate = winningRate.calculateRate(winPrice, purchaseAmount);

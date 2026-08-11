@@ -44,22 +44,22 @@ public class InputView {
         return LottoNumber.from(bonusBall);
     }
 
-    public static int inputPassiveCount() {
+    public static int inputManualCount() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
         int count = scanner.nextInt();
         return count;
     }
 
-    public static List<Lotto> inputPassiveLotto(int manualCount) {
+    public static List<Lotto> inputManualLotto(int manualCount) {
         scanner.nextLine();
 
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<Lotto> passiveLottos = new ArrayList<>();
+        List<Lotto> manualLottos = new ArrayList<>();
 
         for (int i = 0; i < manualCount; i++) {
-            passiveLottos.add(inputManualLotto());
+            manualLottos.add(inputManualLotto());
         }
-        return passiveLottos;
+        return manualLottos;
     }
 
     private static Lotto inputManualLotto() {

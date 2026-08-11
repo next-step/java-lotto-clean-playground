@@ -3,29 +3,29 @@ package domain;
 public class PurchaseCount {
 
     private final int totalCount;
-    private final int passiveCount;
+    private final int manualCount;
 
-    private PurchaseCount(int totalCount, int passiveCount) {
-        validate(totalCount, passiveCount);
+    private PurchaseCount(int totalCount, int manualCount) {
+        validate(totalCount, manualCount);
         this.totalCount = totalCount;
-        this.passiveCount = passiveCount;
+        this.manualCount = manualCount;
     }
 
-    public static PurchaseCount from(int totalCount, int passiveCount) {
-        return new PurchaseCount(totalCount, passiveCount);
+    public static PurchaseCount from(int totalCount, int manualCount) {
+        return new PurchaseCount(totalCount, manualCount);
     }
 
-    private static void validate(int totalCount, int passiveCount) {
-        if (passiveCount < 0) {
+    private static void validate(int totalCount, int manualCount) {
+        if (manualCount < 0) {
             throw new IllegalArgumentException();
         }
 
-        if (passiveCount > totalCount) {
+        if (manualCount > totalCount) {
             throw new IllegalArgumentException();
         }
     }
 
     public int calculateAutoCount() {
-        return totalCount - passiveCount;
+        return totalCount - manualCount;
     }
 }
