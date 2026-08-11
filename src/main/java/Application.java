@@ -1,4 +1,14 @@
-import domain.*;
+import domain.Lotto;
+import domain.LottoGenerator;
+import domain.LottoResult;
+import domain.LottoNumber;
+import domain.PurchaseCount;
+import domain.PurchaseAmount;
+import domain.Rank;
+import domain.WinningLotto;
+import domain.WinningRate;
+
+
 import view.InputView;
 import view.ResultView;
 

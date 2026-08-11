@@ -1,7 +1,6 @@
 package view;
 
 import domain.Lotto;
-import domain.Rank;
 
 import java.util.List;
 
