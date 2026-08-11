@@ -44,7 +44,7 @@ public class LottoGenerator {
         return Lotto.from(lotto);
     }
 
-    public List<Lotto> lottoLists(int count) {
+    public List<Lotto> generateLottoLists(int count) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottos.add(run());

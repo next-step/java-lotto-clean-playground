@@ -31,7 +31,7 @@ public class Application {
         int autoCount = purchaseCount.calculateAutoCount();
 
         List<Lotto> manualLotto = InputView.inputManualLotto(manualCount);
-        List<Lotto> autoLotto = lottoGenerator.lottoLists(autoCount);
+        List<Lotto> autoLotto = lottoGenerator.generateLottoLists(autoCount);
 
         manualLotto.addAll(autoLotto);
         ResultView.printPurchase(manualLotto, manualCount, autoCount);
