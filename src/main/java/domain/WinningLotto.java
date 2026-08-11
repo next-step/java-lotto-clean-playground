@@ -20,6 +20,13 @@ public class WinningLotto {
         }
     }
 
+    public Rank findRank(Lotto lotto) {
+        int count = lotto.countLotto(lotto);
+        boolean matchBonus = lotto.contains(bonusBall);
+
+        return Rank.find(count, matchBonus);
+    }
+
     public Lotto getWinningLotto() {
         return lotto;
     }
