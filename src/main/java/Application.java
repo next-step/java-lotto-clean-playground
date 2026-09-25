@@ -8,11 +8,12 @@ public class Application {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
         NumberGenerator numberGenerator = new RandomNumberGenerator();
+        LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
         LottoController controller = new LottoController(
                 inputView,
                 outputView,
-                numberGenerator
+                lottoFactory
         );
         controller.run();
     }

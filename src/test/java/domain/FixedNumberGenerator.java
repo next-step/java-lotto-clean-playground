@@ -1,5 +1,5 @@
-import domain.LottoNumber;
-import domain.NumberGenerator;
+package domain;
+
 import java.util.List;
 
 public class FixedNumberGenerator implements NumberGenerator {

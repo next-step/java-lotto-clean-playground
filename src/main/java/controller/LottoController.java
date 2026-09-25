@@ -12,16 +12,16 @@ import view.OutputView;
 public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
-    private final NumberGenerator numberGenerator;
+    private final LottoFactory lottoFactory;
 
     public LottoController(
             InputView inputView,
             OutputView outputView,
-            NumberGenerator numberGenerator
+            LottoFactory lottoFactory
     ) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.numberGenerator = numberGenerator;
+        this.lottoFactory = lottoFactory;
     }
 
     public void run() {
@@ -34,21 +34,13 @@ public class LottoController {
 
     private void runApp() {
         PurchasePrice purchasePrice = new PurchasePrice(inputView.getPurchasePrice());
-        Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
+        Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
 
         Lotto winningNumbers = toLotto(inputView.getWinningNumbers());
         LottoResult result = lottos.getMatchCount(winningNumbers);
         ResultDto resultDto = createResultDto(result, purchasePrice);
         outputView.printResult(resultDto);
-    }
-
-    private Lottos createLottos(int count) {
-        List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lottoList.add(new Lotto(numberGenerator.generate()));
-        }
-        return new Lottos(lottoList);
     }
 
     private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {
