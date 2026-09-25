@@ -17,8 +17,9 @@ public class LottoController {
     outputView.printLottos(lottos);
 
     Lotto winningNumbers = toLotto(inputView.getWinningNumbers());
-    LottoResult result = lottos.getMatchCount(winningNumbers, purchasePrice);
-    outputView.printResult(createResultDto(result));
+    LottoResult result = lottos.getMatchCount(winningNumbers);
+    ResultDto resultDto = createResultDto(result, purchasePrice);
+    outputView.printResult(resultDto);
   }
 
   private Lottos createLottos(int count) {
@@ -30,13 +31,13 @@ public class LottoController {
     return new Lottos(lottoList);
   }
 
-  private ResultDto createResultDto(LottoResult result) {
+  private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {
     return new ResultDto(
-        result.getWinning3(),
-        result.getWinning4(),
-        result.getWinning5(),
-        result.getWinning6(),
-        result.getRateOfReturn()
+        result.getWinningCount(Rank.THREE),
+        result.getWinningCount(Rank.FOUR),
+        result.getWinningCount(Rank.FIVE),
+        result.getWinningCount(Rank.SIX),
+        result.calculateRateOfReturn(purchasePrice)
     );
   }
 

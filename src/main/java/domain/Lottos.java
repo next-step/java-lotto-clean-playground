@@ -10,17 +10,16 @@ public class Lottos {
     this.lottos = lottos;
   }
 
-  public LottoResult getMatchCount(Lotto winningLotto, PurchasePrice purchasePrice) {
+  public LottoResult getMatchCount(Lotto winningLotto) {
     List<Integer> matches = new ArrayList<>();
     for (Lotto lotto : lottos) {
       int count = lotto.getMatchCount(winningLotto);
       matches.add(count);
     }
 
-    return new  LottoResult(matches, purchasePrice);
+    return new LottoResult(matches);
   }
 
-  // 각 로또를 당첨이랑 비교
   public List<Lotto> getLottos() {
     return lottos;
   }
