@@ -25,6 +25,14 @@ public class LottoController {
     }
 
     public void run() {
+        try {
+            runApp();
+        } catch (IllegalArgumentException e) {
+            outputView.printError(e.getMessage());
+        }
+    }
+
+    private void runApp() {
         PurchasePrice purchasePrice = new PurchasePrice(inputView.getPurchasePrice());
         Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
@@ -63,10 +71,20 @@ public class LottoController {
     }
 
     private int parseNumber(String token) {
+        validateNotBlank(token);
+
         try {
             return Integer.parseInt(token);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+        }
+    }
+
+    private void validateNotBlank(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "로또 번호를 입력해야 합니다."
+            );
         }
     }
 }

@@ -30,4 +30,8 @@ public class OutputView {
         System.out.println("6개 일치 (2000000000원)- " + resultDto.winning6() + "개");
         System.out.println("총 수익률은 " + resultDto.rateOfReturn() + "입니다.");
     }
+
+    public void printError(String message) {
+        System.out.println(message);
+    }
 }

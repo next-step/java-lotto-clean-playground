@@ -2,29 +2,35 @@ package domain;
 
 // 구입 금액 원시값 포장
 public class PurchasePrice {
+    private static final int LOTTO_PRICE = 1000;
+
     private final int amount;
 
     public PurchasePrice(String input) {
-        this.amount = parseToInt(input);
+        this.amount = parseToInt(input.trim());
         validate(amount);
     }
 
-    public int parseToInt(String input) {
+    private int parseToInt(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("구입 금액은 숫자로 입력되어야 합니다.");
+            throw new IllegalArgumentException(
+                    "구입 금액은 숫자로 입력해야 합니다."
+            );
         }
     }
 
-    public void validate(int amount) {
-        if (amount < 1000) {
-            throw new IllegalArgumentException("로또 최소 구매 금액은 1000원입니다.");
+    private void validate(int amount) {
+        if (amount < LOTTO_PRICE) {
+            throw new IllegalArgumentException(
+                    "로또 최소 구입 금액은 " + LOTTO_PRICE + "원입니다."
+            );
         }
     }
 
     public int calculateLottoCount() {
-        return amount / 1000;
+        return amount / LOTTO_PRICE;
     }
 
     public int getAmount() {
