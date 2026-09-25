@@ -10,8 +10,19 @@ import view.InputView;
 import view.OutputView;
 
 public class LottoController {
-    private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final NumberGenerator numberGenerator;
+
+    public LottoController(
+            InputView inputView,
+            OutputView outputView,
+            NumberGenerator numberGenerator
+    ) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.numberGenerator = numberGenerator;
+    }
 
     public void run() {
         PurchasePrice purchasePrice = new PurchasePrice(inputView.getPurchasePrice());
@@ -25,7 +36,6 @@ public class LottoController {
     }
 
     private Lottos createLottos(int count) {
-        NumberGenerator numberGenerator = new RandomNumberGenerator();
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottoList.add(new Lotto(numberGenerator.generate()));
