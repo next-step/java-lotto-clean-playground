@@ -1,8 +1,14 @@
 package controller;
 
-import domain.purchase.*;
-import domain.winning.*;
-import domain.*;
+import domain.NumberGenerator;
+import domain.RandomNumberGenerator;
+import domain.purchase.Lotto;
+import domain.purchase.LottoNumber;
+import domain.purchase.Lottos;
+import domain.purchase.PurchasePrice;
+import domain.winning.LottoResult;
+import domain.winning.RateOfReturn;
+import domain.winning.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
 import view.InputView;

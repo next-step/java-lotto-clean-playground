@@ -1,8 +1,8 @@
 package domain.winning;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.EnumMap;
 
 /**
  * 등수 별 당첨 장수 집계 및 총 상금 계산
