@@ -3,6 +3,7 @@ package domain.winning;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +15,12 @@ public class LottoResultTest {
 
         LottoResult result = new LottoResult(matchCounts);
 
-        assertThat(result.countOf(LottoRank.THREE)).isEqualTo(2);
-        assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
-        assertThat(result.countOf(LottoRank.SIX)).isEqualTo(1);
-        assertThat(result.countOf(LottoRank.MISS)).isEqualTo(1);
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(result.countOf(LottoRank.THREE)).isEqualTo(2);
+        softAssertions.assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
+        softAssertions.assertThat(result.countOf(LottoRank.SIX)).isEqualTo(1);
+        softAssertions.assertThat(result.countOf(LottoRank.MISS)).isEqualTo(1);
+        softAssertions.assertAll();
     }
 
     @Test
@@ -26,11 +29,13 @@ public class LottoResultTest {
         List<Integer> matchCounts = List.of();
         LottoResult result = new LottoResult(matchCounts);
 
-        assertThat(result.countOf(LottoRank.THREE)).isEqualTo(0);
-        assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
-        assertThat(result.countOf(LottoRank.FIVE)).isEqualTo(0);
-        assertThat(result.countOf(LottoRank.SIX)).isEqualTo(0);
-        assertThat(result.countOf(LottoRank.MISS)).isEqualTo(0);
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(result.countOf(LottoRank.THREE)).isEqualTo(0);
+        softAssertions.assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
+        softAssertions.assertThat(result.countOf(LottoRank.FIVE)).isEqualTo(0);
+        softAssertions.assertThat(result.countOf(LottoRank.SIX)).isEqualTo(0);
+        softAssertions.assertThat(result.countOf(LottoRank.MISS)).isEqualTo(0);
+        softAssertions.assertAll();
     }
 
     @Test
