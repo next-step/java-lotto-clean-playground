@@ -3,17 +3,9 @@ package domain.purchase;
 public class PurchasePrice {
     private final int amount;
 
-    public PurchasePrice(String amount) {
-        this.amount = parseToInt(amount);
+    public PurchasePrice(int amount) {
+        this.amount = amount;
         validate(this.amount);
-    }
-
-    private int parseToInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("구입 금액은 숫자로 입력되어야 합니다.");
-        }
     }
 
     private void validate(int amount) {

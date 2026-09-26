@@ -18,7 +18,7 @@ public class LottoController {
     private final OutputView outputView = new OutputView();
 
     public void run() {
-        PurchasePrice purchasePrice = readPurchasedPrice();
+        PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
         Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
 
@@ -30,10 +30,10 @@ public class LottoController {
         outputView.printRateOfReturn(rateOfReturn.getValue());
     }
 
-    private PurchasePrice readPurchasedPrice() {
+    private int readPurchasedPrice() {
         while (true) {
             try {
-                return new PurchasePrice(inputView.getPurchasePrice());
+                return parseToInt(inputView.getPurchasePrice());
             }
             catch(Exception e) {
                 System.out.println(e.getMessage());
@@ -59,6 +59,14 @@ public class LottoController {
             lottoList.add(new Lotto(numberGenerator.generate()));
         }
         return new Lottos(lottoList);
+    }
+
+    private int parseToInt(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("구입 금액은 숫자로 입력되어야 합니다.");
+        }
     }
 
     private Lotto toLotto(String input) {
