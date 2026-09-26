@@ -64,13 +64,11 @@ public class LottoController {
 
     private Lotto toLotto(String input) {
         String[] tokens = input.split(",");
-        List<LottoNumber> numbers = new ArrayList<>();
+        List<Integer> numbers = new ArrayList<>();
         for (String token : tokens) {
-            numbers.add(new LottoNumber(parseNumber(token.trim())));
+            numbers.add(parseNumber(token.trim()));
         }
-
-
-        return new Lotto(numbers);
+        return Lotto.from(numbers);
     }
 
     private int parseNumber(String token) {
