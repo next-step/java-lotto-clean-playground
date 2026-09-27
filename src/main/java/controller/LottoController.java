@@ -10,7 +10,6 @@ import domain.winning.RateOfReturn;
 import domain.winning.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import view.InputView;
 import view.OutputView;
 
@@ -60,7 +59,6 @@ public class LottoController {
     }
 
     private Lottos createLottos(int count) {
-        NumberGenerator numberGenerator = new RandomNumberGenerator();
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             lottoList.add(new Lotto(numberGenerator.generate()));
