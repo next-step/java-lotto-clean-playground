@@ -30,8 +30,16 @@ public class OutputView {
     }
 
     private static void printProfitRate(WinningStatistics statistics) {
-        String profitRate = String.format("%.2f", statistics.getProfitRate());
-        System.out.println("총 수익률은 " + profitRate + "입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+        double profitRateValue = statistics.getProfitRate();
+        System.out.printf("총 수익률은 %.2f입니다.(기준이 1이기 때문에 결과적으로 %s라는 의미임)%n", profitRateValue,
+                profitLossToggle(profitRateValue));
+    }
+
+    private static String profitLossToggle(double profitRate) {
+        if (profitRate >= 1) {
+            return "이익";
+        }
+        return "손해";
     }
 
 }
