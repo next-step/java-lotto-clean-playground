@@ -1,16 +1,17 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class WinningNumbers {
     private static final int WINNING_NUMBER_COUNT = 6;
-    private List<Integer> numbers;
+    private final List<LottoNumber> numbers;
 
     public WinningNumbers(List<Integer> numbers) {
         validateDuplicate(numbers);
         validateSize(numbers);
-        this.numbers = numbers;
+        this.numbers = toLottoNumbers(numbers);
     }
 
     private void validateDuplicate(List<Integer> numbers) {
@@ -25,7 +26,15 @@ public class WinningNumbers {
         }
     }
 
-    public boolean contains(int number) {
+    private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for (int number : numbers) {
+            lottoNumbers.add(new LottoNumber(number));
+        }
+        return lottoNumbers;
+    }
+
+    public boolean contains(LottoNumber number) {
         return numbers.contains(number);
         // 당첨 번호에 해당 숫자가 포함되어 있는지 확인
     }
