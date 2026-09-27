@@ -41,7 +41,7 @@ public class WinningStatistics {
         for (Rank rank : ranks) {
             totalPrize += rank.getPrize();
         }
-        return (double) totalPrize / (ranks.size() * 1000);
+        return (double) totalPrize / (ranks.size() * Money.LOTTO_PRICE);
     }
 
     public int countRank(Rank rank) {
