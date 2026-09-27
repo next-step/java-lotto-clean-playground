@@ -15,9 +15,15 @@ import view.InputView;
 import view.OutputView;
 
 public class LottoController {
-    private final InputView inputView = new InputView(new Scanner(System.in));
-    private final OutputView outputView = new OutputView();
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final NumberGenerator numberGenerator;
 
+    public LottoController(InputView inputView, OutputView outputView, NumberGenerator numberGenerator) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.numberGenerator = numberGenerator;
+    }
     public void run() {
         PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
         Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
