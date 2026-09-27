@@ -1,7 +1,6 @@
 package controller;
 
 import domain.NumberGenerator;
-import domain.RandomNumberGenerator;
 import domain.purchase.Lotto;
 import domain.purchase.Lottos;
 import domain.purchase.PurchasePrice;
