@@ -10,11 +10,12 @@ import domain.winning.RateOfReturn;
 import domain.winning.WinningLotto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import view.InputView;
 import view.OutputView;
 
 public class LottoController {
-    private final InputView inputView = new InputView();
+    private final InputView inputView = new InputView(new Scanner(System.in));
     private final OutputView outputView = new OutputView();
 
     public void run() {
