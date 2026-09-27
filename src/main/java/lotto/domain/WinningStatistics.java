@@ -36,12 +36,12 @@ public class WinningStatistics {
     }
 
     // 수익률 계산 로직
-    public float getProfitRate() {
-        int totalPrize = 0;
+    public double getProfitRate() {
+        long totalPrize = 0;
         for (Rank rank : ranks) {
             totalPrize += rank.getPrize();
         }
-        return (float) totalPrize / (ranks.size() * 1000);
+        return (double) totalPrize / (ranks.size() * 1000);
     }
 
     public int countRank(Rank rank) {
