@@ -19,9 +19,9 @@ public class Application {
         ResultView.printLottoResult(lottoList);
 
         Lotto winnerNumbers = new Lotto(InputView.readWinnerNumber(sc));
-        List<Integer> matchCount = lottos.getMatchCount(winnerNumbers.getNumbers());
+        List<Integer> matchCounts = lottos.getMatchCounts(winnerNumbers);
+        LottoResult result = new LottoResult(matchCounts);
 
-        LottoResult result = new LottoResult(matchCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
     }
 }
