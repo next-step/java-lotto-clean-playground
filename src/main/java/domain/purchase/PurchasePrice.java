@@ -1,6 +1,7 @@
 package domain.purchase;
 
 public class PurchasePrice {
+    private static final int MINIMUM_PRICE = 1000;
     private final int amount;
 
     public PurchasePrice(int amount) {
@@ -15,7 +16,7 @@ public class PurchasePrice {
     }
 
     public int calculateLottoCount() {
-        return amount / 1000;
+        return amount / MINIMUM_PRICE;
     }
 
     public int getAmount() {
