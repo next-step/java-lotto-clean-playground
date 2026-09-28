@@ -39,7 +39,7 @@ public class Lotto {
         }
     }
 
-    public int getMatchCount(Lotto winningLotto) {
+    public int calculateMatchCount(Lotto winningLotto) {
         int count = 0;
         for (LottoNumber number : numbers) {
             count += winningLotto.match(number);

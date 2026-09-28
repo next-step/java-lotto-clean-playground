@@ -10,10 +10,10 @@ public class Lottos {
         this.lottos = lottos;
     }
 
-    public LottoResult getMatchCount(Lotto winningLotto) {
+    public LottoResult calculateResult(Lotto winningLotto) {
         List<Integer> matches = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            int count = lotto.getMatchCount(winningLotto);
+            int count = lotto.calculateMatchCount(winningLotto);
             matches.add(count);
         }
 

@@ -34,7 +34,7 @@ class LottoFactoryTest {
                 )
         );
 
-        LottoResult result = lottos.getMatchCount(winningLotto);
+        LottoResult result = lottos.calculateResult(winningLotto);
 
         assertThat(result.getWinningCount(Rank.FIRST))
                 .isEqualTo(1);

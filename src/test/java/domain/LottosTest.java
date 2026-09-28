@@ -26,7 +26,7 @@ class LottosTest {
                 List.of(threeMatch, fourMatch, twoMatch)
         );
 
-        LottoResult result = lottos.getMatchCount(winningLotto);
+        LottoResult result = lottos.calculateResult(winningLotto);
 
         assertThat(result.getWinningCount(Rank.FOURTH))
                 .isEqualTo(1);

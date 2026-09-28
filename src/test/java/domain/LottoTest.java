@@ -41,7 +41,7 @@ public class LottoTest {
         Lotto lotto = createLotto(1, 2, 3, 10, 20, 30);
         Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
 
-        int matchCount = lotto.getMatchCount(winningLotto);
+        int matchCount = lotto.calculateMatchCount(winningLotto);
 
         assertThat(matchCount).isEqualTo(3);
     }

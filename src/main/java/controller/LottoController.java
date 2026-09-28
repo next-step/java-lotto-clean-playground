@@ -38,7 +38,7 @@ public class LottoController {
         outputView.printLottos(lottos);
 
         Lotto winningNumbers = toLotto(inputView.getWinningNumbers());
-        LottoResult result = lottos.getMatchCount(winningNumbers);
+        LottoResult result = lottos.calculateResult(winningNumbers);
         ResultDto resultDto = createResultDto(result, purchasePrice);
         outputView.printResult(resultDto);
     }
