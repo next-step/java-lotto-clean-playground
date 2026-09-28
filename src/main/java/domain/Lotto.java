@@ -22,8 +22,12 @@ public class Lotto {
     }
 
     private void validateSize(List<Integer> numbers) {
-        if (numbers == null || numbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+        if (numbers == null) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
+        }
+        if (numbers.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException(
+                    "[ERROR] 로또 번호는 " + LOTTO_SIZE + "개여야 합니다. (입력 개수: " + numbers.size() + "개)");
         }
     }
 
