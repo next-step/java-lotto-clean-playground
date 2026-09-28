@@ -6,9 +6,6 @@ import java.util.List;
 
 public class LottoNumberGenerator {
 
-    public LottoNumberGenerator() {
-    }
-
     public List<Integer> generateLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
         while (lottoNumbers.size() < LottoNumbers.LOTTO_NUMBER_COUNT) {
