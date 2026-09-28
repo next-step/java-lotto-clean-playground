@@ -16,7 +16,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
-        List<Integer> result = lottos.getMatchCount(List.of(6, 5, 4, 3, 2, 1));
+        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(6, 5, 4, 3, 2, 1)));
         // 검증
         assertThat(result).containsExactlyElementsOf(expectedCounts(matchCount));
     }
@@ -26,7 +26,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
         // 실행
-        List<Integer> result = lottos.getMatchCount(List.of(1, 2, 3, 4, 5, 6));
+        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         // 검증
         assertThat(result).containsExactly(0, 0, 0, 2, 0, 0, 1);
     }
@@ -36,7 +36,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of());
         // 실행
-        List<Integer> result = lottos.getMatchCount(List.of(1, 2, 3, 4, 5, 6));
+        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         // 검증
         assertThat(result).containsExactly(0, 0, 0, 0, 0, 0, 0);
     }

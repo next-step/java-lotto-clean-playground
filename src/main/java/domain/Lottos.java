@@ -12,13 +12,13 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public List<Integer> getMatchCount(List<Integer> winnerLotto) {
+    public List<Integer> getMatchCount(Lotto winnerLotto) {
 
         List<Integer> matchCount = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0));
 
         for (Lotto lotto : lottos) {
             List<Integer> copy = new ArrayList<>(lotto.getNumbers());
-            copy.retainAll(winnerLotto);
+            copy.retainAll(winnerLotto.getNumbers());
 
             int count = copy.size();
             matchCount.set(count, matchCount.get(count) + 1);
