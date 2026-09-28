@@ -11,15 +11,16 @@ public class Application {
 
         Scanner sc = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
-        LottoMachine lottoMachine = new LottoMachine();
+        LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
 
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount());
         Lottos lottos = new Lottos(lottoList);
 
         ResultView.printLottoResult(lottoList);
+        Lotto winningLotto = new Lotto(InputView.readWinnerNumber(sc));
 
-        Lotto winnerNumbers = new Lotto(InputView.readWinnerNumber(sc));
-        List<Integer> matchCounts = lottos.getMatchCounts(winnerNumbers);
+        List<Integer> matchCounts = lottos.getMatchCounts(winningLotto);
+
         LottoResult result = new LottoResult(matchCounts);
 
         ResultView.printStats(result, purchaseAmount.getLottosCount());

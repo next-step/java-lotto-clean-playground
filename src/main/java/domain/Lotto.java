@@ -50,9 +50,6 @@ public class Lotto {
                 .count();
     }
 
-    public List<Integer> getNumbers() {
-        return lotto;
-    }
 
 
 }
