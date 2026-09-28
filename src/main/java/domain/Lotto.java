@@ -9,22 +9,25 @@ public class Lotto {
 
     private final List<LottoNumber> lotto;
 
-    public Lotto(List<Integer> numbers) {
-        validateNotNull(numbers);
+    private Lotto(List<LottoNumber> lotto) {
+        validate(lotto);
+        this.lotto = List.copyOf(lotto);
+    }
 
-        List<LottoNumber> lotto=new ArrayList<>();
+    public static Lotto from(List<Integer> numbers) {
+        validateNotNull(numbers);
+        List<LottoNumber> lotto = new ArrayList<>();
         for (int number : numbers) {
             lotto.add(new LottoNumber(number));
         }
-        validate(lotto);
-        this.lotto = lotto;
+        return new Lotto(lotto);
     }
 
     private void validate(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicates(numbers);
     }
-    private void validateNotNull(List<Integer> numbers) {
+    private static void validateNotNull(List<Integer> numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
         }

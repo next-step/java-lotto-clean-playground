@@ -21,7 +21,7 @@ public class Application {
 
         ResultView.printLottoResult(lottoList);
 
-        Lotto winnerNumbers = new Lotto(InputView.readWinnerNumber(sc));
+        Lotto winnerNumbers = Lotto.from(InputView.readWinnerNumber(sc));
         Map<Rank,Integer> rankCount = lottos.getRankCount(winnerNumbers);
 
         LottoResult result = new LottoResult(rankCount);
