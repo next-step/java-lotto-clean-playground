@@ -50,6 +50,8 @@ public class Lotto {
                 .count();
     }
 
-
+    public List<Integer> getSortedNumbers() {
+        return numbers.stream().sorted().toList();
+    }
 
 }
