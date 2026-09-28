@@ -1,5 +1,8 @@
 package domain;
 
+import static domain.Lotto.LOTTO_SIZE;
+import static domain.PurchaseAmount.LOTTO_PRICE;
+
 import java.util.List;
 
 public class LottoResult {
@@ -23,14 +26,14 @@ public class LottoResult {
 
     public long calculateTotalPrize() {
         long totalPrize = 0;
-        for (int matchCount = 3; matchCount <= 6; matchCount++) {
+        for (int matchCount = 3; matchCount <= LOTTO_SIZE; matchCount++) {
             totalPrize += getPrize(matchCount) * getCount(matchCount);
         }
         return totalPrize;
     }
 
     public double calculateReturnRate(int lottoCount) {
-        long totalCost = (long) lottoCount * 1000;
+        long totalCost = (long) lottoCount * LOTTO_PRICE;
         return (double) calculateTotalPrize() / totalCost;
     }
 }

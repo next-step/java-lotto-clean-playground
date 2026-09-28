@@ -1,5 +1,7 @@
 package view;
 
+import static domain.Lotto.LOTTO_SIZE;
+
 import domain.Lotto;
 import domain.LottoResult;
 
@@ -17,7 +19,7 @@ public class ResultView {
     public static void printStats(LottoResult result, int lottoCount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int matchCount = 3; matchCount <= 6; matchCount++) {
+        for (int matchCount = 3; matchCount <= LOTTO_SIZE; matchCount++) {
             printRank(result, matchCount);
         }
         System.out.printf("총 수익률은 %.2f입니다.%n",
