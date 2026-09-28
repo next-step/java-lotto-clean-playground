@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
 
@@ -8,12 +9,13 @@ public class Lotto {
     private static final int MAX_NUMBER = 45;
     private static final int LOTTO_SIZE = 6;
 
-    private final List<Integer> lotto;
+    private final Set<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.lotto = numbers;
+        this.numbers = Set.copyOf(numbers);
     }
+
 
     private void validate(List<Integer> numbers) {
         validateSize(numbers);
