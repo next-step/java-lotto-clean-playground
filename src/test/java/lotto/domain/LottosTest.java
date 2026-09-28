@@ -32,5 +32,4 @@ public class LottosTest {
         assertThat(matchCount2).isEqualTo(0);
     }
 
-
 }

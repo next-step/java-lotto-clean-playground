@@ -1,15 +1,22 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class WinningNumbers {
     private static final int WINNING_NUMBER_COUNT = 6;
-    private List<Integer> numbers;
+    private List<LottoNumber> numbers;
 
-    public WinningNumbers(List<Integer> numbers) {
-        validateDuplicate(numbers);
-        validateSize(numbers);
+    public WinningNumbers(List<Integer> values) {
+        validateDuplicate(values);
+        validateSize(values);
+
+        List<LottoNumber> numbers = new ArrayList<>();
+        for (Integer value : values) {
+            numbers.add(new LottoNumber(value));
+        }
+
         this.numbers = numbers;
     }
 
@@ -25,7 +32,7 @@ public class WinningNumbers {
         }
     }
 
-    public boolean contains(int number) {
+    public boolean contains(LottoNumber number) {
         return numbers.contains(number);
         // 당첨 번호에 해당 숫자가 포함되어 있는지 확인
     }
