@@ -9,7 +9,7 @@ public class Lottos {
     private final List<Lotto> lottoList;
 
     public Lottos(List<Lotto> lottoList) {
-        this.lottoList = lottoList;
+        this.lottoList = new ArrayList<>(lottoList);
     }
 
     public static Lottos generate(int count, LottoNumberGenerator generator) {
