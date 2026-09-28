@@ -11,10 +11,13 @@ public class LottoResultTest {
     @Test
     @DisplayName("등수별 당첨 장수를 집계한다.")
     void countByRank() {
+        // given
         List<Integer> matchCounts = List.of(3, 3, 6, 0);
 
+        // when
         LottoResult result = new LottoResult(matchCounts);
 
+        // then
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(result.countOf(LottoRank.THREE)).isEqualTo(2);
         softAssertions.assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
@@ -26,9 +29,13 @@ public class LottoResultTest {
     @Test
     @DisplayName("일치 개수 목록이 비어있으면 모든 등수가 0장이다.")
     void countZeroWhenEmpty() {
+        // given
         List<Integer> matchCounts = List.of();
+
+        // when
         LottoResult result = new LottoResult(matchCounts);
 
+        // then
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(result.countOf(LottoRank.THREE)).isEqualTo(0);
         softAssertions.assertThat(result.countOf(LottoRank.FOUR)).isEqualTo(0);
@@ -42,6 +49,7 @@ public class LottoResultTest {
     @DisplayName("여러 등수의 상금을 모두 더한다.")
     void sumPrizeOfAllRank() {
         List<Integer> matchCounts = List.of(3, 4, 5, 6);
+
         LottoResult result = new LottoResult(matchCounts);
 
         assertThat(result.calculateTotalPrize()).isEqualTo(2001555000);
@@ -51,6 +59,7 @@ public class LottoResultTest {
     @DisplayName("모두 낙첨이면 총 상금은 0이다.")
     void zeroPrizeWhenAllMiss() {
         List<Integer> matchCounts = List.of(0, 1, 2);
+
         LottoResult result = new LottoResult(matchCounts);
 
         assertThat(result.calculateTotalPrize()).isEqualTo(0);
