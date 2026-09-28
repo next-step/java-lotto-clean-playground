@@ -17,13 +17,9 @@ public class Lottos {
         List<Integer> matchCount = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0));
 
         for (Lotto lotto : lottos) {
-            List<Integer> copy = new ArrayList<>(lotto.getNumbers());
-            copy.retainAll(winnerLotto.getNumbers());
-
-            int count = copy.size();
+            int count = lotto.getCount(winnerLotto);
             matchCount.set(count, matchCount.get(count) + 1);
         }
-
         return matchCount;
     }
 

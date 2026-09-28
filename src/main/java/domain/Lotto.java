@@ -50,4 +50,10 @@ public class Lotto {
         }
         return numbers;
     }
+
+    public int getCount(Lotto other){
+        List<LottoNumber> copy = new ArrayList<>(this.lotto);
+        copy.retainAll(other.lotto);
+        return copy.size();
+    }
 }
