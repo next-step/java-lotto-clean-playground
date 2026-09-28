@@ -11,8 +11,8 @@ public class LottoNumberGenerator {
 
     public List<Integer> generateLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
-        while (lottoNumbers.size() < 6) {
-            int randomNumber = (int) (Math.random() * 45) + 1;
+        while (lottoNumbers.size() < LottoNumbers.LOTTO_NUMBER_COUNT) {
+            int randomNumber = (int) (Math.random() * LottoNumber.MAX_NUMBER) + 1;
             addNumber(lottoNumbers, randomNumber);
         }
         Collections.sort(lottoNumbers);

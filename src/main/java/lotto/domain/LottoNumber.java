@@ -3,6 +3,8 @@ package lotto.domain;
 import java.util.Objects;
 
 public class LottoNumber {
+    public static final int MAX_NUMBER = 45;
+
     private int number;
 
     public LottoNumber(int value) {
@@ -11,7 +13,7 @@ public class LottoNumber {
     }
 
     private void validate(int value) {
-        if (value <= 0 || value > 45) {
+        if (value <= 0 || value > MAX_NUMBER) {
             throw new IllegalArgumentException("로또 번호는 1 이상 45 이하여야 한다.");
         }
     }
