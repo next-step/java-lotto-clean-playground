@@ -36,7 +36,7 @@ class LottoFactoryTest {
 
         LottoResult result = lottos.getMatchCount(winningLotto);
 
-        assertThat(result.getWinningCount(Rank.SIX))
+        assertThat(result.getWinningCount(Rank.FIRST))
                 .isEqualTo(1);
     }
 }

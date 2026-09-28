@@ -11,10 +11,10 @@ class RankTest {
 
     @ParameterizedTest
     @CsvSource({
-            "3, THREE",
-            "4, FOUR",
-            "5, FIVE",
-            "6, SIX"
+            "3, FOURTH",
+            "4, THIRD",
+            "5, SECOND",
+            "6, FIRST"
     })
     void 일치개수에_따라_당첨등급을_반환한다(
             int matchCount,
@@ -35,10 +35,10 @@ class RankTest {
 
     @ParameterizedTest
     @CsvSource({
-            "THREE, 5000",
-            "FOUR, 50000",
-            "FIVE, 1500000",
-            "SIX, 2000000000"
+            "FOURTH, 5000",
+            "THIRD, 50000",
+            "SECOND, 1500000",
+            "FIRST, 2000000000"
     })
     void 당첨등급에_따라_상금을_반환한다(
             Rank rank,

@@ -28,16 +28,16 @@ class LottosTest {
 
         LottoResult result = lottos.getMatchCount(winningLotto);
 
-        assertThat(result.getWinningCount(Rank.THREE))
+        assertThat(result.getWinningCount(Rank.FOURTH))
                 .isEqualTo(1);
 
-        assertThat(result.getWinningCount(Rank.FOUR))
+        assertThat(result.getWinningCount(Rank.THIRD))
                 .isEqualTo(1);
 
-        assertThat(result.getWinningCount(Rank.FIVE))
+        assertThat(result.getWinningCount(Rank.SECOND))
                 .isZero();
 
-        assertThat(result.getWinningCount(Rank.SIX))
+        assertThat(result.getWinningCount(Rank.FIRST))
                 .isZero();
     }
 

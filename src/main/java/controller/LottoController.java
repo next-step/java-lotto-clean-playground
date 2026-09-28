@@ -45,10 +45,10 @@ public class LottoController {
 
     private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {
         return new ResultDto(
-                result.getWinningCount(Rank.THREE),
-                result.getWinningCount(Rank.FOUR),
-                result.getWinningCount(Rank.FIVE),
-                result.getWinningCount(Rank.SIX),
+                result.getWinningCount(Rank.FOURTH),
+                result.getWinningCount(Rank.THIRD),
+                result.getWinningCount(Rank.SECOND),
+                result.getWinningCount(Rank.FIRST),
                 result.calculateRateOfReturn(purchasePrice)
         );
     }

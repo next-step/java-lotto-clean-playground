@@ -13,16 +13,16 @@ class LottoResultTest {
                 List.of(3, 3, 4, 5, 6, 2, 1, 0)
         );
 
-        assertThat(result.getWinningCount(Rank.THREE))
+        assertThat(result.getWinningCount(Rank.FOURTH))
                 .isEqualTo(2);
 
-        assertThat(result.getWinningCount(Rank.FOUR))
+        assertThat(result.getWinningCount(Rank.THIRD))
                 .isEqualTo(1);
 
-        assertThat(result.getWinningCount(Rank.FIVE))
+        assertThat(result.getWinningCount(Rank.SECOND))
                 .isEqualTo(1);
 
-        assertThat(result.getWinningCount(Rank.SIX))
+        assertThat(result.getWinningCount(Rank.FIRST))
                 .isEqualTo(1);
     }
 
@@ -32,16 +32,16 @@ class LottoResultTest {
                 List.of(0, 1, 2)
         );
 
-        assertThat(result.getWinningCount(Rank.THREE))
+        assertThat(result.getWinningCount(Rank.FOURTH))
                 .isZero();
 
-        assertThat(result.getWinningCount(Rank.FOUR))
+        assertThat(result.getWinningCount(Rank.THIRD))
                 .isZero();
 
-        assertThat(result.getWinningCount(Rank.FIVE))
+        assertThat(result.getWinningCount(Rank.SECOND))
                 .isZero();
 
-        assertThat(result.getWinningCount(Rank.SIX))
+        assertThat(result.getWinningCount(Rank.FIRST))
                 .isZero();
     }
 
