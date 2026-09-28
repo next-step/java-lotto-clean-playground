@@ -1,7 +1,9 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -16,29 +18,32 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
-        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(6, 5, 4, 3, 2, 1)));
+        Map<Rank,Integer> result = lottos.getRankCount(new Lotto(List.of(6, 5, 4, 3, 2, 1)));
         // 검증
-        assertThat(result).containsExactlyElementsOf(expectedCounts(matchCount));
-    }
+        Map<Rank, Integer> expected = zeroCounts();
+        expected.put(Rank.from(matchCount), 1);
+        assertThat(result).isEqualTo(expected);    }
 
     @Test
     void accumulatesTicketsWithSameMatchCount() {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
         // 실행
-        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        Map<Rank,Integer> result = lottos.getRankCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         // 검증
-        assertThat(result).containsExactly(0, 0, 0, 2, 0, 0, 1);
-    }
+        Map<Rank, Integer> expected = zeroCounts();
+        expected.put(Rank.FOURTH, 2);
+        expected.put(Rank.FIRST, 1);
+        assertThat(result).isEqualTo(expected);    }
 
     @Test
     void returnsZeroCountsForEmptyTickets() {
         // 준비
         Lottos lottos = new Lottos(List.of());
         // 실행
-        List<Integer> result = lottos.getMatchCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        Map<Rank,Integer> result = lottos.getRankCount(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
         // 검증
-        assertThat(result).containsExactly(0, 0, 0, 0, 0, 0, 0);
+        assertThat(result).isEqualTo(zeroCounts());
     }
 
     private Lotto createTicket(int matchCount) {
@@ -47,9 +52,11 @@ class LottosTest {
         return new Lotto(numbers);
     }
 
-    private List<Integer> expectedCounts(int matchCount) {
-        List<Integer> counts = new ArrayList<>(List.of(0, 0, 0, 0, 0, 0, 0));
-        counts.set(matchCount, 1);
+    private Map<Rank, Integer> zeroCounts() {
+        Map<Rank, Integer> counts = new EnumMap<>(Rank.class);
+        for (Rank rank : Rank.values()) {
+            counts.put(rank, 0);
+        }
         return counts;
     }
 }

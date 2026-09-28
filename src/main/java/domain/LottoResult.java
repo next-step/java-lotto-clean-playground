@@ -3,31 +3,27 @@ package domain;
 import static domain.Lotto.LOTTO_SIZE;
 import static domain.PurchaseAmount.LOTTO_PRICE;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoResult {
 
-    private static final List<Long> PRIZES =
-            List.of(0L, 0L, 0L, 5_000L, 50_000L, 1_500_000L, 2_000_000_000L);
 
-    private final List<Integer> matchCounts;
+    private final Map<Rank, Integer> rankCount;
 
-    public LottoResult(List<Integer> matchCounts) {
-        this.matchCounts = List.copyOf(matchCounts);
+    public LottoResult(Map<Rank, Integer> rankCount) {
+        this.rankCount = new EnumMap<>(rankCount);
     }
 
-    public int getCount(int matchCount) {
-        return matchCounts.get(matchCount);
-    }
-
-    public long getPrize(int matchCount) {
-        return PRIZES.get(matchCount);
+    public int getCount(Rank rank) {
+        return rankCount.get(rank);
     }
 
     public long calculateTotalPrize() {
         long totalPrize = 0;
-        for (int matchCount = 3; matchCount <= LOTTO_SIZE; matchCount++) {
-            totalPrize += getPrize(matchCount) * getCount(matchCount);
+        for (Rank rank : Rank.values()) {
+            totalPrize += (long) rank.getPrize() * getCount(rank);
         }
         return totalPrize;
     }

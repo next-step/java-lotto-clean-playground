@@ -1,6 +1,7 @@
 import domain.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import lottoGenerator.LottoGenerator;
@@ -21,9 +22,9 @@ public class Application {
         ResultView.printLottoResult(lottoList);
 
         Lotto winnerNumbers = new Lotto(InputView.readWinnerNumber(sc));
-        List<Integer> matchCount = lottos.getMatchCount(winnerNumbers);
+        Map<Rank,Integer> rankCount = lottos.getRankCount(winnerNumbers);
 
-        LottoResult result = new LottoResult(matchCount);
+        LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
 
 

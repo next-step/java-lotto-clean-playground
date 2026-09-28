@@ -5,6 +5,8 @@ import static domain.Lotto.LOTTO_SIZE;
 import domain.Lotto;
 import domain.LottoResult;
 
+import domain.Rank;
+import java.util.EnumSet;
 import java.util.List;
 
 public class ResultView {
@@ -19,15 +21,15 @@ public class ResultView {
     public static void printStats(LottoResult result, int lottoCount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int matchCount = 3; matchCount <= LOTTO_SIZE; matchCount++) {
-            printRank(result, matchCount);
+        for (Rank rank : EnumSet.range(Rank.FOURTH, Rank.FIRST)) {
+            printRank(result, rank);
         }
         System.out.printf("총 수익률은 %.2f입니다.%n",
                 result.calculateReturnRate(lottoCount));
     }
 
-    private static void printRank(LottoResult result, int matchCount) {
+    private static void printRank(LottoResult result, Rank rank) {
         System.out.printf("%d개 일치 (%d원)- %d개%n",
-                matchCount, result.getPrize(matchCount), result.getCount(matchCount));
+                rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
     }
 }

@@ -2,7 +2,9 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Lottos {
 
@@ -12,15 +14,18 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public List<Integer> getMatchCount(Lotto winnerLotto) {
+    public Map<Rank,Integer> getRankCount(Lotto winnerLotto) {
 
-        List<Integer> matchCount = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0));
+        Map<Rank, Integer> rankCount = new EnumMap<>(Rank.class);
+        for (Rank rank : Rank.values()) {
+            rankCount.put(rank, 0);
+        }
 
         for (Lotto lotto : lottos) {
-            int count = lotto.getCount(winnerLotto);
-            matchCount.set(count, matchCount.get(count) + 1);
+            Rank rank = Rank.from(lotto.getCount(winnerLotto));
+            rankCount.put(rank, rankCount.get(rank) + 1);
         }
-        return matchCount;
+        return rankCount;
     }
 
 }
