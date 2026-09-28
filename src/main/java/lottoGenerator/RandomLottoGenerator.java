@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RandomLottoGenerator implements LottoGenerator{
+public class RandomLottoGenerator implements LottoGenerator {
 
     @Override
     public List<Integer> generateLotto() {

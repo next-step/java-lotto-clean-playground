@@ -1,10 +1,7 @@
 package view;
 
-import static domain.Lotto.LOTTO_SIZE;
-
 import domain.Lotto;
 import domain.LottoResult;
-
 import domain.Rank;
 import java.util.EnumSet;
 import java.util.List;

@@ -1,10 +1,8 @@
 package domain;
 
-import static domain.Lotto.LOTTO_SIZE;
 import static domain.PurchaseAmount.LOTTO_PRICE;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoResult {

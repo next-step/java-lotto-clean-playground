@@ -1,9 +1,12 @@
-import domain.*;
-
+import domain.Lotto;
+import domain.LottoMachine;
+import domain.LottoResult;
+import domain.Lottos;
+import domain.PurchaseAmount;
+import domain.Rank;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import lottoGenerator.LottoGenerator;
 import lottoGenerator.RandomLottoGenerator;
 import view.InputView;
@@ -22,14 +25,15 @@ public class Application {
         ResultView.printLottoResult(lottoList);
 
         Lotto winnerNumbers = Lotto.from(InputView.readWinnerNumber(sc));
-        Map<Rank,Integer> rankCount = lottos.getRankCount(winnerNumbers);
+        Map<Rank, Integer> rankCount = lottos.getRankCount(winnerNumbers);
 
         LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
 
 
     }
-    private static LottoGenerator lottoGenerator(){
+
+    private static LottoGenerator lottoGenerator() {
         return new RandomLottoGenerator();
     }
 }

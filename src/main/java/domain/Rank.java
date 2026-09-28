@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.List;
-
 public enum Rank {
     FOURTH(3, 5_000),
     THIRD(4, 50_000),

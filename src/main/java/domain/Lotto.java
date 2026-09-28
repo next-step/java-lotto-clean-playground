@@ -23,15 +23,17 @@ public class Lotto {
         return new Lotto(lotto);
     }
 
-    private void validate(List<LottoNumber> numbers) {
-        validateSize(numbers);
-        validateDuplicates(numbers);
-    }
     private static void validateNotNull(List<Integer> numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
         }
     }
+
+    private void validate(List<LottoNumber> numbers) {
+        validateSize(numbers);
+        validateDuplicates(numbers);
+    }
+
     private void validateDuplicates(List<LottoNumber> numbers) {
         long uniqueCount = numbers.stream().distinct().count();
         if (uniqueCount != LOTTO_SIZE) {
@@ -47,14 +49,14 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
-        List<Integer> numbers=new ArrayList<>();
+        List<Integer> numbers = new ArrayList<>();
         for (LottoNumber lottoNumber : lotto) {
             numbers.add(lottoNumber.getLottoNumber());
         }
         return numbers;
     }
 
-    public int getCount(Lotto other){
+    public int getCount(Lotto other) {
         List<LottoNumber> copy = new ArrayList<>(this.lotto);
         copy.retainAll(other.lotto);
         return copy.size();
