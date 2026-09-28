@@ -16,15 +16,19 @@ public class Lotto {
     }
 
     private void validate(List<Integer> numbers) {
+        validateNotNull(numbers);
         validateSize(numbers);
         validateDuplicates(numbers);
         validateRange(numbers);
     }
 
-    private void validateSize(List<Integer> numbers) {
+    private void validateNotNull(List<Integer> numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException("[ERROR] 로또 번호가 입력되지 않았습니다.");
         }
+    }
+
+    private void validateSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(
                     "[ERROR] 로또 번호는 " + LOTTO_SIZE + "개여야 합니다. (입력 개수: " + numbers.size() + "개)");
