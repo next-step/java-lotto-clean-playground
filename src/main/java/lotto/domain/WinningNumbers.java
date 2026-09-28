@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class WinningNumbers {
-    private static final int WINNING_NUMBER_COUNT = 6;
+    public static final int WINNING_NUMBER_COUNT = 6;
     private final List<LottoNumber> numbers;
 
     public WinningNumbers(List<Integer> numbers) {
