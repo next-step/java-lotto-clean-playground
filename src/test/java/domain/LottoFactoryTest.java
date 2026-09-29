@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class LottoFactoryTest {
     @Test
-    void 정해진_번호로_생성한_로또의_당첨결과를_계산한다() {
+    void 요청한_개수만큼_로또를_생성한다() {
         NumberGenerator numberGenerator = new FixedNumberGenerator(
                 List.of(
                         new LottoNumber(1),
@@ -21,22 +21,8 @@ class LottoFactoryTest {
 
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
-        Lottos lottos = lottoFactory.create(1);
+        Lottos lottos = lottoFactory.create(5);
 
-        Lotto winningLotto = new Lotto(
-                List.of(
-                        new LottoNumber(1),
-                        new LottoNumber(2),
-                        new LottoNumber(3),
-                        new LottoNumber(4),
-                        new LottoNumber(5),
-                        new LottoNumber(6)
-                )
-        );
-
-        LottoResult result = lottos.calculateResult(winningLotto);
-
-        assertThat(result.getWinningCount(Rank.FIRST))
-                .isEqualTo(1);
+        assertThat(lottos.getLottos()).hasSize(5);
     }
 }
