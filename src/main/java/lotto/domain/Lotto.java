@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import static lotto.domain.WinningNumbers.WINNING_NUMBER_COUNT;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
+
+    public static final int LOTTO_NUMBER_COUNT = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -25,7 +26,7 @@ public class Lotto {
     }
 
     private void validateSize(List<Integer> numbers) {
-        if (numbers.size() != WINNING_NUMBER_COUNT) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
