@@ -3,7 +3,11 @@ package view;
 import java.util.Scanner;
 
 public class InputView {
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public InputView(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public String getPurchasePrice() {
         System.out.println("구입금액을 입력해 주세요.");
