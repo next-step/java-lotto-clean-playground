@@ -6,29 +6,9 @@ public class PurchasePrice {
 
     private final int amount;
 
-    public PurchasePrice(String input) {
-        this.amount = parseToInt(input.trim());
+    public PurchasePrice(int amount) {
         validate(amount);
-    }
-
-    private int parseToInt(String input) {
-        validateNotBlank(input);
-
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(
-                    "구입 금액은 숫자로 입력해야 합니다."
-            );
-        }
-    }
-
-    private void validateNotBlank(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "구입 금액을 입력해야 합니다."
-            );
-        }
+        this.amount = amount;
     }
 
     private void validate(int amount) {
