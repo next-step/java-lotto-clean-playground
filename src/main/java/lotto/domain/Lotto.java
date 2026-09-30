@@ -14,18 +14,10 @@ public class Lotto {
     }
 
     public int countMatch(WinningNumbers winningNumbers) {
-        int matchCount = 0;
-        for (LottoNumber number : lottoNumbers.getLottoNumbers()) {
-            matchCount += matchScore(number, winningNumbers);
-        }
-        return matchCount;
-    }
-
-    private int matchScore(LottoNumber number, WinningNumbers winningNumbers) {
-        if (winningNumbers.contains(number)) {
-            return 1;
-        }
-        return 0;
+        return (int) lottoNumbers.getLottoNumbers()
+                .stream()
+                .filter(number -> winningNumbers.contains(number))
+                .count();
     }
 
 }
