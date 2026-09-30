@@ -9,9 +9,8 @@ public class Lotto {
         this.lottoNumbers = new LottoNumbers(values);
     }
 
-    @Override
-    public String toString() {
-        return lottoNumbers.toString();
+    public List<Integer> getValues() {
+        return lottoNumbers.getNumberValues();
     }
 
     public int countMatch(WinningNumbers winningNumbers) {

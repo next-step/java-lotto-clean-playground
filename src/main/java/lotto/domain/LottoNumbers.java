@@ -35,6 +35,12 @@ public class LottoNumbers {
         return numbers;
     }
 
+    public List<Integer> getNumberValues() {
+        return lottoNumberList.stream()
+                .map(LottoNumber::number)
+                .toList();
+    }
+
     public List<LottoNumber> getLottoNumbers() {
         return Collections.unmodifiableList(lottoNumberList);
     }
