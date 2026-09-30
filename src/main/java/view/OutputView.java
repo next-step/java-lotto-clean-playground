@@ -28,10 +28,17 @@ public class OutputView {
         System.out.println("4개 일치 (50000원)- " + resultDto.winning4() + "개");
         System.out.println("5개 일치 (1500000원)- " + resultDto.winning5() + "개");
         System.out.println("6개 일치 (2000000000원)- " + resultDto.winning6() + "개");
-        System.out.println("총 수익률은 " + resultDto.rateOfReturn() + "입니다.");
+
+        printRateOfReturn(resultDto.rateOfReturn());
     }
 
     public void printError(String message) {
         System.out.println(message);
+    }
+
+    private void printRateOfReturn(double rateOfReturn) {
+        double truncatedRateOfReturn = Math.floor(rateOfReturn * 100) / 100;
+
+        System.out.println("총 수익률은 " + truncatedRateOfReturn + "입니다");
     }
 }

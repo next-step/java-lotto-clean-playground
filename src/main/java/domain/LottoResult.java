@@ -42,9 +42,7 @@ public class LottoResult {
 
     public double calculateRateOfReturn(PurchasePrice purchasePrice) {
         long revenue = calculateRevenue();
-        double rate = purchasePrice.calculateRateOfReturn(revenue);
-
-        return Math.floor(rate * 100) / 100;
+        return purchasePrice.calculateRateOfReturn(revenue);
     }
 
     private long calculateRevenue() {
