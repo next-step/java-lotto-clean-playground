@@ -5,6 +5,8 @@ import domain.Lottos;
 import domain.Rank;
 import dto.ResultDto;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class OutputView {
@@ -26,11 +28,18 @@ public class OutputView {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        for (Rank rank : Rank.values()) {
-            printWinningResult(rank, resultDto.results().get(rank));
-        }
+        printWinningResults(resultDto);
 
         printRateOfReturn(resultDto.rateOfReturn());
+    }
+
+    private void printWinningResults(ResultDto resultDto) {
+        Arrays.stream(Rank.values())
+              .sorted(Comparator.comparingInt(Rank::getMatchCount))
+              .forEach(rank -> printWinningResult(
+                     rank,
+                     resultDto.results().get(rank)
+             ));
     }
 
     private void printWinningResult(Rank rank, int winningCount) {
