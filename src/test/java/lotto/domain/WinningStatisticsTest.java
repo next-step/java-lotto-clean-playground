@@ -20,4 +20,19 @@ public class WinningStatisticsTest {
         assertThat(statistics.countRank(Rank.FIRST)).isEqualTo(1);
         assertThat(statistics.countRank(Rank.MISS)).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("수익률을 정확히 계산한다")
+    void 수익률을_정확히_계산한다() {
+        WinningNumbers winningNumbers = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+        Lottos lottos = new Lottos(List.of(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new Lotto(List.of(10, 11, 12, 13, 14, 15))
+        ));
+        WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
+
+        float expectedProfitRate = (float) Rank.FIRST.getPrize() / 2000;
+
+        assertThat(statistics.getProfitRate()).isEqualTo(expectedProfitRate);
+    }
 }
