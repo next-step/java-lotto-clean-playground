@@ -43,7 +43,7 @@ public class PurchasePrice {
         return amount / LOTTO_PRICE;
     }
 
-    public int getAmount() {
-        return amount;
+    public double calculateRateOfReturn(long revenue) {
+        return (double) revenue / amount;
     }
 }

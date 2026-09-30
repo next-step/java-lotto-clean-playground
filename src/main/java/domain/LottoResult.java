@@ -40,9 +40,9 @@ public class LottoResult {
         results.put(rank, results.get(rank) + 1);
     }
 
-    public double calculateRateOfReturn(PurchasePrice price) {
+    public double calculateRateOfReturn(PurchasePrice purchasePrice) {
         long revenue = calculateRevenue();
-        double rate = (double) revenue / price.getAmount();
+        double rate = purchasePrice.calculateRateOfReturn(revenue);
 
         return Math.floor(rate * 100) / 100;
     }
