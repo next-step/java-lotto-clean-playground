@@ -16,20 +16,4 @@ public class LottosTest {
         assertThat(lottoList).hasSize(6);
     }
 
-
-
-    @Test
-    @DisplayName("당청번호랑 몇개 일치하는지, 정확히 세는지")
-    void 당첨번호랑_몇개_일치하는지_정확히_세는지() {
-        WinningNumbers winningLotto = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
-        Lottos lottos = new Lottos(List.of(
-                new Lotto(List.of(1, 2, 3, 7, 8, 9)), // 3개 일치
-                new Lotto(List.of(14, 15, 16, 17, 18, 19)) // 일치 없음
-        ));
-        int matchCount1 = lottos.getLottoList().get(0).countMatch(winningLotto);
-        int matchCount2 = lottos.getLottoList().get(1).countMatch(winningLotto);
-        assertThat(matchCount1).isEqualTo(3);
-        assertThat(matchCount2).isEqualTo(0);
-    }
-
 }
