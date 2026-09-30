@@ -16,28 +16,12 @@ public class InputView {
 
     public int getPurchasePrice() {
         System.out.println("구입금액을 입력해 주세요.");
-        return parsePurchasePrice(scanner.nextLine());
-    }
 
-    private int parsePurchasePrice(String input) {
-        String trimmedInput = input.trim();
-        validatePurchasePriceNotBlank(trimmedInput);
-
-        try {
-            return Integer.parseInt(trimmedInput);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(
-                    "구입 금액은 숫자로 입력해야 합니다."
-            );
-        }
-    }
-
-    private void validatePurchasePriceNotBlank(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "구입 금액을 입력해야 합니다."
-            );
-        }
+        return parseToInt(
+                scanner.nextLine(),
+                "구입 금액을 입력해야 합니다.",
+                "구입 금액은 숫자로 입력해야 합니다."
+        );
     }
 
     public List<Integer> getWinningNumbers() {
@@ -56,20 +40,31 @@ public class InputView {
     }
 
     private int parseNumber(String token) {
-        validateNotBlank(token);
+        return parseToInt(
+                token,
+                "로또 번호를 입력해야 합니다.",
+                "당첨 번호는 숫자여야 합니다."
+        );
+    }
+
+    private int parseToInt(
+            String input,
+            String blankMessage,
+            String numberMessage
+    ) {
+        String trimmedInput = input.trim();
+        validateNotBlank(trimmedInput, blankMessage);
 
         try {
-            return Integer.parseInt(token);
+            return Integer.parseInt(trimmedInput);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+            throw new IllegalArgumentException(numberMessage);
         }
     }
 
-    private void validateNotBlank(String input) {
+    private void validateNotBlank(String input, String message) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "로또 번호를 입력해야 합니다."
-            );
+            throw new IllegalArgumentException(message);
         }
     }
 }
