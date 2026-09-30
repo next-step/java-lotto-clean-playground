@@ -3,6 +3,7 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Lottos {
 
@@ -18,6 +19,10 @@ public class Lottos {
             lottoList.add(new Lotto(generator.generateLottoNumbers()));
         }
         return new Lottos(lottoList);
+    }
+
+    public Stream<Lotto> stream() {
+        return lottoList.stream();
     }
 
     public List<Lotto> getLottoList() {

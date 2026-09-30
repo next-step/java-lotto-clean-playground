@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class WinningStatistics {
     private final List<Rank> ranks;
@@ -13,11 +10,9 @@ public class WinningStatistics {
     }
 
     private List<Rank> createRanks(Lottos lottos, WinningNumbers winningNumbers) {
-        List<Rank> ranks = new ArrayList<>();
-        for (Lotto lotto : lottos.getLottoList()) {
-            ranks.add(findRank(lotto, winningNumbers));
-        }
-        return ranks;
+        return lottos.stream()
+                .map(lotto -> findRank(lotto, winningNumbers))
+                .toList();
     }
 
     // 등수 계산 로직
