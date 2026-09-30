@@ -29,9 +29,4 @@ public class Lottos {
         return Collections.unmodifiableList(lottoList);
     }
 
-    public int size() {
-        return lottoList.size();
-    }
-
-
 }
