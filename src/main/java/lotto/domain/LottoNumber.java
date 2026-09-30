@@ -1,15 +1,10 @@
 package lotto.domain;
 
-import java.util.Objects;
-
-public class LottoNumber {
+public record LottoNumber(int number) {
     public static final int MAX_NUMBER = 45;
 
-    private int number;
-
-    public LottoNumber(int value) {
-        validate(value);
-        number = value;
+    public LottoNumber {
+        validate(number);
     }
 
     private void validate(int value) {
@@ -17,24 +12,4 @@ public class LottoNumber {
             throw new IllegalArgumentException("로또 번호는 1 이상 45 이하여야 한다.");
         }
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-
-        if (!(other instanceof LottoNumber)) {
-            return false;
-        }
-
-        LottoNumber lottoNumber = (LottoNumber) other;
-        return number == lottoNumber.number;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(number);
-    }
-
 }
