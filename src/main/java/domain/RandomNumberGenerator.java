@@ -5,22 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class RandomNumberGenerator implements NumberGenerator {
-
-    List<LottoNumber> lotto = new ArrayList<>();
-
     @Override
     public List<LottoNumber> generate() {
-        lotto = new ArrayList<>();
-        for (int i = 1; i <= 45; i++) {
-            lotto.add(new LottoNumber(i));
-        }
+        List<LottoNumber> numbers = LottoNumber.allNumbers();
 
-        Collections.shuffle(lotto);
+        Collections.shuffle(numbers);
 
-        lotto = new ArrayList<>(lotto.subList(0, 6));
+        List<LottoNumber> lottoNumbers = new ArrayList<>(numbers.subList(0, Lotto.requiredNumberCount()));
 
-        Collections.sort(lotto);
+        Collections.sort(lottoNumbers);
 
-        return lotto;
+        return lottoNumbers;
     }
 }

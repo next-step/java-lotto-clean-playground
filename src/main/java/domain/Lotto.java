@@ -70,4 +70,8 @@ public class Lotto {
     public String toString() {
         return numbers.toString();
     }
+
+    public static int requiredNumberCount() {
+        return LOTTO_SIZE;
+    }
 }

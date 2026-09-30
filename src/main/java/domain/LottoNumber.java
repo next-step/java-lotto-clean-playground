@@ -1,6 +1,12 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LottoNumber implements Comparable<LottoNumber> {
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+
     private final int value;
 
     public LottoNumber(int value) {
@@ -9,9 +15,21 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     private void validate(int value) {
-        if (value < 1 || value > 45) {
-            throw new IllegalArgumentException("로또의 범위는 1~45 사이여야 합니다.");
+        if (value < MIN_NUMBER || value > MAX_NUMBER) {
+            throw new IllegalArgumentException(
+                    "로또의 범위는 " + MIN_NUMBER + "~" + MAX_NUMBER + " 사이여야 합니다."
+            );
         }
+    }
+
+    public static List<LottoNumber> allNumbers() {
+        List<LottoNumber> numbers = new ArrayList<>();
+
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
+            numbers.add(new LottoNumber(i));
+        }
+
+        return numbers;
     }
 
     @Override
