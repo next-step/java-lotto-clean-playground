@@ -55,7 +55,7 @@ public class LottoResult {
         return revenue;
     }
 
-    public int getWinningCount(Rank rank) {
-        return results.get(rank);
+    public Map<Rank, Integer> getResults() {
+        return Map.copyOf(results);
     }
 }

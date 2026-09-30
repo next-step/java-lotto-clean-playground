@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.Lottos;
+import domain.Rank;
 import dto.ResultDto;
 
 import java.util.List;
@@ -24,12 +25,20 @@ public class OutputView {
     public void printResult(ResultDto resultDto) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- " + resultDto.winning3() + "개");
-        System.out.println("4개 일치 (50000원)- " + resultDto.winning4() + "개");
-        System.out.println("5개 일치 (1500000원)- " + resultDto.winning5() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + resultDto.winning6() + "개");
+
+        for (Rank rank : Rank.values()) {
+            printWinningResult(rank, resultDto.results().get(rank));
+        }
 
         printRateOfReturn(resultDto.rateOfReturn());
+    }
+
+    private void printWinningResult(Rank rank, int winningCount) {
+        System.out.println(
+                rank.getMatchCount() + "개 일치 ("
+                + rank.getPrize() + "원)- "
+                + winningCount + "개"
+        );
     }
 
     public void printError(String message) {

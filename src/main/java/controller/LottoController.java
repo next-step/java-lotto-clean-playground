@@ -3,8 +3,7 @@ package controller;
 import domain.*;
 import dto.ResultDto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import view.InputView;
 import view.OutputView;
@@ -45,10 +44,7 @@ public class LottoController {
 
     private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {
         return new ResultDto(
-                result.getWinningCount(Rank.FOURTH),
-                result.getWinningCount(Rank.THIRD),
-                result.getWinningCount(Rank.SECOND),
-                result.getWinningCount(Rank.FIRST),
+                result.getResults(),
                 result.calculateRateOfReturn(purchasePrice)
         );
     }
