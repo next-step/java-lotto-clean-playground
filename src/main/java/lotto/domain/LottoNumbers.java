@@ -8,7 +8,7 @@ import java.util.List;
 public class LottoNumbers {
     public static final int LOTTO_NUMBER_COUNT = 6;
 
-    private List<LottoNumber> lottoNumberList;
+    private final List<LottoNumber> lottoNumberList;
 
     public LottoNumbers(List<Integer> integerList) {
         validate(integerList);

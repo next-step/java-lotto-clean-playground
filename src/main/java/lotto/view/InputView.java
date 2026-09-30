@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class InputView {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     // 사용자에게 구입금액을 입력받는 메서드
     public static int inputMoney() {
