@@ -10,26 +10,24 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 
 public class PurchasePriceTest {
-    @ParameterizedTest
-    @ValueSource(strings = {"", " "})
-    void 구입금액을_입력하지_않으면_예외가_발생한다(String input) {
-        assertThatThrownBy(() -> new PurchasePrice(input))
+    @Test
+    void 구입금액이_1000원_미만이면_예외가_발생한다() {
+        assertThatThrownBy(() -> new PurchasePrice(999))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액을 입력해야 합니다.");
+                .hasMessage("로또 최소 구입 금액은 1000원입니다.");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"a", "ㄱ", "1000원"})
-    void 구입금액이_숫자가_아니면_예외가_발생한다(String input) {
-        assertThatThrownBy(() -> new PurchasePrice(input))
+    @ValueSource(ints = {1001, 1500, 2500, 9999})
+    void 구입금액이_1000원_단위가_아니면_예외가_발생한다(int amount) {
+        assertThatThrownBy(() -> new PurchasePrice(amount))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입 금액은 숫자로 입력해야 합니다.");
+                .hasMessage("구입 금액은 1000원 단위여야 합니다.");
     }
 
     @Test
-    void 구입금액이_1000원_미만이면_예외가_발생한다() {
-        assertThatThrownBy(() -> new PurchasePrice("999"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("로또 최소 구입 금액은 1000원입니다.");
+    void 구입금액이_1000원_단위면_정상적으로_생성된다() {
+        assertThatCode(() -> new PurchasePrice(3000))
+                .doesNotThrowAnyException();
     }
 }
