@@ -31,17 +31,9 @@ public class WinningStatistics {
     }
 
     public int countRank(Rank rank) {
-        int count = 0;
-        for (Rank r : ranks) {
-            count += compareEquals(rank, r);
-        }
-        return count;
+        return (int) ranks.stream()
+                .filter(r -> r == rank)
+                .count();
     }
 
-    private int compareEquals(Rank rank, Rank otherRank) {
-        if (rank == otherRank) {
-            return 1;
-        }
-        return 0;
-    }
 }
