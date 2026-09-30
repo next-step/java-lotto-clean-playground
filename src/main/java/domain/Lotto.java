@@ -14,6 +14,16 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public static Lotto from(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+
+        for (Integer number : numbers) {
+            lottoNumbers.add(new LottoNumber(number));
+        }
+
+        return new Lotto(lottoNumbers);
+    }
+
     private void validateSize(List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(

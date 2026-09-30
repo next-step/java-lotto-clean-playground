@@ -36,7 +36,7 @@ public class LottoController {
         Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
 
-        Lotto winningNumbers = toLotto(inputView.getWinningNumbers());
+        Lotto winningNumbers = Lotto.from(inputView.getWinningNumbers());
         LottoResult result = lottos.calculateResult(winningNumbers);
         ResultDto resultDto = createResultDto(result, purchasePrice);
         outputView.printResult(resultDto);
@@ -47,32 +47,5 @@ public class LottoController {
                 result.getResults(),
                 result.calculateRateOfReturn(purchasePrice)
         );
-    }
-
-    private Lotto toLotto(String input) {
-        String[] tokens = input.split(",");
-        List<LottoNumber> numbers = new ArrayList<>();
-        for (String token : tokens) {
-            numbers.add(new LottoNumber(parseNumber(token.trim())));
-        }
-        return new Lotto(numbers);
-    }
-
-    private int parseNumber(String token) {
-        validateNotBlank(token);
-
-        try {
-            return Integer.parseInt(token);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
-        }
-    }
-
-    private void validateNotBlank(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "로또 번호를 입력해야 합니다."
-            );
-        }
     }
 }
