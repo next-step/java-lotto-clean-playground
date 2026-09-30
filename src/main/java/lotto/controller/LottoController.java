@@ -13,9 +13,11 @@ public class LottoController {
 
     public void run(){
         Money money = new Money(InputView.inputMoney());
-        int count = money.calculateNumberOfLottos();
-        Lottos lottos = Lottos.generate(count, new LottoNumberGenerator());
-        OutputView.printLottos(lottos);
+        Lottos lottos = Lottos.generate(money.calculateNumberOfLottos(), new LottoNumberGenerator());
+        List<List<Integer>> lottoValues = lottos.stream()
+                .map(lotto -> lotto.getValues())
+                .toList();
+        OutputView.printLottos(lottoValues);
 
         List<Integer> winningNumberInput = InputView.inputWinningNumbers();
         WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput);

@@ -1,15 +1,15 @@
 package lotto.view;
 
-import lotto.domain.Lottos;
+import java.util.List;
 import lotto.domain.Rank;
 import lotto.domain.WinningStatistics;
 
 public class OutputView {
 
-    public static void printLottos(Lottos lottos) {
+    public static void printLottos(List<List<Integer>> lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (int i = 0; i < lottos.size(); i++) {
-            System.out.println(lottos.getLottoList().get(i).getValues());
+        for (List<Integer> values : lottos) {
+            System.out.println(values);
         }
     }
 
