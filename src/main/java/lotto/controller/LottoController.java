@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
+import lotto.domain.Lotto;
 import lotto.domain.LottoNumberGenerator;
 import lotto.domain.Lottos;
 import lotto.domain.Money;
@@ -16,7 +17,7 @@ public class LottoController {
         Money money = new Money(InputView.inputMoney());
         Lottos lottos = Lottos.generate(money.calculateNumberOfLottos(), new LottoNumberGenerator());
         List<List<Integer>> lottoValues = lottos.stream()
-                .map(lotto -> lotto.getValues())
+                .map(Lotto::getValues)
                 .toList();
         OutputView.printLottos(lottoValues);
 
