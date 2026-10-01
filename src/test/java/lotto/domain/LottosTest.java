@@ -21,7 +21,7 @@ public class LottosTest {
     @Test
     @DisplayName("당청번호랑 몇개 일치하는지, 정확히 세는지")
     void 당첨번호랑_몇개_일치하는지_정확히_세는지() {
-        WinningNumbers winningLotto = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6));
+        WinningNumbers winningLotto = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 7);
         Lottos lottos = new Lottos(List.of(
                 new Lotto(List.of(1, 2, 3, 7, 8, 9)), // 3개 일치
                 new Lotto(List.of(14, 15, 16, 17, 18, 19)) // 일치 없음
