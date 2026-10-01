@@ -21,6 +21,12 @@ public class InputView {
         return parseNumbers(input);
     }
 
+    public static int inputBonusNumber() { //보너스번호 받는 로직
+        System.out.println();
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     private static List<Integer> parseNumbers(String input) {
         List<Integer> numbers = new ArrayList<>();
         for (String number : input.split(",")) {
