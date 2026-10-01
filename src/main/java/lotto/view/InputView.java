@@ -24,6 +24,13 @@ public class InputView {
         return parseNumbers(input);
     }
 
+    public static int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return Integer.parseInt(input);
+    }
+
     private static void validateEmpty(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("입력값은 비어있을 수 없습니다.");

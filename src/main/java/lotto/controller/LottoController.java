@@ -21,7 +21,8 @@ public class LottoController {
         OutputView.printLottos(lottoValues);
 
         List<Integer> winningNumberInput = InputView.inputWinningNumbers();
-        WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput);
+        int bonusNumberInput = InputView.inputBonusNumber();
+        WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput, bonusNumberInput);
         WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
         List<Rank> ranks = Rank.winningRanks();
         OutputView.printWinningStatistics(statistics, ranks);

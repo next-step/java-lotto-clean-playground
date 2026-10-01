@@ -20,4 +20,9 @@ public class Lotto {
                 .count();
     }
 
+    public boolean hasBonusNumber(WinningNumbers winningNumbers) {
+        return lottoNumbers.getLottoNumbers()
+                .stream()
+                .anyMatch(winningNumbers::matchesBonusNumber);
+    }
 }
