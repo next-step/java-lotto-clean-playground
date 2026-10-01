@@ -18,7 +18,8 @@ public class LottoController {
         OutputView.printLottos(lottos);
 
         List<Integer> winningNumberInput = InputView.inputWinningNumbers();
-        WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput);
+        int bonusNumber = InputView.inputBonusNumber(); // 보너스 번호 입력 받기
+        WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput,bonusNumber); // 보너스 번호 포함하여 WinningNumbers 생성
         WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
         OutputView.printWinningStatistics(statistics);
     }
