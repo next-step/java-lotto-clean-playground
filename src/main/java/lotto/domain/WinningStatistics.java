@@ -21,7 +21,8 @@ public class WinningStatistics {
     // 등수 계산 로직
     private Rank findRank(Lotto lotto, WinningNumbers winningNumbers) {
         int matchCount = lotto.countMatch(winningNumbers); // 몇개 맞았는지
-        return Rank.of(matchCount);
+        boolean hasBonus = winningNumbers.matchesBonus(lotto); // 보너스 번호 맞았는지
+        return Rank.of(matchCount, hasBonus);
     }
 
     // 수익률 계산 로직
