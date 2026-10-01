@@ -1,7 +1,7 @@
 package lotto.domain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 public enum Rank {
 
@@ -12,8 +12,6 @@ public enum Rank {
     FiFTH(3, 5_000),
     MISS(0, 0);
 
-    private static final Map<Integer, Rank> RANK_BY_MATCH_COUNT = createRankByMatchCount();
-
     private final int matchCount;
     private final int prize;
 
@@ -22,18 +20,22 @@ public enum Rank {
         this.prize = prize;
     }
 
-    private static Map<Integer, Rank> createRankByMatchCount() {
-        Map<Integer, Rank> rankByMatchCount = new HashMap<>();
-
-        for (Rank rank : values()) {
-            rankByMatchCount.put(rank.matchCount, rank);
+    public static Rank findRank(int matchCount, boolean bonusMatch) {
+        if (matchCount == SECOND.matchCount && bonusMatch) {
+            return SECOND;
         }
 
-        return rankByMatchCount;
+        return Arrays.stream(values())
+                .filter(rank -> rank != SECOND)
+                .filter(rank -> rank.matchCount == matchCount)
+                .findFirst()
+                .orElse(MISS);
     }
 
-    public static Rank findByMatchCount(int matchCount) {
-        return RANK_BY_MATCH_COUNT.getOrDefault(matchCount, MISS);
+    public static List<Rank> winningRanks() {
+        return Arrays.stream(values())
+                .filter(rank -> rank != MISS)
+                .toList();
     }
 
     public int getMatchCount() {

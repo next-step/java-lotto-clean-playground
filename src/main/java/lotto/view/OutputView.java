@@ -13,19 +13,25 @@ public class OutputView {
         }
     }
 
-    public static void printWinningStatistics(WinningStatistics statistics) {
+    public static void printWinningStatistics(WinningStatistics statistics, List<Rank> ranks) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        printRankResult(statistics, Rank.FOURTH);
-        printRankResult(statistics, Rank.THIRD);
-        printRankResult(statistics, Rank.SECOND);
-        printRankResult(statistics, Rank.FIRST);
+
+        for (int i = ranks.size() - 1; i >= 0; i--) {
+            printRankResult(statistics, ranks.get(i));
+        }
+
         printProfitRate(statistics);
     }
 
     private static void printRankResult(WinningStatistics statistics, Rank rank) {
         int count = statistics.countRank(rank);
+        if (rank == Rank.SECOND) {
+            System.out.println(rank.getMatchCount() + "개 일치, 보너스 볼 일치 (" +
+                    rank.getPrize() + "원)- " + count + "개");
+            return;
+        }
         System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
     }
 
