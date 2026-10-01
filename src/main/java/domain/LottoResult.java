@@ -3,7 +3,6 @@ package domain;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class LottoResult {
     private final Map<Rank, Integer> results;
@@ -27,13 +26,8 @@ public class LottoResult {
     }
 
     private void calculateMatch(int match) {
-        Optional<Rank> rank = Rank.from(match);
-
-        if (rank.isEmpty()) {
-            return;
-        }
-
-        increaseCount(rank.get());
+        Rank rank = Rank.from(match);
+        increaseCount(rank);
     }
 
     private void increaseCount(Rank rank) {

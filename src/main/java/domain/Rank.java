@@ -1,13 +1,15 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public enum Rank {
     FIRST(6, 2_000_000_000L),
     SECOND(5, 1_500_000L),
     THIRD(4, 50_000L),
-    FOURTH(3, 5_000L);
+    FOURTH(3, 5_000L),
+    MISS(0, 0L);
 
     private final int matchCount;
     private final long prize;
@@ -17,10 +19,17 @@ public enum Rank {
         this.prize = prize;
     }
 
-    public static Optional<Rank> from(int matchCount) {
+    public static Rank from(int matchCount) {
         return Arrays.stream(values())
                      .filter(rank -> rank.matchCount == matchCount)
-                     .findFirst();
+                     .findFirst()
+                     .orElse(MISS);
+    }
+
+    public static List<Rank> winningRanks() {
+        return Arrays.stream(values())
+                .filter(rank -> rank != MISS)
+                .toList();
     }
 
     public int getMatchCount() {

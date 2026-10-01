@@ -34,7 +34,7 @@ public class OutputView {
     }
 
     private void printWinningResults(ResultDto resultDto) {
-        Arrays.stream(Rank.values())
+        Rank.winningRanks().stream()
               .sorted(Comparator.comparingInt(Rank::getMatchCount))
               .forEach(rank -> printWinningResult(
                      rank,
