@@ -11,7 +11,7 @@ public class Lotto {
     public Lotto(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
     }
 
     public static Lotto from(List<Integer> numbers) {
