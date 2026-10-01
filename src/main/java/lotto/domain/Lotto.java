@@ -47,6 +47,11 @@ public class Lotto {
         return lottoNumbers.toString();
     }
 
+    public boolean contains(LottoNumber number) {
+        return lottoNumbers.contains(number);
+    }
+    //contains 메서드를 사용하여 LottoNumber가 포함되어 있는지 확인
+
     public int countMatch(WinningNumbers winningNumbers) {
         int matchCount = 0;
         for (LottoNumber lottoNumber : lottoNumbers) {
