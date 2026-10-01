@@ -34,4 +34,30 @@ public class LottoTest {
         assertThat(matchCount).isEqualTo(0);
     }
 
+    @Test
+    @DisplayName("보너스 볼과 일치하는 번호가 있으면 true를 반환")
+    void 보너스_볼과_일치하는_번호가_있으면_true를_반환() {
+        WinningNumbers winningNumbers =
+                new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 10);
+
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 10));
+
+        boolean bonusMatch = lotto.hasBonusNumber(winningNumbers);
+
+        assertThat(bonusMatch).isTrue();
+    }
+
+    @Test
+    @DisplayName("보너스 볼과 일치하는 번호가 없으면 false를 반환")
+    void 보너스_볼과_일치하는_번호가_없으면_false를_반환() {
+        WinningNumbers winningNumbers =
+                new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 10);
+
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        boolean bonusMatch = lotto.hasBonusNumber(winningNumbers);
+
+        assertThat(bonusMatch).isFalse();
+    }
+
 }

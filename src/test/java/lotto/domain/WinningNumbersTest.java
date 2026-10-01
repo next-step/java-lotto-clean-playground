@@ -24,4 +24,12 @@ public class WinningNumbersTest {
         });
     }
 
+    @Test
+    @DisplayName("당첨 번호와 보너스 번호는 중복될 수 없다")
+    void 당첨_번호와_보너스_번호는_중복될_수_없다() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 1);
+        });
+    }
+
 }
