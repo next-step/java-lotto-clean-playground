@@ -17,6 +17,7 @@ public class OutputView {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
+        printRankResult(statistics, Rank.FIFTH);
         printRankResult(statistics, Rank.FOURTH);
         printRankResult(statistics, Rank.THIRD);
         printRankResult(statistics, Rank.SECOND);
@@ -25,8 +26,15 @@ public class OutputView {
     }
 
     private static void printRankResult(WinningStatistics statistics, Rank rank) {
-        int count = statistics.countRank(rank);
-        System.out.println(rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개");
+        int count = statistics.countRank(rank); //이 등수가 몇개있는가를 갖고옴
+        System.out.println(createResultLine(rank, count));
+    }
+
+    private static String createResultLine(Rank rank, int count) {
+        if (rank == Rank.SECOND) {
+            return rank.getMatchCount() + "개 일치, 보너스 볼 일치(" + rank.getPrize() + "원) - " + count + "개";
+        }
+        return rank.getMatchCount() + "개 일치 (" + rank.getPrize() + "원)- " + count + "개";
     }
 
     private static void printProfitRate(WinningStatistics statistics) {
