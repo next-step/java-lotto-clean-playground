@@ -3,6 +3,8 @@ package domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -20,17 +22,17 @@ class RankTest {
             int matchCount,
             Rank expected
     ) {
-        Optional<Rank> rank = Rank.from(matchCount);
+        Rank rank = Rank.from(matchCount);
 
-        assertThat(rank).contains(expected);
+        assertThat(rank).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2})
-    void 당첨되지_않으면_등급이_존재하지_않는다(int matchCount) {
-        Optional<Rank> rank = Rank.from(matchCount);
+    void 당첨되지_않으면_MISS를_반환한다(int matchCount) {
+        Rank rank = Rank.from(matchCount);
 
-        assertThat(rank).isEmpty();
+        assertThat(rank).isEqualTo(Rank.MISS);
     }
 
     @ParameterizedTest
@@ -45,5 +47,16 @@ class RankTest {
             long expectedPrize
     ) {
         assertThat(rank.getPrize()).isEqualTo(expectedPrize);
+    }
+
+    @Test
+    void 당첨등급만_반환한다() {
+        assertThat(Rank.winningRanks())
+                .containsExactly(
+                        Rank.FIRST,
+                        Rank.SECOND,
+                        Rank.THIRD,
+                        Rank.FOURTH
+                );
     }
 }

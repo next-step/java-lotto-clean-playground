@@ -28,17 +28,11 @@ class LottosTest {
 
         LottoResult result = lottos.calculateResult(winningLotto);
 
-        assertThat(result.getWinningCount(Rank.FOURTH))
-                .isEqualTo(1);
-
-        assertThat(result.getWinningCount(Rank.THIRD))
-                .isEqualTo(1);
-
-        assertThat(result.getWinningCount(Rank.SECOND))
-                .isZero();
-
-        assertThat(result.getWinningCount(Rank.FIRST))
-                .isZero();
+        assertThat(result.getResults())
+                .containsEntry(Rank.FIRST, 0)
+                .containsEntry(Rank.SECOND, 0)
+                .containsEntry(Rank.THIRD, 1)
+                .containsEntry(Rank.FOURTH, 1);
     }
 
     private Lotto createLotto(int... values) {

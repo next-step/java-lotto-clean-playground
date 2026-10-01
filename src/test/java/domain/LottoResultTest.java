@@ -1,6 +1,7 @@
 package domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -13,17 +14,11 @@ class LottoResultTest {
                 List.of(3, 3, 4, 5, 6, 2, 1, 0)
         );
 
-        assertThat(result.getWinningCount(Rank.FOURTH))
-                .isEqualTo(2);
-
-        assertThat(result.getWinningCount(Rank.THIRD))
-                .isEqualTo(1);
-
-        assertThat(result.getWinningCount(Rank.SECOND))
-                .isEqualTo(1);
-
-        assertThat(result.getWinningCount(Rank.FIRST))
-                .isEqualTo(1);
+        assertThat(result.getResults())
+                .containsEntry(Rank.FIRST, 1)
+                .containsEntry(Rank.SECOND, 1)
+                .containsEntry(Rank.THIRD, 1)
+                .containsEntry(Rank.FOURTH, 2);
     }
 
     @Test
@@ -32,17 +27,11 @@ class LottoResultTest {
                 List.of(0, 1, 2)
         );
 
-        assertThat(result.getWinningCount(Rank.FOURTH))
-                .isZero();
-
-        assertThat(result.getWinningCount(Rank.THIRD))
-                .isZero();
-
-        assertThat(result.getWinningCount(Rank.SECOND))
-                .isZero();
-
-        assertThat(result.getWinningCount(Rank.FIRST))
-                .isZero();
+        assertThat(result.getResults())
+                .containsEntry(Rank.FIRST, 0)
+                .containsEntry(Rank.SECOND, 0)
+                .containsEntry(Rank.THIRD, 0)
+                .containsEntry(Rank.FOURTH, 0);
     }
 
     @Test
@@ -52,10 +41,11 @@ class LottoResultTest {
         );
 
         PurchasePrice purchasePrice =
-                new PurchasePrice("14000");
+                new PurchasePrice(14000);
 
         double rate = result.calculateRateOfReturn(purchasePrice);
 
-        assertThat(rate).isEqualTo(0.35);
+        assertThat(rate)
+                .isCloseTo(0.3571428571, within(0.0000001));
     }
 }
