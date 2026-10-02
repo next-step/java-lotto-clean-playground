@@ -19,29 +19,54 @@ public class LottoController {
         int manualLottoCount = InputView.inputManualLottoCount();
 
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        List<Lotto> manualLottos = createManualLottos(manualLottoCount);
+        Lottos lottos = createLottos(money, manualLottos);
+        printLottos(lottos, manualLottoCount);
+
+        WinningNumbers winningNumbers = inputWinningNumbers();
+        printWinningStatistics(lottos, winningNumbers);
+    }
+
+    private List<Lotto> createManualLottos(int manualLottoCount) {
         List<Lotto> manualLottos = new ArrayList<>();
+
         for (int i = 0; i < manualLottoCount; i++) {
             List<Integer> manualLotto = InputView.inputManualLotto();
             manualLottos.add(new Lotto(manualLotto));
         }
 
-        int autoLottocount = money.calculateNumberOfLottos() - manualLottoCount;
-        Lottos autoLottos = Lottos.generate(autoLottocount, new LottoNumberGenerator());
+        return manualLottos;
+    }
+
+    private Lottos createLottos(Money money, List<Lotto> manualLottos) {
+        int autoLottoCount = money.calculateNumberOfLottos() - manualLottos.size();
+        Lottos autoLottos = Lottos.generate(autoLottoCount, new LottoNumberGenerator());
 
         List<Lotto> allLottos = new ArrayList<>(manualLottos);
         autoLottos.stream().forEach(allLottos::add);
-        Lottos lottos = new Lottos(allLottos);
 
+        return new Lottos(allLottos);
+    }
+
+    private void printLottos(Lottos lottos, int manualLottoCount) {
         List<List<Integer>> lottoValues = lottos.stream()
                 .map(Lotto::getValues)
                 .toList();
-        OutputView.printLottos(lottoValues, manualLottoCount);
 
+        OutputView.printLottos(lottoValues, manualLottoCount);
+    }
+
+    private WinningNumbers inputWinningNumbers() {
         List<Integer> winningNumberInput = InputView.inputWinningNumbers();
         int bonusNumberInput = InputView.inputBonusNumber();
-        WinningNumbers winningNumbers = new WinningNumbers(winningNumberInput, bonusNumberInput);
+
+        return new WinningNumbers(winningNumberInput, bonusNumberInput);
+    }
+
+    private void printWinningStatistics(Lottos lottos, WinningNumbers winningNumbers) {
         WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
         List<Rank> ranks = Rank.winningRanks();
+
         OutputView.printWinningStatistics(statistics, ranks);
     }
 }
