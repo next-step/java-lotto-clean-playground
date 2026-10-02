@@ -13,9 +13,9 @@ public class Lottos {
         this.lottoList = new ArrayList<>(lottoList);
     }
 
-    public static Lottos autoGenerate(int count, LottoNumberGenerator generator) {
+    public static Lottos autoGenerate(LottoCount count, LottoNumberGenerator generator) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.getCount(); i++) {
             lottoList.add(new Lotto(generator.generateLottoNumbers()));
         }
         return new Lottos(lottoList);
