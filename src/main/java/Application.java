@@ -17,11 +17,10 @@ public class Application {
         Lottos lottos = new Lottos(lottoList);
 
         ResultView.printLottoResult(lottoList);
+
         Lotto winningLotto = new Lotto(InputView.readWinnerNumber(sc));
-
-        List<Integer> matchCounts = lottos.getMatchCounts(winningLotto);
-
-        LottoResult result = new LottoResult(matchCounts);
+        int bonusNumber = InputView.readBonusNumber(sc);
+        LottoResult result = lottos.calculateResult(winningLotto, bonusNumber);
 
         ResultView.printStats(result, purchaseAmount.getLottosCount());
     }
