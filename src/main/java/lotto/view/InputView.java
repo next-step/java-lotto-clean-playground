@@ -23,7 +23,16 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
-    public static List<Integer> inputManualLotto() {
+    public static List<List<Integer>> inputManualLottos(int manualLottoCount) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        List<List<Integer>> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            manualLottos.add(inputManualLotto());
+        }
+        return manualLottos;
+    }
+
+    private static List<Integer> inputManualLotto() {
         String input = scanner.nextLine();
         validateEmpty(input);
         return parseNumbers(input);

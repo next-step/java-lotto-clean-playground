@@ -1,6 +1,5 @@
 package lotto.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumberGenerator;
@@ -14,38 +13,26 @@ import lotto.view.OutputView;
 
 public class LottoController {
 
-    public void run(){
+    public void run() {
         Money money = new Money(InputView.inputMoney());
         int manualLottoCount = InputView.inputManualLottoCount();
 
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        List<Lotto> manualLottos = createManualLottos(manualLottoCount);
-        Lottos lottos = createLottos(money, manualLottos);
+        Lottos lottos = createLottos(money, manualLottoCount);
         printLottos(lottos, manualLottoCount);
 
         WinningNumbers winningNumbers = inputWinningNumbers();
         printWinningStatistics(lottos, winningNumbers);
     }
 
-    private List<Lotto> createManualLottos(int manualLottoCount) {
-        List<Lotto> manualLottos = new ArrayList<>();
+    private Lottos createLottos(Money money, int manualLottoCount) {
+        Lottos manualLottos = Lottos.manualGenerate(
+                InputView.inputManualLottos(manualLottoCount));
 
-        for (int i = 0; i < manualLottoCount; i++) {
-            List<Integer> manualLotto = InputView.inputManualLotto();
-            manualLottos.add(new Lotto(manualLotto));
-        }
+        int autoLottoCount = money.calculateNumberOfLottos() - manualLottoCount;
+        Lottos autoLottos = Lottos.autoGenerate(
+                autoLottoCount, new LottoNumberGenerator());
 
-        return manualLottos;
-    }
-
-    private Lottos createLottos(Money money, List<Lotto> manualLottos) {
-        int autoLottoCount = money.calculateNumberOfLottos() - manualLottos.size();
-        Lottos autoLottos = Lottos.generate(autoLottoCount, new LottoNumberGenerator());
-
-        List<Lotto> allLottos = new ArrayList<>(manualLottos);
-        autoLottos.stream().forEach(allLottos::add);
-
-        return new Lottos(allLottos);
+        return manualLottos.combine(autoLottos);
     }
 
     private void printLottos(Lottos lottos, int manualLottoCount) {
