@@ -54,4 +54,8 @@ public class Lotto {
         return numbers.stream().sorted().toList();
     }
 
+    public boolean contains(int number) {
+        return numbers.contains(number);
+    }
+
 }
