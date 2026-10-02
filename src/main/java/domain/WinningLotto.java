@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WinningLotto {
@@ -23,5 +22,12 @@ public class WinningLotto {
                     "보너스 볼은 당첨 번호와 중복될 수 없습니다."
             );
         }
+    }
+
+    public MatchResult createMatchResult(Lotto lottoNumbers) {
+        int count = lottoNumbers.calculateMatchCount(winningNumbers);
+        boolean bonusMatched = lottoNumbers.contains(bonusNumber);
+
+        return new MatchResult(count, bonusMatched);
     }
 }

@@ -10,14 +10,14 @@ public class Lottos {
         this.lottos = List.copyOf(lottos);
     }
 
-    public LottoResult calculateResult(Lotto winningLotto) {
-        List<Integer> matches = new ArrayList<>();
+    public LottoResult calculateResult(WinningLotto winningLotto) {
+        List<MatchResult> matchResults = new ArrayList<>();
+
         for (Lotto lotto : lottos) {
-            int count = lotto.calculateMatchCount(winningLotto);
-            matches.add(count);
+            matchResults.add(winningLotto.createMatchResult(lotto));
         }
 
-        return new LottoResult(matches);
+        return new LottoResult(matchResults);
     }
 
     public List<Lotto> getLottos() {
