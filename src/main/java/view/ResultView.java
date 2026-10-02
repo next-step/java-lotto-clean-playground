@@ -32,4 +32,13 @@ public class ResultView {
         }
         System.out.printf("%d개 일치 (%d원)- %d개%n", rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
     }
+
+    public static void printLottoResult(List<Lotto> lottos, int manualCount) {
+        System.out.println();
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
+                manualCount, lottos.size() - manualCount);
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.getSortedNumbers());
+        }
+    }
 }
