@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Lottos {
 
@@ -12,21 +10,14 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public List<Integer> getMatchCounts(
-            Lotto winningLotto
-    ) {
-        List<Integer> matchCounts = new ArrayList<>(
-                Arrays.asList(0, 0, 0, 0, 0, 0, 0)
-        );
-
+    public LottoResult calculateResult(Lotto winningLotto, int bonusNumber) {
+        Map<Rank, Integer> results = new EnumMap<>(Rank.class);
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatches(winningLotto);
-
-            int currentCount = matchCounts.get(matchCount);
-
-            matchCounts.set(matchCount, currentCount + 1);
+            Rank rank = Rank.from(lotto.countMatches(winningLotto), lotto.contains(bonusNumber));
+            results.merge(rank, 1, Integer::sum);
         }
-
-        return matchCounts;
+        return new LottoResult(results);
     }
+
+
 }
