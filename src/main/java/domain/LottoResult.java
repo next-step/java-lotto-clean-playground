@@ -7,10 +7,10 @@ import java.util.Map;
 public class LottoResult {
     private final Map<Rank, Integer> results;
 
-    public LottoResult(List<Integer> matches) {
+    public LottoResult(List<MatchResult> matchResults) {
         this.results = new EnumMap<>(Rank.class);
         initializeResults();
-        calculateResults(matches);
+        calculateResults(matchResults);
     }
 
     private void initializeResults() {
@@ -19,14 +19,18 @@ public class LottoResult {
         }
     }
 
-    private void calculateResults(List<Integer> matches) {
-        for (Integer match : matches) {
-            calculateMatch(match);
+    private void calculateResults(List<MatchResult> matchResults) {
+        for (MatchResult matchResult : matchResults) {
+            calculateResult(matchResult);
         }
     }
 
-    private void calculateMatch(int match) {
-        Rank rank = Rank.from(match);
+    private void calculateResult(MatchResult matchResult) {
+        Rank rank = Rank.from(
+                matchResult.getMatchCount(),
+                matchResult.isBonusMatched()
+        );
+
         increaseCount(rank);
     }
 
