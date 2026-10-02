@@ -21,7 +21,7 @@ public class LottoNumbers {
         }
 
         if (numbers.size() != LOTTO_NUMBER_COUNT) {
-            throw new IllegalArgumentException("로또 번호는 6개여야 한다.");
+            throw new IllegalArgumentException("로또 번호는 " + LOTTO_NUMBER_COUNT + "개여야 한다.");
         }
     }
 
