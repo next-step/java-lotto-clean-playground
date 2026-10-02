@@ -35,7 +35,7 @@ public class OutputView {
 
     private void printWinningResults(ResultDto resultDto) {
         Rank.winningRanks().stream()
-              .sorted(Comparator.comparingInt(Rank::getMatchCount))
+              .sorted(Comparator.comparingInt(Rank::getOrder))
               .forEach(rank -> printWinningResult(
                      rank,
                      resultDto.results().get(rank)
@@ -43,10 +43,26 @@ public class OutputView {
     }
 
     private void printWinningResult(Rank rank, int winningCount) {
+        if (rank.isBonusRequired()) {
+            printBonusWinningResult(rank, winningCount);
+            return;
+        }
+        printNormalWinningResult(rank, winningCount);
+    }
+
+    private void printBonusWinningResult(Rank rank, int winningCount) {
+        System.out.println(
+                rank.getMatchCount() + "개 일치, 보너스 볼 일치("
+                        + rank.getPrize() + "원)- "
+                        + winningCount + "개"
+        );
+    }
+
+    private void printNormalWinningResult(Rank rank, int winningCount) {
         System.out.println(
                 rank.getMatchCount() + "개 일치 ("
-                + rank.getPrize() + "원)- "
-                + winningCount + "개"
+                        + rank.getPrize() + "원)- "
+                        + winningCount + "개"
         );
     }
 
