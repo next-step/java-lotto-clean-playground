@@ -25,12 +25,12 @@ public class InputView {
     }
 
     public List<Integer> getWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         return parseWinningNumbers(scanner.nextLine());
     }
 
     public int getBonusNumber() {
-        System.out.println("보너스 볼을 입력해 주세요.");
+        System.out.println("\n보너스 볼을 입력해 주세요.");
         return parseToInt(
                 scanner.nextLine(),
                 "보너스 볼을 입력해야 합니다.",

@@ -13,7 +13,7 @@ public class OutputView {
     public void printLottos(Lottos lottos) {
         List<Lotto> lotto = lottos.getLottos();
         int count = lotto.size();
-        System.out.println(count + "개를 구매했습니다.");
+        System.out.println("\n" + count + "개를 구매했습니다.");
 
         for (int i = 0; i < count; i++) {
             printLotto(lotto.get(i));
@@ -25,7 +25,7 @@ public class OutputView {
     }
 
     public void printResult(ResultDto resultDto) {
-        System.out.println("당첨 통계");
+        System.out.println("\n당첨 통계");
         System.out.println("---------");
 
         printWinningResults(resultDto);
