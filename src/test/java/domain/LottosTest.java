@@ -16,9 +16,9 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
-        List<Integer> result = lottos.getMatchCounts(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
         // 검증
-        assertThat(result).containsExactlyElementsOf(expectedCounts(matchCount));
+        assertThat(result.getCount(Rank.from(matchCount, false))).isEqualTo(1);
     }
 
     @Test
@@ -26,9 +26,10 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
         // 실행
-        List<Integer> result = lottos.getMatchCounts(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
         // 검증
-        assertThat(result).containsExactly(0, 0, 0, 2, 0, 0, 1);
+        assertThat(result.getCount(Rank.FIFTH)).isEqualTo(2);
+        assertThat(result.getCount(Rank.FIRST)).isEqualTo(1);
     }
 
     @Test
@@ -36,20 +37,15 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of());
         // 실행
-        List<Integer> result = lottos.getMatchCounts(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
         // 검증
-        assertThat(result).containsExactly(0, 0, 0, 0, 0, 0, 0);
+        assertThat(List.of(Rank.values())).allSatisfy(rank ->
+                assertThat(result.getCount(rank)).isZero());
     }
 
     private Lotto createTicket(int matchCount) {
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6).subList(0, matchCount));
         numbers.addAll(List.of(7, 8, 9, 10, 11, 12).subList(0, 6 - matchCount));
         return new Lotto(numbers);
-    }
-
-    private List<Integer> expectedCounts(int matchCount) {
-        List<Integer> counts = new ArrayList<>(List.of(0, 0, 0, 0, 0, 0, 0));
-        counts.set(matchCount, 1);
-        return counts;
     }
 }
