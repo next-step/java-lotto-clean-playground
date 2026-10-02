@@ -20,4 +20,10 @@ public class LottoMachine {
 
         return lottos;
     }
+
+    public List<Lotto> purchase(int totalCount, List<Lotto> manualLottos) {
+        List<Lotto> lottos = new ArrayList<>(manualLottos);
+        lottos.addAll(purchase(totalCount - manualLottos.size()));
+        return lottos;
+    }
 }
