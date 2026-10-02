@@ -36,8 +36,11 @@ public class LottoController {
         Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
 
-        Lotto winningNumbers = Lotto.from(inputView.getWinningNumbers());
-        LottoResult result = lottos.calculateResult(winningNumbers);
+        List<Integer> winningNumbers = inputView.getWinningNumbers();
+        int bonusNumber = inputView.getBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+
+        LottoResult result = lottos.calculateResult(winningLotto);
         ResultDto resultDto = createResultDto(result, purchasePrice);
         outputView.printResult(resultDto);
     }

@@ -29,6 +29,15 @@ public class InputView {
         return parseWinningNumbers(scanner.nextLine());
     }
 
+    public int getBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return parseToInt(
+                scanner.nextLine(),
+                "보너스 볼을 입력해야 합니다.",
+                "보너스 볼은 숫자로 입력해야 합니다."
+        );
+    }
+
     private List<Integer> parseWinningNumbers(String input) {
         String[] tokens = input.split(",");
         List<Integer> numbers = new ArrayList<>();
