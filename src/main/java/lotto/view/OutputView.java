@@ -6,8 +6,9 @@ import lotto.domain.WinningStatistics;
 
 public class OutputView {
 
-    public static void printLottos(List<List<Integer>> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public static void printLottos(List<List<Integer>> lottos, int manualLottoCount) {
+        System.out.println("수동으로 " + manualLottoCount + "장, 자동으로 " +
+                (lottos.size() - manualLottoCount) + "개를 구매했습니다.");
         for (List<Integer> values : lottos) {
             System.out.println(values);
         }

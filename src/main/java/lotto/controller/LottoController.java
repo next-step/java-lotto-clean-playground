@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumberGenerator;
@@ -15,11 +16,26 @@ public class LottoController {
 
     public void run(){
         Money money = new Money(InputView.inputMoney());
-        Lottos lottos = Lottos.generate(money.calculateNumberOfLottos(), new LottoNumberGenerator());
+        int manualLottoCount = InputView.inputManualLottoCount();
+
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            List<Integer> manualLotto = InputView.inputManualLotto();
+            manualLottos.add(new Lotto(manualLotto));
+        }
+
+        int autoLottocount = money.calculateNumberOfLottos() - manualLottoCount;
+        Lottos autoLottos = Lottos.generate(autoLottocount, new LottoNumberGenerator());
+
+        List<Lotto> allLottos = new ArrayList<>(manualLottos);
+        autoLottos.stream().forEach(allLottos::add);
+        Lottos lottos = new Lottos(allLottos);
+
         List<List<Integer>> lottoValues = lottos.stream()
                 .map(Lotto::getValues)
                 .toList();
-        OutputView.printLottos(lottoValues);
+        OutputView.printLottos(lottoValues, manualLottoCount);
 
         List<Integer> winningNumberInput = InputView.inputWinningNumbers();
         int bonusNumberInput = InputView.inputBonusNumber();

@@ -16,6 +16,19 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
+    public static int inputManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return Integer.parseInt(input);
+    }
+
+    public static List<Integer> inputManualLotto() {
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return parseNumbers(input);
+    }
+
     // 사용자에게 로또 번호를 입력받는 메서드
     public static List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
