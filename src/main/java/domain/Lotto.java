@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -48,12 +49,8 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getNumbers() {
-        List<Integer> numbers = new ArrayList<>();
-        for (LottoNumber lottoNumber : lotto) {
-            numbers.add(lottoNumber.getLottoNumber());
-        }
-        return numbers;
+    public List<LottoNumber> getNumbers() {
+        return List.copyOf(lotto);
     }
 
     public int getCount(Lotto other) {
