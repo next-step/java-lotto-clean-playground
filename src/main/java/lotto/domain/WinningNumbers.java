@@ -6,13 +6,13 @@ public class WinningNumbers {
     private final LottoNumbers winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningNumbers(List<Integer> winningNumbers, int bonusNumber) {
+    public WinningNumbers(LottoNumbers winningNumbers, LottoNumber bonusNumber) {
         validate(winningNumbers, bonusNumber);
-        this.winningNumbers = new LottoNumbers(winningNumbers);
-        this.bonusNumber = new LottoNumber(bonusNumber);
+        this.winningNumbers = winningNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
-    private void validate(List<Integer> winningNumbers, int bonusNumber) {
+    private void validate(LottoNumbers winningNumbers, LottoNumber bonusNumber) {
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException("보너스 볼은 당첨 번호와 중복일 수 없다.");
         }

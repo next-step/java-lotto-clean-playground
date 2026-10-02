@@ -2,7 +2,9 @@ package lotto.controller;
 
 import java.util.List;
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoNumberGenerator;
+import lotto.domain.LottoNumbers;
 import lotto.domain.Lottos;
 import lotto.domain.Money;
 import lotto.domain.Rank;
@@ -44,10 +46,10 @@ public class LottoController {
     }
 
     private WinningNumbers inputWinningNumbers() {
-        List<Integer> winningNumberInput = InputView.inputWinningNumbers();
-        int bonusNumberInput = InputView.inputBonusNumber();
+        LottoNumbers winningNumbers = new LottoNumbers(InputView.inputWinningNumbers());
+        LottoNumber bonusNumber = new LottoNumber(InputView.inputBonusNumber());
 
-        return new WinningNumbers(winningNumberInput, bonusNumberInput);
+        return new WinningNumbers(winningNumbers, bonusNumber);
     }
 
     private void printWinningStatistics(Lottos lottos, WinningNumbers winningNumbers) {
