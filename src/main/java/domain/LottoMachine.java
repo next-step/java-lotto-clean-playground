@@ -6,13 +6,13 @@ import lottoGenerator.LottoGenerator;
 
 public class LottoMachine {
     private final LottoGenerator lottoGenerator;
+    List<Lotto> lottoList = new ArrayList<>();
 
     public LottoMachine(LottoGenerator lottoGenerator) {
         this.lottoGenerator = lottoGenerator;
     }
 
     public List<Lotto> purchase(int lottoCount) {
-        List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
 
             lottoList.add(Lotto.from(lottoGenerator.generateLotto()));
