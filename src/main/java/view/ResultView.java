@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.LottoResult;
+import domain.Rank;
 
 import java.util.List;
 
@@ -17,15 +18,18 @@ public class ResultView {
     public static void printStats(LottoResult result, int lottoCount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int matchCount = 3; matchCount <= 6; matchCount++) {
-            printRank(result, matchCount);
+        for (Rank rank : List.of(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST)) {
+            printRank(result, rank);
         }
-        System.out.printf("총 수익률은 %.2f입니다.%n",
-                result.calculateReturnRate(lottoCount));
+        System.out.printf("총 수익률은 %.2f입니다.%n", result.calculateReturnRate(lottoCount));
     }
 
-    private static void printRank(LottoResult result, int matchCount) {
-        System.out.printf("%d개 일치 (%d원)- %d개%n",
-                matchCount, result.getPrize(matchCount), result.getCount(matchCount));
+    private static void printRank(LottoResult result, Rank rank) {
+        if (rank == Rank.SECOND) {
+            System.out.printf("5개 일치, 보너스 볼 일치(%d원) - %d개%n",
+                    rank.getPrize(), result.getCount(rank));
+            return;
+        }
+        System.out.printf("%d개 일치 (%d원)- %d개%n", rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
     }
 }
