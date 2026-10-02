@@ -70,4 +70,8 @@ public class Lotto {
     public static int requiredNumberCount() {
         return LOTTO_SIZE;
     }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
+    }
 }
