@@ -28,7 +28,7 @@ public class LottoController {
         PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
         PurchaseCount purchaseCount = readPurchaseCount(purchasePrice.calculateLottoCount());
         Lottos lottos = createLottos(purchaseCount);
-        outputView.printLottos(purchaseCount.getManualCount(), purchasePrice.getAmount(), lottos);
+        outputView.printLottos(purchaseCount.getManualCount(), purchaseCount.getAutoCount(), lottos);
 
         Lotto winningNumbers = readWinningNumbers();
         WinningLotto winningLotto = readWinningLotto(winningNumbers);
