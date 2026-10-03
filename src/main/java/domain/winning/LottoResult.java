@@ -10,9 +10,8 @@ import java.util.Map;
 public class LottoResult {
     private final Map<LottoRank, Integer> rankCounts = new EnumMap<>(LottoRank.class);
 
-    public LottoResult(List<Integer> matchCounts) {
-        for (Integer matchCount : matchCounts) {
-            LottoRank rank = LottoRank.from(matchCount);
+    public LottoResult(List<LottoRank> ranks) {
+        for(LottoRank rank : ranks) {
             rankCounts.merge(rank, 1, Integer::sum);
         }
     }
