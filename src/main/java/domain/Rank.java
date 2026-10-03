@@ -25,27 +25,22 @@ public enum Rank {
     }
 
     public static Rank from(int matchCount, boolean bonusMatched) {
-        if (matchCount == 6) {
-            return FIRST;
+        return Arrays.stream(values())
+                     .filter(rank -> rank.matches(matchCount, bonusMatched))
+                     .findFirst()
+                     .orElse(MISS);
+    }
+
+    private boolean matches(int matchCount, boolean bonusMatched) {
+        if (this == SECOND) {
+            return matchCount == this.matchCount && bonusMatched;
         }
 
-        if (matchCount == 5 && bonusMatched) {
-            return SECOND;
+        if (this == THIRD) {
+            return matchCount == this.matchCount && !bonusMatched;
         }
 
-        if (matchCount == 5) {
-            return THIRD;
-        }
-
-        if (matchCount == 4) {
-            return FOURTH;
-        }
-
-        if (matchCount == 3) {
-            return FIFTH;
-        }
-
-        return MISS;
+        return this != MISS && matchCount == this.matchCount;
     }
 
     public static List<Rank> winningRanks() {
