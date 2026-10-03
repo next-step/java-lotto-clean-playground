@@ -25,8 +25,8 @@ public class LottosTest {
                 new Lotto(List.of(1, 2, 3, 7, 8, 9)), // 3개 일치
                 new Lotto(List.of(14, 15, 16, 17, 18, 19)) // 일치 없음
         ));
-        int matchCount1 = lottos.getLottoList().get(0).countMatch(winningLotto);
-        int matchCount2 = lottos.getLottoList().get(1).countMatch(winningLotto);
+        int matchCount1 = winningLotto.countMatch(lottos.getLottoList().get(0));
+        int matchCount2 = winningLotto.countMatch(lottos.getLottoList().get(1));
         assertThat(matchCount1).isEqualTo(3);
         assertThat(matchCount2).isEqualTo(0);
     }
