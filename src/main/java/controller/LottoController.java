@@ -2,6 +2,7 @@ package controller;
 
 import domain.NumberGenerator;
 import domain.purchase.Lotto;
+import domain.purchase.LottoNumber;
 import domain.purchase.Lottos;
 import domain.purchase.PurchasePrice;
 import domain.winning.LottoResult;
@@ -28,7 +29,8 @@ public class LottoController {
         outputView.printLottos(lottos);
 
         Lotto winningNumbers = readWinningNumbers();
-        LottoResult result = new WinningLotto(winningNumbers).match(lottos);
+        LottoNumber bonusNumber = new LottoNumber(readBonusNumber());
+        LottoResult result = new WinningLotto(winningNumbers, bonusNumber).match(lottos);
         outputView.printResult(result);
 
         RateOfReturn rateOfReturn = new RateOfReturn(result.calculateTotalPrize(), purchasePrice);
@@ -50,6 +52,17 @@ public class LottoController {
         while (true) {
             try {
                 return toLotto(inputView.getWinningNumbers());
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int readBonusNumber() {
+        while (true) {
+            try {
+                return parseToInt(inputView.getBonusNumber());
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
