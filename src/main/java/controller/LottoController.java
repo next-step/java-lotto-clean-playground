@@ -2,7 +2,9 @@ package controller;
 
 import domain.NumberGenerator;
 import domain.purchase.Lotto;
+import domain.purchase.LottoNumber;
 import domain.purchase.Lottos;
+import domain.purchase.PurchaseCount;
 import domain.purchase.PurchasePrice;
 import domain.winning.LottoResult;
 import domain.winning.RateOfReturn;
@@ -24,11 +26,13 @@ public class LottoController {
     }
     public void run() {
         PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
-        Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
-        outputView.printLottos(lottos);
+        PurchaseCount purchaseCount = readPurchaseCount(purchasePrice.calculateLottoCount());
+        Lottos lottos = createLottos(purchaseCount);
+        outputView.printLottos(purchaseCount.getManualCount(), purchaseCount.getAutoCount(), lottos);
 
         Lotto winningNumbers = readWinningNumbers();
-        LottoResult result = new WinningLotto(winningNumbers).match(lottos);
+        WinningLotto winningLotto = readWinningLotto(winningNumbers);
+        LottoResult result = winningLotto.match(lottos);
         outputView.printResult(result);
 
         RateOfReturn rateOfReturn = new RateOfReturn(result.calculateTotalPrize(), purchasePrice);
@@ -57,9 +61,46 @@ public class LottoController {
         }
     }
 
-    private Lottos createLottos(int count) {
+    private WinningLotto readWinningLotto(Lotto winningNumbers) {
+        while (true) {
+            try {
+                LottoNumber bonusNumber = new LottoNumber(parseNumber(inputView.getBonusNumber()));
+                return new WinningLotto(winningNumbers, bonusNumber);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private PurchaseCount readPurchaseCount(int totalCount) {
+        while (true) {
+            try {
+                return new PurchaseCount(totalCount, parseToInt(inputView.getManualCount()));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private Lotto readManualLotto() {
+        while (true) {
+            try {
+                return toLotto(inputView.getManualNumbers());
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private Lottos createLottos(PurchaseCount purchaseCount) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        inputView.printManualNumbersGuide();
+        for (int i = 0; i < purchaseCount.getManualCount(); i++) {
+            lottoList.add(readManualLotto());
+        }
+        for (int i = 0; i < purchaseCount.getAutoCount(); i++) {
             lottoList.add(new Lotto(numberGenerator.generate()));
         }
         return new Lottos(lottoList);

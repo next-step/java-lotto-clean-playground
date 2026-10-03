@@ -9,21 +9,21 @@ import org.junit.jupiter.api.Test;
 public class LottoNumberTest {
     @Test
     @DisplayName("로또 숫자가 1이면 오류가 발생하지 않는다.")
-    void SafeWhenLottoNumberIs1() {
+    void safeWhenLottoNumberIs1() {
         LottoNumber lottoNumber = new LottoNumber(1);
         assertEquals(1, lottoNumber.getValue());
     }
 
     @Test
     @DisplayName("로또 숫자가 45이면 오류가 발생하지 않는다.")
-    void SafeWhenLottoNumberIs45() {
+    void safeWhenLottoNumberIs45() {
         LottoNumber lottoNumber = new LottoNumber(45);
         assertEquals(45, lottoNumber.getValue());
     }
 
     @Test
     @DisplayName("로또 숫자가 0이면 오류가 발생한다.")
-    void ErrorWhenLottoNumberIs0() {
+    void errorWhenLottoNumberIs0() {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> new LottoNumber(0));
