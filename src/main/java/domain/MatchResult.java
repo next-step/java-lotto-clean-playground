@@ -1,0 +1,19 @@
+package domain;
+
+public class MatchResult {
+    private final int matchCount;
+    private final boolean bonusMatched;
+
+    public MatchResult(int matchCount, boolean bonusMatched) {
+        this.matchCount = matchCount;
+        this.bonusMatched = bonusMatched;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public boolean isBonusMatched() {
+        return bonusMatched;
+    }
+}

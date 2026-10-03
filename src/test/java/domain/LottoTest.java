@@ -18,7 +18,8 @@ public class LottoTest {
         );
 
         assertThatThrownBy(() -> new Lotto(numbers))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 6개여야 합니다.");
     }
 
     @Test
@@ -33,24 +34,25 @@ public class LottoTest {
         );
 
         assertThatThrownBy(() -> new Lotto(numbers))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("로또 번호는 중복일 수 없습니다.");
     }
 
     @Test
     void 당첨로또와_일치하는_번호의_개수를_계산한다() {
-        Lotto lotto = createLotto(1, 2, 3, 10, 20, 30);
-        Lotto winningLotto = createLotto(1, 2, 3, 4, 5, 6);
+        Lotto lotto = Lotto.from(List.of(1, 2, 3, 10, 20, 30));
+        Lotto winningLotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
         int matchCount = lotto.calculateMatchCount(winningLotto);
 
         assertThat(matchCount).isEqualTo(3);
     }
 
-    private Lotto createLotto(int... values) {
-        List<LottoNumber> numbers = java.util.Arrays.stream(values)
-                                                    .mapToObj(LottoNumber::new)
-                                                    .toList();
+    @Test
+    void 로또번호에_보너스볼이_포함되는_것을_확인한다() {
+        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = new LottoNumber(1);
 
-        return new Lotto(numbers);
+        assertThat(lotto.contains(bonusNumber)).isTrue();
     }
 }

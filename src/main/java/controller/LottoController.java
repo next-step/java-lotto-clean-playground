@@ -3,6 +3,7 @@ package controller;
 import domain.*;
 import dto.ResultDto;
 
+import java.sql.Array;
 import java.util.*;
 
 import view.InputView;
@@ -32,14 +33,59 @@ public class LottoController {
     }
 
     private void runApp() {
-        PurchasePrice purchasePrice = new PurchasePrice(inputView.getPurchasePrice());
-        Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
-        outputView.printLottos(lottos);
+        PurchasePrice purchasePrice = createPurchasePrice();
+        PurchaseCount purchaseCount = createPurchaseCount(purchasePrice);
 
-        Lotto winningNumbers = Lotto.from(inputView.getWinningNumbers());
-        LottoResult result = lottos.calculateResult(winningNumbers);
-        ResultDto resultDto = createResultDto(result, purchasePrice);
+        Lottos lottos = createLottos(purchaseCount);
+        outputView.printLottos(lottos, purchaseCount);
+
+        WinningLotto winningLotto = createWinningLotto();
+
+        ResultDto resultDto = createResult(lottos, winningLotto, purchasePrice);
         outputView.printResult(resultDto);
+    }
+
+    private PurchasePrice createPurchasePrice() {
+        return new PurchasePrice(inputView.getPurchasePrice());
+    }
+
+    private PurchaseCount createPurchaseCount(PurchasePrice purchasePrice) {
+        int totalCount = purchasePrice.calculateLottoCount();
+        int manualCount = inputView.getManualCount();
+        return new PurchaseCount(totalCount, manualCount);
+    }
+
+    private Lottos createLottos(PurchaseCount purchaseCount) {
+        Lottos manualLottos = createManualLottos(purchaseCount.getManualCount());
+        Lottos autoLottos = lottoFactory.create(purchaseCount.getAutoCount());
+
+        return manualLottos.combine(autoLottos);
+    }
+
+    private Lottos createManualLottos(int manualCount) {
+        List<Lotto> manualLottos = new ArrayList<>();
+
+        for (int i = 0; i < manualCount; i++) {
+            List<Integer> numbers = inputView.getManualLottoNumbers();
+            manualLottos.add(Lotto.from(numbers));
+        }
+
+        return new Lottos(manualLottos);
+    }
+
+    private WinningLotto createWinningLotto() {
+        List<Integer> winningNumbers = inputView.getWinningNumbers();
+        int bonusNumber = inputView.getBonusNumber();
+        return new WinningLotto(winningNumbers, bonusNumber);
+    }
+
+    private ResultDto createResult(
+            Lottos lottos,
+            WinningLotto winningLotto,
+            PurchasePrice purchasePrice
+    ) {
+        LottoResult result = lottos.calculateResult(winningLotto);
+        return createResultDto(result, purchasePrice);
     }
 
     private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {
