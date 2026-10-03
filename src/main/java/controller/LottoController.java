@@ -3,6 +3,7 @@ package controller;
 import domain.*;
 import dto.ResultDto;
 
+import java.sql.Array;
 import java.util.*;
 
 import view.InputView;
@@ -37,7 +38,16 @@ public class LottoController {
         int manualCount = inputView.getManualCount();
         PurchaseCount purchaseCount = new PurchaseCount(totalCount, manualCount);
 
-        Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
+        List<Lotto> manualLottos = createManualLottos(manualCount);
+        Lottos autoLottos = lottoFactory.create(purchaseCount.getAutoCount());
+
+        List<Lotto> allLottos = new ArrayList<>();
+
+        allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos.getLottos());
+
+        Lottos lottos = new Lottos(allLottos);
+
         outputView.printLottos(lottos);
 
         List<Integer> winningNumbers = inputView.getWinningNumbers();
@@ -47,6 +57,17 @@ public class LottoController {
         LottoResult result = lottos.calculateResult(winningLotto);
         ResultDto resultDto = createResultDto(result, purchasePrice);
         outputView.printResult(resultDto);
+    }
+
+    private List<Lotto> createManualLottos(int manualCount) {
+        List<Lotto> manualLottos = new ArrayList<>();
+
+        for (int i = 0; i < manualCount; i++) {
+            List<Integer> numbers = inputView.getManualLottoNumbers();
+            manualLottos.add(Lotto.from(numbers));
+        }
+
+        return manualLottos;
     }
 
     private ResultDto createResultDto(LottoResult result, PurchasePrice purchasePrice) {

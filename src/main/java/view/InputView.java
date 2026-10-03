@@ -30,9 +30,14 @@ public class InputView {
         );
     }
 
+    public List<Integer> getManualLottoNumbers() {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        return parseLottoNumbers(scanner.nextLine());
+    }
+
     public List<Integer> getWinningNumbers() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-        return parseWinningNumbers(scanner.nextLine());
+        return parseLottoNumbers(scanner.nextLine());
     }
 
     public int getBonusNumber() {
@@ -44,7 +49,7 @@ public class InputView {
         );
     }
 
-    private List<Integer> parseWinningNumbers(String input) {
+    private List<Integer> parseLottoNumbers(String input) {
         String[] tokens = input.split(",");
         List<Integer> numbers = new ArrayList<>();
 
@@ -58,7 +63,7 @@ public class InputView {
         return parseToInt(
                 token,
                 "로또 번호를 입력해야 합니다.",
-                "당첨 번호는 숫자여야 합니다."
+                "로또 번호는 숫자여야 합니다."
         );
     }
 
