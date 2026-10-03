@@ -16,6 +16,21 @@ public class InputView {
         }
     }
 
+    public static int readManualSelectionCount(Scanner scanner) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String input = scanner.nextLine().trim();
+        return Integer.parseInt(input);
+    }
+
+    public static List<Integer> readManualSelection(Scanner scanner) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        return Arrays.stream(scanner.nextLine().split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(InputView::parseNumber)
+                .toList();
+    }
+
     public static List<Integer> readWinnerNumber(Scanner scanner) {
         System.out.println("지난 주 당첨번호를 입력해 주세요.");
         return Arrays.stream(scanner.nextLine().split(","))
@@ -27,8 +42,8 @@ public class InputView {
     }
     public static int readBonusNumber(Scanner scanner){
         System.out.println("보너스 볼을 입력해 주세요.");
-        return scanner.nextInt();
-    }
+        String input = scanner.nextLine().trim();
+        return Integer.parseInt(input);    }
 
     private static int parseNumber(String value) {
         try {
@@ -37,4 +52,7 @@ public class InputView {
             throw new IllegalArgumentException("[ERROR] 로또 당첨 번호는 숫자여야 합니다. 잘못된 입력값: " + value);
         }
     }
+
+
+
 }
