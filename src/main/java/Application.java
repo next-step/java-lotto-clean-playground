@@ -18,18 +18,18 @@ public class Application {
 
         Scanner sc = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
-        int manualSelectionCount=InputView.readManualSelectionCount(sc);
+        int manualSelectionCount = InputView.readManualSelectionCount(sc);
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
-        for (int i = 0; i <manualSelectionCount ; i++) {
+        for (int i = 0; i < manualSelectionCount; i++) {
             lottoMachine.manualSelection(InputView.readManualSelection(sc));
         }
-        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount()-manualSelectionCount);
+        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount() - manualSelectionCount);
         Lottos lottos = new Lottos(lottoList);
 
         ResultView.printLottoResult(lottoList);
 
-        WinningLotto winningLotto = new WinningLotto(InputView.readWinnerNumber(sc),InputView.readBonusNumber(sc));
+        WinningLotto winningLotto = new WinningLotto(InputView.readWinnerNumber(sc), InputView.readBonusNumber(sc));
         Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
 
         LottoResult result = new LottoResult(rankCount);

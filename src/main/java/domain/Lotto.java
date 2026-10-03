@@ -58,7 +58,7 @@ public class Lotto {
         return copy.size();
     }
 
-    public boolean contains(LottoNumber bonusNumber){
+    public boolean contains(LottoNumber bonusNumber) {
         return lotto.contains(bonusNumber);
     }
 }

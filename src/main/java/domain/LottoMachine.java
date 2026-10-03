@@ -20,6 +20,6 @@ public class LottoMachine {
     }
 
     public void manualSelection(List<Integer> Lottonumbers) {
-            lottoList.add(Lotto.from(Lottonumbers));
+        lottoList.add(Lotto.from(Lottonumbers));
     }
 }

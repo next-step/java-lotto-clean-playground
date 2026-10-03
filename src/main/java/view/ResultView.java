@@ -17,6 +17,7 @@ public class ResultView {
             System.out.println(toNumbers(lotto.getNumbers()));
         }
     }
+
     private static List<Integer> toNumbers(List<LottoNumber> lotto) {
         List<Integer> numbers = new ArrayList<>();
         for (LottoNumber lottoNumber : lotto) {
@@ -36,7 +37,7 @@ public class ResultView {
     }
 
     private static void printRank(LottoResult result, Rank rank) {
-        if(rank==Rank.SECOND) {
+        if (rank == Rank.SECOND) {
             System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개%n",
                     rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
             return;

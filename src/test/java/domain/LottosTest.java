@@ -18,12 +18,13 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
-        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(6, 5, 4, 3, 2, 1),7));
+        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(6, 5, 4, 3, 2, 1), 7));
         // 검증
         Map<Rank, Integer> expected = zeroCounts();
-        expected.put(Rank.from(matchCount,false), 1);
+        expected.put(Rank.from(matchCount, false), 1);
         assertThat(result).isEqualTo(expected);
     }
+
     @Test
     void countsSecondPlaceWhenBonusMatches() {
         // 준비
@@ -44,7 +45,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
         // 실행
-        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(1, 2, 3, 4, 5, 6),7));
+        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 7));
         // 검증
         Map<Rank, Integer> expected = zeroCounts();
         expected.put(Rank.FIFTH, 2);
@@ -57,7 +58,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of());
         // 실행
-        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(1, 2, 3, 4, 5, 6),7));
+        Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 7));
         // 검증
         assertThat(result).isEqualTo(zeroCounts());
     }

@@ -40,10 +40,12 @@ public class InputView {
                 .toList();
 
     }
-    public static int readBonusNumber(Scanner scanner){
+
+    public static int readBonusNumber(Scanner scanner) {
         System.out.println("보너스 볼을 입력해 주세요.");
         String input = scanner.nextLine().trim();
-        return Integer.parseInt(input);    }
+        return Integer.parseInt(input);
+    }
 
     private static int parseNumber(String value) {
         try {
@@ -52,7 +54,6 @@ public class InputView {
             throw new IllegalArgumentException("[ERROR] 로또 당첨 번호는 숫자여야 합니다. 잘못된 입력값: " + value);
         }
     }
-
 
 
 }
