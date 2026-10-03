@@ -34,6 +34,10 @@ public class Lotto {
         return new Lotto(lottoNumbers);
     }
 
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
+    }
+
     public int countMatches(Lotto winningLotto) {
         int count = 0;
         for (LottoNumber number : numbers) {
