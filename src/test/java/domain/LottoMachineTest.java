@@ -40,4 +40,22 @@ class LottoMachineTest {
                 .toList();
     }
 
+    @Test
+    void issuesManualAndAutoTickets() {
+        // 준비
+        LottoMachine machine = new LottoMachine(new FixedLottoGenerator(List.of(1, 2, 3, 4, 5, 6)));
+        List<Integer> manualNumbers = List.of(7, 8, 9, 10, 11, 12);
+
+        // 실행: 수동 1장 등록 후 자동 2장 발권
+        machine.manualSelection(manualNumbers);
+        List<Lotto> lottos = machine.purchase(2);
+
+        // 검증: 총 3장이어야 하고, 수동 번호와 자동 번호가 모두 들어있어야 함
+        assertThat(lottos).hasSize(3)
+                .extracting(this::toNumbers)
+                .contains(
+                        List.of(7, 8, 9, 10, 11, 12), // 수동
+                        List.of(1, 2, 3, 4, 5, 6)     // 자동
+                );
+    }
 }

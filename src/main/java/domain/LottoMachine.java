@@ -14,7 +14,6 @@ public class LottoMachine {
 
     public List<Lotto> purchase(int lottoCount) {
         for (int i = 0; i < lottoCount; i++) {
-
             lottoList.add(Lotto.from(lottoGenerator.generateLotto()));
         }
         return lottoList;
