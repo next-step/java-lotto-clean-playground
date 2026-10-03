@@ -17,7 +17,6 @@ public class LottosTest {
     }
 
 
-
     @Test
     @DisplayName("당청번호랑 몇개 일치하는지, 정확히 세는지")
     void 당첨번호랑_몇개_일치하는지_정확히_세는지() {
@@ -32,5 +31,16 @@ public class LottosTest {
         assertThat(matchCount2).isEqualTo(0);
     }
 
+    @DisplayName("자동+ 수동 구매가 잘 되는지")
+    @Test
+    void 수동_번호와_자동_생성_번호를_합쳐서_Lottos를_생성한다() {
+        List<List<Integer>> manualNumbers = List.of(
+                List.of(1, 2, 3, 4, 5, 6),
+                List.of(7, 8, 9, 10, 11, 12)
+        );
 
+        Lottos lottos = Lottos.generateManual(manualNumbers, 3, new LottoNumberGenerator());
+
+        assertThat(lottos.size()).isEqualTo(5);
+    }
 }
