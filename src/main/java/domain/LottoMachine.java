@@ -3,16 +3,14 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import lottoGenerator.LottoGenerator;
+import lottoGenerator.RandomLottoGenerator;
 
 public class LottoMachine {
-    private final LottoGenerator lottoGenerator;
     List<Lotto> lottoList = new ArrayList<>();
 
-    public LottoMachine(LottoGenerator lottoGenerator) {
-        this.lottoGenerator = lottoGenerator;
-    }
 
     public List<Lotto> purchase(int lottoCount) {
+        final LottoGenerator lottoGenerator = new RandomLottoGenerator();
         for (int i = 0; i < lottoCount; i++) {
             lottoList.add(Lotto.from(lottoGenerator.generateLotto()));
         }

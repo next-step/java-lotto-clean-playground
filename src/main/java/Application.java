@@ -8,8 +8,6 @@ import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import lottoGenerator.LottoGenerator;
-import lottoGenerator.RandomLottoGenerator;
 import view.InputView;
 import view.ResultView;
 
@@ -19,7 +17,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
         int manualSelectionCount = InputView.readManualSelectionCount(sc);
-        LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
+        LottoMachine lottoMachine = new LottoMachine();
 
         for (int i = 0; i < manualSelectionCount; i++) {
             lottoMachine.manualSelection(InputView.readManualSelection(sc));
@@ -37,7 +35,4 @@ public class Application {
 
     }
 
-    private static LottoGenerator lottoGenerator() {
-        return new RandomLottoGenerator();
-    }
 }
