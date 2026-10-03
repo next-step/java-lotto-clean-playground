@@ -25,6 +25,10 @@ public class InputView {
                 .toList();
 
     }
+    public static int readBonusNumber(Scanner scanner){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextInt();
+    }
 
     private static int parseNumber(String value) {
         try {

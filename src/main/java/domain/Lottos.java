@@ -8,12 +8,11 @@ import java.util.Map;
 public class Lottos {
 
     private final List<Lotto> lottos;
-
     public Lottos(List<Lotto> lottos) {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public Map<Rank, Integer> getRankCount(Lotto winnerLotto) {
+    public Map<Rank, Integer> getRankCount(WinningLotto winningLotto) {
 
         Map<Rank, Integer> rankCount = new EnumMap<>(Rank.class);
         for (Rank rank : Rank.values()) {
@@ -21,7 +20,7 @@ public class Lottos {
         }
 
         for (Lotto lotto : lottos) {
-            Rank rank = Rank.from(lotto.getCount(winnerLotto));
+            Rank rank = Rank.from(winningLotto.getCount(lotto),winningLotto.hasBonusNumber(lotto));
             rankCount.put(rank, rankCount.get(rank) + 1);
         }
         return rankCount;

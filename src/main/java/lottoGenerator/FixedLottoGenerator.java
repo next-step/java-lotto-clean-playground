@@ -1,8 +1,5 @@
 package lottoGenerator;
 
-import static domain.Lotto.LOTTO_SIZE;
-
-import java.util.Collections;
 import java.util.List;
 
 public class FixedLottoGenerator implements LottoGenerator{

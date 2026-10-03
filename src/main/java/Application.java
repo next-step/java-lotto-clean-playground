@@ -4,6 +4,7 @@ import domain.LottoResult;
 import domain.Lottos;
 import domain.PurchaseAmount;
 import domain.Rank;
+import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,8 +25,8 @@ public class Application {
 
         ResultView.printLottoResult(lottoList);
 
-        Lotto winnerNumbers = Lotto.from(InputView.readWinnerNumber(sc));
-        Map<Rank, Integer> rankCount = lottos.getRankCount(winnerNumbers);
+        WinningLotto winningLotto = new WinningLotto(InputView.readWinnerNumber(sc),InputView.readBonusNumber(sc));
+        Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
 
         LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
