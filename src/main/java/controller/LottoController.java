@@ -33,6 +33,10 @@ public class LottoController {
 
     private void runApp() {
         PurchasePrice purchasePrice = new PurchasePrice(inputView.getPurchasePrice());
+        int totalCount = purchasePrice.calculateLottoCount();
+        int manualCount = inputView.getManualCount();
+        PurchaseCount purchaseCount = new PurchaseCount(totalCount, manualCount);
+
         Lottos lottos = lottoFactory.create(purchasePrice.calculateLottoCount());
         outputView.printLottos(lottos);
 

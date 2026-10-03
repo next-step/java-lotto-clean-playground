@@ -1,8 +1,5 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoNumber;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +18,15 @@ public class InputView {
                 scanner.nextLine(),
                 "구입 금액을 입력해야 합니다.",
                 "구입 금액은 숫자로 입력해야 합니다."
+        );
+    }
+
+    public int getManualCount() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return parseToInt(
+                scanner.nextLine(),
+                "수동으로 구매할 로또 개수를 입력해야 합니다.",
+                "로또 개수는 숫자로 입력해야 합니다."
         );
     }
 
