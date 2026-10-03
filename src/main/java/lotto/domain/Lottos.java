@@ -20,6 +20,15 @@ public class Lottos {
         return new Lottos(lottoList);
     }
 
+    public static Lottos generateManual(List<List<Integer>> manualNumbers, int autoCount, LottoNumberGenerator generator) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (List<Integer> numbers : manualNumbers) {
+            lottoList.add(new Lotto(numbers)); //그 한 줄(6개 번호)로 Lotto 하나 만듦
+        }
+        lottoList.addAll(generate(autoCount, generator).getLottoList());
+        return new Lottos(lottoList);
+    }
+
     public List<Lotto> getLottoList() {
         return Collections.unmodifiableList(lottoList);
     }
