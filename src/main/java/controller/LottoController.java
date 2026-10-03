@@ -25,8 +25,10 @@ public class LottoController {
     }
     public void run() {
         PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
-        Lottos lottos = createLottos(purchasePrice.calculateLottoCount());
-        outputView.printLottos(lottos);
+        int totalCount = purchasePrice.calculateLottoCount();
+        int manualCount = readManualCount(totalCount);
+        Lottos lottos = createLottos(totalCount, manualCount);
+        outputView.printLottos(manualCount, totalCount - manualCount, lottos);
 
         Lotto winningNumbers = readWinningNumbers();
         WinningLotto winningLotto = readWinningLotto(winningNumbers);
@@ -71,9 +73,42 @@ public class LottoController {
         }
     }
 
-    private Lottos createLottos(int count) {
+    private int readManualCount(int totalCount) {
+        while (true) {
+            try {
+                int manualCount = parseToInt(inputView.getManualCount());
+                validateManualCount(manualCount, totalCount);
+                return manualCount;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void validateManualCount(int manualCount, int totalCount) {
+        if(manualCount < 0 || manualCount > totalCount) {
+            throw new IllegalArgumentException("수동 구매 수는 0 이상, 구매 가능한 장수 이하여야 합니다.");
+        }
+    }
+
+    private Lotto readManualLotto() {
+        while (true) {
+            try {
+                return toLotto(inputView.getManualNumbers());
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private Lottos createLottos(int totalCount, int manualCount) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        inputView.printManualNumbersGuide();
+        for (int i = 0; i < manualCount; i++) {
+            lottoList.add(readManualLotto());
+        }
+        for (int i = 0; i < totalCount - manualCount; i++) {
             lottoList.add(new Lotto(numberGenerator.generate()));
         }
         return new Lottos(lottoList);
