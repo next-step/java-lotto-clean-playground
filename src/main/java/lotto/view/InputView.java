@@ -27,6 +27,22 @@ public class InputView {
         return Integer.parseInt(scanner.nextLine());
     }
 
+    public static int inputManualCount() {
+        System.out.println();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static List<List<Integer>> inputManualNumbers(int manualCount) {
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            manualNumbers.add(parseNumbers(scanner.nextLine()));
+        }
+        return manualNumbers;
+    }
+
     private static List<Integer> parseNumbers(String input) {
         List<Integer> numbers = new ArrayList<>();
         for (String number : input.split(",")) {
