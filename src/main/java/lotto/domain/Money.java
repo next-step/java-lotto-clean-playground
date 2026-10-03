@@ -19,4 +19,12 @@ public class Money {
     public int calculateNumberOfLottos() {
         return money / LOTTO_PRICE;
     }
+
+    //수동구매 개수가 총 구매 개수를 초과하는지 검증하여 예외를 발생시키게끔 함.
+    public void validateManualCount(int manualCount) {
+        if (manualCount > calculateNumberOfLottos()) {
+            throw new IllegalArgumentException("수동 구매 개수는 총 구매 개수를 초과할 수 없습니다.");
+        }
+    }
+
 }
