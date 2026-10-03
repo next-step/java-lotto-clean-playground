@@ -2,15 +2,16 @@ package view;
 
 import domain.Lotto;
 import domain.LottoResult;
+import domain.Lottos;
 import domain.Rank;
 
 import java.util.List;
 
 public class ResultView {
 
-    public static void printLottoResult(List<Lotto> lottos) {
+    public static void printLottoResult(Lottos lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getSortedNumbers());
         }
     }
@@ -33,11 +34,11 @@ public class ResultView {
         System.out.printf("%d개 일치 (%d원)- %d개%n", rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
     }
 
-    public static void printLottoResult(List<Lotto> lottos, int manualCount) {
+    public static void printLottoResult(Lottos lottos, int manualCount) {
         System.out.println();
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",
                 manualCount, lottos.size() - manualCount);
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : lottos.getLottos()) {
             System.out.println(lotto.getSortedNumbers());
         }
     }

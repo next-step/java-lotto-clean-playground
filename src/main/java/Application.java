@@ -1,5 +1,6 @@
 import domain.Lotto;
 import domain.LottoMachine;
+import domain.LottoNumber;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.PurchaseAmount;
@@ -14,22 +15,22 @@ public class Application {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(scanner));
-        List<Lotto> lottos = purchaseLottos(scanner, purchaseAmount.getLottosCount());
-        printWinningResult(scanner, new Lottos(lottos), purchaseAmount.getLottosCount());
+        Lottos lottos = purchaseLottos(scanner, purchaseAmount.getLottosCount());
+        showWinningResult(scanner, lottos, purchaseAmount.getLottosCount());
     }
 
-    private static List<Lotto> purchaseLottos(Scanner scanner, int totalCount) {
+    private static Lottos purchaseLottos(Scanner scanner, int totalCount) {
         int manualCount = InputView.readManualCount(scanner, totalCount);
         List<Lotto> manualLottos = InputView.readManualLottos(scanner, manualCount);
         LottoMachine machine = new LottoMachine(new RandomLottoNumberGenerator());
-        List<Lotto> lottos = machine.purchase(totalCount, manualLottos);
+        Lottos lottos = machine.purchase(totalCount, manualLottos);
         ResultView.printLottoResult(lottos, manualCount);
         return lottos;
     }
 
-    private static void printWinningResult(Scanner scanner, Lottos lottos, int totalCount) {
-        Lotto winningLotto = new Lotto(InputView.readWinnerNumber(scanner));
-        int bonusNumber = InputView.readBonusNumber(scanner);
+    private static void showWinningResult(Scanner scanner, Lottos lottos, int totalCount) {
+        Lotto winningLotto = new Lotto(InputView.readWinningNumbers(scanner));
+        LottoNumber bonusNumber = InputView.readBonusNumber(scanner);
         LottoResult result = lottos.calculateResult(winningLotto, bonusNumber);
         ResultView.printStats(result, totalCount);
     }

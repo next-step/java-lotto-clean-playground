@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.LottoMachine;
+import domain.LottoNumber;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +20,7 @@ public class InputView {
         }
     }
 
-    public static List<Integer> readWinnerNumber(Scanner scanner) {
+    public static List<Integer> readWinningNumbers(Scanner scanner) {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return readNumbers(scanner);
     }
@@ -39,14 +40,15 @@ public class InputView {
         }
     }
 
-    public static int readBonusNumber(Scanner scanner) {
+    public static LottoNumber readBonusNumber(Scanner scanner) {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return parseNumber(scanner.nextLine().trim());
+        return new LottoNumber(parseNumber(scanner.nextLine().trim()));
     }
 
     public static int readManualCount(Scanner scanner, int totalCount) {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         int manualCount = parseNumber(scanner.nextLine().trim());
+        LottoMachine.validateManualCount(totalCount, manualCount);
         return manualCount;
     }
 

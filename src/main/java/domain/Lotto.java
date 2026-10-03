@@ -35,7 +35,7 @@ public class Lotto {
         return numbers.stream().sorted().map(LottoNumber::getNumber).toList();
     }
 
-    public boolean contains(int number) {
-        return numbers.contains(new LottoNumber(number));
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
     }
 }

@@ -28,11 +28,11 @@ class LottoMachineTest {
         LottoMachine machine = new LottoMachine(generator);
 
         // 실행
-        List<Lotto> lottos = machine.purchase(purchaseCount);
+        Lottos lottos = machine.purchase(purchaseCount);
 
         // 검증
-        assertThat(lottos).hasSize(purchaseCount);
-        lottos.forEach(lotto ->
+        assertThat(lottos.size()).isEqualTo(purchaseCount);
+        lottos.getLottos().forEach(lotto ->
                 assertThat(lotto.getSortedNumbers())
                         .containsExactly(1, 2, 3, 4, 5, 6)
         );

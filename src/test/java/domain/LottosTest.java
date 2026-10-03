@@ -16,7 +16,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
         // 검증
         assertThat(result.getCount(Rank.from(matchCount, false))).isEqualTo(1);
     }
@@ -26,7 +26,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
         // 검증
         assertThat(result.getCount(Rank.FIFTH)).isEqualTo(2);
         assertThat(result.getCount(Rank.FIRST)).isEqualTo(1);
@@ -37,7 +37,7 @@ class LottosTest {
         // 준비
         Lottos lottos = new Lottos(List.of());
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 45);
+        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
         // 검증
         assertThat(List.of(Rank.values())).allSatisfy(rank ->
                 assertThat(result.getCount(rank)).isZero());

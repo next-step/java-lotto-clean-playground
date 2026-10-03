@@ -36,6 +36,6 @@ class LottoTest {
         Lotto winner = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         // 검증
         assertThat(lotto.countMatches(winner)).isEqualTo(3);
-        assertThat(lotto.contains(10)).isTrue();
+        assertThat(lotto.contains(new LottoNumber(10))).isTrue();
     }
 }

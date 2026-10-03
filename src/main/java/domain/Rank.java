@@ -27,7 +27,7 @@ public enum Rank {
     }
 
     private static Rank findNormalRank(int matchCount) {
-        return java.util.Arrays.stream(values())
+        return Arrays.stream(values())
                 .filter(rank -> rank != SECOND)
                 .filter(rank -> rank.matchCount == matchCount)
                 .findFirst()
