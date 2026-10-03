@@ -10,6 +10,13 @@ public class Lottos {
         this.lottos = List.copyOf(lottos);
     }
 
+    public Lottos combine(Lottos other) {
+        List<Lotto> combined =  new ArrayList<>(lottos);
+        combined.addAll(other.lottos);
+
+        return new Lottos(combined);
+    }
+
     public LottoResult calculateResult(WinningLotto winningLotto) {
         List<MatchResult> matchResults = new ArrayList<>();
 
