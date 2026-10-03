@@ -1,7 +1,7 @@
 package domain;
 
 public enum Rank {
-    FITTH(3, 5_000),
+    FIFTH(3, 5_000),
     FOURTH(4, 50_000),
     THIRD(5, 1_500_000),
     SECOND(5, 3_000_000),
@@ -23,7 +23,7 @@ public enum Rank {
         }
 
         if(matchCount==5)
-            result=setBonusRank(bonus);
+            result=setBonusRank(bonus, result);
 
         return result;
     }
@@ -34,11 +34,11 @@ public enum Rank {
         }
         return current;
     }
-    private static Rank setBonusRank(boolean bonus){
-        return SECOND;
+
+    private static Rank setBonusRank(boolean bonus, Rank current){
+        if(bonus) return SECOND;
+        return current;
     }
-
-
 
     public int getPrize() {
         return prize;
