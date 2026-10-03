@@ -18,9 +18,13 @@ public class Application {
 
         Scanner sc = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
+        int manualSelectionCount=InputView.readManualSelectionCount(sc);
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
-        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount());
+        for (int i = 0; i <manualSelectionCount ; i++) {
+            lottoMachine.manualSelection(InputView.readManualSelection(sc));
+        }
+        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount()-manualSelectionCount);
         Lottos lottos = new Lottos(lottoList);
 
         ResultView.printLottoResult(lottoList);
@@ -30,7 +34,6 @@ public class Application {
 
         LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
-
 
     }
 
