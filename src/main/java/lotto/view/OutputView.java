@@ -6,13 +6,6 @@ import lotto.domain.WinningStatistics;
 
 public class OutputView {
 
-    public static void printLottos(Lottos lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (int i = 0; i < lottos.size(); i++) {
-            System.out.println(lottos.getLottoList().get(i));
-        }
-    }
-
     public static void printWinningStatistics(WinningStatistics statistics) {
         System.out.println();
         System.out.println("당첨 통계");
@@ -23,6 +16,15 @@ public class OutputView {
         printRankResult(statistics, Rank.SECOND);
         printRankResult(statistics, Rank.FIRST);
         printProfitRate(statistics);
+    }
+
+    public static void printLottos(Lottos lottos, int manualCount) {
+        System.out.println();
+        int autoCount = lottos.size() - manualCount;
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
+        for (int i = 0; i < lottos.size(); i++) {
+            System.out.println(lottos.getLottoList().get(i));
+        }
     }
 
     private static void printRankResult(WinningStatistics statistics, Rank rank) {
