@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 import domain.Lottos;
+import domain.PurchaseCount;
 import domain.Rank;
 import dto.ResultDto;
 
@@ -10,12 +11,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public class OutputView {
-    public void printLottos(Lottos lottos) {
+    public void printLottos(Lottos lottos, PurchaseCount purchaseCount) {
         List<Lotto> lotto = lottos.getLottos();
-        int count = lotto.size();
-        System.out.println("\n" + count + "개를 구매했습니다.");
 
-        for (int i = 0; i < count; i++) {
+        System.out.println(
+                "\n수동으로 " + purchaseCount.getManualCount() + "장, "
+                + "자동으로 " + purchaseCount.getAutoCount() + "개를 구매했습니다."
+        );
+
+        for (int i = 0; i < lotto.size(); i++) {
             printLotto(lotto.get(i));
         }
     }
