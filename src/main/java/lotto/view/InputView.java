@@ -16,12 +16,45 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
+    public static int inputManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return Integer.parseInt(input);
+    }
+
+    public static List<List<Integer>> inputManualLottos(int manualLottoCount) {
+        List<List<Integer>> manualLottos = new ArrayList<>();
+        if (manualLottoCount == 0) {
+            return manualLottos;
+        }
+
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        for (int i = 0; i < manualLottoCount; i++) {
+            manualLottos.add(inputManualLotto());
+        }
+        return manualLottos;
+    }
+
+    private static List<Integer> inputManualLotto() {
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return parseNumbers(input);
+    }
+
     // 사용자에게 로또 번호를 입력받는 메서드
     public static List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = scanner.nextLine();
         validateEmpty(input);
         return parseNumbers(input);
+    }
+
+    public static int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String input = scanner.nextLine();
+        validateEmpty(input);
+        return Integer.parseInt(input);
     }
 
     private static void validateEmpty(String input) {

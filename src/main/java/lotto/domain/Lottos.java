@@ -13,12 +13,27 @@ public class Lottos {
         this.lottoList = new ArrayList<>(lottoList);
     }
 
-    public static Lottos generate(int count, LottoNumberGenerator generator) {
+    public static Lottos autoGenerate(LottoCount count, LottoNumberGenerator generator) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.getCount(); i++) {
             lottoList.add(new Lotto(generator.generateLottoNumbers()));
         }
         return new Lottos(lottoList);
+    }
+
+    public static Lottos manualGenerate(List<List<Integer>> inputLottos) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for (List<Integer> numbers : inputLottos) {
+            lottoList.add(new Lotto(numbers));
+        }
+        return new Lottos(lottoList);
+    }
+
+    public Lottos combine(Lottos other) {
+        List<Lotto> combinedLottos = new ArrayList<>(this.lottoList);
+        combinedLottos.addAll(other.lottoList);
+
+        return new Lottos(combinedLottos);
     }
 
     public Stream<Lotto> stream() {
