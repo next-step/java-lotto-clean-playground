@@ -4,6 +4,7 @@ import domain.NumberGenerator;
 import domain.purchase.Lotto;
 import domain.purchase.LottoNumber;
 import domain.purchase.Lottos;
+import domain.purchase.PurchaseCount;
 import domain.purchase.PurchasePrice;
 import domain.winning.LottoResult;
 import domain.winning.RateOfReturn;
@@ -25,10 +26,9 @@ public class LottoController {
     }
     public void run() {
         PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
-        int totalCount = purchasePrice.calculateLottoCount();
-        int manualCount = readManualCount(totalCount);
-        Lottos lottos = createLottos(totalCount, manualCount);
-        outputView.printLottos(manualCount, totalCount - manualCount, lottos);
+        PurchaseCount purchaseCount = readPurchaseCount(purchasePrice.calculateLottoCount());
+        Lottos lottos = createLottos(purchaseCount);
+        outputView.printLottos(purchaseCount.getManualCount(), purchasePrice.getAmount(), lottos);
 
         Lotto winningNumbers = readWinningNumbers();
         WinningLotto winningLotto = readWinningLotto(winningNumbers);
@@ -73,21 +73,13 @@ public class LottoController {
         }
     }
 
-    private int readManualCount(int totalCount) {
+    private PurchaseCount readPurchaseCount(int totalCount) {
         while (true) {
             try {
-                int manualCount = parseToInt(inputView.getManualCount());
-                validateManualCount(manualCount, totalCount);
-                return manualCount;
+                return new PurchaseCount(totalCount, parseToInt(inputView.getManualCount()));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        }
-    }
-
-    private void validateManualCount(int manualCount, int totalCount) {
-        if(manualCount < 0 || manualCount > totalCount) {
-            throw new IllegalArgumentException("수동 구매 수는 0 이상, 구매 가능한 장수 이하여야 합니다.");
         }
     }
 
@@ -102,13 +94,13 @@ public class LottoController {
         }
     }
 
-    private Lottos createLottos(int totalCount, int manualCount) {
+    private Lottos createLottos(PurchaseCount purchaseCount) {
         List<Lotto> lottoList = new ArrayList<>();
         inputView.printManualNumbersGuide();
-        for (int i = 0; i < manualCount; i++) {
+        for (int i = 0; i < purchaseCount.getManualCount(); i++) {
             lottoList.add(readManualLotto());
         }
-        for (int i = 0; i < totalCount - manualCount; i++) {
+        for (int i = 0; i < purchaseCount.getAutoCount(); i++) {
             lottoList.add(new Lotto(numberGenerator.generate()));
         }
         return new Lottos(lottoList);
