@@ -29,8 +29,8 @@ public class LottoController {
         outputView.printLottos(lottos);
 
         Lotto winningNumbers = readWinningNumbers();
-        LottoNumber bonusNumber = new LottoNumber(readBonusNumber());
-        LottoResult result = new WinningLotto(winningNumbers, bonusNumber).match(lottos);
+        WinningLotto winningLotto = readWinningLotto(winningNumbers);
+        LottoResult result = winningLotto.match(lottos);
         outputView.printResult(result);
 
         RateOfReturn rateOfReturn = new RateOfReturn(result.calculateTotalPrize(), purchasePrice);
@@ -59,10 +59,11 @@ public class LottoController {
         }
     }
 
-    private int readBonusNumber() {
+    private WinningLotto readWinningLotto(Lotto winningNumbers) {
         while (true) {
             try {
-                return parseToInt(inputView.getBonusNumber());
+                LottoNumber bonusNumber = new LottoNumber(parseNumber(inputView.getBonusNumber()));
+                return new WinningLotto(winningNumbers, bonusNumber);
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
