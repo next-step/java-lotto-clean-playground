@@ -1,7 +1,6 @@
 package lotto.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LottoNumberGenerator {
@@ -15,7 +14,6 @@ public class LottoNumberGenerator {
             int randomNumber = (int) (Math.random() * LottoNumber.MAX_NUMBER) + LottoNumber.MIN_NUMBER;
             addNumber(lottoNumbers, randomNumber);
         }
-        Collections.sort(lottoNumbers);
 
         return lottoNumbers;
     }

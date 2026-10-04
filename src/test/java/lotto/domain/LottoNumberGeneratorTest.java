@@ -36,12 +36,4 @@ public class LottoNumberGeneratorTest {
 
         assertThat(uniqueNumbers).hasSameSizeAs(numbers);
     }
-
-    @Test
-    @DisplayName("번호는 오름차순으로 정렬된다")
-    void 번호는_오름차순으로_정렬된다() {
-        List<Integer> numbers = generator.generateLottoNumbers();
-
-        assertThat(numbers).isSorted();
-    }
 }
