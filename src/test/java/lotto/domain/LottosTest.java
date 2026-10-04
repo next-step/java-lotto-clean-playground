@@ -39,7 +39,7 @@ public class LottosTest {
                 List.of(7, 8, 9, 10, 11, 12)
         );
 
-        Lottos lottos = Lottos.generateManual(manualNumbers, 3, new LottoNumberGenerator());
+        Lottos lottos = Lottos.generate(manualNumbers, 3, new LottoNumberGenerator());
 
         assertThat(lottos.size()).isEqualTo(5);
     }

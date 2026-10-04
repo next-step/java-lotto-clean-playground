@@ -19,8 +19,8 @@ public class Lottos {
         }
         return new Lottos(lottoList);
     }
-
-    public static Lottos generateManual(List<List<Integer>> manualNumbers, int autoCount, LottoNumberGenerator generator) {
+    //밑에 제너레이트는 수동으로 입력한 번호와 자동으로 생성된 번호를 합쳐서 Lottos 객체를 생성하는 메서드입니다.
+    public static Lottos generate(List<List<Integer>> manualNumbers, int autoCount, LottoNumberGenerator generator) {
         List<Lotto> lottoList = new ArrayList<>();
         for (List<Integer> numbers : manualNumbers) {
             lottoList.add(new Lotto(numbers)); //그 한 줄(6개 번호)로 Lotto 하나 만듦

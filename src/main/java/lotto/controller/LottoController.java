@@ -27,7 +27,7 @@ public class LottoController {
 
         List<List<Integer>> manualNumbers = InputView.inputManualNumbers(manualCount); // 수동으로 구매할 번호 입력 받기
         int autoCount = money.calculateNumberOfLottos() - manualCount; // 자동으로 구매할 로또 개수 계산
-        Lottos lottos = Lottos.generateManual(manualNumbers, autoCount, new LottoNumberGenerator()); // 수동 + 자동 로또 생성
+        Lottos lottos = Lottos.generate(manualNumbers, autoCount, new LottoNumberGenerator()); // 수동 + 자동 로또 생성
         OutputView.printLottos(lottos, manualCount);
 
         return lottos;
