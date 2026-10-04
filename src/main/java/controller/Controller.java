@@ -10,6 +10,8 @@ import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import lottoGenerator.LottoGenerator;
+import lottoGenerator.RandomLottoGenerator;
 import view.InputView;
 import view.ResultView;
 
@@ -27,12 +29,15 @@ public class Controller {
     LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
     }
+    private LottoGenerator lottoGenerator(){
+        return new RandomLottoGenerator();
+    }
 
     private PurchaseAmount purchaseAmount(){
         return new PurchaseAmount(InputView.readPrice(sc),InputView.readManualSelectionCount(sc));
     }
     private Lottos purchaseLotto(PurchaseAmount purchaseAmount){
-        LottoMachine lottoMachine = new LottoMachine();
+        LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
         for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
             lottoMachine.manualSelection(InputView.readManualSelection(sc));
