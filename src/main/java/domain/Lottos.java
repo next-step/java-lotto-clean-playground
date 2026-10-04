@@ -21,7 +21,7 @@ public class Lottos {
         }
 
         for (Lotto lotto : lottos) {
-            Rank rank = Rank.from(winningLotto.getCount(lotto), winningLotto.hasBonusNumber(lotto));
+            Rank rank = winningLotto.match(lotto);
             rankCount.put(rank, rankCount.get(rank) + 1);
         }
         return rankCount;
