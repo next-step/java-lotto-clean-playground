@@ -15,17 +15,16 @@ public class Application {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
-        int manualSelectionCount = InputView.readManualSelectionCount(sc);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc),InputView.readManualSelectionCount(sc));
         LottoMachine lottoMachine = new LottoMachine();
 
-        for (int i = 0; i < manualSelectionCount; i++) {
+        for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
             lottoMachine.manualSelection(InputView.readManualSelection(sc));
         }
-        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount() - manualSelectionCount);
+        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
         Lottos lottos = new Lottos(lottoList);
 
-        ResultView.printLottoResult(lottoList);
+        ResultView.printLottoResult(purchaseAmount.getManualCount(), lottoList);
 
         WinningLotto winningLotto = new WinningLotto(InputView.readWinnerNumber(sc), InputView.readBonusNumber(sc));
         Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
