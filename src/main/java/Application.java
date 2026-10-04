@@ -1,37 +1,9 @@
-import domain.Lotto;
-import domain.LottoMachine;
-import domain.LottoResult;
-import domain.Lottos;
-import domain.PurchaseAmount;
-import domain.Rank;
-import domain.WinningLotto;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import view.InputView;
-import view.ResultView;
+import controller.Controller;
 
 public class Application {
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc),InputView.readManualSelectionCount(sc));
-        LottoMachine lottoMachine = new LottoMachine();
-
-        for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
-            lottoMachine.manualSelection(InputView.readManualSelection(sc));
-        }
-        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
-        Lottos lottos = new Lottos(lottoList);
-
-        ResultView.printLottoResult(purchaseAmount.getManualCount(), lottoList);
-
-        WinningLotto winningLotto = new WinningLotto(InputView.readWinnerNumber(sc), InputView.readBonusNumber(sc));
-        Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
-
-        LottoResult result = new LottoResult(rankCount);
-        ResultView.printStats(result, purchaseAmount.getLottosCount());
-
+        Controller controller = new Controller();
+        controller.run();
     }
 
 }
