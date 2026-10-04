@@ -11,7 +11,7 @@ import java.util.List;
 public class ResultView {
 
     public static void printLottoResult(int manualCount, List<Lotto> lottos) {
-        System.out.println("수동으로 "+manualCount+"장, 자동으로 " + (lottos.size()-manualCount) + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + (lottos.size() - manualCount) + "개를 구매했습니다.");
 
         for (Lotto lotto : lottos) {
             System.out.println(toNumbers(lotto.getNumbers()));

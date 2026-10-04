@@ -13,7 +13,7 @@ class PurchaseAmountTest {
     @CsvSource({"2000, 1", "14000, 13"})
     void calculatesPurchaseCount(int amount, int expectedCount) {
         // 준비
-        PurchaseAmount purchaseAmount = new PurchaseAmount(amount,1);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(amount, 1);
         // 실행
         int randomCount = purchaseAmount.getRandomCount();
         // 검증
@@ -23,7 +23,7 @@ class PurchaseAmountTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 999, -1000})
     void throwsExceptionWhenAmountIsLessThanPrice(int amount) {
-        assertThatThrownBy(() -> new PurchaseAmount(amount,0))
+        assertThatThrownBy(() -> new PurchaseAmount(amount, 0))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
     }

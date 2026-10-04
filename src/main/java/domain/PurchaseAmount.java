@@ -5,11 +5,11 @@ public class PurchaseAmount {
     private final int amount;
     private final int manualCount;
 
-    public PurchaseAmount(int amount,int manualCount) {
+    public PurchaseAmount(int amount, int manualCount) {
         validateAmount(amount);
         validateManualCount(amount, manualCount);
         this.amount = amount;
-        this.manualCount=manualCount;
+        this.manualCount = manualCount;
     }
 
     private void validateAmount(int amount) {
@@ -26,13 +26,15 @@ public class PurchaseAmount {
     private void validateManualCount(int amount, int manualCount) {
         if (manualCount < 0 || manualCount > amount / LOTTO_PRICE) {
             throw new IllegalArgumentException(
-                    "[ERROR] 수동 구매 개수는 0 이상 " + amount/LOTTO_PRICE + " 이하여야 합니다. (입력값: " + manualCount + ")");
+                    "[ERROR] 수동 구매 개수는 0 이상 " + amount / LOTTO_PRICE + " 이하여야 합니다. (입력값: " + manualCount + ")");
         }
     }
+
     public int getManualCount() {
         return manualCount;
     }
-    public int getRandomCount(){
+
+    public int getRandomCount() {
         return getLottosCount() - manualCount;
     }
 

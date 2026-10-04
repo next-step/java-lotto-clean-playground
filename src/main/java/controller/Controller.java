@@ -18,25 +18,27 @@ import view.ResultView;
 public class Controller {
     Scanner sc = new Scanner(System.in);
 
-    public void run(){
-    PurchaseAmount purchaseAmount = purchaseAmount();
-    Lottos lottos = purchaseLotto(purchaseAmount);
+    public void run() {
+        PurchaseAmount purchaseAmount = purchaseAmount();
+        Lottos lottos = purchaseLotto(purchaseAmount);
 
-    WinningLotto winningLotto = winningLotto();
-    showResult(lottos, winningLotto, purchaseAmount);
-    Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
+        WinningLotto winningLotto = winningLotto();
+        showResult(lottos, winningLotto, purchaseAmount);
+        Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
 
-    LottoResult result = new LottoResult(rankCount);
+        LottoResult result = new LottoResult(rankCount);
         ResultView.printStats(result, purchaseAmount.getLottosCount());
     }
-    private LottoGenerator lottoGenerator(){
+
+    private LottoGenerator lottoGenerator() {
         return new RandomLottoGenerator();
     }
 
-    private PurchaseAmount purchaseAmount(){
-        return new PurchaseAmount(InputView.readPrice(sc),InputView.readManualSelectionCount(sc));
+    private PurchaseAmount purchaseAmount() {
+        return new PurchaseAmount(InputView.readPrice(sc), InputView.readManualSelectionCount(sc));
     }
-    private Lottos purchaseLotto(PurchaseAmount purchaseAmount){
+
+    private Lottos purchaseLotto(PurchaseAmount purchaseAmount) {
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
         for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
@@ -47,10 +49,12 @@ public class Controller {
 
         return new Lottos(lottoList);
     }
-    private WinningLotto winningLotto(){
+
+    private WinningLotto winningLotto() {
         return new WinningLotto(InputView.readWinnerNumber(sc), InputView.readBonusNumber(sc));
     }
-    private void showResult(Lottos lottos, WinningLotto winningLotto, PurchaseAmount purchaseAmount){
+
+    private void showResult(Lottos lottos, WinningLotto winningLotto, PurchaseAmount purchaseAmount) {
         Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
 
         LottoResult result = new LottoResult(rankCount);

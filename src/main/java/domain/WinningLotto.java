@@ -8,7 +8,7 @@ public class WinningLotto {
 
     public WinningLotto(List<Integer> numbers, int bonusNumber) {
         winnerLotto = Lotto.from(numbers);
-        validateDuplicate(winnerLotto,bonusNumber);
+        validateDuplicate(winnerLotto, bonusNumber);
         this.bonusNumber = new LottoNumber(bonusNumber);
     }
 
