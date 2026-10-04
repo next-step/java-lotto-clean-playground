@@ -36,6 +36,8 @@ public class Lotto {
         for (int number : numbers) {
             lottoNumbers.add(new LottoNumber(number));
         }
+        Collections.sort(lottoNumbers);
+        //[학습] compareTo()는 누가 더 큰지 비교하는 법을 가르쳐준 것이고, Collections.sort(lottoNumbers)는 비교하는 법을 써서 지금 실제로 줄 세워봐라고 시키는 명령
         return lottoNumbers;
     }
 
