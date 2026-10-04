@@ -8,20 +8,29 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class LottosTest {
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6})
-    void countsTicketAtMatchingIndex(int matchCount) {
+    @CsvSource({
+            "0, MISS",
+            "1, MISS",
+            "2, MISS",
+            "3, FIFTH",
+            "4, FOURTH",
+            "5, THIRD",
+            "6, FIRST"
+    })
+    void countsTicketAtMatchingIndex(int matchCount, Rank expectedRank) {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
         // 실행
         Map<Rank, Integer> result = lottos.getRankCount(new WinningLotto(List.of(6, 5, 4, 3, 2, 1), 7));
         // 검증
         Map<Rank, Integer> expected = zeroCounts();
-        expected.put(Rank.from(matchCount, false), 1);
+        expected.put(expectedRank, 1);
         assertThat(result).isEqualTo(expected);
     }
 
