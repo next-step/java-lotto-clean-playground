@@ -23,13 +23,13 @@ public enum Rank {
         }
 
         if (matchCount == 5) {
-            result = setBonusRank(bonus, result);
+            result = setBonusRank(bonus);
         }
 
         return result;
     }
 
-    private static Rank setBonusRank(boolean bonus, Rank current) {
+    private static Rank setBonusRank(boolean bonus) {
         if (bonus) {
             return SECOND;
         }
