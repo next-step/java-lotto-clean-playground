@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinningNumbers {
@@ -36,18 +37,18 @@ public class WinningNumbers {
 
 
     public int countMatch(Lotto target) {
-        int matchCount = 0;
-        for (LottoNumber lottoNumber :target.getLottoNumbers()) {
-            matchCount += matchScore(lottoNumber);
-        }
-        return matchCount;
+        List<LottoNumber> matched = new ArrayList<>(target.getLottoNumbers());  // target 번호 복사본
+        matched.retainAll(lotto.getLottoNumbers());  // 내 당첨번호랑 안 겹치는 건 삭제됨
+        return matched.size();  // 남은 개수 = 일치 개수
     }
 
-    private int matchScore(LottoNumber number) {
-        if (lotto.contains(number)) {
-            return 1;
-        }
-        return 0;
-    }
+    //원래는 매치스코어를 통해서 당첨번호랑 얼마나 겹치는지(몇개맞았는지) 세는 건데
+    //이걸 이제 retainAll()로 바꿔서 당첨번호랑 겹치는 번호를 다 뽑아내고 그 size를 세는 방식으로 바꿀 수 있음
+    //private int matchScore(LottoNumber number) {
+    //    if (lotto.contains(number)) {
+    //        return 1;
+    //    }
+    //    return 0;
+//}
 
 }

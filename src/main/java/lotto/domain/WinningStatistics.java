@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WinningStatistics {
@@ -35,17 +36,8 @@ public class WinningStatistics {
     }
 
     public int countRank(Rank rank) {
-        int count = 0;
-        for (Rank r : ranks) {
-            count += compareEquals(rank, r);
-        }
-        return count;
+        return Collections.frequency(ranks, rank);
     }
+    //[학습] Collections.frequency(컬렉션, 값)은 "이 컬렉션 안에 이 값이 몇 개 있어?"를 바로 세어주는 메서드
 
-    private int compareEquals(Rank rank, Rank otherRank) {
-        if (rank == otherRank) {
-            return 1;
-        }
-        return 0;
-    }
 }
