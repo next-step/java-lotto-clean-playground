@@ -51,4 +51,9 @@ public class WinningNumbers {
     //    return 0;
 //}
 
+    public Rank rank(Lotto target) {
+        int matchCount = countMatch(target);
+        boolean hasBonus = matchesBonus(target);
+        return Rank.of(matchCount, hasBonus);
+    }
 }

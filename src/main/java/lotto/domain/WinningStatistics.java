@@ -14,17 +14,12 @@ public class WinningStatistics {
     private List<Rank> createRanks(Lottos lottos, WinningNumbers winningNumbers) {
         List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto : lottos.getLottoList()) {
-            ranks.add(findRank(lotto, winningNumbers));
+            ranks.add(winningNumbers.rank(lotto));
         }
         return ranks;
     }
 
-    // 등수 계산 로직
-    private Rank findRank(Lotto lotto, WinningNumbers winningNumbers) {
-        int matchCount = winningNumbers.countMatch(lotto); // 몇개 맞았는지
-        boolean hasBonus = winningNumbers.matchesBonus(lotto); // 보너스 번호 맞았는지
-        return Rank.of(matchCount, hasBonus);
-    }
+
 
     // 수익률 계산 로직
     public double getProfitRate() {
