@@ -6,14 +6,14 @@ public class WinningLotto {
     private final Lotto winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(List<Integer> numbers, int number) {
-        Lotto winningNumbers = Lotto.from(numbers);
-        LottoNumber bonusNumber = new LottoNumber(number);
+    public WinningLotto(List<Integer> winningNumbers, int bonusNumber) {
+        Lotto winningLotto = Lotto.from(winningNumbers);
+        LottoNumber bonusLottoNumber = new LottoNumber(bonusNumber);
 
-        validateDuplicateBonusNumber(winningNumbers, bonusNumber);
+        validateDuplicateBonusNumber(winningLotto, bonusLottoNumber);
 
-        this.winningNumbers = winningNumbers;
-        this.bonusNumber = bonusNumber;
+        this.winningNumbers = winningLotto;
+        this.bonusNumber = bonusLottoNumber;
     }
 
     private void validateDuplicateBonusNumber(Lotto winningNumbers, LottoNumber bonusNumber) {
