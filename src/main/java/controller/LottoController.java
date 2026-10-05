@@ -3,11 +3,11 @@ package controller;
 import domain.*;
 import dto.ResultDto;
 
-import java.sql.Array;
-import java.util.*;
-
 import view.InputView;
 import view.OutputView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoController {
     private final InputView inputView;
