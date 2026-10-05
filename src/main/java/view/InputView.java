@@ -70,7 +70,7 @@ public class InputView {
     private int parseToInt(
             String input,
             String blankMessage,
-            String numberMessage
+            String errorMessage
     ) {
         String trimmedInput = input.trim();
         validateNotBlank(trimmedInput, blankMessage);
@@ -78,7 +78,7 @@ public class InputView {
         try {
             return Integer.parseInt(trimmedInput);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(numberMessage);
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 
