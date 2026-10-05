@@ -12,10 +12,10 @@ public class Lottos {
         this.lottos = List.copyOf(lottos);
     }
 
-    public LottoResult calculateResult(Lotto winningLotto, LottoNumber bonusNumber) {
+    public LottoResult calculateResult(WinningLotto winningLotto) {
         Map<Rank, Integer> results = new EnumMap<>(Rank.class);
         for (Lotto lotto : lottos) {
-            Rank rank = Rank.from(lotto.countMatches(winningLotto), lotto.contains(bonusNumber));
+            Rank rank = winningLotto.match(lotto);
             results.merge(rank, 1, Integer::sum);
         }
         return new LottoResult(results);

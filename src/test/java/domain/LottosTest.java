@@ -24,11 +24,12 @@ class LottosTest {
     void countsTicketsByRank(int matchCount, Rank expectedRank) {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
-        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = new WinningLotto(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(45));
 
         // 실행
-        LottoResult result = lottos.calculateResult(
-                winningLotto, new LottoNumber(45));
+        LottoResult result = lottos.calculateResult(winningLotto);
 
         // 검증
         assertThat(result.getCount(expectedRank)).isEqualTo(1);
@@ -37,9 +38,15 @@ class LottosTest {
     @Test
     void accumulatesTicketsWithSameMatchCount() {
         // 준비
-        Lottos lottos = new Lottos(List.of(createTicket(3), createTicket(3), createTicket(6)));
+        Lottos lottos = new Lottos(
+                List.of(createTicket(3), createTicket(3), createTicket(6)));
+        WinningLotto winningLotto = new WinningLotto(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(45));
+
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
+        LottoResult result = lottos.calculateResult(winningLotto);
+
         // 검증
         assertThat(result.getCount(Rank.FIFTH)).isEqualTo(2);
         assertThat(result.getCount(Rank.FIRST)).isEqualTo(1);
@@ -49,16 +56,23 @@ class LottosTest {
     void returnsZeroCountsForEmptyTickets() {
         // 준비
         Lottos lottos = new Lottos(List.of());
+        WinningLotto winningLotto = new WinningLotto(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(45));
+
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
+        LottoResult result = lottos.calculateResult(winningLotto);
+
         // 검증
         assertThat(List.of(Rank.values())).allSatisfy(rank ->
                 assertThat(result.getCount(rank)).isZero());
     }
 
     private Lotto createTicket(int matchCount) {
-        List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6).subList(0, matchCount));
-        numbers.addAll(List.of(7, 8, 9, 10, 11, 12).subList(0, 6 - matchCount));
+        List<Integer> numbers = new ArrayList<>(
+                List.of(1, 2, 3, 4, 5, 6).subList(0, matchCount));
+        numbers.addAll(
+                List.of(7, 8, 9, 10, 11, 12).subList(0, 6 - matchCount));
         return new Lotto(numbers);
     }
 }

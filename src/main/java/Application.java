@@ -1,12 +1,8 @@
-import domain.Lotto;
-import domain.LottoMachine;
-import domain.LottoNumber;
-import domain.LottoResult;
-import domain.Lottos;
-import domain.PurchaseAmount;
-import domain.RandomLottoNumberGenerator;
+import domain.*;
+
 import java.util.List;
 import java.util.Scanner;
+
 import view.InputView;
 import view.ResultView;
 
@@ -29,9 +25,13 @@ public class Application {
     }
 
     private static void showWinningResult(Scanner scanner, Lottos lottos, PurchaseAmount purchaseAmount) {
-        Lotto winningLotto = new Lotto(InputView.readWinningNumbers(scanner));
+        Lotto winningNumbers = new Lotto(
+                InputView.readWinningNumbers(scanner));
         LottoNumber bonusNumber = InputView.readBonusNumber(scanner);
-        LottoResult result = lottos.calculateResult(winningLotto, bonusNumber);
+
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+
+        LottoResult result = lottos.calculateResult(winningLotto);
         ResultView.printStats(result, purchaseAmount);
     }
 }
