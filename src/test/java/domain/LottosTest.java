@@ -2,23 +2,36 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LottosTest {
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6})
-    void countsTicketAtMatchingIndex(int matchCount) {
+    @CsvSource({
+            "0, NONE",
+            "1, NONE",
+            "2, NONE",
+            "3, FIFTH",
+            "4, FOURTH",
+            "5, THIRD",
+            "6, FIRST"
+    })
+    void countsTicketsByRank(int matchCount, Rank expectedRank) {
         // 준비
         Lottos lottos = new Lottos(List.of(createTicket(matchCount)));
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
         // 실행
-        LottoResult result = lottos.calculateResult(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(45));
+        LottoResult result = lottos.calculateResult(
+                winningLotto, new LottoNumber(45));
+
         // 검증
-        assertThat(result.getCount(Rank.from(matchCount, false))).isEqualTo(1);
+        assertThat(result.getCount(expectedRank)).isEqualTo(1);
     }
 
     @Test
