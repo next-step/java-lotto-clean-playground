@@ -19,8 +19,6 @@ public class RandomNumberGenerator implements NumberGenerator {
 
         lotto = new ArrayList<>(lotto.subList(0, 6));
 
-        Collections.sort(lotto);
-
         return lotto;
     }
 }
