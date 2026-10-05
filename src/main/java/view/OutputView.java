@@ -22,10 +22,10 @@ public class OutputView {
     }
 
     private void printRank(LottoRank rank, LottoResult result) {
-        if (rank == LottoRank.MISS) {
+        if (!rank.isWinning()) {
             return;
         }
-        if (rank == LottoRank.SECOND) {
+        if (rank.isBonusRequired()) {
             System.out.println(rank.getMatchCount() + "개 일치, 보너스 볼 일치(" + rank.getPrize() + "원) - "
                     + result.countOf(rank) + "개");
             return;
