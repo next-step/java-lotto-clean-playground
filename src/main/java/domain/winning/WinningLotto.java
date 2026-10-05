@@ -32,10 +32,6 @@ public class WinningLotto {
     }
 
     public LottoResult match(Lottos lottos) {
-        List<LottoRank> ranks = new ArrayList<>();
-        for(Lotto purchasedLotto : lottos.getLottos()) {
-            ranks.add(rankOf(purchasedLotto));
-        }
-        return new LottoResult(ranks);
+        return new LottoResult(lottos.map(this::rankOf));
     }
 }
