@@ -16,7 +16,7 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(scanner));
         Lottos lottos = purchaseLottos(scanner, purchaseAmount.getLottosCount());
-        showWinningResult(scanner, lottos, purchaseAmount.getLottosCount());
+        showWinningResult(scanner, lottos, purchaseAmount);
     }
 
     private static Lottos purchaseLottos(Scanner scanner, int totalCount) {
@@ -28,10 +28,10 @@ public class Application {
         return lottos;
     }
 
-    private static void showWinningResult(Scanner scanner, Lottos lottos, int totalCount) {
+    private static void showWinningResult(Scanner scanner, Lottos lottos, PurchaseAmount purchaseAmount) {
         Lotto winningLotto = new Lotto(InputView.readWinningNumbers(scanner));
         LottoNumber bonusNumber = InputView.readBonusNumber(scanner);
         LottoResult result = lottos.calculateResult(winningLotto, bonusNumber);
-        ResultView.printStats(result, totalCount);
+        ResultView.printStats(result, purchaseAmount);
     }
 }

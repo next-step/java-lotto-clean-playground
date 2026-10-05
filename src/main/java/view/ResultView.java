@@ -4,6 +4,7 @@ import domain.Lotto;
 import domain.LottoResult;
 import domain.Lottos;
 import domain.Rank;
+import domain.PurchaseAmount;
 
 import java.util.List;
 
@@ -16,13 +17,13 @@ public class ResultView {
         }
     }
 
-    public static void printStats(LottoResult result, int lottoCount) {
+        public static void printStats(LottoResult result, PurchaseAmount purchaseAmount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (Rank rank : List.of(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST)) {
             printRank(result, rank);
         }
-        System.out.printf("총 수익률은 %.2f입니다.%n", result.calculateReturnRate(lottoCount));
+        System.out.printf("총 수익률은 %.2f입니다.%n", result.calculateReturnRate(purchaseAmount));
     }
 
     private static void printRank(LottoResult result, Rank rank) {
