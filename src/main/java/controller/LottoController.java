@@ -10,6 +10,7 @@ import domain.winning.LottoResult;
 import domain.winning.RateOfReturn;
 import domain.winning.WinningLotto;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -115,11 +116,10 @@ public class LottoController {
     }
 
     private Lotto toLotto(String input) {
-        String[] tokens = input.split(",");
-        List<Integer> numbers = new ArrayList<>();
-        for (String token : tokens) {
-            numbers.add(parseNumber(token.trim()));
-        }
+        List<Integer> numbers = Arrays.stream(input.split(","))
+                .map(String::trim)
+                .map(this::parseNumber)
+                .toList();
         return Lotto.from(numbers);
     }
 

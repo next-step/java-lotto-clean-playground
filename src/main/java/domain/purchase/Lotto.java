@@ -29,11 +29,9 @@ public class Lotto {
     }
 
     public static Lotto from(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (Integer number : numbers) {
-            lottoNumbers.add(new LottoNumber(number));
-        }
-        return new Lotto(lottoNumbers);
+        return new Lotto(numbers.stream()
+                .map(LottoNumber::new)
+                .toList());
     }
 
     public boolean contains(LottoNumber number) {
@@ -41,11 +39,9 @@ public class Lotto {
     }
 
     public int countMatches(Lotto winningLotto) {
-        int count = 0;
-        for (LottoNumber number : numbers) {
-            count += winningLotto.match(number);
-        }
-        return count;
+        return (int) numbers.stream()
+                .filter(winningLotto::contains)
+                .count();
     }
 
     private int match(LottoNumber number) {
