@@ -3,8 +3,6 @@ package domain.winning;
 import domain.purchase.Lotto;
 import domain.purchase.LottoNumber;
 import domain.purchase.Lottos;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 당첨 번호와 보너스 볼 보관, 구매한 로또의 등수 판정
