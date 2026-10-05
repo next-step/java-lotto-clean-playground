@@ -62,7 +62,7 @@ class LottoMachineTest {
         // 준비
         Lotto manualLotto = new Lotto(List.of(7, 8, 9, 10, 11, 12));
         LottoMachine machine = new LottoMachine(
-                new FixedLottoNumberGenerator());
+                () -> List.of(1, 2, 3, 4, 5, 6));
 
         // 실행
         Lottos result = machine.purchase(3, List.of(manualLotto));
