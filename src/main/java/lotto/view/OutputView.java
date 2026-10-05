@@ -1,5 +1,7 @@
 package lotto.view;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import lotto.domain.Rank;
 import lotto.domain.WinningStatistics;
@@ -19,8 +21,11 @@ public class OutputView {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        for (int i = ranks.size() - 1; i >= 0; i--) {
-            printRankResult(statistics, ranks.get(i));
+        List<Rank> sortedRanks = new ArrayList<>(ranks);
+        sortedRanks.sort(Comparator.comparingInt(Rank::getPrize));
+
+        for (Rank rank : sortedRanks) {
+            printRankResult(statistics, rank);
         }
 
         printProfitRate(statistics);
