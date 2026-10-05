@@ -43,13 +43,6 @@ public class Lotto {
                 .count();
     }
 
-    private int match(LottoNumber number) {
-        if (numbers.contains(number)) {
-            return 1;
-        }
-        return 0;
-    }
-
     @Override
     public String toString() {
         return numbers.toString();
