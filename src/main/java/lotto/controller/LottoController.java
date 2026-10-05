@@ -55,7 +55,7 @@ public class LottoController {
     }
 
     private void printWinningStatistics(Lottos lottos, WinningNumbers winningNumbers) {
-        WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
+        WinningStatistics statistics = new WinningStatistics(lottos.collectRanks(winningNumbers));
         List<Rank> ranks = Rank.winningRanks();
 
         OutputView.printWinningStatistics(statistics, ranks);

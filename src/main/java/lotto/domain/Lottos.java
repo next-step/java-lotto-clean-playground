@@ -36,6 +36,12 @@ public class Lottos {
         return new Lottos(combinedLottos);
     }
 
+    public List<Rank> collectRanks(WinningNumbers winningNumbers) {
+        return lottoList.stream()
+                .map(lotto -> Rank.findRank(lotto, winningNumbers))
+                .toList();
+    }
+
     public Stream<Lotto> stream() {
         return lottoList.stream();
     }

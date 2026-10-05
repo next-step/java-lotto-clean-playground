@@ -5,21 +5,8 @@ import java.util.List;
 public class WinningStatistics {
     private final List<Rank> ranks;
 
-    public WinningStatistics(Lottos lottos, WinningNumbers winningNumbers) {
-        this.ranks = createRanks(lottos, winningNumbers);
-    }
-
-    private List<Rank> createRanks(Lottos lottos, WinningNumbers winningNumbers) {
-        return lottos.stream()
-                .map(lotto -> findRank(lotto, winningNumbers))
-                .toList();
-    }
-
-    // 등수 계산 로직
-    private Rank findRank(Lotto lotto, WinningNumbers winningNumbers) {
-        int matchCount = lotto.countMatch(winningNumbers);
-        boolean bonusMatch = lotto.hasBonusNumber(winningNumbers);
-        return Rank.findRank(matchCount, bonusMatch);
+    public WinningStatistics(List<Rank> ranks) {
+        this.ranks = ranks;
     }
 
     // 수익률 계산 로직

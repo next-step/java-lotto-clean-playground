@@ -20,7 +20,10 @@ public enum Rank {
         this.prize = prize;
     }
 
-    public static Rank findRank(int matchCount, boolean bonusMatch) {
+    public static Rank findRank(Lotto lotto, WinningNumbers winningNumbers) {
+        int matchCount = lotto.countMatch(winningNumbers);
+        boolean bonusMatch = lotto.hasBonusNumber(winningNumbers);
+
         if (matchCount == SECOND.matchCount && bonusMatch) {
             return SECOND;
         }

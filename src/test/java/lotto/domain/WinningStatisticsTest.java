@@ -17,7 +17,7 @@ public class WinningStatisticsTest {
         Lottos lottos = new Lottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
                 new Lotto(List.of(10, 11, 12, 13, 14, 15))));
-        WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
+        WinningStatistics statistics = new WinningStatistics(lottos.collectRanks(winningNumbers));
         assertThat(statistics.countRank(Rank.FIRST)).isEqualTo(1);
         assertThat(statistics.countRank(Rank.MISS)).isEqualTo(1);
     }
@@ -31,7 +31,7 @@ public class WinningStatisticsTest {
         Lottos lottos = new Lottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 7)),
                 new Lotto(List.of(1, 2, 3, 4, 5, 40))));
-        WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
+        WinningStatistics statistics = new WinningStatistics(lottos.collectRanks(winningNumbers));
         assertThat(statistics.countRank(Rank.SECOND)).isEqualTo(1);
         assertThat(statistics.countRank(Rank.THIRD)).isEqualTo(1);
     }
@@ -45,7 +45,7 @@ public class WinningStatisticsTest {
         Lottos lottos = new Lottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
                 new Lotto(List.of(10, 11, 12, 13, 14, 15))));
-        WinningStatistics statistics = new WinningStatistics(lottos, winningNumbers);
+        WinningStatistics statistics = new WinningStatistics(lottos.collectRanks(winningNumbers));
         float expectedProfitRate = (float) Rank.FIRST.getPrize() / 2000;
         assertThat(statistics.getProfitRate()).isEqualTo(expectedProfitRate);
     }
