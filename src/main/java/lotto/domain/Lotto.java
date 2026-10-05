@@ -55,7 +55,19 @@ public class Lotto {
     }
     //contains 메서드를 사용하여 LottoNumber가 포함되어 있는지 확인
 
-    //매칭책임을 winningNumbers에게 넘김 --> 양방향의존성 해소를 위해
+    public int countMatch(Lotto other) {
+        int count = 0;
+        for (LottoNumber number : lottoNumbers) {
+            count += countIfMatches(other, number);
+        }
+        return count;
+    }
 
+    private int countIfMatches(Lotto other, LottoNumber number) {
+        if (other.contains(number)) {
+            return 1;
+        }
+        return 0;
+    }
 
 }
