@@ -56,4 +56,22 @@ class LottoMachineTest {
                         number >= 1 && number <= 45
                 );
     }
+
+    @Test
+    void keepsManualTicketAndGeneratesRemainingTickets() {
+        // 준비
+        Lotto manualLotto = new Lotto(List.of(7, 8, 9, 10, 11, 12));
+        LottoMachine machine = new LottoMachine(
+                new FixedLottoNumberGenerator());
+
+        // 실행
+        Lottos result = machine.purchase(3, List.of(manualLotto));
+
+        // 검증
+        assertThat(result.size()).isEqualTo(3);
+        assertThat(result.getLottos().get(0)).isSameAs(manualLotto);
+        assertThat(result.getLottos().subList(1, 3)).allSatisfy(lotto ->
+                assertThat(lotto.getSortedNumbers())
+                        .containsExactly(1, 2, 3, 4, 5, 6));
+    }
 }
