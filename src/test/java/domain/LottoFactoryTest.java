@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 class LottoFactoryTest {
     @Test
     void 요청한_개수만큼_로또를_생성한다() {
+        // given
         NumberGenerator numberGenerator = new FixedNumberGenerator(
                 List.of(
                         new LottoNumber(1),
@@ -18,11 +19,12 @@ class LottoFactoryTest {
                         new LottoNumber(6)
                 )
         );
-
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
+        // when
         Lottos lottos = lottoFactory.create(5);
 
+        // then
         assertThat(lottos.getLottos()).hasSize(5);
     }
 }

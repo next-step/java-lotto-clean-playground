@@ -3,7 +3,6 @@ package domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +10,7 @@ class LottoResultTest {
 
     @Test
     void 등급별_당첨_개수를_계산한다() {
+        // given
         List<MatchResult> matchResults = List.of(
                 new MatchResult(6, false),
                 new MatchResult(5, true),
@@ -20,8 +20,10 @@ class LottoResultTest {
                 new MatchResult(3, false)
         );
 
+        // when
         LottoResult result = new LottoResult(matchResults);
 
+        // then
         assertThat(result.getResults())
                 .containsEntry(Rank.FIRST, 1)
                 .containsEntry(Rank.SECOND, 1)
@@ -32,14 +34,17 @@ class LottoResultTest {
 
     @Test
     void 세개_미만_일치는_당첨결과에_포함되지_않는다() {
+        // when
         List<MatchResult> matchResults = List.of(
                 new MatchResult(2, false),
                 new MatchResult(1, false),
                 new MatchResult(0, false)
         );
 
+        // when
         LottoResult result = new LottoResult(matchResults);
 
+        // then
         assertThat(result.getResults())
                 .containsEntry(Rank.FIRST, 0)
                 .containsEntry(Rank.SECOND, 0)
@@ -50,15 +55,17 @@ class LottoResultTest {
 
     @Test
     void 당첨금과_구입금액으로_수익률을_계산한다() {
+        // given
         List<MatchResult> matchResults = List.of(
                 new MatchResult(3, false)
         );
-
         LottoResult result = new LottoResult(matchResults);
         PurchasePrice purchasePrice = new PurchasePrice(14000);
 
+        // when
         double rate = result.calculateRateOfReturn(purchasePrice);
 
+        // then
         assertThat(rate)
                 .isCloseTo(0.3571428571, within(0.0000001));
     }

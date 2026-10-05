@@ -7,6 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
 class RankTest {
     @ParameterizedTest
     @CsvSource({
@@ -21,16 +23,20 @@ class RankTest {
             boolean bonusMatched,
             Rank expected
     ) {
+        // when
         Rank rank = Rank.from(matchCount, bonusMatched);
 
+        // then
         assertThat(rank).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2})
     void 당첨되지_않으면_MISS를_반환한다(int matchCount) {
+        // when
         Rank rank = Rank.from(matchCount, false);
 
+        // then
         assertThat(rank).isEqualTo(Rank.MISS);
     }
 
@@ -44,8 +50,10 @@ class RankTest {
             boolean bonusMatched,
             Rank expected
     ) {
+        // when
         Rank rank = Rank.from(matchCount, bonusMatched);
 
+        // then
         assertThat(rank).isEqualTo(expected);
     }
 
@@ -61,12 +69,20 @@ class RankTest {
             Rank rank,
             long expectedPrize
     ) {
-        assertThat(rank.getPrize()).isEqualTo(expectedPrize);
+        // when
+        long prize = rank.getPrize();
+
+        // then
+        assertThat(prize).isEqualTo(expectedPrize);
     }
 
     @Test
     void 당첨등급만_반환한다() {
-        assertThat(Rank.winningRanks())
+        // when
+        List<Rank> winningRanks = Rank.winningRanks();
+
+        // then
+        assertThat(winningRanks)
                 .containsExactly(
                         Rank.FIRST,
                         Rank.SECOND,
