@@ -28,6 +28,10 @@ public enum Rank {
             return SECOND;
         }
 
+        return findByMatchCount(matchCount);
+    }
+
+    private static Rank findByMatchCount(int matchCount) {
         return Arrays.stream(values())
                 .filter(rank -> rank != SECOND)
                 .filter(rank -> rank.matchCount == matchCount)
