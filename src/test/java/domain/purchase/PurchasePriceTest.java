@@ -13,7 +13,7 @@ public class PurchasePriceTest {
     @DisplayName("구입 금액이 1000원일 때 오류가 발생하지 않는다.")
     void safeWhenPurchasedPriceIs1000() {
         PurchasePrice purchasePrice = new PurchasePrice(1000);
-        assertEquals(1000, purchasePrice.getAmount());
+        assertEquals(1000, purchasePrice.calculateSpentAmount());
     }
 
     @Test
