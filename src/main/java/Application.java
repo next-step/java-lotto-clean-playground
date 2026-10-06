@@ -7,22 +7,32 @@ import view.InputView;
 import view.ResultView;
 
 public class Application {
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(scanner));
+        Lottos lottos = purchaseLottos(scanner, purchaseAmount.getLottosCount());
+        showWinningResult(scanner, lottos, purchaseAmount);
+    }
 
-        Scanner sc = new Scanner(System.in);
-        PurchaseAmount purchaseAmount = new PurchaseAmount(InputView.readPrice(sc));
-        LottoMachine lottoMachine = new LottoMachine(new RandomLottoNumberGenerator());
+    private static Lottos purchaseLottos(Scanner scanner, int totalCount) {
+        int manualCount = InputView.readManualCount(scanner);
+        LottoMachine.validateManualCount(totalCount, manualCount);
+        List<Lotto> manualLottos = InputView.readManualLottos(scanner, manualCount);
+        LottoMachine machine = new LottoMachine(new RandomLottoNumberGenerator());
+        Lottos lottos = machine.purchase(totalCount, manualLottos);
+        ResultView.printLottoResult(lottos, manualCount);
+        return lottos;
+    }
 
-        List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getLottosCount());
-        Lottos lottos = new Lottos(lottoList);
+    private static void showWinningResult(Scanner scanner, Lottos lottos, PurchaseAmount purchaseAmount) {
+        Lotto winningNumbers = new Lotto(
+                InputView.readWinningNumbers(scanner));
+        LottoNumber bonusNumber = InputView.readBonusNumber(scanner);
 
-        ResultView.printLottoResult(lottoList);
-        Lotto winningLotto = new Lotto(InputView.readWinnerNumber(sc));
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-        List<Integer> matchCounts = lottos.getMatchCounts(winningLotto);
-
-        LottoResult result = new LottoResult(matchCounts);
-
-        ResultView.printStats(result, purchaseAmount.getLottosCount());
+        LottoResult result = lottos.calculateResult(winningLotto);
+        ResultView.printStats(result, purchaseAmount);
     }
 }

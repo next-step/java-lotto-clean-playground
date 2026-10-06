@@ -28,11 +28,11 @@ class LottoMachineTest {
         LottoMachine machine = new LottoMachine(generator);
 
         // 실행
-        List<Lotto> lottos = machine.purchase(purchaseCount);
+        Lottos lottos = machine.purchase(purchaseCount);
 
         // 검증
-        assertThat(lottos).hasSize(purchaseCount);
-        lottos.forEach(lotto ->
+        assertThat(lottos.size()).isEqualTo(purchaseCount);
+        lottos.getLottos().forEach(lotto ->
                 assertThat(lotto.getSortedNumbers())
                         .containsExactly(1, 2, 3, 4, 5, 6)
         );
@@ -55,5 +55,23 @@ class LottoMachineTest {
                 .allMatch(number ->
                         number >= 1 && number <= 45
                 );
+    }
+
+    @Test
+    void keepsManualTicketAndGeneratesRemainingTickets() {
+        // 준비
+        Lotto manualLotto = new Lotto(List.of(7, 8, 9, 10, 11, 12));
+        LottoMachine machine = new LottoMachine(
+                () -> List.of(1, 2, 3, 4, 5, 6));
+
+        // 실행
+        Lottos result = machine.purchase(3, List.of(manualLotto));
+
+        // 검증
+        assertThat(result.size()).isEqualTo(3);
+        assertThat(result.getLottos().get(0)).isSameAs(manualLotto);
+        assertThat(result.getLottos().subList(1, 3)).allSatisfy(lotto ->
+                assertThat(lotto.getSortedNumbers())
+                        .containsExactly(1, 2, 3, 4, 5, 6));
     }
 }

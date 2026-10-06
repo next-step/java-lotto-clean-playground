@@ -1,32 +1,31 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Lottos {
 
     private final List<Lotto> lottos;
 
     public Lottos(List<Lotto> lottos) {
-        this.lottos = new ArrayList<>(lottos);
+        this.lottos = List.copyOf(lottos);
     }
 
-    public List<Integer> getMatchCounts(
-            Lotto winningLotto
-    ) {
-        List<Integer> matchCounts = new ArrayList<>(
-                Arrays.asList(0, 0, 0, 0, 0, 0, 0)
-        );
-
+    public LottoResult calculateResult(WinningLotto winningLotto) {
+        Map<Rank, Integer> results = new EnumMap<>(Rank.class);
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatches(winningLotto);
-
-            int currentCount = matchCounts.get(matchCount);
-
-            matchCounts.set(matchCount, currentCount + 1);
+            Rank rank = winningLotto.match(lotto);
+            results.merge(rank, 1, Integer::sum);
         }
+        return new LottoResult(results);
+    }
 
-        return matchCounts;
+    public int size() {
+        return lottos.size();
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 }
