@@ -20,17 +20,23 @@ public enum Rank {
 
     public static Rank from(int matchCount, boolean matchBonus) {
         Rank result = MISS;
+
         for (Rank rank : values()) {
-            result = rank.matches(matchCount, matchBonus, result);
+            result = rank.matches(matchCount,matchBonus, result);
         }
+
         return result;
     }
 
-    private Rank matches(int matchCount, boolean matchBonus, Rank current) {
-        if (this.matchCount == matchCount && this.matchBonus == matchBonus) {
-            return this;
+    private Rank matches(int matchCount,boolean matchBonus, Rank current) {
+        if(this.matchCount!=matchCount)
+            return current;
+
+        if (matchCount== SECOND.matchCount && this.matchBonus != matchBonus) {
+            return current;
         }
-        return current;
+
+        return this;
     }
 
     public int getPrize() {
