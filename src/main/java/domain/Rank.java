@@ -22,17 +22,18 @@ public enum Rank {
         Rank result = MISS;
 
         for (Rank rank : values()) {
-            result = rank.matches(matchCount,matchBonus, result);
+            result = rank.matches(matchCount, matchBonus, result);
         }
 
         return result;
     }
 
-    private Rank matches(int matchCount,boolean matchBonus, Rank current) {
-        if(this.matchCount!=matchCount)
+    private Rank matches(int matchCount, boolean matchBonus, Rank current) {
+        if (this.matchCount != matchCount) {
             return current;
+        }
 
-        if (matchCount== SECOND.matchCount && this.matchBonus != matchBonus) {
+        if (matchCount == SECOND.matchCount && this.matchBonus != matchBonus) {
             return current;
         }
 
