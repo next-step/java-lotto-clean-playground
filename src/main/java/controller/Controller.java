@@ -19,19 +19,19 @@ public class Controller {
     Scanner sc = new Scanner(System.in);
 
     public void run() {
-        PurchaseAmount purchaseAmount = purchaseAmount();
-        Lottos lottos = purchaseLotto(purchaseAmount);
+        int price = InputView.readPrice(sc);
+        int manualCount = InputView.readManualSelectionCount(sc);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);        Lottos lottos = purchaseLotto(purchaseAmount);
 
-        WinningLotto winningLotto = winningLotto();
+        List<Integer> numbers= InputView.readWinnerNumber(sc);
+        int bonusNumber = InputView.readBonusNumber(sc);
+        WinningLotto winningLotto = new WinningLotto(numbers, bonusNumber);
+
         showResult(lottos, winningLotto, purchaseAmount);
     }
 
     private LottoGenerator lottoGenerator() {
         return new RandomLottoGenerator();
-    }
-
-    private PurchaseAmount purchaseAmount() {
-        return new PurchaseAmount(InputView.readPrice(sc), InputView.readManualSelectionCount(sc));
     }
 
     private Lottos purchaseLotto(PurchaseAmount purchaseAmount) {
@@ -43,10 +43,6 @@ public class Controller {
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
 
         return new Lottos(lottoList);
-    }
-
-    private WinningLotto winningLotto() {
-        return new WinningLotto(InputView.readWinnerNumber(sc), InputView.readBonusNumber(sc));
     }
 
     private void showResult(Lottos lottos, WinningLotto winningLotto, PurchaseAmount purchaseAmount) {
