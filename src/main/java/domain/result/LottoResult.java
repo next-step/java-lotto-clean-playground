@@ -1,4 +1,6 @@
-package domain;
+package domain.result;
+
+import domain.purchase.PurchasePrice;
 
 import java.util.EnumMap;
 import java.util.List;

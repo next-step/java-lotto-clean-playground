@@ -1,12 +1,11 @@
 package view;
 
-import domain.Lotto;
-import domain.Lottos;
-import domain.PurchaseCount;
-import domain.Rank;
+import domain.lotto.Lotto;
+import domain.lotto.Lottos;
+import domain.purchase.PurchaseCount;
+import domain.result.Rank;
 import dto.ResultDto;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 

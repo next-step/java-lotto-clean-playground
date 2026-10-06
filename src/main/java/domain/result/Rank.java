@@ -1,8 +1,7 @@
-package domain;
+package domain.result;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public enum Rank {
     FIRST(6, false, 2_000_000_000L, 5),

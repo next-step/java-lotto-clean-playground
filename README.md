@@ -34,42 +34,47 @@
 ## 패키지 구조
 ```aiignore
 src
-    ├── main
-    │ └── java
-    │     ├── Application.java
-    │     ├── controller
-    │     │ └── LottoController.java
-    │     ├── domain
-    │     │ ├── Lotto.java
-    │     │ ├── LottoFactory.java
-    │     │ ├── LottoNumber.java
-    │     │ ├── LottoResult.java
-    │     │ ├── Lottos.java
-    │     │ ├── MatchResult.java
-    │     │ ├── NumberGenerator.java
-    │     │ ├── PurchaseCount.java
-    │     │ ├── PurchasePrice.java
-    │     │ ├── RandomNumberGenerator.java
-    │     │ ├── Rank.java
-    │     │ └── WinningLotto.java
-    │     ├── dto
-    │     │ └── ResultDto.java
-    │     └── view
-    │         ├── InputView.java
-    │         └── OutputView.java
-    └── test
-        └── java
-            └── domain
-                ├── FixedNumberGenerator.java
-                ├── LottoFactoryTest.java
-                ├── LottoNumberTest.java
-                ├── LottoResultTest.java
-                ├── LottoTest.java
-                ├── LottosTest.java
-                ├── PurchaseCountTest.java
-                ├── PurchasePriceTest.java
-                ├── RankTest.java
-                └── WinningLottoTest.java
+├── main
+│   └── java
+│       ├── Application.java
+│       ├── controller
+│       │   └── LottoController.java
+│       ├── domain
+│       │   ├── generation
+│       │   │   ├── LottoFactory.java
+│       │   │   ├── NumberGenerator.java
+│       │   │   └── RandomNumberGenerator.java
+│       │   ├── lotto
+│       │   │   ├── Lotto.java
+│       │   │   ├── LottoNumber.java
+│       │   │   ├── Lottos.java
+│       │   │   └── WinningLotto.java
+│       │   ├── purchase
+│       │   │   ├── PurchaseCount.java
+│       │   │   └── PurchasePrice.java
+│       │   └── result
+│       │       ├── LottoResult.java
+│       │       ├── MatchResult.java
+│       │       └── Rank.java
+│       ├── dto
+│       │   └── ResultDto.java
+│       └── view
+│           ├── InputView.java
+│           └── OutputView.java
+└── test
+    └── java
+        └── domain
+            ├── FixedNumberGenerator.java
+            ├── LottoFactoryTest.java
+            ├── LottoNumberTest.java
+            ├── LottoResultTest.java
+            ├── LottoTest.java
+            ├── LottosTest.java
+            ├── PurchaseCountTest.java
+            ├── PurchasePriceTest.java
+            ├── RankTest.java
+            └── WinningLottoTest.java
+
 ```
 
 ## 객체 역할
@@ -77,18 +82,25 @@ src
 - `Application`: 로또 생성에 필요한 객체들을 생성하고 controller를 실행한다.
 
 #### domain
-- `Lotto`: 로또 하나를 담당하는 객체로, 번호 개수와 중복 여부를 검증한다.
+##### generation
 - `LottoFactory`: `NumberGenerator`를 이용해 요청한 개수만큼 자동 로또를 생성한다.
-- `LottoNumber`: 로또 번호 하나를 담당하는 객체로, 로또 번호 하나에 대하여 범위값을 검증한다.
-- `LottoResult`: 각 로또의 당첨 결과를 등수별로 집계하고, 총 당첨 금액을 이용해 수익률을 계산한다.
-- `Lottos`: 여러 장의 로또를 관리하는 객체로, 각 로또를 당첨 로또와 비교한다.
-- `MatchResult`: 로또의 일치 개수와 보너스 볼 일치 여부를 담당하는 객체이다.
 - `NumberGenerator`: 로또 생성 방식을 추상화한 인터페이스이다.
+- `RandomNumberGenerator`: `NumberGenerator`의 실제 구현체로, 실제 프로그램 실행 시 중복되지 않는 로또 번호 6개를 생성한다.
+
+##### lotto
+- `Lotto`: 로또 하나를 담당하는 객체로, 번호 개수와 중복 여부를 검증한다.
+- `LottoNumber`: 로또 번호 하나를 담당하는 객체로, 로또 번호 하나에 대하여 범위값을 검증한다.
+- `Lottos`: 여러 장의 로또를 관리하는 객체로, 각 로또를 당첨 로또와 비교한다.
+- `WinningLotto`: 당첨 로또를 담당하는 객체로, 주 번호와 보너스볼이 중복되는지 검증하고, 로또의 일치 개수 결과를 생성한다.
+
+##### purchase
 - `PurchaseCount`: 총 로또 개수로부터 수동 개수, 자동 개수를 관리한다. 
 - `PurchasePrice`: 로또 구입 금액을 담당하는 객체로, 금액을 검증하고 구입 금액만큼의 로또 개수를 계산한다.
-- `RandomNumberGenerator`: `NumberGenerator`의 실제 구현체로, 실제 프로그램 실행 시 중복되지 않는 로또 번호 6개를 생성한다.
+
+##### result
+- `LottoResult`: 각 로또의 당첨 결과를 등수별로 집계하고, 총 당첨 금액을 이용해 수익률을 계산한다.
+- `MatchResult`: 로또의 일치 개수와 보너스 볼 일치 여부를 담당하는 객체이다.
 - `Rank`: 로또의 당첨 등급과 상금에 대한 규칙을 관리하는 enum이다.
-- `WinningLotto`: 당첨 로또를 담당하는 객체로, 주 번호와 보너스볼이 중복되는지 검증하고, 로또의 일치 개수 결과를 생성한다.
 
 #### dto
 - `ResultDto`: `LottoResult`의 결과 중 화면 출력에 필요한 데이터를 전달하는 DTO이다.

@@ -1,4 +1,4 @@
-package domain;
+package domain.purchase;
 
 // 구입 금액 원시값 포장
 public class PurchasePrice {

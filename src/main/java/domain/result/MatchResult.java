@@ -1,4 +1,4 @@
-package domain;
+package domain.result;
 
 public class MatchResult {
     private final int matchCount;

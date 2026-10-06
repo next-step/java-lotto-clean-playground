@@ -1,4 +1,6 @@
-package domain;
+package domain.lotto;
+
+import domain.result.MatchResult;
 
 import java.util.List;
 
