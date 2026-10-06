@@ -1,7 +1,6 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoMachine;
 import domain.LottoNumber;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,11 +44,9 @@ public class InputView {
         return new LottoNumber(parseNumber(scanner.nextLine().trim()));
     }
 
-    public static int readManualCount(Scanner scanner, int totalCount) {
+    public static int readManualCount(Scanner scanner) {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        int manualCount = parseNumber(scanner.nextLine().trim());
-        LottoMachine.validateManualCount(totalCount, manualCount);
-        return manualCount;
+        return parseNumber(scanner.nextLine().trim());
     }
 
     public static List<Lotto> readManualLottos(Scanner scanner, int manualCount) {

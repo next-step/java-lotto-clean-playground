@@ -16,7 +16,8 @@ public class Application {
     }
 
     private static Lottos purchaseLottos(Scanner scanner, int totalCount) {
-        int manualCount = InputView.readManualCount(scanner, totalCount);
+        int manualCount = InputView.readManualCount(scanner);
+        LottoMachine.validateManualCount(totalCount, manualCount);
         List<Lotto> manualLottos = InputView.readManualLottos(scanner, manualCount);
         LottoMachine machine = new LottoMachine(new RandomLottoNumberGenerator());
         Lottos lottos = machine.purchase(totalCount, manualLottos);
