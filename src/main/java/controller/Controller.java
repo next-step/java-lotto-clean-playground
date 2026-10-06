@@ -10,18 +10,22 @@ import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
 import lottoGenerator.LottoGenerator;
-import lottoGenerator.RandomLottoGenerator;
 import view.InputView;
 import view.ResultView;
 
 public class Controller {
+    private final LottoGenerator lottoGenerator;
+
+    public Controller(LottoGenerator lottoGenerator) {
+        this.lottoGenerator = lottoGenerator;
+    }
 
     public void run() {
         int price = InputView.readPrice();
         int manualCount = InputView.readManualSelectionCount();
         PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);
 
-        Lottos lottos = purchaseLotto(purchaseAmount);
+        Lottos lottos = purchaseLotto(lottoGenerator, purchaseAmount);
 
         List<Integer> numbers= InputView.readWinnerNumber();
         int bonusNumber = InputView.readBonusNumber();
@@ -30,12 +34,8 @@ public class Controller {
         showResult(lottos, winningLotto, purchaseAmount);
     }
 
-    private LottoGenerator lottoGenerator() {
-        return new RandomLottoGenerator();
-    }
-
-    private Lottos purchaseLotto(PurchaseAmount purchaseAmount) {
-        LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
+    private Lottos purchaseLotto(LottoGenerator lottoGenerator, PurchaseAmount purchaseAmount) {
+        LottoMachine lottoMachine = new LottoMachine(lottoGenerator);
 
         List<List<Integer>> manualNumbers= InputView.readManualSelections(purchaseAmount.getManualCount());
 
