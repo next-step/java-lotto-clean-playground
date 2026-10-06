@@ -37,9 +37,12 @@ public class Controller {
     private Lottos purchaseLotto(PurchaseAmount purchaseAmount) {
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
-        for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
-            lottoMachine.manualSelection(InputView.readManualSelection());
+        List<List<Integer>> manualNumbers= InputView.readManualSelections(purchaseAmount.getManualCount());
+
+        for (List<Integer> numbers : manualNumbers) {
+            lottoMachine.manualSelection(numbers);
         }
+
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
         ResultView.printLottoResult(purchaseAmount.getManualCount(),lottoList);
 

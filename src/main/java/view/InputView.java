@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -24,9 +25,20 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
-    public static List<Integer> readManualSelection() {
+    public static List<List<Integer>> readManualSelections(int manualCount) {
+        if (manualCount == 0)
+            return List.of();
+
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        return Arrays.stream(scanner.nextLine().split(","))
+        List<List<Integer>> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            manualNumbers.add(parseNumbers(scanner.nextLine()));
+        }
+        return manualNumbers;
+    }
+
+    private static List<Integer> parseNumbers(String input) {
+        return Arrays.stream(input.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .map(InputView::parseNumber)
