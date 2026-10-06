@@ -24,10 +24,6 @@ public class Controller {
 
         WinningLotto winningLotto = winningLotto();
         showResult(lottos, winningLotto, purchaseAmount);
-        Map<Rank, Integer> rankCount = lottos.getRankCount(winningLotto);
-
-        LottoResult result = new LottoResult(rankCount);
-        ResultView.printStats(result, purchaseAmount.getLottosCount());
     }
 
     private LottoGenerator lottoGenerator() {
@@ -45,7 +41,6 @@ public class Controller {
             lottoMachine.manualSelection(InputView.readManualSelection(sc));
         }
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
-        ResultView.printLottoResult(purchaseAmount.getManualCount(), lottoList);
 
         return new Lottos(lottoList);
     }
