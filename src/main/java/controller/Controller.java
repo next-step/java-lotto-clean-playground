@@ -25,26 +25,26 @@ public class Controller {
         int manualCount = InputView.readManualSelectionCount();
         PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);
 
-        Lottos lottos = purchaseLotto(lottoGenerator, purchaseAmount);
+        Lottos lottos = purchaseLotto(purchaseAmount);
 
-        List<Integer> numbers= InputView.readWinnerNumber();
+        List<Integer> numbers = InputView.readWinnerNumber();
         int bonusNumber = InputView.readBonusNumber();
         WinningLotto winningLotto = new WinningLotto(numbers, bonusNumber);
 
         showResult(lottos, winningLotto, purchaseAmount);
     }
 
-    private Lottos purchaseLotto(LottoGenerator lottoGenerator, PurchaseAmount purchaseAmount) {
+    private Lottos purchaseLotto(PurchaseAmount purchaseAmount) {
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator);
 
-        List<List<Integer>> manualNumbers= InputView.readManualSelections(purchaseAmount.getManualCount());
+        List<List<Integer>> manualNumbers = InputView.readManualSelections(purchaseAmount.getManualCount());
 
         for (List<Integer> numbers : manualNumbers) {
             lottoMachine.manualSelection(numbers);
         }
 
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
-        ResultView.printLottoResult(purchaseAmount.getManualCount(),lottoList);
+        ResultView.printLottoResult(purchaseAmount.getManualCount(), lottoList);
 
         return new Lottos(lottoList);
     }
