@@ -9,22 +9,20 @@ import domain.Rank;
 import domain.WinningLotto;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import lottoGenerator.LottoGenerator;
 import lottoGenerator.RandomLottoGenerator;
 import view.InputView;
 import view.ResultView;
 
 public class Controller {
-    Scanner sc = new Scanner(System.in);
 
     public void run() {
-        int price = InputView.readPrice(sc);
-        int manualCount = InputView.readManualSelectionCount(sc);
+        int price = InputView.readPrice();
+        int manualCount = InputView.readManualSelectionCount();
         PurchaseAmount purchaseAmount = new PurchaseAmount(price, manualCount);        Lottos lottos = purchaseLotto(purchaseAmount);
 
-        List<Integer> numbers= InputView.readWinnerNumber(sc);
-        int bonusNumber = InputView.readBonusNumber(sc);
+        List<Integer> numbers= InputView.readWinnerNumber();
+        int bonusNumber = InputView.readBonusNumber();
         WinningLotto winningLotto = new WinningLotto(numbers, bonusNumber);
 
         showResult(lottos, winningLotto, purchaseAmount);
@@ -38,7 +36,7 @@ public class Controller {
         LottoMachine lottoMachine = new LottoMachine(lottoGenerator());
 
         for (int i = 0; i < purchaseAmount.getManualCount(); i++) {
-            lottoMachine.manualSelection(InputView.readManualSelection(sc));
+            lottoMachine.manualSelection(InputView.readManualSelection());
         }
         List<Lotto> lottoList = lottoMachine.purchase(purchaseAmount.getRandomCount());
 

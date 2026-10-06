@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
-    public static int readPrice(Scanner scanner) {
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static int readPrice() {
         System.out.println("구입금액을 입력해 주세요.");
         String input = scanner.nextLine().trim();
 
@@ -16,13 +18,13 @@ public class InputView {
         }
     }
 
-    public static int readManualSelectionCount(Scanner scanner) {
+    public static int readManualSelectionCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         String input = scanner.nextLine().trim();
         return Integer.parseInt(input);
     }
 
-    public static List<Integer> readManualSelection(Scanner scanner) {
+    public static List<Integer> readManualSelection() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         return Arrays.stream(scanner.nextLine().split(","))
                 .map(String::trim)
@@ -31,7 +33,7 @@ public class InputView {
                 .toList();
     }
 
-    public static List<Integer> readWinnerNumber(Scanner scanner) {
+    public static List<Integer> readWinnerNumber() {
         System.out.println("지난 주 당첨번호를 입력해 주세요.");
         return Arrays.stream(scanner.nextLine().split(","))
                 .map(String::trim)
@@ -41,7 +43,7 @@ public class InputView {
 
     }
 
-    public static int readBonusNumber(Scanner scanner) {
+    public static int readBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
         String input = scanner.nextLine().trim();
         return Integer.parseInt(input);
