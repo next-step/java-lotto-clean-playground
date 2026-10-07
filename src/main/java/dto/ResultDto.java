@@ -1,6 +1,6 @@
 package dto;
 
-import domain.Rank;
+import domain.result.Rank;
 
 import java.util.Map;
 

@@ -3,11 +3,21 @@ package domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+
+import domain.generation.LottoFactory;
+import domain.generation.NumberGenerator;
+import domain.lotto.LottoNumber;
+import domain.lotto.Lottos;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("NonAsciiCharacters")
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class LottoFactoryTest {
     @Test
     void 요청한_개수만큼_로또를_생성한다() {
+        // given
         NumberGenerator numberGenerator = new FixedNumberGenerator(
                 List.of(
                         new LottoNumber(1),
@@ -18,11 +28,12 @@ class LottoFactoryTest {
                         new LottoNumber(6)
                 )
         );
-
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
+        // when
         Lottos lottos = lottoFactory.create(5);
 
+        // then
         assertThat(lottos.getLottos()).hasSize(5);
     }
 }

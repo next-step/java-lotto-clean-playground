@@ -1,4 +1,4 @@
-package domain;
+package domain.lotto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -69,5 +69,9 @@ public class Lotto {
 
     public static int requiredNumberCount() {
         return LOTTO_SIZE;
+    }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        return numbers.contains(lottoNumber);
     }
 }
