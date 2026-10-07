@@ -12,7 +12,7 @@ public class PurchasePrice {
 
     private void validate(int amount) {
         if (amount < MINIMUM_PRICE) {
-            throw new IllegalArgumentException("로또 최소 구매 금액은 1000원입니다.");
+            throw new IllegalArgumentException("로또 최소 구매 금액은 " + MINIMUM_PRICE + "원입니다.");
         }
     }
 
