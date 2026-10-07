@@ -10,13 +10,14 @@ import java.util.List;
 
 public class ResultView {
 
-    public static void printLottoResult(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public static void printLottoResult(int manualCount, List<Lotto> lottos) {
+        System.out.println("수동으로 " + manualCount + "장, 자동으로 " + (lottos.size() - manualCount) + "개를 구매했습니다.");
 
         for (Lotto lotto : lottos) {
             System.out.println(toNumbers(lotto.getNumbers()));
         }
     }
+
     private static List<Integer> toNumbers(List<LottoNumber> lotto) {
         List<Integer> numbers = new ArrayList<>();
         for (LottoNumber lottoNumber : lotto) {
@@ -28,7 +29,7 @@ public class ResultView {
     public static void printStats(LottoResult result, int lottoCount) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (Rank rank : EnumSet.range(Rank.FOURTH, Rank.FIRST)) {
+        for (Rank rank : EnumSet.range(Rank.FIFTH, Rank.FIRST)) {
             printRank(result, rank);
         }
         System.out.printf("총 수익률은 %.2f입니다.%n",
@@ -36,6 +37,11 @@ public class ResultView {
     }
 
     private static void printRank(LottoResult result, Rank rank) {
+        if (rank == Rank.SECOND) {
+            System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개%n",
+                    rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
+            return;
+        }
         System.out.printf("%d개 일치 (%d원)- %d개%n",
                 rank.getMatchCount(), rank.getPrize(), result.getCount(rank));
     }

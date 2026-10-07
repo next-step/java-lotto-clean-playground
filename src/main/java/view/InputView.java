@@ -1,11 +1,14 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
-    public static int readPrice(Scanner scanner) {
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static int readPrice() {
         System.out.println("구입금액을 입력해 주세요.");
         String input = scanner.nextLine().trim();
 
@@ -16,7 +19,34 @@ public class InputView {
         }
     }
 
-    public static List<Integer> readWinnerNumber(Scanner scanner) {
+    public static int readManualSelectionCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String input = scanner.nextLine().trim();
+        return Integer.parseInt(input);
+    }
+
+    public static List<List<Integer>> readManualSelections(int manualCount) {
+        if (manualCount == 0) {
+            return List.of();
+        }
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            manualNumbers.add(parseNumbers(scanner.nextLine()));
+        }
+        return manualNumbers;
+    }
+
+    private static List<Integer> parseNumbers(String input) {
+        return Arrays.stream(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(InputView::parseNumber)
+                .toList();
+    }
+
+    public static List<Integer> readWinnerNumber() {
         System.out.println("지난 주 당첨번호를 입력해 주세요.");
         return Arrays.stream(scanner.nextLine().split(","))
                 .map(String::trim)
@@ -26,6 +56,12 @@ public class InputView {
 
     }
 
+    public static int readBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String input = scanner.nextLine().trim();
+        return Integer.parseInt(input);
+    }
+
     private static int parseNumber(String value) {
         try {
             return Integer.parseInt(value);
@@ -33,4 +69,6 @@ public class InputView {
             throw new IllegalArgumentException("[ERROR] 로또 당첨 번호는 숫자여야 합니다. 잘못된 입력값: " + value);
         }
     }
+
+
 }
