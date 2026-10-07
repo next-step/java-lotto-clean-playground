@@ -12,6 +12,7 @@ import domain.winning.WinningLotto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import view.InputView;
 import view.OutputView;
 
@@ -26,7 +27,7 @@ public class LottoController {
         this.numberGenerator = numberGenerator;
     }
     public void run() {
-        PurchasePrice purchasePrice = new PurchasePrice(readPurchasedPrice());
+        PurchasePrice purchasePrice = readPurchasePrice();
         PurchaseCount purchaseCount = readPurchaseCount(purchasePrice.calculateLottoCount());
         Lottos lottos = createLottos(purchaseCount);
         outputView.printLottos(purchaseCount.getManualCount(), purchaseCount.getAutoCount(), lottos);
@@ -40,59 +41,36 @@ public class LottoController {
         outputView.printRateOfReturn(rateOfReturn.getValue());
     }
 
-    private int readPurchasedPrice() {
-        while (true) {
-            try {
-                return parseNumber(inputView.getPurchasePrice(), "구입 금액은 숫자여야 합니다.");
-            }
-            catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
+    private <T> T retry(Supplier<T> supplier) {
+        try{
+            return supplier.get();
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return retry(supplier);
         }
     }
 
-    private Lotto readWinningNumbers() {
-        while (true) {
-            try {
-                return toLotto(inputView.getWinningNumbers(), "당첨 번호는 숫자여야 합니다.");
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private WinningLotto readWinningLotto(Lotto winningNumbers) {
-        while (true) {
-            try {
-                LottoNumber bonusNumber = new LottoNumber(parseNumber(inputView.getBonusNumber(), "보너스 번호는 숫자여야 합니다."));
-                return new WinningLotto(winningNumbers, bonusNumber);
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    private PurchasePrice readPurchasePrice() {
+        return retry(() -> new PurchasePrice(
+                parseNumber(inputView.getPurchasePrice(), "구입 금액은 숫자여야 합니다.")));
     }
 
     private PurchaseCount readPurchaseCount(int totalCount) {
-        while (true) {
-            try {
-                return new PurchaseCount(totalCount, parseNumber(inputView.getManualCount(), "수동 구매 개수는 숫자여야 합니다."));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(() -> new PurchaseCount(totalCount,
+                parseNumber(inputView.getManualCount(), "수동 구매 개수는 숫자여야 합니다.")));
     }
 
     private Lotto readManualLotto() {
-        while (true) {
-            try {
-                return toLotto(inputView.getManualNumbers(), "로또 번호는 숫자여야 합니다.");
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return retry(() -> toLotto(inputView.getManualNumbers(), "로또 번호는 숫자여야 합니다."));
+    }
+
+    private Lotto readWinningNumbers() {
+        return retry(() -> toLotto(inputView.getWinningNumbers(), "당첨 번호는 숫자여야 합니다."));
+    }
+
+    private WinningLotto readWinningLotto(Lotto winningNumbers) {
+        return retry(() -> new WinningLotto(winningNumbers, new LottoNumber(
+                parseNumber(inputView.getBonusNumber(), "보너스 번호는 숫자여야 합니다."))));
     }
 
     private Lottos createLottos(PurchaseCount purchaseCount) {
