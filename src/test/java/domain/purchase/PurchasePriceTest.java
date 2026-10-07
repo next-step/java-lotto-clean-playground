@@ -9,11 +9,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class PurchasePriceTest {
-    @Test
-    @DisplayName("구입 금액이 1000원일 때 오류가 발생하지 않는다.")
-    void safeWhenPurchasedPriceIs1000() {
-        PurchasePrice purchasePrice = new PurchasePrice(1000);
-        assertEquals(1000, purchasePrice.calculateSpentAmount());
+    @ParameterizedTest
+    @DisplayName("구입 금액에 따라 실제 구매 금액을 반납한다.")
+    @CsvSource({
+            "1000, 1000",
+            "1001, 1000",
+            "2500, 2000"
+    })
+    void returnRealPurchasePrice(int purchasePrice, int spentAmount) {
+        PurchasePrice purchasePrice1 = new PurchasePrice(purchasePrice);
+        assertEquals(spentAmount, purchasePrice1.calculateSpentAmount());
     }
 
     @Test
