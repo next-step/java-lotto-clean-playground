@@ -38,6 +38,13 @@ public class LottoTest {
     }
 
     @Test
+    @DisplayName("로또를 오름차순으로 정렬한다")
+    void sortLotto() {
+        Lotto lotto = Lotto.from(List.of(6, 5, 4, 3, 2, 1));
+        assertEquals("[1, 2, 3, 4, 5, 6]", lotto.toString());
+    }
+
+    @Test
     @DisplayName("로또 번호가 6개가 아니면 오류가 발생한다.")
     void errorWhenSizeIsNotSix() {
         // when & then
