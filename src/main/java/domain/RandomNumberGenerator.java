@@ -9,8 +9,7 @@ public class RandomNumberGenerator implements NumberGenerator {
     @Override
     public List<LottoNumber> generate() {
         List<LottoNumber> lotto = new ArrayList<>();
-        lotto = new ArrayList<>();
-        for (int i = 1; i <= 45; i++) {
+       for (int i = 1; i <= 45; i++) {
             lotto.add(new LottoNumber(i));
         }
 
