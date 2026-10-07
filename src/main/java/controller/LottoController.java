@@ -43,7 +43,7 @@ public class LottoController {
     private int readPurchasedPrice() {
         while (true) {
             try {
-                return parseToInt(inputView.getPurchasePrice());
+                return parseNumber(inputView.getPurchasePrice(), "구입 금액은 숫자여야 합니다.");
             }
             catch(Exception e) {
                 System.out.println(e.getMessage());
@@ -54,7 +54,7 @@ public class LottoController {
     private Lotto readWinningNumbers() {
         while (true) {
             try {
-                return toLotto(inputView.getWinningNumbers());
+                return toLotto(inputView.getWinningNumbers(), "당첨 번호는 숫자여야 합니다.");
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -65,7 +65,7 @@ public class LottoController {
     private WinningLotto readWinningLotto(Lotto winningNumbers) {
         while (true) {
             try {
-                LottoNumber bonusNumber = new LottoNumber(parseNumber(inputView.getBonusNumber()));
+                LottoNumber bonusNumber = new LottoNumber(parseNumber(inputView.getBonusNumber(), "보너스 번호는 숫자여야 합니다."));
                 return new WinningLotto(winningNumbers, bonusNumber);
             }
             catch (Exception e) {
@@ -77,7 +77,7 @@ public class LottoController {
     private PurchaseCount readPurchaseCount(int totalCount) {
         while (true) {
             try {
-                return new PurchaseCount(totalCount, parseToInt(inputView.getManualCount()));
+                return new PurchaseCount(totalCount, parseNumber(inputView.getManualCount(), "수동 구매 개수는 숫자여야 합니다."));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -87,7 +87,7 @@ public class LottoController {
     private Lotto readManualLotto() {
         while (true) {
             try {
-                return toLotto(inputView.getManualNumbers());
+                return toLotto(inputView.getManualNumbers(), "로또 번호는 숫자여야 합니다.");
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -107,27 +107,18 @@ public class LottoController {
         return new Lottos(lottoList);
     }
 
-    private int parseToInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("구입 금액은 숫자로 입력되어야 합니다.");
-        }
-    }
-
-    private Lotto toLotto(String input) {
+    private Lotto toLotto(String input, String errorMessage) {
         List<Integer> numbers = Arrays.stream(input.split(","))
-                .map(String::trim)
-                .map(this::parseNumber)
+                .map(token -> parseNumber(token, errorMessage))
                 .toList();
         return Lotto.from(numbers);
     }
 
-    private int parseNumber(String token) {
+    private int parseNumber(String input, String errorMessage) {
         try {
-            return Integer.parseInt(token);
+            return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("당첨 번호는 숫자여야 합니다.");
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }
