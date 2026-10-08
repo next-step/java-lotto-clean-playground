@@ -9,7 +9,7 @@ public class RateOfReturn {
     private final double value;
 
     public RateOfReturn(long revenue, PurchasePrice purchasePrice) {
-        double rate = (double) revenue / purchasePrice.getAmount();
+        double rate = (double) revenue / purchasePrice.calculateSpentAmount();
         this.value = Math.floor(rate * DECIMAL_SCALE) / DECIMAL_SCALE;
     }
 

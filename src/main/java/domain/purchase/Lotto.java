@@ -1,6 +1,5 @@
 package domain.purchase;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -11,7 +10,9 @@ public class Lotto {
     public Lotto(List<LottoNumber> numbers) {
         validateSize(numbers);
         validateDuplicate(numbers);
-        this.numbers = numbers;
+        this.numbers = numbers.stream()
+                .sorted()
+                .toList();
     }
 
     private void validateSize(List<LottoNumber> numbers) {
@@ -27,26 +28,19 @@ public class Lotto {
     }
 
     public static Lotto from(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (Integer number : numbers) {
-            lottoNumbers.add(new LottoNumber(number));
-        }
-        return new Lotto(lottoNumbers);
+        return new Lotto(numbers.stream()
+                .map(LottoNumber::new)
+                .toList());
+    }
+
+    public boolean contains(LottoNumber number) {
+        return numbers.contains(number);
     }
 
     public int countMatches(Lotto winningLotto) {
-        int count = 0;
-        for (LottoNumber number : numbers) {
-            count += winningLotto.match(number);
-        }
-        return count;
-    }
-
-    private int match(LottoNumber number) {
-        if (numbers.contains(number)) {
-            return 1;
-        }
-        return 0;
+        return (int) numbers.stream()
+                .filter(winningLotto::contains)
+                .count();
     }
 
     @Override

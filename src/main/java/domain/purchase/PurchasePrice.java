@@ -2,6 +2,7 @@ package domain.purchase;
 
 public class PurchasePrice {
     private static final int MINIMUM_PRICE = 1000;
+    private static final int LOTTO_PRICE = 1000;
     private final int amount;
 
     public PurchasePrice(int amount) {
@@ -10,16 +11,16 @@ public class PurchasePrice {
     }
 
     private void validate(int amount) {
-        if (amount < 1000) {
-            throw new IllegalArgumentException("로또 최소 구매 금액은 1000원입니다.");
+        if (amount < MINIMUM_PRICE) {
+            throw new IllegalArgumentException("로또 최소 구매 금액은 " + MINIMUM_PRICE + "원입니다.");
         }
     }
 
-    public int calculateLottoCount() {
-        return amount / MINIMUM_PRICE;
+    public int calculateSpentAmount() {
+        return calculateLottoCount() * LOTTO_PRICE;
     }
 
-    public int getAmount() {
-        return amount;
+    public int calculateLottoCount() {
+        return amount / LOTTO_PRICE;
     }
 }

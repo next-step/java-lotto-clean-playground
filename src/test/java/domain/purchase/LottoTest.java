@@ -1,51 +1,82 @@
 package domain.purchase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LottoTest {
     @Test
-    @DisplayName("당첨 번호와 0개 일치하면 일치 개수는 0이다.")
-    void returnZeroWhenZeroNumberMatch() {
+    @DisplayName("로또에 있는 번호면 contains는 true를 반환한다.")
+    void containsReturnsTrueWhenNumberExists() {
         // given
         Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
-        Lotto winningLotto = Lotto.from(List.of(7, 8, 9, 10, 11, 12));
 
         // when
-        int count = lotto.countMatches(winningLotto);
+        boolean result = lotto.contains(new LottoNumber(3));
 
         // then
-        assertEquals(0, count);
+        assertTrue(result);
     }
 
     @Test
-    @DisplayName("당첨 번호와 3개 일치하면 일치 개수는 3이다.")
-    void returnThreeWhenThreeNumberMatch() {
+    @DisplayName("로또에 없는 번호면 contains는 false를 반환한다.")
+    void containsReturnsFalseWhenNumberNotExists() {
         // given
         Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
-        Lotto winningLotto = Lotto.from(List.of(1, 3, 5, 7, 9, 11));
 
         // when
-        int count = lotto.countMatches(winningLotto);
+        boolean result = lotto.contains(new LottoNumber(7));
 
         // then
-        assertEquals(3, count);
+        assertFalse(result);
     }
 
     @Test
-    @DisplayName("당첨 번호와 6개 일치하면 일치 개수는 6이다.")
-    void returnSixWhenSixNumberMatch() {
+    @DisplayName("로또를 오름차순으로 정렬한다")
+    void sortLotto() {
+        Lotto lotto = Lotto.from(List.of(6, 5, 4, 3, 2, 1));
+        assertEquals("[1, 2, 3, 4, 5, 6]", lotto.toString());
+    }
+
+    @Test
+    @DisplayName("로또 번호가 6개가 아니면 오류가 발생한다.")
+    void errorWhenSizeIsNotSix() {
+        // when & then
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> Lotto.from(List.of(1, 2, 3, 4, 5)));
+        assertEquals("로또 번호는 6개여야 합니다.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("로또 번호에 중복이 있으면 오류가 발생한다.")
+    void errorWhenNumbersDuplicated() {
+        // when & then
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> Lotto.from(List.of(1, 1, 2, 3, 4, 5)));
+        assertEquals("로또 번호는 중복될 수 없습니다.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("생성 후 원본 리스트를 수정해도 로또는 바뀌지 않는다.")
+    void notAffectedByOriginalListChange() {
         // given
-        Lotto lotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
-        Lotto winningLotto = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
+        List<LottoNumber> numbers = new ArrayList<>(List.of(
+                new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
+                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)));
+        Lotto lotto = new Lotto(numbers);
 
         // when
-        int count = lotto.countMatches(winningLotto);
+        numbers.add(new LottoNumber(7));
 
         // then
-        assertEquals(6, count);
+        assertEquals("[1, 2, 3, 4, 5, 6]", lotto.toString());
     }
 }
