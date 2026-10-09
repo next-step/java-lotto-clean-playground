@@ -16,8 +16,13 @@ public class Lotto {
     public int countMatch(WinningNumbers winningNumbers) {
         return (int) lottoNumbers.getLottoNumbers()
                 .stream()
-                .filter(number -> winningNumbers.contains(number))
+                .filter(winningNumbers::contains)
                 .count();
     }
 
+    public boolean hasBonusNumber(WinningNumbers winningNumbers) {
+        return lottoNumbers.getLottoNumbers()
+                .stream()
+                .anyMatch(winningNumbers::matchesBonusNumber);
+    }
 }
