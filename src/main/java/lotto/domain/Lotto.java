@@ -30,11 +30,14 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는 6개여야 합니다.");
         }
     }
+
     private List<LottoNumber> toLottoNumbers(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
         for (int number : numbers) {
             lottoNumbers.add(new LottoNumber(number));
         }
+        Collections.sort(lottoNumbers);
+        //[학습] compareTo()는 누가 더 큰지 비교하는 법을 가르쳐준 것이고, Collections.sort(lottoNumbers)는 비교하는 법을 써서 지금 실제로 줄 세워봐라고 시키는 명령
         return lottoNumbers;
     }
 
@@ -47,20 +50,24 @@ public class Lotto {
         return lottoNumbers.toString();
     }
 
-    public int countMatch(WinningNumbers winningNumbers) {
-        int matchCount = 0;
-        for (LottoNumber lottoNumber : lottoNumbers) {
-            matchCount += matchScore(lottoNumber, winningNumbers);
+    public boolean contains(LottoNumber number) {
+        return lottoNumbers.contains(number);
+    }
+    //contains 메서드를 사용하여 LottoNumber가 포함되어 있는지 확인
+
+    public int countMatch(Lotto other) {
+        int count = 0;
+        for (LottoNumber number : lottoNumbers) {
+            count += countIfMatches(other, number);
         }
-        return matchCount;
+        return count;
     }
 
-    private int matchScore(LottoNumber number, WinningNumbers winningNumbers) {
-        if (winningNumbers.contains(number)) {
+    private int countIfMatches(Lotto other, LottoNumber number) {
+        if (other.contains(number)) {
             return 1;
         }
         return 0;
     }
-
 
 }

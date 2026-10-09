@@ -1,17 +1,23 @@
 package lotto.domain;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum Rank {
-
+    //[학습] enum 안의 상수마다 메서드를 다르게 구현할 수 있다.
     FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
+    SECOND(5, 30_000_000) {
+        @Override
+        public boolean matches(int matchCount, boolean hasBonus) {
+            return getMatchCount() == matchCount && hasBonus; //보너스볼이 true일때만 SECOND로 인정
+        }
+    }, //얘는 보너스일때
+    THIRD(5, 1_500_000) {
+        @Override
+        public boolean matches(int matchCount, boolean hasBonus) {
+            return getMatchCount() == matchCount && !hasBonus; //보너스볼이 false일때만 THIRD로 인정
+        }
+    }, //보너스 아닌경우
+    FOURTH(4, 50_000),
+    FIFTH(3, 5_000),
     MISS(0, 0);
-
-    private static final Map<Integer, Rank> RANK_BY_MATCH_COUNT = createRankByMatchCount();
 
     private final int matchCount;
     private final int prize;
@@ -21,16 +27,28 @@ public enum Rank {
         this.prize = prize;
     }
 
-    private static Map<Integer, Rank> createRankByMatchCount() {
-        Map<Integer, Rank> rankByMatchCount = new HashMap<>();
-        for (Rank rank : values()) {
-            rankByMatchCount.put(rank.matchCount, rank);
-        }
-        return rankByMatchCount;
+    public boolean matches(int matchCount, boolean hasBonus) {
+        return this.matchCount == matchCount;   // 기본값: "매치 개수만 같으면 나야"
     }
 
-    public static Rank of(int matchCount) {
-        return RANK_BY_MATCH_COUNT.getOrDefault(matchCount, MISS);
+    public static Rank of(int matchCount, boolean hasBonus) {
+
+        if (FIRST.matches(matchCount, hasBonus)) {
+            return FIRST;
+        }
+        if (SECOND.matches(matchCount, hasBonus)) {
+            return SECOND;
+        }
+        if (THIRD.matches(matchCount, hasBonus)) {
+            return THIRD;
+        }
+        if (FOURTH.matches(matchCount, hasBonus)) {
+            return FOURTH;
+        }
+        if (FIFTH.matches(matchCount, hasBonus)) {
+            return FIFTH;
+        }
+        return MISS;
     }
 
     public int getMatchCount() {

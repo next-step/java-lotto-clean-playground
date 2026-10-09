@@ -1,8 +1,8 @@
 package lotto.domain;
 
 import java.util.Objects;
-
-public class LottoNumber {
+// Comparable 인터페이스를 구현하여 LottoNumber 객체를 정렬할 수 있도록 함!!
+public class LottoNumber implements Comparable<LottoNumber> {
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
 
@@ -42,4 +42,10 @@ public class LottoNumber {
     public int hashCode() {
         return Objects.hash(number);
     }
+
+    @Override
+    public int compareTo(LottoNumber other) {
+        return Integer.compare(number, other.number);
+    }
+    //lottonumber는 정렬하는 법을 모르는데 우리가 오버라이드로 해서 integer정렬할때랑 똑같이하면돼 이렇게 알려주는것
 }
